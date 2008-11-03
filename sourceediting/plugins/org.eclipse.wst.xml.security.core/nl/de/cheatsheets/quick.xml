@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<cheatsheet title="XML Quick...">
+   <intro href="/org.eclipse.wst.xml.security.doc/plugin/quick.html">
+      <description>
+         Willkommen beim XML Quick... Tutorial.<br/>
+Dieses Tutorial zeigt Ihnen die generelle Funktionsweise der Quick Functions des XML-Security Plug-Ins. Dazu werden Sie zunächst die notwendigen Angaben in den Preferences machen. Anschließend erhalten Sie einen Überblick über alle Quick Functions.<br/>
+Um diese Session zu starten klicken Sie auf den folgenden &quot;Click to Begin&quot; Link.<br/>
+Dieses Tutorial zeigt Ihnen übrigens nur einen kleinen Teil der Möglichkeiten, die Sie mit den XML Quick Functions haben. Weitere Informationen finden Sie in der umfangreichen Online-Hilfe und auf der Homepage des XML-Security Plug-Ins.
+      </description>
+   </intro>
+   <item title="Preferences" dialog="true" skip="true" href="/org.eclipse.wst.xml.security.doc/plugin/prefs.html">
+      <description>
+         Im ersten Schritt müssen Sie alle notwendigen Angaben in den Preferences tätigen. Hier müssen Sie alle Informationen angeben, die Sie normalerweise im jeweiligen Assistenten angeben würden (außer Passwörtern).<br/>
+Sie können diesen Teil überspringen sofern Sie die erforderlichen Informationen bereits angegeben haben.
+      </description>
+      <action class="org.eclipse.wst.xml.security.core.cheatsheets.OpenPreferences" pluginId="org.eclipse.wst.xml.security.core" confirm="false">
+      </action>
+   </item>
+   <item title="Projekt und XML-Dokument" dialog="true" skip="true" href="/org.eclipse.platform.doc.user/tasks/tasks-42.htm">
+      <description>
+         Jetzt gilt es ein neues Projekt zu erstellen (alle Ihre XML-Dokumente müssen Teil eines Projekts sein um im XML-Security Plug-In verwendet werden zu können). Der Projekttyp ist ohne Bedeutung, bestens geeignet ist ein XML-Projekt. Anschließend erstellen Sie ein XML-Dokument mit beliebigen Elementen, Attributen und Inhalt.<br/>
+Es ist ratsam mit einem kleinen XML-Dokument zu beginnen und dieses Schritt für Schritt auszubauen. Mit dem &quot;Click to Perform&quot; Link können Sie ein Projekt und ein XML-Dokument automatisch generieren lassen. Sie können diesen Schritt auch überspringen (&quot;Click to Skip&quot; Link) sofern Sie bereits über ein Projekt und ein darin enthaltenes XML-Dokument verfügen.
+      </description>
+      <action class="org.eclipse.wst.xml.security.core.cheatsheets.CreateProjectFile" pluginId="org.eclipse.wst.xml.security.core" confirm="false">
+      </action>
+   </item>
+   <item title="Quick Functions" dialog="true" skip="false" href="/org.eclipse.wst.xml.security.doc/plugin/quick.html">
+      <description>
+         Jetzt ist es an der Zeit, eine der Quick Functions aufzurufen. Starten Sie eine beliebige, indem Sie auf &quot;Quick [Signature | Verification | Encryption | Decryption]&quot; im Kontextmenü &quot;XML Security&quot; klicken.<br/>
+Die folgenden Schritte hängen von der konkret aufgerufenen Quick Function ab. Einige verlangen die Eingabe sicherheitskritischer Informationen (wie die Passwörter in &quot;Quick Signature&quot;), andere werden sofort ausgeführt und zeigen Ihnen das Ergebnis an (wie die &quot;Quick Verification&quot;).<br/>
+Bei fehlenden Angaben in den Preferences werden Sie darüber informiert und können diese Angaben direkt im Dialog oder die Aktion abbrechen.
+      </description>
+   </item>
+</cheatsheet>

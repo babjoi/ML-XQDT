@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<cheatsheet title="XML Encryption">
+   <intro href="/org.eclipse.wst.xml.security.doc/plugin/encrypt.html">
+      <description>
+         Willkommen beim XML Encryption Tutorial des XML-Security Plug-Ins.<br/>
+Dieses Tutorial zeigt Ihnen Schritt für Schritt, wie Sie ein beliebiges XML-Dokument mit dem Encryption Wizard verschlüsseln. Das Tutorial zeigt Ihnen dabei nur einen kleinen Teil der Möglichkeiten, die Sie mit dem Encryption Wizard haben. Zunächst werden Sie dazu ein neues Projekt und ein XML-Dokument zum Verschlüsseln erstellen. Um die Verschlüsselungs-Session zu starten, klicken Sie auf den folgenden &quot;Click to Begin&quot; Link. Den ersten Eintrag dieses Cheat Sheets können Sie überspringen, wenn Sie bereits ein Projekt und ein geöffnetes XML-Dokument zur Verfügung haben.<br/>
+Dieses Tutorial zeigt Ihnen übrigens nur einen kleinen Teil der Möglichkeiten, die Sie mit dem XML Encryption Wizard haben. Weitere Informationen finden Sie in der umfangreichen Online-Hilfe und auf der Homepage des XML-Security Plug-Ins.
+      </description>
+   </intro>
+   <item title="Erstellen eines neuen Projekts und XML-Dokuments" dialog="true" skip="true" href="/org.eclipse.platform.doc.user/tasks/tasks-42.htm">
+      <description>
+         Zunächst erstellen Sie ein neues Projekt (alle Ihre XML-Dokumente müssen Teil eines Projekts sein um mit dem XML-Security Plug-In verwendet werden zu können). Der Projekttyp ist ohne Bedeutung, bestens geeignet ist ein XML-Projekt. Anschließend erstellen Sie ein XML-Dokument mit beliebigen Elementen, Attributen und Inhalt, das Sie verschlüsseln möchten.<br/>
+Es ist ratsam mit einem kleinen XML-Dokument zu beginnen und dieses Schritt für Schritt auszubauen. Mit dem &quot;Click to Perform&quot; Link können Sie ein Projekt und ein XML-Dokument automatisch generieren lassen. Sie können diesen Schritt auch überspringen (&quot;Click to Skip&quot; Link) sofern Sie bereits über ein Projekt und ein darin enthaltenes XML-Dokument verfügen.
+      </description>
+      <action class="org.eclipse.wst.xml.security.core.cheatsheets.CreateProjectFile" pluginId="org.eclipse.wst.xml.security.core" confirm="false">
+      </action>
+   </item>
+   <item title="Resource and Encryption Type" dialog="true" skip="false" href="/org.eclipse.wst.xml.security.doc/plugin/encrypt_page_resource.html">
+      <description>
+         Jetzt ist es an der Zeit, das XML-Dokument zu verschlüsseln. Starten Sie den XML Encryption Wizard indem Sie auf &quot;New Encryption...&quot; im Kontextmenü &quot;XML Security&quot; klicken.Der Wizard besteht aus insgesamt drei Seiten.<br/>
+Auf der ersten Seite müssen Sie die zu verschlüsselnde Ressource auswählen  (das vollständige Dokument, eine Textmarkierung oder ein durch XPath angegebenes Element). Um eine Textauswahl zu verschlüsseln muss eine wohlgeformte Markierung im XML-Dokument vorhanden sein, bevor Sie den Assistenten aufrufen. Durch die Auswahl von &quot;Encrypt only element content&quot; bleibt das Wurzelelement der zu verschlüsselnden Ressource im Klartext erhalten.
+      </description>
+   </item>
+   <item title="Algorithms" dialog="true" skip="false" href="/org.eclipse.wst.xml.security.doc/plugin/encrypt_page_algorithms.html">
+      <description>
+         Auf der letzten Seite des Encryption Wizard müssen Sie die verschiedenen Algorithmen auswählen. Die Drop Down Boxen lassen nur sinnvolle Kombinationen zu und passen sich automatisch an. Sie können damit verschiedene Kombinationen ausprobieren.<br/>
+Anschließend müssen Sie eine Datei bestimmen, in der der symmetrische Schlüssel gespeichert werden soll. Diese Datei müssen Sie sorgfältig aufbewahren, sie wird zur anschließenden Entschlüsselung wieder benötigt.<br/>
+Zum Abschluss können Sie der Verschlüsselung noch eine ID zuweisen (empfohlen).<br/>
+Durch Markieren der Checkbox &quot;Start Digital Signature Wizard afterwards&quot; wird direkt nach dem Verschlüsseln der XML Digital Signature Wizard aufgerufen.<br/>
+Nach der Angabe aller gewünschten und erforderlichen Daten klicken Sie auf den Button &quot;Finish&quot; um das XML-Dokument zu verschlüsseln.
+      </description>
+   </item>
+</cheatsheet>

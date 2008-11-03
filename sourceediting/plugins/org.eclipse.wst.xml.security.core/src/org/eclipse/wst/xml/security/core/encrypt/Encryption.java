@@ -1,0 +1,364 @@
+/*******************************************************************************
+ * Copyright (c) 2008 Dominik Schadow - http://www.xml-sicherheit.de
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ *
+ * Contributors:
+ *     Dominik Schadow - initial API and implementation
+ *******************************************************************************/
+package org.eclipse.wst.xml.security.core.encrypt;
+
+import java.io.File;
+
+import org.eclipse.wst.xml.security.core.utils.Keystore;
+
+/**
+ * <p>Model for the <i>XML Encryption Wizard</i>.</p>
+ *
+ * @author Dominik Schadow
+ * @version 0.5.0
+ */
+public class Encryption {
+    /** The resource to encrypt. */
+    private String resource;
+    /** The encryption type. */
+    private String encryptionType;
+    /** Detached File. */
+    private File detachedFile;
+    /** File to encrypt. */
+    private String file;
+    /** XPath, if selected. */
+    private String xpath;
+    /** Basic Security Profile. */
+    private boolean bsp;
+    /** Encryption content. */
+    private boolean content;
+    /** Encryption algorithm. */
+    private String encryptionAlgorithm;
+    /** Encryption key algorithm. */
+    private String keyAlgorithm;
+    /** Encryption key size. */
+    private String keyAlgorithmSize;
+    /** Key cipher algorithm. */
+    private String keyCipherAlgorithm;
+    /** KeyStore. */
+    private Keystore keyStore;
+    /** KeyStore Password. */
+    private String keyStorePassword;
+    /** Key alias name. */
+    private String keyName;
+    /** Key password. */
+	private char[] keyPassword;
+    /** Encryption ID. */
+    private String encryptionId;
+    /** Launch Digital Signature Wizard after encryption. */
+    private boolean launchSignatureWizard;
+
+    /**
+     * Sets the document (fragment) to encrypt.
+     *
+     * @param resource Selection what to encrypt
+     */
+    public void setResource(final String resource) {
+        this.resource = resource;
+    }
+
+    /**
+     * The file to encrypt.
+     *
+     * @param file The selected file to encrypt
+     */
+    public void setFile(final String file) {
+        this.file = file;
+    }
+
+    /**
+     * Sets the selected XPath.
+     *
+     * @param wXPath XPath selection
+     */
+    public void setXpath(final String wXPath) {
+        xpath = wXPath;
+    }
+
+    /**
+     * The encryption type.
+     *
+     * @param encryptionType Encryption type
+     */
+    public void setEncryptionType(final String encryptionType) {
+        this.encryptionType = encryptionType;
+    }
+
+    /**
+     * The detached file for a detached encryption.
+     *
+     * @param detachedFile The selected file to detach
+     */
+    public void setDetachedFile(final File detachedFile) {
+        this.detachedFile = detachedFile;
+    }
+
+    /**
+     * Basic Security Profil compliant encryption or not.
+     *
+     * @param bsp True or false
+     */
+    public void setBsp(final boolean bsp) {
+        this.bsp = bsp;
+    }
+
+    /**
+     * Encrypt only element content or complete element.
+     *
+     * @param content True or false
+     */
+    public void setContent(final boolean content) {
+        this.content = content;
+    }
+
+    /**
+     * Sets the encryption algorithm.
+     *
+     * @param enncryptionAlgorithm Encryption algorithm
+     */
+    public void setEncryptionAlgorithm(final String enncryptionAlgorithm) {
+        this.encryptionAlgorithm = enncryptionAlgorithm;
+    }
+
+    /**
+     * Sets the encryption key algorithm.
+     *
+     * @param keyAlgorithm Encryption key algorithm
+     */
+    public void setKeyAlgorithm(final String keyAlgorithm) {
+        this.keyAlgorithm = keyAlgorithm;
+    }
+
+    /**
+     * Sets the encryption key algorithm size.
+     *
+     * @param keyAlgorithmSize Size of the encryption key algorithm
+     */
+    public void setKeyAlgorithmSize(final String keyAlgorithmSize) {
+        this.keyAlgorithmSize = keyAlgorithmSize;
+    }
+
+    /**
+     * Sets the key cipher algorithm.
+     *
+     * @param keyCipherAlgorithm key cipher algorithm
+     */
+    public void setKeyCipherAlgorithm(final String keyCipherAlgorithm) {
+        this.keyCipherAlgorithm = keyCipherAlgorithm;
+    }
+
+    /**
+     * Sets the key file to store the generated key.
+     *
+     * @param keyStore File to store the generated key
+     */
+    public void setKeyStore(final Keystore keyStore) {
+        this.keyStore = keyStore;
+    }
+
+    /**
+     * Sets the password for the Java KeyStore.
+     *
+     * @param keyStorePassword The KeyStore password
+     */
+    public void setKeyStorePassword(final String keyStorePassword) {
+        this.keyStorePassword = keyStorePassword;
+    }
+
+    /**
+     * Sets the alias name for the key.
+     *
+     * @param keyName The key alias name
+     */
+    public void setKeyName(final String keyName) {
+        this.keyName = keyName;
+    }
+
+    /**
+     * Sets the password for the key.
+     *
+     * @param keyPassword The key password
+     */
+    public void setKeyPassword(char[] keyPassword) {
+		this.keyPassword = keyPassword;
+	}
+
+    /**
+     * The encryption ID.
+     *
+     * @param encryptionId The encryption Id to set
+     */
+    public void setEncryptionId(final String encryptionId) {
+        this.encryptionId = encryptionId;
+    }
+
+    /**
+     * Call the Digital Signature Wizard after encrypting the resource.
+     *
+     * @param launchSignatureWizard Call Digital Signature Wizard afterwards
+     */
+    public void setLaunchSignatureWizard(final boolean launchSignatureWizard) {
+        this.launchSignatureWizard = launchSignatureWizard;
+    }
+
+    /**
+     * Returns the resource to encrypt.
+     *
+     * @return The resource to encrypt
+     */
+    public String getResource() {
+        return resource;
+    }
+
+    /**
+     * Returns the file to encrypt.
+     *
+     * @return The file to encrypt
+     */
+    public String getFile() {
+        return file;
+    }
+
+    /**
+     * Returns the XPath selection to encrypt.
+     *
+     * @return The XPath to encrypt
+     */
+    public String getXpath() {
+        return xpath;
+    }
+
+    /**
+     * Returns the encryption type.
+     *
+     * @return The encryption type
+     */
+    public String getEncryptionType() {
+        return encryptionType;
+    }
+
+    /**
+     * Returns the file to be detached.
+     *
+     * @return The file to be detached
+     */
+    public File getFileDetached() {
+        return detachedFile;
+    }
+
+    /**
+     * Returns the Basic Security Profile selection.
+     *
+     * @return True or false
+     */
+    public boolean getBsp() {
+        return bsp;
+    }
+
+    /**
+     * Returns the part to encrypt.
+     *
+     * @return True or false
+     */
+    public boolean getContent() {
+        return content;
+    }
+
+    /**
+     * Returns the encryption algorithm.
+     *
+     * @return The selected encryption algorithm
+     */
+    public String getEncryptionAlgorithm() {
+        return encryptionAlgorithm;
+    }
+
+    /**
+     * Returns the encryption key algorithm.
+     *
+     * @return The encryption key algorithm
+     */
+    public String getKeyAlgorithm() {
+        return keyAlgorithm;
+    }
+
+    /**
+     * Returns the encryption key algorithm size.
+     *
+     * @return Size of the encryption key algorithm
+     */
+    public String getKeyAlgorithmSize() {
+        return keyAlgorithmSize;
+    }
+
+    /**
+     * Returns the key cipher algorithm.
+     *
+     * @return The selected key cipher algorithm
+     */
+    public String getKeyCipherAlgorithm() {
+        return keyCipherAlgorithm;
+    }
+
+    /**
+     * Returns the key file with the generated key.
+     *
+     * @return The file with the generated key
+     */
+    public Keystore getKeyStore() {
+        return keyStore;
+    }
+
+    /**
+     * Returns the Java KeyStore password.
+     *
+     * @return The KeyStore password
+     */
+    public String getKeyStorePassword() {
+        return keyStorePassword;
+    }
+
+    /**
+     * Returns the public key alias name.
+     *
+     * @return The alias name of the public key
+     */
+    public String getKeyName() {
+        return keyName;
+    }
+
+    /**
+     * Returns the key password.
+     *
+     * @return The key password
+     */
+    public char[] getKeyPassword() {
+        return keyPassword;
+    }
+
+    /**
+     * Returns the encryption ID.
+     *
+     * @return The encryption ID
+     */
+    public String getEncryptionId() {
+        return encryptionId;
+    }
+
+    /**
+     * Returns whether or not to call the Digital Signature Wizard after encrypting the resource.
+     *
+     * @return Call Digital Signature Wizard afterwards
+     */
+    public boolean getLaunchSignatureWizard() {
+        return launchSignatureWizard;
+    }
+}

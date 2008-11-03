@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<cheatsheet title="XML Verification">
+   <intro href="/org.eclipse.wst.xml.security.doc/plugin/verify.html">
+      <description>
+         Willkommen beim XML Verification Tutorial des XML-Security Plug-Ins.<br/>
+Dieses Tutorial zeigt Ihnen Schritt für Schritt, wie Sie eine digitale Signatur in einem beliebigen XML-Dokument verifizieren können. In diesem Cheat Sheet werden Sie dazu alle in einem XML-Dokument enthaltenen Signaturen überprüfen.<br/>
+Um die Verification Session zu starten klicken Sie bitte auf den &quot;Click to Begin&quot; Link.<br/>
+Dieses Tutorial zeigt Ihnen übrigens nur einen kleinen Teil der Möglichkeiten, die Sie mit der XML Digital Signature Verification haben. Weitere Informationen finden Sie in der umfangreichen Online-Hilfe und auf der Homepage des XML-Security Plug-Ins.
+      </description>
+   </intro>
+   <item title="Öffnen eines signierten XML-Dokuments" dialog="true" skip="true" href="/org.eclipse.platform.doc.user/tasks/tasks-46.htm">
+      <description>
+         Öffnen Sie zunächst ein XML-Dokument das mindestens eine digitale Signatur enthält (die Sie z.B. mit dem XML Digital Signature Wizard erstellt haben). Sie können diesen Schritt überspringen wenn Ihr XML-Dokument bereits in einem Editor geöffnet ist.
+      </description>
+   </item>
+   <item title="Verifizieren der digitalen Signaturen" dialog="true" skip="false" href="/org.eclipse.wst.xml.security.doc/plugin/verify.html">
+      <description>
+         Starten Sie die XML Verification indem Sie auf &quot;New Verification...&quot; im Kontextmenü &quot;XML Security&quot; klicken. Eine neue View &quot;Signature Verification&quot; mit ein bis mehreren Einträgen (abhängig von der Anzahl digitaler Signaturen in Ihrem XML-Dokument) öffnet sich.<br/>
+Die Farbe eines Eintrags (einer Signatur) zeigt Ihnen das Ergebnis der jeweiligen Verifizierung an:<br/>
+Grün steht für eine gültige Signatur, rot eine ungültige und gelb, dass es unmöglich war, die Signatur zu verifizieren. Mit dem Button &quot;Properties&quot; können Sie sich weitere Eigenschaften der digitalen Signatur anzeigen lassen.
+      </description>
+   </item>
+</cheatsheet>

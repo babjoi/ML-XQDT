@@ -70,7 +70,7 @@ public class XpathDialog extends ElementListSelectionDialog {
    */
   protected Control createDialogArea(Composite parent) {
     Control comp = super.createDialogArea(parent);
-    PlatformUI.getWorkbench().getHelpSystem().setHelp(comp, "org.eclipse.wst.xml.security.doc.xpath");
+    PlatformUI.getWorkbench().getHelpSystem().setHelp(comp, IContextHelpIds.XPATH_DIALOG);
     return comp;
   }
 

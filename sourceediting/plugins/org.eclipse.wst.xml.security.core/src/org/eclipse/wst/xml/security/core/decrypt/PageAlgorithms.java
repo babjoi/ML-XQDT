@@ -31,6 +31,7 @@ import org.eclipse.swt.widgets.Listener;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.wst.xml.security.core.utils.Globals;
+import org.eclipse.wst.xml.security.core.utils.IContextHelpIds;
 import org.eclipse.wst.xml.security.core.utils.Utils;
 import org.eclipse.wst.xml.security.core.utils.XmlSecurityImageRegistry;
 
@@ -109,7 +110,7 @@ public class PageAlgorithms extends WizardPage implements Listener {
         addListeners();
         setControl(container);
 
-        PlatformUI.getWorkbench().getHelpSystem().setHelp(getControl(), "org.eclipse.wst.xml.security.doc.decryptdecrypt");
+        PlatformUI.getWorkbench().getHelpSystem().setHelp(getControl(), IContextHelpIds.WIZARD_DECRYPTION_RESOURCE);
     }
 
     /**

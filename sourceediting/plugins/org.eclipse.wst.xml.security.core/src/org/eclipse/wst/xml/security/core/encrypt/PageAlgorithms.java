@@ -32,6 +32,7 @@ import org.eclipse.swt.widgets.Text;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.wst.xml.security.core.utils.Algorithms;
 import org.eclipse.wst.xml.security.core.utils.Globals;
+import org.eclipse.wst.xml.security.core.utils.IContextHelpIds;
 import org.eclipse.wst.xml.security.core.utils.Utils;
 
 /**
@@ -104,7 +105,7 @@ public class PageAlgorithms extends WizardPage implements Listener {
         setControl(container);
         loadSettings();
 
-        PlatformUI.getWorkbench().getHelpSystem().setHelp(getControl(), "org.eclipse.wst.xml.security.doc.encryptalgorithms");
+        PlatformUI.getWorkbench().getHelpSystem().setHelp(getControl(), IContextHelpIds.WIZARD_ENCRYPTION_ALGORITHMS);
     }
 
     /**

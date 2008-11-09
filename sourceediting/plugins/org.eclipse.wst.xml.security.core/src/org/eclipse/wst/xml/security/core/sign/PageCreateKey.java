@@ -38,6 +38,7 @@ import org.eclipse.ui.PlatformUI;
 import org.eclipse.wst.xml.security.core.utils.Algorithms;
 import org.eclipse.wst.xml.security.core.utils.Certificate;
 import org.eclipse.wst.xml.security.core.utils.Globals;
+import org.eclipse.wst.xml.security.core.utils.IContextHelpIds;
 import org.eclipse.wst.xml.security.core.utils.XmlSecurityImageRegistry;
 
 /**
@@ -127,7 +128,7 @@ public class PageCreateKey extends WizardPage implements Listener {
         setControl(container);
         setPageComplete(false);
 
-        PlatformUI.getWorkbench().getHelpSystem().setHelp(getControl(), "org.eclipse.wst.xml.security.doc.signcreatekey");
+        PlatformUI.getWorkbench().getHelpSystem().setHelp(getControl(), IContextHelpIds.WIZARD_SIGNATURE_CREATE_KEY);
     }
 
     /**

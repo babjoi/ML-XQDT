@@ -41,6 +41,7 @@ import org.eclipse.ui.part.PluginTransferData;
 import org.eclipse.ui.part.ViewPart;
 import org.eclipse.wst.xml.security.core.XmlSecurityPlugin;
 import org.eclipse.wst.xml.security.core.actions.ShowSignatureProperties;
+import org.eclipse.wst.xml.security.core.utils.IContextHelpIds;
 
 
 /**
@@ -137,12 +138,11 @@ public class SignatureView extends ViewPart {
         hookDoubleClickAction();
         contributeToActionBars();
 
-        PlatformUI.getWorkbench().getHelpSystem().setHelp(signatures.getControl(),
-            "org.eclipse.wst.xml.security.doc.signatureview");
+        PlatformUI.getWorkbench().getHelpSystem().setHelp(signatures.getControl(), IContextHelpIds.SIGNATURE_VIEW);
     }
 
     /**
-     * Inits the copy and paste functionality of the XML Digital Signature View. Verification
+     * Initializes the copy and paste functionality of the XML Digital Signature View. Verification
      * Results can be copied in a readable String format.
      */
     private void initCopyAndPaste() {

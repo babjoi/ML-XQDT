@@ -31,6 +31,7 @@ import org.eclipse.swt.widgets.Listener;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.wst.xml.security.core.utils.Globals;
+import org.eclipse.wst.xml.security.core.utils.IContextHelpIds;
 import org.eclipse.wst.xml.security.core.utils.Keystore;
 import org.eclipse.wst.xml.security.core.utils.XmlSecurityImageRegistry;
 
@@ -102,7 +103,7 @@ public class PageOpenKey extends WizardPage implements Listener {
         loadSettings();
         setPageComplete(false);
 
-        PlatformUI.getWorkbench().getHelpSystem().setHelp(getControl(), "org.eclipse.wst.xml.security.doc.encryptopenkey");
+        PlatformUI.getWorkbench().getHelpSystem().setHelp(getControl(), IContextHelpIds.WIZARD_ENCRYPTION_OPEN_KEY);
     }
 
     /**

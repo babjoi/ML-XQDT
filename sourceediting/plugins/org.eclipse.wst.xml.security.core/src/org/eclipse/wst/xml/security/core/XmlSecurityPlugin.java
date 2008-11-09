@@ -66,7 +66,7 @@ public class XmlSecurityPlugin extends AbstractUIPlugin {
 
     /**
      * This method is called upon XML Security Tools activation. It initializes the Apache XML Security library first
-     * before any other action occurs. Logging is possible here but turned off by default.
+     * before any other action occurs.
      *
      * @param context The bundle context
      * @throws Exception to indicate any exceptional condition

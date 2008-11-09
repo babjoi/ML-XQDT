@@ -38,6 +38,7 @@ import org.eclipse.ui.PlatformUI;
 import org.eclipse.wst.xml.security.core.XmlSecurityPlugin;
 import org.eclipse.wst.xml.security.core.utils.Algorithms;
 import org.eclipse.wst.xml.security.core.utils.Globals;
+import org.eclipse.wst.xml.security.core.utils.IContextHelpIds;
 
 
 /**
@@ -301,8 +302,7 @@ public class PreferencePageSignature extends PreferencePage implements IWorkbenc
    */
   public void createControl(Composite parent) {
     super.createControl(parent);
-    PlatformUI.getWorkbench().getHelpSystem().setHelp(getControl(),
-        "org.eclipse.wst.xml.security.doc.prefssig");
+    PlatformUI.getWorkbench().getHelpSystem().setHelp(getControl(), IContextHelpIds.PREFERENCES_SIGNATURE);
   }
 
   /**

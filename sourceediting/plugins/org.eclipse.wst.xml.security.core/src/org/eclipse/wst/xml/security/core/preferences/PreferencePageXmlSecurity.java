@@ -20,6 +20,7 @@ import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.IWorkbenchPreferencePage;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.wst.xml.security.core.XmlSecurityPlugin;
+import org.eclipse.wst.xml.security.core.utils.IContextHelpIds;
 
 
 /**
@@ -91,8 +92,7 @@ public class PreferencePageXmlSecurity extends PreferencePage implements IWorkbe
    */
   public void createControl(Composite parent) {
     super.createControl(parent);
-    PlatformUI.getWorkbench().getHelpSystem().setHelp(getControl(),
-        "org.eclipse.wst.xml.security.doc.prefssec");
+    PlatformUI.getWorkbench().getHelpSystem().setHelp(getControl(), IContextHelpIds.PREFERENCES_GENERAL);
   }
 
   /**

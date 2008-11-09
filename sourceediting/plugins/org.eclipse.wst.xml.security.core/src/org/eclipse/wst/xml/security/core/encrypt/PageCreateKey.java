@@ -31,6 +31,7 @@ import org.eclipse.swt.widgets.Text;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.wst.xml.security.core.utils.Algorithms;
 import org.eclipse.wst.xml.security.core.utils.Globals;
+import org.eclipse.wst.xml.security.core.utils.IContextHelpIds;
 import org.eclipse.wst.xml.security.core.utils.Keystore;
 import org.eclipse.wst.xml.security.core.utils.XmlSecurityImageRegistry;
 
@@ -109,7 +110,7 @@ public class PageCreateKey extends WizardPage implements Listener {
         setControl(container);
         setPageComplete(false);
 
-        PlatformUI.getWorkbench().getHelpSystem().setHelp(getControl(), "org.eclipse.wst.xml.security.doc.encryptcreatekey");
+        PlatformUI.getWorkbench().getHelpSystem().setHelp(getControl(), IContextHelpIds.WIZARD_ENCRYPTION_CREATE_KEY);
     }
 
     /**

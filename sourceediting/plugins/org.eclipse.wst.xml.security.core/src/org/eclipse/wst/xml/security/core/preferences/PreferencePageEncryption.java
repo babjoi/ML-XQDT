@@ -38,6 +38,7 @@ import org.eclipse.ui.PlatformUI;
 import org.eclipse.wst.xml.security.core.XmlSecurityPlugin;
 import org.eclipse.wst.xml.security.core.utils.Algorithms;
 import org.eclipse.wst.xml.security.core.utils.Globals;
+import org.eclipse.wst.xml.security.core.utils.IContextHelpIds;
 
 /**
  * <p>This class represents the Encryption and Decryption preference page of the XML-Security
@@ -266,8 +267,7 @@ public class PreferencePageEncryption extends PreferencePage implements IWorkben
    */
   public void createControl(Composite parent) {
     super.createControl(parent);
-    PlatformUI.getWorkbench().getHelpSystem().setHelp(getControl(),
-        "org.eclipse.wst.xml.security.doc.prefsenc");
+    PlatformUI.getWorkbench().getHelpSystem().setHelp(getControl(), IContextHelpIds.PREFERENCES_ENCRYPTION);
   }
 
   /**

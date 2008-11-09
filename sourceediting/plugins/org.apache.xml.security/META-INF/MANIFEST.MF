@@ -1,9 +1,9 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
-Bundle-Name: Apache Santuario
+Bundle-Name: %bundleName
 Bundle-SymbolicName: org.apache.xml.security;singleton:=true
 Bundle-Version: 1.4.2
-Bundle-Vendor: xml-sicherheit.de
+Bundle-Vendor: %bundleProvider
 Export-Package: javax.xml.crypto,
  javax.xml.crypto.dom,
  javax.xml.crypto.dsig,
@@ -39,3 +39,4 @@ Require-Bundle: org.apache.xalan;bundle-version="2.7.0",
  org.apache.commons.logging;bundle-version="1.0.4"
 Bundle-RequiredExecutionEnvironment: J2SE-1.5
 Bundle-ActivationPolicy: lazy
+Bundle-Localization: plugin

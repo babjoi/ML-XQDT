@@ -36,6 +36,7 @@ Export-Package: javax.xml.crypto,
  org.jcp.xml.dsig.internal,
  org.jcp.xml.dsig.internal.dom
 Require-Bundle: org.apache.xalan;bundle-version="2.7.0",
+ org.apache.xerces;bundle-version="2.9.0";resolution:=optional,
  org.apache.commons.logging;bundle-version="1.0.4"
 Bundle-RequiredExecutionEnvironment: J2SE-1.5
 Bundle-ActivationPolicy: lazy

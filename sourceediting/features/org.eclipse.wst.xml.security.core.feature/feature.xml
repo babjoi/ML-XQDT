@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <feature
-      id="org.eclipse.wst.xml.security.core.feature"
+      id="org.eclipse.wst.xml.security.feature"
       label="%featureName"
       version="0.5.0.qualifier"
-      provider-name="%providerName">
+      provider-name="%providerName"
+      plugin="org.eclipse.wst.xml.security">
 
    <description>
       %description
@@ -16,6 +17,10 @@
    <license url="%licenseURL">
       %license
    </license>
+
+   <url>
+      <update label="%updateSiteName" url="http://download.eclipse.org/webtools/updates/"/>
+   </url>
 
    <requires>
       <import plugin="org.eclipse.ui"/>
@@ -66,6 +71,13 @@
 
    <plugin
          id="org.apache.xerces"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="org.eclipse.wst.xml.security"
          download-size="0"
          install-size="0"
          version="0.0.0"

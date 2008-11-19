@@ -12,27 +12,15 @@ package org.eclipse.wst.xml.security.core.utils;
 
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
-import java.security.AlgorithmParameterGenerator;
-import java.security.AlgorithmParameters;
-import java.security.Key;
-import java.security.KeyFactory;
 import java.security.KeyPair;
-import java.security.KeyPairGenerator;
 import java.security.KeyStore;
 import java.security.KeyStoreException;
-import java.security.NoSuchAlgorithmException;
-import java.security.PrivateKey;
-import java.security.PublicKey;
 import java.security.KeyStore.PasswordProtection;
 import java.security.KeyStore.SecretKeyEntry;
 import java.security.cert.Certificate;
-import java.security.spec.InvalidKeySpecException;
-import java.security.spec.X509EncodedKeySpec;
 
-import javax.crypto.KeyAgreement;
 import javax.crypto.KeyGenerator;
 import javax.crypto.SecretKey;
-import javax.crypto.spec.DHParameterSpec;
 
 /**
  * <p>Manages the Java KeyStores (jks files). The generated Java KeyStores as well
@@ -141,33 +129,6 @@ public class Keystore {
 		}
 	}
 
-	// key pair generation methods
-	public KeyPair createDHKeyPair() throws Exception {
-		AlgorithmParameterGenerator apGen = AlgorithmParameterGenerator
-				.getInstance("DH");
-		apGen.init(1024);
-
-		AlgorithmParameters algParams = apGen.generateParameters();
-		DHParameterSpec dhParamSpec = (DHParameterSpec) algParams
-				.getParameterSpec(DHParameterSpec.class);
-
-		KeyPairGenerator keyGen = KeyPairGenerator.getInstance("DH");
-		keyGen.initialize(dhParamSpec);
-
-		KeyPair keypair = keyGen.generateKeyPair();
-		return keypair;
-	}
-
-	public KeyPair getKeyPair(String alias, String password) throws Exception {
-		Key key = keyStore.getKey(alias, password.toCharArray());
-		if (key instanceof PrivateKey) {
-			Certificate cert = keyStore.getCertificate(alias);
-			PublicKey publicKey = cert.getPublicKey();
-			return new KeyPair(publicKey, (PrivateKey) key);
-		}
-		return null;
-	}
-
 	public void storeCertificate(String alias, Certificate cert)
 			throws Exception {
 		FileOutputStream fos = null;
@@ -199,28 +160,6 @@ public class Keystore {
 				fos.close();
 			}
 		}
-	}
-
-	public SecretKey generateSecretKey(PrivateKey ourKey, PublicKey theirKey)
-			throws Exception {
-		KeyAgreement ka = KeyAgreement.getInstance("DH");
-		ka.init(ourKey);
-		ka.doPhase(theirKey, true);
-		return ka.generateSecret("TripleDES");
-	}
-
-	public PublicKey readDHPublicKey(byte[] keyBytes)
-			throws NoSuchAlgorithmException, InvalidKeySpecException {
-		X509EncodedKeySpec x509KeySpec = new X509EncodedKeySpec(keyBytes);
-		KeyFactory keyFactory = KeyFactory.getInstance("DH");
-		return keyFactory.generatePublic(x509KeySpec);
-	}
-
-	public static PrivateKey readDHPrivateKey(byte[] keyBytes)
-			throws NoSuchAlgorithmException, InvalidKeySpecException {
-		X509EncodedKeySpec x509KeySpec = new X509EncodedKeySpec(keyBytes);
-		KeyFactory keyFactory = KeyFactory.getInstance("DH");
-		return keyFactory.generatePrivate(x509KeySpec);
 	}
 
 	/**

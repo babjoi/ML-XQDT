@@ -251,7 +251,7 @@ public class PageAlgorithms extends WizardPage implements Listener {
         data = new FormData();
         data.top = new FormAttachment(gEncryptionId);
         data.left = new FormAttachment(gEncryptionId);
-        data.width = Globals.COMBO_WIDTH;
+        data.width = Globals.COMBO_LARGE_WIDTH;
         cEncryptionId.setLayoutData(data);
     }
 

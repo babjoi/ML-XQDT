@@ -61,7 +61,7 @@ public final class Messages extends NLS {
             quickSignatureImpossibleText, quickSignatureTitle, signatureImpossible, signingError, signatureTaskInfo;
 
     /** RefreshSignatures action externalized strings. */
-    public static String invalidXml, noDocument, noSignaturesInDocument, refreshImpossible;
+    public static String invalidXml, noDocument, noSignaturesInDocument, signaturesView;
 
     /** MissingPreferenceDialog externalized strings. */
     public static String error, invalidTextSelection, invalidTextSelectionText, prefsDialogText, prefsLinkToolTip;

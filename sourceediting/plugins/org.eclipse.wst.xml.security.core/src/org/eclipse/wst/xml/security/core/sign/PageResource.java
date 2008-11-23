@@ -38,7 +38,7 @@ import org.eclipse.wst.xml.security.core.utils.XpathDialog;
 import org.w3c.dom.Document;
 
 /**
- * <p>First page of the wizard to create an XML signature. Lets the user select the resource to sign
+ * <p>First wizard page to create an XML signature. Lets the user select the resource to sign
  * (<i>document</i>, <i>selection</i>, <i>XPath</i>) and the signature type (<i>enveloping</i>,
  * <i>enveloped</i>, <i>detached</i>).<br>
  * The option to create a <i>Basic Security Profile</i> compliant signature can be activated on this
@@ -74,11 +74,11 @@ public class PageResource extends WizardPage implements Listener {
     private Button bSelection = null;
     /** Radio to sign with the XPath expression. */
     private Button bXpath = null;
-    /** Radio to create a new certificate and a new keystore. */
+    /** Radio to create a new certificate and a new KeyStore. */
     private Button bCreateKeystore = null;
-    /** Radio to create a new certificate in an existing keystore. */
+    /** Radio to create a new certificate in an existing KeyStore. */
     private Button bCreateCertificate = null;
-    /** Radio to open an existing certificate in an existing keystore. */
+    /** Radio to open an existing certificate in an existing KeyStore. */
     private Button bOpenCertificate = null;
     /** Textfield for the detached file to sign. */
     private Text tDetachedFile = null;
@@ -98,7 +98,7 @@ public class PageResource extends WizardPage implements Listener {
     private Signature signature = null;
 
     /**
-     * Constructor for the selection page of the wizard. Takes two parameters.
+     * Constructor for the resource page of the wizard.
      *
      * @param signature The signature wizard model
      * @param file The selected file
@@ -176,7 +176,7 @@ public class PageResource extends WizardPage implements Listener {
 
         Group gKey = new Group(parent, SWT.SHADOW_ETCHED_IN);
         gKey.setLayout(layout);
-        gKey.setText(Messages.key);
+        gKey.setText(Messages.keystoreAndKey);
         data = new FormData();
         data.top = new FormAttachment(gType, Globals.MARGIN, SWT.DEFAULT);
         data.left = new FormAttachment(0, 0);

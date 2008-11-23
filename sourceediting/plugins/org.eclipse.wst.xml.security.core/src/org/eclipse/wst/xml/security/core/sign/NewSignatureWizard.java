@@ -58,7 +58,7 @@ public class NewSignatureWizard extends Wizard implements INewWizard {
     public NewSignatureWizard() {
         super();
         signature = new Signature();
-        setWindowTitle(Messages.digitalSignatureWizard);
+        setWindowTitle(Messages.signatureWizard);
         setDialogSettings(getDigitalSignatureWizardSettings());
         ImageDescriptor image = AbstractUIPlugin.imageDescriptorFromPlugin(XmlSecurityPlugin.getId(),
                 "icons/wiz_sig.gif");

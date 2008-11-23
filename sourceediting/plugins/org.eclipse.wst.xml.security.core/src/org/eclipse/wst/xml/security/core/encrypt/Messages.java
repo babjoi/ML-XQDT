@@ -56,6 +56,6 @@ public final class Messages extends NLS {
             keystoreGenerationFailed, createKeystoreButton, enterNewKeyStoreName;
     /** PageAlgorithms externalized strings. */
     public static String encryptionTitle, algorithmsDescription, algorithms, encryptionId, select,
-            selectEncryptionAlgorithm, selectKeyWrapAlgorithm, digitalSignatureWizard,
-            startDigitalSignatureWizard, ambiguousEncryptionId, rootElement;
+            selectEncryptionAlgorithm, selectKeyWrapAlgorithm, signatureWizard,
+            startSignatureWizard, ambiguousEncryptionId, properties;
 }

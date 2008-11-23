@@ -34,18 +34,18 @@ public final class Messages extends NLS {
     }
 
     /** Wizard launcher externalized strings. */
-    public static String digitalSignatureWizard;
+    public static String signatureWizard;
     /** PageResource externalized strings. */
     public static String basicSecurityProfile, browse, bspCompliant, createKey, createKeystoreAndKey, detached,
             detachedFile, document, enterXPath, enveloped, enveloping, key, resource, resourceDescription,
             signatureTitle, select, selection, signatureType, useKey, verifyDetachedFile, xpath, xpathAttribute,
-            xpathMultipleElements, xpathNoElement, xpathPopup, documentInvalid;
+            xpathMultipleElements, xpathNoElement, xpathPopup, documentInvalid, keystoreAndKey;
     /** PageOpenCertificate externalized strings. */
     public static String enterKeyAlias, enterKeyPassword, enterKeystorePassword, open, password, selectKeyFile,
             useKeyDescription, verifyAll, verifyKeyAlias, verifyKeyPassword, verifyKeystore,
             verifyKeystorePassword, wrongKeyAlgorithm;
     /** PageCreateCertificate externalized strings. */
-    public static String commonName, country, createKeyButton, createKeyDescription, distinguishedName,
+    public static String commonName, country, createKeyButton, createKeyDescription, certificate,
             enterCommonName, enterNewKeyAlias, enterNewKeyPassword, enterNewKeystoreName, enterNewKeystorePassword,
             keyAlgorithm, keyExistsInKeystore, keyGenerated, keyGenerationFailed, keyStore, keystoreAlreadyExists,
             location, organization, organizationalUnit, selectKeyAlgorithm, state;
@@ -56,6 +56,6 @@ public final class Messages extends NLS {
     public static String algorithmsDescription, ambiguousSignatureId, buttonAddProperty,
             buttonRemoveProperty, canonicalizationTransformation, encryptionWizard, messageDigestSignature,
             selectCanonicalization, selectMessageDigest, selectSignature, selectTransformation, signatureId,
-            signatureProperties, signaturePropertyContent, signaturePropertyContentToolTip, signaturePropertyId,
+            properties, signaturePropertyContent, signaturePropertyContentToolTip, signaturePropertyId,
             signaturePropertyIdToolTip, signaturePropertyTarget, signaturePropertyTargetToolTip, startEncryptionWizard;
 }

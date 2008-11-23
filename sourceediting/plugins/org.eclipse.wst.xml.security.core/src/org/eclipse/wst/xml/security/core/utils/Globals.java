@@ -51,6 +51,8 @@ public final class Globals {
     public static final int LARGE_BUTTON_WIDTH = 100;
     /** Default width for combo boxes. */
     public static final int COMBO_WIDTH = 150;
+    /** Default large width for combo boxes. */
+    public static final int COMBO_LARGE_WIDTH = 200;
     /** Default margin for combo boxes. */
     public static final int COMBO_MARGIN = 20;
     /** Small width for textfields. */

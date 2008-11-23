@@ -91,7 +91,7 @@ public class VerifyNewAction extends XmlSecurityActionAdapter {
             }
 
             if (results.size() == 0) {
-                showInfo(Messages.refreshImpossible, Messages.noSignaturesInDocument);
+                showInfo(Messages.signaturesView, Messages.noSignaturesInDocument);
             }
 
             // show results

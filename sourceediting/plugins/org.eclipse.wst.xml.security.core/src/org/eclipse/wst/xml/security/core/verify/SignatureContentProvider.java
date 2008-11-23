@@ -16,7 +16,7 @@ import org.eclipse.jface.viewers.IStructuredContentProvider;
 import org.eclipse.jface.viewers.Viewer;
 
 /**
- * <p>The content provider of the XML Digital Signatures View. Prepares the signatures for display.</p>
+ * <p>The content provider for the XML Signatures View. Prepares the signatures for display.</p>
  *
  * @author Dominik Schadow
  * @version 0.5.0
@@ -43,7 +43,7 @@ public class SignatureContentProvider implements IStructuredContentProvider {
     }
 
     /**
-     * Disposes this content provider. This is called by the viewer when it is disposed.
+     * Disposes this content provider.
      */
     public void dispose() {
     }

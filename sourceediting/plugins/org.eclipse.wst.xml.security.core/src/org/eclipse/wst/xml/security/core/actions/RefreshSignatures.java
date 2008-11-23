@@ -91,11 +91,11 @@ public class RefreshSignatures extends XmlSecurityActionAdapter implements IView
                 if (file != null) {
                     results = verify.verify(file.getLocation().toString());
                 } else {
-                    showInfo(Messages.refreshImpossible, NLS.bind(Messages.protectedDoc, ACTION));
+                    showInfo(Messages.signaturesView, NLS.bind(Messages.protectedDoc, ACTION));
                 }
 
                 if (results.size() == 0) {
-                    showInfo(Messages.refreshImpossible, Messages.noSignaturesInDocument);
+                    showInfo(Messages.signaturesView, Messages.noSignaturesInDocument);
                 }
 
                 // show results
@@ -112,7 +112,7 @@ public class RefreshSignatures extends XmlSecurityActionAdapter implements IView
                 log("Error during verification of XML signature", ex); //$NON-NLS-1$
             }
         } else {
-            showInfo(Messages.refreshImpossible, Messages.noDocument);
+            showInfo(Messages.signaturesView, Messages.noDocument);
         }
     }
 

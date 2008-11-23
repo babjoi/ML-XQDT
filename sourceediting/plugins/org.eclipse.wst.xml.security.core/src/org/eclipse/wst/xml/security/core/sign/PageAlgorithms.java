@@ -80,8 +80,6 @@ public class PageAlgorithms extends WizardPage implements Listener {
     private Button bEncWiz = null;
     /** User help message. */
     private String helpMessage = ""; //$NON-NLS-1$
-    /** Default label width. */
-    private static final int LABEL_WIDTH = 70;
     /** The XML document. */
     private IFile file;
     /** All signature IDs in the current XML document. */
@@ -176,7 +174,7 @@ public class PageAlgorithms extends WizardPage implements Listener {
 
         Group gProperties = new Group(parent, SWT.SHADOW_ETCHED_IN);
         gProperties.setLayout(layout);
-        gProperties.setText(Messages.signatureProperties);
+        gProperties.setText(Messages.properties);
         data = new FormData();
         data.top = new FormAttachment(gSign, Globals.MARGIN, SWT.DEFAULT);
         data.left = new FormAttachment(0, 0);
@@ -206,27 +204,27 @@ public class PageAlgorithms extends WizardPage implements Listener {
         data = new FormData();
         data.left = new FormAttachment(gTransform);
         data.top = new FormAttachment(gTransform);
-        data.width = Globals.COMBO_WIDTH;
+        data.width = Globals.COMBO_LARGE_WIDTH;
         cCanon.setLayoutData(data);
 
         cTransform = new Combo(gTransform, SWT.READ_ONLY);
         data = new FormData();
         data.top = new FormAttachment(gTransform);
         data.left = new FormAttachment(cCanon, Globals.COMBO_MARGIN);
-        data.width = Globals.COMBO_WIDTH;
+        data.width = Globals.COMBO_LARGE_WIDTH;
         cTransform.setLayoutData(data);
 
         // Elements for group "Message Digest and Signature Algorithm"
         cMDA = new Combo(gSign, SWT.READ_ONLY);
         data = new FormData();
-        data.width = Globals.COMBO_WIDTH;
+        data.width = Globals.COMBO_LARGE_WIDTH;
         data.top = new FormAttachment(gSign);
         data.left = new FormAttachment(gSign);
         cMDA.setLayoutData(data);
 
         cSign = new Combo(gSign, SWT.READ_ONLY);
         data = new FormData();
-        data.width = Globals.COMBO_WIDTH;
+        data.width = Globals.COMBO_LARGE_WIDTH;
         data.top = new FormAttachment(gSign);
         data.left = new FormAttachment(cMDA, Globals.COMBO_MARGIN);
         cSign.setLayoutData(data);
@@ -265,7 +263,7 @@ public class PageAlgorithms extends WizardPage implements Listener {
         data = new FormData();
         data.top = new FormAttachment(gID);
         data.left = new FormAttachment(gID);
-        data.width = LABEL_WIDTH;
+        data.width = 80;
         lID.setLayoutData(data);
 
         tId = new Text(gID, SWT.SINGLE);

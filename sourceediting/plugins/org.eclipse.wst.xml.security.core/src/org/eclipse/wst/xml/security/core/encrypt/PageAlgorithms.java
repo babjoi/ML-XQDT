@@ -60,8 +60,6 @@ public class PageAlgorithms extends WizardPage implements Listener {
     private String helpMessage = ""; //$NON-NLS-1$
     /** BSP activation flag. */
     private boolean bsp;
-    /** Default label width. */
-    private static final int LABEL_WIDTH = 70;
     /** The XML document. */
     private IFile file;
     /** All encryption IDs in the current XML document. */
@@ -134,7 +132,7 @@ public class PageAlgorithms extends WizardPage implements Listener {
 
         Group gContent = new Group(parent, SWT.SHADOW_ETCHED_IN);
         gContent.setLayout(layout);
-        gContent.setText(Messages.rootElement);
+        gContent.setText(Messages.properties);
         data = new FormData();
         data.top = new FormAttachment(gEncrypt, Globals.MARGIN, SWT.DEFAULT);
         data.left = new FormAttachment(0, 0);
@@ -152,7 +150,7 @@ public class PageAlgorithms extends WizardPage implements Listener {
 
         Group gSigWiz = new Group(parent, SWT.SHADOW_ETCHED_IN);
         gSigWiz.setLayout(layout);
-        gSigWiz.setText(Messages.digitalSignatureWizard);
+        gSigWiz.setText(Messages.signatureWizard);
         data = new FormData();
         data.top = new FormAttachment(gID, Globals.MARGIN * 2, SWT.DEFAULT);
         data.left = new FormAttachment(0, 0);
@@ -164,14 +162,14 @@ public class PageAlgorithms extends WizardPage implements Listener {
         data = new FormData();
         data.top = new FormAttachment(gEncrypt);
         data.left = new FormAttachment(gEncrypt);
-        data.width = Globals.COMBO_WIDTH;
+        data.width = Globals.COMBO_LARGE_WIDTH;
         cEncryptionAlgorithm.setLayoutData(data);
 
         cKeyWrapAlgorithm = new Combo(gEncrypt, SWT.READ_ONLY);
         data = new FormData();
         data.top = new FormAttachment(gEncrypt);
         data.left = new FormAttachment(cEncryptionAlgorithm, Globals.COMBO_MARGIN);
-        data.width = Globals.COMBO_WIDTH;
+        data.width = Globals.COMBO_LARGE_WIDTH;
         cKeyWrapAlgorithm.setLayoutData(data);
 
         // Elements for group "Root Element"
@@ -188,7 +186,7 @@ public class PageAlgorithms extends WizardPage implements Listener {
         data = new FormData();
         data.top = new FormAttachment(gID);
         data.left = new FormAttachment(gID);
-        data.width = LABEL_WIDTH;
+        data.width = 90;
         lID.setLayoutData(data);
 
         tID = new Text(gID, SWT.SINGLE);
@@ -201,7 +199,7 @@ public class PageAlgorithms extends WizardPage implements Listener {
 
         // Elements for group "Digital Signature Wizard"
         bSigWiz = new Button(gSigWiz, SWT.CHECK);
-        bSigWiz.setText(Messages.startDigitalSignatureWizard);
+        bSigWiz.setText(Messages.startSignatureWizard);
         data = new FormData();
         data.top = new FormAttachment(gSigWiz);
         data.left = new FormAttachment(gSigWiz);

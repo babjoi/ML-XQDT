@@ -129,7 +129,7 @@ public class Keystore {
 		}
 	}
 
-	public void storeCertificate(String alias, Certificate cert)
+	private void storeCertificate(String alias, Certificate cert)
 			throws Exception {
 		FileOutputStream fos = null;
 
@@ -193,6 +193,30 @@ public class Keystore {
 			return false;
 		}
 	}
+
+    /**
+     * Generates a new secret key with the given parameters and stores it in
+     * the loaded Java KeyStore.
+     *
+     * @param keyAlgorithm The secret key algorithm
+     * @param keyAlgorithmSize The secret key algorithm size
+     * @param keyAlias The private key alias (must be unique in the KeyStore)
+     * @param keyPassword The secret key password
+     * @return Secret key generation result
+     * @throws Exception General exception during key generation
+     */
+    public boolean generateCertificate(String alias, Certificate cert) {
+        try {
+            storeCertificate(alias, cert);
+            load();
+
+            return true;
+        } catch (Exception ex) {
+            Utils.logError(ex, "Keystore generation failed");
+
+            return false;
+        }
+    }
 
 	/**
 	 * Returns the secret key identified by the key alias and the key password.

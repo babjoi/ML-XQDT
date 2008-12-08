@@ -69,8 +69,8 @@ public class PageOpenKey extends WizardPage implements Listener {
     private static final String SETTING_KEY_NAME = "enc_key_name";
     /** Model for the XML Encryption Wizard. */
     private Encryption encryption = null;
-    /** The KeyStore containing all required key information. */
-    private Keystore keyStore = null;
+    /** The keystore containing all required key information. */
+    private Keystore keystore = null;
 
     /**
      * Constructor for PageOpenKey.
@@ -281,9 +281,9 @@ public class PageOpenKey extends WizardPage implements Listener {
         }
         if (new File(tKeyStore.getText()).exists()) {
             try {
-	        	Keystore keyStore = new Keystore(tKeyStore.getText(), tKeyStorePassword.getText(), "JCEKS");
-	        	keyStore.load();
-	        	if (!keyStore.containsKey(tKeyName.getText())) {
+	        	keystore = new Keystore(tKeyStore.getText(), tKeyStorePassword.getText(), "JCEKS");
+	        	keystore.load();
+	        	if (!keystore.containsKey(tKeyName.getText())) {
 	        		setErrorMessage(Messages.verifyKeyAlias);
 	                return;
 	        	}
@@ -382,7 +382,7 @@ public class PageOpenKey extends WizardPage implements Listener {
      * Saves the selections on this wizard page to the model. Called on exit of the page.
      */
     private void saveDataToModel() {
-        encryption.setKeyStore(keyStore);
+        encryption.setKeyStore(keystore);
         encryption.setKeyStorePassword(tKeyStorePassword.getText());
         encryption.setKeyName(tKeyName.getText());
         encryption.setKeyPassword(tKeyPassword.getText().toCharArray());

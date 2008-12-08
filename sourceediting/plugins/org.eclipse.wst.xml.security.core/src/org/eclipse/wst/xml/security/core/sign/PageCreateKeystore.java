@@ -667,7 +667,7 @@ public class PageCreateKeystore extends WizardPage implements Listener {
      * Saves the selections on this wizard page to the model. Called on exit of the page.
      */
     private void saveDataToModel() {
-        signature.setKeystore(keystore);
+        signature.setKeystore(keyStore);
         signature.setKeystorePassword(tKeystorePassword.getText().toCharArray());
         signature.setKeyPassword(tKeyPassword.getText().toCharArray());
         signature.setKeyAlias(tKeyName.getText());

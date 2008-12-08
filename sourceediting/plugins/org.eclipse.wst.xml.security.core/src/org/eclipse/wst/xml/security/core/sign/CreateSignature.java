@@ -40,6 +40,7 @@ import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.jface.text.ITextSelection;
 import org.eclipse.wst.xml.security.core.utils.Globals;
+import org.eclipse.wst.xml.security.core.utils.Keystore;
 import org.eclipse.wst.xml.security.core.utils.SignatureNamespaceContext;
 import org.eclipse.wst.xml.security.core.utils.Utils;
 import org.eclipse.wst.xml.security.core.utils.XmlSecurityConstants;
@@ -74,7 +75,7 @@ public class CreateSignature {
     /** The signature type. */
     private String signatureType = null;
     /** The Java Keystore. */
-    private String keystoreFile = null;
+    private Keystore keystore = null;
     /** The Java Keystore password. */
     private char[] keystorePassword = null;
     /** The certificate password. */
@@ -123,16 +124,13 @@ public class CreateSignature {
 
             monitor.worked(1);
 
-            KeyStore keyStore = KeyStore.getInstance(Globals.KEYSTORETYPE);
-            fis = new FileInputStream(keystoreFile);
-
             // Load the KeyStore
-            keyStore.load(fis, keystorePassword);
+            keystore.load();
 
             monitor.worked(1);
 
             // Get the private key for signing
-            PrivateKey privateKey = (PrivateKey) keyStore.getKey(certificateAlias, privateKeyPassword);
+            PrivateKey privateKey = (PrivateKey) keystore.getSecretKey(certificateAlias, privateKeyPassword);
 
             monitor.worked(1);
 
@@ -146,11 +144,11 @@ public class CreateSignature {
             monitor.worked(1);
 
             if ("enveloping".equalsIgnoreCase(signatureType)) {
-                signedDoc = envelopingSignature(keyStore, privateKey, xmlFile);
+                signedDoc = envelopingSignature(privateKey, xmlFile);
             } else if ("enveloped".equalsIgnoreCase(signatureType)) {
-                signedDoc = envelopedSignature(keyStore, privateKey, doc);
+                signedDoc = envelopedSignature(privateKey, doc);
             } else if ("detached".equalsIgnoreCase(signatureType)) {
-                signedDoc = detachedSignature(keyStore, privateKey, doc);
+                signedDoc = detachedSignature(privateKey, doc);
             }
         } catch (Exception ex) {
             throw ex;
@@ -172,46 +170,46 @@ public class CreateSignature {
      * <p>Determines the correct and fully qualified names of the selected algorithms for direct use with the Apache XML
      * Security API.</p>
      *
-     * @param signWizard The SignatureWizard object
+     * @param signature The SignatureWizard object
      * @param selection A possibly existing text selection
      * @throws Exception to indicate any exceptional condition
      */
-    private void loadSettings(Signature signWizard, ITextSelection selection) throws Exception {
-        xmlFile = new File(signWizard.getFile());
+    private void loadSettings(Signature signature, ITextSelection selection) throws Exception {
+        xmlFile = new File(signature.getFile());
         baseURI = xmlFile.toURI().toString();
-        resource = signWizard.getResource();
+        resource = signature.getResource();
         expression = null;
 
         if ("xpath".equalsIgnoreCase(resource)) {
-            expression = signWizard.getXpath();
+            expression = signature.getXpath();
         } else if ("selection".equalsIgnoreCase(resource)) {
             textSelection = selection.getText();
         }
 
-        signatureType = signWizard.getSignatureType();
+        signatureType = signature.getSignatureType();
 
         if ("detached".equalsIgnoreCase(signatureType)) {
-            detachedFile = signWizard.getDetachedFile();
+            detachedFile = signature.getDetachedFile();
         }
 
-        keystoreFile = signWizard.getKeystore();
-        keystorePassword = signWizard.getKeystorePassword();
-        privateKeyPassword = signWizard.getKeyPassword();
-        certificateAlias = signWizard.getKeyAlias();
+        keystore = signature.getKeystore();
+        keystorePassword = signature.getKeystorePassword();
+        privateKeyPassword = signature.getKeyPassword();
+        certificateAlias = signature.getKeyAlias();
 
-        if (signWizard.getSignatureProperties() != null) {
-            properties = signWizard.getSignatureProperties();
+        if (signature.getSignatureProperties() != null) {
+            properties = signature.getSignatureProperties();
         }
 
-        if (signWizard.getSignatureId() != null) {
-            signatureId = signWizard.getSignatureId();
+        if (signature.getSignatureId() != null) {
+            signatureId = signature.getSignatureId();
         }
 
-        messageDigestAlgorithm = XmlSecurityConstants.getMessageDigestAlgorithm(signWizard.getMessageDigestAlgorithm());
-        signatureAlgorithm = XmlSecurityConstants.getSignatureAlgorithm(signWizard.getSignatureAlgorithm());
-        canonicalizationAlgorithm = XmlSecurityConstants.getCanonicalizationAlgorithm(signWizard
+        messageDigestAlgorithm = XmlSecurityConstants.getMessageDigestAlgorithm(signature.getMessageDigestAlgorithm());
+        signatureAlgorithm = XmlSecurityConstants.getSignatureAlgorithm(signature.getSignatureAlgorithm());
+        canonicalizationAlgorithm = XmlSecurityConstants.getCanonicalizationAlgorithm(signature
                 .getCanonicalizationAlgorithm());
-        transformationAlgorithm = XmlSecurityConstants.getTransformationAlgorithm(signWizard.getTransformationAlgorithm());
+        transformationAlgorithm = XmlSecurityConstants.getTransformationAlgorithm(signature.getTransformationAlgorithm());
     }
 
     /**
@@ -225,7 +223,7 @@ public class CreateSignature {
      * @return The signed XML document
      * @throws Exception to indicate any exceptional condition
      */
-    private Document detachedSignature(KeyStore keystore, PrivateKey privateKey, Document doc) throws Exception {
+    private Document detachedSignature(PrivateKey privateKey, Document doc) throws Exception {
         Element root = doc.getDocumentElement();
         Transforms transforms = null;
         root.appendChild(sig.getElement());
@@ -243,7 +241,7 @@ public class CreateSignature {
             sig.setId(signatureId);
         }
 
-        boolean doSign = addCertificate(keystore);
+        boolean doSign = addCertificate();
 
         if (doSign) {
             sig.sign(privateKey);
@@ -262,7 +260,7 @@ public class CreateSignature {
      * @return The signed XML document
      * @throws Exception to indicate any exceptional condition
      */
-    private Document envelopedSignature(KeyStore keystore, PrivateKey privateKey, Document doc) throws Exception {
+    private Document envelopedSignature(PrivateKey privateKey, Document doc) throws Exception {
         Element root = doc.getDocumentElement();
 
         if ("document".equalsIgnoreCase(resource)) {
@@ -303,7 +301,7 @@ public class CreateSignature {
             sig.setId(signatureId);
         }
 
-        boolean doSign = addCertificate(keystore);
+        boolean doSign = addCertificate();
 
         if (doSign) {
             sig.sign(privateKey);
@@ -323,7 +321,7 @@ public class CreateSignature {
      * @return The signed XML document
      * @throws Exception to indicate any exceptional condition
      */
-    private Document envelopingSignature(KeyStore keystore, PrivateKey privateKey, File file) throws Exception {
+    private Document envelopingSignature(PrivateKey privateKey, File file) throws Exception {
         Document doc = Utils.parse(file);
         Element root = doc.getDocumentElement();
         ObjectContainer obj = new ObjectContainer(doc);
@@ -455,7 +453,7 @@ public class CreateSignature {
             sig.setId(signatureId);
         }
 
-        boolean doSign = addCertificate(keystore);
+        boolean doSign = addCertificate();
 
         if (doSign) {
             sig.sign(privateKey);
@@ -507,7 +505,7 @@ public class CreateSignature {
      * @return Certificate successfully added
      * @throws Exception to indicate any exceptional condition
      */
-    private boolean addCertificate(KeyStore keystore) throws Exception {
+    private boolean addCertificate() throws Exception {
         boolean addedCertificate = false;
         X509Certificate cert = (X509Certificate) keystore.getCertificate(certificateAlias);
 

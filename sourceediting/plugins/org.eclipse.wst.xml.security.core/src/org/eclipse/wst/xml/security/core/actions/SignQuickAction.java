@@ -35,6 +35,7 @@ import org.eclipse.wst.xml.security.core.XmlSecurityPlugin;
 import org.eclipse.wst.xml.security.core.preferences.PreferenceConstants;
 import org.eclipse.wst.xml.security.core.sign.CreateSignature;
 import org.eclipse.wst.xml.security.core.sign.Signature;
+import org.eclipse.wst.xml.security.core.utils.Keystore;
 import org.eclipse.wst.xml.security.core.utils.PasswordDialog;
 import org.eclipse.wst.xml.security.core.utils.Utils;
 import org.w3c.dom.Document;
@@ -59,7 +60,7 @@ public class SignQuickAction extends XmlSecurityActionAdapter {
     /** Signature type. */
     private String signatureType;
     /** KeyStore. */
-    private String keyStore;
+    private Keystore keystore;
     /** KeyStore password. */
     private char[] keystorePassword;
     /** Key name. */
@@ -156,7 +157,8 @@ public class SignQuickAction extends XmlSecurityActionAdapter {
         }
 
         signatureType = store.getString(PreferenceConstants.SIGN_TYPE);
-        keyStore = store.getString(PreferenceConstants.SIGN_KEYSTORE_FILE);
+        // FIXME
+        keystore = null;//store.getString(PreferenceConstants.SIGN_KEYSTORE_FILE);
         keyName = store.getString(PreferenceConstants.SIGN_KEY_ALIAS);
         canonicalizationAlgorithm = store.getString(PreferenceConstants.SIGN_CANON);
         transformationAlgorithm = store.getString(PreferenceConstants.SIGN_TRANS);
@@ -176,7 +178,7 @@ public class SignQuickAction extends XmlSecurityActionAdapter {
         signatureWizard.setXpath(xpath);
         signatureWizard.setSignatureType(signatureType);
         signatureWizard.setBsp(false);
-        signatureWizard.setKeystore(keyStore);
+        signatureWizard.setKeystore(keystore);
         signatureWizard.setKeyAlias(keyName);
         signatureWizard.setKeystorePassword(keystorePassword);
         signatureWizard.setKeyPassword(keyPassword);
@@ -332,7 +334,7 @@ public class SignQuickAction extends XmlSecurityActionAdapter {
         } else if (signatureType == null || signatureType.equals("")) {
             result = showMissingParameterDialog(title, NLS.bind(Messages.missingParameter,
                     Messages.missingSignatureType), prefId);
-        } else if (keyStore == null || keyStore.equals("")) {
+        } else if (keystore == null || keystore.equals("")) {
             result = showMissingParameterDialog(title, NLS.bind(Messages.missingParameter,
                     Messages.missingKeystoreFile), prefId);
         } else if (keyName == null || keyName.equals("")) {

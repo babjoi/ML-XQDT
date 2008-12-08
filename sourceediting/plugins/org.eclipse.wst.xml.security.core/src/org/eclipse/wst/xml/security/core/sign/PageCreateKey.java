@@ -10,10 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wst.xml.security.core.sign;
 
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.security.KeyStore;
 import java.util.HashMap;
 
 import org.eclipse.jface.wizard.IWizardPage;
@@ -36,10 +32,10 @@ import org.eclipse.swt.widgets.Listener;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.wst.xml.security.core.utils.Algorithms;
-import org.eclipse.wst.xml.security.core.utils.Keystore;
-import org.eclipse.wst.xml.security.core.utils.XmlSecurityCertificate;
 import org.eclipse.wst.xml.security.core.utils.Globals;
 import org.eclipse.wst.xml.security.core.utils.IContextHelpIds;
+import org.eclipse.wst.xml.security.core.utils.Keystore;
+import org.eclipse.wst.xml.security.core.utils.XmlSecurityCertificate;
 import org.eclipse.wst.xml.security.core.utils.XmlSecurityImageRegistry;
 
 /**
@@ -99,7 +95,7 @@ public class PageCreateKey extends WizardPage implements Listener {
     /** Model for the XML Signature Wizard. */
     private Signature signature = null;
     /** The KeyStore containing all required key information. */
-    private Keystore keyStore = null;
+    private Keystore keystore = null;
 
     /**
      * Constructor for PageCreateKey.
@@ -337,9 +333,9 @@ public class PageCreateKey extends WizardPage implements Listener {
         data.left = new FormAttachment(tKeyPassword, Globals.MARGIN);
         bEchoKeyPassword.setLayoutData(data);
 
-        // Elements for group "KeyStore"
+        // Elements for group "Keystore"
         Label lKeyStore = new Label(gKeyStore, SWT.SHADOW_IN);
-        lKeyStore.setText(Messages.keyStore);
+        lKeyStore.setText(Messages.name);
         data = new FormData();
         data.width = LABELWIDTH;
         data.top = new FormAttachment(gKeyStore);
@@ -530,37 +526,25 @@ public class PageCreateKey extends WizardPage implements Listener {
 
         if (tKeystore.getText().length() > 0 && tKeystorePassword.getText().length() > 0
                 && tKeyName.getText().length() > 0) {
-            String keystore = tKeystore.getText();
-            keystoreName = keystore.substring(keystore.lastIndexOf(System.getProperty("file.separator")) + 1);
-            FileInputStream fis = null;
+            String file = tKeystore.getText();
+            keystoreName = file.substring(file.lastIndexOf(System.getProperty("file.separator")) + 1);
 
             try {
-                String keyAlias = tKeyName.getText();
-                KeyStore ks = KeyStore.getInstance("JKS"); //$NON-NLS-1$
-                fis = new FileInputStream(keystore);
-                ks.load(fis, tKeystorePassword.getText().toCharArray());
+                keystore = new Keystore(file, tKeystorePassword.getText(), "JCEKS");
+                boolean loaded = keystore.load();
 
-                if (ks.containsAlias(keyAlias)) {
-                    setErrorMessage(Messages.keyExistsInKeystore);
+                if (loaded) {
+                    if (keystore.containsKey(tKeyName.getText())) {
+                        setErrorMessage(Messages.keyExistsInKeystore);
+                        return;
+                    }
+                } else {
+                    setErrorMessage(Messages.verifyKeystorePassword);
                     return;
                 }
-            } catch (FileNotFoundException fnfe) {
-                setErrorMessage(Messages.verifyKeystore);
-                return;
-            } catch (IOException ioe) {
-                setErrorMessage(Messages.verifyKeystorePassword);
-                return;
             } catch (Exception e) {
                 setErrorMessage(Messages.verifyAll);
                 return;
-            } finally {
-                if (fis != null) {
-                    try {
-                        fis.close();
-                    } catch (IOException e) {
-                        // ignore
-                    }
-                }
             }
         }
 
@@ -662,7 +646,7 @@ public class PageCreateKey extends WizardPage implements Listener {
         certificateData.put("storepass", tKeystorePassword.getText()); //$NON-NLS-1$
 
         XmlSecurityCertificate certificate = new XmlSecurityCertificate();
-        generatedKey = keyStore.generateCertificate(tKeyName.getText(), certificate);
+        generatedKey = keystore.generateCertificate(tKeyName.getText(), certificate);
 
         if (generatedKey) {
             lResult.setText(NLS.bind(Messages.keyGenerated, keystoreName));
@@ -703,7 +687,7 @@ public class PageCreateKey extends WizardPage implements Listener {
      * Saves the selections on this wizard page to the model. Called on exit of the page.
      */
     private void saveDataToModel() {
-        signature.setKeystore(tKeystore.getText());
+        signature.setKeystore(keystore);
         signature.setKeystorePassword(tKeystorePassword.getText().toCharArray());
         signature.setKeyPassword(tKeyPassword.getText().toCharArray());
         signature.setKeyAlias(tKeyName.getText());

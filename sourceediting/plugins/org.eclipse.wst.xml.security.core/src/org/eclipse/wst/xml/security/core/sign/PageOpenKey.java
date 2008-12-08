@@ -10,12 +10,7 @@
  *******************************************************************************/
 package org.eclipse.wst.xml.security.core.sign;
 
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.security.KeyStore;
-import java.security.UnrecoverableKeyException;
-import java.security.cert.X509Certificate;
+import java.io.File;
 
 import org.eclipse.jface.dialogs.IDialogSettings;
 import org.eclipse.jface.wizard.IWizardPage;
@@ -37,6 +32,7 @@ import org.eclipse.swt.widgets.Text;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.wst.xml.security.core.utils.Globals;
 import org.eclipse.wst.xml.security.core.utils.IContextHelpIds;
+import org.eclipse.wst.xml.security.core.utils.Keystore;
 import org.eclipse.wst.xml.security.core.utils.XmlSecurityImageRegistry;
 
 /**
@@ -67,8 +63,6 @@ public class PageOpenKey extends WizardPage implements Listener {
     private Text tKeyName = null;
     /** Key algorithm: EC, DSA, RSA. */
     private String keyAlgorithm = "";
-    /** Create a BSP compliant signature. */
-    private boolean bsp = false;
     /** Default label width. */
     private static final int LABELWIDTH = 120;
     /** Stored setting for the keystore. */
@@ -77,6 +71,8 @@ public class PageOpenKey extends WizardPage implements Listener {
     private static final String SETTING_KEY_ALIAS = "sign_key_alias";
     /** Model for the XML Digital Signature Wizard. */
     private Signature signature = null;
+    /** The keystore containing all required key information. */
+    private Keystore keystore = null;
 
     /**
      * Constructor for PageOpenKey.
@@ -283,51 +279,22 @@ public class PageOpenKey extends WizardPage implements Listener {
             updateStatus(Messages.enterKeyPassword);
             return;
         }
-        if (tKeyStore.getText().length() > 0 && tKeyStorePassword.getText().length() > 0
-            && tKeyName.getText().length() > 0 && tKeyPassword.getText().length() > 0) {
-            FileInputStream fis = null;
 
+        if (new File(tKeyStore.getText()).exists()) {
             try {
-                String keyAlias = tKeyName.getText();
-                KeyStore ks = KeyStore.getInstance("JKS"); //$NON-NLS-1$
-                fis = new FileInputStream(tKeyStore.getText());
-                ks.load(fis, tKeyStorePassword.getText().toCharArray());
-                ks.getKey(keyAlias, tKeyPassword.getText().toCharArray());
-                X509Certificate cert = (X509Certificate) ks.getCertificate(keyAlias);
-
-                if (cert == null) {
+                keystore = new Keystore(tKeyStore.getText(), tKeyStorePassword.getText(), "JCEKS");
+                keystore.load();
+                if (!keystore.containsKey(tKeyName.getText())) {
                     setErrorMessage(Messages.verifyKeyAlias);
                     return;
-                } else {
-                    keyAlgorithm = cert.getSigAlgName();
-
-                    if (bsp && !cert.getSigAlgName().equals("SHA1withRSA")) {
-                        updateStatus("");
-                        setErrorMessage(Messages.wrongKeyAlgorithm);
-                        return;
-                    }
                 }
-            } catch (FileNotFoundException fnfe) {
-                setErrorMessage(Messages.verifyKeystore);
-                return;
-            } catch (IOException ioe) {
-                setErrorMessage(Messages.verifyKeystorePassword);
-                return;
-            } catch (UnrecoverableKeyException uke) {
-                setErrorMessage(Messages.verifyKeyPassword);
-                return;
-            } catch (Exception e) {
+            } catch (Exception ex) {
                 setErrorMessage(Messages.verifyAll);
                 return;
-            } finally {
-                if (fis != null) {
-                    try {
-                        fis.close();
-                    } catch (IOException e) {
-                        // ignore
-                    }
-                }
             }
+        } else {
+            updateStatus(Messages.keyStoreNotFound);
+            return;
         }
         setErrorMessage(null);
         updateStatus(null);
@@ -401,15 +368,6 @@ public class PageOpenKey extends WizardPage implements Listener {
     }
 
     /**
-     * Called on enter of the page to fill the key type combo box based on the Basic Security Profile selection on the
-     * first wizard page. Preselects a default value in the combo box.
-     */
-    public void onEnterPage() {
-        bsp = signature.getBsp();
-        dialogChanged();
-    }
-
-    /**
      * Returns the next wizard page after all the necessary data is entered correctly.
      *
      * @return IWizardPage The next wizard page
@@ -425,7 +383,7 @@ public class PageOpenKey extends WizardPage implements Listener {
      * Saves the selections on this wizard page to the model. Called on exit of the page.
      */
     private void saveDataToModel() {
-        signature.setKeystore(tKeyStore.getText());
+        signature.setKeystore(keystore);
         signature.setKeyAlgorithm(keyAlgorithm);
         signature.setKeystorePassword(tKeyStorePassword.getText().toCharArray());
         signature.setKeyPassword(tKeyPassword.getText().toCharArray());

@@ -188,6 +188,7 @@ public class SignNewAction extends XmlSecurityActionAdapter {
                             }
                         }
                     } catch (Exception ex) {
+                        ex.printStackTrace();
                         showErrorDialog(Messages.error, Messages.signingError, ex);
                         log(ERROR_TEXT, ex);
                     } finally {

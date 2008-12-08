@@ -13,6 +13,8 @@ package org.eclipse.wst.xml.security.core.sign;
 import java.io.File;
 import java.util.ArrayList;
 
+import org.eclipse.wst.xml.security.core.utils.Keystore;
+
 /**
  * <p>Model for the <i>XML Digital Signature Wizard</i>.</p>
  *
@@ -33,7 +35,7 @@ public class Signature {
     /** Basic Security Profile. */
     private boolean bsp;
     /** Keystore. */
-    private String keystore;
+    private Keystore keystore;
     /** Keystore Password. */
     private char[] keystorePassword;
     /** Key algorithm. */
@@ -116,7 +118,7 @@ public class Signature {
      *
      * @param keystore The Keystore file.
      */
-    public void setKeystore(final String keystore) {
+    public void setKeystore(final Keystore keystore) {
         this.keystore = keystore;
     }
 
@@ -278,7 +280,7 @@ public class Signature {
      *
      * @return The selected Java Keyytore
      */
-    public String getKeystore() {
+    public Keystore getKeystore() {
         return keystore;
     }
 

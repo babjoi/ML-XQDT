@@ -43,7 +43,7 @@ public final class Messages extends NLS {
     /** PageOpenCertificate externalized strings. */
     public static String enterKeyAlias, enterKeyPassword, enterKeystorePassword, open, password, selectKeyFile,
             useKeyDescription, verifyAll, verifyKeyAlias, verifyKeyPassword, verifyKeystore,
-            verifyKeystorePassword, wrongKeyAlgorithm;
+            verifyKeystorePassword, wrongKeyAlgorithm, keyStoreNotFound;
     /** PageCreateCertificate externalized strings. */
     public static String commonName, country, createKeyButton, createKeyDescription, certificate,
             enterCommonName, enterNewKeyAlias, enterNewKeyPassword, enterNewKeystoreName, enterNewKeystorePassword,

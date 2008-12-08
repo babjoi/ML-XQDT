@@ -475,7 +475,7 @@ public class PageResource extends WizardPage implements Listener {
      * Saves the data to the model first. Then returns the next wizard page after all the necessary
      * data is entered correctly. The next page is by default <i>PageOpenCertificate</i>. If the
      * user chooses to create a new certificate and a new keystore the next wizard page is
-     * <i>PageCreateKeystore</i>. If the user chosses to create a new certificate in an existing
+     * <i>PageCreateKeystore</i>. If the user chooses to create a new certificate in an existing
      * keystore the next wizard page is <i>PageCreateCertificate</i>.
      *
      * @return IWizardPage The next wizard page
@@ -493,7 +493,6 @@ public class PageResource extends WizardPage implements Listener {
             return page;
         } else {
             PageOpenKey page = ((NewSignatureWizard) getWizard()).getPageOpenKey();
-            page.onEnterPage();
             return page;
         }
     }

@@ -1,0 +1,1 @@
+The org.eclipse.wst.xml.security.core.feature has been moved to org.eclipse.wst.xml.security.feature

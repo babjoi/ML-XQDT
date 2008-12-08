@@ -1,0 +1,1 @@
+The org.eclipse.wst.xml.security.test plug-in has been moved to org.eclipse.wst.xml.security.core.tests

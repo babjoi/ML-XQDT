@@ -148,7 +148,7 @@ public class KeystoreTest {
     public void testGenerateCertificate() {
         try {
             assertNotNull(tempKeystore);
-            tempKeystore.load();
+            tempKeystore.store();
 
             assertTrue(tempKeystore.generateCertificate(KEY_ALIAS, certificate));
 
@@ -169,7 +169,7 @@ public class KeystoreTest {
     public void testGenerateSecretKey() {
         try {
             assertNotNull(tempKeystore);
-            tempKeystore.load();
+            tempKeystore.store();
 
             KeyGenerator kg = KeyGenerator.getInstance("DES");
             kg.init(56);
@@ -221,7 +221,7 @@ public class KeystoreTest {
             assertEquals("PKCS#8", key.getFormat());
 
             assertNotNull(tempKeystore);
-            tempKeystore.load();
+            tempKeystore.store();
 
             key = tempKeystore.getPrivateKey(KEY_ALIAS, KEY_PASSWORD.toCharArray());
             assertNull(key);
@@ -243,7 +243,7 @@ public class KeystoreTest {
             assertFalse(keystore.containsKey("wrong"));
 
             assertNotNull(tempKeystore);
-            tempKeystore.load();
+            tempKeystore.store();
 
             assertFalse(tempKeystore.containsKey(KEY_ALIAS));
             assertFalse(tempKeystore.containsKey("wrong"));
@@ -265,7 +265,7 @@ public class KeystoreTest {
             assertNull(keystore.getCertificate("wrong"));
 
             assertNotNull(tempKeystore);
-            tempKeystore.load();
+            tempKeystore.store();
 
             assertNull(tempKeystore.getCertificate(KEY_ALIAS));
             assertNull(tempKeystore.getCertificate("wrong"));

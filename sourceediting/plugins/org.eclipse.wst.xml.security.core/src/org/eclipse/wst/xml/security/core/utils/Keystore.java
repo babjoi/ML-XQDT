@@ -51,11 +51,7 @@ public class Keystore {
         this.file = file;
         this.password = password.toCharArray();
 
-        if (Globals.KEYSTORE_TYPE.equals(type)) {
-            keyStore = KeyStore.getInstance(Globals.KEYSTORE_TYPE, "SunJCE");
-        } else {
-            keyStore = KeyStore.getInstance(type);
-        }
+        keyStore = KeyStore.getInstance(type);
 
         keyStore.load(null, this.password);
     }

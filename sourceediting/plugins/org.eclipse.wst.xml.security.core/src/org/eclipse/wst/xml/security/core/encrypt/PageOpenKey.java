@@ -121,23 +121,23 @@ public class PageOpenKey extends WizardPage implements Listener {
         parent.setLayout(layout);
 
         // Two groups
-        Group gKey = new Group(parent, SWT.SHADOW_ETCHED_IN);
-        gKey.setLayout(layout);
-        gKey.setText(Messages.key);
+        Group gKeyStore = new Group(parent, SWT.SHADOW_ETCHED_IN);
+        gKeyStore.setLayout(layout);
+        gKeyStore.setText(Messages.keyStore);
         FormData data = new FormData();
         data.top = new FormAttachment(0, 0);
         data.left = new FormAttachment(0, 0);
         data.right = new FormAttachment(Globals.GROUP_NUMERATOR);
-        gKey.setLayoutData(data);
+        gKeyStore.setLayoutData(data);
 
-        Group gKeyStore = new Group(parent, SWT.SHADOW_ETCHED_IN);
-        gKeyStore.setLayout(layout);
-        gKeyStore.setText(Messages.keyStore);
+        Group gKey = new Group(parent, SWT.SHADOW_ETCHED_IN);
+        gKey.setLayout(layout);
+        gKey.setText(Messages.key);
         data = new FormData();
-        data.top = new FormAttachment(gKey, Globals.MARGIN, SWT.DEFAULT);
+        data.top = new FormAttachment(gKeyStore, Globals.MARGIN, SWT.DEFAULT);
         data.left = new FormAttachment(0, 0);
         data.right = new FormAttachment(Globals.GROUP_NUMERATOR);
-        gKeyStore.setLayoutData(data);
+        gKey.setLayoutData(data);
 
         // Elements for group "Key"
         Label lKeyName = new Label(gKey, SWT.SHADOW_IN);
@@ -263,20 +263,20 @@ public class PageOpenKey extends WizardPage implements Listener {
      * Determines the (error) message for the missing field.
      */
     private void dialogChanged() {
-        if (tKeyName.getText().length() == 0) {
-            updateStatus(Messages.enterKeyName);
-            return;
-        }
-        if (tKeyPassword.getText().length() == 0) {
-            updateStatus(Messages.enterKeyPassword);
-            return;
-        }
         if (tKeyStore.getText().length() == 0) {
             updateStatus(Messages.selectKeystoreFile);
             return;
         }
         if (tKeyStorePassword.getText().length() == 0) {
             updateStatus(Messages.enterKeystorePassword);
+            return;
+        }
+        if (tKeyName.getText().length() == 0) {
+            updateStatus(Messages.enterKeyName);
+            return;
+        }
+        if (tKeyPassword.getText().length() == 0) {
+            updateStatus(Messages.enterKeyPassword);
             return;
         }
         if (new File(tKeyStore.getText()).exists()) {

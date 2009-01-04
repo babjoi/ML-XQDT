@@ -72,7 +72,7 @@ public final class Globals {
     public static final String[] DETACHED_FILE_EXTENSION = {"*.xml"};
     /** Default extension names for detached file dialog. */
     public static final String[] DETACHED_FILE_EXTENSION_NAME = {"XML document (*.xml)"};
-    /** The Java Keystore type. */
+    /** The Java Keystore type, JCEKS is required, since JKS (the Java default) does not support secret keys without a certificate. */
     public static final String KEYSTORE_TYPE = "JCEKS";
     /** Schema URI. */
     public static final String SCHEMA = "http://apache.org/xml/features/validation/schema";

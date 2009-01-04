@@ -155,14 +155,23 @@ public class Keystore {
     public boolean generateSecretKey(String alias, char[] password, SecretKey key) {
         try {
             if (!keyStore.containsAlias(alias)) {
+                int sizeBefore = keyStore.size();
+
                 KeyStore.SecretKeyEntry skEntry = new KeyStore.SecretKeyEntry(key);
                 keyStore.setEntry(alias, skEntry, new PasswordProtection(password));
 
-                return true;
+                int sizeAfter = keyStore.size();
+
+                if (sizeAfter > sizeBefore) {
+                    return true;
+                } else {
+                    return false;
+                }
             } else {
                 return false;
             }
-        } catch (KeyStoreException e) {
+        } catch (KeyStoreException ex) {
+            ex.printStackTrace();
             return false;
         }
     }

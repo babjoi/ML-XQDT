@@ -173,9 +173,10 @@ public class KeystoreTest {
 
             KeyGenerator kg = KeyGenerator.getInstance("DES");
             kg.init(56);
-            SecretKey sk = kg.generateKey();
 
-            tempKeystore.generateSecretKey(KEY_ALIAS, KEY_PASSWORD.toCharArray(), sk);
+            assertTrue(tempKeystore.generateSecretKey(KEY_ALIAS, KEY_PASSWORD.toCharArray(), kg.generateKey()));
+
+            tempKeystore.store();
 
             SecretKey key = tempKeystore.getSecretKey(KEY_ALIAS, KEY_PASSWORD.toCharArray());
             assertNotNull(key);
@@ -188,9 +189,10 @@ public class KeystoreTest {
 
             kg = KeyGenerator.getInstance("AES");
             kg.init(256);
-            sk = kg.generateKey();
 
-            tempKeystore.generateSecretKey(KEY_ALIAS + "2", KEY_PASSWORD.toCharArray(), sk);
+            assertTrue(tempKeystore.generateSecretKey(KEY_ALIAS + "2", KEY_PASSWORD.toCharArray(), kg.generateKey()));
+
+            tempKeystore.store();
 
             key = tempKeystore.getSecretKey(KEY_ALIAS + "2", KEY_PASSWORD.toCharArray());
             assertNotNull(key);

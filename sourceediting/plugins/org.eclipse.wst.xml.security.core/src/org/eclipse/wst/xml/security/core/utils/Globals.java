@@ -10,7 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wst.xml.security.core.utils;
 
-import java.security.KeyStore;
 
 /**
  * <p>This utility class defines global variables and their values for the XML Security Tools.</p>
@@ -74,7 +73,7 @@ public final class Globals {
     /** Default extension names for detached file dialog. */
     public static final String[] DETACHED_FILE_EXTENSION_NAME = {"XML document (*.xml)"};
     /** The Java Keystore type. */
-    public static final String KEYSTORE_TYPE = KeyStore.getDefaultType();
+    public static final String KEYSTORE_TYPE = "JCEKS";
     /** Schema URI. */
     public static final String SCHEMA = "http://apache.org/xml/features/validation/schema";
     /** Defer node expansion URI. */

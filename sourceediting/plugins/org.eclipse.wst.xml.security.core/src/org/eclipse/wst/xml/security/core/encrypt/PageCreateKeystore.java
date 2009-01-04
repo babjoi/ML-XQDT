@@ -12,6 +12,8 @@ package org.eclipse.wst.xml.security.core.encrypt;
 
 import java.io.File;
 
+import javax.crypto.KeyGenerator;
+
 import org.eclipse.jface.wizard.IWizardPage;
 import org.eclipse.jface.wizard.WizardPage;
 import org.eclipse.osgi.util.NLS;
@@ -434,8 +436,13 @@ public class PageCreateKeystore extends WizardPage implements Listener {
             keyStore = new Keystore(keystore, tKeystorePassword.getText(), Globals.KEYSTORE_TYPE);
             keyStore.store();
             keyStore.load();
-            // TODO key preparation
-            generatedKeystore = keyStore.generateSecretKey(tKeyName.getText(), tKeyPassword.getText().toCharArray(), null);
+
+            KeyGenerator kg = KeyGenerator.getInstance(cKeyAlgorithm.getText());
+            kg.init(Integer.parseInt(cKeyAlgorithmSize.getText()));
+
+            generatedKeystore = keyStore.generateSecretKey(tKeyName.getText(), tKeyPassword.getText().toCharArray(), kg.generateKey());
+
+            keyStore.store();
         } catch (Exception ex) {
             generatedKeystore = false;
         }

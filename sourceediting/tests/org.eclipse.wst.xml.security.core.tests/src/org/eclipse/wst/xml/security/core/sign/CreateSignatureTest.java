@@ -24,6 +24,7 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 import org.w3c.dom.Document;
 
+import org.eclipse.wst.xml.security.core.utils.Globals;
 import org.eclipse.wst.xml.security.core.utils.Keystore;
 import org.eclipse.wst.xml.security.core.verify.VerificationResult;
 import org.eclipse.wst.xml.security.core.verify.VerifySignature;
@@ -59,7 +60,7 @@ public class CreateSignatureTest {
      */
     @Before
     public void setUp() throws Exception {
-        Keystore sampleKeyStore = new Keystore("resources/sample_keystore.jks", "correct", "JCEKS");
+        Keystore sampleKeyStore = new Keystore("resources/sample_keystore.jks", "correct", Globals.KEYSTORE_TYPE);
         sampleKeyStore.load();
 
         signature = new Signature();

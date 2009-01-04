@@ -13,18 +13,18 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.security.KeyStore;
 import java.security.KeyStoreException;
+import java.security.PrivateKey;
 import java.security.KeyStore.PasswordProtection;
+import java.security.KeyStore.PrivateKeyEntry;
 import java.security.KeyStore.SecretKeyEntry;
 import java.security.cert.Certificate;
 
-import javax.crypto.KeyGenerator;
 import javax.crypto.SecretKey;
 
 /**
- * <p>
- * Manages the Java KeyStores (jks files). The generated Java KeyStores as well as the public and
- * private keys are standard compliant and can be used with other tools too.
- * </p>
+ * <p>Manages the Java KeyStores (jks files). The generated Java KeyStores as well as the public and
+ * private keys are standard compliant and can be used with other tools too. Newly generated
+ * public keys are stored in their certificate.</p>
  *
  * @author Dominik Schadow
  * @version 0.5.0
@@ -34,6 +34,7 @@ public class Keystore {
     private String file = "";
     /** KeyStore password. */
     private char[] password = null;
+    /** The Java KeyStore. */
     private KeyStore keyStore = null;
 
     /**
@@ -50,8 +51,8 @@ public class Keystore {
         this.file = file;
         this.password = password.toCharArray();
 
-        if ("JCEKS".equals(type)) {
-            keyStore = KeyStore.getInstance("JCEKS", "SunJCE");
+        if (Globals.KEYSTORE_TYPE.equals(type)) {
+            keyStore = KeyStore.getInstance(Globals.KEYSTORE_TYPE, "SunJCE");
         } else {
             keyStore = KeyStore.getInstance(type);
         }
@@ -103,56 +104,69 @@ public class Keystore {
     }
 
     /**
-     * Generates a new secret key with the given parameters and stores it in the selected Java
+     * Generates a new certificate with the given parameters and stores it in the selected Java
      * KeyStore.
      *
-     * @param algorithm The secret key algorithm
-     * @param algorithmSize The secret key algorithm size
-     * @param alias The private key alias (must be unique in the KeyStore)
-     * @param password The secret key password
-     * @return Secret key generation result
-     * @throws Exception General exception during key generation
+     * @param alias The certificate key alias (must be unique in the KeyStore)
+     * @param cert The certificate
+     * @return Certificate generation result
+     * @throws Exception General exception during certificate generation
      */
-    public boolean generateSecretKey(String algorithm, int algorithmSize, String alias, String password) throws Exception {
+    public boolean generateCertificate(String alias, Certificate cert) throws Exception {
         int sizeBefore = keyStore.size();
 
-        KeyGenerator keyGenerator = KeyGenerator.getInstance(algorithm);
-        keyGenerator.init(algorithmSize);
-        SecretKeyEntry secretKeyEntry = new SecretKeyEntry(keyGenerator.generateKey());
-        keyStore.setEntry(alias, secretKeyEntry, new PasswordProtection(password.toCharArray()));
+        if (!keyStore.containsAlias(alias)) {
+            keyStore.setCertificateEntry(alias, cert);
 
-        int sizeAfter = keyStore.size();
+            int sizeAfter = keyStore.size();
 
-        if (sizeAfter > sizeBefore) {
-            //store();
-
-            return true;
+            if (sizeAfter > sizeBefore) {
+                return true;
+            } else {
+                return false;
+            }
         } else {
             return false;
         }
     }
 
     /**
-     * Generates a new certificate with the given parameters and stores it in the selected Java
-     * KeyStore.
+     * Returns the private key identified by the key alias and the key password.
      *
-     * @param alias The certificate key alias (must be unique in the KeyStore)
-     * @param cert The certificate
-     * @return Certificate key generation result
-     * @throws Exception General exception during certificate generation
+     * @param alias The key alias
+     * @param password The key password
+     * @return The private key, null if it does not exist in the KeyStore
+     * @throws Exception Any exception during loading the private key
      */
-    public boolean generateCertificate(String alias, Certificate cert) throws Exception {
-        int sizeBefore = keyStore.size();
+    public PrivateKey getPrivateKey(String alias, char[] password) throws Exception {
+        if (keyStore.containsAlias(alias)) {
+            PrivateKeyEntry ske = (PrivateKeyEntry) keyStore.getEntry(alias, new PasswordProtection(password));
 
-        keyStore.setCertificateEntry(alias, cert);
-
-        int sizeAfter = keyStore.size();
-
-        if (sizeAfter > sizeBefore) {
-            //store();
-
-            return true;
+            return ske.getPrivateKey();
         } else {
+            return null;
+        }
+    }
+
+    /**
+     * Generates a new secret key.
+     *
+     * @param alias The alias name of the secret key
+     * @param password The password to protect the secret key
+     * @param key The secret key to insert
+     * @return Secret key generation result
+     */
+    public boolean generateSecretKey(String alias, char[] password, SecretKey key) {
+        try {
+            if (!keyStore.containsAlias(alias)) {
+                KeyStore.SecretKeyEntry skEntry = new KeyStore.SecretKeyEntry(key);
+                keyStore.setEntry(alias, skEntry, new PasswordProtection(password));
+
+                return true;
+            } else {
+                return false;
+            }
+        } catch (KeyStoreException e) {
             return false;
         }
     }
@@ -160,17 +174,20 @@ public class Keystore {
     /**
      * Returns the secret key identified by the key alias and the key password.
      *
-     * @param alias The secret key alias
-     * @param password The secret key password
+     * @param alias The key alias
+     * @param password The key password
      * @return The secret key, null if it does not exist in the KeyStore
-     * @throws Exception Any exception during loading the secret key
      */
-    public SecretKey getSecretKey(String alias, char[] password) throws Exception {
-        if (keyStore.containsAlias(alias)) {
-            SecretKeyEntry ske = (SecretKeyEntry) keyStore.getEntry(alias, new PasswordProtection(password));
+    public SecretKey getSecretKey(String alias, char[] password) {
+        try {
+            if (keyStore.containsAlias(alias)) {
+                SecretKeyEntry ske = (SecretKeyEntry) keyStore.getEntry(alias, new PasswordProtection(password));
 
-            return ske.getSecretKey();
-        } else {
+                return ske.getSecretKey();
+            } else {
+                return null;
+            }
+        } catch (Exception ex) {
             return null;
         }
     }
@@ -184,11 +201,17 @@ public class Keystore {
     public boolean containsKey(String alias) {
         try {
             return keyStore.containsAlias(alias);
-        } catch (KeyStoreException e) {
+        } catch (KeyStoreException ex) {
             return false;
         }
     }
 
+    /**
+     * Returns the certificate identified by the given alias name.
+     *
+     * @param alias The certificate alias
+     * @return The certificate, null if it does not exist in the KeyStore
+     */
     public Certificate getCertificate(String alias) {
         try {
             if (keyStore.containsAlias(alias)) {
@@ -196,7 +219,7 @@ public class Keystore {
             } else {
                 return null;
             }
-        } catch (KeyStoreException e) {
+        } catch (KeyStoreException ex) {
             return null;
         }
     }

@@ -72,7 +72,7 @@ public final class Globals {
     /** Default extension names for detached file dialog. */
     public static final String[] DETACHED_FILE_EXTENSION_NAME = {"XML document (*.xml)"};
     /** The Java Keystore type. */
-    public static final String KEYSTORETYPE = "JKS";
+    public static final String KEYSTORE_TYPE = "JCEKS";
     /** Schema URI. */
     public static final String SCHEMA = "http://apache.org/xml/features/validation/schema";
     /** Defer node expansion URI. */

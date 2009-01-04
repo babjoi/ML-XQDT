@@ -618,7 +618,7 @@ public class PageCreateKeystore extends WizardPage implements Listener {
         try {
             XmlSecurityCertificate certificate = new XmlSecurityCertificate();
 
-            keyStore = new Keystore(keystore, tKeystorePassword.getText(), "JCEKS");
+            keyStore = new Keystore(keystore, tKeystorePassword.getText(), Globals.KEYSTORE_TYPE);
             keyStore.store();
             generatedKeystore = keyStore.generateCertificate(tKeyName.getText(), certificate);
         } catch (Exception ex) {

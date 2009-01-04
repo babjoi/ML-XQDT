@@ -281,7 +281,7 @@ public class PageOpenKey extends WizardPage implements Listener {
         }
         if (new File(tKeyStore.getText()).exists()) {
             try {
-	        	keystore = new Keystore(tKeyStore.getText(), tKeyStorePassword.getText(), "JCEKS");
+	        	keystore = new Keystore(tKeyStore.getText(), tKeyStorePassword.getText(), Globals.KEYSTORE_TYPE);
 	        	keystore.load();
 	        	if (!keystore.containsKey(tKeyName.getText())) {
 	        		setErrorMessage(Messages.verifyKeyAlias);

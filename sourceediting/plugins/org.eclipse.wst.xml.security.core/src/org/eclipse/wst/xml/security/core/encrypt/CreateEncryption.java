@@ -93,7 +93,7 @@ public class CreateEncryption {
         loadSettings(encryption, selection);
         keyStore.load();
 
-        Key secretKey = keyStore.getSecretKey(encryption.getKeyName(), encryption.getKeyPassword());
+        Key secretKey = keyStore.getPrivateKey(encryption.getKeyName(), encryption.getKeyPassword());
 
         monitor.worked(1);
 

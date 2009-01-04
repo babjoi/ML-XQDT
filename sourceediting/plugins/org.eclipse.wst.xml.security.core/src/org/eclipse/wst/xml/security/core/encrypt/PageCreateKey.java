@@ -358,7 +358,7 @@ public class PageCreateKey extends WizardPage implements Listener {
         }
         if (tKeyStore.getText().length() > 0 && tKeyStorePassword.getText().length() > 0 && tKeyName.getText().length() > 0) {
             try {
-                keyStore = new Keystore(tKeyStore.getText(), tKeyStorePassword.getText(), "JCEKS");
+                keyStore = new Keystore(tKeyStore.getText(), tKeyStorePassword.getText(), Globals.KEYSTORE_TYPE);
 
                 if (keyStore.containsKey(tKeyName.getText())) {
                 	setErrorMessage(Messages.verifyKeyAlias);
@@ -476,16 +476,16 @@ public class PageCreateKey extends WizardPage implements Listener {
     }
 
     /**
-     * Generates the secret key based on the entered data and shows the user an information text about the result.
+     * Generates the key based on the entered data and shows the user an information notice about the result.
      *
      * @throws Exception to indicate any exceptional condition
      */
     private void createSecretKey() throws Exception {
         try {
-            keyStore = new Keystore(tKeyStore.getText(), tKeyStorePassword.getText(), "JCEKS");
-            generatedKey = keyStore.generateSecretKey(cKeyAlgorithm.getText(),
-            		Integer.parseInt(cKeyAlgorithmSize.getText()), tKeyName.getText(),
-            		tKeyPassword.getText());
+            keyStore = new Keystore(tKeyStore.getText(), tKeyStorePassword.getText(), Globals.KEYSTORE_TYPE);
+            keyStore.load();
+            // TODO key preparation
+            generatedKey = keyStore.generateSecretKey(tKeyName.getText(), tKeyPassword.getText().toCharArray(), null);
         } catch (Exception ex) {
         	generatedKey = false;
         }

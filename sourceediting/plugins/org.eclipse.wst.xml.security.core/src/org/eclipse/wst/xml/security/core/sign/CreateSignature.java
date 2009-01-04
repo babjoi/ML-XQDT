@@ -130,7 +130,7 @@ public class CreateSignature {
             monitor.worked(1);
 
             // Get the private key for signing
-            PrivateKey privateKey = (PrivateKey) keystore.getSecretKey(certificateAlias, privateKeyPassword);
+            PrivateKey privateKey = (PrivateKey) keystore.getPrivateKey(certificateAlias, privateKeyPassword);
 
             monitor.worked(1);
 

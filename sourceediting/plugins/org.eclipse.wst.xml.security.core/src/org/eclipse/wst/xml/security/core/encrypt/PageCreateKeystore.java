@@ -427,15 +427,15 @@ public class PageCreateKeystore extends WizardPage implements Listener {
 
     /**
      * Generates the KeyStore and the key based on the entered data and shows the user an
-     * information text about the result.
+     * information notice about the result.
      */
     private void createKeystore() {
         try {
-            keyStore = new Keystore(keystore, tKeystorePassword.getText(), "JCEKS");
+            keyStore = new Keystore(keystore, tKeystorePassword.getText(), Globals.KEYSTORE_TYPE);
             keyStore.store();
-            generatedKeystore = keyStore.generateSecretKey(cKeyAlgorithm.getText(),
-            		Integer.parseInt(cKeyAlgorithmSize.getText()), tKeyName.getText(),
-            		tKeyPassword.getText());
+            keyStore.load();
+            // TODO key preparation
+            generatedKeystore = keyStore.generateSecretKey(tKeyName.getText(), tKeyPassword.getText().toCharArray(), null);
         } catch (Exception ex) {
             generatedKeystore = false;
         }

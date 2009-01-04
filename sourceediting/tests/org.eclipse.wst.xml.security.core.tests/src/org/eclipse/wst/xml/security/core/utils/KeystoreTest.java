@@ -10,36 +10,69 @@
  *******************************************************************************/
 package org.eclipse.wst.xml.security.core.utils;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
 import java.io.File;
+import java.security.PrivateKey;
 
+import javax.crypto.KeyGenerator;
+import javax.crypto.SecretKey;
+
+import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
 /**
- * <p>JUnit tests for {@link org.eclipse.wst.xml.security.core.utils.Keystore}.</p>
+ * <p>JUnit tests for {@link org.eclipse.wst.xml.security.core.utils.Keystore}. Uses the existing
+ * sample keystore (<i>resources/sample_keystore.jks</i>) for loading operations and creates a
+ * temporary keystore (<i>resources/temp_keystore.jks</i>) for creating operations. The sample
+ * keystore is not changed in these tests.</p>
+ *
+ * <p>The sample keystore was generated with the following command (single line):<br/>
+ * <code>keytool -genkey -alias sampleKey -keypass sampleKey -keystore sample_keystore.jks
+ * -storepass sampleKeystore</code></p>
  *
  * @author Dominik Schadow
  * @version 0.5.0
  */
 public class KeystoreTest {
     private XmlSecurityCertificate certificate = new XmlSecurityCertificate();
-    private Keystore keyStore = null;
-    private Keystore sampleKeyStore = null;
-    private static final String KEYSTORE_FILE = "resources/keystore.jks";
-    private static final String SAMPLE_KEYSTORE_FILE = "resources/sample_keystore.jks";
+    private Keystore keystore = null;
+    private Keystore tempKeystore = null;
+    private static final String TEMP_KEYSTORE_PATH = "resources/temp_keystore.jks";
+    private static final String KEYSTORE_PATH = "resources/sample_keystore.jks";
+    private static final String KEYSTORE_PASSWORD = "sampleKeystore";
+    private static final String KEY_ALIAS = "sampleKey";
+    private static final String KEY_PASSWORD = "sampleKey";
 
     /**
-     * @throws java.lang.Exception
+     * Makes sure that the temporary keystore file used in these tests does not exist
+     * any more.
+     *
+     * @throws Exception during deleting temporary keystore file
      */
     @BeforeClass
     public static void setUpBeforeClass() throws Exception {
-        File tempFile = new File(KEYSTORE_FILE);
+        File tempFile = new File(TEMP_KEYSTORE_PATH);
+        if (tempFile.exists()) {
+            assertTrue(tempFile.delete());
+        }
+    }
+
+    /**
+     * Deletes the temporary keystore file created for these tests.
+     *
+     * @throws Exception during deleting temporary keystore file
+     */
+    @AfterClass
+    public static void setUpAfterClass() throws Exception {
+        File tempFile = new File(TEMP_KEYSTORE_PATH);
         if (tempFile.exists()) {
             assertTrue(tempFile.delete());
         }
@@ -48,12 +81,12 @@ public class KeystoreTest {
     /**
      * Set up method. Sets up the sample keystore used in these test cases.
      *
-     * @throws Exception
+     * @throws Exception during loading the sample keystore
      */
     @Before
     public void setUp() throws Exception {
-        keyStore = new Keystore(KEYSTORE_FILE, "storepassword", "JCEKS");
-        sampleKeyStore = new Keystore(SAMPLE_KEYSTORE_FILE, "correct", "JCEKS");
+        keystore = new Keystore(KEYSTORE_PATH, KEYSTORE_PASSWORD, Globals.KEYSTORE_TYPE);
+        tempKeystore = new Keystore(TEMP_KEYSTORE_PATH, KEYSTORE_PASSWORD, Globals.KEYSTORE_TYPE);
     }
 
     /**
@@ -61,7 +94,8 @@ public class KeystoreTest {
      */
     @Test
     public void testKeystore() {
-        assertNotNull(keyStore);
+        assertNotNull(keystore);
+        assertNotNull(tempKeystore);
     }
 
     /**
@@ -70,11 +104,12 @@ public class KeystoreTest {
     @Test
     public void testStore() {
         try {
-            assertNotNull(keyStore);
+            File tempFile = new File(TEMP_KEYSTORE_PATH);
 
-            keyStore.store();
+            assertFalse(tempFile.exists());
 
-            File tempFile = new File(KEYSTORE_FILE);
+            assertNotNull(tempKeystore);
+            tempKeystore.store();
 
             assertTrue(tempFile.exists());
         } catch (Exception ex) {
@@ -88,36 +123,19 @@ public class KeystoreTest {
     @Test
     public void testLoad() {
         try {
-            Keystore temp = new Keystore(SAMPLE_KEYSTORE_FILE, "correct", "JCEKS");
+            assertNotNull(keystore);
+            assertTrue(keystore.load());
+
+            Keystore temp = new Keystore(KEYSTORE_PATH, "wrong", Globals.KEYSTORE_TYPE);
             assertNotNull(temp);
-
-            assertTrue(temp.load());
-
-            temp = new Keystore(SAMPLE_KEYSTORE_FILE, "wrong", "JCEKS");
-            assertNotNull(temp);
-
             assertFalse(temp.load());
-        } catch (Exception ex) {
-            fail(ex.getMessage());
-        }
-    }
 
-    /**
-     * Test method for {@link org.eclipse.wst.xml.security.core.utils.Keystore#generateSecretKey(java.lang.String, int, java.lang.String, java.lang.String)}.
-     */
-    @Test
-    public void testGenerateSecretKey() {
-        try {
-            assertNotNull(keyStore);
+            assertNotNull(tempKeystore);
+            assertTrue(tempKeystore.load());
 
-            keyStore.store();
-
-            File tempFile = new File(KEYSTORE_FILE);
-
-            assertTrue(tempFile.exists());
-
-            assertTrue(keyStore.generateSecretKey(Algorithms.KEY_FILE_ALOGRITHMS[0],
-                    Integer.parseInt(Algorithms.KEY_SIZES_AES[0]), "testkey", "keypassword"));
+            temp = new Keystore(TEMP_KEYSTORE_PATH, "wrong", Globals.KEYSTORE_TYPE);
+            assertNotNull(temp);
+            assertFalse(temp.load());
         } catch (Exception ex) {
             fail(ex.getMessage());
         }
@@ -129,32 +147,85 @@ public class KeystoreTest {
     @Test
     public void testGenerateCertificate() {
         try {
-            assertNotNull(keyStore);
+            assertNotNull(tempKeystore);
+            tempKeystore.load();
 
-            keyStore.store();
+            assertTrue(tempKeystore.generateCertificate(KEY_ALIAS, certificate));
 
-            assertTrue(keyStore.generateCertificate("testcert", certificate));
+            assertTrue(tempKeystore.containsKey(KEY_ALIAS));
+            assertFalse(tempKeystore.containsKey("wrong"));
+
+            assertNotNull(tempKeystore.getCertificate(KEY_ALIAS));
+            assertNull(tempKeystore.getCertificate("wrong"));
         } catch (Exception ex) {
             fail(ex.getMessage());
         }
     }
 
     /**
-     * Test method for {@link org.eclipse.wst.xml.security.core.utils.Keystore#getSecretKey(java.lang.String, char[])}.
+     * Test method for {@link org.eclipse.wst.xml.security.core.utils.Keystore#generateSecretKey(java.lang.String, char, javax.crypto.SecretKey)}.
      */
     @Test
-    public void testGetSecretKey() {
+    public void testGenerateSecretKey() {
         try {
-            assertNotNull(keyStore);
+            assertNotNull(tempKeystore);
+            tempKeystore.load();
 
-            keyStore.store();
+            KeyGenerator kg = KeyGenerator.getInstance("DES");
+            kg.init(56);
+            SecretKey sk = kg.generateKey();
 
-            assertTrue(keyStore.generateSecretKey(Algorithms.KEY_FILE_ALOGRITHMS[0],
-                    Integer.parseInt(Algorithms.KEY_SIZES_AES[0]), "testkey", "keypassword"));
+            tempKeystore.generateSecretKey(KEY_ALIAS, KEY_PASSWORD.toCharArray(), sk);
 
-            assertNotNull(keyStore.getSecretKey("testkey", "keypassword".toCharArray()));
+            SecretKey key = tempKeystore.getSecretKey(KEY_ALIAS, KEY_PASSWORD.toCharArray());
+            assertNotNull(key);
+
+            assertEquals("DES", key.getAlgorithm());
+            assertEquals("RAW", key.getFormat());
+
+            key = tempKeystore.getSecretKey(KEY_ALIAS, "wrong".toCharArray());
+            assertNull(key);
+
+            kg = KeyGenerator.getInstance("AES");
+            kg.init(256);
+            sk = kg.generateKey();
+
+            tempKeystore.generateSecretKey(KEY_ALIAS + "2", KEY_PASSWORD.toCharArray(), sk);
+
+            key = tempKeystore.getSecretKey(KEY_ALIAS + "2", KEY_PASSWORD.toCharArray());
+            assertNotNull(key);
+
+            assertEquals("AES", key.getAlgorithm());
+            assertEquals("RAW", key.getFormat());
+
+            key = tempKeystore.getSecretKey(KEY_ALIAS + "2", "wrong".toCharArray());
+            assertNull(key);
         } catch (Exception ex) {
-            ex.printStackTrace();
+            fail(ex.getMessage());
+        }
+    }
+
+    /**
+     * Test method for {@link org.eclipse.wst.xml.security.core.utils.Keystore#getPrivateKey(java.lang.String, char[])}.
+     */
+    @Test
+    public void testGetPrivateKey() {
+        try {
+            assertNotNull(keystore);
+            keystore.load();
+
+            PrivateKey key = keystore.getPrivateKey(KEY_ALIAS, KEY_PASSWORD.toCharArray());
+            assertNotNull(key);
+
+            assertEquals("DSA", key.getAlgorithm());
+            assertEquals("PKCS#8", key.getFormat());
+
+            assertNotNull(tempKeystore);
+            tempKeystore.load();
+
+            key = tempKeystore.getPrivateKey(KEY_ALIAS, KEY_PASSWORD.toCharArray());
+            assertNull(key);
+        } catch (Exception ex) {
             fail(ex.getMessage());
         }
     }
@@ -165,18 +236,39 @@ public class KeystoreTest {
     @Test
     public void testContainsKey() {
         try {
-            assertNotNull(keyStore);
+            assertNotNull(keystore);
+            keystore.load();
 
-            keyStore.store();
+            assertTrue(keystore.containsKey(KEY_ALIAS));
+            assertFalse(keystore.containsKey("wrong"));
 
-            File tempFile = new File(KEYSTORE_FILE);
+            assertNotNull(tempKeystore);
+            tempKeystore.load();
 
-            assertTrue(tempFile.exists());
+            assertFalse(tempKeystore.containsKey(KEY_ALIAS));
+            assertFalse(tempKeystore.containsKey("wrong"));
+        } catch (Exception ex) {
+            fail(ex.getMessage());
+        }
+    }
 
-            assertTrue(keyStore.generateSecretKey(Algorithms.KEY_FILE_ALOGRITHMS[0],
-                    Integer.parseInt(Algorithms.KEY_SIZES_AES[0]), "testkey", "keypassword"));
+    /**
+     * Test method for {@link org.eclipse.wst.xml.security.core.utils.Keystore#getCertificate(java.lang.String)}.
+     */
+    @Test
+    public void testGetCertificate() {
+        try {
+            assertNotNull(keystore);
+            keystore.load();
 
-            assertTrue(keyStore.containsKey("testkey"));
+            assertNotNull(keystore.getCertificate(KEY_ALIAS));
+            assertNull(keystore.getCertificate("wrong"));
+
+            assertNotNull(tempKeystore);
+            tempKeystore.load();
+
+            assertNull(tempKeystore.getCertificate(KEY_ALIAS));
+            assertNull(tempKeystore.getCertificate("wrong"));
         } catch (Exception ex) {
             fail(ex.getMessage());
         }

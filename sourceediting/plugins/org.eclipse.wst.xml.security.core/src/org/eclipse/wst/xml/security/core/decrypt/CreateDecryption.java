@@ -20,6 +20,7 @@ import org.apache.xml.security.encryption.EncryptedData;
 import org.apache.xml.security.encryption.XMLCipher;
 import org.apache.xml.security.utils.EncryptionConstants;
 import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.wst.xml.security.core.utils.Globals;
 import org.eclipse.wst.xml.security.core.utils.Keystore;
 import org.eclipse.wst.xml.security.core.utils.Utils;
 import org.w3c.dom.Document;
@@ -96,7 +97,7 @@ public class CreateDecryption {
 
         monitor.worked(1);
 
-        Key secretKey = getSecretKey();
+        Key secretKey = getPrivateKey();
         if (secretKey == null) {
         	throw new Exception("Key " + keyName + " not found in KeyStore " + keyFile);
         }
@@ -161,14 +162,16 @@ public class CreateDecryption {
     }
 
     /**
-     * Loads the secret key used for encrypting in the selected XML document.
+     * Loads the private key which belongs to the public key used for
+     * encrypting in the selected XML document (-fragment).
      *
-     * @return The secret key used to encrypt the selected XML document
+     * @return The private key
      * @throws Exception to indicate any exceptional condition
      */
-    private SecretKey getSecretKey() throws Exception {
-    	Keystore keyStore = new Keystore(keyFile, keyStorePassword, "JCEKS");
+    private SecretKey getPrivateKey() throws Exception {
+    	Keystore keyStore = new Keystore(keyFile, keyStorePassword, Globals.KEYSTORE_TYPE);
     	keyStore.load();
+
     	return keyStore.getSecretKey(keyName, keyPassword);
     }
 }

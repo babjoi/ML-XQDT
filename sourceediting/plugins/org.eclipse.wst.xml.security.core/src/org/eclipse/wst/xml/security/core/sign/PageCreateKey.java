@@ -530,7 +530,7 @@ public class PageCreateKey extends WizardPage implements Listener {
             keystoreName = file.substring(file.lastIndexOf(System.getProperty("file.separator")) + 1);
 
             try {
-                keystore = new Keystore(file, tKeystorePassword.getText(), "JCEKS");
+                keystore = new Keystore(file, tKeystorePassword.getText(), Globals.KEYSTORE_TYPE);
                 boolean loaded = keystore.load();
 
                 if (loaded) {

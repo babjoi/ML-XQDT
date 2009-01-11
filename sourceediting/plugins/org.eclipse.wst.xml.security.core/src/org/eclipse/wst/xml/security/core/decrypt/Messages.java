@@ -36,6 +36,7 @@ public final class Messages extends NLS {
     /** Wizard launcher externalized strings. */
     public static String decryptionWizard;
     /** Decrypt page externalized strings. */
-    public static String decryptionTitle, decryptionDescription, keyStore, selectButton, keyStoreText,
-            encryptionId, encryptionIdText, keyStoreNotFound, password, echoPassword, name, key, keyNameText;
+    public static String decryptionTitle, decryptionDescription, keyStore, selectButton, missingKeystore,
+            encryptionId, missingEncryptionId, keyStoreNotFound, password, echoPassword, name, key, missingKeyName,
+            missingKeystorePassword, missingKeyPassword, verifyKeyName, verifyKeyPassword, verifyAll;
 }

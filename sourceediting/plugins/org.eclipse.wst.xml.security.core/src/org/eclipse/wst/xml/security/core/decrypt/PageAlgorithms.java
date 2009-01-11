@@ -13,6 +13,7 @@ package org.eclipse.wst.xml.security.core.decrypt;
 import java.io.File;
 
 import org.eclipse.core.resources.IFile;
+import org.eclipse.jface.dialogs.IDialogSettings;
 import org.eclipse.jface.wizard.WizardPage;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.ModifyEvent;
@@ -32,6 +33,7 @@ import org.eclipse.swt.widgets.Text;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.wst.xml.security.core.utils.Globals;
 import org.eclipse.wst.xml.security.core.utils.IContextHelpIds;
+import org.eclipse.wst.xml.security.core.utils.Keystore;
 import org.eclipse.wst.xml.security.core.utils.Utils;
 import org.eclipse.wst.xml.security.core.utils.XmlSecurityImageRegistry;
 
@@ -53,8 +55,8 @@ public class PageAlgorithms extends WizardPage implements Listener {
     public static final String PAGE_NAME = "DecryptPageAlgorithms"; //$NON-NLS-1$
     /** Path of the opened project. */
     private String project;
-    /** Button <i>Select...</i> for the KeyStore. */
-    private Button bSelectKeyStore = null;
+    /** Open KeyStore button. */
+    private Button bOpen = null;
     /** Button <i>Echo Key Password</i>. */
      private Button bEchoKeyPassword = null;
      /** Button <i>Echo KeyStore Password</i>. */
@@ -109,6 +111,7 @@ public class PageAlgorithms extends WizardPage implements Listener {
         determineIds();
         addListeners();
         setControl(container);
+        loadSettings();
 
         PlatformUI.getWorkbench().getHelpSystem().setHelp(getControl(), IContextHelpIds.WIZARD_DECRYPTION_RESOURCE);
     }
@@ -172,12 +175,12 @@ public class PageAlgorithms extends WizardPage implements Listener {
         data.left = new FormAttachment(lKeyStoreName);
         tKeyStore.setLayoutData(data);
 
-        bSelectKeyStore = new Button(gKeyStore, SWT.PUSH);
-        bSelectKeyStore.setText(Messages.selectButton);
+        bOpen = new Button(gKeyStore, SWT.PUSH);
+        bOpen.setText(Messages.selectButton);
         data = new FormData();
         data.top = new FormAttachment(tKeyStore, 0, SWT.CENTER);
         data.left = new FormAttachment(tKeyStore, Globals.MARGIN);
-        bSelectKeyStore.setLayoutData(data);
+        bOpen.setLayoutData(data);
 
         Label lKeyStorePassword = new Label(gKeyStore, SWT.SHADOW_IN);
         lKeyStorePassword.setText(Messages.password);
@@ -277,7 +280,7 @@ public class PageAlgorithms extends WizardPage implements Listener {
      * Adds all listeners for the current wizard page.
      */
     private void addListeners() {
-        bSelectKeyStore.addListener(SWT.Selection, this);
+        bOpen.addListener(SWT.Selection, this);
         bEchoKeyPassword.addListener(SWT.Selection, this);
         bEchoKeyStorePassword.addListener(SWT.Selection, this);
         cEncryptionId.addModifyListener(new ModifyListener() {
@@ -328,20 +331,55 @@ public class PageAlgorithms extends WizardPage implements Listener {
      */
     private void dialogChanged() {
     	if (tKeyStore.getText().length() == 0) {
-        	updateStatus(Messages.keyStoreText);
+        	updateStatus(Messages.missingKeystore);
             return;
         } else if (!(new File(tKeyStore.getText()).exists())) {
             updateStatus(Messages.keyStoreNotFound);
             return;
         }
 
+        if (tKeyStorePassword.getText().length() == 0) {
+            updateStatus(Messages.missingKeystorePassword);
+            return;
+        }
+
     	if (tKeyName.getText().length() == 0) {
-            updateStatus(Messages.keyNameText);
+            updateStatus(Messages.missingKeyName);
+            return;
+        }
+
+        if (tKeyPassword.getText().length() == 0) {
+            updateStatus(Messages.missingKeyPassword);
+            return;
+        }
+
+        if (new File(tKeyStore.getText()).exists()) {
+            try {
+                Keystore keyStore = new Keystore(tKeyStore.getText(), tKeyStorePassword.getText(), Globals.KEYSTORE_TYPE);
+                keyStore.load();
+                if (!keyStore.containsKey(tKeyName.getText())) {
+                    setErrorMessage(Messages.verifyKeyName);
+                    updateStatus("");
+                    return;
+                }
+
+                if (keyStore.getSecretKey(tKeyName.getText(), tKeyPassword.getText().toCharArray()) == null) {
+                    setErrorMessage(Messages.verifyKeyPassword);
+                    updateStatus("");
+                    return;
+                }
+            } catch (Exception ex) {
+                setErrorMessage(Messages.verifyAll);
+                updateStatus("");
+                return;
+            }
+        } else {
+            updateStatus(Messages.keyStoreNotFound);
             return;
         }
 
     	if (cEncryptionId.getText().equals("")) {
-            updateStatus(Messages.encryptionIdText);
+            updateStatus(Messages.missingEncryptionId);
             return;
         }
 
@@ -355,8 +393,8 @@ public class PageAlgorithms extends WizardPage implements Listener {
      * @param e The triggered event
      */
     public void handleEvent(final Event e) {
-        if (e.widget == bSelectKeyStore) {
-            openKeyStore();
+        if (e.widget == bOpen) {
+            openKeystore();
         } else if (e.widget == bEchoKeyStorePassword) {
             echoPassword(e);
         } else if (e.widget == bEchoKeyPassword) {
@@ -384,9 +422,9 @@ public class PageAlgorithms extends WizardPage implements Listener {
     }
 
     /**
-     * Dialog to select the KeyStore to use for decryption.
+     * Dialog to select the KeyStore to use in this decryption operation.
      */
-    private void openKeyStore() {
+    private void openKeystore() {
         FileDialog dialog = new FileDialog(getShell(), SWT.OPEN);
         dialog.setFilterNames(Globals.KEY_STORE_EXTENSION_NAME);
         dialog.setFilterExtensions(Globals.KEY_STORE_EXTENSION);
@@ -422,5 +460,33 @@ public class PageAlgorithms extends WizardPage implements Listener {
         decryption.setKeyName(tKeyName.getText());
         decryption.setKeyPassword(tKeyPassword.getText().toCharArray());
         decryption.setEncryptionId(cEncryptionId.getText());
+
+        storeSettings();
+    }
+
+    /**
+     * Loads the stored settings for this wizard page.
+     */
+    private void loadSettings() {
+        String previousKeystore = getDialogSettings().get(NewDecryptionWizard.SETTING_KEYSTORE);
+        if (previousKeystore == null) {
+            previousKeystore = "";
+        }
+        tKeyStore.setText(previousKeystore);
+
+        String previousKey = getDialogSettings().get(NewDecryptionWizard.SETTING_KEY_NAME);
+        if (previousKey == null) {
+            previousKey = "";
+        }
+        tKeyName.setText(previousKey);
+    }
+
+    /**
+     * Stores some settings of this wizard page in the current workspace.
+     */
+    private void storeSettings() {
+        IDialogSettings settings = getDialogSettings();
+        settings.put(NewDecryptionWizard.SETTING_KEYSTORE, tKeyStore.getText());
+        settings.put(NewDecryptionWizard.SETTING_KEY_NAME, tKeyName.getText());
     }
 }

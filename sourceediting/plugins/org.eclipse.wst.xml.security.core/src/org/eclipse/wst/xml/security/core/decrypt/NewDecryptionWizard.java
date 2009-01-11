@@ -12,6 +12,7 @@ package org.eclipse.wst.xml.security.core.decrypt;
 
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
+import org.eclipse.jface.dialogs.IDialogSettings;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.wizard.Wizard;
@@ -36,6 +37,10 @@ public class NewDecryptionWizard extends Wizard implements INewWizard {
     private Decryption decryption;
     /** Path of the openend project. */
     private String path;
+    /** Stored setting for the decryption KeyStore. */
+    public static final String SETTING_KEYSTORE = "dec_keystore";
+    /** Stored setting for the secret key name. */
+    public static final String SETTING_KEY_NAME = "dec_key_name";
 
     /**
      * Constructor for the wizard launcher.
@@ -44,10 +49,25 @@ public class NewDecryptionWizard extends Wizard implements INewWizard {
         super();
         decryption = new Decryption();
         setWindowTitle(Messages.decryptionWizard);
+        setDialogSettings(getDecryptionWizardSettings());
         ImageDescriptor image = AbstractUIPlugin.imageDescriptorFromPlugin(XmlSecurityPlugin.getId(),
                 "icons/wiz_dec.gif");
         setDefaultPageImageDescriptor(image);
         setNeedsProgressMonitor(true);
+    }
+
+    /**
+     * Return the settings used for all Decryption Wizard pages.
+     *
+     * @return The IDialogSettings for the Decryption Wizard
+     */
+    private IDialogSettings getDecryptionWizardSettings() {
+        IDialogSettings workbenchSettings = XmlSecurityPlugin.getDefault().getDialogSettings();
+        IDialogSettings section = workbenchSettings.getSection("DecryptionWizard"); // $NON-NLS-1$
+        if (section == null) {
+            section = workbenchSettings.addNewSection("DecryptionWizard"); // $NON-NLS-1$
+        }
+        return section;
     }
 
     /**

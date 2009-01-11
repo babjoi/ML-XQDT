@@ -179,7 +179,7 @@ public final class Utils {
      * @return All IDs in a String array
      */
     public static String[] getIds(final IFile xml, final String type) {
-        String ids = "Use first " + type + " id;";
+        String ids = "Use first " + type + ";";
 
         try {
             Document doc = parse(xml);

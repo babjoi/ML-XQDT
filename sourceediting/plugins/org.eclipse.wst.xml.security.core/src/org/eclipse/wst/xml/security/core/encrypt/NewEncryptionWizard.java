@@ -52,7 +52,7 @@ public class NewEncryptionWizard extends Wizard implements INewWizard {
     private String name;
     /** Stored setting for the encryption KeyStore. */
     public static final String SETTING_KEYSTORE = "enc_keystore";
-    /** Stored setting for the public key name. */
+    /** Stored setting for the secret key name. */
     public static final String SETTING_KEY_NAME = "enc_key_name";
     /** Stored setting for the BSP encryption selection. */
     public static final String SETTING_BSP_COMPLIANT_ENCRYPTION = "enc_bsp_compliant";

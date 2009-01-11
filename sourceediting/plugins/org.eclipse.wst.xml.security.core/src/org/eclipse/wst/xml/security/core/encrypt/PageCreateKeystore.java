@@ -37,6 +37,7 @@ import org.eclipse.wst.xml.security.core.utils.Algorithms;
 import org.eclipse.wst.xml.security.core.utils.Globals;
 import org.eclipse.wst.xml.security.core.utils.IContextHelpIds;
 import org.eclipse.wst.xml.security.core.utils.Keystore;
+import org.eclipse.wst.xml.security.core.utils.Utils;
 import org.eclipse.wst.xml.security.core.utils.XmlSecurityImageRegistry;
 
 /**
@@ -338,9 +339,9 @@ public class PageCreateKeystore extends WizardPage implements Listener {
             keystoreName = tKeyStoreName.getText() + Globals.KEYSTORE_EXTENSION;
             keystore = project + System.getProperty("file.separator") + keystoreName; //$NON-NLS-1$
 
-            File keyFile = new File(keystore);
-            if (keyFile.exists()) {
-                updateStatus(Messages.keyStoreAlreadyExists);
+            File tempFile = new File(keystore);
+            if (tempFile.exists()) {
+                setErrorMessage(Messages.keyStoreAlreadyExists);
                 return;
             }
         } else {
@@ -449,6 +450,8 @@ public class PageCreateKeystore extends WizardPage implements Listener {
 
             lResult.setText(Messages.keyGenerationFailed);
         } catch (Exception ex) {
+            Utils.logError(ex, "Encryption keystore generation failed"); //$NON-NLS-1$
+
             generatedKeystore = false;
 
             lResult.setText(Messages.keystoreGenerationFailed);

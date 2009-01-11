@@ -148,6 +148,7 @@ public class KeystoreTest {
         try {
             assertNotNull(tempKeystore);
             tempKeystore.store();
+            tempKeystore.load();
 
             assertTrue(tempKeystore.generateCertificate(KEY_ALIAS, certificate));
 
@@ -157,6 +158,7 @@ public class KeystoreTest {
             assertNotNull(tempKeystore.getCertificate(KEY_ALIAS));
             assertNull(tempKeystore.getCertificate("wrong"));
         } catch (Exception ex) {
+            ex.printStackTrace();
             fail(ex.getMessage());
         }
     }

@@ -85,7 +85,7 @@ public class PageCreateKeystore extends WizardPage implements Listener {
     /** Country information. */
     private Text tCountry = null;
     /** KeyStore name. */
-    private Text tKeystoreName = null;
+    private Text tKeyStoreName = null;
     /** KeyStore password. */
     private Text tKeystorePassword = null;
     /** Key alias. */
@@ -348,12 +348,12 @@ public class PageCreateKeystore extends WizardPage implements Listener {
         data.left = new FormAttachment(gKeyStore);
         lKeyStoreName.setLayoutData(data);
 
-        tKeystoreName = new Text(gKeyStore, SWT.SINGLE);
+        tKeyStoreName = new Text(gKeyStore, SWT.SINGLE);
         data = new FormData();
         data.width = Globals.SHORT_TEXT_WIDTH;
         data.top = new FormAttachment(lKeyStoreName, 0, SWT.CENTER);
         data.left = new FormAttachment(lKeyStoreName);
-        tKeystoreName.setLayoutData(data);
+        tKeyStoreName.setLayoutData(data);
 
         Label lKeyStorePassword = new Label(gKeyStore, SWT.SHADOW_IN);
         lKeyStorePassword.setText(Messages.password);
@@ -448,7 +448,7 @@ public class PageCreateKeystore extends WizardPage implements Listener {
                 dialogChanged();
             }
         });
-        tKeystoreName.addModifyListener(new ModifyListener() {
+        tKeyStoreName.addModifyListener(new ModifyListener() {
             public void modifyText(final ModifyEvent e) {
                 dialogChanged();
             }
@@ -513,18 +513,15 @@ public class PageCreateKeystore extends WizardPage implements Listener {
             updateStatus(Messages.selectKeyAlgorithm);
             return;
         }
-        if (tKeystoreName.getText().length() > 0) {
-            keystoreName = tKeystoreName.getText() + ".jks"; //$NON-NLS-1$
-            keystore = project + System.getProperty("file.separator") //$NON-NLS-1$
-                + keystoreName;
+        if (tKeyStoreName.getText().length() > 0) {
+            keystoreName = tKeyStoreName.getText() + ".jks"; //$NON-NLS-1$
+            keystore = project + System.getProperty("file.separator") + keystoreName; //$NON-NLS-1$
+
             File tempFile = new File(keystore);
             if (tempFile.exists()) {
                 setErrorMessage(Messages.keystoreAlreadyExists);
                 return;
-            } else {
-                setErrorMessage(null);
             }
-            generatedKeystore = false;
         } else {
             updateStatus(Messages.enterNewKeystoreName);
             return;
@@ -559,12 +556,8 @@ public class PageCreateKeystore extends WizardPage implements Listener {
      */
     public void handleEvent(final Event e) {
         if (e.widget == bCreateKeystore) {
-            try {
-                createKeystore();
-                updateStatus(null);
-            } catch (Exception e1) {
-                updateStatus(Messages.keystoreGenerationFailed);
-            }
+            createKeystore();
+            updateStatus(null);
         } else if (e.widget == bEchoKeystorePassword || e.widget == bEchoKeyPassword) {
             echoPassword(e);
         }
@@ -598,10 +591,8 @@ public class PageCreateKeystore extends WizardPage implements Listener {
     /**
      * Generates the KeyStore and the key/certificate based on the entered data and shows
      * the user an information text about the result.
-     *
-     * @throws Exception to indicate any exceptional condition
      */
-    private void createKeystore() throws Exception {
+    private void createKeystore() {
         HashMap<String, String> certificateData = new HashMap<String, String>();
         certificateData.put("keystore", keystore); //$NON-NLS-1$
         certificateData.put("alias", tKeyName.getText()); //$NON-NLS-1$
@@ -616,22 +607,28 @@ public class PageCreateKeystore extends WizardPage implements Listener {
         certificateData.put("storepass", tKeystorePassword.getText()); //$NON-NLS-1$
 
         try {
-            XmlSecurityCertificate certificate = new XmlSecurityCertificate();
 
             keyStore = new Keystore(keystore, tKeystorePassword.getText(), Globals.KEYSTORE_TYPE);
+
+            XmlSecurityCertificate certificate = new XmlSecurityCertificate();
+
             keyStore.store();
+            keyStore.load();
+
             generatedKeystore = keyStore.generateCertificate(tKeyName.getText(), certificate);
+
+            keyStore.store();
         } catch (Exception ex) {
-            Utils.logError(ex, "Keystore generation failed");
+            Utils.logError(ex, "Signature keystore generation failed"); //$NON-NLS-1$
 
             generatedKeystore = false;
+
+            lResult.setText(Messages.keystoreGenerationFailed);
         }
 
         if (generatedKeystore) {
             lResult.setText(NLS.bind(Messages.keystoreGenerated, new Object[] {keystoreName, name}));
             updateStatus(null);
-        } else {
-            lResult.setText(Messages.keystoreGenerationFailed);
         }
     }
 

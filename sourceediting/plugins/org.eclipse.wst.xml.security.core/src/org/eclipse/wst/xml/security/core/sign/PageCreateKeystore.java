@@ -11,7 +11,11 @@
 package org.eclipse.wst.xml.security.core.sign;
 
 import java.io.File;
+import java.security.KeyPair;
+import java.security.NoSuchAlgorithmException;
 import java.util.HashMap;
+
+import java.security.cert.Certificate;
 
 import org.eclipse.jface.wizard.IWizardPage;
 import org.eclipse.jface.wizard.WizardPage;
@@ -594,30 +598,30 @@ public class PageCreateKeystore extends WizardPage implements Listener {
      */
     private void createKeystore() {
         HashMap<String, String> certificateData = new HashMap<String, String>();
-        certificateData.put("keystore", keystore); //$NON-NLS-1$
-        certificateData.put("alias", tKeyName.getText()); //$NON-NLS-1$
-        certificateData.put("keyalg", cKeyAlgorithm.getText()); //$NON-NLS-1$
         certificateData.put("CN", tCommonName.getText()); //$NON-NLS-1$
         certificateData.put("OU", tOrganizationalUnit.getText()); //$NON-NLS-1$
         certificateData.put("O", tOrganization.getText()); //$NON-NLS-1$
         certificateData.put("L", tLocation.getText()); //$NON-NLS-1$
         certificateData.put("ST", tState.getText()); //$NON-NLS-1$
         certificateData.put("C", tCountry.getText()); //$NON-NLS-1$
-        certificateData.put("keypass", tKeyPassword.getText()); //$NON-NLS-1$
-        certificateData.put("storepass", tKeystorePassword.getText()); //$NON-NLS-1$
 
         try {
-
             keyStore = new Keystore(keystore, tKeystorePassword.getText(), Globals.KEYSTORE_TYPE);
+
+            KeyPair kp = keyStore.generateKeyPair(cKeyAlgorithm.getText(), 512);
 
             XmlSecurityCertificate certificate = new XmlSecurityCertificate();
 
             keyStore.store();
             keyStore.load();
 
-            generatedKeystore = keyStore.generateCertificate(tKeyName.getText(), certificate);
+            generatedKeystore = keyStore.insertPrivateKey(tKeyName.getText(), tKeyPassword.getText().toCharArray(), kp.getPrivate(), new Certificate[] {certificate});
 
             keyStore.store();
+        } catch (NoSuchAlgorithmException ex) {
+            generatedKeystore = false;
+
+            lResult.setText(Messages.keyGenerationFailed);
         } catch (Exception ex) {
             Utils.logError(ex, "Signature keystore generation failed"); //$NON-NLS-1$
 

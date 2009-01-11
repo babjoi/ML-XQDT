@@ -11,6 +11,8 @@ package org.eclipse.wst.xml.security.core.utils;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.security.KeyPair;
+import java.security.KeyPairGenerator;
 import java.security.KeyStore;
 import java.security.KeyStoreException;
 import java.security.NoSuchAlgorithmException;
@@ -180,7 +182,35 @@ public class Keystore {
                 return false;
             }
         } catch (KeyStoreException ex) {
-            ex.printStackTrace();
+            return false;
+        }
+    }
+
+    public KeyPair generateKeyPair(String algorithm, int size) throws NoSuchAlgorithmException {
+        KeyPairGenerator kpg = KeyPairGenerator.getInstance(algorithm);
+        kpg.initialize(size);
+
+        return kpg.generateKeyPair();
+    }
+
+    public boolean insertPrivateKey(String alias, char[] password, PrivateKey key, Certificate[] chain) {
+        try {
+            if (!keyStore.containsAlias(alias)) {
+                int sizeBefore = keyStore.size();
+
+                keyStore.setKeyEntry(alias, key, password, chain);
+
+                int sizeAfter = keyStore.size();
+
+                if (sizeAfter > sizeBefore) {
+                    return true;
+                } else {
+                    return false;
+                }
+            } else {
+                return false;
+            }
+        } catch (KeyStoreException ex) {
             return false;
         }
     }

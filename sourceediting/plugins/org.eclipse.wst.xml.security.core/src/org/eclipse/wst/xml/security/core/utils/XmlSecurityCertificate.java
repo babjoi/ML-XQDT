@@ -40,8 +40,7 @@ public class XmlSecurityCertificate extends Certificate {
 
     @Override
     public byte[] getEncoded() throws CertificateEncodingException {
-        // TODO Auto-generated method stub
-        return null;
+        return "PKCS#8".getBytes();
     }
 
     @Override

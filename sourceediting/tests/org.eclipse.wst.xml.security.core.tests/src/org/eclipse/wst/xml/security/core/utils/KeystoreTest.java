@@ -152,6 +152,8 @@ public class KeystoreTest {
 
             assertTrue(tempKeystore.generateCertificate(KEY_ALIAS, certificate));
 
+            tempKeystore.store();
+
             assertTrue(tempKeystore.containsKey(KEY_ALIAS));
             assertFalse(tempKeystore.containsKey("wrong"));
 

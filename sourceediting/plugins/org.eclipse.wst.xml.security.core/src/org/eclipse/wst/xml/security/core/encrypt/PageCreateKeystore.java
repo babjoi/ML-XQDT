@@ -11,8 +11,9 @@
 package org.eclipse.wst.xml.security.core.encrypt;
 
 import java.io.File;
+import java.security.NoSuchAlgorithmException;
 
-import javax.crypto.KeyGenerator;
+import javax.crypto.SecretKey;
 
 import org.eclipse.jface.wizard.IWizardPage;
 import org.eclipse.jface.wizard.WizardPage;
@@ -392,7 +393,7 @@ public class PageCreateKeystore extends WizardPage implements Listener {
             } else if (cKeyAlgorithm.getText().equalsIgnoreCase("DES")) { //$NON-NLS-1$
                 cKeyAlgorithmSize.setItems(Algorithms.KEY_SIZES_DES);
                 cKeyAlgorithmSize.setText(Algorithms.KEY_SIZES_DES[0]);
-            } else if (cKeyAlgorithm.getText().equalsIgnoreCase("Triple DES")) { //$NON-NLS-1$
+            } else if (cKeyAlgorithm.getText().equalsIgnoreCase("DESede")) { //$NON-NLS-1$
                 cKeyAlgorithmSize.setItems(Algorithms.KEY_SIZES_DESEDE);
                 cKeyAlgorithmSize.setText(Algorithms.KEY_SIZES_DESEDE[0]);
             } else {
@@ -434,24 +435,28 @@ public class PageCreateKeystore extends WizardPage implements Listener {
     private void createKeystore() {
         try {
             keyStore = new Keystore(keystore, tKeystorePassword.getText(), Globals.KEYSTORE_TYPE);
+
+            SecretKey key = keyStore.generateSecretKey(cKeyAlgorithm.getText(), Integer.parseInt(cKeyAlgorithmSize.getText()));
+
             keyStore.store();
             keyStore.load();
 
-            KeyGenerator kg = KeyGenerator.getInstance(cKeyAlgorithm.getText());
-            kg.init(Integer.parseInt(cKeyAlgorithmSize.getText()));
-
-            generatedKeystore = keyStore.generateSecretKey(tKeyName.getText(), tKeyPassword.getText().toCharArray(), kg.generateKey());
+            generatedKeystore = keyStore.insertSecretKey(tKeyName.getText(), tKeyPassword.getText().toCharArray(), key);
 
             keyStore.store();
+        } catch (NoSuchAlgorithmException ex) {
+            generatedKeystore = false;
+
+            lResult.setText(Messages.keyGenerationFailed);
         } catch (Exception ex) {
             generatedKeystore = false;
+
+            lResult.setText(Messages.keystoreGenerationFailed);
         }
 
         if (generatedKeystore) {
         	lResult.setText(NLS.bind(Messages.keystoreGenerated, new Object[] {keystoreName, tKeyName.getText(), name}));
             updateStatus(null);
-        } else {
-            lResult.setText(Messages.keystoreGenerationFailed);
         }
     }
 

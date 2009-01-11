@@ -170,9 +170,22 @@ public class KeystoreTest {
             assertNotNull(tempKeystore);
             tempKeystore.store();
 
+            assertNotNull(tempKeystore.generateSecretKey("AES", 128));
+            assertNotNull(tempKeystore.generateSecretKey("AES", 192));
+            assertNotNull(tempKeystore.generateSecretKey("AES", 256));
+
+            assertNotNull(tempKeystore.generateSecretKey("Blowfish", 64));
+            assertNotNull(tempKeystore.generateSecretKey("Blowfish", 128));
+            assertNotNull(tempKeystore.generateSecretKey("Blowfish", 192));
+            assertNotNull(tempKeystore.generateSecretKey("Blowfish", 256));
+            assertNotNull(tempKeystore.generateSecretKey("Blowfish", 320));
+            assertNotNull(tempKeystore.generateSecretKey("Blowfish", 384));
+            assertNotNull(tempKeystore.generateSecretKey("Blowfish", 448));
+
             assertNotNull(tempKeystore.generateSecretKey("DES", 56));
 
-            assertNotNull(tempKeystore.generateSecretKey("AES", 256));
+            assertNotNull(tempKeystore.generateSecretKey("DESede", 112));
+            assertNotNull(tempKeystore.generateSecretKey("DESede", 168));
         } catch (Exception ex) {
             fail(ex.getMessage());
         }

@@ -23,11 +23,11 @@ public final class Algorithms {
      */
     private Algorithms() { }
 
-    /** Key file algorithms to encrypt a key file. */
-    public static final String[] KEY_FILE_ALOGRITHMS = {"AES", "Blowfish", "DES", "Triple DES"};
+    /** Key algorithms. */
+    public static final String[] KEY_FILE_ALOGRITHMS = {"AES", "Blowfish", "DES", "DESede"};
     /** Key file algorithm sizes. */
-    public static final String[] KEY_FILE_ALGORITHMS_SIZES = {"56", "128", "192", "256",
-        "384", "448"};
+    public static final String[] KEY_FILE_ALGORITHMS_SIZES = {"56", "64", "128", "192", "256",
+        "320", "384", "448"};
     /** Canonicalization algorithms. */
     public static final String[] CANONICALIZATION_ALOGRITHMS = {"Exclusive without comments",
             "Exclusive with comments", "Inclusive without comments", "Inclusive with comments"};
@@ -73,7 +73,7 @@ public final class Algorithms {
     /** Key sizes for the Advanced Encryption Standard (AES) algorithm. */
     public static final String[] KEY_SIZES_AES = {"128", "192", "256"};
     /** Key sizes for the Blowfish algorithm. */
-    public static final String[] KEY_SIZES_BLOWFISH = {"128", "192", "256"};
+    public static final String[] KEY_SIZES_BLOWFISH = {"64", "128", "192", "256", "320", "384", "448"};
     /** Key sizes for the DES algorithm. */
     public static final String[] KEY_SIZES_DES = {"56"};
     /** Key sizes for the Triple DES algorithm. */

@@ -22,7 +22,6 @@ import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
 import org.eclipse.wst.xml.security.core.XmlSecurityPlugin;
 
-
 /**
  * <p>This class prepares and adds all wizard pages to the wizard and launches the <i>XML Encryption
  * Wizard</i> afterwards.</p>
@@ -51,6 +50,16 @@ public class NewEncryptionWizard extends Wizard implements INewWizard {
     private String path;
     /** Name of the opened project. */
     private String name;
+    /** Stored setting for the encryption KeyStore. */
+    public static final String SETTING_KEYSTORE = "enc_keystore";
+    /** Stored setting for the public key name. */
+    public static final String SETTING_KEY_NAME = "enc_key_name";
+    /** Stored setting for the BSP encryption selection. */
+    public static final String SETTING_BSP_COMPLIANT_ENCRYPTION = "enc_bsp_compliant";
+    /** Stored setting for a plain root element. */
+    public static final String SETTING_SET_PLAIN_ROOT_ELEMENT = "enc_plain_root_element";
+    /** Stored setting for the Signature Wizard call after encrypting. */
+    public static final String SETTING_CALL_SIGNATURE_WIZARD = "enc_sign";
 
     /**
      * Constructor for the wizard launcher.
@@ -156,9 +165,7 @@ public class NewEncryptionWizard extends Wizard implements INewWizard {
      * @return Finishing status
      */
     public boolean performFinish() {
-        pageResource.storeSettings();
-        pageOpenKey.storeSettings();
-        pageAlgorithms.storeSettings();
+
         return pageAlgorithms.performFinish();
     }
 

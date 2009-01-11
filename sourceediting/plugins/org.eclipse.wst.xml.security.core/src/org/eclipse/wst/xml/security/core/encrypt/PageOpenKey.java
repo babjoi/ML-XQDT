@@ -63,14 +63,10 @@ public class PageOpenKey extends WizardPage implements Listener {
     private Text tKeyPassword = null;
     /** Default label width. */
     private static final int LABELWIDTH = 120;
-    /** Stored setting for the encryption KeyStore. */
-    private static final String SETTING_KEYSTORE = "enc_keystore";
-    /** Stored setting for the public key name. */
-    private static final String SETTING_KEY_NAME = "enc_key_name";
     /** Model for the XML Encryption Wizard. */
     private Encryption encryption = null;
     /** The keystore containing all required key information. */
-    private Keystore keystore = null;
+    private Keystore keyStore = null;
 
     /**
      * Constructor for PageOpenKey.
@@ -281,11 +277,16 @@ public class PageOpenKey extends WizardPage implements Listener {
         }
         if (new File(tKeyStore.getText()).exists()) {
             try {
-	        	keystore = new Keystore(tKeyStore.getText(), tKeyStorePassword.getText(), Globals.KEYSTORE_TYPE);
-	        	keystore.load();
-	        	if (!keystore.containsKey(tKeyName.getText())) {
+	        	keyStore = new Keystore(tKeyStore.getText(), tKeyStorePassword.getText(), Globals.KEYSTORE_TYPE);
+	        	keyStore.load();
+	        	if (!keyStore.containsKey(tKeyName.getText())) {
 	        		setErrorMessage(Messages.verifyKeyAlias);
 	                return;
+	        	}
+
+	        	if (keyStore.getSecretKey(tKeyName.getText(), tKeyPassword.getText().toCharArray()) == null) {
+                    setErrorMessage(Messages.verifyKeyPassword);
+                    return;
 	        	}
 			} catch (Exception ex) {
 				setErrorMessage(Messages.verifyAll);
@@ -382,35 +383,37 @@ public class PageOpenKey extends WizardPage implements Listener {
      * Saves the selections on this wizard page to the model. Called on exit of the page.
      */
     private void saveDataToModel() {
-        encryption.setKeyStore(keystore);
+        encryption.setKeyStore(keyStore);
         encryption.setKeyStorePassword(tKeyStorePassword.getText());
         encryption.setKeyName(tKeyName.getText());
         encryption.setKeyPassword(tKeyPassword.getText().toCharArray());
+
+        storeSettings();
     }
 
     /**
      * Loads the stored settings for this wizard page.
      */
     private void loadSettings() {
-        String keystore = getDialogSettings().get(SETTING_KEYSTORE);
-        if (keystore == null) {
-        	keystore = "";
+        String previousKeystore = getDialogSettings().get(NewEncryptionWizard.SETTING_KEYSTORE);
+        if (previousKeystore == null) {
+        	previousKeystore = "";
         }
-        tKeyStore.setText(keystore);
+        tKeyStore.setText(previousKeystore);
 
-        String keyName = getDialogSettings().get(SETTING_KEY_NAME);
-        if (keyName == null) {
-        	keyName = "";
+        String previousKey = getDialogSettings().get(NewEncryptionWizard.SETTING_KEY_NAME);
+        if (previousKey == null) {
+        	previousKey = "";
         }
-        tKeyName.setText(keyName);
+        tKeyName.setText(previousKey);
     }
 
     /**
      * Stores some settings of this wizard page in the current workspace.
      */
-    protected void storeSettings() {
+    private void storeSettings() {
         IDialogSettings settings = getDialogSettings();
-        settings.put(SETTING_KEYSTORE, tKeyStore.getText());
-        settings.put(SETTING_KEY_NAME, tKeyName.getText());
+        settings.put(NewEncryptionWizard.SETTING_KEYSTORE, tKeyStore.getText());
+        settings.put(NewEncryptionWizard.SETTING_KEY_NAME, tKeyName.getText());
     }
 }

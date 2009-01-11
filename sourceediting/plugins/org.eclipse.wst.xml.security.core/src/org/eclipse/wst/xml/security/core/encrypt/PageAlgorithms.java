@@ -64,10 +64,6 @@ public class PageAlgorithms extends WizardPage implements Listener {
     private IFile file;
     /** All encryption IDs in the current XML document. */
     private String[] ids;
-    /** Stored setting for a plain root element. */
-    private static final String SETTING_SET_PLAIN_ROOT_ELEMENT = "enc_plain_root_element";
-    /** Stored setting for the Signature Wizard call after encrypting. */
-    private static final String SETTING_CALL_SIGNATURE_WIZARD = "enc_sign";
     /** Model for the XML Encryption Wizard. */
     private Encryption encryption = null;
 
@@ -330,6 +326,8 @@ public class PageAlgorithms extends WizardPage implements Listener {
         encryption.setEncryptionId(tID.getText());
         encryption.setLaunchSignatureWizard(bSigWiz.getSelection());
 
+        storeSettings();
+
         return true;
     }
 
@@ -359,15 +357,15 @@ public class PageAlgorithms extends WizardPage implements Listener {
      * Loads the stored settings for this wizard page.
      */
     private void loadSettings() {
-        String callSignatureWizard = getDialogSettings().get(SETTING_CALL_SIGNATURE_WIZARD);
+        String callSignatureWizard = getDialogSettings().get(NewEncryptionWizard.SETTING_CALL_SIGNATURE_WIZARD);
         boolean doCallSignatureWizard = false;
         if (callSignatureWizard != null) {
-            doCallSignatureWizard = getDialogSettings().getBoolean(SETTING_CALL_SIGNATURE_WIZARD);
+            doCallSignatureWizard = getDialogSettings().getBoolean(NewEncryptionWizard.SETTING_CALL_SIGNATURE_WIZARD);
         }
-        String plainRootElement = getDialogSettings().get(SETTING_SET_PLAIN_ROOT_ELEMENT);
+        String plainRootElement = getDialogSettings().get(NewEncryptionWizard.SETTING_SET_PLAIN_ROOT_ELEMENT);
         boolean doPlainRootElement = false;
         if (plainRootElement != null) {
-            doPlainRootElement = getDialogSettings().getBoolean(SETTING_SET_PLAIN_ROOT_ELEMENT);
+            doPlainRootElement = getDialogSettings().getBoolean(NewEncryptionWizard.SETTING_SET_PLAIN_ROOT_ELEMENT);
         }
         bContentOnly.setSelection(doPlainRootElement);
         bSigWiz.setSelection(doCallSignatureWizard);
@@ -376,9 +374,9 @@ public class PageAlgorithms extends WizardPage implements Listener {
     /**
      * Stores some settings of this wizard page in the current workspace.
      */
-    protected void storeSettings() {
+    private void storeSettings() {
         IDialogSettings settings = getDialogSettings();
-        settings.put(SETTING_SET_PLAIN_ROOT_ELEMENT, bContentOnly.getSelection());
-        settings.put(SETTING_CALL_SIGNATURE_WIZARD, bSigWiz.getSelection());
+        settings.put(NewEncryptionWizard.SETTING_SET_PLAIN_ROOT_ELEMENT, bContentOnly.getSelection());
+        settings.put(NewEncryptionWizard.SETTING_CALL_SIGNATURE_WIZARD, bSigWiz.getSelection());
     }
 }

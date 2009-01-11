@@ -14,6 +14,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.security.Key;
 
+import javax.crypto.SecretKey;
 import javax.xml.namespace.NamespaceContext;
 import javax.xml.xpath.XPath;
 import javax.xml.xpath.XPathConstants;
@@ -93,14 +94,14 @@ public class CreateEncryption {
         loadSettings(encryption, selection);
         keyStore.load();
 
-        Key secretKey = keyStore.getPrivateKey(encryption.getKeyName(), encryption.getKeyPassword());
+        SecretKey key = keyStore.getSecretKey(encryption.getKeyName(), encryption.getKeyPassword());
 
         monitor.worked(1);
 
         if (encryptionType.equalsIgnoreCase("enveloping")) {
-            doc = envelopingEncryption(xmlFile, selection, secretKey);
+            doc = envelopingEncryption(xmlFile, selection, key);
         } else if (encryptionType.equalsIgnoreCase("detached")) {
-            doc = detachedEncryption(xmlFile, secretKey);
+            doc = detachedEncryption(xmlFile, key);
         }
 
         monitor.worked(1);

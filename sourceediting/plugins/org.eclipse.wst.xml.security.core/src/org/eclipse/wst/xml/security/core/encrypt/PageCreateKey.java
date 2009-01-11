@@ -10,8 +10,11 @@
  *******************************************************************************/
 package org.eclipse.wst.xml.security.core.encrypt;
 
-import javax.crypto.KeyGenerator;
+import java.security.NoSuchAlgorithmException;
 
+import javax.crypto.SecretKey;
+
+import org.eclipse.jface.dialogs.IDialogSettings;
 import org.eclipse.jface.wizard.IWizardPage;
 import org.eclipse.jface.wizard.WizardPage;
 import org.eclipse.osgi.util.NLS;
@@ -110,6 +113,7 @@ public class PageCreateKey extends WizardPage implements Listener {
         createPageContent(container);
         addListeners();
         setControl(container);
+        loadSettings();
         setPageComplete(false);
 
         PlatformUI.getWorkbench().getHelpSystem().setHelp(getControl(), IContextHelpIds.WIZARD_ENCRYPTION_CREATE_KEY);
@@ -361,9 +365,11 @@ public class PageCreateKey extends WizardPage implements Listener {
         if (tKeyStore.getText().length() > 0 && tKeyStorePassword.getText().length() > 0 && tKeyName.getText().length() > 0) {
             try {
                 keyStore = new Keystore(tKeyStore.getText(), tKeyStorePassword.getText(), Globals.KEYSTORE_TYPE);
+                keyStore.load();
 
                 if (keyStore.containsKey(tKeyName.getText())) {
-                	setErrorMessage(Messages.verifyKeyAlias);
+                	setErrorMessage(Messages.existingKeyAlias);
+                    updateStatus("");
                     return;
                 }
             } catch (Exception ex) {
@@ -408,12 +414,8 @@ public class PageCreateKey extends WizardPage implements Listener {
         if (e.widget == bOpen) {
             openKeystore();
         } else if (e.widget == bCreateKey) {
-            try {
-                createSecretKey();
-                updateStatus(null);
-            } catch (Exception ex) {
-                updateStatus(Messages.keyGenerationFailed);
-            }
+            createKey();
+            updateStatus(null);
         } else if (e.widget == bEchoKeyStorePassword) {
             echoPassword(e);
         } else if (e.widget == bEchoKeyPassword) {
@@ -428,7 +430,7 @@ public class PageCreateKey extends WizardPage implements Listener {
             } else if (cKeyAlgorithm.getText().equalsIgnoreCase("DES")) { //$NON-NLS-1$
                 cKeyAlgorithmSize.setItems(Algorithms.KEY_SIZES_DES);
                 cKeyAlgorithmSize.setText(Algorithms.KEY_SIZES_DES[0]);
-            } else if (cKeyAlgorithm.getText().equalsIgnoreCase("Triple DES")) { //$NON-NLS-1$
+            } else if (cKeyAlgorithm.getText().equalsIgnoreCase("DESede")) { //$NON-NLS-1$
                 cKeyAlgorithmSize.setItems(Algorithms.KEY_SIZES_DESEDE);
                 cKeyAlgorithmSize.setText(Algorithms.KEY_SIZES_DESEDE[0]);
             } else {
@@ -478,30 +480,32 @@ public class PageCreateKey extends WizardPage implements Listener {
     }
 
     /**
-     * Generates the key based on the entered data and shows the user an information notice about the result.
-     *
-     * @throws Exception to indicate any exceptional condition
+     * Generates the key based on the entered data, inserts this key into the selected KeyStore
+     * and shows the user an information notice about the result.
      */
-    private void createSecretKey() throws Exception {
+    private void createKey() {
         try {
             keyStore = new Keystore(tKeyStore.getText(), tKeyStorePassword.getText(), Globals.KEYSTORE_TYPE);
             keyStore.load();
 
-            KeyGenerator kg = KeyGenerator.getInstance(cKeyAlgorithm.getText());
-            kg.init(Integer.parseInt(cKeyAlgorithmSize.getText()));
+            SecretKey key = keyStore.generateSecretKey(cKeyAlgorithm.getText(), Integer.parseInt(cKeyAlgorithmSize.getText()));
 
-            generatedKey = keyStore.generateSecretKey(tKeyName.getText(), tKeyPassword.getText().toCharArray(), kg.generateKey());
+            generatedKey = keyStore.insertSecretKey(tKeyName.getText(), tKeyPassword.getText().toCharArray(), key);
 
             keyStore.store();
+        } catch (NoSuchAlgorithmException ex) {
+            generatedKey = false;
+
+            lResult.setText(Messages.keyGenerationFailed);
         } catch (Exception ex) {
-        	generatedKey = false;
+            generatedKey = false;
+
+            lResult.setText(Messages.keyInsertionFailed);
         }
 
         if (generatedKey) {
         	lResult.setText(NLS.bind(Messages.keyGenerated, new Object[] {tKeyName.getText(), tKeyStore.getText()}));
             updateStatus(null);
-        } else {
-            lResult.setText(Messages.keyGenerationFailed);
         }
     }
 
@@ -525,5 +529,26 @@ public class PageCreateKey extends WizardPage implements Listener {
         encryption.setKeyStorePassword(tKeyStorePassword.getText());
         encryption.setKeyName(tKeyName.getText());
         encryption.setKeyPassword(tKeyPassword.getText().toCharArray());
+
+        storeSettings();
+    }
+
+    /**
+     * Loads the stored settings for this wizard page.
+     */
+    private void loadSettings() {
+        String previousKeystore = getDialogSettings().get(NewEncryptionWizard.SETTING_KEYSTORE);
+        if (previousKeystore == null) {
+            previousKeystore = "";
+        }
+        tKeyStore.setText(previousKeystore);
+    }
+
+    /**
+     * Stores some settings of this wizard page in the current workspace.
+     */
+    private void storeSettings() {
+        IDialogSettings settings = getDialogSettings();
+        settings.put(NewEncryptionWizard.SETTING_KEYSTORE, tKeyStore.getText());
     }
 }

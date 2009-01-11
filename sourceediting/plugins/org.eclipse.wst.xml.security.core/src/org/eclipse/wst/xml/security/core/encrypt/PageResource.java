@@ -85,8 +85,6 @@ public class PageResource extends WizardPage implements Listener {
     private static final String EMPTY = "";
     /** Path of the opened project. */
     private String project;
-    /** Stored setting for the BSP encryption selection. */
-    private static final String SETTING_BSP_COMPLIANT_ENCRYPTION = "enc_bsp_compliant";
     /** Model for the XML Encryption Wizard. */
     private Encryption encryption = null;
 
@@ -473,17 +471,19 @@ public class PageResource extends WizardPage implements Listener {
         }
         encryption.setBsp(bBsp.getSelection());
         encryption.setFile(file.getLocation().toString());
+
+        storeSettings();
     }
 
     /**
      * Loads the stored settings for this wizard page.
      */
     private void loadSettings() {
-        String bspCompliantEncryption = getDialogSettings().get(SETTING_BSP_COMPLIANT_ENCRYPTION);
+        String bspCompliantEncryption = getDialogSettings().get(NewEncryptionWizard.SETTING_BSP_COMPLIANT_ENCRYPTION);
         boolean doBSPCompliantEncryption = false;
         if (bspCompliantEncryption != null) {
             doBSPCompliantEncryption = getDialogSettings().getBoolean(
-                    SETTING_BSP_COMPLIANT_ENCRYPTION);
+                    NewEncryptionWizard.SETTING_BSP_COMPLIANT_ENCRYPTION);
         }
         bBsp.setSelection(doBSPCompliantEncryption);
     }
@@ -491,8 +491,8 @@ public class PageResource extends WizardPage implements Listener {
     /**
      * Stores some settings of this wizard page in the current workspace.
      */
-    protected void storeSettings() {
+    private void storeSettings() {
         IDialogSettings settings = getDialogSettings();
-        settings.put(SETTING_BSP_COMPLIANT_ENCRYPTION, bBsp.getSelection());
+        settings.put(NewEncryptionWizard.SETTING_BSP_COMPLIANT_ENCRYPTION, bBsp.getSelection());
     }
 }

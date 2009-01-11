@@ -20,7 +20,6 @@ import static org.junit.Assert.fail;
 import java.io.File;
 import java.security.PrivateKey;
 
-import javax.crypto.KeyGenerator;
 import javax.crypto.SecretKey;
 
 import org.junit.AfterClass;
@@ -163,7 +162,7 @@ public class KeystoreTest {
     }
 
     /**
-     * Test method for {@link org.eclipse.wst.xml.security.core.utils.Keystore#generateSecretKey(java.lang.String, char, javax.crypto.SecretKey)}.
+     * Test method for {@link org.eclipse.wst.xml.security.core.utils.Keystore#generateSecretKey(java.lang.String, java.lang.Integer)}.
      */
     @Test
     public void testGenerateSecretKey() {
@@ -171,10 +170,26 @@ public class KeystoreTest {
             assertNotNull(tempKeystore);
             tempKeystore.store();
 
-            KeyGenerator kg = KeyGenerator.getInstance("DES");
-            kg.init(56);
+            assertNotNull(tempKeystore.generateSecretKey("DES", 56));
 
-            assertTrue(tempKeystore.generateSecretKey(KEY_ALIAS, KEY_PASSWORD.toCharArray(), kg.generateKey()));
+            assertNotNull(tempKeystore.generateSecretKey("AES", 256));
+        } catch (Exception ex) {
+            fail(ex.getMessage());
+        }
+
+    }
+
+    /**
+     * Test method for {@link org.eclipse.wst.xml.security.core.utils.Keystore#insertSecretKey(java.lang.String, char, javax.crypto.SecretKey)}.
+     */
+    @Test
+    public void testInsertSecretKey() {
+        try {
+            assertNotNull(tempKeystore);
+            tempKeystore.store();
+
+            SecretKey des = tempKeystore.generateSecretKey("DES", 56);
+            assertTrue(tempKeystore.insertSecretKey(KEY_ALIAS, KEY_PASSWORD.toCharArray(), des));
 
             tempKeystore.store();
 
@@ -187,10 +202,8 @@ public class KeystoreTest {
             key = tempKeystore.getSecretKey(KEY_ALIAS, "wrong".toCharArray());
             assertNull(key);
 
-            kg = KeyGenerator.getInstance("AES");
-            kg.init(256);
-
-            assertTrue(tempKeystore.generateSecretKey(KEY_ALIAS + "2", KEY_PASSWORD.toCharArray(), kg.generateKey()));
+            SecretKey aes = tempKeystore.generateSecretKey("AES", 256);
+            assertTrue(tempKeystore.insertSecretKey(KEY_ALIAS + "2", KEY_PASSWORD.toCharArray(), aes));
 
             tempKeystore.store();
 

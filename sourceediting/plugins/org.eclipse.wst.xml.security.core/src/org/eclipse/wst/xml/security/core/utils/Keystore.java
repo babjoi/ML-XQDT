@@ -13,12 +13,14 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.security.KeyStore;
 import java.security.KeyStoreException;
+import java.security.NoSuchAlgorithmException;
 import java.security.PrivateKey;
 import java.security.KeyStore.PasswordProtection;
 import java.security.KeyStore.PrivateKeyEntry;
 import java.security.KeyStore.SecretKeyEntry;
 import java.security.cert.Certificate;
 
+import javax.crypto.KeyGenerator;
 import javax.crypto.SecretKey;
 
 /**
@@ -144,6 +146,13 @@ public class Keystore {
         }
     }
 
+    public SecretKey generateSecretKey(String algorithm, int size) throws NoSuchAlgorithmException {
+        KeyGenerator kg = KeyGenerator.getInstance(algorithm);
+        kg.init(size);
+
+        return kg.generateKey();
+    }
+
     /**
      * Generates a new secret key.
      *
@@ -152,7 +161,7 @@ public class Keystore {
      * @param key The secret key to insert
      * @return Secret key generation result
      */
-    public boolean generateSecretKey(String alias, char[] password, SecretKey key) {
+    public boolean insertSecretKey(String alias, char[] password, SecretKey key) {
         try {
             if (!keyStore.containsAlias(alias)) {
                 int sizeBefore = keyStore.size();

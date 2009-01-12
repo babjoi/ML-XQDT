@@ -42,6 +42,10 @@ public class CreateSignatureTest {
     private static final String SIGNATURE_ID = "JUnitTest";
     /** The temporary file containing the signature. */
     private static final String SIGNED_FILE_NAME = "result.xml";
+    private static final String KEYSTORE_PATH = "resources/sample_keystore.jks";
+    private static final String KEYSTORE_PASSWORD = "sampleKeystore";
+    private static final String KEY_ALIAS = "sampleKey";
+    private static final String KEY_PASSWORD = "sampleKey";
 
     /**
      * Sets up the Apache XML Security API.
@@ -60,19 +64,19 @@ public class CreateSignatureTest {
      */
     @Before
     public void setUp() throws Exception {
-        Keystore sampleKeyStore = new Keystore("resources/sample_keystore.jks", "correct", Globals.KEYSTORE_TYPE);
+        Keystore sampleKeyStore = new Keystore(KEYSTORE_PATH, KEYSTORE_PASSWORD, Globals.KEYSTORE_TYPE);
         sampleKeyStore.load();
 
         signature = new Signature();
         signature.setBsp(false);
         signature.setLaunchEncryptionWizard(false);
         signature.setCanonicalizationAlgorithm("Exclusive with comments");
-        signature.setKeyAlias("sample");
-        signature.setKeyPassword("correct".toCharArray());
+        signature.setKeyAlias(KEY_ALIAS);
+        signature.setKeyPassword(KEY_PASSWORD.toCharArray());
         signature.setDetachedFile(null);
         signature.setFile("resources/FirstSteps.xml");
         signature.setKeystore(sampleKeyStore);
-        signature.setKeystorePassword("correct".toCharArray());
+        signature.setKeystorePassword(KEYSTORE_PASSWORD.toCharArray());
         signature.setMessageDigestAlgorithm("SHA 1");
         signature.setResource("document");
         signature.setSignatureAlgorithm("DSA with SHA 1 (DSS)");

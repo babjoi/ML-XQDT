@@ -36,58 +36,43 @@
    </requires>
 
    <plugin
+         id="org.apache.commons.logging"
+         version="1.1.1.qualifier"
+         unpack="false"/>
+
+   <plugin
          id="org.apache.xalan"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
+         version="2.7.1.qualifier"
+         unpack="false"/>
+
+   <plugin
+         id="org.apache.xerces"
+         version="2.9.0.qualifier"
          unpack="false"/>
 
    <plugin
          id="org.apache.xml.security"
-         download-size="0"
-         install-size="0"
          version="0.0.0"
          unpack="false"/>
 
    <plugin
          id="org.eclipse.wst.xml.security.core"
-         download-size="0"
-         install-size="0"
          version="0.0.0"
          unpack="false"/>
 
    <plugin
          id="org.eclipse.wst.xml.security.doc"
-         download-size="0"
-         install-size="0"
          version="0.0.0"
          unpack="false"/>
 
-   <plugin
-         id="org.apache.commons.logging"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/>
-
-   <plugin
-         id="org.apache.xerces"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/>
 
    <plugin
          id="org.eclipse.wst.xml.security"
-         download-size="0"
-         install-size="0"
          version="0.0.0"
          unpack="false"/>
 
    <plugin
          id="org.eclipse.wst.xml.security.ui"
-         download-size="0"
-         install-size="0"
          version="0.0.0"
          unpack="false"/>
 

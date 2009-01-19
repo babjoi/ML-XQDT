@@ -6,20 +6,15 @@
  *
  * Contributors: Dominik Schadow - initial API and implementation
  *******************************************************************************/
-package org.eclipse.wst.xml.security.core.utils;
-
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
+package org.eclipse.wst.xml.security.core.tests.utils;
 
 import java.io.File;
 import java.util.HashMap;
 
-import org.junit.Before;
-import org.junit.BeforeClass;
-import org.junit.Test;
+import junit.framework.TestCase;
+
+import org.eclipse.wst.xml.security.core.utils.Globals;
+import org.eclipse.wst.xml.security.core.utils.Keystore;
 
 /**
  * <p>JUnit tests for the Certificate class.</p>
@@ -27,10 +22,8 @@ import org.junit.Test;
  * @author Dominik Schadow
  * @version 0.5.0
  */
-public class CertificateTest {
+public class CertificateTest extends TestCase {
     private Keystore tempKeystore = null;
-    /** The Certificate instance. */
-    private XmlSecurityCertificate cert = new XmlSecurityCertificate("dummy");
     private static final String TEMP_KEYSTORE_PATH = "resources/temp_keystore.jks";
     private static final String KEYSTORE_PASSWORD = "sampleKeystore";
 
@@ -39,7 +32,6 @@ public class CertificateTest {
      *
      * @throws Exception during deleting temporary keystore file
      */
-    @BeforeClass
     public static void setUpBeforeClass() throws Exception {
         File tempFile = new File(TEMP_KEYSTORE_PATH);
         if (tempFile.exists()) {
@@ -52,7 +44,6 @@ public class CertificateTest {
      *
      * @throws Exception during loading the sample keystore
      */
-    @Before
     public void setUp() throws Exception {
         tempKeystore = new Keystore(TEMP_KEYSTORE_PATH, KEYSTORE_PASSWORD, Globals.KEYSTORE_TYPE);
     }
@@ -60,7 +51,6 @@ public class CertificateTest {
     /**
      * Test for certificate generation (Java Keystore).
      */
-    @Test
     public void testGenerateCertificate() {
         try {
             HashMap<String, String> certificateData = new HashMap<String, String>();

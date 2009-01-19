@@ -8,24 +8,18 @@
  * Contributors:
  *     Dominik Schadow - initial API and implementation
  *******************************************************************************/
-package org.eclipse.wst.xml.security.core.utils;
-
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
+package org.eclipse.wst.xml.security.core.tests.utils;
 
 import java.io.File;
 import java.security.PrivateKey;
 
 import javax.crypto.SecretKey;
 
-import org.junit.AfterClass;
-import org.junit.Before;
-import org.junit.BeforeClass;
-import org.junit.Test;
+import junit.framework.TestCase;
+
+import org.eclipse.wst.xml.security.core.utils.Globals;
+import org.eclipse.wst.xml.security.core.utils.Keystore;
+import org.eclipse.wst.xml.security.core.utils.XmlSecurityCertificate;
 
 /**
  * <p>JUnit tests for {@link org.eclipse.wst.xml.security.core.utils.Keystore}. Uses the existing
@@ -40,7 +34,7 @@ import org.junit.Test;
  * @author Dominik Schadow
  * @version 0.5.0
  */
-public class KeystoreTest {
+public class KeystoreTest extends TestCase {
     private XmlSecurityCertificate certificate = new XmlSecurityCertificate();
     private Keystore keystore = null;
     private Keystore tempKeystore = null;
@@ -56,7 +50,6 @@ public class KeystoreTest {
      *
      * @throws Exception during deleting temporary keystore file
      */
-    @BeforeClass
     public static void setUpBeforeClass() throws Exception {
         File tempFile = new File(TEMP_KEYSTORE_PATH);
         if (tempFile.exists()) {
@@ -69,7 +62,6 @@ public class KeystoreTest {
      *
      * @throws Exception during deleting temporary keystore file
      */
-    @AfterClass
     public static void setUpAfterClass() throws Exception {
         File tempFile = new File(TEMP_KEYSTORE_PATH);
         if (tempFile.exists()) {
@@ -82,7 +74,6 @@ public class KeystoreTest {
      *
      * @throws Exception during loading the sample keystore
      */
-    @Before
     public void setUp() throws Exception {
         keystore = new Keystore(KEYSTORE_PATH, KEYSTORE_PASSWORD, Globals.KEYSTORE_TYPE);
         tempKeystore = new Keystore(TEMP_KEYSTORE_PATH, KEYSTORE_PASSWORD, Globals.KEYSTORE_TYPE);
@@ -91,7 +82,6 @@ public class KeystoreTest {
     /**
      * Test method for {@link org.eclipse.wst.xml.security.core.utils.Keystore#Keystore(java.lang.String, java.lang.String, java.lang.String)}.
      */
-    @Test
     public void testKeystore() {
         assertNotNull(keystore);
         assertNotNull(tempKeystore);
@@ -100,7 +90,6 @@ public class KeystoreTest {
     /**
      * Test method for {@link org.eclipse.wst.xml.security.core.utils.Keystore#store()}.
      */
-    @Test
     public void testStore() {
         try {
             File tempFile = new File(TEMP_KEYSTORE_PATH);
@@ -119,7 +108,6 @@ public class KeystoreTest {
     /**
      * Test method for {@link org.eclipse.wst.xml.security.core.utils.Keystore#load()}.
      */
-    @Test
     public void testLoad() {
         try {
             assertNotNull(keystore);
@@ -143,7 +131,6 @@ public class KeystoreTest {
     /**
      * Test method for {@link org.eclipse.wst.xml.security.core.utils.Keystore#generateCertificate(java.lang.String, java.security.cert.Certificate)}.
      */
-    @Test
     public void testGenerateCertificate() {
         try {
             assertNotNull(tempKeystore);
@@ -168,7 +155,6 @@ public class KeystoreTest {
     /**
      * Test method for {@link org.eclipse.wst.xml.security.core.utils.Keystore#generateSecretKey(java.lang.String, java.lang.Integer)}.
      */
-    @Test
     public void testGenerateSecretKey() {
         try {
             assertNotNull(tempKeystore);
@@ -199,7 +185,6 @@ public class KeystoreTest {
     /**
      * Test method for {@link org.eclipse.wst.xml.security.core.utils.Keystore#insertSecretKey(java.lang.String, char, javax.crypto.SecretKey)}.
      */
-    @Test
     public void testInsertSecretKey() {
         try {
             assertNotNull(tempKeystore);
@@ -240,7 +225,6 @@ public class KeystoreTest {
     /**
      * Test method for {@link org.eclipse.wst.xml.security.core.utils.Keystore#getPrivateKey(java.lang.String, char[])}.
      */
-    @Test
     public void testGetPrivateKey() {
         try {
             assertNotNull(keystore);
@@ -265,7 +249,6 @@ public class KeystoreTest {
     /**
      * Test method for {@link org.eclipse.wst.xml.security.core.utils.Keystore#containsKey(java.lang.String)}.
      */
-    @Test
     public void testContainsKey() {
         try {
             assertNotNull(keystore);
@@ -287,7 +270,6 @@ public class KeystoreTest {
     /**
      * Test method for {@link org.eclipse.wst.xml.security.core.utils.Keystore#getCertificate(java.lang.String)}.
      */
-    @Test
     public void testGetCertificate() {
         try {
             assertNotNull(keystore);

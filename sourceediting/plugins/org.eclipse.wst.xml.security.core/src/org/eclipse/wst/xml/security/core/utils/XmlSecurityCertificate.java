@@ -26,7 +26,7 @@ import java.security.cert.CertificateException;
  * @version 0.5.0
  */
 public class XmlSecurityCertificate extends Certificate {
-    protected XmlSecurityCertificate(String type) {
+    public XmlSecurityCertificate(String type) {
         super(type);
     }
 

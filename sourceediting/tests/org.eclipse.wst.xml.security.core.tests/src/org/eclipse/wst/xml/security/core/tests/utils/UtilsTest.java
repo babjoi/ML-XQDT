@@ -8,19 +8,13 @@
  * Contributors:
  *     Dominik Schadow - initial API and implementation
  *******************************************************************************/
-package org.eclipse.wst.xml.security.core.utils;
-
-import static org.junit.Assert.assertArrayEquals;
-import static org.junit.Assert.assertEquals;
+package org.eclipse.wst.xml.security.core.tests.utils;
 
 import java.io.File;
 
-import org.eclipse.core.filesystem.EFS;
-import org.eclipse.core.filesystem.IFileStore;
-import org.eclipse.core.resources.IFile;
-import org.eclipse.ui.ide.FileStoreEditorInput;
-import org.junit.Before;
-import org.junit.Test;
+import junit.framework.TestCase;
+
+import org.eclipse.wst.xml.security.core.utils.Utils;
 import org.w3c.dom.Document;
 
 /**
@@ -29,7 +23,7 @@ import org.w3c.dom.Document;
  * @author Dominik Schadow
  * @version 0.5.0
  */
-public class UtilsTest {
+public class UtilsTest extends TestCase {
     /** The XML document. */
     private Document xml = null;
     /** The selection in the XML document. */
@@ -42,7 +36,6 @@ public class UtilsTest {
      *
      * @throws Exception
      */
-    @Before
     public void setUp() throws Exception {
         xml = Utils.parse(new File("resources/FirstSteps.xml"));
         // BUG not working correctly
@@ -57,7 +50,6 @@ public class UtilsTest {
      *
      * @throws Exception
      */
-    @Test
     public void testGetUniqueXPathToNode() throws Exception {
         selection = Utils.parse("<Quantity>1</Quantity>");
         assertEquals("Invoice/InvoiceLine[2]/Quantity[1]", Utils.getUniqueXPathToNode(xml, selection));
@@ -75,7 +67,6 @@ public class UtilsTest {
      * Test for the ID method to determine all IDs in the XML document based on the type signature
      * or encryption.
      */
-    @Test
     public void testGetIds() throws Exception {
 //        String[] idsEncryption = {"Use first encryption id", "myEncryptionA", "myEncryptionB"};
 //        assertArrayEquals(idsEncryption, Utils.getIds(idFile, "encryption"));
@@ -86,7 +77,6 @@ public class UtilsTest {
     /**
      * Test for the ID method to determine all IDs in the XML document.
      */
-    @Test
     public void testGetAllIds() throws Exception {
 //        String[] ids = {"myEncryptionA", "myEncryptionB", "mySignature"};
 //        assertArrayEquals(ids, Utils.getAllIds(idFile));
@@ -95,7 +85,6 @@ public class UtilsTest {
     /**
      * Test for the XPath validation method to validate XPath expressions entered by the user.
      */
-    @Test
     public void testValidateXPath() {
         assertEquals("attribute", Utils.validateXPath(xml, "Invoice/TotalAmount/@currencyID"));
         assertEquals("single", Utils.validateXPath(xml, "Invoice/InvoiceLine[1]/Item/BasePrice[@currencyID='Û']"));
@@ -106,7 +95,6 @@ public class UtilsTest {
     /**
      * Test for signature and encryption id validation.
      */
-    @Test
     public void testValidateId() {
         assertEquals(true, Utils.validateId("valid"));
         assertEquals(false, Utils.validateId("aa<324 "));
@@ -121,7 +109,6 @@ public class UtilsTest {
     /**
      * Test for id uniqueness.
      */
-    @Test
     public void testCheckIdUniqueness() {
         String[] ids = {"myID", "myid", "aaa", "bbb", "x", "ŠšŸ"};
         assertEquals(true, Utils.ensureIdIsUnique("aa", ids));

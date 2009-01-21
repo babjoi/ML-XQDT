@@ -44,20 +44,13 @@ public class CreateSignatureTest extends TestCase {
     private static final String KEY_PASSWORD = "sampleKey";
 
     /**
-     * Sets up the Apache XML Security API.
-     *
-     * @throws Exception to indicate any exceptional condition
-     */
-    public static void setUpBeforeClass() throws Exception {
-        org.apache.xml.security.Init.init();
-    }
-
-    /**
-     * Prepares the SignatureWizard object.
+     * Sets up the Apache XML Security API and repares the SignatureWizard object.
      *
      * @throws Exception to indicate any exceptional condition
      */
     protected void setUp() throws Exception {
+        org.apache.xml.security.Init.init();
+
         Keystore sampleKeyStore = new Keystore(KEYSTORE_PATH, KEYSTORE_PASSWORD,
                 Globals.KEYSTORE_TYPE);
         sampleKeyStore.load();

@@ -1,10 +1,12 @@
 /*******************************************************************************
- * Copyright (c) 2008 Dominik Schadow - http://www.xml-sicherheit.de All rights reserved. This
- * program and the accompanying materials are made available under the terms of the Eclipse Public
- * License v1.0 which accompanies this distribution, and is available at
+ * Copyright (c) 2009 Dominik Schadow - http://www.xml-sicherheit.de
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
  * http://www.eclipse.org/legal/epl-v10.html
  *
- * Contributors: Dominik Schadow - initial API and implementation
+ * Contributors:
+ *     Dominik Schadow - initial API and implementation
  *******************************************************************************/
 package org.eclipse.wst.xml.security.core.utils;
 
@@ -28,7 +30,11 @@ import javax.crypto.SecretKey;
 /**
  * <p>Manages the Java KeyStores (jks files). The generated Java KeyStores as well as the public and
  * private keys are standard compliant and can be used with other tools too. Newly generated
- * public keys are stored in their certificate.</p>
+ * public keys are stored in their certificate. The default <b>JKS</b> keystore can only store
+ * private key and certificate entries. A <b>JCEKS</b> keystore can also store secret key entries.</p>
+ *
+ * <p>The KeyStore file and, optionally (but recommended), their included entries, are password
+ * protected.</p>
  *
  * @author Dominik Schadow
  * @version 0.5.0
@@ -131,23 +137,15 @@ public class Keystore {
     }
 
     /**
-     * Returns the private key identified by the key alias and the key password.
+     * Generates a secret key with the given algorithm name and a matching algorithm size. A
+     * <code>NoSuchAlgorithmException</code> will be thrown if the algorithm or the algorithm
+     * size are not supported.
      *
-     * @param alias The key alias
-     * @param password The key password
-     * @return The private key, null if it does not exist in the KeyStore
-     * @throws Exception Any exception during loading the private key
+     * @param algorithm The algorithm name
+     * @param size The algorithm size
+     * @return The generated secret key
+     * @throws NoSuchAlgorithmException If the algorithm or the algorithm size are not supported
      */
-    public PrivateKey getPrivateKey(String alias, char[] password) throws Exception {
-        if (keyStore.containsAlias(alias)) {
-            PrivateKeyEntry ske = (PrivateKeyEntry) keyStore.getEntry(alias, new PasswordProtection(password));
-
-            return ske.getPrivateKey();
-        } else {
-            return null;
-        }
-    }
-
     public SecretKey generateSecretKey(String algorithm, int size) throws NoSuchAlgorithmException {
         KeyGenerator kg = KeyGenerator.getInstance(algorithm);
         kg.init(size);
@@ -156,12 +154,13 @@ public class Keystore {
     }
 
     /**
-     * Generates a new secret key.
+     * Inserts the given secret key into the loaded keystore by using the given alias and the
+     * given password.
      *
      * @param alias The alias name of the secret key
      * @param password The password to protect the secret key
      * @param key The secret key to insert
-     * @return Secret key generation result
+     * @return Secret key insertion result
      */
     public boolean insertSecretKey(String alias, char[] password, SecretKey key) {
         try {
@@ -170,35 +169,6 @@ public class Keystore {
 
                 KeyStore.SecretKeyEntry skEntry = new KeyStore.SecretKeyEntry(key);
                 keyStore.setEntry(alias, skEntry, new PasswordProtection(password));
-
-                int sizeAfter = keyStore.size();
-
-                if (sizeAfter > sizeBefore) {
-                    return true;
-                } else {
-                    return false;
-                }
-            } else {
-                return false;
-            }
-        } catch (KeyStoreException ex) {
-            return false;
-        }
-    }
-
-    public KeyPair generateKeyPair(String algorithm, int size) throws NoSuchAlgorithmException {
-        KeyPairGenerator kpg = KeyPairGenerator.getInstance(algorithm);
-        kpg.initialize(size);
-
-        return kpg.generateKeyPair();
-    }
-
-    public boolean insertPrivateKey(String alias, char[] password, PrivateKey key, Certificate[] chain) {
-        try {
-            if (!keyStore.containsAlias(alias)) {
-                int sizeBefore = keyStore.size();
-
-                keyStore.setKeyEntry(alias, key, password, chain);
 
                 int sizeAfter = keyStore.size();
 
@@ -232,6 +202,72 @@ public class Keystore {
                 return null;
             }
         } catch (Exception ex) {
+            return null;
+        }
+    }
+
+    /**
+     * Generates a key pair (a public and a private key) with the given algorithm name and a
+     * matching algorithm size. A <code>NoSuchAlgorithmException</code> will be thrown if the
+     * algorithm or the algorithm size are not supported.
+     *
+     * @param algorithm The algorithm name
+     * @param size The algorithm size
+     * @return The generated key pair
+     * @throws NoSuchAlgorithmException If the algorithm or the algorithm size are not supported
+     */
+    public KeyPair generateKeyPair(String algorithm, int size) throws NoSuchAlgorithmException {
+        KeyPairGenerator kpg = KeyPairGenerator.getInstance(algorithm);
+        kpg.initialize(size);
+
+        return kpg.generateKeyPair();
+    }
+
+    /**
+     * Inserts the given private key into the loaded keystore by using the given alias and the
+     * given password.
+     *
+     * @param alias The alias name of the private key
+     * @param password The password to protect the private key
+     * @param key The private key to insert
+     * @return Private key insertion result
+     */
+    public boolean insertPrivateKey(String alias, char[] password, PrivateKey key, Certificate[] chain) {
+        try {
+            if (!keyStore.containsAlias(alias)) {
+                int sizeBefore = keyStore.size();
+
+                keyStore.setKeyEntry(alias, key, password, chain);
+
+                int sizeAfter = keyStore.size();
+
+                if (sizeAfter > sizeBefore) {
+                    return true;
+                } else {
+                    return false;
+                }
+            } else {
+                return false;
+            }
+        } catch (KeyStoreException ex) {
+            return false;
+        }
+    }
+
+    /**
+     * Returns the private key identified by the key alias and the key password.
+     *
+     * @param alias The key alias
+     * @param password The key password
+     * @return The private key, null if it does not exist in the KeyStore
+     * @throws Exception Any exception during loading the private key
+     */
+    public PrivateKey getPrivateKey(String alias, char[] password) throws Exception {
+        if (keyStore.containsAlias(alias)) {
+            PrivateKeyEntry ske = (PrivateKeyEntry) keyStore.getEntry(alias, new PasswordProtection(password));
+
+            return ske.getPrivateKey();
+        } else {
             return null;
         }
     }

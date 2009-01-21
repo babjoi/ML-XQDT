@@ -45,36 +45,17 @@ public class KeystoreTest extends TestCase {
     private static final String KEY_PASSWORD = "sampleKey";
 
     /**
-     * Makes sure that the temporary keystore file used in these tests does not exist
-     * any more.
-     *
-     * @throws Exception during deleting temporary keystore file
-     */
-    public static void setUpBeforeClass() throws Exception {
-        File tempFile = new File(TEMP_KEYSTORE_PATH);
-        if (tempFile.exists()) {
-            assertTrue(tempFile.delete());
-        }
-    }
-
-    /**
-     * Deletes the temporary keystore file created for these tests.
-     *
-     * @throws Exception during deleting temporary keystore file
-     */
-    public static void setUpAfterClass() throws Exception {
-        File tempFile = new File(TEMP_KEYSTORE_PATH);
-        if (tempFile.exists()) {
-            assertTrue(tempFile.delete());
-        }
-    }
-
-    /**
      * Set up method. Sets up the sample keystore used in these test cases.
+     * Deletes the temporary keystore file created for these tests.
      *
      * @throws Exception during loading the sample keystore
      */
     public void setUp() throws Exception {
+        File tempFile = new File(TEMP_KEYSTORE_PATH);
+        if (tempFile.exists()) {
+            assertTrue(tempFile.delete());
+        }
+
         keystore = new Keystore(KEYSTORE_PATH, KEYSTORE_PASSWORD, Globals.KEYSTORE_TYPE);
         tempKeystore = new Keystore(TEMP_KEYSTORE_PATH, KEYSTORE_PASSWORD, Globals.KEYSTORE_TYPE);
     }
@@ -118,6 +99,7 @@ public class KeystoreTest extends TestCase {
             assertFalse(temp.load());
 
             assertNotNull(tempKeystore);
+            tempKeystore.store();
             assertTrue(tempKeystore.load());
 
             temp = new Keystore(TEMP_KEYSTORE_PATH, "wrong", Globals.KEYSTORE_TYPE);

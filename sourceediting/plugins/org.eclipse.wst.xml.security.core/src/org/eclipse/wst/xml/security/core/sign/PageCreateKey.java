@@ -633,19 +633,15 @@ public class PageCreateKey extends WizardPage implements Listener {
      */
     private void generateCertificate() throws Exception {
         HashMap<String, String> certificateData = new HashMap<String, String>();
-        certificateData.put("keystore", tKeystore.getText()); //$NON-NLS-1$
-        certificateData.put("alias", tKeyName.getText()); //$NON-NLS-1$
-        certificateData.put("keyalg", cAlgorithm.getText()); //$NON-NLS-1$
         certificateData.put("CN", tCommonName.getText()); //$NON-NLS-1$
         certificateData.put("OU", tOrganizationalUnit.getText()); //$NON-NLS-1$
         certificateData.put("O", tOrganization.getText()); //$NON-NLS-1$
         certificateData.put("L", tLocation.getText()); //$NON-NLS-1$
         certificateData.put("ST", tState.getText()); //$NON-NLS-1$
         certificateData.put("C", tCountry.getText()); //$NON-NLS-1$
-        certificateData.put("keypass", tKeyPassword.getText()); //$NON-NLS-1$
-        certificateData.put("storepass", tKeystorePassword.getText()); //$NON-NLS-1$
 
         XmlSecurityCertificate certificate = new XmlSecurityCertificate();
+        //CertificateFactory.getInstance("X.509");
         generatedKey = keystore.generateCertificate(tKeyName.getText(), certificate);
 
         if (generatedKey) {

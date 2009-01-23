@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2008 Dominik Schadow - http://www.xml-sicherheit.de
+ * Copyright (c) 2009 Dominik Schadow - http://www.xml-sicherheit.de
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -17,7 +17,7 @@ import org.apache.xml.security.signature.XMLSignature;
 import org.apache.xml.security.transforms.Transforms;
 
 /**
- * <p>Utils class to return the constant names for signature algorithms, message digest algorithms,
+ * <p>Utility class to return the constant names for signature algorithms, message digest algorithms,
  * canonicalization and transformation algorithms, encryption algorithms and the key cipher
  * algorithm.</p>
  *
@@ -25,12 +25,6 @@ import org.apache.xml.security.transforms.Transforms;
  * @version 0.5.0
  */
 public final class XmlSecurityConstants {
-    /**
-     * Private constructor to avoid instantiation.
-     */
-    private XmlSecurityConstants() {
-    }
-
     /**
      * Returns the signature algorithm.
      *
@@ -186,7 +180,7 @@ public final class XmlSecurityConstants {
     }
 
     /**
-     * Returns the standard key file algorithm for the given algoritm.
+     * Returns the standard key file algorithm for the given algorithm.
      *
      * @param keyAlgorithm The algorithm to look for
      * @return The correct name for the algorithm

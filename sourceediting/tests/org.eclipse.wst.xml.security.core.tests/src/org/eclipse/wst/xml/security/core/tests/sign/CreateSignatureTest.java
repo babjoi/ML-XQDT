@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2008 Dominik Schadow - http://www.xml-sicherheit.de
+ * Copyright (c) 2009 Dominik Schadow - http://www.xml-sicherheit.de
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -19,6 +19,7 @@ import junit.framework.TestCase;
 import org.apache.xml.security.utils.XMLUtils;
 import org.eclipse.wst.xml.security.core.sign.CreateSignature;
 import org.eclipse.wst.xml.security.core.sign.Signature;
+import org.eclipse.wst.xml.security.core.tests.XMLSecurityToolsTestPlugin;
 import org.eclipse.wst.xml.security.core.utils.Globals;
 import org.eclipse.wst.xml.security.core.utils.Keystore;
 import org.eclipse.wst.xml.security.core.verify.VerificationResult;
@@ -26,9 +27,7 @@ import org.eclipse.wst.xml.security.core.verify.VerifySignature;
 import org.w3c.dom.Document;
 
 /**
- * <p>
- * JUnit test class for {@link org.eclipse.wst.xml.security.core.sign.CreateSignature}.
- * </p>
+ * <p>JUnit test class for {@link org.eclipse.wst.xml.security.core.sign.CreateSignature}.</p>
  *
  * @author Dominik Schadow
  * @version 0.5.0
@@ -64,7 +63,7 @@ public class CreateSignatureTest extends TestCase {
         signature.setKeyAlias(KEY_ALIAS);
         signature.setKeyPassword(KEY_PASSWORD.toCharArray());
         signature.setDetachedFile(null);
-        signature.setFile("resources/FirstSteps.xml");
+        signature.setFile(XMLSecurityToolsTestPlugin.getTestFileLocation("resources/FirstSteps.xml"));
         signature.setKeystore(sampleKeyStore);
         signature.setKeystorePassword(KEYSTORE_PASSWORD.toCharArray());
         signature.setMessageDigestAlgorithm("SHA 1");
@@ -121,6 +120,7 @@ public class CreateSignatureTest extends TestCase {
             signatures = verify.verify(SIGNED_FILE_NAME, "wrongID");
             assertEquals("unknown", (signatures.get(0)).getStatus());
         } catch (Exception ex) {
+            ex.printStackTrace();
             fail(ex.getLocalizedMessage());
         }
     }

@@ -1,10 +1,12 @@
 /*******************************************************************************
- * Copyright (c) 2009 Dominik Schadow - http://www.xml-sicherheit.de All rights reserved. This
- * program and the accompanying materials are made available under the terms of the Eclipse Public
- * License v1.0 which accompanies this distribution, and is available at
+ * Copyright (c) 2009 Dominik Schadow - http://www.xml-sicherheit.de
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
  * http://www.eclipse.org/legal/epl-v10.html
  *
- * Contributors: Dominik Schadow - initial API and implementation
+ * Contributors:
+ *     Dominik Schadow - initial API and implementation
  *******************************************************************************/
 package org.eclipse.wst.xml.security.core.tests;
 
@@ -15,7 +17,7 @@ import org.eclipse.wst.xml.security.core.tests.sign.CreateSignatureTest;
 import org.eclipse.wst.xml.security.core.tests.utils.CertificateTest;
 import org.eclipse.wst.xml.security.core.tests.utils.KeystoreTest;
 import org.eclipse.wst.xml.security.core.tests.utils.UtilsTest;
-import org.eclipse.wst.xml.security.core.utils.XmlSecurityConstants;
+import org.eclipse.wst.xml.security.core.tests.utils.XmlSecurityConstantsTest;
 
 public class XmlSecurityCoreTestSuite extends TestSuite {
     public static Test suite() {
@@ -28,7 +30,7 @@ public class XmlSecurityCoreTestSuite extends TestSuite {
         addTestSuite(CertificateTest.class);
         addTestSuite(KeystoreTest.class);
         addTestSuite(UtilsTest.class);
-        addTestSuite(XmlSecurityConstants.class);
+        addTestSuite(XmlSecurityConstantsTest.class);
     }
 }
 

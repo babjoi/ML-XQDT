@@ -1,10 +1,12 @@
 /*******************************************************************************
- * Copyright (c) 2008 Dominik Schadow - http://www.xml-sicherheit.de All rights reserved. This
- * program and the accompanying materials are made available under the terms of the Eclipse Public
- * License v1.0 which accompanies this distribution, and is available at
+ * Copyright (c) 2009 Dominik Schadow - http://www.xml-sicherheit.de
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
  * http://www.eclipse.org/legal/epl-v10.html
  *
- * Contributors: Dominik Schadow - initial API and implementation
+ * Contributors:
+ *     Dominik Schadow - initial API and implementation
  *******************************************************************************/
 package org.eclipse.wst.xml.security.core.tests.utils;
 
@@ -13,6 +15,7 @@ import java.util.HashMap;
 
 import junit.framework.TestCase;
 
+import org.eclipse.wst.xml.security.core.tests.XMLSecurityToolsTestPlugin;
 import org.eclipse.wst.xml.security.core.utils.Globals;
 import org.eclipse.wst.xml.security.core.utils.Keystore;
 
@@ -28,24 +31,18 @@ public class CertificateTest extends TestCase {
     private static final String KEYSTORE_PASSWORD = "sampleKeystore";
 
     /**
-     * Makes sure that the temporary keystore file used in these tests does not exist any more.
-     *
-     * @throws Exception during deleting temporary keystore file
-     */
-    public static void setUpBeforeClass() throws Exception {
-        File tempFile = new File(TEMP_KEYSTORE_PATH);
-        if (tempFile.exists()) {
-            assertTrue(tempFile.delete());
-        }
-    }
-
-    /**
      * Set up method. Sets up the sample keystore used in these test cases.
      *
      * @throws Exception during loading the sample keystore
      */
     public void setUp() throws Exception {
-        tempKeystore = new Keystore(TEMP_KEYSTORE_PATH, KEYSTORE_PASSWORD, Globals.KEYSTORE_TYPE);
+        File tempFile = new File(XMLSecurityToolsTestPlugin.getTestFileLocation(TEMP_KEYSTORE_PATH));
+        if (tempFile.exists()) {
+            assertTrue(tempFile.delete());
+        }
+
+        tempKeystore = new Keystore(XMLSecurityToolsTestPlugin.getTestFileLocation(TEMP_KEYSTORE_PATH),
+                KEYSTORE_PASSWORD, Globals.KEYSTORE_TYPE);
     }
 
     /**
@@ -64,7 +61,7 @@ public class CertificateTest extends TestCase {
             // assertEquals(true, cert.generateKeystoreAndCertificate(certificateData));
 
 
-            File tempFile = new File(TEMP_KEYSTORE_PATH);
+            File tempFile = new File(XMLSecurityToolsTestPlugin.getTestFileLocation(TEMP_KEYSTORE_PATH));
             assertFalse(tempFile.exists());
 
             assertNotNull(tempKeystore);

@@ -15,6 +15,9 @@ import junit.framework.TestSuite;
 /**
  * This class specifies all the bundles of this component that provide a test suite to run during
  * automated testing.
+ *
+ * @author Dominik Schadow
+ * @version 0.5.0
  */
 public class AllTestsSuite extends TestSuite {
     public AllTestsSuite() {

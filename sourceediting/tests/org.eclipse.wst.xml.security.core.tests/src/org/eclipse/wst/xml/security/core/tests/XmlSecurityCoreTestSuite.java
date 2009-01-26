@@ -19,6 +19,12 @@ import org.eclipse.wst.xml.security.core.tests.utils.KeystoreTest;
 import org.eclipse.wst.xml.security.core.tests.utils.UtilsTest;
 import org.eclipse.wst.xml.security.core.tests.utils.XmlSecurityConstantsTest;
 
+/**
+ * This class sets up the XML Security Tools test suite.
+ *
+ * @author Dominik Schadow
+ * @version 0.5.0
+ */
 public class XmlSecurityCoreTestSuite extends TestSuite {
     public static Test suite() {
         return new XmlSecurityCoreTestSuite();

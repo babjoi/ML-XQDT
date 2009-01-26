@@ -18,6 +18,13 @@ import org.eclipse.core.runtime.FileLocator;
 import org.eclipse.core.runtime.Platform;
 import org.eclipse.core.runtime.Plugin;
 
+/**
+ * This class is the activator class of the XML Security Tools test plug-in. This plug-in
+ * is a JUnit Test plug-in (using JUnit 3) and requires all XML Security Tools plug-ins.
+ *
+ * @author Dominik Schadow
+ * @version 0.5.0
+ */
 public class XMLSecurityToolsTestPlugin extends Plugin {
     /** The shared plug-in instance. */
     private static XMLSecurityToolsTestPlugin plugin;

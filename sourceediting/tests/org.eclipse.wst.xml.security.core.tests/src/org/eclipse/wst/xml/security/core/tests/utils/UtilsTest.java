@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2008 Dominik Schadow - http://www.xml-sicherheit.de
+ * Copyright (c) 2009 Dominik Schadow - http://www.xml-sicherheit.de
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -87,7 +87,7 @@ public class UtilsTest extends TestCase {
      */
     public void testValidateXPath() {
         assertEquals("attribute", Utils.validateXPath(xml, "Invoice/TotalAmount/@currencyID"));
-        assertEquals("single", Utils.validateXPath(xml, "Invoice/InvoiceLine[1]/Item/BasePrice[@currencyID='Û']"));
+        assertEquals("single", Utils.validateXPath(xml, "Invoice/InvoiceLine[1]/Item/BasePrice[@currencyID='EUR']"));
         assertEquals("multiple", Utils.validateXPath(xml, "Invoice/InvoiceLine"));
         assertEquals("none", Utils.validateXPath(xml, "Invoice/Line"));
     }
@@ -103,20 +103,20 @@ public class UtilsTest extends TestCase {
         assertEquals(false, Utils.validateId("'"));
         assertEquals(false, Utils.validateId("&"));
         assertEquals(false, Utils.validateId(" "));
-        assertEquals(true, Utils.validateId("ŠšŸ§!¤$%/()"));
+        assertEquals(true, Utils.validateId("äöüß$%/()"));
     }
 
     /**
      * Test for id uniqueness.
      */
     public void testCheckIdUniqueness() {
-        String[] ids = {"myID", "myid", "aaa", "bbb", "x", "ŠšŸ"};
+        String[] ids = {"myID", "myid", "aaa", "bbb", "x", "öäü"};
         assertEquals(true, Utils.ensureIdIsUnique("aa", ids));
         assertEquals(true, Utils.ensureIdIsUnique("mySignatureID", ids));
-        assertEquals(true, Utils.ensureIdIsUnique("ŠšŸ§", ids));
+        assertEquals(true, Utils.ensureIdIsUnique("öäüß§", ids));
         assertEquals(true, Utils.ensureIdIsUnique("myId", ids));
         assertEquals(false, Utils.ensureIdIsUnique("myid", ids));
-        assertEquals(false, Utils.ensureIdIsUnique("ŠšŸ", ids));
+        assertEquals(false, Utils.ensureIdIsUnique("öäü", ids));
         assertEquals(false, Utils.ensureIdIsUnique("x", ids));
         assertEquals(false, Utils.ensureIdIsUnique("bbb", ids));
     }

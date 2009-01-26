@@ -17,21 +17,21 @@
    </FinancialInstitutionBranch>
   </PayeeFinancialAccount>
  </PaymentMeans>
- <TotalAmount currencyID="€">382.00</TotalAmount>
+ <TotalAmount currencyID="EUR">382.00</TotalAmount>
  <!-- item 1 -->
  <InvoiceLine id="1">
   <Quantity>2</Quantity>
-  <LineAmount currencyID="€">205.00</LineAmount>
+  <LineAmount currencyID="EUR">205.00</LineAmount>
   <Item id="236WV">
-   <BasePrice currencyID="€">102.50</BasePrice>
+   <BasePrice currencyID="EUR">102.50</BasePrice>
   </Item>
  </InvoiceLine>
  <!-- item 2 -->
  <InvoiceLine id="2">
   <Quantity>1</Quantity>
-  <LineAmount currencyID="€">177.00</LineAmount>
+  <LineAmount currencyID="EUR">177.00</LineAmount>
   <Item id="193DX">
-   <BasePrice currencyID="€">177.00</BasePrice>
+   <BasePrice currencyID="EUR">177.00</BasePrice>
   </Item>
  </InvoiceLine>
 </Invoice>

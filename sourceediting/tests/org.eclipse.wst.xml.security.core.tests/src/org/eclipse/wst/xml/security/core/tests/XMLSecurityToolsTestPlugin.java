@@ -73,10 +73,8 @@ public class XMLSecurityToolsTestPlugin extends Plugin {
     }
 
     public static String getTestFileLocation(String filepath) {
-        URL installURL = getInstallLocation();
-        String path = installURL.getPath();
-        String location = path + filepath;
+        URL installUrl = getInstallLocation();
 
-        return location;
+        return installUrl.getPath() + filepath;
     }
 }

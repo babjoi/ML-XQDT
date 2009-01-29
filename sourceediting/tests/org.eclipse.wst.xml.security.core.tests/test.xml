@@ -27,7 +27,7 @@
         value="org.eclipse.wst.xml.security.core.tests.AllTestsSuite" />
     <property
         name="testType"
-        value="core-test" />
+        value="ui-test" />
 
     <!-- some test suites need to add special vm arguments when they run. This is just an example.
     <property

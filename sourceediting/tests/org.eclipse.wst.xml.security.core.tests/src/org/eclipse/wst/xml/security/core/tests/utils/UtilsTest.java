@@ -14,6 +14,7 @@ import java.io.File;
 
 import junit.framework.TestCase;
 
+import org.eclipse.wst.xml.security.core.tests.XMLSecurityToolsTestPlugin;
 import org.eclipse.wst.xml.security.core.utils.Utils;
 import org.w3c.dom.Document;
 
@@ -37,7 +38,7 @@ public class UtilsTest extends TestCase {
      * @throws Exception
      */
     public void setUp() throws Exception {
-        xml = Utils.parse(new File("resources/FirstSteps.xml"));
+        xml = Utils.parse(new File(XMLSecurityToolsTestPlugin.getTestFileLocation("resources/FirstSteps.xml")));
         // BUG not working correctly
 //        IFileStore fileStore = EFS.getLocalFileSystem().fromLocalFile(new File("resources/ids.xml"));
 //        FileStoreEditorInput input = new FileStoreEditorInput(fileStore);
@@ -103,20 +104,20 @@ public class UtilsTest extends TestCase {
         assertEquals(false, Utils.validateId("'"));
         assertEquals(false, Utils.validateId("&"));
         assertEquals(false, Utils.validateId(" "));
-        assertEquals(true, Utils.validateId("äöüß$%/()"));
+        assertEquals(true, Utils.validateId("ï¿½ï¿½ï¿½ï¿½$%/()"));
     }
 
     /**
      * Test for id uniqueness.
      */
     public void testCheckIdUniqueness() {
-        String[] ids = {"myID", "myid", "aaa", "bbb", "x", "öäü"};
+        String[] ids = {"myID", "myid", "aaa", "bbb", "x", "ï¿½ï¿½ï¿½"};
         assertEquals(true, Utils.ensureIdIsUnique("aa", ids));
         assertEquals(true, Utils.ensureIdIsUnique("mySignatureID", ids));
-        assertEquals(true, Utils.ensureIdIsUnique("öäüß§", ids));
+        assertEquals(true, Utils.ensureIdIsUnique("ï¿½ï¿½ï¿½ß§", ids));
         assertEquals(true, Utils.ensureIdIsUnique("myId", ids));
         assertEquals(false, Utils.ensureIdIsUnique("myid", ids));
-        assertEquals(false, Utils.ensureIdIsUnique("öäü", ids));
+        assertEquals(false, Utils.ensureIdIsUnique("ï¿½ï¿½ï¿½", ids));
         assertEquals(false, Utils.ensureIdIsUnique("x", ids));
         assertEquals(false, Utils.ensureIdIsUnique("bbb", ids));
     }

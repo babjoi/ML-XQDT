@@ -17,6 +17,7 @@ import javax.crypto.SecretKey;
 
 import junit.framework.TestCase;
 
+import org.eclipse.wst.xml.security.core.tests.XMLSecurityToolsTestPlugin;
 import org.eclipse.wst.xml.security.core.utils.Globals;
 import org.eclipse.wst.xml.security.core.utils.Keystore;
 import org.eclipse.wst.xml.security.core.utils.XmlSecurityCertificate;
@@ -51,13 +52,13 @@ public class KeystoreTest extends TestCase {
      * @throws Exception during loading the sample keystore
      */
     public void setUp() throws Exception {
-        File tempFile = new File(TEMP_KEYSTORE_PATH);
+        File tempFile = new File(XMLSecurityToolsTestPlugin.getTestFileLocation(TEMP_KEYSTORE_PATH));
         if (tempFile.exists()) {
             assertTrue(tempFile.delete());
         }
 
-        keystore = new Keystore(KEYSTORE_PATH, KEYSTORE_PASSWORD, Globals.KEYSTORE_TYPE);
-        tempKeystore = new Keystore(TEMP_KEYSTORE_PATH, KEYSTORE_PASSWORD, Globals.KEYSTORE_TYPE);
+        keystore = new Keystore(XMLSecurityToolsTestPlugin.getTestFileLocation(KEYSTORE_PATH), KEYSTORE_PASSWORD, Globals.KEYSTORE_TYPE);
+        tempKeystore = new Keystore(XMLSecurityToolsTestPlugin.getTestFileLocation(TEMP_KEYSTORE_PATH), KEYSTORE_PASSWORD, Globals.KEYSTORE_TYPE);
     }
 
     /**
@@ -73,7 +74,8 @@ public class KeystoreTest extends TestCase {
      */
     public void testStore() {
         try {
-            File tempFile = new File(TEMP_KEYSTORE_PATH);
+        	String keystorePath = XMLSecurityToolsTestPlugin.getTestFileLocation(TEMP_KEYSTORE_PATH);
+            File tempFile = new File(keystorePath);
 
             assertFalse(tempFile.exists());
 

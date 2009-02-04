@@ -52,7 +52,7 @@ public class CreateSignatureTest extends TestCase {
     protected void setUp() throws Exception {
         org.apache.xml.security.Init.init();
 
-        Keystore sampleKeyStore = new Keystore(KEYSTORE_PATH, KEYSTORE_PASSWORD,
+        Keystore sampleKeyStore = new Keystore(XMLSecurityToolsTestPlugin.getTestFileLocation(KEYSTORE_PATH), KEYSTORE_PASSWORD,
                 Globals.KEYSTORE_TYPE);
         sampleKeyStore.load();
 
@@ -85,7 +85,7 @@ public class CreateSignatureTest extends TestCase {
         signature = null;
 
         try {
-            File file = new File(SIGNED_FILE_NAME);
+            File file = new File(XMLSecurityToolsTestPlugin.getTestFileLocation(SIGNED_FILE_NAME));
             if (file.exists()) {
                 file.delete();
             }
@@ -105,8 +105,10 @@ public class CreateSignatureTest extends TestCase {
         Document result = null;
         try {
             result = sign.sign(signature, null, null);
+            
+            String signedFilename = XMLSecurityToolsTestPlugin.getTestFileLocation(SIGNED_FILE_NAME);
 
-            FileOutputStream fos = new FileOutputStream(SIGNED_FILE_NAME);
+            FileOutputStream fos = new FileOutputStream(signedFilename);
             if (result != null) {
                 XMLUtils.outputDOM(result, fos);
             }
@@ -114,10 +116,10 @@ public class CreateSignatureTest extends TestCase {
             fos.close();
 
             ArrayList<VerificationResult> signatures = verify
-                    .verify(SIGNED_FILE_NAME, SIGNATURE_ID);
+                    .verify(signedFilename, SIGNATURE_ID);
             assertEquals("valid", (signatures.get(0)).getStatus());
 
-            signatures = verify.verify(SIGNED_FILE_NAME, "wrongID");
+            signatures = verify.verify(signedFilename, "wrongID");
             assertEquals("unknown", (signatures.get(0)).getStatus());
         } catch (Exception ex) {
             ex.printStackTrace();

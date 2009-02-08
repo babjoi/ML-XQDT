@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2008 Dominik Schadow - http://www.xml-sicherheit.de
+ * Copyright (c) 2009 Dominik Schadow - http://www.xml-sicherheit.de
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -18,12 +18,10 @@ import org.eclipse.jface.action.Action;
 import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.action.MenuManager;
 import org.eclipse.jface.action.Separator;
-import org.eclipse.jface.viewers.ColumnWeightData;
 import org.eclipse.jface.viewers.DoubleClickEvent;
 import org.eclipse.jface.viewers.IDoubleClickListener;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.IStructuredSelection;
-import org.eclipse.jface.viewers.TableLayout;
 import org.eclipse.jface.viewers.TableViewer;
 import org.eclipse.osgi.util.NLS;
 import org.eclipse.swt.SWT;
@@ -42,7 +40,6 @@ import org.eclipse.ui.part.ViewPart;
 import org.eclipse.wst.xml.security.core.XmlSecurityPlugin;
 import org.eclipse.wst.xml.security.core.actions.ShowSignatureProperties;
 import org.eclipse.wst.xml.security.core.utils.IContextHelpIds;
-
 
 /**
  * <p>Displays the <i>XML Digital Signatures</i> view with all discovered digital signatures in the
@@ -87,32 +84,24 @@ public class SignatureView extends ViewPart {
      * @param parent The parent composite
      */
     public void createPartControl(final Composite parent) {
-        final int iconColumn = 15;
+        final int iconColumn = 20;
         final int smallColumn = 100;
         final int largeColumn = 200;
 
-        signatures = new TableViewer(parent, SWT.BORDER | SWT.H_SCROLL | SWT.V_SCROLL
-                | SWT.FULL_SELECTION);
+        signatures = new TableViewer(parent, SWT.BORDER | SWT.H_SCROLL | SWT.V_SCROLL | SWT.FULL_SELECTION);
         signatures.setContentProvider(new SignatureContentProvider());
         signatures.setLabelProvider(new SignatureLabelProvider());
         signatures.setComparator(new SignatureComparator());
 
         getSite().setSelectionProvider(signatures);
 
-        TableLayout signatureLayout = new TableLayout();
-        signatureLayout.addColumnData(new ColumnWeightData(iconColumn, iconColumn, true));
-        signatureLayout.addColumnData(new ColumnWeightData(largeColumn, largeColumn, true));
-        signatureLayout.addColumnData(new ColumnWeightData(smallColumn, smallColumn, true));
-        signatureLayout.addColumnData(new ColumnWeightData(largeColumn, largeColumn, true));
-
-        signatures.getTable().setLayout(signatureLayout);
         signatures.getTable().setLinesVisible(true);
         signatures.getTable().setHeaderVisible(true);
 
         TableColumn cStatus = new TableColumn(signatures.getTable(), SWT.LEFT, 0);
         cStatus.setText("");
         cStatus.setToolTipText(Messages.signatureStatus);
-        cStatus.setWidth(smallColumn);
+        cStatus.setWidth(iconColumn);
         cStatus.setAlignment(SWT.CENTER);
 
         TableColumn cId = new TableColumn(signatures.getTable(), SWT.LEFT, 1);

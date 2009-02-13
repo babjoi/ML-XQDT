@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2008 Dominik Schadow - http://www.xml-sicherheit.de
+ * Copyright (c) 2009 Dominik Schadow - http://www.xml-sicherheit.de
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -33,7 +33,6 @@ import org.w3c.dom.Element;
 import org.xml.sax.EntityResolver;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
-
 
 /**
  * <p>Verifies exactly one XML Digital Signature with the included <code>KeyInfo</code> element or
@@ -123,32 +122,32 @@ public class VerifySignature {
                         type = cert.getType();
                         algorithm = cert.getSigAlgName();
                         if (signature.checkSignatureValue(cert)) {
-                            status = Verification.VALID;
+                            status = VerificationResult.VALID;
                         } else {
-                            status = Verification.INVALID;
+                            status = VerificationResult.INVALID;
                         }
                     } else if (pk != null) { // public key
                         type = ""; //$NON-NLS-1$
                         algorithm = pk.getAlgorithm();
                         if (signature.checkSignatureValue(pk)) {
-                            status = Verification.VALID;
+                            status = VerificationResult.VALID;
                         } else {
-                            status = Verification.INVALID;
+                            status = VerificationResult.INVALID;
                         }
                     } else { // neither certificate nor public key
-                        status = Verification.UNKNOWN;
+                        status = VerificationResult.UNKNOWN;
                     }
                 } else { // no KeyInfo element
-                    status = Verification.UNKNOWN;
+                    status = VerificationResult.UNKNOWN;
                 }
                 signatures.add(new VerificationResult(status, signatureId, type, algorithm,
                         signature));
             } else {
-                signatures.add(new VerificationResult(Verification.UNKNOWN, signatureId, type, algorithm,
+                signatures.add(new VerificationResult(VerificationResult.UNKNOWN, signatureId, type, algorithm,
                         signature));
             }
         } catch (Exception ex) {
-            signatures.add(new VerificationResult(Verification.UNKNOWN, signatureId, type, algorithm, signature));
+            signatures.add(new VerificationResult(VerificationResult.UNKNOWN, signatureId, type, algorithm, signature));
             Utils.logError(ex, "Error during single signature verification"); //$NON-NLS-1$
         }
 

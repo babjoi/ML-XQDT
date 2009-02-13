@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2008 Dominik Schadow - http://www.xml-sicherheit.de
+ * Copyright (c) 2009 Dominik Schadow - http://www.xml-sicherheit.de
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -122,29 +122,29 @@ public class VerifyDocument {
                             type = cert.getType();
                             algorithm = cert.getSigAlgName();
                             if (signature.checkSignatureValue(cert)) {
-                                status = Verification.VALID;
+                                status = VerificationResult.VALID;
                             } else {
-                                status = Verification.INVALID;
+                                status = VerificationResult.INVALID;
                             }
                         } else if (pk != null) { // public key
                             type = ""; //$NON-NLS-1$
                             algorithm = pk.getAlgorithm();
                             if (signature.checkSignatureValue(pk)) {
-                                status = Verification.VALID;
+                                status = VerificationResult.VALID;
                             } else {
-                                status = Verification.INVALID;
+                                status = VerificationResult.INVALID;
                             }
                         } else { // neither certificate nor public key
-                            status = Verification.UNKNOWN;
+                            status = VerificationResult.UNKNOWN;
                         }
                     } else { // no KeyInfo element
-                        status = Verification.UNKNOWN;
+                        status = VerificationResult.UNKNOWN;
                     }
                 }
 
                 signatures.add(new VerificationResult(status, signatureId, type, algorithm, signature));
             } catch (Exception ex) {
-                signatures.add(new VerificationResult(Verification.UNKNOWN, signatureId, type, algorithm, signature));
+                signatures.add(new VerificationResult(VerificationResult.UNKNOWN, signatureId, type, algorithm, signature));
                 Utils.logError(ex, "Error during signature verification"); //$NON-NLS-1$
             }
         }

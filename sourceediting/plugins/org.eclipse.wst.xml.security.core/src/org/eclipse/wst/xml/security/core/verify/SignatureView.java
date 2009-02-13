@@ -23,6 +23,8 @@ import org.eclipse.jface.viewers.IDoubleClickListener;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.TableViewer;
+import org.eclipse.jface.viewers.TableViewerColumn;
+import org.eclipse.jface.viewers.Viewer;
 import org.eclipse.osgi.util.NLS;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.dnd.Clipboard;
@@ -30,7 +32,6 @@ import org.eclipse.swt.dnd.TextTransfer;
 import org.eclipse.swt.dnd.Transfer;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Menu;
-import org.eclipse.swt.widgets.TableColumn;
 import org.eclipse.ui.IActionBars;
 import org.eclipse.ui.IWorkbenchActionConstants;
 import org.eclipse.ui.PlatformUI;
@@ -42,9 +43,10 @@ import org.eclipse.wst.xml.security.core.actions.ShowSignatureProperties;
 import org.eclipse.wst.xml.security.core.utils.IContextHelpIds;
 
 /**
- * <p>Displays the <i>XML Digital Signatures</i> view with all discovered digital signatures in the
- * current XML document. Shows the properties of every signature and enables a rescan of the opened
- * XML document for new signatures.</p>
+ * <p>Displays the <b>XML Signatures</b> view with all discovered digital signatures in the
+ * current XML document. Shows the properties (status, id, type and algorithm) of every signature
+ * and enables a rescan of the opened XML document for new signatures. The top info area contains
+ * the number of all discovered signatures and the number of valid, invalid and unknown ones.</p>
  *
  * @author Dominik Schadow
  * @version 0.5.0
@@ -54,7 +56,7 @@ public class SignatureView extends ViewPart {
     private TableViewer signatures;
     /** Double click on a signature in the view. */
     private ShowSignatureProperties doubleClickAction = new ShowSignatureProperties();
-    /** Digital Signature view ID. */
+    /** XML Signatures view ID. */
     public static final String ID = "org.eclipse.wst.xml.security.core.views.SignatureView";
     /** The system clipboard. */
     private Clipboard clipboard = null;
@@ -65,6 +67,7 @@ public class SignatureView extends ViewPart {
      * @param results Input as ArrayList
      */
     public void setInput(final ArrayList<VerificationResult> results) {
+        signatures.setLabelProvider(new SignatureLabelProvider());
         signatures.setInput(results);
         updateViewInfo(results);
     }
@@ -84,48 +87,98 @@ public class SignatureView extends ViewPart {
      * @param parent The parent composite
      */
     public void createPartControl(final Composite parent) {
-        final int iconColumn = 20;
-        final int smallColumn = 100;
-        final int largeColumn = 200;
-
         signatures = new TableViewer(parent, SWT.BORDER | SWT.H_SCROLL | SWT.V_SCROLL | SWT.FULL_SELECTION);
         signatures.setContentProvider(new SignatureContentProvider());
         signatures.setLabelProvider(new SignatureLabelProvider());
-        signatures.setComparator(new SignatureComparator());
 
         getSite().setSelectionProvider(signatures);
 
         signatures.getTable().setLinesVisible(true);
         signatures.getTable().setHeaderVisible(true);
 
-        TableColumn cStatus = new TableColumn(signatures.getTable(), SWT.LEFT, 0);
-        cStatus.setText("");
-        cStatus.setToolTipText(Messages.signatureStatus);
-        cStatus.setWidth(iconColumn);
-        cStatus.setAlignment(SWT.CENTER);
+        TableViewerColumn column = new TableViewerColumn(signatures, SWT.CENTER);
+        column.getColumn().setText("");
+        column.getColumn().setToolTipText(Messages.signatureStatus);
+        column.getColumn().setWidth(50);
+        column.getColumn().setMoveable(true);
 
-        TableColumn cId = new TableColumn(signatures.getTable(), SWT.LEFT, 1);
-        cId.setText(Messages.signatureId);
-        cId.setToolTipText(Messages.signatureId);
-        cId.setWidth(largeColumn);
-        cId.setAlignment(SWT.LEFT);
+        SignatureComparator signatureSorter = new SignatureComparator(signatures, column) {
+            protected int doCompare(Viewer viewer, Object o1, Object o2) {
+                VerificationResult result1 = (VerificationResult) o1;
+                VerificationResult result2 = (VerificationResult) o2;
 
-        TableColumn cType = new TableColumn(signatures.getTable(), SWT.LEFT, 2);
-        cType.setText(Messages.signatureType);
-        cType.setToolTipText(Messages.signatureType);
-        cType.setWidth(smallColumn);
-        cType.setAlignment(SWT.LEFT);
+                if (result1 != null && result2 != null) {
+                    return result1.getStatus().compareToIgnoreCase(result2.getStatus());
+                } else {
+                    return 0;
+                }
+            }
+        };
 
-        TableColumn cAlgorithm = new TableColumn(signatures.getTable(), SWT.LEFT, 3);
-        cAlgorithm.setText(Messages.signatureAlgorithm);
-        cAlgorithm.setToolTipText(Messages.signatureAlgorithm);
-        cAlgorithm.setWidth(largeColumn);
-        cAlgorithm.setAlignment(SWT.LEFT);
+        column = new TableViewerColumn(signatures, SWT.LEFT);
+        column.getColumn().setText(Messages.signatureId);
+        column.getColumn().setToolTipText(Messages.signatureId);
+        column.getColumn().setWidth(200);
+        column.getColumn().setMoveable(true);
+
+        new SignatureComparator(signatures, column) {
+            protected int doCompare(Viewer viewer, Object o1, Object o2) {
+                VerificationResult result1 = (VerificationResult) o1;
+                VerificationResult result2 = (VerificationResult) o2;
+
+                if (result1 != null && result2 != null) {
+                    return result1.getId().compareToIgnoreCase(result2.getId());
+                } else {
+                    return 0;
+                }
+            }
+        };
+
+        column = new TableViewerColumn(signatures, SWT.LEFT);
+        column.getColumn().setText(Messages.signatureType);
+        column.getColumn().setToolTipText(Messages.signatureType);
+        column.getColumn().setWidth(100);
+        column.getColumn().setMoveable(true);
+
+        new SignatureComparator(signatures, column) {
+            protected int doCompare(Viewer viewer, Object o1, Object o2) {
+                VerificationResult result1 = (VerificationResult) o1;
+                VerificationResult result2 = (VerificationResult) o2;
+
+                if (result1 != null && result2 != null) {
+                    return result1.getType().compareToIgnoreCase(result2.getType());
+                } else {
+                    return 0;
+                }
+            }
+        };
+
+        column = new TableViewerColumn(signatures, SWT.LEFT);
+        column.getColumn().setText(Messages.signatureAlgorithm);
+        column.getColumn().setToolTipText(Messages.signatureAlgorithm);
+        column.getColumn().setWidth(200);
+        column.getColumn().setMoveable(true);
+
+        new SignatureComparator(signatures, column) {
+            protected int doCompare(Viewer viewer, Object o1, Object o2) {
+                VerificationResult result1 = (VerificationResult) o1;
+                VerificationResult result2 = (VerificationResult) o2;
+
+                if (result1 != null && result2 != null) {
+                    return result1.getAlgorithm().compareToIgnoreCase(result2.getAlgorithm());
+                } else {
+                    return 0;
+                }
+            }
+        };
+
+        signatureSorter.setSorter(signatureSorter, SignatureComparator.ASC);
 
         initCopyAndPaste();
         initContextMenu();
         hookDoubleClickAction();
         contributeToActionBars();
+        updateViewInfo(new ArrayList<VerificationResult>());
 
         PlatformUI.getWorkbench().getHelpSystem().setHelp(signatures.getControl(), IContextHelpIds.SIGNATURE_VIEW);
     }
@@ -255,9 +308,9 @@ public class SignatureView extends ViewPart {
         try {
             totalSignatures = results.size();
             for (VerificationResult result : results) {
-                if ("valid".equals(result.getStatus())) {
+                if (VerificationResult.VALID.equals(result.getStatus())) {
                     validSignatures++;
-                } else if ("invalid".equals(result.getStatus())) {
+                } else if (VerificationResult.INVALID.equals(result.getStatus())) {
                     invalidSignatures++;
                 } else {
                     unknownSignatures++;

@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2008 Dominik Schadow - http://www.xml-sicherheit.de
+ * Copyright (c) 2009 Dominik Schadow - http://www.xml-sicherheit.de
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -10,21 +10,19 @@
  *******************************************************************************/
 package org.eclipse.wst.xml.security.core.verify;
 
-import java.util.List;
+import java.util.ArrayList;
 
 import org.eclipse.jface.viewers.IStructuredContentProvider;
 import org.eclipse.jface.viewers.Viewer;
 
 /**
- * <p>The content provider for the XML Signatures View. Prepares the signatures for display.</p>
+ * <p>The content provider for the <b>XML Signatures</b> view. Contains
+ * the signature data for display.</p>
  *
  * @author Dominik Schadow
  * @version 0.5.0
  */
 public class SignatureContentProvider implements IStructuredContentProvider {
-    /** Contains all signature information. */
-    private Object[] signatures = null;
-
     /**
      * Returns the elements to display in the viewer when its input is set to the given element.
      * These elements are presented as rows in a table. The result is not modified by the viewer.
@@ -32,14 +30,9 @@ public class SignatureContentProvider implements IStructuredContentProvider {
      * @param inputElement The input element
      * @return The elements to display
      */
+    @SuppressWarnings("unchecked")
     public Object[] getElements(final Object inputElement) {
-        if (inputElement instanceof List) {
-            signatures = ((List) inputElement).toArray();
-        } else {
-            signatures = null;
-        }
-
-        return signatures;
+        return ((ArrayList<VerificationResult>) inputElement).toArray();
     }
 
     /**

@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2008 Dominik Schadow - http://www.xml-sicherheit.de
+ * Copyright (c) 2009 Dominik Schadow - http://www.xml-sicherheit.de
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -21,7 +21,6 @@ import org.eclipse.osgi.util.NLS;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.wst.xml.security.core.utils.VerificationDialog;
 
-
 /**
  * <p>Prepares and shows the verification dialog.</p>
  *
@@ -29,13 +28,6 @@ import org.eclipse.wst.xml.security.core.utils.VerificationDialog;
  * @version 0.5.0
  */
 public final class Verification {
-    /** A valid digital signature. */
-    public static final String VALID = "valid"; //$NON-NLS-1$
-    /** An invalid digital signature. */
-    public static final String INVALID = "invalid"; //$NON-NLS-1$
-    /** An unknown digital signature. */
-    public static final String UNKNOWN = "unknown"; //$NON-NLS-1$
-
     /**
      * Private constructor to avoid instantiation.
      */
@@ -71,10 +63,10 @@ public final class Verification {
                 additionalInfo += ", Public Key Algorithm: " + pk.getAlgorithm(); //$NON-NLS-1$
             }
 
-            if (VALID.equals(result.getStatus())) { //$NON-NLS-1$
+            if (VerificationResult.VALID.equals(result.getStatus())) { //$NON-NLS-1$
                 showVerificationDialog(result.getStatus(), NLS.bind(Messages.validSignature,
                         new Object[] {result.getId(), additionalInfo}), shell);
-            } else if (INVALID.equals(result.getStatus())) { //$NON-NLS-1$
+            } else if (VerificationResult.INVALID.equals(result.getStatus())) { //$NON-NLS-1$
                 showVerificationDialog(result.getStatus(), NLS.bind(Messages.invalidSignature,
                         new Object[] {result.getId(), additionalInfo}), shell);
             } else {

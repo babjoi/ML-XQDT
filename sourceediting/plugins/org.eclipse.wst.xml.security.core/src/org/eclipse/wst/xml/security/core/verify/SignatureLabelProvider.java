@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2008 Dominik Schadow - http://www.xml-sicherheit.de
+ * Copyright (c) 2009 Dominik Schadow - http://www.xml-sicherheit.de
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -15,9 +15,9 @@ import org.eclipse.jface.viewers.ITableLabelProvider;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.wst.xml.security.core.utils.XmlSecurityImageRegistry;
 
-
 /**
- * <p>The label provider of the XML Digital Signatures View.</p>
+ * <p>The label provider for the <b>XML Signatures</b> view. Prepares
+ * the signature data for display.</p>
  *
  * @author Dominik Schadow
  * @version 0.5.0
@@ -34,8 +34,6 @@ public class SignatureLabelProvider implements ITableLabelProvider {
     public String getColumnText(final Object element, final int columnIndex) {
         VerificationResult result = (VerificationResult) element;
         switch (columnIndex) {
-            case 0:
-                return "";
             case 1:
                 return result.getId();
             case 2:
@@ -58,13 +56,13 @@ public class SignatureLabelProvider implements ITableLabelProvider {
     public Image getColumnImage(final Object element, final int columnIndex) {
         VerificationResult result = (VerificationResult) element;
 
-        if (columnIndex != 0 || result == null || result.getStatus() == null) {
+        if (columnIndex != 0 || result == null) {
             return null;
         }
 
-        if (Verification.VALID.equals(result.getStatus())) {
+        if (VerificationResult.VALID.equals(result.getStatus())) {
             return XmlSecurityImageRegistry.getImageRegistry().get("sig_valid_small");
-        } else if (Verification.INVALID.equals(result.getStatus())) {
+        } else if (VerificationResult.INVALID.equals(result.getStatus())) {
             return XmlSecurityImageRegistry.getImageRegistry().get("sig_invalid_small");
         } else {
             return XmlSecurityImageRegistry.getImageRegistry().get("sig_unknown_small");

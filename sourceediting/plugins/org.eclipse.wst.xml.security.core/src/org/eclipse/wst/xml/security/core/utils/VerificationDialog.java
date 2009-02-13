@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2008 Dominik Schadow - http://www.xml-sicherheit.de
+ * Copyright (c) 2009 Dominik Schadow - http://www.xml-sicherheit.de
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -13,7 +13,7 @@ package org.eclipse.wst.xml.security.core.utils;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.widgets.Shell;
-import org.eclipse.wst.xml.security.core.verify.Verification;
+import org.eclipse.wst.xml.security.core.verify.VerificationResult;
 
 
 /**
@@ -47,9 +47,9 @@ public class VerificationDialog extends MessageDialog {
      * @return The image to display
      */
     public Image getImage() {
-        if (status.equals(Verification.VALID)) {
+        if (status.equals(VerificationResult.VALID)) {
             return XmlSecurityImageRegistry.getImageRegistry().get("sig_valid_large");
-        } else if (status.equals(Verification.INVALID)) {
+        } else if (status.equals(VerificationResult.INVALID)) {
             return XmlSecurityImageRegistry.getImageRegistry().get("sig_invalid_large");
         } else {
             return XmlSecurityImageRegistry.getImageRegistry().get("sig_unknown_large");

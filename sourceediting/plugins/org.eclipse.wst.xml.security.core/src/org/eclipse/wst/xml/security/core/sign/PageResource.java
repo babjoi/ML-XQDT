@@ -527,13 +527,8 @@ public class PageResource extends WizardPage implements Listener {
      * Loads the stored settings for this wizard page.
      */
     private void loadSettings() {
-        String bspCompliantSignature = getDialogSettings().get(SETTING_BSP_COMPLIANT_SIGNATURE);
-        boolean doBSPCompliantSignature = false;
-        if (bspCompliantSignature != null) {
-            doBSPCompliantSignature = getDialogSettings().getBoolean(
-                    SETTING_BSP_COMPLIANT_SIGNATURE);
-        }
-        bBsp.setSelection(doBSPCompliantSignature);
+        bBsp.setSelection(getDialogSettings().get(SETTING_BSP_COMPLIANT_SIGNATURE) != null
+                ? getDialogSettings().getBoolean(SETTING_BSP_COMPLIANT_SIGNATURE) : false);
     }
 
     /**

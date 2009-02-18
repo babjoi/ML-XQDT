@@ -638,12 +638,8 @@ public class PageAlgorithms extends WizardPage implements Listener {
      * Loads the stored settings for this wizard page.
      */
     private void loadSettings() {
-        String callEncryptionWizard = getDialogSettings().get(SETTING_CALL_ENCRYPTION_WIZARD);
-        boolean doCallEncryptionWizard = false;
-        if (callEncryptionWizard != null) {
-            doCallEncryptionWizard = getDialogSettings().getBoolean(SETTING_CALL_ENCRYPTION_WIZARD);
-        }
-        bEncWiz.setSelection(doCallEncryptionWizard);
+        bEncWiz.setSelection(getDialogSettings().get(SETTING_CALL_ENCRYPTION_WIZARD) != null
+                ? getDialogSettings().getBoolean(SETTING_CALL_ENCRYPTION_WIZARD) : false);
     }
 
     /**

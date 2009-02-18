@@ -407,11 +407,10 @@ public class PageOpenKey extends WizardPage implements Listener {
      * Loads the stored settings for this wizard page.
      */
     private void loadSettings() {
-        String keystore = getDialogSettings().get(SETTING_KEYSTORE);
-        tKeyStore.setText(keystore != null ? keystore : "");
-
-        String keyAlias = getDialogSettings().get(SETTING_KEY_ALIAS);
-        tKeyName.setText(keyAlias != null ? keyAlias : "");
+        tKeyStore.setText(getDialogSettings().get(SETTING_KEYSTORE) != null
+                ? getDialogSettings().get(SETTING_KEYSTORE) : "");
+        tKeyName.setText(getDialogSettings().get(SETTING_KEY_ALIAS) != null
+                ? getDialogSettings().get(SETTING_KEY_ALIAS) : "");
     }
 
     /**

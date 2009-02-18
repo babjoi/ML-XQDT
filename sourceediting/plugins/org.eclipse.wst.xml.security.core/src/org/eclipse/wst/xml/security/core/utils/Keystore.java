@@ -262,12 +262,16 @@ public class Keystore {
      * @return The private key, null if it does not exist in the KeyStore
      * @throws Exception Any exception during loading the private key
      */
-    public PrivateKey getPrivateKey(String alias, char[] password) throws Exception {
-        if (keyStore.containsAlias(alias)) {
-            PrivateKeyEntry ske = (PrivateKeyEntry) keyStore.getEntry(alias, new PasswordProtection(password));
+    public PrivateKey getPrivateKey(String alias, char[] password) {
+        try {
+            if (keyStore.containsAlias(alias)) {
+                PrivateKeyEntry ske = (PrivateKeyEntry) keyStore.getEntry(alias, new PasswordProtection(password));
 
-            return ske.getPrivateKey();
-        } else {
+                return ske.getPrivateKey();
+            }
+
+            return null;
+        } catch (Exception ex) {
             return null;
         }
     }

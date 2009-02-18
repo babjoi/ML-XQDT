@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2008 Dominik Schadow - http://www.xml-sicherheit.de
+ * Copyright (c) 2009 Dominik Schadow - http://www.xml-sicherheit.de
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -17,6 +17,7 @@ import org.eclipse.core.resources.IFile;
 import org.eclipse.jface.action.Action;
 import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.action.MenuManager;
+import org.eclipse.jface.dialogs.DialogPage;
 import org.eclipse.jface.dialogs.IDialogSettings;
 import org.eclipse.jface.viewers.CellEditor;
 import org.eclipse.jface.viewers.ColumnWeightData;
@@ -78,8 +79,6 @@ public class PageAlgorithms extends WizardPage implements Listener {
     private Text tId = null;
     /** Start Encryption Wizard afterwards checkbox. */
     private Button bEncWiz = null;
-    /** User help message. */
-    private String helpMessage = ""; //$NON-NLS-1$
     /** The XML document. */
     private IFile file;
     /** All signature IDs in the current XML document. */
@@ -468,16 +467,16 @@ public class PageAlgorithms extends WizardPage implements Listener {
      */
     private void dialogChanged() {
         if (cCanon.getText().equals("")) { //$NON-NLS-1$
-            updateStatus(Messages.selectCanonicalization);
+            updateStatus(Messages.selectCanonicalization, DialogPage.INFORMATION);
             return;
         } else if (cTransform.getText().equals("")) { //$NON-NLS-1$
-            updateStatus(Messages.selectTransformation);
+            updateStatus(Messages.selectTransformation, DialogPage.INFORMATION);
             return;
         } else if (cMDA.getText().equals("")) { //$NON-NLS-1$
-            updateStatus(Messages.selectMessageDigest);
+            updateStatus(Messages.selectMessageDigest, DialogPage.INFORMATION);
             return;
         } else if (cSign.getText().equals("")) { //$NON-NLS-1$
-            updateStatus(Messages.selectSignature);
+            updateStatus(Messages.selectSignature, DialogPage.INFORMATION);
             return;
         }
         if (!tId.getText().equals("")) {
@@ -485,23 +484,23 @@ public class PageAlgorithms extends WizardPage implements Listener {
                 boolean uniqueId = Utils.ensureIdIsUnique(tId.getText(), ids);
 
                 if (!uniqueId) {
-                    updateStatus(Messages.ambiguousSignatureId);
+                    updateStatus(Messages.ambiguousSignatureId, DialogPage.ERROR);
                     return;
                 }
             }
         }
 
-        updateStatus(null);
+        updateStatus(null, DialogPage.NONE);
     }
 
     /**
      * Shows a message to the user to complete the fields on this page.
      *
      * @param message The message for the user
+     * @param status The status type of the message
      */
-    private void updateStatus(final String message) {
-        helpMessage = message;
-        setMessage(message);
+    private void updateStatus(final String message, final int status) {
+        setMessage(message, status);
         if (message == null && getErrorMessage() == null) {
             setPageComplete(true);
             saveDataToModel();
@@ -540,7 +539,7 @@ public class PageAlgorithms extends WizardPage implements Listener {
      */
     public boolean isPageComplete() {
         saveDataToModel();
-        if (helpMessage == null && getErrorMessage() == null) {
+        if (getMessage() == null && getErrorMessage() == null) {
             return true;
         }
         return false;

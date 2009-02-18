@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2008 Dominik Schadow - http://www.xml-sicherheit.de
+ * Copyright (c) 2009 Dominik Schadow - http://www.xml-sicherheit.de
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -12,6 +12,7 @@ package org.eclipse.wst.xml.security.core.sign;
 
 import java.util.HashMap;
 
+import org.eclipse.jface.dialogs.DialogPage;
 import org.eclipse.jface.wizard.IWizardPage;
 import org.eclipse.jface.wizard.WizardPage;
 import org.eclipse.osgi.util.NLS;
@@ -470,7 +471,7 @@ public class PageCreateKey extends WizardPage implements Listener {
             lPreview.setText("CN=" + tCommonName.getText()); //$NON-NLS-1$
         } else {
             lPreview.setText(""); //$NON-NLS-1$
-            updateStatus(Messages.enterCommonName);
+            updateStatus(Messages.enterCommonName, DialogPage.INFORMATION);
             return;
         }
         if (tOrganizationalUnit.getText().length() > 0) {
@@ -504,23 +505,23 @@ public class PageCreateKey extends WizardPage implements Listener {
                     + ", C=" + tCountry.getText()); //$NON-NLS-1$
         }
         if (tKeyName.getText().length() < Globals.KEY_ALIAS_MIN_SIZE) {
-            updateStatus(Messages.enterNewKeyAlias);
+            updateStatus(Messages.enterNewKeyAlias, DialogPage.INFORMATION);
             return;
         }
         if (tKeyPassword.getText().length() < Globals.KEY_PASSWORD_MIN_SIZE) {
-            updateStatus(Messages.enterNewKeyPassword);
+            updateStatus(Messages.enterNewKeyPassword, DialogPage.INFORMATION);
             return;
         }
         if (cAlgorithm.getSelectionIndex() < 0) {
-            updateStatus(Messages.selectKeyAlgorithm);
+            updateStatus(Messages.selectKeyAlgorithm, DialogPage.INFORMATION);
             return;
         }
         if (tKeystore.getText().length() == 0) {
-            updateStatus(Messages.selectKeyFile);
+            updateStatus(Messages.selectKeyFile, DialogPage.INFORMATION);
             return;
         }
         if (tKeystorePassword.getText().length() == 0) {
-            updateStatus(Messages.enterKeystorePassword);
+            updateStatus(Messages.enterKeystorePassword, DialogPage.INFORMATION);
             return;
         }
 
@@ -535,30 +536,31 @@ public class PageCreateKey extends WizardPage implements Listener {
 
                 if (loaded) {
                     if (keystore.containsKey(tKeyName.getText())) {
-                        setErrorMessage(Messages.keyExistsInKeystore);
+                        updateStatus(Messages.keyExistsInKeystore, DialogPage.ERROR);
                         return;
                     }
                 } else {
-                    setErrorMessage(Messages.verifyKeystorePassword);
+                    updateStatus(Messages.verifyKeystorePassword, DialogPage.ERROR);
                     return;
                 }
             } catch (Exception e) {
-                setErrorMessage(Messages.verifyAll);
+                updateStatus(Messages.verifyAll, DialogPage.ERROR);
                 return;
             }
         }
 
         setErrorMessage(null);
-        updateStatus(null);
+        updateStatus(null, DialogPage.NONE);
     }
 
     /**
      * Shows a message to the user to complete the fields on this page.
      *
      * @param message The message for the user
+     * @param status The status type of the message
      */
-    private void updateStatus(final String message) {
-        setMessage(message);
+    private void updateStatus(final String message, final int status) {
+        setMessage(message, status);
         if (!generatedKey && message == null) {
             bCreateKey.setEnabled(true);
         } else {
@@ -578,9 +580,9 @@ public class PageCreateKey extends WizardPage implements Listener {
         } else if (e.widget == bCreateKey) {
             try {
                 generateCertificate();
-                updateStatus(null);
+                updateStatus(null, DialogPage.NONE);
             } catch (Exception e1) {
-                updateStatus(Messages.keyGenerationFailed);
+                updateStatus(Messages.keyGenerationFailed, DialogPage.ERROR);
             }
         } else if (e.widget == bEchoKeyStorePassword || e.widget == bEchoKeyPassword) {
             echoPassword(e);
@@ -646,7 +648,7 @@ public class PageCreateKey extends WizardPage implements Listener {
 
         if (generatedKey) {
             lResult.setText(NLS.bind(Messages.keyGenerated, keystoreName));
-            updateStatus(null);
+            updateStatus(null, DialogPage.NONE);
         } else {
             lResult.setText(Messages.keyGenerationFailed);
         }

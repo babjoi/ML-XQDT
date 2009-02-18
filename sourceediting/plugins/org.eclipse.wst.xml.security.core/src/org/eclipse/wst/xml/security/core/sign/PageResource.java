@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2008 Dominik Schadow - http://www.xml-sicherheit.de
+ * Copyright (c) 2009 Dominik Schadow - http://www.xml-sicherheit.de
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -13,6 +13,7 @@ package org.eclipse.wst.xml.security.core.sign;
 import java.io.File;
 
 import org.eclipse.core.resources.IFile;
+import org.eclipse.jface.dialogs.DialogPage;
 import org.eclipse.jface.dialogs.IDialogSettings;
 import org.eclipse.jface.viewers.LabelProvider;
 import org.eclipse.jface.wizard.IWizardPage;
@@ -119,7 +120,7 @@ public class PageResource extends WizardPage implements Listener {
         try {
             document = Utils.parse(file);
         } catch (Exception ex) {
-            updateStatus(Messages.documentInvalid);
+            updateStatus(Messages.documentInvalid, DialogPage.ERROR);
         }
     }
 
@@ -333,42 +334,43 @@ public class PageResource extends WizardPage implements Listener {
      */
     private void dialogChanged() {
         if (bXpath.getSelection() && tXpath.getText().length() == 0) {
-            updateStatus(Messages.enterXPath);
+            updateStatus(Messages.enterXPath, DialogPage.INFORMATION);
             return;
         } else if (bXpath.getSelection() && tXpath.getText().length() > 0) {
             String xpathValidator = Utils.validateXPath(document, tXpath.getText());
             if (xpathValidator.equals("none")) { //$NON-NLS-1$
-                setErrorMessage(Messages.xpathNoElement);
+                updateStatus(Messages.xpathNoElement, DialogPage.ERROR);
                 return;
             } else if (xpathValidator.equals("multiple")) { //$NON-NLS-1$
-                setErrorMessage(Messages.xpathMultipleElements);
+                updateStatus(Messages.xpathMultipleElements, DialogPage.ERROR);
                 return;
             } else if (xpathValidator.equals("attribute")) { //$NON-NLS-1$
-                setErrorMessage(Messages.xpathAttribute);
+                updateStatus(Messages.xpathAttribute, DialogPage.ERROR);
                 return;
             }
         }
         if (bDetached.getSelection() && tDetachedFile.getText().length() == 0) {
-            updateStatus(Messages.detachedFile);
+            updateStatus(Messages.detachedFile, DialogPage.INFORMATION);
             return;
         } else if (bDetached.getSelection() && tDetachedFile.getText().length() > 0) {
             File tempFile = new File(tDetachedFile.getText());
             if (!tempFile.exists()) {
-                setErrorMessage(Messages.verifyDetachedFile);
+                updateStatus(Messages.verifyDetachedFile, DialogPage.ERROR);
                 return;
             }
         }
         setErrorMessage(null);
-        updateStatus(null);
+        updateStatus(null, DialogPage.NONE);
     }
 
     /**
      * Shows a message to the user to complete the fields on this page.
      *
      * @param message The message for the user
+     * @param status The status type of the message
      */
-    private void updateStatus(final String message) {
-        setMessage(message);
+    private void updateStatus(final String message, final int status) {
+        setMessage(message, status);
         if (message == null && getErrorMessage() == null) {
             setPageComplete(true);
             saveDataToModel();

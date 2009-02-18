@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2008 Dominik Schadow - http://www.xml-sicherheit.de
+ * Copyright (c) 2009 Dominik Schadow - http://www.xml-sicherheit.de
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -17,6 +17,7 @@ import java.util.HashMap;
 
 import java.security.cert.Certificate;
 
+import org.eclipse.jface.dialogs.DialogPage;
 import org.eclipse.jface.wizard.IWizardPage;
 import org.eclipse.jface.wizard.WizardPage;
 import org.eclipse.osgi.util.NLS;
@@ -472,7 +473,7 @@ public class PageCreateKeystore extends WizardPage implements Listener {
             lPreview.setText("CN=" + tCommonName.getText()); //$NON-NLS-1$
         } else {
             lPreview.setText(""); //$NON-NLS-1$
-            updateStatus(Messages.enterCommonName);
+            updateStatus(Messages.enterCommonName, DialogPage.INFORMATION);
             return;
         }
         if (tOrganizationalUnit.getText().length() > 0) {
@@ -506,15 +507,15 @@ public class PageCreateKeystore extends WizardPage implements Listener {
                     + ", C=" + tCountry.getText()); //$NON-NLS-1$
         }
         if (tKeyName.getText().length() < Globals.KEY_ALIAS_MIN_SIZE) {
-            updateStatus(Messages.enterNewKeyAlias);
+            updateStatus(Messages.enterNewKeyAlias, DialogPage.INFORMATION);
             return;
         }
         if (tKeyPassword.getText().length() < Globals.KEY_PASSWORD_MIN_SIZE) {
-            updateStatus(Messages.enterNewKeyPassword);
+            updateStatus(Messages.enterNewKeyPassword, DialogPage.INFORMATION);
             return;
         }
         if (cKeyAlgorithm.getSelectionIndex() < 0) {
-            updateStatus(Messages.selectKeyAlgorithm);
+            updateStatus(Messages.selectKeyAlgorithm, DialogPage.INFORMATION);
             return;
         }
         if (tKeyStoreName.getText().length() > 0) {
@@ -523,28 +524,29 @@ public class PageCreateKeystore extends WizardPage implements Listener {
 
             File tempFile = new File(keystore);
             if (tempFile.exists()) {
-                setErrorMessage(Messages.keystoreAlreadyExists);
+                updateStatus(Messages.keystoreAlreadyExists, DialogPage.ERROR);
                 return;
             }
         } else {
-            updateStatus(Messages.enterNewKeystoreName);
+            updateStatus(Messages.enterNewKeystoreName, DialogPage.INFORMATION);
             return;
         }
         if (tKeystorePassword.getText().length() < Globals.KEYSTORE_PASSWORD_MIN_SIZE) {
-            updateStatus(Messages.enterNewKeystorePassword);
+            updateStatus(Messages.enterNewKeystorePassword, DialogPage.INFORMATION);
             return;
         }
         setErrorMessage(null);
-        updateStatus(null);
+        updateStatus(null, DialogPage.NONE);
     }
 
     /**
      * Shows a message to the user to complete the fields on this page.
      *
      * @param message The message for the user
+     * @param status The status type of the message
      */
-    private void updateStatus(final String message) {
-        setMessage(message);
+    private void updateStatus(final String message, final int status) {
+        setMessage(message, status);
         if (!generatedKeystore && message == null) {
             bCreateKeystore.setEnabled(true);
         } else {
@@ -561,7 +563,7 @@ public class PageCreateKeystore extends WizardPage implements Listener {
     public void handleEvent(final Event e) {
         if (e.widget == bCreateKeystore) {
             createKeystore();
-            updateStatus(null);
+            updateStatus(null, DialogPage.NONE);
         } else if (e.widget == bEchoKeystorePassword || e.widget == bEchoKeyPassword) {
             echoPassword(e);
         }
@@ -632,7 +634,7 @@ public class PageCreateKeystore extends WizardPage implements Listener {
 
         if (generatedKeystore) {
             lResult.setText(NLS.bind(Messages.keystoreGenerated, new Object[] {keystoreName, name}));
-            updateStatus(null);
+            updateStatus(null, DialogPage.NONE);
         }
     }
 

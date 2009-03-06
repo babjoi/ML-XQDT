@@ -97,7 +97,6 @@ public class SignatureView extends ViewPart {
         signatures.getTable().setHeaderVisible(true);
 
         TableViewerColumn column = new TableViewerColumn(signatures, SWT.CENTER);
-        column.getColumn().setText("");
         column.getColumn().setToolTipText(Messages.signatureStatus);
         column.getColumn().setWidth(50);
         column.getColumn().setMoveable(true);

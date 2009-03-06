@@ -14,6 +14,7 @@ import java.security.NoSuchAlgorithmException;
 
 import javax.crypto.SecretKey;
 
+import org.eclipse.jface.dialogs.DialogPage;
 import org.eclipse.jface.dialogs.IDialogSettings;
 import org.eclipse.jface.wizard.IWizardPage;
 import org.eclipse.jface.wizard.WizardPage;
@@ -107,21 +108,20 @@ public class PageCreateKey extends WizardPage implements Listener {
      */
     public void createControl(final Composite parent) {
         Composite container = new Composite(parent, SWT.NULL);
-        FormLayout formLayout = new FormLayout();
-        container.setLayout(formLayout);
+        container.setLayout(new FormLayout());
 
         createPageContent(container);
+        loadSettings();
         addListeners();
         setControl(container);
-        loadSettings();
         setPageComplete(false);
 
         PlatformUI.getWorkbench().getHelpSystem().setHelp(getControl(), IContextHelpIds.WIZARD_ENCRYPTION_CREATE_KEY);
     }
 
     /**
-     * Fills this wizard page with content. Two groups (<i>Key</i> and <i>Keystore</i>) and all their widgets are
-     * inserted.
+     * Fills this wizard page with content. Two groups (<i>Keystore</i> and <i>Key</i>)
+     * and all their widgets are inserted.
      *
      * @param parent Parent composite
      */
@@ -134,23 +134,71 @@ public class PageCreateKey extends WizardPage implements Listener {
         parent.setLayout(layout);
 
         // Two groups
-        Group gKey = new Group(parent, SWT.SHADOW_ETCHED_IN);
-        gKey.setLayout(layout);
-        gKey.setText(Messages.key);
+        Group gKeyStore = new Group(parent, SWT.SHADOW_ETCHED_IN);
+        gKeyStore.setLayout(layout);
+        gKeyStore.setText(Messages.keyStore);
         FormData data = new FormData();
         data.top = new FormAttachment(0, Globals.MARGIN, SWT.DEFAULT);
         data.left = new FormAttachment(0, 0);
         data.right = new FormAttachment(Globals.GROUP_NUMERATOR);
-        gKey.setLayoutData(data);
+        gKeyStore.setLayoutData(data);
 
-        Group gKeyStore = new Group(parent, SWT.SHADOW_ETCHED_IN);
-        gKeyStore.setLayout(layout);
-        gKeyStore.setText(Messages.keyStore);
+        Group gKey = new Group(parent, SWT.SHADOW_ETCHED_IN);
+        gKey.setLayout(layout);
+        gKey.setText(Messages.key);
         data = new FormData();
-        data.top = new FormAttachment(gKey, Globals.MARGIN, SWT.DEFAULT);
+        data.top = new FormAttachment(gKeyStore, Globals.MARGIN, SWT.DEFAULT);
         data.left = new FormAttachment(0, 0);
         data.right = new FormAttachment(Globals.GROUP_NUMERATOR);
-        gKeyStore.setLayoutData(data);
+        gKey.setLayoutData(data);
+
+        // Elements for group "KeyStore"
+        Label lKeyStore = new Label(gKeyStore, SWT.SHADOW_IN);
+        lKeyStore.setText(Messages.name);
+        data = new FormData();
+        data.width = LABELWIDTH;
+        data.top = new FormAttachment(gKeyStore);
+        data.left = new FormAttachment(gKeyStore);
+        lKeyStore.setLayoutData(data);
+
+        tKeyStore = new Text(gKeyStore, SWT.SINGLE);
+        data = new FormData();
+        data.top = new FormAttachment(lKeyStore, 0, SWT.CENTER);
+        data.left = new FormAttachment(lKeyStore);
+        data.width = Globals.SHORT_TEXT_WIDTH;
+        tKeyStore.setLayoutData(data);
+
+        bOpen = new Button(gKeyStore, SWT.PUSH);
+        bOpen.setText(Messages.open);
+        data = new FormData();
+        data.top = new FormAttachment(lKeyStore, 0, SWT.CENTER);
+        data.left = new FormAttachment(tKeyStore, Globals.MARGIN);
+        bOpen.setLayoutData(data);
+
+        Label lKeyStorePassword = new Label(gKeyStore, SWT.SHADOW_IN);
+        lKeyStorePassword.setText(Messages.password);
+        data = new FormData();
+        data.width = LABELWIDTH;
+        data.top = new FormAttachment(lKeyStore, Globals.MARGIN);
+        data.left = new FormAttachment(gKeyStore);
+        lKeyStorePassword.setLayoutData(data);
+
+        tKeyStorePassword = new Text(gKeyStore, SWT.SINGLE);
+        tKeyStorePassword.setTextLimit(Globals.KEYSTORE_PASSWORD_MAX_SIZE);
+        data = new FormData();
+        data.width = Globals.SHORT_TEXT_WIDTH;
+        data.top = new FormAttachment(lKeyStorePassword, 0, SWT.CENTER);
+        data.left = new FormAttachment(lKeyStorePassword);
+        tKeyStorePassword.setEchoChar('*');
+        tKeyStorePassword.setLayoutData(data);
+
+        bEchoKeyStorePassword = new Button(gKeyStore, SWT.PUSH);
+        bEchoKeyStorePassword.setImage(XmlSecurityImageRegistry.getImageRegistry().get("echo_password"));
+        bEchoKeyStorePassword.setToolTipText(Messages.echoPassword);
+        data = new FormData();
+        data.top = new FormAttachment(tKeyStorePassword, 0, SWT.CENTER);
+        data.left = new FormAttachment(tKeyStorePassword, Globals.MARGIN);
+        bEchoKeyStorePassword.setLayoutData(data);
 
         // Elements for group "Key"
         Label lKeyAlgorithm = new Label(gKey, SWT.SHADOW_IN);
@@ -228,67 +276,19 @@ public class PageCreateKey extends WizardPage implements Listener {
         data.left = new FormAttachment(tKeyPassword, Globals.MARGIN);
         bEchoKeyPassword.setLayoutData(data);
 
-        // Elements for group "KeyStore"
-        Label lKeyStore = new Label(gKeyStore, SWT.SHADOW_IN);
-        lKeyStore.setText(Messages.name);
-        data = new FormData();
-        data.width = LABELWIDTH;
-        data.top = new FormAttachment(gKeyStore);
-        data.left = new FormAttachment(gKeyStore);
-        lKeyStore.setLayoutData(data);
-
-        tKeyStore = new Text(gKeyStore, SWT.SINGLE);
-        data = new FormData();
-        data.top = new FormAttachment(lKeyStore, 0, SWT.CENTER);
-        data.left = new FormAttachment(lKeyStore);
-        data.width = Globals.SHORT_TEXT_WIDTH;
-        tKeyStore.setLayoutData(data);
-
-        bOpen = new Button(gKeyStore, SWT.PUSH);
-        bOpen.setText(Messages.open);
-        data = new FormData();
-        data.top = new FormAttachment(lKeyStore, 0, SWT.CENTER);
-        data.left = new FormAttachment(tKeyStore, Globals.MARGIN);
-        bOpen.setLayoutData(data);
-
-        Label lKeyStorePassword = new Label(gKeyStore, SWT.SHADOW_IN);
-        lKeyStorePassword.setText(Messages.password);
-        data = new FormData();
-        data.width = LABELWIDTH;
-        data.top = new FormAttachment(lKeyStore, Globals.MARGIN);
-        data.left = new FormAttachment(gKeyStore);
-        lKeyStorePassword.setLayoutData(data);
-
-        tKeyStorePassword = new Text(gKeyStore, SWT.SINGLE);
-        tKeyStorePassword.setTextLimit(Globals.KEYSTORE_PASSWORD_MAX_SIZE);
-        data = new FormData();
-        data.width = Globals.SHORT_TEXT_WIDTH;
-        data.top = new FormAttachment(lKeyStorePassword, 0, SWT.CENTER);
-        data.left = new FormAttachment(lKeyStorePassword);
-        tKeyStorePassword.setEchoChar('*');
-        tKeyStorePassword.setLayoutData(data);
-
-        bEchoKeyStorePassword = new Button(gKeyStore, SWT.PUSH);
-        bEchoKeyStorePassword.setImage(XmlSecurityImageRegistry.getImageRegistry().get("echo_password"));
-        bEchoKeyStorePassword.setToolTipText(Messages.echoPassword);
-        data = new FormData();
-        data.top = new FormAttachment(tKeyStorePassword, 0, SWT.CENTER);
-        data.left = new FormAttachment(tKeyStorePassword, Globals.MARGIN);
-        bEchoKeyStorePassword.setLayoutData(data);
-
-        bCreateKey = new Button(gKeyStore, SWT.PUSH);
-        bCreateKey.setText(Messages.createKeyButton);
+        bCreateKey = new Button(gKey, SWT.PUSH);
+        bCreateKey.setText(Messages.generateButton);
         bCreateKey.setEnabled(false);
         data = new FormData();
-        data.top = new FormAttachment(lKeyStorePassword, Globals.MARGIN * 2);
-        data.left = new FormAttachment(gKeyStore);
+        data.top = new FormAttachment(lKeyPassword, Globals.MARGIN * 2);
+        data.left = new FormAttachment(gKey);
         bCreateKey.setLayoutData(data);
 
-        lResult = new Label(gKeyStore, SWT.WRAP);
+        lResult = new Label(gKey, SWT.WRAP);
         data = new FormData();
         data.height = TEXTHEIGHT;
         data.top = new FormAttachment(bCreateKey, Globals.MARGIN * 2);
-        data.left = new FormAttachment(gKeyStore);
+        data.left = new FormAttachment(gKey);
         data.right = new FormAttachment(Globals.GROUP_NUMERATOR);
         lResult.setLayoutData(data);
     }
@@ -338,28 +338,20 @@ public class PageCreateKey extends WizardPage implements Listener {
      * Determines the (error) message for the missing field.
      */
     private void dialogChanged() {
-        if (cKeyAlgorithm.getText().equals("")) {
-            updateStatus(Messages.selectKeyAlgorithm);
-            return;
-        }
-        if (cKeyAlgorithmSize.getText().equals("")) {
-            updateStatus(Messages.selectKeyAlgorithmSize);
-            return;
-        }
-        if (tKeyName.getText().length() < Globals.KEY_ALIAS_MIN_SIZE) {
-            updateStatus(Messages.enterNewKeyAlias);
-            return;
-        }
-        if (tKeyPassword.getText().length() == 0) {
-            updateStatus(Messages.enterKeyPassword);
-            return;
-        }
         if (tKeyStore.getText().length() == 0) {
-            updateStatus(Messages.selectKeystoreFileToExtend);
+            updateStatus(Messages.selectKeystoreFileToExtend, DialogPage.INFORMATION);
             return;
         }
         if (tKeyStorePassword.getText().length() == 0) {
-            updateStatus(Messages.enterKeystorePassword);
+            updateStatus(Messages.enterKeystorePassword, DialogPage.INFORMATION);
+            return;
+        }
+        if (tKeyName.getText().length() < Globals.KEY_ALIAS_MIN_SIZE) {
+            updateStatus(Messages.enterNewKeyAlias, DialogPage.INFORMATION);
+            return;
+        }
+        if (tKeyPassword.getText().length() == 0) {
+            updateStatus(Messages.enterKeyPassword, DialogPage.INFORMATION);
             return;
         }
         if (tKeyStore.getText().length() > 0 && tKeyStorePassword.getText().length() > 0 && tKeyName.getText().length() > 0) {
@@ -368,39 +360,30 @@ public class PageCreateKey extends WizardPage implements Listener {
                 keyStore.load();
 
                 if (keyStore.containsKey(tKeyName.getText())) {
-                	setErrorMessage(Messages.existingKeyAlias);
-                    updateStatus("");
+                    updateStatus(Messages.existingKeyAlias, DialogPage.NONE);
                     return;
                 }
             } catch (Exception ex) {
-                setErrorMessage(Messages.verifyAll);
+                updateStatus(Messages.verifyAll, DialogPage.NONE);
                 return;
             }
         }
-
         setErrorMessage(null);
-        updateStatus(null);
+        updateStatus(null, DialogPage.NONE);
     }
 
     /**
      * Shows a message to the user to complete the fields on this page.
      *
      * @param message The message for the user
+     * @param status The status type of the message
      */
-    private void updateStatus(final String message) {
-        setMessage(message);
+    private void updateStatus(final String message, final int status) {
+        setMessage(message, status);
         if (!generatedKey && message == null) {
             bCreateKey.setEnabled(true);
         } else {
             bCreateKey.setEnabled(false);
-        }
-        if (cKeyAlgorithm.getText().equals("")) {
-            updateStatus(Messages.selectKeyAlgorithm);
-            return;
-        }
-        if (cKeyAlgorithmSize.getText().equals("")) {
-            updateStatus(Messages.selectKeyAlgorithmSize);
-            return;
         }
         setPageComplete(generatedKey);
     }
@@ -415,7 +398,7 @@ public class PageCreateKey extends WizardPage implements Listener {
             openKeystore();
         } else if (e.widget == bCreateKey) {
             createKey();
-            updateStatus(null);
+            updateStatus(null, DialogPage.NONE);
         } else if (e.widget == bEchoKeyStorePassword) {
             echoPassword(e);
         } else if (e.widget == bEchoKeyPassword) {
@@ -505,7 +488,7 @@ public class PageCreateKey extends WizardPage implements Listener {
 
         if (generatedKey) {
         	lResult.setText(NLS.bind(Messages.keyGenerated, new Object[] {tKeyName.getText(), tKeyStore.getText()}));
-            updateStatus(null);
+            updateStatus(null, DialogPage.NONE);
         }
     }
 

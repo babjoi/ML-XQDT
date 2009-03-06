@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2008 Dominik Schadow - http://www.xml-sicherheit.de
+ * Copyright (c) 2009 Dominik Schadow - http://www.xml-sicherheit.de
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -47,13 +47,13 @@ public final class Messages extends NLS {
             enterKeystorePassword, verifyKeyAlias, verifyAll, password,
             name, keyStoreNotFound;
     /** PageCreateKey externalized strings. */
-    public static String createKeyDescription, keyStore, createKeyButton,
+    public static String createKeyDescription, keyStore, generateButton,
             keyStoreAlreadyExists, selectKeyAlgorithm, selectKeyAlgorithmSize, keyGenerationFailed,
             keyGenerated, keyAlgorithm, keyAlgorithmSize, enterNewKeyStorePassword, existingKeyAlias,
             enterNewKeyAlias, selectKeystoreFileToExtend, enterKeyPassword, keyInsertionFailed;
     /** PageCreateKeystore externalized strings. */
     public static String createKeystoreDescription, keystoreGenerated,
-            keystoreGenerationFailed, createKeystoreButton, enterNewKeyStoreName;
+            keystoreGenerationFailed, enterNewKeyStoreName;
     /** PageAlgorithms externalized strings. */
     public static String encryptionTitle, algorithmsDescription, algorithms, encryptionId, select,
             selectEncryptionAlgorithm, selectKeyWrapAlgorithm, signatureWizard,

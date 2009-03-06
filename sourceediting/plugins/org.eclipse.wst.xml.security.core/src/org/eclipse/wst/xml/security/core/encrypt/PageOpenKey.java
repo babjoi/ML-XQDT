@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2008 Dominik Schadow - http://www.xml-sicherheit.de
+ * Copyright (c) 2009 Dominik Schadow - http://www.xml-sicherheit.de
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -12,6 +12,7 @@ package org.eclipse.wst.xml.security.core.encrypt;
 
 import java.io.File;
 
+import org.eclipse.jface.dialogs.DialogPage;
 import org.eclipse.jface.dialogs.IDialogSettings;
 import org.eclipse.jface.wizard.IWizardPage;
 import org.eclipse.jface.wizard.WizardPage;
@@ -90,13 +91,12 @@ public class PageOpenKey extends WizardPage implements Listener {
      */
     public void createControl(final Composite parent) {
         Composite container = new Composite(parent, SWT.NULL);
-        FormLayout formLayout = new FormLayout();
-        container.setLayout(formLayout);
+        container.setLayout(new FormLayout());
 
         createPageContent(container);
+        loadSettings();
         addListeners();
         setControl(container);
-        loadSettings();
         setPageComplete(false);
 
         PlatformUI.getWorkbench().getHelpSystem().setHelp(getControl(), IContextHelpIds.WIZARD_ENCRYPTION_OPEN_KEY);
@@ -260,19 +260,19 @@ public class PageOpenKey extends WizardPage implements Listener {
      */
     private void dialogChanged() {
         if (tKeyStore.getText().length() == 0) {
-            updateStatus(Messages.selectKeystoreFile);
+            updateStatus(Messages.selectKeystoreFile, DialogPage.INFORMATION);
             return;
         }
         if (tKeyStorePassword.getText().length() == 0) {
-            updateStatus(Messages.enterKeystorePassword);
+            updateStatus(Messages.enterKeystorePassword, DialogPage.INFORMATION);
             return;
         }
         if (tKeyName.getText().length() == 0) {
-            updateStatus(Messages.enterKeyName);
+            updateStatus(Messages.enterKeyName, DialogPage.INFORMATION);
             return;
         }
         if (tKeyPassword.getText().length() == 0) {
-            updateStatus(Messages.enterKeyPassword);
+            updateStatus(Messages.enterKeyPassword, DialogPage.INFORMATION);
             return;
         }
         if (new File(tKeyStore.getText()).exists()) {
@@ -280,33 +280,34 @@ public class PageOpenKey extends WizardPage implements Listener {
 	        	keyStore = new Keystore(tKeyStore.getText(), tKeyStorePassword.getText(), Globals.KEYSTORE_TYPE);
 	        	keyStore.load();
 	        	if (!keyStore.containsKey(tKeyName.getText())) {
-	        		setErrorMessage(Messages.verifyKeyAlias);
+	        	    updateStatus(Messages.verifyKeyAlias, DialogPage.INFORMATION);
 	                return;
 	        	}
 
 	        	if (keyStore.getSecretKey(tKeyName.getText(), tKeyPassword.getText().toCharArray()) == null) {
-                    setErrorMessage(Messages.verifyKeyPassword);
+	        	    updateStatus(Messages.verifyKeyPassword, DialogPage.INFORMATION);
                     return;
 	        	}
 			} catch (Exception ex) {
-				setErrorMessage(Messages.verifyAll);
+			    updateStatus(Messages.verifyAll, DialogPage.ERROR);
                 return;
 			}
         } else {
-        	updateStatus(Messages.keyStoreNotFound);
+        	updateStatus(Messages.keyStoreNotFound, DialogPage.ERROR);
             return;
         }
         setErrorMessage(null);
-        updateStatus(null);
+        updateStatus(null, DialogPage.NONE);
     }
 
     /**
      * Shows a message to the user to complete the fields on this page.
      *
      * @param message The message for the user
+     * @param status The status type of the message
      */
-    private void updateStatus(final String message) {
-        setMessage(message);
+    private void updateStatus(final String message, final int status) {
+        setMessage(message, status);
         if (message == null && getErrorMessage() == null) {
             setPageComplete(true);
             saveDataToModel();

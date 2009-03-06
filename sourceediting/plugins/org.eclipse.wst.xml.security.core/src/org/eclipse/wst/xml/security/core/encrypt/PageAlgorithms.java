@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2008 Dominik Schadow - http://www.xml-sicherheit.de
+ * Copyright (c) 2009 Dominik Schadow - http://www.xml-sicherheit.de
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -11,6 +11,7 @@
 package org.eclipse.wst.xml.security.core.encrypt;
 
 import org.eclipse.core.resources.IFile;
+import org.eclipse.jface.dialogs.DialogPage;
 import org.eclipse.jface.dialogs.IDialogSettings;
 import org.eclipse.jface.wizard.WizardPage;
 import org.eclipse.swt.SWT;
@@ -56,8 +57,6 @@ public class PageAlgorithms extends WizardPage implements Listener {
     private Button bSigWiz = null;
     /** Checkbox to encrypt only element content. */
     private Button bContentOnly = null;
-    /** Help message for the user. */
-    private String helpMessage = ""; //$NON-NLS-1$
     /** BSP activation flag. */
     private boolean bsp;
     /** The XML document. */
@@ -234,11 +233,12 @@ public class PageAlgorithms extends WizardPage implements Listener {
 
     /**
      * Shows a message to the user to complete the fields on this page.
+     *
      * @param message The message for the user
+     * @param status The status type of the message
      */
-    private void updateStatus(final String message) {
-        helpMessage = message;
-        setMessage(message);
+    private void updateStatus(final String message, final int status) {
+        setMessage(message, status);
         if (message == null && getErrorMessage() == null) {
             setPageComplete(true);
             saveDataToModel();
@@ -252,11 +252,11 @@ public class PageAlgorithms extends WizardPage implements Listener {
      */
     private void dialogChanged() {
         if (cEncryptionAlgorithm.getText().equals("")) {
-            updateStatus(Messages.selectEncryptionAlgorithm);
+            updateStatus(Messages.selectEncryptionAlgorithm, DialogPage.INFORMATION);
             return;
         }
         if (cKeyWrapAlgorithm.getText().equals("")) {
-            updateStatus(Messages.selectKeyWrapAlgorithm);
+            updateStatus(Messages.selectKeyWrapAlgorithm, DialogPage.INFORMATION);
             return;
         }
         if (!tID.getText().equals("")) {
@@ -264,13 +264,13 @@ public class PageAlgorithms extends WizardPage implements Listener {
                 boolean uniqueId = Utils.ensureIdIsUnique(tID.getText(), ids);
 
                 if (!uniqueId) {
-                    updateStatus(Messages.ambiguousEncryptionId);
+                    updateStatus(Messages.ambiguousEncryptionId, DialogPage.ERROR);
                     return;
                 }
             }
         }
-
-        updateStatus(null);
+        setErrorMessage(null);
+        updateStatus(null, DialogPage.NONE);
     }
 
     /**
@@ -299,7 +299,7 @@ public class PageAlgorithms extends WizardPage implements Listener {
      */
     public boolean isPageComplete() {
         saveDataToModel();
-        if (helpMessage == null && getErrorMessage() == null) {
+        if (getMessage() == null && getErrorMessage() == null) {
             return true;
         }
         return false;

@@ -43,14 +43,14 @@ public final class Messages extends NLS {
             createKey, createKeystoreAndKey, key, documentInvalid;
     /** PageOpenKey externalized strings. */
     public static String openKeyDescription, open, selectKeystoreFile,
-            enterKeyName, echoPassword, verifyKeyPassword,
+            enterKeyName, echoPassword, verifyKeyPassword, enterKeyPassword,
             enterKeystorePassword, verifyKeyAlias, verifyAll, password,
             name, keyStoreNotFound;
     /** PageCreateKey externalized strings. */
     public static String createKeyDescription, keyStore, generateButton,
             keyStoreAlreadyExists, selectKeyAlgorithm, selectKeyAlgorithmSize, keyGenerationFailed,
             keyGenerated, keyAlgorithm, keyAlgorithmSize, enterNewKeyStorePassword, existingKeyAlias,
-            enterNewKeyAlias, selectKeystoreFileToExtend, enterKeyPassword, keyInsertionFailed;
+            enterNewKeyAlias, selectKeystoreFileToExtend, enterNewKeyPassword, keyInsertionFailed;
     /** PageCreateKeystore externalized strings. */
     public static String createKeystoreDescription, keystoreGenerated,
             keystoreGenerationFailed, enterNewKeyStoreName;

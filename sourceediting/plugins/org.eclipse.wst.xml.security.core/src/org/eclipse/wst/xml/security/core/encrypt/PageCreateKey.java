@@ -312,16 +312,6 @@ public class PageCreateKey extends WizardPage implements Listener {
                 dialogChanged();
             }
         });
-        cKeyAlgorithm.addModifyListener(new ModifyListener() {
-            public void modifyText(final ModifyEvent e) {
-                dialogChanged();
-            }
-        });
-        cKeyAlgorithmSize.addModifyListener(new ModifyListener() {
-            public void modifyText(final ModifyEvent e) {
-                dialogChanged();
-            }
-        });
         tKeyStorePassword.addModifyListener(new ModifyListener() {
             public void modifyText(final ModifyEvent e) {
                 dialogChanged();
@@ -346,28 +336,30 @@ public class PageCreateKey extends WizardPage implements Listener {
             updateStatus(Messages.enterKeystorePassword, DialogPage.INFORMATION);
             return;
         }
-        if (tKeyName.getText().length() < Globals.KEY_ALIAS_MIN_SIZE) {
+        if (tKeyName.getText().length() < Globals.KEY_ALIAS_MIN_SIZE
+            || tKeyName.getText().length() > Globals.KEY_ALIAS_MAX_SIZE) {
             updateStatus(Messages.enterNewKeyAlias, DialogPage.INFORMATION);
             return;
         }
-        if (tKeyPassword.getText().length() == 0) {
-            updateStatus(Messages.enterKeyPassword, DialogPage.INFORMATION);
+        if (tKeyPassword.getText().length() < Globals.KEY_PASSWORD_MIN_SIZE
+            || tKeyPassword.getText().length() > Globals.KEY_PASSWORD_MAX_SIZE) {
+            updateStatus(Messages.enterNewKeyPassword, DialogPage.INFORMATION);
             return;
         }
-        if (tKeyStore.getText().length() > 0 && tKeyStorePassword.getText().length() > 0 && tKeyName.getText().length() > 0) {
-            try {
-                keyStore = new Keystore(tKeyStore.getText(), tKeyStorePassword.getText(), Globals.KEYSTORE_TYPE);
-                keyStore.load();
 
-                if (keyStore.containsKey(tKeyName.getText())) {
-                    updateStatus(Messages.existingKeyAlias, DialogPage.NONE);
-                    return;
-                }
-            } catch (Exception ex) {
-                updateStatus(Messages.verifyAll, DialogPage.NONE);
+        try {
+            keyStore = new Keystore(tKeyStore.getText(), tKeyStorePassword.getText(), Globals.KEYSTORE_TYPE);
+            keyStore.load();
+
+            if (keyStore.containsKey(tKeyName.getText())) {
+                updateStatus(Messages.existingKeyAlias, DialogPage.NONE);
                 return;
             }
+        } catch (Exception ex) {
+            updateStatus(Messages.verifyAll, DialogPage.NONE);
+            return;
         }
+
         setErrorMessage(null);
         updateStatus(null, DialogPage.NONE);
     }

@@ -300,12 +300,12 @@ public class PageCreateKeystore extends WizardPage implements Listener {
         bEchoKeyPassword.addListener(SWT.Selection, this);
         bEchoKeystorePassword.addListener(SWT.Selection, this);
         cKeyAlgorithm.addListener(SWT.Selection, this);
-        cKeyAlgorithm.addModifyListener(new ModifyListener() {
+        tKeyStore.addModifyListener(new ModifyListener() {
             public void modifyText(final ModifyEvent e) {
                 dialogChanged();
             }
         });
-        cKeyAlgorithmSize.addModifyListener(new ModifyListener() {
+        tKeyStorePassword.addModifyListener(new ModifyListener() {
             public void modifyText(final ModifyEvent e) {
                 dialogChanged();
             }
@@ -315,12 +315,7 @@ public class PageCreateKeystore extends WizardPage implements Listener {
                 dialogChanged();
             }
         });
-        tKeyStore.addModifyListener(new ModifyListener() {
-            public void modifyText(final ModifyEvent e) {
-                dialogChanged();
-            }
-        });
-        tKeyStorePassword.addModifyListener(new ModifyListener() {
+        tKeyPassword.addModifyListener(new ModifyListener() {
             public void modifyText(final ModifyEvent e) {
                 dialogChanged();
             }
@@ -348,12 +343,14 @@ public class PageCreateKeystore extends WizardPage implements Listener {
             updateStatus(Messages.enterNewKeyStorePassword, DialogPage.INFORMATION);
             return;
         }
-        if (tKeyName.getText().length() < Globals.KEY_ALIAS_MIN_SIZE) {
+        if (tKeyName.getText().length() < Globals.KEY_ALIAS_MIN_SIZE
+            || tKeyName.getText().length() > Globals.KEY_ALIAS_MAX_SIZE) {
             updateStatus(Messages.enterNewKeyAlias, DialogPage.INFORMATION);
             return;
         }
-        if (tKeyPassword.getText().length() == 0) {
-            updateStatus(Messages.enterKeyPassword, DialogPage.INFORMATION);
+        if (tKeyPassword.getText().length() < Globals.KEY_PASSWORD_MIN_SIZE
+            || tKeyPassword.getText().length() > Globals.KEY_PASSWORD_MAX_SIZE) {
+            updateStatus(Messages.enterNewKeyPassword, DialogPage.INFORMATION);
             return;
         }
         setErrorMessage(null);
@@ -368,12 +365,12 @@ public class PageCreateKeystore extends WizardPage implements Listener {
      */
     private void updateStatus(final String message, final int status) {
         setMessage(message, status);
-        if (message == null && getErrorMessage() == null) {
-            setPageComplete(true);
-            saveDataToModel();
+        if (!generatedKeystore && message == null) {
+            bCreateKeystore.setEnabled(true);
         } else {
-            setPageComplete(false);
+            bCreateKeystore.setEnabled(false);
         }
+        setPageComplete(generatedKeystore);
     }
 
     /**
@@ -463,7 +460,7 @@ public class PageCreateKeystore extends WizardPage implements Listener {
         }
 
         if (generatedKeystore) {
-        	lResult.setText(NLS.bind(Messages.keystoreGenerated, new Object[] {keystoreName, tKeyName.getText(), name}));
+        	lResult.setText(NLS.bind(Messages.keystoreGenerated, new Object[] {tKeyName.getText(), keystoreName, name}));
             updateStatus(null, DialogPage.NONE);
         }
     }

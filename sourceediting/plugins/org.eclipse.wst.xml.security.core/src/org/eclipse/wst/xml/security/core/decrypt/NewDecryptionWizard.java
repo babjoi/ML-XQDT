@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2008 Dominik Schadow - http://www.xml-sicherheit.de
+ * Copyright (c) 2009 Dominik Schadow - http://www.xml-sicherheit.de
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -29,15 +29,15 @@ import org.eclipse.wst.xml.security.core.XmlSecurityPlugin;
  * @version 0.5.0
  */
 public class NewDecryptionWizard extends Wizard implements INewWizard {
-    /** PageAlgorithms first wizard page. */
-    private PageAlgorithms pageAlgorithms = null;
+    /** PageResource first wizard page. */
+    private PageResource pageResource = null;
     /** XML document to decrypt. */
     private IFile xmlDocument;
     /** The Decryption model. */
     private Decryption decryption;
     /** Path of the openend project. */
     private String path;
-    /** Stored setting for the decryption KeyStore. */
+    /** Stored setting for the decryption Keystore. */
     public static final String SETTING_KEYSTORE = "dec_keystore";
     /** Stored setting for the secret key name. */
     public static final String SETTING_KEY_NAME = "dec_key_name";
@@ -91,11 +91,11 @@ public class NewDecryptionWizard extends Wizard implements INewWizard {
     }
 
     /**
-     * Adds a single page (<code>PageAlgorithms</code>) to the wizard.
+     * Adds a single page (<code>PageResource</code>) to the wizard.
      */
     public void addPages() {
-        pageAlgorithms = new PageAlgorithms(decryption, xmlDocument, path);
-        addPage(pageAlgorithms);
+        pageResource = new PageResource(decryption, xmlDocument, path);
+        addPage(pageResource);
     }
 
     /**
@@ -105,7 +105,7 @@ public class NewDecryptionWizard extends Wizard implements INewWizard {
      * @return Wizard completion status
      */
     public boolean canFinish() {
-        return pageAlgorithms.isPageComplete();
+        return pageResource.isPageComplete();
     }
 
     /**

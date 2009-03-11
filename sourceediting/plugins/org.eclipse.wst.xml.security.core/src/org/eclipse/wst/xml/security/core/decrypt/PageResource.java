@@ -40,7 +40,7 @@ import org.eclipse.wst.xml.security.core.utils.XmlSecurityImageRegistry;
 
 /**
  * <p>First and only page of the <strong>XML Decryption Wizard</strong>. Lets the user
- * select or enter the KeyStore containing the key used for encryption, the corresponding
+ * select or enter the Keystore containing the key used for encryption, the corresponding
  * passwords and the encryption id for the encrypted document part to decrypt.</p>
  *
  * <p>After all information is entered the user can finish the Wizard and the XML fragment
@@ -51,9 +51,9 @@ import org.eclipse.wst.xml.security.core.utils.XmlSecurityImageRegistry;
  * @author Dominik Schadow
  * @version 0.5.0
  */
-public class PageAlgorithms extends WizardPage implements Listener {
+public class PageResource extends WizardPage implements Listener {
     /** Wizard page name. */
-    public static final String PAGE_NAME = "DecryptPageAlgorithms"; //$NON-NLS-1$
+    public static final String PAGE_NAME = "DecryptPageResource"; //$NON-NLS-1$
     /** Path of the opened project. */
     private String project;
     /** Open Keystore button. */
@@ -86,7 +86,7 @@ public class PageAlgorithms extends WizardPage implements Listener {
      * @param file The selected file
      * @param project The path of the opened project
      */
-    public PageAlgorithms(final Decryption decryption, final IFile file, final String project) {
+    public PageResource(final Decryption decryption, final IFile file, final String project) {
         super(PAGE_NAME);
         setTitle(Messages.decryptionTitle);
         setDescription(Messages.decryptionDescription);

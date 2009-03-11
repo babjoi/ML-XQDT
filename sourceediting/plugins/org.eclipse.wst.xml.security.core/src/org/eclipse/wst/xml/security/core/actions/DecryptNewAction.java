@@ -1,12 +1,10 @@
 /*******************************************************************************
- * Copyright (c) 2008 Dominik Schadow - http://www.xml-sicherheit.de
- * All rights reserved. This program and the accompanying materials
- * are made available under the terms of the Eclipse Public License v1.0
- * which accompanies this distribution, and is available at
+ * Copyright (c) 2009 Dominik Schadow - http://www.xml-sicherheit.de All rights reserved. This
+ * program and the accompanying materials are made available under the terms of the Eclipse Public
+ * License v1.0 which accompanies this distribution, and is available at
  * http://www.eclipse.org/legal/epl-v10.html
  *
- * Contributors:
- *     Dominik Schadow - initial API and implementation
+ * Contributors: Dominik Schadow - initial API and implementation
  *******************************************************************************/
 package org.eclipse.wst.xml.security.core.actions;
 
@@ -34,14 +32,14 @@ import org.eclipse.wst.xml.security.core.utils.Utils;
 import org.w3c.dom.Document;
 
 /**
- * <p>Action class used to start the <b>XML Decryption Wizard</b> for a new decryption
- * in the selected XML document. The decryption process differs depending on
- * whether editor content or a file via a view should be decrypted.</p>
+ * <p>Action class used to start the <b>XML Decryption Wizard</b> for a new decryption in the selected
+ * XML document. The decryption process differs depending on whether editor content or a file via a
+ * view should be decrypted.</p>
  *
  * @author Dominik Schadow
  * @version 0.5.0
  */
-public class DecryptNewAction extends XmlSecurityActionAdapter  {
+public class DecryptNewAction extends XmlSecurityActionAdapter {
     /** Active editor. */
     private ITextEditor editor = null;
     /** The XML document to decrypt. */
@@ -64,8 +62,7 @@ public class DecryptNewAction extends XmlSecurityActionAdapter  {
     }
 
     /**
-     * Called when clicked on the <i>New Decryption...</i> entry in the
-     * plug-ins context menu.
+     * Called when clicked on the <i>New Decryption...</i> entry in the plug-ins context menu.
      *
      * @param action The IAction
      */
@@ -74,9 +71,9 @@ public class DecryptNewAction extends XmlSecurityActionAdapter  {
     }
 
     /**
-     * Takes the resource (selected file or editor content) and starts the XML
-     * Decryption Wizard. The returned decrypted XML document is pretty printed
-     * before the editor or the file is updated.
+     * Takes the resource (selected file or editor content) and starts the XML Decryption Wizard.
+     * The returned decrypted XML document is pretty printed before the editor or the file is
+     * updated.
      */
     private void createDecryption() {
         try {
@@ -132,7 +129,7 @@ public class DecryptNewAction extends XmlSecurityActionAdapter  {
      * @throws Exception to indicate any exceptional condition
      */
     private void decryptData(final CreateDecryption data, final NewDecryptionWizard wizard,
-        final IDocument document, final String filename) throws Exception {
+            final IDocument document, final String filename) throws Exception {
         WizardDialog dialog = new WizardDialog(getShell(), wizard);
         dialog.create();
         dialog.open();
@@ -159,9 +156,13 @@ public class DecryptNewAction extends XmlSecurityActionAdapter  {
                                 fos.close();
                             }
                         }
-                    } catch (Exception ex) {
-                        showErrorDialog(Messages.error, Messages.decryptingError, ex);
-                        log(ERROR_TEXT, ex);
+                    } catch (final Exception ex) {
+                        getShell().getDisplay().asyncExec(new Runnable() {
+                            public void run() {
+                                showErrorDialog(Messages.error, Messages.decryptingError, ex);
+                                log(ERROR_TEXT, ex);
+                            }
+                        });
                     } finally {
                         monitor.done();
                     }

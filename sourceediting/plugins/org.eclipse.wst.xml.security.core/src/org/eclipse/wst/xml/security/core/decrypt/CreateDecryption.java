@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2008 Dominik Schadow - http://www.xml-sicherheit.de
+ * Copyright (c) 2009 Dominik Schadow - http://www.xml-sicherheit.de
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -76,7 +76,7 @@ public class CreateDecryption {
 
         monitor.worked(1);
 
-        if (encryptionId != null && !encryptionId.equals("Use first encryption id")) {
+        if (encryptionId != null && !encryptionId.equals("Use first encryption")) {
             // look for the EncryptedData element with the given Id attribute
             for (int i = 0, length = encryptedElements.getLength(); i < length; i++) {
             	Element current = (Element) encryptedElements.item(i);
@@ -92,7 +92,7 @@ public class CreateDecryption {
 
         Element encryptedElement = (Element) encryptedElements.item(position);
         if (encryptedElement == null) {
-        	throw new Exception("XML element EncryptedData not found");
+        	throw new Exception("No XML element EncryptedData was found in the selected XML document");
         }
 
         monitor.worked(1);

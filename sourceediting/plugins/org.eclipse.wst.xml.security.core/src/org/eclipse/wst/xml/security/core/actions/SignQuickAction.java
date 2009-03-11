@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2008 Dominik Schadow - http://www.xml-sicherheit.de
+ * Copyright (c) 2009 Dominik Schadow - http://www.xml-sicherheit.de
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -207,9 +207,13 @@ public class SignQuickAction extends XmlSecurityActionAdapter {
                             }
                             fos.flush();
                             fos.close();
-                        } catch (Exception ex) {
-                            showErrorDialog(Messages.error, Messages.signingError, ex);
-                            log(ERROR_TEXT, ex);
+                        } catch (final Exception ex) {
+                            getShell().getDisplay().asyncExec(new Runnable() {
+                                public void run() {
+                                    showErrorDialog(Messages.error, Messages.signingError, ex);
+                                    log(ERROR_TEXT, ex);
+                                }
+                            });
                         } finally {
                             monitor.done();
                         }
@@ -257,9 +261,13 @@ public class SignQuickAction extends XmlSecurityActionAdapter {
                             if (doc != null) {
                                 document.set(Utils.docToString(doc, false));
                             }
-                        } catch (Exception ex) {
-                            showErrorDialog(Messages.error, Messages.signingError, ex);
-                            log(ERROR_TEXT, ex);
+                        } catch (final Exception ex) {
+                            getShell().getDisplay().asyncExec(new Runnable() {
+                                public void run() {
+                                    showErrorDialog(Messages.error, Messages.signingError, ex);
+                                    log(ERROR_TEXT, ex);
+                                }
+                            });
                         } finally {
                             monitor.done();
                         }
@@ -286,9 +294,13 @@ public class SignQuickAction extends XmlSecurityActionAdapter {
                             if (doc != null) {
                                 document.set(Utils.docToString(doc, false));
                             }
-                        } catch (Exception ex) {
-                            showErrorDialog(Messages.error, Messages.signingError, ex);
-                            log(ERROR_TEXT, ex);
+                        } catch (final Exception ex) {
+                            getShell().getDisplay().asyncExec(new Runnable() {
+                                public void run() {
+                                    showErrorDialog(Messages.error, Messages.signingError, ex);
+                                    log(ERROR_TEXT, ex);
+                                }
+                            });
                         } finally {
                             monitor.done();
                         }

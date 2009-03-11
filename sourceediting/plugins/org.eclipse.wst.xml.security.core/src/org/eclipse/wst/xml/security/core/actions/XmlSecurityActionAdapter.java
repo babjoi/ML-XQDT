@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2008 Dominik Schadow - http://www.xml-sicherheit.de
+ * Copyright (c) 2009 Dominik Schadow - http://www.xml-sicherheit.de
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -135,15 +135,19 @@ public abstract class XmlSecurityActionAdapter implements IObjectActionDelegate 
      * @param ex The exception
      */
     protected void showErrorDialog(final String title, final String message, final Exception ex) {
-        String reason = ex.getLocalizedMessage();
-        if (reason == null) {
+        String reason = ex.getMessage();
+        if (reason == null || "".equals(reason)) {
             reason = Messages.errorReasonUnavailable;
         }
 
+        System.out.println("reason " + reason);
+
         XmlSecurityPlugin plugin = XmlSecurityPlugin.getDefault();
         IStatus status = new Status(IStatus.ERROR, plugin.getBundle().getSymbolicName(), 0, reason, ex);
-        ErrorDialog errorDialog = new ErrorDialog(shell, title, message, status, IStatus.ERROR);
-        errorDialog.open();
+//        ErrorDialog errorDialog = new ErrorDialog(shell, title, message, status, IStatus.ERROR);
+//        errorDialog.open();
+
+        ErrorDialog.openError(shell, title, message, status);
     }
 
     /**

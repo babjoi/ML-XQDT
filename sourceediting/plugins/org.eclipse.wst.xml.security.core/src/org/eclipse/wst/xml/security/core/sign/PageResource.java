@@ -359,7 +359,7 @@ public class PageResource extends WizardPage implements Listener {
                 return;
             }
         }
-        setErrorMessage(null);
+
         updateStatus(null, DialogPage.NONE);
     }
 

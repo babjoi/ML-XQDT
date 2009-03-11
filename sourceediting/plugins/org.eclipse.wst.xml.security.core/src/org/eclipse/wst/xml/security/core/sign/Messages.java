@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2008 Dominik Schadow - http://www.xml-sicherheit.de
+ * Copyright (c) 2009 Dominik Schadow - http://www.xml-sicherheit.de
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -40,17 +40,17 @@ public final class Messages extends NLS {
             detachedFile, document, enterXPath, enveloped, enveloping, key, resource, resourceDescription,
             signatureTitle, select, selection, signatureType, useKey, verifyDetachedFile, xpath, xpathAttribute,
             xpathMultipleElements, xpathNoElement, xpathPopup, documentInvalid, keystoreAndKey;
-    /** PageOpenCertificate externalized strings. */
+    /** PageOpenKey externalized strings. */
     public static String enterKeyAlias, enterKeyPassword, enterKeystorePassword, open, password, selectKeyFile,
             useKeyDescription, verifyAll, verifyKeyAlias, verifyKeyPassword, verifyKeystore,
             verifyKeystorePassword, wrongKeyAlgorithm, keyStoreNotFound;
-    /** PageCreateCertificate externalized strings. */
-    public static String commonName, country, createKeyButton, createKeyDescription, certificate,
+    /** PageCreateKey externalized strings. */
+    public static String commonName, country, createKeyDescription, certificate, generate,
             enterCommonName, enterNewKeyAlias, enterNewKeyPassword, enterNewKeystoreName, enterNewKeystorePassword,
             keyAlgorithm, keyExistsInKeystore, keyGenerated, keyGenerationFailed, keyStore, keystoreAlreadyExists,
-            location, organization, organizationalUnit, selectKeyAlgorithm, state;
+            location, organization, organizationalUnit, selectKeyAlgorithm, state, selectKeystoreForInsert;
     /** PageCreateKeystore externalized strings. */
-    public static String createKeyStoreButton, createKeystoreDescription, keystoreGenerated,
+    public static String createKeystoreDescription, keystoreGenerated,
             keystoreGenerationFailed, name;
     /** PageAlgorithms externalized strings. */
     public static String algorithmsDescription, ambiguousSignatureId, buttonAddProperty,

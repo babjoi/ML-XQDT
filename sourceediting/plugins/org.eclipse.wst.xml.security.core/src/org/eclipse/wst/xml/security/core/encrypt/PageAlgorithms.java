@@ -269,7 +269,7 @@ public class PageAlgorithms extends WizardPage implements Listener {
                 }
             }
         }
-        setErrorMessage(null);
+
         updateStatus(null, DialogPage.NONE);
     }
 

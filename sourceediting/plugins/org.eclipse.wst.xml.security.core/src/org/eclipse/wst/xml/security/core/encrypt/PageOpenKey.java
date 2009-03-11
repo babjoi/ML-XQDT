@@ -48,16 +48,16 @@ public class PageOpenKey extends WizardPage implements Listener {
     public static final String PAGE_NAME = "EncryptPageOpenKey"; //$NON-NLS-1$
     /** Path of the opened project. */
     private String project;
-    /** Open KeyStore button. */
+    /** Open Keystore button. */
     private Button bOpen = null;
-    /** Button <i>Echo KeyStore Password</i>. */
-    private Button bEchoKeyStorePassword = null;
+    /** Button <i>Echo Keystore Password</i>. */
+    private Button bEchoKeystorePassword = null;
     /** Button <i>Echo Key Password</i>. */
     private Button bEchoKeyPassword = null;
-    /** KeyStore. */
-    private Text tKeyStore = null;
-    /** KeyStore password. */
-    private Text tKeyStorePassword = null;
+    /** Keystore name. */
+    private Text tKeystore = null;
+    /** Keystore password. */
+    private Text tKeystorePassword = null;
     /** Key name. */
     private Text tKeyName = null;
     /** Key password. */
@@ -67,7 +67,7 @@ public class PageOpenKey extends WizardPage implements Listener {
     /** Model for the XML Encryption Wizard. */
     private Encryption encryption = null;
     /** The keystore containing all required key information. */
-    private Keystore keyStore = null;
+    private Keystore keystore = null;
 
     /**
      * Constructor for PageOpenKey.
@@ -186,18 +186,18 @@ public class PageOpenKey extends WizardPage implements Listener {
         data.left = new FormAttachment(gKeyStore);
         lKeyStore.setLayoutData(data);
 
-        tKeyStore = new Text(gKeyStore, SWT.SINGLE);
+        tKeystore = new Text(gKeyStore, SWT.SINGLE);
         data = new FormData();
         data.top = new FormAttachment(lKeyStore, 0, SWT.CENTER);
         data.left = new FormAttachment(lKeyStore);
         data.width = Globals.SHORT_TEXT_WIDTH;
-        tKeyStore.setLayoutData(data);
+        tKeystore.setLayoutData(data);
 
         bOpen = new Button(gKeyStore, SWT.PUSH);
         bOpen.setText(Messages.open);
         data = new FormData();
         data.top = new FormAttachment(lKeyStore, 0, SWT.CENTER);
-        data.left = new FormAttachment(tKeyStore, Globals.MARGIN);
+        data.left = new FormAttachment(tKeystore, Globals.MARGIN);
         bOpen.setLayoutData(data);
 
         Label lKeyStorePassword = new Label(gKeyStore, SWT.SHADOW_IN);
@@ -208,22 +208,22 @@ public class PageOpenKey extends WizardPage implements Listener {
         data.width = LABELWIDTH;
         lKeyStorePassword.setLayoutData(data);
 
-        tKeyStorePassword = new Text(gKeyStore, SWT.SINGLE);
-        tKeyStorePassword.setTextLimit(Globals.KEYSTORE_PASSWORD_MAX_SIZE);
+        tKeystorePassword = new Text(gKeyStore, SWT.SINGLE);
+        tKeystorePassword.setTextLimit(Globals.KEYSTORE_PASSWORD_MAX_SIZE);
         data = new FormData();
         data.top = new FormAttachment(lKeyStorePassword, 0, SWT.CENTER);
         data.left = new FormAttachment(lKeyStorePassword);
         data.width = Globals.SHORT_TEXT_WIDTH;
-        tKeyStorePassword.setEchoChar('*');
-        tKeyStorePassword.setLayoutData(data);
+        tKeystorePassword.setEchoChar('*');
+        tKeystorePassword.setLayoutData(data);
 
-        bEchoKeyStorePassword = new Button(gKeyStore, SWT.PUSH);
-        bEchoKeyStorePassword.setImage(XmlSecurityImageRegistry.getImageRegistry().get("echo_password"));
-        bEchoKeyStorePassword.setToolTipText(Messages.echoPassword);
+        bEchoKeystorePassword = new Button(gKeyStore, SWT.PUSH);
+        bEchoKeystorePassword.setImage(XmlSecurityImageRegistry.getImageRegistry().get("echo_password"));
+        bEchoKeystorePassword.setToolTipText(Messages.echoPassword);
         data = new FormData();
-        data.top = new FormAttachment(tKeyStorePassword, 0, SWT.CENTER);
-        data.left = new FormAttachment(tKeyStorePassword, Globals.MARGIN);
-        bEchoKeyStorePassword.setLayoutData(data);
+        data.top = new FormAttachment(tKeystorePassword, 0, SWT.CENTER);
+        data.left = new FormAttachment(tKeystorePassword, Globals.MARGIN);
+        bEchoKeystorePassword.setLayoutData(data);
     }
 
     /**
@@ -231,14 +231,14 @@ public class PageOpenKey extends WizardPage implements Listener {
      */
     private void addListeners() {
         bOpen.addListener(SWT.Selection, this);
-        bEchoKeyStorePassword.addListener(SWT.Selection, this);
+        bEchoKeystorePassword.addListener(SWT.Selection, this);
         bEchoKeyPassword.addListener(SWT.Selection, this);
-        tKeyStore.addModifyListener(new ModifyListener() {
+        tKeystore.addModifyListener(new ModifyListener() {
             public void modifyText(final ModifyEvent e) {
                 dialogChanged();
             }
         });
-        tKeyStorePassword.addModifyListener(new ModifyListener() {
+        tKeystorePassword.addModifyListener(new ModifyListener() {
             public void modifyText(final ModifyEvent e) {
                 dialogChanged();
             }
@@ -259,11 +259,11 @@ public class PageOpenKey extends WizardPage implements Listener {
      * Determines the (error) message for the missing field.
      */
     private void dialogChanged() {
-        if (tKeyStore.getText().length() == 0) {
+        if (tKeystore.getText().length() == 0) {
             updateStatus(Messages.selectKeystoreFile, DialogPage.INFORMATION);
             return;
         }
-        if (tKeyStorePassword.getText().length() == 0) {
+        if (tKeystorePassword.getText().length() == 0) {
             updateStatus(Messages.enterKeystorePassword, DialogPage.INFORMATION);
             return;
         }
@@ -275,16 +275,16 @@ public class PageOpenKey extends WizardPage implements Listener {
             updateStatus(Messages.enterKeyPassword, DialogPage.INFORMATION);
             return;
         }
-        if (new File(tKeyStore.getText()).exists()) {
+        if (new File(tKeystore.getText()).exists()) {
             try {
-	        	keyStore = new Keystore(tKeyStore.getText(), tKeyStorePassword.getText(), Globals.KEYSTORE_TYPE);
-	        	keyStore.load();
-	        	if (!keyStore.containsKey(tKeyName.getText())) {
+	        	keystore = new Keystore(tKeystore.getText(), tKeystorePassword.getText(), Globals.KEYSTORE_TYPE);
+	        	keystore.load();
+	        	if (!keystore.containsKey(tKeyName.getText())) {
 	        	    updateStatus(Messages.verifyKeyAlias, DialogPage.INFORMATION);
 	                return;
 	        	}
 
-	        	if (keyStore.getSecretKey(tKeyName.getText(), tKeyPassword.getText().toCharArray()) == null) {
+	        	if (keystore.getSecretKey(tKeyName.getText(), tKeyPassword.getText().toCharArray()) == null) {
 	        	    updateStatus(Messages.verifyKeyPassword, DialogPage.INFORMATION);
                     return;
 	        	}
@@ -296,7 +296,7 @@ public class PageOpenKey extends WizardPage implements Listener {
         	updateStatus(Messages.keyStoreNotFound, DialogPage.ERROR);
             return;
         }
-        setErrorMessage(null);
+
         updateStatus(null, DialogPage.NONE);
     }
 
@@ -324,7 +324,7 @@ public class PageOpenKey extends WizardPage implements Listener {
     public void handleEvent(final Event e) {
         if (e.widget == bOpen) {
             openKeystore();
-        } else if (e.widget == bEchoKeyStorePassword) {
+        } else if (e.widget == bEchoKeystorePassword) {
             echoPassword(e);
         } else if (e.widget == bEchoKeyPassword) {
             echoPassword(e);
@@ -332,25 +332,25 @@ public class PageOpenKey extends WizardPage implements Listener {
     }
 
     /**
-     * Shows plain text or cipher text in the password field.
+     * Shows plain text (\0) or cipher text (*) in the password field.
      *
      * @param e The triggered event
      */
     private void echoPassword(final Event e) {
-        if (e.widget == bEchoKeyStorePassword) {
-            if (tKeyStorePassword.getEchoChar() == '*') {
-                tKeyStorePassword.setEchoChar('\0'); // show plain text
+        if (e.widget == bEchoKeystorePassword) {
+            if (tKeystorePassword.getEchoChar() == '*') {
+                tKeystorePassword.setEchoChar('\0');
             } else {
-                tKeyStorePassword.setEchoChar('*'); // show cipher text
+                tKeystorePassword.setEchoChar('*');
             }
-        } else {
-            if (e.widget == bEchoKeyPassword) {
-                if (tKeyPassword.getEchoChar() == '*') {
-                    tKeyPassword.setEchoChar('\0'); // show plain text
-                } else {
-                    tKeyPassword.setEchoChar('*'); // show cipher text
-                }
+            tKeystorePassword.redraw();
+        } else if (e.widget == bEchoKeyPassword) {
+            if (tKeyPassword.getEchoChar() == '*') {
+                tKeyPassword.setEchoChar('\0');
+            } else {
+                tKeyPassword.setEchoChar('*');
             }
+            tKeyPassword.redraw();
         }
     }
 
@@ -364,7 +364,7 @@ public class PageOpenKey extends WizardPage implements Listener {
         dialog.setFilterPath(project);
         String file = dialog.open();
         if (file != null && file.length() > 0) {
-            tKeyStore.setText(file);
+            tKeystore.setText(file);
         }
     }
 
@@ -384,8 +384,8 @@ public class PageOpenKey extends WizardPage implements Listener {
      * Saves the selections on this wizard page to the model. Called on exit of the page.
      */
     private void saveDataToModel() {
-        encryption.setKeyStore(keyStore);
-        encryption.setKeyStorePassword(tKeyStorePassword.getText());
+        encryption.setKeyStore(keystore);
+        encryption.setKeyStorePassword(tKeystorePassword.getText());
         encryption.setKeyName(tKeyName.getText());
         encryption.setKeyPassword(tKeyPassword.getText().toCharArray());
 
@@ -400,7 +400,7 @@ public class PageOpenKey extends WizardPage implements Listener {
         if (previousKeystore == null) {
         	previousKeystore = "";
         }
-        tKeyStore.setText(previousKeystore);
+        tKeystore.setText(previousKeystore);
 
         String previousKey = getDialogSettings().get(NewEncryptionWizard.SETTING_KEY_NAME);
         if (previousKey == null) {
@@ -414,7 +414,7 @@ public class PageOpenKey extends WizardPage implements Listener {
      */
     private void storeSettings() {
         IDialogSettings settings = getDialogSettings();
-        settings.put(NewEncryptionWizard.SETTING_KEYSTORE, tKeyStore.getText());
+        settings.put(NewEncryptionWizard.SETTING_KEYSTORE, tKeystore.getText());
         settings.put(NewEncryptionWizard.SETTING_KEY_NAME, tKeyName.getText());
     }
 }

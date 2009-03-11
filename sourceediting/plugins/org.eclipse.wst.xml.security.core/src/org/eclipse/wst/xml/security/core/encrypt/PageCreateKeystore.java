@@ -52,21 +52,21 @@ import org.eclipse.wst.xml.security.core.utils.XmlSecurityImageRegistry;
 public class PageCreateKeystore extends WizardPage implements Listener {
     /** Wizard page name. */
     public static final String PAGE_NAME = "EncryptPageCreateKeystore"; //$NON-NLS-1$
-    /** KeyStore. */
-    private String keystore;
-    /** KeyStore name. */
+    /** Keystore. */
+    private String keystorePath;
+    /** Keystore name. */
     private String keystoreName;
     /** Name of the opened project. */
     private String name;
     /** Path of the opened project. */
     private String project;
-    /** KeyStore and key generation successful. */
-    private boolean generatedKeystore = false;
-    /** Create KeyStore button. */
-    private Button bCreateKeystore = null;
+    /** Keystore and key generation successful. */
+    private boolean generated = false;
+    /** Generate button. */
+    private Button bGenerate = null;
     /** Button <i>Echo Key Password</i>. */
     private Button bEchoKeyPassword = null;
-    /** Button <i>Echo KeyStore Password</i>. */
+    /** Button <i>Echo Keystore Password</i>. */
     private Button bEchoKeystorePassword = null;
     /** Drop down box <i>Key Algorithm</i>. */
     private Combo cKeyAlgorithm = null;
@@ -76,11 +76,11 @@ public class PageCreateKeystore extends WizardPage implements Listener {
     private Text tKeyName = null;
     /** Key password. */
     private Text tKeyPassword = null;
-    /** KeyStore name. */
-    private Text tKeyStore = null;
-    /** KeyStore password. */
-    private Text tKeyStorePassword = null;
-    /** KeyStore and key generation result label. */
+    /** Keystore name. */
+    private Text tKeystore = null;
+    /** Keystore password. */
+    private Text tKeystorePassword = null;
+    /** Keystore and key generation result label. */
     private Label lResult = null;
     /** Default label width. */
     private static final int LABELWIDTH = 120;
@@ -88,8 +88,8 @@ public class PageCreateKeystore extends WizardPage implements Listener {
     private static final int TEXTHEIGHT = 40;
     /** Model for the XML Encryption Wizard. */
     private Encryption encryption = null;
-    /** The KeyStore containing all required key information. */
-    private Keystore keyStore = null;
+    /** The Keystore containing all required key information. */
+    private Keystore keystore = null;
 
     /**
      * Constructor for PageCreateKeystore.
@@ -167,12 +167,12 @@ public class PageCreateKeystore extends WizardPage implements Listener {
         data.left = new FormAttachment(gKeyStore);
         lKeyStoreName.setLayoutData(data);
 
-        tKeyStore = new Text(gKeyStore, SWT.SINGLE);
+        tKeystore = new Text(gKeyStore, SWT.SINGLE);
         data = new FormData();
         data.width = Globals.SHORT_TEXT_WIDTH;
         data.top = new FormAttachment(lKeyStoreName, 0, SWT.CENTER);
         data.left = new FormAttachment(lKeyStoreName);
-        tKeyStore.setLayoutData(data);
+        tKeystore.setLayoutData(data);
 
         Label lKeyStorePassword = new Label(gKeyStore, SWT.SHADOW_IN);
         lKeyStorePassword.setText(Messages.password);
@@ -182,21 +182,21 @@ public class PageCreateKeystore extends WizardPage implements Listener {
         data.left = new FormAttachment(gKeyStore);
         lKeyStorePassword.setLayoutData(data);
 
-        tKeyStorePassword = new Text(gKeyStore, SWT.SINGLE);
-        tKeyStorePassword.setTextLimit(Globals.KEYSTORE_PASSWORD_MAX_SIZE);
+        tKeystorePassword = new Text(gKeyStore, SWT.SINGLE);
+        tKeystorePassword.setTextLimit(Globals.KEYSTORE_PASSWORD_MAX_SIZE);
         data = new FormData();
         data.width = Globals.SHORT_TEXT_WIDTH;
         data.top = new FormAttachment(lKeyStorePassword, 0, SWT.CENTER);
         data.left = new FormAttachment(lKeyStorePassword);
-        tKeyStorePassword.setEchoChar('*');
-        tKeyStorePassword.setLayoutData(data);
+        tKeystorePassword.setEchoChar('*');
+        tKeystorePassword.setLayoutData(data);
 
         bEchoKeystorePassword = new Button(gKeyStore, SWT.PUSH);
         bEchoKeystorePassword.setImage(XmlSecurityImageRegistry.getImageRegistry().get("echo_password"));
         bEchoKeystorePassword.setToolTipText(Messages.echoPassword);
         data = new FormData();
-        data.top = new FormAttachment(tKeyStorePassword, 0, SWT.CENTER);
-        data.left = new FormAttachment(tKeyStorePassword, Globals.MARGIN);
+        data.top = new FormAttachment(tKeystorePassword, 0, SWT.CENTER);
+        data.left = new FormAttachment(tKeystorePassword, Globals.MARGIN);
         bEchoKeystorePassword.setLayoutData(data);
 
         // Elements for group "Key"
@@ -275,18 +275,18 @@ public class PageCreateKeystore extends WizardPage implements Listener {
         data.left = new FormAttachment(tKeyPassword, Globals.MARGIN);
         bEchoKeyPassword.setLayoutData(data);
 
-        bCreateKeystore = new Button(gKey, SWT.PUSH);
-        bCreateKeystore.setText(Messages.generateButton);
-        bCreateKeystore.setEnabled(false);
+        bGenerate = new Button(gKey, SWT.PUSH);
+        bGenerate.setText(Messages.generateButton);
+        bGenerate.setEnabled(false);
         data = new FormData();
         data.top = new FormAttachment(lKeyPassword, Globals.MARGIN * 2);
         data.left = new FormAttachment(gKey);
-        bCreateKeystore.setLayoutData(data);
+        bGenerate.setLayoutData(data);
 
         lResult = new Label(gKey, SWT.WRAP);
         data = new FormData();
         data.height = TEXTHEIGHT;
-        data.top = new FormAttachment(bCreateKeystore, Globals.MARGIN * 2);
+        data.top = new FormAttachment(bGenerate, Globals.MARGIN * 2);
         data.left = new FormAttachment(gKey);
         data.right = new FormAttachment(Globals.GROUP_NUMERATOR);
         lResult.setLayoutData(data);
@@ -296,16 +296,16 @@ public class PageCreateKeystore extends WizardPage implements Listener {
      * Adds all listeners for the current wizard page.
      */
     private void addListeners() {
-        bCreateKeystore.addListener(SWT.MouseDown, this);
+        bGenerate.addListener(SWT.MouseDown, this);
         bEchoKeyPassword.addListener(SWT.Selection, this);
         bEchoKeystorePassword.addListener(SWT.Selection, this);
         cKeyAlgorithm.addListener(SWT.Selection, this);
-        tKeyStore.addModifyListener(new ModifyListener() {
+        tKeystore.addModifyListener(new ModifyListener() {
             public void modifyText(final ModifyEvent e) {
                 dialogChanged();
             }
         });
-        tKeyStorePassword.addModifyListener(new ModifyListener() {
+        tKeystorePassword.addModifyListener(new ModifyListener() {
             public void modifyText(final ModifyEvent e) {
                 dialogChanged();
             }
@@ -326,11 +326,11 @@ public class PageCreateKeystore extends WizardPage implements Listener {
      * Determines the (error) message for the missing field.
      */
     private void dialogChanged() {
-        if (tKeyStore.getText().length() > 0) {
-            keystoreName = tKeyStore.getText() + Globals.KEYSTORE_EXTENSION;
-            keystore = project + System.getProperty("file.separator") + keystoreName; //$NON-NLS-1$
+        if (tKeystore.getText().length() > 0) {
+            keystoreName = tKeystore.getText() + Globals.KEYSTORE_EXTENSION;
+            keystorePath = project + System.getProperty("file.separator") + keystoreName; //$NON-NLS-1$
 
-            File tempFile = new File(keystore);
+            File tempFile = new File(keystorePath);
             if (tempFile.exists()) {
                 updateStatus(Messages.keyStoreAlreadyExists, DialogPage.ERROR);
                 return;
@@ -339,7 +339,7 @@ public class PageCreateKeystore extends WizardPage implements Listener {
             updateStatus(Messages.enterNewKeyStoreName, DialogPage.INFORMATION);
             return;
         }
-        if (tKeyStorePassword.getText().length() < Globals.KEYSTORE_PASSWORD_MIN_SIZE) {
+        if (tKeystorePassword.getText().length() < Globals.KEYSTORE_PASSWORD_MIN_SIZE) {
             updateStatus(Messages.enterNewKeyStorePassword, DialogPage.INFORMATION);
             return;
         }
@@ -353,7 +353,7 @@ public class PageCreateKeystore extends WizardPage implements Listener {
             updateStatus(Messages.enterNewKeyPassword, DialogPage.INFORMATION);
             return;
         }
-        setErrorMessage(null);
+
         updateStatus(null, DialogPage.NONE);
     }
 
@@ -365,12 +365,12 @@ public class PageCreateKeystore extends WizardPage implements Listener {
      */
     private void updateStatus(final String message, final int status) {
         setMessage(message, status);
-        if (!generatedKeystore && message == null) {
-            bCreateKeystore.setEnabled(true);
+        if (!generated && message == null) {
+            bGenerate.setEnabled(true);
         } else {
-            bCreateKeystore.setEnabled(false);
+            bGenerate.setEnabled(false);
         }
-        setPageComplete(generatedKeystore);
+        setPageComplete(generated);
     }
 
     /**
@@ -379,7 +379,7 @@ public class PageCreateKeystore extends WizardPage implements Listener {
      * @param e The triggered event
      */
     public void handleEvent(final Event e) {
-        if (e.widget == bCreateKeystore) {
+        if (e.widget == bGenerate) {
             createKeystore();
             updateStatus(null, DialogPage.NONE);
         } else if (e.widget == bEchoKeystorePassword) {
@@ -407,27 +407,25 @@ public class PageCreateKeystore extends WizardPage implements Listener {
     }
 
     /**
-     * Shows plain text or cipher text in the password field.
+     * Shows plain text (\0) or cipher text (*) in the password field.
      *
      * @param e The triggered event
      */
     private void echoPassword(final Event e) {
         if (e.widget == bEchoKeystorePassword) {
-            if (tKeyStorePassword.getEchoChar() == '*') {
-                // show plain text
-                tKeyStorePassword.setEchoChar('\0');
+            if (tKeystorePassword.getEchoChar() == '*') {
+                tKeystorePassword.setEchoChar('\0');
             } else {
-                // show cipher text
-                tKeyStorePassword.setEchoChar('*');
+                tKeystorePassword.setEchoChar('*');
             }
+            tKeystorePassword.redraw();
         } else if (e.widget == bEchoKeyPassword) {
             if (tKeyPassword.getEchoChar() == '*') {
-                // show plain text
-            	tKeyPassword.setEchoChar('\0');
+                tKeyPassword.setEchoChar('\0');
             } else {
-                // show cipher text
-            	tKeyPassword.setEchoChar('*');
+                tKeyPassword.setEchoChar('*');
             }
+            tKeyPassword.redraw();
         }
     }
 
@@ -437,29 +435,29 @@ public class PageCreateKeystore extends WizardPage implements Listener {
      */
     private void createKeystore() {
         try {
-            keyStore = new Keystore(keystore, tKeyStorePassword.getText(), Globals.KEYSTORE_TYPE);
+            keystore = new Keystore(keystorePath, tKeystorePassword.getText(), Globals.KEYSTORE_TYPE);
 
-            SecretKey key = keyStore.generateSecretKey(cKeyAlgorithm.getText(), Integer.parseInt(cKeyAlgorithmSize.getText()));
+            SecretKey key = keystore.generateSecretKey(cKeyAlgorithm.getText(), Integer.parseInt(cKeyAlgorithmSize.getText()));
 
-            keyStore.store();
-            keyStore.load();
+            keystore.store();
+            keystore.load();
 
-            generatedKeystore = keyStore.insertSecretKey(tKeyName.getText(), tKeyPassword.getText().toCharArray(), key);
+            generated = keystore.insertSecretKey(tKeyName.getText(), tKeyPassword.getText().toCharArray(), key);
 
-            keyStore.store();
+            keystore.store();
         } catch (NoSuchAlgorithmException ex) {
-            generatedKeystore = false;
+            generated = false;
 
             lResult.setText(Messages.keyGenerationFailed);
         } catch (Exception ex) {
             Utils.logError(ex, "Encryption keystore generation failed"); //$NON-NLS-1$
 
-            generatedKeystore = false;
+            generated = false;
 
             lResult.setText(Messages.keystoreGenerationFailed);
         }
 
-        if (generatedKeystore) {
+        if (generated) {
         	lResult.setText(NLS.bind(Messages.keystoreGenerated, new Object[] {tKeyName.getText(), keystoreName, name}));
             updateStatus(null, DialogPage.NONE);
         }
@@ -483,7 +481,7 @@ public class PageCreateKeystore extends WizardPage implements Listener {
     private void saveDataToModel() {
         encryption.setKeyName(tKeyName.getText());
         encryption.setKeyPassword(tKeyPassword.getText().toCharArray());
-        encryption.setKeyStore(keyStore);
-        encryption.setKeyStorePassword(tKeyStorePassword.getText());
+        encryption.setKeyStore(keystore);
+        encryption.setKeyStorePassword(tKeystorePassword.getText());
     }
 }

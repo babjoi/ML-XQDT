@@ -167,13 +167,9 @@
          id="org.eclipse.wst.xml.security.core.views"
          name="org.eclipse.wst.xml.security.core.views"
          point="org.eclipse.ui.views">
-      <category
-            name="%xmlSecurityCategory"
-            id="xmlSecurity">
-      </category>
       <view
             allowMultiple="false"
-            category="xmlSecurity"
+            category="org.eclipse.wst.xml"
             class="org.eclipse.wst.xml.security.core.verify.SignatureView"
             icon="icons/new_verify.gif"
             id="org.eclipse.wst.xml.security.core.views.SignatureView"
@@ -186,9 +182,10 @@
          name="org.eclipse.wst.xml.security.core.preferences"
          point="org.eclipse.ui.preferencePages">
       <page
-            name="%xmlSecurityPreferencePage"
+            category="org.eclipse.wst.xml.ui.preferences.xml"
             class="org.eclipse.wst.xml.security.core.preferences.PreferencePageXmlSecurity"
-            id="org.eclipse.wst.xml.security.core.preferences.XmlSecurity">
+            id="org.eclipse.wst.xml.security.core.preferences.XmlSecurity"
+            name="%xmlSecurityPreferencePage">
       </page>
       <page
       		category="org.eclipse.wst.xml.security.core.preferences.XmlSecurity"

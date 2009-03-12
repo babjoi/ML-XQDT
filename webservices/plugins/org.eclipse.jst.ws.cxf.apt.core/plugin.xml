@@ -2,12 +2,12 @@
 <?eclipse version="3.2"?>
 <plugin>
 
-    <extension point="org.eclipse.jdt.apt.core.annotationProcessorFactory">
+   <!-- <extension point="org.eclipse.jdt.apt.core.annotationProcessorFactory">
        <factories enableDefault="true">
           <factory
                 class="org.eclipse.jst.ws.internal.cxf.apt.core.annotations.jaxws.JAXWSAnnotationProcessorFactory">
           </factory>
        </factories>
-    </extension>
+    </extension> -->
 
 </plugin>

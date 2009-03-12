@@ -9,7 +9,7 @@ import org.osgi.framework.BundleContext;
 public class CXFAptCorePlugin extends Plugin {
 
 	// The plug-in ID
-	public static final String PLUGIN_ID = "org.eclipse.jst.ws.internal.cxf.apt.core";
+	public static final String PLUGIN_ID = "org.eclipse.jst.ws.cxf.apt.core";
 
 	// The shared instance
 	private static CXFAptCorePlugin plugin;

@@ -75,11 +75,11 @@ public class PageResource extends WizardPage implements Listener {
     private Button bSelection = null;
     /** Radio to sign with the XPath expression. */
     private Button bXpath = null;
-    /** Radio to create a new certificate and a new KeyStore. */
+    /** Radio to create a new certificate and a new Keystore. */
     private Button bCreateKeystore = null;
-    /** Radio to create a new certificate in an existing KeyStore. */
+    /** Radio to create a new certificate in an existing Keystore. */
     private Button bCreateCertificate = null;
-    /** Radio to open an existing certificate in an existing KeyStore. */
+    /** Radio to open an existing certificate in an existing Keystore. */
     private Button bOpenCertificate = null;
     /** Textfield for the detached file to sign. */
     private Text tDetachedFile = null;

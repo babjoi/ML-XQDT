@@ -140,9 +140,9 @@ public class SignNewAction extends XmlSecurityActionAdapter {
         } catch (SAXParseException spe) {
             showError(Messages.parsingError, Messages.parsingErrorText + spe.getLocalizedMessage());
         } catch (FileNotFoundException fnfe) {
-            showError(Messages.keyStore, Messages.keyStoreNotFound);
+            showError(Messages.keystore, Messages.keystoreNotFound);
         } catch (IOException ioe) {
-            showError(Messages.keyStore, Messages.keyStoreError + ioe.getLocalizedMessage());
+            showError(Messages.keystore, Messages.keystoreError + ioe.getLocalizedMessage());
         } catch (Exception ex) {
             showErrorDialog(Messages.error, Messages.signingError, ex);
             log(ERROR_TEXT, ex);

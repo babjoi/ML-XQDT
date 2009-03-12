@@ -10,9 +10,8 @@
  *******************************************************************************/
 package org.eclipse.wst.xml.security.core.actions;
 
-import java.io.FileOutputStream;
+import java.io.FileWriter;
 
-import org.apache.xml.security.utils.XMLUtils;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.IProgressMonitor;
@@ -161,7 +160,13 @@ public class EncryptNewAction extends XmlSecurityActionAdapter {
                     try {
                         monitor.beginTask(Messages.encryptionTaskInfo, 3);
 
-                        Document doc = data.encrypt(wizard.getModel(), textSelection.getText(), monitor);
+                        Document doc = null;
+
+                        if (textSelection != null) {
+                            doc = data.encrypt(wizard.getModel(), textSelection.getText(), monitor);
+                        } else {
+                            doc = data.encrypt(wizard.getModel(), null, monitor);
+                        }
 
                         if (monitor.isCanceled()) {
                             return Status.CANCEL_STATUS;
@@ -170,11 +175,15 @@ public class EncryptNewAction extends XmlSecurityActionAdapter {
                         if (doc != null) {
                             if (document != null) {
                                 document.set(Utils.docToString(doc, true));
+
+                                if (editor.isDirty()) {
+                                    saveEditorContent(editor);
+                                }
                             } else {
-                                FileOutputStream fos = new FileOutputStream(filename);
-                                XMLUtils.outputDOM(doc, fos);
-                                fos.flush();
-                                fos.close();
+                                FileWriter fw = new FileWriter(filename);
+                                fw.write(Utils.docToString(doc, true));
+                                fw.flush();
+                                fw.close();
                             }
                         }
                     } catch (final Exception ex) {

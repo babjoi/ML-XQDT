@@ -43,8 +43,8 @@ public class CreateDecryption {
     private String keyFile = null;
     /** The encryption id. */
     private String encryptionId = null;
-    /** The KeyStore password. */
-    private String keyStorePassword = "";
+    /** The Keystore password. */
+    private String keystorePassword = "";
     /** The keys name. */
     private String keyName = "";
     /** The keys password. */
@@ -99,7 +99,7 @@ public class CreateDecryption {
 
         Key secretKey = getPrivateKey();
         if (secretKey == null) {
-        	throw new Exception("Key " + keyName + " not found in KeyStore " + keyFile);
+        	throw new Exception("Key " + keyName + " not found in keystore " + keyFile);
         }
 
         monitor.worked(1);
@@ -154,9 +154,9 @@ public class CreateDecryption {
      */
     private void loadSettings(final Decryption decryption) throws Exception {
         xmlDocument = new File(decryption.getFile());
-        keyFile = decryption.getKeyStore();
+        keyFile = decryption.getKeystore();
         encryptionId = decryption.getEncryptionId();
-        keyStorePassword = decryption.getKeyStorePassword();
+        keystorePassword = decryption.getKeystorePassword();
         keyName = decryption.getKeyName();
         keyPassword = decryption.getKeyPassword();
     }
@@ -169,9 +169,9 @@ public class CreateDecryption {
      * @throws Exception to indicate any exceptional condition
      */
     private SecretKey getPrivateKey() throws Exception {
-    	Keystore keyStore = new Keystore(keyFile, keyStorePassword, Globals.KEYSTORE_TYPE);
-    	keyStore.load();
+    	Keystore keystore = new Keystore(keyFile, keystorePassword, Globals.KEYSTORE_TYPE);
+    	keystore.load();
 
-    	return keyStore.getSecretKey(keyName, keyPassword);
+    	return keystore.getSecretKey(keyName, keyPassword);
     }
 }

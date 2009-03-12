@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2008 Dominik Schadow - http://www.xml-sicherheit.de
+ * Copyright (c) 2009 Dominik Schadow - http://www.xml-sicherheit.de
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -22,7 +22,6 @@ import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
 import org.eclipse.wst.xml.security.core.XmlSecurityPlugin;
 
-
 /**
  * <p>This class prepares and adds all wizard pages to the wizard and launches the
  * <i>XML Digital Signature Wizard</i> afterwards.</p>
@@ -42,9 +41,9 @@ public class NewSignatureWizard extends Wizard implements INewWizard {
     /** PageAlgorithms third wizard page. */
     private PageAlgorithms pageAlgorithms = null;
     /** The XML document to sign. */
-    private IFile xmlDocument;
+    private IFile file;
     /** The text selection in the editor. */
-    private ITextSelection xmlSelection;
+    private ITextSelection selection;
     /** The Signature model. */
     private Signature signature;
     /** Path of the opened project. */
@@ -104,11 +103,11 @@ public class NewSignatureWizard extends Wizard implements INewWizard {
      *
      * @param project The opened project
      * @param file The selected file
-     * @param textSelection The text selection
+     * @param selection The text selection
      */
-    public void init(final IProject project, final IFile file, final ITextSelection textSelection) {
-        xmlDocument = file;
-        xmlSelection = textSelection;
+    public void init(final IProject project, final IFile file, final ITextSelection selection) {
+        this.file = file;
+        this.selection = selection;
         path = project.getLocation().toOSString();
         name = project.getName();
     }
@@ -120,10 +119,10 @@ public class NewSignatureWizard extends Wizard implements INewWizard {
      * to the wizard.
      */
     public void addPages() {
-        if (xmlSelection == null) {
-            pageResource = new PageResource(signature, xmlDocument, path, false);
+        if (selection == null) {
+            pageResource = new PageResource(signature, file, path, false);
         } else {
-            pageResource = new PageResource(signature, xmlDocument, path, true);
+            pageResource = new PageResource(signature, file, path, true);
         }
         addPage(pageResource);
         pageOpenKey = new PageOpenKey(signature, path);
@@ -132,7 +131,7 @@ public class NewSignatureWizard extends Wizard implements INewWizard {
         addPage(pageCreateKey);
         pageCreateKeystore = new PageCreateKeystore(signature, path, name);
         addPage(pageCreateKeystore);
-        pageAlgorithms = new PageAlgorithms(signature, xmlDocument);
+        pageAlgorithms = new PageAlgorithms(signature, file);
         addPage(pageAlgorithms);
     }
 

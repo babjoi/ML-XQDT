@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2008 Dominik Schadow - http://www.xml-sicherheit.de
+ * Copyright (c) 2009 Dominik Schadow - http://www.xml-sicherheit.de
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -9,7 +9,6 @@
  *     Dominik Schadow - initial API and implementation
  *******************************************************************************/
 package org.eclipse.wst.xml.security.core.utils;
-
 
 /**
  * <p>This utility class defines global variables and their values for the XML Security Tools.</p>
@@ -32,9 +31,9 @@ public final class Globals {
     public static final int KEY_ALIAS_MIN_SIZE = 4;
     /** Maximum key alias size. */
     public static final int KEY_ALIAS_MAX_SIZE = 20;
-    /** Minimum KeyStore password size. */
+    /** Minimum keystore password size. */
     public static final int KEYSTORE_PASSWORD_MIN_SIZE = 6;
-    /** Maximum KeyStore password size. */
+    /** Maximum keystore password size. */
     public static final int KEYSTORE_PASSWORD_MAX_SIZE = 20;
     /** Minimum key password size. */
     public static final int KEY_PASSWORD_MIN_SIZE = 6;
@@ -64,9 +63,9 @@ public final class Globals {
     public static final int LARGE_TEXT_WIDTH = 300;
     /** Default extension for a JKS file. */
     public static final String KEYSTORE_EXTENSION = ".jks";
-    /** Default extension name for KeyStore dialog. */
-    public static final String[] KEY_STORE_EXTENSION_NAME = {"Java KeyStore (*.jks)", "All Files (*.*)"};
-    /** Default extension for KeyStore dialog. */
+    /** Default extension name for Keystore dialog. */
+    public static final String[] KEY_STORE_EXTENSION_NAME = {"Java Keystore (*.jks)", "All Files (*.*)"};
+    /** Default extension for Keystore dialog. */
     public static final String[] KEY_STORE_EXTENSION = {"*.jks", "*.*"};
     /** Default extensions for detached file dialog. */
     public static final String[] DETACHED_FILE_EXTENSION = {"*.xml"};

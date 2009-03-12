@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2008 Dominik Schadow - http://www.xml-sicherheit.de
+ * Copyright (c) 2009 Dominik Schadow - http://www.xml-sicherheit.de
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -21,6 +21,7 @@ import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.osgi.util.NLS;
 import org.eclipse.ui.IViewPart;
 import org.eclipse.ui.IWorkbenchPage;
+import org.eclipse.ui.IWorkbenchPart;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.texteditor.ITextEditor;
 import org.eclipse.wst.xml.security.core.verify.SignatureView;
@@ -28,7 +29,7 @@ import org.eclipse.wst.xml.security.core.verify.VerificationResult;
 import org.eclipse.wst.xml.security.core.verify.VerifyDocument;
 
 /**
- * <p>Action class used to start the <b>XML Signatures</b> View of the XML Security Tools to
+ * <p>Action class used to show the <b>XML Signatures</b> view of the XML Security Tools to
  * verify all XML Signatures contained in the selected XML document.</p>
  *
  * @author Dominik Schadow
@@ -62,32 +63,34 @@ public class VerifyNewAction extends XmlSecurityActionAdapter {
      * @param action The IAction
      */
     public void run(final IAction action) {
-        createVerification();
+        doVerification();
     }
 
     /**
      * Takes the resource (selected file or editor content) and verifies all contained signatures.
      * The selected XML document is not changed at all.
      */
-    private void createVerification() {
+    private void doVerification() {
         VerifyDocument verify = new VerifyDocument();
         ArrayList<VerificationResult> results = new ArrayList<VerificationResult>();
 
-        try {
-            if (file != null) { // call in view
-                results = verify.verify(file.getLocation().toString());
-            } else { // call in editor
-                if (editor.isDirty()) {
-                    saveEditorContent(editor);
-                }
+        IWorkbenchPart workbenchPart = getWorkbenchPart();
 
-                file = (IFile) editor.getEditorInput().getAdapter(IFile.class);
-                if (file != null) {
-                    results = verify.verify(file.getLocation().toString());
-                } else {
-                    showInfo(Messages.verificationImpossible,
-                        NLS.bind(Messages.protectedDoc, ACTION));
-                }
+        if (workbenchPart != null && workbenchPart instanceof ITextEditor) {
+            editor = (ITextEditor) workbenchPart;
+
+            if (editor.isDirty()) {
+                saveEditorContent(editor);
+            }
+
+            file = (IFile) editor.getEditorInput().getAdapter(IFile.class);
+        }
+
+        try {
+            if (file != null && file.isAccessible()) {
+                results = verify.verify(file.getLocation().toString());
+            } else {
+                showInfo(Messages.verificationImpossible, NLS.bind(Messages.protectedDoc, ACTION));
             }
 
             if (results.size() == 0) {

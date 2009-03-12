@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2008 Dominik Schadow - http://www.xml-sicherheit.de
+ * Copyright (c) 2009 Dominik Schadow - http://www.xml-sicherheit.de
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -43,9 +43,9 @@ public final class Messages extends NLS {
     /** Canonicalization preference page externalized strings. */
     public static String xmlSecurityPrefsCanonTarget, xmlSecurityPrefsCanonType, xmlSecurityPrefsDesc;
     /** Encryption preference page externalized strings. */
-    public static String encryptionPrefsKeyName, encryptionPrefsAlgoKeyFile, encryptionPrefsAlgoKeyFileSize,
-            encryptionPrefsAlgoKeyWrap, encryptionPrefsAlgorithms, encryptionPrefsDesc, encryptionPrefsEncryptionId,
-            encryptionPrefsEncryptionType, encryptionPrefsId, encryptionPrefsKey, encryptionPrefsKeyFile,
-            encryptionPrefsKeyFileSelect, encryptionPrefsResource, encryptionPrefsResourceDocument,
-            encryptionPrefsResourceSelection, encryptionPrefsResourceXPath, encryptionPrefsResourceXPathExpression;
+    public static String encryptionPrefsKeyName, encryptionPrefsAlgoKeyWrap, encryptionPrefsAlgorithms,
+            encryptionPrefsDesc, encryptionPrefsEncryptionId, encryptionPrefsEncryptionType, encryptionPrefsId,
+            encryptionPrefsKey, encryptionPrefsKeyFile, encryptionPrefsKeyFileSelect, encryptionPrefsResource,
+            encryptionPrefsResourceDocument, encryptionPrefsResourceSelection, encryptionPrefsResourceXPath,
+            encryptionPrefsResourceXPathExpression, encryptionPrefsEncryptionAlgorithm;
 }

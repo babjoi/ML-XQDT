@@ -152,7 +152,7 @@ public class PageAlgorithms extends WizardPage implements Listener {
         data.right = new FormAttachment(Globals.GROUP_NUMERATOR);
         gSigWiz.setLayoutData(data);
 
-        // Elements for group "Encryption and Cipher Algorithms"
+        // Elements for group "Encryption and Key Wrap Algorithm"
         cEncryptionAlgorithm = new Combo(gEncrypt, SWT.READ_ONLY);
         data = new FormData();
         data.top = new FormAttachment(gEncrypt);
@@ -321,7 +321,7 @@ public class PageAlgorithms extends WizardPage implements Listener {
      */
     private boolean saveDataToModel() {
         encryption.setEncryptionAlgorithm(cEncryptionAlgorithm.getText());
-        encryption.setKeyCipherAlgorithm(cKeyWrapAlgorithm.getText());
+        encryption.setKeyWrapAlgorithm(cKeyWrapAlgorithm.getText());
         encryption.setContent(bContentOnly.getSelection());
         encryption.setEncryptionId(tID.getText());
         encryption.setLaunchSignatureWizard(bSigWiz.getSelection());

@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2008 Dominik Schadow - http://www.xml-sicherheit.de
+ * Copyright (c) 2009 Dominik Schadow - http://www.xml-sicherheit.de
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -40,21 +40,21 @@ public final class Messages extends NLS {
     public static String canonicalizationException, canonicalizationImpossible;
 
     /** Decryption action externalized strings. */
-    public static String decryptingError, decryptionImpossible, decryptionTaskInfo, missingKeyStore,
+    public static String decryptingError, decryptionImpossible, decryptionTaskInfo, missingKeystore,
     		missingKeyName,	quickDecryptionImpossible, quickDecryptionTitle;
 
     /** Encryption action externalized strings. */
     public static String encryptingError, encryptionImpossible, quickEncryptionImpossible,
-            quickEncryptionImpossibleText, quickEncryptionTitle, encryptionTaskInfo;
+            quickEncryptionImpossibleText, quickEncryptionTitle, encryptionTaskInfo, failedLoadingKeystore;
 
     /** Verification action externalized strings. */
     public static String invalidCertificate, invalidValueElement, quickVerificationImpossible,
             quickVerificationTitle, signatureNotFound, verificationError, verificationImpossible;
 
     /** Signature action externalized strings. */
-    public static String enterKeyStorePassword, enterKeyPassword, keyStore, keyStoreError,
-    		keyStoreNotFound, keyStorePassword, missingCanonicalizationAlgorithm,
-            missingKeystoreFile, missingKeyStorePassword, missingMDAlgorithm, missingParameter,
+    public static String enterKeystorePassword, enterKeyPassword, keystore, keystoreError,
+    		keystoreNotFound, keystorePassword, missingCanonicalizationAlgorithm,
+            missingKeystoreFile, missingKeystorePassword, missingMDAlgorithm, missingParameter,
             missingKeyPassword, missingResource, missingSignatureAlgorithm, missingSignatureId,
             missingSignatureType, missingTransformationAlgorithm, missingXPathExpression, parsingError,
             parsingErrorText, keyPassword, protectedDoc, quickSignatureImpossible,

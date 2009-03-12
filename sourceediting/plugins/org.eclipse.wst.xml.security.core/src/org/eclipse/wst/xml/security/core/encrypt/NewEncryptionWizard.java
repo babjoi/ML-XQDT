@@ -50,7 +50,7 @@ public class NewEncryptionWizard extends Wizard implements INewWizard {
     private String path;
     /** Name of the opened project. */
     private String name;
-    /** Stored setting for the encryption KeyStore. */
+    /** Stored setting for the encryption Keystore. */
     public static final String SETTING_KEYSTORE = "enc_keystore";
     /** Stored setting for the secret key name. */
     public static final String SETTING_KEY_NAME = "enc_key_name";

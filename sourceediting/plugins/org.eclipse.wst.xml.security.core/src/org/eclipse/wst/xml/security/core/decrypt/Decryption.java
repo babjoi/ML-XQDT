@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2008 Dominik Schadow - http://www.xml-sicherheit.de
+ * Copyright (c) 2009 Dominik Schadow - http://www.xml-sicherheit.de
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -19,10 +19,10 @@ package org.eclipse.wst.xml.security.core.decrypt;
 public class Decryption {
     /** XML document to decrypt. */
     private String file;
-    /** The KeyStore. */
-    private String keyStore;
-    /** The KeyStore password. */
-    private String keyStorePassword;
+    /** The Keystore. */
+    private String keystore;
+    /** The Keystore password. */
+    private String keystorePassword;
     /** Encryption ID. */
     private String encryptionId;
     /** The secrets key name (alias). */
@@ -40,21 +40,21 @@ public class Decryption {
     }
 
     /**
-     * Sets the KeyStore in which the secret key was stored.
+     * Sets the Keystore in which the secret key was stored.
      *
-     * @param keyStore KeyStore containing the secret key
+     * @param keystore Keystore containing the secret key
      */
-    public void setKeyStore(final String keyStore) {
-        this.keyStore = keyStore;
+    public void setKeystore(final String keystore) {
+        this.keystore = keystore;
     }
 
     /**
-     * Sets the KeyStore password.
+     * Sets the Keystore password.
      *
-     * @param keyStorePassword KeyStore password
+     * @param keystorePassword Keystore password
      */
-    public void setKeyStorePassword(final String keyStorePassword) {
-        this.keyStorePassword = keyStorePassword;
+    public void setKeystorePassword(final String keystorePassword) {
+        this.keystorePassword = keystorePassword;
     }
 
     /**
@@ -94,21 +94,21 @@ public class Decryption {
     }
 
     /**
-     * Returns the KeyStore.
+     * Returns the keystore.
      *
-     * @return The KeyStore
+     * @return The keystore
      */
-    public String getKeyStore() {
-        return keyStore;
+    public String getKeystore() {
+        return keystore;
     }
 
     /**
-     * Returns the KeyStore password.
+     * Returns the keystore password.
      *
-     * @return The KeyStore password
+     * @return The keystore password
      */
-    public String getKeyStorePassword() {
-        return keyStorePassword;
+    public String getKeystorePassword() {
+        return keystorePassword;
     }
 
     /**

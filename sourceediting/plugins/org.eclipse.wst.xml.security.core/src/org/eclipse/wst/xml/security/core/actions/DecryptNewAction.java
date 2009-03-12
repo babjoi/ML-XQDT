@@ -1,10 +1,12 @@
 /*******************************************************************************
- * Copyright (c) 2009 Dominik Schadow - http://www.xml-sicherheit.de All rights reserved. This
- * program and the accompanying materials are made available under the terms of the Eclipse Public
- * License v1.0 which accompanies this distribution, and is available at
+ * Copyright (c) 2009 Dominik Schadow - http://www.xml-sicherheit.de
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
  * http://www.eclipse.org/legal/epl-v10.html
  *
- * Contributors: Dominik Schadow - initial API and implementation
+ * Contributors:
+ *     Dominik Schadow - initial API and implementation
  *******************************************************************************/
 package org.eclipse.wst.xml.security.core.actions;
 
@@ -96,8 +98,7 @@ public class DecryptNewAction extends XmlSecurityActionAdapter {
                 IDocument document = editor.getDocumentProvider().getDocument(input);
 
                 if (file != null) {
-                    IProject project = file.getProject();
-                    wizard.init(project, file);
+                    wizard.init(file.getProject(), file);
 
                     decryptData(decryption, wizard, document, "");
                 } else {

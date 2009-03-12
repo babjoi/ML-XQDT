@@ -45,15 +45,15 @@ public final class Messages extends NLS {
     public static String openKeyDescription, open, selectKeystoreFile,
             enterKeyName, echoPassword, verifyKeyPassword, enterKeyPassword,
             enterKeystorePassword, verifyKeyAlias, verifyAll, password,
-            name, keyStoreNotFound;
+            name, keystoreNotFound;
     /** PageCreateKey externalized strings. */
-    public static String createKeyDescription, keyStore, generateButton,
-            keyStoreAlreadyExists, selectKeyAlgorithm, selectKeyAlgorithmSize, keyGenerationFailed,
-            keyGenerated, keyAlgorithm, keyAlgorithmSize, enterNewKeyStorePassword, existingKeyAlias,
+    public static String createKeyDescription, keystore, generateButton,
+            keystoreAlreadyExists, selectKeyAlgorithm, selectKeyAlgorithmSize, keyGenerationFailed,
+            keyGenerated, keyAlgorithm, keyAlgorithmSize, enterNewKeystorePassword, existingKeyAlias,
             enterNewKeyAlias, selectKeystoreFileToExtend, enterNewKeyPassword, keyInsertionFailed;
     /** PageCreateKeystore externalized strings. */
     public static String createKeystoreDescription, keystoreGenerated,
-            keystoreGenerationFailed, enterNewKeyStoreName;
+            keystoreGenerationFailed, enterNewKeystoreName;
     /** PageAlgorithms externalized strings. */
     public static String encryptionTitle, algorithmsDescription, algorithms, encryptionId, select,
             selectEncryptionAlgorithm, selectKeyWrapAlgorithm, signatureWizard,

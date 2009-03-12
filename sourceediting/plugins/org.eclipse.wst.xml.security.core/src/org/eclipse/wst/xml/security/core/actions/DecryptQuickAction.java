@@ -11,6 +11,7 @@
 package org.eclipse.wst.xml.security.core.actions;
 
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 
 import org.apache.xml.security.utils.XMLUtils;
@@ -26,6 +27,7 @@ import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.window.Window;
 import org.eclipse.osgi.util.NLS;
 import org.eclipse.ui.IEditorInput;
+import org.eclipse.ui.IWorkbenchPart;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.texteditor.ITextEditor;
 import org.eclipse.wst.xml.security.core.XmlSecurityPlugin;
@@ -48,10 +50,10 @@ public class DecryptQuickAction extends XmlSecurityActionAdapter {
     private ITextEditor editor = null;
     /** The file to decrypt. */
     private IFile file = null;
-    /** KeyStore. */
-    private String keyStore;
-    /** KeyStore password. */
-    private String keyStorePassword;
+    /** Keystore. */
+    private String keystore;
+    /** Keystore password. */
+    private String keystorePassword;
     /** Key name (alias). */
     private String keyName;
     /** Key password. */
@@ -91,10 +93,10 @@ public class DecryptQuickAction extends XmlSecurityActionAdapter {
 
         if (checkPreferences()) {
         	// Ask the user for the passwords
-            PasswordDialog keyStorePasswordDialog = new PasswordDialog(getShell(),
-                    Messages.keyStorePassword, Messages.enterKeyStorePassword, ""); //$NON-NLS-3$
-            if (keyStorePasswordDialog.open() == Window.OK) {
-            	keyStorePassword = keyStorePasswordDialog.getValue();
+            PasswordDialog keystorePasswordDialog = new PasswordDialog(getShell(),
+                    Messages.keystorePassword, Messages.enterKeystorePassword, ""); //$NON-NLS-3$
+            if (keystorePasswordDialog.open() == Window.OK) {
+            	keystorePassword = keystorePasswordDialog.getValue();
             } else {
                 return;
             }
@@ -122,7 +124,7 @@ public class DecryptQuickAction extends XmlSecurityActionAdapter {
     private void getPreferenceValues() {
         IPreferenceStore store = XmlSecurityPlugin.getDefault().getPreferenceStore();
 
-        keyStore = store.getString(PreferenceConstants.ENCRYPT_KEY_STORE);
+        keystore = store.getString(PreferenceConstants.ENCRYPT_KEY_STORE);
         keyName = store.getString(PreferenceConstants.ENCRYPT_KEY_NAME);
         encryptionID = store.getString(PreferenceConstants.ENCRYPT_ID);
     }
@@ -134,11 +136,17 @@ public class DecryptQuickAction extends XmlSecurityActionAdapter {
      */
     private void quickDecrypt() throws Exception {
         final Decryption wizard = new Decryption();
-        wizard.setKeyStore(keyStore);
-        wizard.setKeyStorePassword(keyStorePassword);
+        wizard.setKeystore(keystore);
+        wizard.setKeystorePassword(keystorePassword);
         wizard.setKeyName(keyName);
         wizard.setKeyPassword(keyPassword);
         wizard.setEncryptionId(encryptionID);
+
+        IWorkbenchPart workbenchPart = getWorkbenchPart();
+
+        if (workbenchPart != null && workbenchPart instanceof ITextEditor) {
+            editor = (ITextEditor) workbenchPart;
+        }
 
         if (file != null && file.isAccessible() && !file.isReadOnly()) { // call in view
             IProject project = file.getProject();
@@ -147,16 +155,16 @@ public class DecryptQuickAction extends XmlSecurityActionAdapter {
 
             IRunnableWithProgress op = new IRunnableWithProgress() {
                 public void run(final IProgressMonitor monitor) {
+                    FileOutputStream fos = null;
+
                     try {
                         monitor.beginTask(Messages.decryptionTaskInfo, 6);
                         CreateDecryption decryption = new CreateDecryption();
                         Document doc = decryption.decrypt(wizard, monitor);
-                        FileOutputStream fos = new FileOutputStream(filename);
+                        fos = new FileOutputStream(filename);
                         if (doc != null) {
                             XMLUtils.outputDOM(doc, fos);
                         }
-                        fos.flush();
-                        fos.close();
                     } catch (final Exception ex) {
                         getShell().getDisplay().asyncExec(new Runnable() {
                             public void run() {
@@ -165,6 +173,14 @@ public class DecryptQuickAction extends XmlSecurityActionAdapter {
                             }
                         });
                     } finally {
+                        if (fos != null) {
+                            try {
+                                fos.flush();
+                                fos.close();
+                            } catch (IOException ex) {
+                                log(ERROR_TEXT, ex);
+                            }
+                        }
                         monitor.done();
                     }
                 }
@@ -242,9 +258,9 @@ public class DecryptQuickAction extends XmlSecurityActionAdapter {
         final String prefId = "org.eclipse.wst.xml.security.core.preferences.Encryption";
         int result = 2;
 
-        if (keyStore == null || keyStore.equals("")) {
+        if (keystore == null || keystore.equals("")) {
             result = showMissingParameterDialog(title, NLS.bind(Messages.missingParameter,
-                    Messages.missingKeyStore), prefId);
+                    Messages.missingKeystore), prefId);
         } else if (keyName == null || keyName.equals("")) {
             result = showMissingParameterDialog(title, NLS.bind(Messages.missingParameter,
                     Messages.missingKeyName), prefId);

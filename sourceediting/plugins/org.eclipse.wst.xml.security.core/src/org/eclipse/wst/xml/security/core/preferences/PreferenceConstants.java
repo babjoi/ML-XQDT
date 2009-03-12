@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2008 Dominik Schadow - http://www.xml-sicherheit.de
+ * Copyright (c) 2009 Dominik Schadow - http://www.xml-sicherheit.de
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -33,11 +33,13 @@ public final class PreferenceConstants {
     public static final String ENCRYPT_XPATH = "encryptionXPath";
     /** Encryption type. */
     public static final String ENCRYPT_TYPE = "encryptionType";
+    /** Encryption Algorithm. */
+    public static final String ENCRYPT_ENCRYPTION = "encryptionEncryption";
     /** Key Wrap Algorithm. */
     public static final String ENCRYPT_KEY_WRAP = "encryptionKeyWrap";
     /** Encryption ID. */
     public static final String ENCRYPT_ID = "encryptionID";
-    /** Encryption KeyStore. */
+    /** Encryption Keystore. */
     public static final String ENCRYPT_KEY_STORE = "encryptionKeyStore";
     /** Encryption key name. */
 	public static final String ENCRYPT_KEY_NAME = "encryptionKeyName";

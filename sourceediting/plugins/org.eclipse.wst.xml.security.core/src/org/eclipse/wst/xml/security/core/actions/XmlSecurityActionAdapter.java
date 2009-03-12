@@ -39,8 +39,8 @@ import org.xml.sax.SAXException;
 import org.xml.sax.XMLReader;
 
 /**
- * <p>Base class of all actions in the XML Security Tools. Contains common methods for saving the editor content,
- * logging and error/ information dialog handling.</p>
+ * <p>Base class of all actions in the XML Security Tools. Contains common methods
+ * for saving the editor content, logging and error/ information dialog handling.</p>
  *
  * @author Dominik Schadow
  * @version 0.5.0
@@ -96,7 +96,7 @@ public abstract class XmlSecurityActionAdapter implements IObjectActionDelegate 
     }
 
     /**
-     * Writes the message with status <i>error</i> into the workbenchs log file.
+     * Writes the message with status <i>error</i> into the workbench log file.
      *
      * @param message The message to log
      * @param ex The exception to log
@@ -140,12 +140,8 @@ public abstract class XmlSecurityActionAdapter implements IObjectActionDelegate 
             reason = Messages.errorReasonUnavailable;
         }
 
-        System.out.println("reason " + reason);
-
         XmlSecurityPlugin plugin = XmlSecurityPlugin.getDefault();
         IStatus status = new Status(IStatus.ERROR, plugin.getBundle().getSymbolicName(), 0, reason, ex);
-//        ErrorDialog errorDialog = new ErrorDialog(shell, title, message, status, IStatus.ERROR);
-//        errorDialog.open();
 
         ErrorDialog.openError(shell, title, message, status);
     }

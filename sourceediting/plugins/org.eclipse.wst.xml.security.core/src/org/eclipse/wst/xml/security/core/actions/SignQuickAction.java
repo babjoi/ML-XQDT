@@ -29,6 +29,7 @@ import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.window.Window;
 import org.eclipse.osgi.util.NLS;
 import org.eclipse.ui.IEditorInput;
+import org.eclipse.ui.IWorkbenchPart;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.texteditor.ITextEditor;
 import org.eclipse.wst.xml.security.core.XmlSecurityPlugin;
@@ -59,9 +60,9 @@ public class SignQuickAction extends XmlSecurityActionAdapter {
     private String xpath = ""; //$NON-NLS-1$
     /** Signature type. */
     private String signatureType;
-    /** KeyStore. */
+    /** Keystore. */
     private Keystore keystore;
-    /** KeyStore password. */
+    /** Keystore password. */
     private char[] keystorePassword;
     /** Key name. */
     private String keyName;
@@ -112,7 +113,7 @@ public class SignQuickAction extends XmlSecurityActionAdapter {
         if (checkPreferences()) {
             // Ask the user for the passwords
             PasswordDialog keystorePasswordDialog = new PasswordDialog(getShell(),
-                    Messages.keyStorePassword, Messages.enterKeyStorePassword, ""); //$NON-NLS-3$
+                    Messages.keystorePassword, Messages.enterKeystorePassword, ""); //$NON-NLS-3$
             if (keystorePasswordDialog.open() == Window.OK) {
                 keystorePassword = keystorePasswordDialog.getValue().toCharArray();
             } else {
@@ -134,9 +135,9 @@ public class SignQuickAction extends XmlSecurityActionAdapter {
                     showError(Messages.parsingError, Messages.parsingErrorText
                             + spe.getLocalizedMessage());
                 } catch (FileNotFoundException fnfe) {
-                    showError(Messages.keyStore, Messages.keyStoreNotFound);
+                    showError(Messages.keystore, Messages.keystoreNotFound);
                 } catch (IOException ioe) {
-                    showError(Messages.keyStore, Messages.keyStoreError + ioe.getLocalizedMessage());
+                    showError(Messages.keystore, Messages.keystoreError + ioe.getLocalizedMessage());
                 } catch (Exception ex) {
                     showErrorDialog(Messages.error, Messages.signingError, ex);
                     log(ERROR_TEXT, ex);
@@ -187,6 +188,12 @@ public class SignQuickAction extends XmlSecurityActionAdapter {
         signatureWizard.setMessageDigestAlgorithm(messageDigestAlgorithm);
         signatureWizard.setSignatureAlgorithm(signatureAlgorithm);
         signatureWizard.setSignatureId(signatureID);
+
+        IWorkbenchPart workbenchPart = getWorkbenchPart();
+
+        if (workbenchPart != null && workbenchPart instanceof ITextEditor) {
+            editor = (ITextEditor) workbenchPart;
+        }
 
         if (file != null && file.isAccessible() && !file.isReadOnly()) { // call in view
             IProject project = file.getProject();
@@ -346,7 +353,7 @@ public class SignQuickAction extends XmlSecurityActionAdapter {
         } else if (signatureType == null || signatureType.equals("")) {
             result = showMissingParameterDialog(title, NLS.bind(Messages.missingParameter,
                     Messages.missingSignatureType), prefId);
-        } else if (keystore == null || keystore.equals("")) {
+        } else if (keystore == null) {
             result = showMissingParameterDialog(title, NLS.bind(Messages.missingParameter,
                     Messages.missingKeystoreFile), prefId);
         } else if (keyName == null || keyName.equals("")) {
@@ -381,13 +388,13 @@ public class SignQuickAction extends XmlSecurityActionAdapter {
     }
 
     /**
-     * Checks the entered passwords for the KeyStore and private key.
+     * Checks the entered passwords for the Keystore and private key.
      *
      * @return Password is OK or not
      */
     private boolean checkPasswords() {
         if (keystorePassword == null || keystorePassword.length == 0) {
-            showInfo(Messages.quickSignatureTitle, Messages.missingKeyStorePassword);
+            showInfo(Messages.quickSignatureTitle, Messages.missingKeystorePassword);
             return false;
         } else if (keyPassword == null || keyPassword.length == 0) {
             showInfo(Messages.quickSignatureTitle, Messages.missingKeyPassword);

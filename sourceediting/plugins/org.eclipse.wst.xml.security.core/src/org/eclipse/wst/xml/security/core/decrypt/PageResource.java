@@ -116,7 +116,7 @@ public class PageResource extends WizardPage implements Listener {
     }
 
     /**
-     * Fills this wizard page with content. Three groups (<i>KeyStore</i>, <i>Key</i> and
+     * Fills this wizard page with content. Three groups (<i>Keystore</i>, <i>Key</i> and
      * <i>Encryption ID</i>) and all their widgets are inserted.
      *
      * @param parent Parent composite
@@ -132,7 +132,7 @@ public class PageResource extends WizardPage implements Listener {
         // Three groups
         Group gKeystore = new Group(parent, SWT.SHADOW_ETCHED_IN);
         gKeystore.setLayout(layout);
-        gKeystore.setText(Messages.keyStore);
+        gKeystore.setText(Messages.keystore);
         FormData data = new FormData();
         data.top = new FormAttachment(0, 0);
         data.left = new FormAttachment(0, 0);
@@ -159,19 +159,19 @@ public class PageResource extends WizardPage implements Listener {
         gEncryptionId.setLayoutData(data);
 
         // Elements for group "Keystore"
-        Label lKeyStoreName = new Label(gKeystore, SWT.SHADOW_IN);
-        lKeyStoreName.setText(Messages.name);
+        Label lKeystoreName = new Label(gKeystore, SWT.SHADOW_IN);
+        lKeystoreName.setText(Messages.name);
         data = new FormData();
         data.width = LABELWIDTH;
         data.top = new FormAttachment(gKeystore);
         data.left = new FormAttachment(gKeystore);
-        lKeyStoreName.setLayoutData(data);
+        lKeystoreName.setLayoutData(data);
 
         tKeystore = new Text(gKeystore, SWT.SINGLE);
         data = new FormData();
         data.width = Globals.SHORT_TEXT_WIDTH;
-        data.top = new FormAttachment(lKeyStoreName, 0, SWT.CENTER);
-        data.left = new FormAttachment(lKeyStoreName);
+        data.top = new FormAttachment(lKeystoreName, 0, SWT.CENTER);
+        data.left = new FormAttachment(lKeystoreName);
         tKeystore.setLayoutData(data);
 
         bOpen = new Button(gKeystore, SWT.PUSH);
@@ -181,20 +181,20 @@ public class PageResource extends WizardPage implements Listener {
         data.left = new FormAttachment(tKeystore, Globals.MARGIN);
         bOpen.setLayoutData(data);
 
-        Label lKeyStorePassword = new Label(gKeystore, SWT.SHADOW_IN);
-        lKeyStorePassword.setText(Messages.password);
+        Label lKeystorePassword = new Label(gKeystore, SWT.SHADOW_IN);
+        lKeystorePassword.setText(Messages.password);
         data = new FormData();
         data.width = LABELWIDTH;
-        data.top = new FormAttachment(lKeyStoreName, Globals.MARGIN);
+        data.top = new FormAttachment(lKeystoreName, Globals.MARGIN);
         data.left = new FormAttachment(gKeystore);
-        lKeyStorePassword.setLayoutData(data);
+        lKeystorePassword.setLayoutData(data);
 
         tKeystorePassword = new Text(gKeystore, SWT.SINGLE);
         tKeystorePassword.setTextLimit(Globals.KEYSTORE_PASSWORD_MAX_SIZE);
         data = new FormData();
         data.width = Globals.SHORT_TEXT_WIDTH;
-        data.top = new FormAttachment(lKeyStorePassword, 0, SWT.CENTER);
-        data.left = new FormAttachment(lKeyStorePassword);
+        data.top = new FormAttachment(lKeystorePassword, 0, SWT.CENTER);
+        data.left = new FormAttachment(lKeystorePassword);
         tKeystorePassword.setEchoChar('*');
         tKeystorePassword.setLayoutData(data);
 
@@ -333,7 +333,7 @@ public class PageResource extends WizardPage implements Listener {
         	updateStatus(Messages.missingKeystore, DialogPage.INFORMATION);
             return;
         } else if (!(new File(tKeystore.getText()).exists())) {
-            updateStatus(Messages.keyStoreNotFound, DialogPage.ERROR);
+            updateStatus(Messages.keystoreNotFound, DialogPage.ERROR);
             return;
         }
 
@@ -354,14 +354,14 @@ public class PageResource extends WizardPage implements Listener {
 
         if (new File(tKeystore.getText()).exists()) {
             try {
-                Keystore keyStore = new Keystore(tKeystore.getText(), tKeystorePassword.getText(), Globals.KEYSTORE_TYPE);
-                keyStore.load();
-                if (!keyStore.containsKey(tKeyName.getText())) {
+                Keystore keystore = new Keystore(tKeystore.getText(), tKeystorePassword.getText(), Globals.KEYSTORE_TYPE);
+                keystore.load();
+                if (!keystore.containsKey(tKeyName.getText())) {
                     updateStatus(Messages.verifyKeyName, DialogPage.ERROR);
                     return;
                 }
 
-                if (keyStore.getSecretKey(tKeyName.getText(), tKeyPassword.getText().toCharArray()) == null) {
+                if (keystore.getSecretKey(tKeyName.getText(), tKeyPassword.getText().toCharArray()) == null) {
                     updateStatus(Messages.verifyKeyPassword, DialogPage.ERROR);
                     return;
                 }
@@ -370,7 +370,7 @@ public class PageResource extends WizardPage implements Listener {
                 return;
             }
         } else {
-            updateStatus(Messages.keyStoreNotFound, DialogPage.ERROR);
+            updateStatus(Messages.keystoreNotFound, DialogPage.ERROR);
             return;
         }
 
@@ -421,7 +421,7 @@ public class PageResource extends WizardPage implements Listener {
     }
 
     /**
-     * Dialog to select the KeyStore to use in this decryption operation.
+     * Dialog to select the Keystore to use in this decryption operation.
      */
     private void openKeystore() {
         FileDialog dialog = new FileDialog(getShell(), SWT.OPEN);
@@ -454,8 +454,8 @@ public class PageResource extends WizardPage implements Listener {
      */
     private void saveDataToModel() {
         decryption.setFile(file.getLocation().toString());
-        decryption.setKeyStore(tKeystore.getText());
-        decryption.setKeyStorePassword(tKeystorePassword.getText());
+        decryption.setKeystore(tKeystore.getText());
+        decryption.setKeystorePassword(tKeystorePassword.getText());
         decryption.setKeyName(tKeyName.getText());
         decryption.setKeyPassword(tKeyPassword.getText().toCharArray());
         decryption.setEncryptionId(cEncryptionId.getText());

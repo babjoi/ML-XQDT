@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2008 Dominik Schadow - http://www.xml-sicherheit.de
+ * Copyright (c) 2009 Dominik Schadow - http://www.xml-sicherheit.de
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -11,7 +11,6 @@
 package org.eclipse.wst.xml.security.core.sign;
 
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.StringWriter;
 import java.security.PrivateKey;
 import java.security.cert.CertificateExpiredException;
@@ -111,7 +110,6 @@ public class CreateSignature {
     public Document sign(Signature signWizard, ITextSelection selection, IProgressMonitor monitor)
         throws Exception {
         Document signedDoc = null;
-        FileInputStream fis = null;
 
         try {
             if (monitor == null) {
@@ -122,7 +120,6 @@ public class CreateSignature {
 
             monitor.worked(1);
 
-            // Load the KeyStore
             keystore.load();
 
             monitor.worked(1);
@@ -152,10 +149,6 @@ public class CreateSignature {
             throw ex;
         } finally {
             monitor.worked(1);
-
-            if (fis != null) {
-                fis.close();
-            }
         }
 
         return signedDoc;

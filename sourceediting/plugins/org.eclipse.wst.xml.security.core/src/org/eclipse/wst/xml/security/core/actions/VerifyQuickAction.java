@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2008 Dominik Schadow - http://www.xml-sicherheit.de
+ * Copyright (c) 2009 Dominik Schadow - http://www.xml-sicherheit.de
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -20,9 +20,11 @@ import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.osgi.util.NLS;
+import org.eclipse.ui.IWorkbenchPart;
 import org.eclipse.ui.texteditor.ITextEditor;
 import org.eclipse.wst.xml.security.core.XmlSecurityPlugin;
 import org.eclipse.wst.xml.security.core.preferences.PreferenceConstants;
+import org.eclipse.wst.xml.security.core.utils.MissingPreferenceDialog;
 import org.eclipse.wst.xml.security.core.verify.Verification;
 import org.eclipse.wst.xml.security.core.verify.VerificationResult;
 import org.eclipse.wst.xml.security.core.verify.VerifySignature;
@@ -41,10 +43,10 @@ public class VerifyQuickAction extends XmlSecurityActionAdapter {
     private IFile file = null;
     /** Signature ID. */
     private String signatureId;
-    /** All necessary preferences are available. */
-    private boolean completePrefs = false;
     /** Action type. */
     private static final String ACTION = "verify";
+    /** All required preferences are available. */
+    private boolean preferencesComplete = false;
 
     /**
      * Called when the selection in the active workbench part changes.
@@ -72,7 +74,7 @@ public class VerifyQuickAction extends XmlSecurityActionAdapter {
 
         if (checkPreferences()) {
             try {
-                quickVerify();
+                doVerification();
             } catch (XMLSignatureException xmlse) {
                 showError(Messages.error, Messages.invalidValueElement
                         + xmlse.getLocalizedMessage());
@@ -98,23 +100,26 @@ public class VerifyQuickAction extends XmlSecurityActionAdapter {
      *
      * @throws Exception to indicate any exceptional condition
      */
-    private void quickVerify() throws Exception {
+    private void doVerification() throws Exception {
         VerifySignature verify = new VerifySignature();
         ArrayList<VerificationResult> results = new ArrayList<VerificationResult>();
 
-        if (file != null) { // call in view
-            results = verify.verify(file.getLocation().toString(), signatureId);
-        } else { // call in editor
+        IWorkbenchPart workbenchPart = getWorkbenchPart();
+
+        if (workbenchPart != null && workbenchPart instanceof ITextEditor) {
+            editor = (ITextEditor) workbenchPart;
+
             if (editor.isDirty()) {
                 saveEditorContent(editor);
             }
 
             file = (IFile) editor.getEditorInput().getAdapter(IFile.class);
-            if (file != null) {
-                results = verify.verify(file.getLocation().toString(), signatureId);
-            } else {
-                showInfo(Messages.quickVerificationImpossible, NLS.bind(Messages.protectedDoc, ACTION));
-            }
+        }
+
+        if (file != null && file.isAccessible()) {
+            results = verify.verify(file.getLocation().toString(), signatureId);
+        } else {
+            showInfo(Messages.quickVerificationImpossible, NLS.bind(Messages.protectedDoc, ACTION));
         }
 
         if (results.size() == 1) {
@@ -139,23 +144,22 @@ public class VerifyQuickAction extends XmlSecurityActionAdapter {
      * @return Preferences OK or not
      */
     private boolean checkPreferences() {
-        final String title = Messages.quickVerificationTitle;
         final String prefId = "org.eclipse.wst.xml.security.core.preferences.Signatures";
         int result = 2;
 
-        if (signatureId == null || signatureId.equals("")) {
-            result = showMissingParameterDialog(title, NLS.bind(Messages.missingParameter,
-                    Messages.missingSignatureId), prefId);
+        if (signatureId == null || "".equals(signatureId)) {
+            result = showMissingParameterDialog(Messages.quickVerificationTitle,
+                    NLS.bind(Messages.missingParameter, Messages.missingSignatureId), prefId);
         } else {
-            completePrefs = true;
+            preferencesComplete = true;
         }
 
-        if (result == 0) {
-            completePrefs = false;
+        if (result == MissingPreferenceDialog.OK) {
+            preferencesComplete = false;
             getPreferenceValues();
             checkPreferences();
         }
 
-        return completePrefs;
+        return preferencesComplete;
     }
 }

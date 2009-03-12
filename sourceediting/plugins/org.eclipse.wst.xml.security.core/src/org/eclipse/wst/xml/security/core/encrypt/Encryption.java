@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2008 Dominik Schadow - http://www.xml-sicherheit.de
+ * Copyright (c) 2009 Dominik Schadow - http://www.xml-sicherheit.de
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -37,16 +37,12 @@ public class Encryption {
     private boolean content;
     /** Encryption algorithm. */
     private String encryptionAlgorithm;
-    /** Encryption key algorithm. */
-    private String keyAlgorithm;
-    /** Encryption key size. */
-    private String keyAlgorithmSize;
     /** Key cipher algorithm. */
-    private String keyCipherAlgorithm;
-    /** KeyStore. */
-    private Keystore keyStore;
-    /** KeyStore Password. */
-    private String keyStorePassword;
+    private String keyWrapAlgorithm;
+    /** Keystore. */
+    private Keystore keystore;
+    /** Keystore Password. */
+    private char[] keystorePassword;
     /** Key alias name. */
     private String keyName;
     /** Key password. */
@@ -129,48 +125,30 @@ public class Encryption {
     }
 
     /**
-     * Sets the encryption key algorithm.
+     * Sets the key wrap algorithm.
      *
-     * @param keyAlgorithm Encryption key algorithm
+     * @param keyWrapAlgorithm key wrap algorithm
      */
-    public void setKeyAlgorithm(final String keyAlgorithm) {
-        this.keyAlgorithm = keyAlgorithm;
-    }
-
-    /**
-     * Sets the encryption key algorithm size.
-     *
-     * @param keyAlgorithmSize Size of the encryption key algorithm
-     */
-    public void setKeyAlgorithmSize(final String keyAlgorithmSize) {
-        this.keyAlgorithmSize = keyAlgorithmSize;
-    }
-
-    /**
-     * Sets the key cipher algorithm.
-     *
-     * @param keyCipherAlgorithm key cipher algorithm
-     */
-    public void setKeyCipherAlgorithm(final String keyCipherAlgorithm) {
-        this.keyCipherAlgorithm = keyCipherAlgorithm;
+    public void setKeyWrapAlgorithm(final String keyWrapAlgorithm) {
+        this.keyWrapAlgorithm = keyWrapAlgorithm;
     }
 
     /**
      * Sets the key file to store the generated key.
      *
-     * @param keyStore File to store the generated key
+     * @param keystore File to store the generated key
      */
-    public void setKeyStore(final Keystore keyStore) {
-        this.keyStore = keyStore;
+    public void setKeystore(final Keystore keystore) {
+        this.keystore = keystore;
     }
 
     /**
-     * Sets the password for the Java KeyStore.
+     * Sets the password for the Java keystore.
      *
-     * @param keyStorePassword The KeyStore password
+     * @param keystorePassword The keystore password
      */
-    public void setKeyStorePassword(final String keyStorePassword) {
-        this.keyStorePassword = keyStorePassword;
+    public void setKeystorePassword(final char[] keystorePassword) {
+        this.keystorePassword = keystorePassword;
     }
 
     /**
@@ -282,30 +260,12 @@ public class Encryption {
     }
 
     /**
-     * Returns the encryption key algorithm.
+     * Returns the key wrap algorithm.
      *
-     * @return The encryption key algorithm
+     * @return The selected key wrap algorithm
      */
-    public String getKeyAlgorithm() {
-        return keyAlgorithm;
-    }
-
-    /**
-     * Returns the encryption key algorithm size.
-     *
-     * @return Size of the encryption key algorithm
-     */
-    public String getKeyAlgorithmSize() {
-        return keyAlgorithmSize;
-    }
-
-    /**
-     * Returns the key cipher algorithm.
-     *
-     * @return The selected key cipher algorithm
-     */
-    public String getKeyCipherAlgorithm() {
-        return keyCipherAlgorithm;
+    public String getKeyWrapAlogrithm() {
+        return keyWrapAlgorithm;
     }
 
     /**
@@ -313,17 +273,17 @@ public class Encryption {
      *
      * @return The file with the generated key
      */
-    public Keystore getKeyStore() {
-        return keyStore;
+    public Keystore getKeystore() {
+        return keystore;
     }
 
     /**
-     * Returns the Java KeyStore password.
+     * Returns the Java Keystore password.
      *
-     * @return The KeyStore password
+     * @return The Keystore password
      */
-    public String getKeyStorePassword() {
-        return keyStorePassword;
+    public char[] getKeystorePassword() {
+        return keystorePassword;
     }
 
     /**

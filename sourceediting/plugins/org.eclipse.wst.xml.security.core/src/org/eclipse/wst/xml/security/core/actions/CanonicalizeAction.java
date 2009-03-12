@@ -94,7 +94,7 @@ public class CanonicalizeAction extends XmlSecurityActionAdapter {
                 editor = (ITextEditor) workbenchPart;
             }
 
-            if (editor != null && editor.isEditable()) { // call in editor
+            if (editor != null) {
                 if (editor.isDirty()) {
                     saveEditorContent(editor);
                 }

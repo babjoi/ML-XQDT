@@ -10,10 +10,9 @@
  *******************************************************************************/
 package org.eclipse.wst.xml.security.core.actions;
 
-import java.io.FileOutputStream;
+import java.io.FileWriter;
 import java.lang.reflect.InvocationTargetException;
 
-import org.apache.xml.security.utils.XMLUtils;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.IProgressMonitor;
@@ -24,14 +23,20 @@ import org.eclipse.jface.text.IDocument;
 import org.eclipse.jface.text.ITextSelection;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.IStructuredSelection;
+import org.eclipse.jface.window.Window;
 import org.eclipse.osgi.util.NLS;
 import org.eclipse.ui.IEditorInput;
+import org.eclipse.ui.IWorkbenchPart;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.texteditor.ITextEditor;
 import org.eclipse.wst.xml.security.core.XmlSecurityPlugin;
 import org.eclipse.wst.xml.security.core.encrypt.CreateEncryption;
 import org.eclipse.wst.xml.security.core.encrypt.Encryption;
 import org.eclipse.wst.xml.security.core.preferences.PreferenceConstants;
+import org.eclipse.wst.xml.security.core.utils.Globals;
+import org.eclipse.wst.xml.security.core.utils.Keystore;
+import org.eclipse.wst.xml.security.core.utils.MissingPreferenceDialog;
+import org.eclipse.wst.xml.security.core.utils.PasswordDialog;
 import org.eclipse.wst.xml.security.core.utils.Utils;
 import org.w3c.dom.Document;
 
@@ -55,16 +60,20 @@ public class EncryptQuickAction extends XmlSecurityActionAdapter {
     private String encryptionType;
     /** Key wrap algorithm. */
     private String keyWrapAlgorithm;
-    /** Key file algorithm. */
-    private String keyFileAlgorithm;
-    /** Key file algorithm size. */
-    private String keyFileAlgorithmSize;
-    /** Key file password. */
-    private String keyFilePassword;
+    /** Encryption algorithm. */
+    private String encryptionAlgorithm;
+    /** Keystore password. */
+    private char[] keystorePassword;
     /** Key file. */
     private String keyFile;
+    /** Keystore. */
+    private Keystore keystore;
+    /** Key name. */
+    private String keyName;
+    /** Key password. */
+    private char[] keyPassword;
     /** Encryption ID. */
-    private String encryptionID;
+    private String encryptionId;
     /** All necessary preferences are available. */
     private boolean completePrefs = false;
     /** Error message for the logfile. */
@@ -97,12 +106,62 @@ public class EncryptQuickAction extends XmlSecurityActionAdapter {
         getPreferenceValues();
 
         if (checkPreferences()) {
-            try {
-                quickEncrypt();
-            } catch (Exception ex) {
-                showErrorDialog(Messages.error, Messages.encryptingError, ex);
-                log(ERROR_TEXT, ex);
+            // Ask the user for the passwords
+            PasswordDialog keystorePasswordDialog = new PasswordDialog(getShell(),
+                    Messages.keystorePassword, Messages.enterKeystorePassword, ""); //$NON-NLS-3$
+            if (keystorePasswordDialog.open() == Window.OK) {
+                keystorePassword = keystorePasswordDialog.getValue().toCharArray();
+            } else {
+                return;
             }
+
+            PasswordDialog privateKeyPasswordDialog = new PasswordDialog(getShell(),
+                    Messages.keyPassword, Messages.enterKeyPassword, ""); //$NON-NLS-3$
+            if (privateKeyPasswordDialog.open() == Window.OK) {
+                keyPassword = privateKeyPasswordDialog.getValue().toCharArray();
+            } else {
+                return;
+            }
+
+            if (checkPasswords()) {
+                try {
+                    if (loadKeystore()) {
+                        encryptData();
+                    } else {
+                        showError(Messages.error, Messages.failedLoadingKeystore);
+                    }
+                } catch (Exception ex) {
+                    showErrorDialog(Messages.error, Messages.encryptingError, ex);
+                    log(ERROR_TEXT, ex);
+                }
+            }
+        }
+    }
+
+    /**
+     * Loads the entered key in the selected keystore.
+     *
+     * @return Keystore/ key information correct or not
+     *
+     * @throws Exception to indicate any exceptional condition
+     */
+    private boolean loadKeystore() throws Exception {
+        try {
+            keystore = new Keystore(keyFile, keystorePassword.toString(), Globals.KEYSTORE_TYPE);
+            keystore.load();
+
+            if (!keystore.containsKey(keyName)) {
+                return false;
+            }
+
+            if (keystore.getSecretKey(keyName, keyPassword) == null) {
+                return false;
+            }
+
+            return true;
+        } catch (Exception ex) {
+            log(ERROR_TEXT, ex);
+            return false;
         }
     }
 
@@ -115,10 +174,10 @@ public class EncryptQuickAction extends XmlSecurityActionAdapter {
         resource = store.getString(PreferenceConstants.ENCRYPT_RESOURCE);
         encryptionType = store.getString(PreferenceConstants.ENCRYPT_TYPE);
         keyWrapAlgorithm = store.getString(PreferenceConstants.ENCRYPT_KEY_WRAP);
+        encryptionAlgorithm = store.getString(PreferenceConstants.ENCRYPT_ENCRYPTION);
+        keyName = store.getString(PreferenceConstants.ENCRYPT_KEY_NAME);
         keyFile = store.getString(PreferenceConstants.ENCRYPT_KEY_STORE);
-        // TODO InputDialog
-        keyFilePassword = " ";
-        encryptionID = store.getString(PreferenceConstants.ENCRYPT_ID);
+        encryptionId = store.getString(PreferenceConstants.ENCRYPT_ID);
 
         if (resource != null && resource.equals("xpath")) {
             xpath = store.getString(PreferenceConstants.ENCRYPT_XPATH);
@@ -130,40 +189,73 @@ public class EncryptQuickAction extends XmlSecurityActionAdapter {
      *
      * @throws Exception to indicate any exceptional condition
      */
-    private void quickEncrypt() throws Exception {
+    private void encryptData() throws Exception {
         final Encryption encryption = new Encryption();
         encryption.setResource(resource);
         encryption.setEncryptionType(encryptionType);
         encryption.setXpath(xpath);
         encryption.setContent(false);
         encryption.setBsp(false);
-        encryption.setKeyCipherAlgorithm(keyWrapAlgorithm);
-        encryption.setKeyAlgorithm(keyFileAlgorithm);
-        encryption.setKeyAlgorithmSize(keyFileAlgorithmSize);
-//        encryption.setKeystore(keyFile);
-        encryption.setKeyStorePassword(keyFilePassword);
-        encryption.setEncryptionId(encryptionID);
+        encryption.setKeyWrapAlgorithm(keyWrapAlgorithm);
+        encryption.setEncryptionAlgorithm(encryptionAlgorithm);
+        encryption.setKeystore(keystore);
+        encryption.setKeystorePassword(keystorePassword);
+        encryption.setKeyName(keyName);
+        encryption.setKeyPassword(keyPassword);
+        encryption.setEncryptionId(encryptionId);
 
-        if (file != null && file.isAccessible() && !file.isReadOnly()) { // call in view
-            IProject project = file.getProject();
-            if (resource.equals("selection")) { //$NON-NLS-1$
-                showInfo(Messages.quickEncryptionImpossible, Messages.quickEncryptionImpossibleText);
-            } else {
-                final String filename = file.getLocation().toString();
+        IWorkbenchPart workbenchPart = getWorkbenchPart();
+
+        if (workbenchPart != null && workbenchPart instanceof ITextEditor) {
+            editor = (ITextEditor) workbenchPart;
+        }
+
+        if (editor != null && editor.isEditable()) { // call in editor
+            if (editor.isDirty()) {
+                saveEditorContent(editor);
+            }
+
+            IEditorInput input = editor.getEditorInput();
+            file = (IFile) input.getAdapter(IFile.class);
+
+            if (file != null) {
+                final IDocument document = editor.getDocumentProvider().getDocument(input);
                 encryption.setFile(file.getLocation().toString());
+
                 IRunnableWithProgress op = new IRunnableWithProgress() {
                     public void run(final IProgressMonitor monitor) {
                         try {
                             monitor.beginTask(Messages.encryptionTaskInfo, 3);
+
                             CreateEncryption content = new CreateEncryption();
-                            Document doc = content.encrypt(encryption, null, monitor);
-                            FileOutputStream fos = new FileOutputStream(filename);
+                            Document doc = null;
+
+                            if (resource.equals("selection")) {
+                                ITextSelection textSelection = (ITextSelection) editor.getSelectionProvider().getSelection();
+
+                                if (textSelection != null && !textSelection.isEmpty()
+                                    && textSelection.getLength() > 0 && parseSelection(textSelection.getText())) {
+                                    doc = content.encrypt(encryption, textSelection.getText(), monitor);
+                                } else {
+                                    getShell().getDisplay().asyncExec(new Runnable() {
+                                        public void run() {
+                                            showInfo(Messages.invalidTextSelection, Messages.invalidTextSelectionText);
+                                        }
+                                    });
+                                }
+                            } else {
+                                doc = content.encrypt(encryption, null, monitor);
+                            }
 
                             if (doc != null) {
-                                XMLUtils.outputDOM(doc, fos);
+                                document.set(Utils.docToString(doc, true));
+
+                                if (editor.isDirty()) {
+                                    saveEditorContent(editor);
+                                }
                             }
-                            fos.flush();
-                            fos.close();
+
+                            monitor.done();
                         } catch (final Exception ex) {
                             getShell().getDisplay().asyncExec(new Runnable() {
                                 public void run() {
@@ -171,8 +263,52 @@ public class EncryptQuickAction extends XmlSecurityActionAdapter {
                                     log(ERROR_TEXT, ex);
                                 }
                             });
-                        } finally {
+                        }
+                    }
+                };
+                try {
+                    PlatformUI.getWorkbench().getProgressService().runInUI(
+                            XmlSecurityPlugin.getActiveWorkbenchWindow(), op,
+                            XmlSecurityPlugin.getWorkspace().getRoot());
+                } catch (InvocationTargetException ite) {
+                    log(ERROR_TEXT, ite);
+                } catch (InterruptedException ie) {
+                    log(ERROR_TEXT, ie);
+                }
+            } else {
+                showInfo(Messages.quickEncryptionImpossible, NLS.bind(Messages.protectedDoc, ACTION));
+            }
+        } else if (file != null && file.isAccessible() && !file.isReadOnly()) { // call in view
+            IProject project = file.getProject();
+            if (resource.equals("selection")) { //$NON-NLS-1$
+                showInfo(Messages.quickEncryptionImpossible, Messages.quickEncryptionImpossibleText);
+            } else {
+                final String filename = file.getLocation().toString();
+                encryption.setFile(filename);
+
+                IRunnableWithProgress op = new IRunnableWithProgress() {
+                    public void run(final IProgressMonitor monitor) {
+                        try {
+                            monitor.beginTask(Messages.encryptionTaskInfo, 3);
+
+                            CreateEncryption content = new CreateEncryption();
+                            Document doc = content.encrypt(encryption, null, monitor);
+
+                            if (doc != null) {
+                                FileWriter fw = new FileWriter(filename);
+                                fw.write(Utils.docToString(doc, true));
+                                fw.flush();
+                                fw.close();
+                            }
+
                             monitor.done();
+                        } catch (final Exception ex) {
+                            getShell().getDisplay().asyncExec(new Runnable() {
+                                public void run() {
+                                    showErrorDialog(Messages.error, Messages.encryptingError, ex);
+                                    log(ERROR_TEXT, ex);
+                                }
+                            });
                         }
                     }
                 };
@@ -188,93 +324,6 @@ public class EncryptQuickAction extends XmlSecurityActionAdapter {
             }
 
             project.refreshLocal(IProject.DEPTH_INFINITE, null);
-        } else if (file == null && editor != null && editor.isEditable()) { // call in editor
-            boolean validSelection = false;
-
-            if (editor.isDirty()) {
-                saveEditorContent(editor);
-            }
-
-            IEditorInput input = editor.getEditorInput();
-            final IDocument document = editor.getDocumentProvider().getDocument(input);
-            file = (IFile) input.getAdapter(IFile.class);
-            final ITextSelection textSelection = (ITextSelection) editor.getSelectionProvider()
-                    .getSelection();
-
-            if (resource.equals("selection") && textSelection != null && !textSelection.isEmpty()
-                    && textSelection.getLength() > 0 && file != null) {
-                validSelection = parseSelection(textSelection.getText());
-            }
-
-            if (file != null && resource.equals("selection") && validSelection) { // with text selection
-                encryption.setFile(file.getLocation().toString());
-                IRunnableWithProgress op = new IRunnableWithProgress() {
-                    public void run(final IProgressMonitor monitor) {
-                        try {
-                            monitor.beginTask(Messages.encryptionTaskInfo, 3);
-                            CreateEncryption content = new CreateEncryption();
-                            Document doc = content.encrypt(encryption, textSelection
-                                    .getText(), monitor);
-
-                            if (doc != null) {
-                                document.set(Utils.docToString(doc, true));
-                            }
-                        } catch (final Exception ex) {
-                            getShell().getDisplay().asyncExec(new Runnable() {
-                                public void run() {
-                                    showErrorDialog(Messages.error, Messages.encryptingError, ex);
-                                    log(ERROR_TEXT, ex);
-                                }
-                            });
-                        } finally {
-                            monitor.done();
-                        }
-                    }
-                };
-                try {
-                    PlatformUI.getWorkbench().getProgressService().runInUI(
-                            XmlSecurityPlugin.getActiveWorkbenchWindow(), op,
-                            XmlSecurityPlugin.getWorkspace().getRoot());
-                } catch (InvocationTargetException ite) {
-                    log(ERROR_TEXT, ite);
-                } catch (InterruptedException ie) {
-                    log(ERROR_TEXT, ie);
-                }
-            } else if (file != null && !resource.equals("selection")) { // without text selection
-                encryption.setFile(file.getLocation().toString());
-                IRunnableWithProgress op = new IRunnableWithProgress() {
-                    public void run(final IProgressMonitor monitor) {
-                        try {
-                            monitor.beginTask(Messages.encryptionTaskInfo, 3);
-                            CreateEncryption content = new CreateEncryption();
-                            Document doc = content.encrypt(encryption, null, monitor);
-
-                            if (doc != null) {
-                                document.set(Utils.docToString(doc, true));
-                            }
-                        } catch (Exception ex) {
-                            showErrorDialog(Messages.error, Messages.encryptingError, ex);
-                            log(ERROR_TEXT, ex);
-                        } finally {
-                            monitor.done();
-                        }
-                    }
-                };
-                try {
-                    PlatformUI.getWorkbench().getProgressService().runInUI(
-                            XmlSecurityPlugin.getActiveWorkbenchWindow(), op,
-                            XmlSecurityPlugin.getWorkspace().getRoot());
-                } catch (InvocationTargetException ite) {
-                    log(ERROR_TEXT, ite);
-                } catch (InterruptedException ie) {
-                    log(ERROR_TEXT, ie);
-                }
-            } else if (resource.equals("selection") && !validSelection) {
-                showInfo(Messages.invalidTextSelection, Messages.invalidTextSelectionText);
-            } else {
-                showInfo(Messages.quickEncryptionImpossible, NLS
-                        .bind(Messages.protectedDoc, ACTION));
-            }
         } else {
             showInfo(Messages.quickEncryptionImpossible, NLS.bind(Messages.protectedDoc, ACTION));
         }
@@ -288,30 +337,46 @@ public class EncryptQuickAction extends XmlSecurityActionAdapter {
      * @return Preferences OK or not
      */
     private boolean checkPreferences() {
-        final String title = Messages.quickEncryptionTitle;
         final String prefId = "org.eclipse.wst.xml.security.core.preferences.Encryption";
         int result = 2;
 
         if (resource == null || resource.equals("")) { //$NON-NLS-1$
-            result = showMissingParameterDialog(title, NLS.bind(Messages.missingParameter,
+            result = showMissingParameterDialog(Messages.quickEncryptionTitle, NLS.bind(Messages.missingParameter,
                     Messages.missingResource), prefId);
         } else if (resource != null && resource.equals("xpath") //$NON-NLS-2$
                 && (xpath == null || xpath.equals(""))) { //$NON-NLS-1$
-            result = showMissingParameterDialog(title, NLS.bind(Messages.missingParameter,
+            result = showMissingParameterDialog(Messages.quickEncryptionTitle, NLS.bind(Messages.missingParameter,
                     Messages.missingXPathExpression), prefId);
         } else if (keyFile == null || keyFile.equals("")) {
-            result = showMissingParameterDialog(title, NLS.bind(Messages.missingParameter,
-                    Messages.missingKeyStore), prefId);
+            result = showMissingParameterDialog(Messages.quickEncryptionTitle, NLS.bind(Messages.missingParameter,
+                    Messages.missingKeystore), prefId);
         } else {
             completePrefs = true;
         }
 
-        if (result == 0) {
+        if (result == MissingPreferenceDialog.OK) {
             completePrefs = false;
             getPreferenceValues();
             checkPreferences();
         }
 
         return completePrefs;
+    }
+
+    /**
+     * Checks the entered passwords for the Keystore and key.
+     *
+     * @return Password is OK or not
+     */
+    private boolean checkPasswords() {
+        if (keystorePassword == null || keystorePassword.length == 0) {
+            showInfo(Messages.quickSignatureTitle, Messages.missingKeystorePassword);
+            return false;
+        } else if (keyPassword == null || keyPassword.length == 0) {
+            showInfo(Messages.quickSignatureTitle, Messages.missingKeyPassword);
+            return false;
+        }
+
+        return true;
     }
 }

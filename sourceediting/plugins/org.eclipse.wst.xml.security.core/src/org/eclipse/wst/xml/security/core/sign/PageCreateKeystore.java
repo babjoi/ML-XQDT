@@ -143,7 +143,7 @@ public class PageCreateKeystore extends WizardPage implements Listener {
 
     /**
      * Fills this wizard page with content. Three groups (<i>Certificate</i>,
-     * <i>Key</i> and <i>KeyStore</i>) and all their widgets are inserted.
+     * <i>Key</i> and <i>Keystore</i>) and all their widgets are inserted.
      *
      * @param parent Parent composite
      */
@@ -174,14 +174,14 @@ public class PageCreateKeystore extends WizardPage implements Listener {
         data.right = new FormAttachment(Globals.GROUP_NUMERATOR);
         gKey.setLayoutData(data);
 
-        Group gKeyStore = new Group(parent, SWT.SHADOW_ETCHED_IN);
-        gKeyStore.setLayout(layout);
-        gKeyStore.setText(Messages.keyStore);
+        Group gKeystore = new Group(parent, SWT.SHADOW_ETCHED_IN);
+        gKeystore.setLayout(layout);
+        gKeystore.setText(Messages.keystore);
         data = new FormData();
         data.top = new FormAttachment(gKey, Globals.MARGIN, SWT.DEFAULT);
         data.left = new FormAttachment(0, 0);
         data.right = new FormAttachment(Globals.GROUP_NUMERATOR);
-        gKeyStore.setLayoutData(data);
+        gKeystore.setLayoutData(data);
 
         // Elements for group "Certificate"
         Label lCommonName = new Label(gCertificate, SWT.SHADOW_IN);
@@ -344,59 +344,59 @@ public class PageCreateKeystore extends WizardPage implements Listener {
         data.left = new FormAttachment(tKeyPassword, Globals.MARGIN);
         bEchoKeyPassword.setLayoutData(data);
 
-        // Elements for group "KeyStore"
-        Label lKeyStoreName = new Label(gKeyStore, SWT.SHADOW_IN);
-        lKeyStoreName.setText(Messages.name);
+        // Elements for group "Keystore"
+        Label lKeystoreName = new Label(gKeystore, SWT.SHADOW_IN);
+        lKeystoreName.setText(Messages.name);
         data = new FormData();
         data.width = LABELWIDTH;
-        data.top = new FormAttachment(gKeyStore);
-        data.left = new FormAttachment(gKeyStore);
-        lKeyStoreName.setLayoutData(data);
+        data.top = new FormAttachment(gKeystore);
+        data.left = new FormAttachment(gKeystore);
+        lKeystoreName.setLayoutData(data);
 
-        tKeystoreName = new Text(gKeyStore, SWT.SINGLE);
+        tKeystoreName = new Text(gKeystore, SWT.SINGLE);
         data = new FormData();
         data.width = Globals.SHORT_TEXT_WIDTH;
-        data.top = new FormAttachment(lKeyStoreName, 0, SWT.CENTER);
-        data.left = new FormAttachment(lKeyStoreName);
+        data.top = new FormAttachment(lKeystoreName, 0, SWT.CENTER);
+        data.left = new FormAttachment(lKeystoreName);
         tKeystoreName.setLayoutData(data);
 
-        Label lKeyStorePassword = new Label(gKeyStore, SWT.SHADOW_IN);
-        lKeyStorePassword.setText(Messages.password);
+        Label lKeystorePassword = new Label(gKeystore, SWT.SHADOW_IN);
+        lKeystorePassword.setText(Messages.password);
         data = new FormData();
         data.width = LABELWIDTH;
-        data.top = new FormAttachment(lKeyStoreName, Globals.MARGIN);
-        data.left = new FormAttachment(gKeyStore);
-        lKeyStorePassword.setLayoutData(data);
+        data.top = new FormAttachment(lKeystoreName, Globals.MARGIN);
+        data.left = new FormAttachment(gKeystore);
+        lKeystorePassword.setLayoutData(data);
 
-        tKeystorePassword = new Text(gKeyStore, SWT.SINGLE);
+        tKeystorePassword = new Text(gKeystore, SWT.SINGLE);
         tKeystorePassword.setTextLimit(Globals.KEYSTORE_PASSWORD_MAX_SIZE);
         data = new FormData();
         data.width = Globals.SHORT_TEXT_WIDTH;
-        data.top = new FormAttachment(lKeyStorePassword, 0, SWT.CENTER);
-        data.left = new FormAttachment(lKeyStorePassword);
+        data.top = new FormAttachment(lKeystorePassword, 0, SWT.CENTER);
+        data.left = new FormAttachment(lKeystorePassword);
         tKeystorePassword.setEchoChar('*');
         tKeystorePassword.setLayoutData(data);
 
-        bEchoKeystorePassword = new Button(gKeyStore, SWT.PUSH);
+        bEchoKeystorePassword = new Button(gKeystore, SWT.PUSH);
         bEchoKeystorePassword.setImage(XmlSecurityImageRegistry.getImageRegistry().get("echo_password"));
         data = new FormData();
         data.top = new FormAttachment(tKeystorePassword, 0, SWT.CENTER);
         data.left = new FormAttachment(tKeystorePassword, Globals.MARGIN);
         bEchoKeystorePassword.setLayoutData(data);
 
-        bGenerate = new Button(gKeyStore, SWT.PUSH);
+        bGenerate = new Button(gKeystore, SWT.PUSH);
         bGenerate.setText(Messages.generate);
         bGenerate.setEnabled(false);
         data = new FormData();
-        data.top = new FormAttachment(lKeyStorePassword, Globals.MARGIN * 2);
-        data.left = new FormAttachment(gKeyStore);
+        data.top = new FormAttachment(lKeystorePassword, Globals.MARGIN * 2);
+        data.left = new FormAttachment(gKeystore);
         bGenerate.setLayoutData(data);
 
-        lResult = new Label(gKeyStore, SWT.WRAP);
+        lResult = new Label(gKeystore, SWT.WRAP);
         data = new FormData();
         data.height = TEXTHEIGHT;
         data.top = new FormAttachment(bGenerate, Globals.MARGIN * 2);
-        data.left = new FormAttachment(gKeyStore);
+        data.left = new FormAttachment(gKeystore);
         data.right = new FormAttachment(Globals.GROUP_NUMERATOR);
         lResult.setLayoutData(data);
     }
@@ -593,7 +593,7 @@ public class PageCreateKeystore extends WizardPage implements Listener {
     }
 
     /**
-     * Generates the KeyStore and the key/certificate based on the entered data and shows
+     * Generates the keystore and the key/certificate based on the entered data and shows
      * the user an information text about the result.
      */
     private void createKeystore() {

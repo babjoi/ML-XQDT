@@ -44,6 +44,7 @@ public class PreferenceInitializer extends AbstractPreferenceInitializer {
     store.setDefault(PreferenceConstants.ENCRYPT_RESOURCE, "document");
     store.setDefault(PreferenceConstants.ENCRYPT_XPATH, "");
     store.setDefault(PreferenceConstants.ENCRYPT_TYPE, "enveloping");
+    store.setDefault(PreferenceConstants.ENCRYPT_ENCRYPTION, "AES 128");
     store.setDefault(PreferenceConstants.ENCRYPT_KEY_WRAP, "AES-128 Key Wrap");
     store.setDefault(PreferenceConstants.ENCRYPT_ID, "myEncryption");
     store.setDefault(PreferenceConstants.ENCRYPT_KEY_STORE, "");

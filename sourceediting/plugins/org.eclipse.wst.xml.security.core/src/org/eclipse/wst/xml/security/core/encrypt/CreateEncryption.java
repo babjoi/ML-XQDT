@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2008 Dominik Schadow - http://www.xml-sicherheit.de
+ * Copyright (c) 2009 Dominik Schadow - http://www.xml-sicherheit.de
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -57,8 +57,8 @@ public class CreateEncryption {
     private boolean content;
     /** The encryption type. */
     private String encryptionType = null;
-    /** The Java KeyStore. */
-    private Keystore keyStore = null;
+    /** The Java Keystore. */
+    private Keystore keystore = null;
     /** Document (fragment) to encrypt. */
     private String encrypt = null;
     /** XPath to encrypt (can be null). */
@@ -92,9 +92,9 @@ public class CreateEncryption {
         monitor.worked(1);
 
         loadSettings(encryption, selection);
-        keyStore.load();
+        keystore.load();
 
-        SecretKey key = keyStore.getSecretKey(encryption.getKeyName(), encryption.getKeyPassword());
+        SecretKey key = keystore.getSecretKey(encryption.getKeyName(), encryption.getKeyPassword());
 
         monitor.worked(1);
 
@@ -121,7 +121,7 @@ public class CreateEncryption {
         xmlFile = new File(encryption.getFile());
         encryptionType = encryption.getEncryptionType();
         content = encryption.getContent();
-        keyStore = encryption.getKeyStore();
+        keystore = encryption.getKeystore();
         keyName = encryption.getKeyName();
         encrypt = encryption.getResource();
         expression = encryption.getXpath();
@@ -137,7 +137,7 @@ public class CreateEncryption {
 
         // get the constant names for all algorithms
         encryptionAlgorithm = XmlSecurityConstants.getEncryptionAlgorithm(encryption.getEncryptionAlgorithm());
-        keyCipherAlgorithm = XmlSecurityConstants.getKeyCipherAlgorithm(encryption.getKeyCipherAlgorithm());
+        keyCipherAlgorithm = XmlSecurityConstants.getKeyCipherAlgorithm(encryption.getKeyWrapAlogrithm());
     }
 
     /**

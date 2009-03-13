@@ -118,6 +118,7 @@ public class SignNewAction extends XmlSecurityActionAdapter {
 
                     CreateSignature signature = new CreateSignature();
                     signData(signature, sigWizard, document, "");
+
                     if (sigWizard.getModel().getLaunchEncryptionWizard()) {
                         callEncryptionWizard();
                     }

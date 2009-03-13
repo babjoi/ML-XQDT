@@ -249,10 +249,6 @@ public class EncryptQuickAction extends XmlSecurityActionAdapter {
 
                             if (doc != null) {
                                 document.set(Utils.docToString(doc, true));
-
-                                if (editor.isDirty()) {
-                                    saveEditorContent(editor);
-                                }
                             }
 
                             monitor.done();

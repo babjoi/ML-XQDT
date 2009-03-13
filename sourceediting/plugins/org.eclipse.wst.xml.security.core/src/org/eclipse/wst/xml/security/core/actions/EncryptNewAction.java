@@ -113,6 +113,7 @@ public class EncryptNewAction extends XmlSecurityActionAdapter {
 
                     CreateEncryption encryption = new CreateEncryption();
                     encryptData(encryption, encWizard, document, "");
+
                     if (encWizard.getModel().getLaunchSignatureWizard()) {
                         callDigitalSignatureWizard();
                     }
@@ -175,10 +176,6 @@ public class EncryptNewAction extends XmlSecurityActionAdapter {
                         if (doc != null) {
                             if (document != null) {
                                 document.set(Utils.docToString(doc, true));
-
-                                if (editor.isDirty()) {
-                                    saveEditorContent(editor);
-                                }
                             } else {
                                 FileWriter fw = new FileWriter(filename);
                                 fw.write(Utils.docToString(doc, true));

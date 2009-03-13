@@ -20,13 +20,13 @@ import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.jface.action.IAction;
+import org.eclipse.jface.dialogs.Dialog;
 import org.eclipse.jface.operation.IRunnableWithProgress;
 import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.jface.text.IDocument;
 import org.eclipse.jface.text.ITextSelection;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.IStructuredSelection;
-import org.eclipse.jface.window.Window;
 import org.eclipse.osgi.util.NLS;
 import org.eclipse.ui.IEditorInput;
 import org.eclipse.ui.IWorkbenchPart;
@@ -114,7 +114,7 @@ public class SignQuickAction extends XmlSecurityActionAdapter {
             // Ask the user for the passwords
             PasswordDialog keystorePasswordDialog = new PasswordDialog(getShell(),
                     Messages.keystorePassword, Messages.enterKeystorePassword, ""); //$NON-NLS-3$
-            if (keystorePasswordDialog.open() == Window.OK) {
+            if (keystorePasswordDialog.open() == Dialog.OK) {
                 keystorePassword = keystorePasswordDialog.getValue().toCharArray();
             } else {
                 return;
@@ -122,7 +122,7 @@ public class SignQuickAction extends XmlSecurityActionAdapter {
 
             PasswordDialog privateKeyPasswordDialog = new PasswordDialog(getShell(),
                     Messages.keyPassword, Messages.enterKeyPassword, ""); //$NON-NLS-3$
-            if (privateKeyPasswordDialog.open() == Window.OK) {
+            if (privateKeyPasswordDialog.open() == Dialog.OK) {
                 keyPassword = privateKeyPasswordDialog.getValue().toCharArray();
             } else {
                 return;
@@ -193,52 +193,11 @@ public class SignQuickAction extends XmlSecurityActionAdapter {
 
         if (workbenchPart != null && workbenchPart instanceof ITextEditor) {
             editor = (ITextEditor) workbenchPart;
+        } else {
+            editor = null;
         }
 
-        if (file != null && file.isAccessible() && !file.isReadOnly()) { // call in view
-            IProject project = file.getProject();
-            if (resource.equals("selection")) { //$NON-NLS-1$
-                showInfo(Messages.quickSignatureImpossible, Messages.quickSignatureImpossibleText);
-            } else {
-                final String filename = file.getLocation().toString();
-                signatureWizard.setFile(file.getLocation().toString());
-                IRunnableWithProgress op = new IRunnableWithProgress() {
-                    public void run(final IProgressMonitor monitor) {
-                        try {
-                            monitor.beginTask(Messages.signatureTaskInfo, 5);
-                            CreateSignature content = new CreateSignature();
-                            Document doc = content.sign(signatureWizard, null, monitor);
-                            FileOutputStream fos = new FileOutputStream(filename);
-                            if (doc != null) {
-                                XMLUtils.outputDOM(doc, fos);
-                            }
-                            fos.flush();
-                            fos.close();
-                        } catch (final Exception ex) {
-                            getShell().getDisplay().asyncExec(new Runnable() {
-                                public void run() {
-                                    showErrorDialog(Messages.error, Messages.signingError, ex);
-                                    log(ERROR_TEXT, ex);
-                                }
-                            });
-                        } finally {
-                            monitor.done();
-                        }
-                    }
-                };
-                try {
-                    PlatformUI.getWorkbench().getProgressService().runInUI(
-                            XmlSecurityPlugin.getActiveWorkbenchWindow(), op,
-                            XmlSecurityPlugin.getWorkspace().getRoot());
-                } catch (InvocationTargetException ite) {
-                    log(ERROR_TEXT, ite);
-                } catch (InterruptedException ie) {
-                    log(ERROR_TEXT, ie);
-                }
-            }
-
-            project.refreshLocal(IProject.DEPTH_INFINITE, null);
-        } else if (editor != null && editor.isEditable()) { // call in editor
+        if (editor != null && editor.isEditable()) { // call in editor
             boolean validSelection = false;
 
             if (editor.isDirty()) {
@@ -327,6 +286,49 @@ public class SignQuickAction extends XmlSecurityActionAdapter {
             } else {
                 showInfo(Messages.quickSignatureImpossible, NLS.bind(Messages.protectedDoc, ACTION));
             }
+        } else if (file != null && file.isAccessible() && !file.isReadOnly()) { // call in view
+            IProject project = file.getProject();
+            if (resource.equals("selection")) { //$NON-NLS-1$
+                showInfo(Messages.quickSignatureImpossible, Messages.quickSignatureImpossibleText);
+            } else {
+                final String filename = file.getLocation().toString();
+                signatureWizard.setFile(file.getLocation().toString());
+                IRunnableWithProgress op = new IRunnableWithProgress() {
+                    public void run(final IProgressMonitor monitor) {
+                        try {
+                            monitor.beginTask(Messages.signatureTaskInfo, 5);
+                            CreateSignature content = new CreateSignature();
+                            Document doc = content.sign(signatureWizard, null, monitor);
+                            FileOutputStream fos = new FileOutputStream(filename);
+                            if (doc != null) {
+                                XMLUtils.outputDOM(doc, fos);
+                            }
+                            fos.flush();
+                            fos.close();
+                        } catch (final Exception ex) {
+                            getShell().getDisplay().asyncExec(new Runnable() {
+                                public void run() {
+                                    showErrorDialog(Messages.error, Messages.signingError, ex);
+                                    log(ERROR_TEXT, ex);
+                                }
+                            });
+                        } finally {
+                            monitor.done();
+                        }
+                    }
+                };
+                try {
+                    PlatformUI.getWorkbench().getProgressService().runInUI(
+                            XmlSecurityPlugin.getActiveWorkbenchWindow(), op,
+                            XmlSecurityPlugin.getWorkspace().getRoot());
+                } catch (InvocationTargetException ite) {
+                    log(ERROR_TEXT, ite);
+                } catch (InterruptedException ie) {
+                    log(ERROR_TEXT, ie);
+                }
+            }
+
+            project.refreshLocal(IProject.DEPTH_INFINITE, null);
         } else {
             showInfo(Messages.quickSignatureImpossible, NLS.bind(Messages.protectedDoc, ACTION));
         }

@@ -84,6 +84,8 @@ public class VerifyNewAction extends XmlSecurityActionAdapter {
             }
 
             file = (IFile) editor.getEditorInput().getAdapter(IFile.class);
+        } else {
+            editor = null;
         }
 
         try {

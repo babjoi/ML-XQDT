@@ -114,6 +114,8 @@ public class VerifyQuickAction extends XmlSecurityActionAdapter {
             }
 
             file = (IFile) editor.getEditorInput().getAdapter(IFile.class);
+        } else {
+            editor = null;
         }
 
         if (file != null && file.isAccessible()) {

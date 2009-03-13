@@ -20,6 +20,7 @@ import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.core.runtime.jobs.Job;
 import org.eclipse.jface.action.IAction;
+import org.eclipse.jface.dialogs.Dialog;
 import org.eclipse.jface.text.IDocument;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.IStructuredSelection;
@@ -85,6 +86,8 @@ public class DecryptNewAction extends XmlSecurityActionAdapter {
 
             if (workbenchPart != null && workbenchPart instanceof ITextEditor) {
                 editor = (ITextEditor) workbenchPart;
+            } else {
+                editor = null;
             }
 
             if (editor != null && editor.isEditable()) { // call in editor
@@ -121,7 +124,9 @@ public class DecryptNewAction extends XmlSecurityActionAdapter {
     }
 
     /**
-     * Called when decrypting an XML resource inside an opened editor or via a view.
+     * Called when decrypting an XML resource inside an opened editor or via a view. The
+     * output XML can not be pretty printed since this would break an existing XML
+     * signature in the document.
      *
      * @param data The resource to decrypt
      * @param wizard The Decryption Wizard
@@ -135,7 +140,7 @@ public class DecryptNewAction extends XmlSecurityActionAdapter {
         dialog.create();
         dialog.open();
 
-        if (dialog.getReturnCode() == 0 && wizard.getModel() != null) {
+        if (dialog.getReturnCode() == Dialog.OK && wizard.getModel() != null) {
             Job job = new Job("XML Decryption") {
                 public IStatus run(final IProgressMonitor monitor) {
                     try {
@@ -149,7 +154,7 @@ public class DecryptNewAction extends XmlSecurityActionAdapter {
 
                         if (doc != null) {
                             if (document != null) {
-                                document.set(Utils.docToString(doc, true));
+                                document.set(Utils.docToString(doc, false));
                             } else {
                                 FileOutputStream fos = new FileOutputStream(filename);
                                 XMLUtils.outputDOM(doc, fos);

@@ -19,12 +19,12 @@ import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.jface.action.IAction;
+import org.eclipse.jface.dialogs.Dialog;
 import org.eclipse.jface.operation.IRunnableWithProgress;
 import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.jface.text.IDocument;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.IStructuredSelection;
-import org.eclipse.jface.window.Window;
 import org.eclipse.osgi.util.NLS;
 import org.eclipse.ui.IEditorInput;
 import org.eclipse.ui.IWorkbenchPart;
@@ -95,7 +95,7 @@ public class DecryptQuickAction extends XmlSecurityActionAdapter {
         	// Ask the user for the passwords
             PasswordDialog keystorePasswordDialog = new PasswordDialog(getShell(),
                     Messages.keystorePassword, Messages.enterKeystorePassword, ""); //$NON-NLS-3$
-            if (keystorePasswordDialog.open() == Window.OK) {
+            if (keystorePasswordDialog.open() == Dialog.OK) {
             	keystorePassword = keystorePasswordDialog.getValue();
             } else {
                 return;
@@ -103,7 +103,7 @@ public class DecryptQuickAction extends XmlSecurityActionAdapter {
 
             PasswordDialog keyPasswordDialog = new PasswordDialog(getShell(),
                     Messages.keyPassword, Messages.enterKeyPassword, ""); //$NON-NLS-3$
-            if (keyPasswordDialog.open() == Window.OK) {
+            if (keyPasswordDialog.open() == Dialog.OK) {
             	keyPassword = keyPasswordDialog.getValue().toCharArray();
             } else {
                 return;
@@ -146,9 +146,56 @@ public class DecryptQuickAction extends XmlSecurityActionAdapter {
 
         if (workbenchPart != null && workbenchPart instanceof ITextEditor) {
             editor = (ITextEditor) workbenchPart;
+        } else {
+            editor = null;
         }
 
-        if (file != null && file.isAccessible() && !file.isReadOnly()) { // call in view
+        if (editor != null && editor.isEditable()) { // call in editor
+            if (editor.isDirty()) {
+                saveEditorContent(editor);
+            }
+
+            IEditorInput input = editor.getEditorInput();
+            final IDocument document = editor.getDocumentProvider().getDocument(input);
+            file = (IFile) input.getAdapter(IFile.class);
+
+            if (file != null) {
+                wizard.setFile(file.getLocation().toString());
+
+                IRunnableWithProgress op = new IRunnableWithProgress() {
+                    public void run(final IProgressMonitor monitor) {
+                        try {
+                            monitor.beginTask(Messages.decryptionTaskInfo, 6);
+                            CreateDecryption decryption = new CreateDecryption();
+                            Document doc = decryption.decrypt(wizard, monitor);
+                            if (doc != null) {
+                                document.set(Utils.docToString(doc, false));
+                            }
+                        } catch (final Exception ex) {
+                            getShell().getDisplay().asyncExec(new Runnable() {
+                                public void run() {
+                                    showErrorDialog(Messages.error, Messages.decryptingError, ex);
+                                    log(ERROR_TEXT, ex);
+                                }
+                            });
+                        } finally {
+                            monitor.done();
+                        }
+                    }
+                };
+                try {
+                    PlatformUI.getWorkbench().getProgressService().runInUI(
+                            XmlSecurityPlugin.getActiveWorkbenchWindow(), op,
+                            XmlSecurityPlugin.getWorkspace().getRoot());
+                } catch (InvocationTargetException ite) {
+                    log(ERROR_TEXT, ite);
+                } catch (InterruptedException ie) {
+                    log(ERROR_TEXT, ie);
+                }
+            } else {
+                showInfo(Messages.quickDecryptionImpossible, NLS.bind(Messages.protectedDoc, ACTION));
+            }
+        } else if (file != null && file.isAccessible() && !file.isReadOnly()) { // call in view
             IProject project = file.getProject();
             final String filename = file.getLocation().toString();
             wizard.setFile(file.getLocation().toString());
@@ -196,51 +243,6 @@ public class DecryptQuickAction extends XmlSecurityActionAdapter {
             }
 
             project.refreshLocal(IProject.DEPTH_INFINITE, null);
-        } else if (editor != null && editor.isEditable()) { // call in editor
-            if (editor.isDirty()) {
-                saveEditorContent(editor);
-            }
-
-            IEditorInput input = editor.getEditorInput();
-            final IDocument document = editor.getDocumentProvider().getDocument(input);
-            file = (IFile) input.getAdapter(IFile.class);
-
-            if (file != null) {
-                wizard.setFile(file.getLocation().toString());
-
-                IRunnableWithProgress op = new IRunnableWithProgress() {
-                    public void run(final IProgressMonitor monitor) {
-                        try {
-                            monitor.beginTask(Messages.decryptionTaskInfo, 6);
-                            CreateDecryption decryption = new CreateDecryption();
-                            Document doc = decryption.decrypt(wizard, monitor);
-                            if (doc != null) {
-                                document.set(Utils.docToString(doc, false));
-                            }
-                        } catch (final Exception ex) {
-                            getShell().getDisplay().asyncExec(new Runnable() {
-                                public void run() {
-                                    showErrorDialog(Messages.error, Messages.decryptingError, ex);
-                                    log(ERROR_TEXT, ex);
-                                }
-                            });
-                        } finally {
-                            monitor.done();
-                        }
-                    }
-                };
-                try {
-                    PlatformUI.getWorkbench().getProgressService().runInUI(
-                            XmlSecurityPlugin.getActiveWorkbenchWindow(), op,
-                            XmlSecurityPlugin.getWorkspace().getRoot());
-                } catch (InvocationTargetException ite) {
-                    log(ERROR_TEXT, ite);
-                } catch (InterruptedException ie) {
-                    log(ERROR_TEXT, ie);
-                }
-            } else {
-                showInfo(Messages.quickDecryptionImpossible, NLS.bind(Messages.protectedDoc, ACTION));
-            }
         } else {
             showInfo(Messages.quickDecryptionImpossible, NLS.bind(Messages.protectedDoc, ACTION));
         }

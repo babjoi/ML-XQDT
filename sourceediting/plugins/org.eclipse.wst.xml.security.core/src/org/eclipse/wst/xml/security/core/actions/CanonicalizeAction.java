@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2008 Dominik Schadow - http://www.xml-sicherheit.de
+ * Copyright (c) 2009 Dominik Schadow - http://www.xml-sicherheit.de
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -92,9 +92,11 @@ public class CanonicalizeAction extends XmlSecurityActionAdapter {
 
             if (workbenchPart != null && workbenchPart instanceof ITextEditor) {
                 editor = (ITextEditor) workbenchPart;
+            } else {
+                editor = null;
             }
 
-            if (editor != null) {
+            if (editor != null && editor.isEditable()) { // call in editor
                 if (editor.isDirty()) {
                     saveEditorContent(editor);
                 }

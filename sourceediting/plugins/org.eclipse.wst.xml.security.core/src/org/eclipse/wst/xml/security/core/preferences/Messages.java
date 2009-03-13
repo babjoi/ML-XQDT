@@ -35,17 +35,12 @@ public final class Messages extends NLS {
 
     /** Signatures preference page externalized strings. */
     public static String signaturePrefsAlgoCanon, signaturePrefsAlgoMD, signaturePrefsAlgoSign,
-            signaturePrefsAlgoTransform, signaturePrefsAlgorithms, signaturePrefsDesc, signaturePrefsId,
-            signaturePrefsKeyAlias, signaturePrefsKeystore, signaturePrefsKeystoreFile,
-            signaturePrefsKeystoreFileSelect, signaturePrefsResource, signaturePrefsResourceDocument,
-            signaturePrefsResourceSelection, signaturePrefsResourceXPath, signaturePrefsResourceXPathExpression,
-            signaturePrefsSignatureId, signaturePrefsSignatureType;
-    /** Canonicalization preference page externalized strings. */
-    public static String xmlSecurityPrefsCanonTarget, xmlSecurityPrefsCanonType, xmlSecurityPrefsDesc;
+            signaturePrefsAlgoTransform, signaturePrefsDesc;
+    /** General preference page externalized strings. */
+    public static String algorithms, resource, type, id, keystoreAndKey, keystore, key, open,
+            xmlSecurityPrefsCanonTarget, xmlSecurityPrefsCanonType, xmlSecurityPrefsDesc, document,
+            selection, xpath, xpathExpression;
     /** Encryption preference page externalized strings. */
-    public static String encryptionPrefsKeyName, encryptionPrefsAlgoKeyWrap, encryptionPrefsAlgorithms,
-            encryptionPrefsDesc, encryptionPrefsEncryptionId, encryptionPrefsEncryptionType, encryptionPrefsId,
-            encryptionPrefsKey, encryptionPrefsKeyFile, encryptionPrefsKeyFileSelect, encryptionPrefsResource,
-            encryptionPrefsResourceDocument, encryptionPrefsResourceSelection, encryptionPrefsResourceXPath,
-            encryptionPrefsResourceXPathExpression, encryptionPrefsEncryptionAlgorithm;
+    public static String encryptionPrefsAlgoKeyWrap, encryptionPrefsDesc,
+            encryptionPrefsEncryptionAlgorithm;
 }

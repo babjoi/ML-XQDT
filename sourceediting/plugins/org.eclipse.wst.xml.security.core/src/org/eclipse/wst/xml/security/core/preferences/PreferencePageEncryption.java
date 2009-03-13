@@ -150,26 +150,26 @@ public class PreferencePageEncryption extends PreferencePage implements IWorkben
         layout.numColumns = PreferenceConstants.SMALL_GROUP;
         gResource.setLayout(layout);
         gResource.setLayoutData(gd);
-        gResource.setText(Messages.encryptionPrefsResource);
+        gResource.setText(Messages.resource);
 
         int indent = 0;
 
-        bDocument = addRadioButton(gResource, Messages.encryptionPrefsResourceDocument,
+        bDocument = addRadioButton(gResource, Messages.document,
                 PreferenceConstants.ENCRYPT_RESOURCE, "document", indent);
         bDocument.addSelectionListener(selectionListener);
 
-        bSelection = addRadioButton(gResource, Messages.encryptionPrefsResourceSelection,
+        bSelection = addRadioButton(gResource, Messages.selection,
                 PreferenceConstants.ENCRYPT_RESOURCE, "selection", indent);
         bSelection.addSelectionListener(selectionListener);
 
-        bXpath = addRadioButton(gResource, Messages.encryptionPrefsResourceXPath,
+        bXpath = addRadioButton(gResource, Messages.xpath,
                 PreferenceConstants.ENCRYPT_RESOURCE, "xpath", indent);
         bXpath.addSelectionListener(selectionListener);
 
         indent = convertWidthInCharsToPixels(4);
 
         lXpath = new Label(gResource, SWT.NONE);
-        lXpath.setText(Messages.encryptionPrefsResourceXPathExpression);
+        lXpath.setText(Messages.xpathExpression);
         lXpath.setEnabled(bXpath.getSelection());
         tXpath = addTextControl(gResource, lXpath, PreferenceConstants.ENCRYPT_XPATH, indent);
         tXpath.addModifyListener(modifyListener);
@@ -179,7 +179,7 @@ public class PreferencePageEncryption extends PreferencePage implements IWorkben
         gd.horizontalSpan = PreferenceConstants.SMALL_GROUP;
 
         encryptionType = new RadioGroupFieldEditor(PreferenceConstants.ENCRYPT_TYPE,
-                Messages.encryptionPrefsEncryptionType, PreferenceConstants.SMALL_GROUP,
+                Messages.type, PreferenceConstants.SMALL_GROUP,
                 PreferenceValues.ENCRYPTION_TYPES, top, true);
         encryptionType.setPage(this);
         encryptionType.setPreferenceStore(this.getPreferenceStore());
@@ -194,7 +194,7 @@ public class PreferencePageEncryption extends PreferencePage implements IWorkben
         layout.numColumns = PreferenceConstants.SMALL_GROUP;
         gAlgorithms.setLayout(layout);
         gAlgorithms.setLayoutData(gd);
-        gAlgorithms.setText(Messages.encryptionPrefsAlgorithms);
+        gAlgorithms.setText(Messages.algorithms);
 
         indent = 0;
 
@@ -218,21 +218,21 @@ public class PreferencePageEncryption extends PreferencePage implements IWorkben
         layout.numColumns = PreferenceConstants.LARGE_GROUP;
         gKeystore.setLayout(layout);
         gKeystore.setLayoutData(gd);
-        gKeystore.setText(Messages.encryptionPrefsKey);
+        gKeystore.setText(Messages.keystoreAndKey);
 
         indent = 0;
 
         keystore = new FileFieldEditor(PreferenceConstants.ENCRYPT_KEY_STORE,
-                Messages.encryptionPrefsKeyFile, gKeystore);
+                Messages.keystore, gKeystore);
         keystore.setFileExtensions(Globals.KEY_STORE_EXTENSION);
-        keystore.setChangeButtonText(Messages.encryptionPrefsKeyFileSelect);
+        keystore.setChangeButtonText(Messages.open);
         keystore.setPage(this);
         keystore.setPreferenceStore(this.getPreferenceStore());
         keystore.load();
         keystore.fillIntoGrid(gKeystore, PreferenceConstants.LARGE_GROUP);
 
         Label lKeyName = new Label(gKeystore, SWT.NONE);
-        lKeyName.setText(Messages.encryptionPrefsKeyName);
+        lKeyName.setText(Messages.key);
         tKeyName = addTextControl(gKeystore, lKeyName, PreferenceConstants.ENCRYPT_KEY_NAME, indent);
         tKeyName.addModifyListener(modifyListener);
 
@@ -244,12 +244,12 @@ public class PreferencePageEncryption extends PreferencePage implements IWorkben
         layout.numColumns = PreferenceConstants.SMALL_GROUP;
         gId.setLayout(layout);
         gId.setLayoutData(gd);
-        gId.setText(Messages.encryptionPrefsId);
+        gId.setText(Messages.id);
 
         indent = 0;
 
         Label lId = new Label(gId, SWT.NONE);
-        lId.setText(Messages.encryptionPrefsEncryptionId);
+        lId.setText(Messages.id);
         tId = addTextControl(gId, lId, PreferenceConstants.ENCRYPT_ID, indent);
         tId.addModifyListener(modifyListener);
 

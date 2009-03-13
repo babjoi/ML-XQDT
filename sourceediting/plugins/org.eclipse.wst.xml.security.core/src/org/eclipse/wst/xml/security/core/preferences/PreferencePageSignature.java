@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2008 Dominik Schadow - http://www.xml-sicherheit.de
+ * Copyright (c) 2009 Dominik Schadow - http://www.xml-sicherheit.de
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -174,27 +174,27 @@ public class PreferencePageSignature extends PreferencePage implements IWorkbenc
     layout.numColumns = PreferenceConstants.SMALL_GROUP;
     signatureResourceGroup.setLayout(layout);
     signatureResourceGroup.setLayoutData(gd);
-    signatureResourceGroup.setText(Messages.signaturePrefsResource);
+    signatureResourceGroup.setText(Messages.resource);
 
     int indent = 0;
 
-    signDocument = addRadioButton(signatureResourceGroup, Messages.signaturePrefsResourceDocument,
+    signDocument = addRadioButton(signatureResourceGroup, Messages.document,
         PreferenceConstants.SIGN_RESOURCE, "document", indent);
     signDocument.addSelectionListener(selectionListener);
 
     signSelection = addRadioButton(signatureResourceGroup,
-        Messages.signaturePrefsResourceSelection, PreferenceConstants.SIGN_RESOURCE, "selection",
+        Messages.selection, PreferenceConstants.SIGN_RESOURCE, "selection",
         indent);
     signSelection.addSelectionListener(selectionListener);
 
-    signXPath = addRadioButton(signatureResourceGroup, Messages.signaturePrefsResourceXPath,
+    signXPath = addRadioButton(signatureResourceGroup, Messages.xpath,
         PreferenceConstants.SIGN_RESOURCE, "xpath", indent);
     signXPath.addSelectionListener(selectionListener);
 
     indent = convertWidthInCharsToPixels(4);
 
     signXPathLabel = new Label(signatureResourceGroup, SWT.NONE);
-    signXPathLabel.setText(Messages.signaturePrefsResourceXPathExpression);
+    signXPathLabel.setText(Messages.xpathExpression);
     signXPathLabel.setEnabled(signXPath.getSelection());
     signXPathText = addTextControl(signatureResourceGroup, signXPathLabel,
         PreferenceConstants.SIGN_XPATH, indent);
@@ -205,7 +205,7 @@ public class PreferencePageSignature extends PreferencePage implements IWorkbenc
     gd.horizontalSpan = PreferenceConstants.SMALL_GROUP;
 
     signatureType = new RadioGroupFieldEditor(PreferenceConstants.SIGN_TYPE,
-        Messages.signaturePrefsSignatureType, PreferenceConstants.SMALL_GROUP,
+        Messages.type, PreferenceConstants.SMALL_GROUP,
         PreferenceValues.SIGNATURE_TYPES, top, true);
     signatureType.setPage(this);
     signatureType.setPreferenceStore(this.getPreferenceStore());
@@ -220,7 +220,7 @@ public class PreferencePageSignature extends PreferencePage implements IWorkbenc
     layout.numColumns = PreferenceConstants.SMALL_GROUP;
     signatureAlgorithmsGroup.setLayout(layout);
     signatureAlgorithmsGroup.setLayoutData(gd);
-    signatureAlgorithmsGroup.setText(Messages.signaturePrefsAlgorithms);
+    signatureAlgorithmsGroup.setText(Messages.algorithms);
 
     indent = 0;
 
@@ -256,21 +256,21 @@ public class PreferencePageSignature extends PreferencePage implements IWorkbenc
     layout.numColumns = PreferenceConstants.LARGE_GROUP;
     keystoreGroup.setLayout(layout);
     keystoreGroup.setLayoutData(gd);
-    keystoreGroup.setText(Messages.signaturePrefsKeystore);
+    keystoreGroup.setText(Messages.keystoreAndKey);
 
     indent = 0;
 
     keystoreFile = new FileFieldEditor(PreferenceConstants.SIGN_KEYSTORE_FILE,
-        Messages.signaturePrefsKeystoreFile, keystoreGroup);
+        Messages.keystore, keystoreGroup);
     keystoreFile.setFileExtensions(Globals.KEY_STORE_EXTENSION);
-    keystoreFile.setChangeButtonText(Messages.signaturePrefsKeystoreFileSelect);
+    keystoreFile.setChangeButtonText(Messages.open);
     keystoreFile.setPage(this);
     keystoreFile.setPreferenceStore(this.getPreferenceStore());
     keystoreFile.load();
     keystoreFile.fillIntoGrid(keystoreGroup, PreferenceConstants.LARGE_GROUP);
 
     Label keyAliasLabel = new Label(keystoreGroup, SWT.NONE);
-    keyAliasLabel.setText(Messages.signaturePrefsKeyAlias);
+    keyAliasLabel.setText(Messages.key);
     keyAliasText = addTextControl(keystoreGroup, keyAliasLabel,
         PreferenceConstants.SIGN_KEY_ALIAS, indent);
     keyAliasText.addModifyListener(modifyListener);
@@ -283,12 +283,12 @@ public class PreferencePageSignature extends PreferencePage implements IWorkbenc
     layout.numColumns = PreferenceConstants.SMALL_GROUP;
     signatureIdGroup.setLayout(layout);
     signatureIdGroup.setLayoutData(gd);
-    signatureIdGroup.setText(Messages.signaturePrefsId);
+    signatureIdGroup.setText(Messages.id);
 
     indent = 0;
 
     Label signIdLabel = new Label(signatureIdGroup, SWT.NONE);
-    signIdLabel.setText(Messages.signaturePrefsSignatureId);
+    signIdLabel.setText(Messages.id);
     signIdText = addTextControl(signatureIdGroup, signIdLabel, PreferenceConstants.SIGN_ID, indent);
     signIdText.addModifyListener(modifyListener);
 

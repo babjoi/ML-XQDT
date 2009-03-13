@@ -37,7 +37,6 @@ import org.eclipse.wst.xml.security.core.utils.XmlSecurityConstants;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
-import org.xml.sax.InputSource;
 
 /**
  * <p>Encrypts the XML document (fragment) based on the user settings in the
@@ -54,13 +53,13 @@ public class CreateEncryption {
     /** The detached XML document to encrypt. */
     private Document detachedDoc = null;
     /** True encrypts only the element content, false encrypts everything (default). */
-    private boolean content;
+    private boolean encryptContentOnly;
     /** The encryption type. */
     private String encryptionType = null;
     /** The Java Keystore. */
     private Keystore keystore = null;
-    /** Document (fragment) to encrypt. */
-    private String encrypt = null;
+    /** The resource to encrypt. */
+    private String resource = null;
     /** XPath to encrypt (can be null). */
     private String expression = null;
     /** Optional encryption id. */
@@ -120,10 +119,10 @@ public class CreateEncryption {
     private void loadSettings(Encryption encryption, String selection) throws Exception {
         xmlFile = new File(encryption.getFile());
         encryptionType = encryption.getEncryptionType();
-        content = encryption.getContent();
+        encryptContentOnly = encryption.getContent();
         keystore = encryption.getKeystore();
         keyName = encryption.getKeyName();
-        encrypt = encryption.getResource();
+        resource = encryption.getResource();
         expression = encryption.getXpath();
         detachedFile = encryption.getFileDetached();
 
@@ -145,8 +144,8 @@ public class CreateEncryption {
      * document, selected element(s) or element content and an XPath expression to an element
      * to encrypt.</p>
      *
-     * <p>A <code>CipherValue</code> element is created inside the current XML document to
-     * contain the encrypted data.</p>
+     * <p>A <code>CipherValue</code> element is created inside the current XML document which
+     * contains the encrypted data.</p>
      *
      * @param file The XML document to encrypt
      * @param selection The text selection
@@ -178,24 +177,22 @@ public class CreateEncryption {
             encryptedData.setId(encryptionId);
         }
 
-        if ("document".equalsIgnoreCase(encrypt)) {
-            xmlCipher.doFinal(doc, root, content);
-        } else if ("selection".equalsIgnoreCase(encrypt)) {
+        if ("document".equalsIgnoreCase(resource)) {
+            xmlCipher.doFinal(doc, root, encryptContentOnly);
+        } else if ("selection".equalsIgnoreCase(resource)) {
             Document selectionDoc = Utils.parse(selection);
             String tempXPath = Utils.getUniqueXPathToNode(doc, selectionDoc);
             XPath xpath = XPathFactory.newInstance().newXPath();
             NamespaceContext ns = new SignatureNamespaceContext();
-            InputSource inputSource = new InputSource(new java.io.FileInputStream(file));
             xpath.setNamespaceContext(ns);
-            Element selectedElement = (Element) xpath.evaluate(tempXPath, inputSource, XPathConstants.NODE);
-            xmlCipher.doFinal(doc, selectedElement, content);
-        } else if ("xpath".equalsIgnoreCase(encrypt)) {
+            Element selectedElement = (Element) xpath.evaluate(tempXPath, doc, XPathConstants.NODE);
+            xmlCipher.doFinal(doc, selectedElement, encryptContentOnly);
+        } else if ("xpath".equalsIgnoreCase(resource)) {
             XPath xpath = XPathFactory.newInstance().newXPath();
             NamespaceContext ns = new SignatureNamespaceContext();
-            InputSource inputSource = new InputSource(new java.io.FileInputStream(file));
             xpath.setNamespaceContext(ns);
-            Element selectedElement = (Element) xpath.evaluate(expression, inputSource, XPathConstants.NODE);
-            xmlCipher.doFinal(doc, selectedElement, content);
+            Element selectedElement = (Element) xpath.evaluate(expression, doc, XPathConstants.NODE);
+            xmlCipher.doFinal(doc, selectedElement, encryptContentOnly);
         }
 
         return doc;
@@ -223,7 +220,7 @@ public class CreateEncryption {
         xmlCipher.init(XMLCipher.ENCRYPT_MODE, secretKey);
 
 
-        if ("document".equalsIgnoreCase(encrypt)) {
+        if ("document".equalsIgnoreCase(resource)) {
             // update the context XML document
             XMLCipher contextCipher = XMLCipher.getInstance();
 

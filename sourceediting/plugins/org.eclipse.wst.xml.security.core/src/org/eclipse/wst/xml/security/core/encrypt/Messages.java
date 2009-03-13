@@ -40,7 +40,7 @@ public final class Messages extends NLS {
             document, selection, xpath, browse, keepRootElementPlain, bspCompliant, enterXPath,
             xpathNoElement, xpathMultipleElements, xpathAttribute, xpathPopup, encryptionType,
             encryptionEnveloping, encryptionDetached, detachedFile, verifyDetachedFile, openKey,
-            createKey, createKeystoreAndKey, key, documentInvalid;
+            createKey, createKeystoreAndKey, key, keystoreAndKey, documentInvalid;
     /** PageOpenKey externalized strings. */
     public static String openKeyDescription, open, selectKeystoreFile,
             enterKeyName, echoPassword, verifyKeyPassword, enterKeyPassword,

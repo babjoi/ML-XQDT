@@ -168,7 +168,7 @@ public class PageResource extends WizardPage implements Listener {
 
         Group gKey = new Group(parent, SWT.SHADOW_ETCHED_IN);
         gKey.setLayout(layout);
-        gKey.setText(Messages.key);
+        gKey.setText(Messages.keystoreAndKey);
         data = new FormData();
         data.top = new FormAttachment(gType, Globals.MARGIN, SWT.DEFAULT);
         data.left = new FormAttachment(0, 0);

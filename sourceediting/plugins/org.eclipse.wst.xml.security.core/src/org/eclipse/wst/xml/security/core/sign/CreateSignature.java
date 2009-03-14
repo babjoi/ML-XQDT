@@ -37,9 +37,7 @@ import org.eclipse.wst.xml.security.core.utils.SignatureNamespaceContext;
 import org.eclipse.wst.xml.security.core.utils.Utils;
 import org.eclipse.wst.xml.security.core.utils.XmlSecurityConstants;
 import org.w3c.dom.Document;
-import org.w3c.dom.DocumentFragment;
 import org.w3c.dom.Element;
-import org.w3c.dom.Node;
 
 /**
  * <p>Creates the XML signature for the selected XML document (fragment) based
@@ -87,18 +85,18 @@ public class CreateSignature {
 
     /**
      * <p>Prepares the signing of the XML document (fragment) selected in an Eclipse view (like navigator or package
-     * explorer) or in an opened editor based on the user settings in the <i>XML Digital Signature Wizard</i> or the
+     * explorer) or in an opened editor based on the user settings in the <i>XML Signature Wizard</i> or the
      * workspace preferences.</p>
      *
      * <p>Loads the Java Keystore and prepares the private key for the signature process.</p>
      *
-     * @param signWizard SignWizard object with all settings from the wizard
+     * @param model Signature wizard model with all settings from the wizard
      * @param selection The selected text in the editor
      * @param monitor Progress monitor indicating the signing progress
      * @throws Exception to indicate any exceptional condition
      * @return The signed XML document
      */
-    public Document sign(Signature signWizard, ITextSelection selection, IProgressMonitor monitor)
+    public Document sign(Signature model, ITextSelection selection, IProgressMonitor monitor)
         throws Exception {
         Document signedDoc = null;
 
@@ -107,7 +105,7 @@ public class CreateSignature {
                 monitor = new NullProgressMonitor();
             }
 
-            loadSettings(signWizard, selection);
+            loadSettings(model, selection);
 
             monitor.worked(1);
 
@@ -198,7 +196,6 @@ public class CreateSignature {
      * reference to the signed XML document (detached document). The detached document won't be changed at all, only its
      * hash value will be calculated.</p>
      *
-     * @param keystore The Java Keystore with the certificate used for signing
      * @param privateKey The private key to create the digital signature
      * @param doc The context XML document which contains the signature
      * @return The signed XML document
@@ -235,7 +232,6 @@ public class CreateSignature {
      * <p>Creates an enveloped signature. Adds the signature element to the current root element, so the signed document
      * (fragment) surrounds the signature.</p>
      *
-     * @param keystore The Java Keystore with the certificate used for signing
      * @param privateKey The private key to create the digital signature
      * @param doc The XML document to sign
      * @return The signed XML document
@@ -307,89 +303,48 @@ public class CreateSignature {
         String objectId = root.getLocalName();
 
         if ("document".equalsIgnoreCase(resource)) {
+            // TODO insert line break before first element in object
             obj.appendChild(root);
             obj.setId(objectId);
 
-            // TODO insert line break after XML declaration and root element
+            // TODO insert line break after XML declaration (if one is there)
             doc.appendChild(sig.getElement());
         } else if ("selection".equalsIgnoreCase(resource)) {
             Document selectionDoc = Utils.parse(textSelection);
-            String selectionXpath = Utils.getUniqueXPathToNode(doc, selectionDoc);
+            String expression = Utils.getUniqueXPathToNode(doc, selectionDoc);
             XPath xpath = XPathFactory.newInstance().newXPath();
             NamespaceContext ns = new SignatureNamespaceContext();
             xpath.setNamespaceContext(ns);
-            Element selectedElement = (Element) xpath.evaluate(selectionXpath, doc, XPathConstants.NODE);
-            Node parentNode = null;
+            Element selectedElement = (Element) xpath.evaluate(expression, doc, XPathConstants.NODE);
+            objectId = selectedElement.getLocalName();
 
-            if (!doc.getDocumentElement().isSameNode(selectedElement)) {
-                parentNode = selectedElement.getParentNode();
-            }
-
-//            TransformerFactory tf = TransformerFactory.newInstance();
-//            Transformer tx = tf.newTransformer();
-//            StringWriter sw = new StringWriter();
-//            tx.transform(new DOMSource(selectionDoc), new StreamResult(sw));
-            objectId = selectionDoc.getDocumentElement().getNodeName();
-            String namespaceURI = root.getNamespaceURI();
-            String prefix = root.getPrefix();
-            DocumentFragment selectionFragment = importXML(doc, selectionDoc);
-
-            if (parentNode != null) {
-                // remove the selected node
-                parentNode.removeChild(selectedElement);
-                // TODO remove whitespace node
-            } else {
-                // remove root node with all children
-                doc.removeChild(doc.getDocumentElement());
-            }
-
-            Element anElement = doc.createElementNS(prefix, selectedElement.getNodeName());
-            if (namespaceURI != null && !"".equals(namespaceURI)) {
-                anElement.setPrefix(prefix);
-                anElement.setAttribute("xmlns:" + prefix, namespaceURI);
-            }
-
-            anElement.appendChild(selectionFragment);
-
-            obj.appendChild(anElement);
+            // TODO insert line break before first element in object
+            obj.appendChild(selectedElement);
             obj.setId(objectId);
 
-            if (parentNode != null) {
-                root.appendChild(doc.importNode(sig.getElement(), true));
+            if (!root.isSameNode(selectedElement)) {
+                // TODO insert line break before first element
+                root.appendChild(sig.getElement());
             } else {
+                // TODO insert line break after XML declaration (if one is there)
                 doc.appendChild(sig.getElement());
             }
         } else if ("xpath".equalsIgnoreCase(resource)) {
             XPath xpath = XPathFactory.newInstance().newXPath();
             NamespaceContext ns = new SignatureNamespaceContext();
             xpath.setNamespaceContext(ns);
-            Element node = (Element) xpath.evaluate(expression, doc, XPathConstants.NODE);
-            Node parentNode = null;
+            Element selectedElement = (Element) xpath.evaluate(expression, doc, XPathConstants.NODE);
+            objectId = selectedElement.getLocalName();
 
-            if (!doc.getDocumentElement().isSameNode(node)) {
-                parentNode = node.getParentNode();
-            }
-
-            objectId = node.getNodeName();
-
-            DocumentFragment documentFragment = doc.createDocumentFragment();
-            documentFragment.appendChild(node.cloneNode(true));
-
-            if (parentNode != null) {
-                // remove the selected node
-                parentNode.removeChild(node);
-                // TODO remove whitespace node
-            } else {
-                // remove root node with all children
-                doc.removeChild(doc.getDocumentElement());
-            }
-
-            obj.appendChild(documentFragment);
+            // TODO insert line break before first element in object
+            obj.appendChild(selectedElement);
             obj.setId(objectId);
 
-            if (parentNode != null) {
-                parentNode.appendChild(doc.importNode(sig.getElement(), true));
+            if (!root.isSameNode(selectedElement)) {
+                // TODO insert line break before first element
+                root.appendChild(sig.getElement());
             } else {
+                // TODO insert line break after XML declaration (if one is there)
                 doc.appendChild(sig.getElement());
             }
         }
@@ -458,7 +413,6 @@ public class CreateSignature {
      *
      * <p>Aborts the adding if the certificate expired or is not yet valid.</p>
      *
-     * @param keystore The Java Keystore with the certificate used for signing
      * @return Certificate successfully added
      * @throws Exception to indicate any exceptional condition
      */
@@ -481,25 +435,5 @@ public class CreateSignature {
         }
 
         return addedCertificate;
-    }
-
-    /**
-     * <p>Imports the nodes of the document fragment into the old one (context document) so that they will be compatible
-     * with it. Creates the document fragment node to hold the new nodes and moves the nodes into the fragment.</p>
-     *
-     * @param contextDoc The context XML document
-     * @param fragmentDoc The fragment to import into the context document
-     * @return The merged document fragment
-     * @throws Exception to indicate any exceptional condition
-     */
-    private DocumentFragment importXML(Document contextDoc, Document fragmentDoc) throws Exception {
-//        Document include = Utils.parse(fragmentDoc);
-        Node node = contextDoc.importNode(fragmentDoc.getDocumentElement(), true);
-        DocumentFragment documentFragment = contextDoc.createDocumentFragment();
-        while (node.hasChildNodes()) {
-            documentFragment.appendChild(node.removeChild(node.getFirstChild()));
-        }
-
-        return documentFragment;
     }
 }

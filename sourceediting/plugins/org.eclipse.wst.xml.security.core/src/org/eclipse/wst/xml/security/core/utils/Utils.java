@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2008 Dominik Schadow - http://www.xml-sicherheit.de
+ * Copyright (c) 2009 Dominik Schadow - http://www.xml-sicherheit.de
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -46,10 +46,9 @@ import org.w3c.dom.NodeList;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 
-
 /**
- * <p>This is the main utils class with different supporting methods used all over in the XML-Security
- * Plug-In.</p>
+ * <p>Main utility class with different supporting methods used all over
+ * the XML Security Tools.</p>
  *
  * @author Dominik Schadow
  * @version 0.5.0
@@ -61,7 +60,7 @@ public final class Utils {
     private static String xpathExpressionToContent = null;
 
     /**
-     * Utility class, no instance required.
+     * Utility class, no instance required since all methods are static.
      */
     private Utils() {
     }
@@ -77,8 +76,7 @@ public final class Utils {
      */
     public static Document parse(final IFile file) throws SAXException, IOException,
         ParserConfigurationException {
-        DocumentBuilder db = prepareDocumentBuilder();
-        return db.parse(file.getLocationURI().toString());
+        return prepareDocumentBuilder(true, false).parse(file.getLocationURI().toString());
     }
 
     /**
@@ -92,8 +90,7 @@ public final class Utils {
      */
     public static Document parse(final File file) throws SAXException, IOException,
         ParserConfigurationException {
-        DocumentBuilder db = prepareDocumentBuilder();
-        return db.parse(file);
+        return prepareDocumentBuilder(true, false).parse(file);
     }
 
     /**
@@ -107,8 +104,7 @@ public final class Utils {
      */
     public static Document parse(final byte[] content) throws SAXException, IOException,
         ParserConfigurationException {
-        DocumentBuilder db = prepareDocumentBuilder();
-        return db.parse(new ByteArrayInputStream(content));
+        return prepareDocumentBuilder(true, false).parse(new ByteArrayInputStream(content));
     }
 
     /**
@@ -122,8 +118,7 @@ public final class Utils {
      */
     public static Document parse(final InputStream content) throws SAXException, IOException,
         ParserConfigurationException {
-        DocumentBuilder db = prepareDocumentBuilder();
-        return db.parse(content);
+        return prepareDocumentBuilder(true, false).parse(content);
     }
 
     /**
@@ -139,11 +134,10 @@ public final class Utils {
      */
     public static Document parse(String content) throws SAXException, IOException,
         ParserConfigurationException {
-        DocumentBuilder db = prepareDocumentBuilder();
         if (!content.startsWith("<") && !content.endsWith(">")) {
             content = "<xmlsectempelement>" + content + "</xmlsectempelement>";
         }
-        return db.parse(new InputSource(new StringReader(content)));
+        return prepareDocumentBuilder(true, false).parse(new InputSource(new StringReader(content)));
     }
 
     /**
@@ -153,20 +147,23 @@ public final class Utils {
      * @throws ParserConfigurationException during document builder factory initialization
      */
     public static Document createDocument() throws ParserConfigurationException {
-        DocumentBuilder db = prepareDocumentBuilder();
-        return db.newDocument();
+        return prepareDocumentBuilder(true, false).newDocument();
     }
 
     /**
      * Prepares a <code>DocumentBuilder</code> to parse XML documents.
      *
+     * @param namespaceAware Is DocumentBuilderFactory namespace aware
+     * @param validating is DocumentBuilderFactory validating
      * @return The DocumentBuilder
      * @throws ParserConfigurationException during document builder factory initialization
      */
-    private static DocumentBuilder prepareDocumentBuilder() throws ParserConfigurationException {
+    private static DocumentBuilder prepareDocumentBuilder(boolean namespaceAware, boolean validating)
+        throws ParserConfigurationException {
         DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
-        dbf.setNamespaceAware(true);
-        dbf.setValidating(false);
+        dbf.setNamespaceAware(namespaceAware);
+        dbf.setValidating(validating);
+
         return dbf.newDocumentBuilder();
     }
 
@@ -532,6 +529,4 @@ public final class Utils {
                 message, ex);
         plugin.getLog().log(status);
     }
-
-
 }

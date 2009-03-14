@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2008 Dominik Schadow - http://www.xml-sicherheit.de
+ * Copyright (c) 2009 Dominik Schadow - http://www.xml-sicherheit.de
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -16,7 +16,7 @@ import java.util.ArrayList;
 import org.eclipse.wst.xml.security.core.utils.Keystore;
 
 /**
- * <p>Model for the <i>XML Digital Signature Wizard</i>.</p>
+ * <p>Model for the <i>XML Signature Wizard</i>.</p>
  *
  * @author Dominik Schadow
  * @version 0.5.0
@@ -40,8 +40,8 @@ public class Signature {
     private char[] keystorePassword;
     /** Key algorithm. */
     private String keyAlgorithm;
-    /** Key alias. */
-    private String keyAlias;
+    /** Key name. */
+    private String keyName;
     /** Key password. */
     private char[] keyPassword;
     /** Message Digest Algorithm. */
@@ -150,12 +150,12 @@ public class Signature {
     }
 
     /**
-     * Sets the key alias name.
+     * Sets the key name.
      *
-     * @param keyAlias The alias name for the key
+     * @param keyName The name of the key
      */
-    public void setKeyAlias(final String keyAlias) {
-        this.keyAlias = keyAlias;
+    public void setKeyName(final String keyName) {
+        this.keyName = keyName;
     }
 
     /**
@@ -276,9 +276,9 @@ public class Signature {
     }
 
     /**
-     * Returns the selected Java Keyytore.
+     * Returns the selected Java Keystore.
      *
-     * @return The selected Java Keyytore
+     * @return The selected Java Keystore
      */
     public Keystore getKeystore() {
         return keystore;
@@ -312,12 +312,12 @@ public class Signature {
     }
 
     /**
-     * Returns the key alias name.
+     * Returns the key name.
      *
-     * @return The key alias name
+     * @return The key name
      */
-    public String getKeyAlias() {
-        return keyAlias;
+    public String getKeyName() {
+        return keyName;
     }
 
     /**

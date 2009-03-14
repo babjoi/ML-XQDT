@@ -398,7 +398,7 @@ public class PageOpenKey extends WizardPage implements Listener {
         signature.setKeyAlgorithm(keyAlgorithm);
         signature.setKeystorePassword(tKeystorePassword.getText().toCharArray());
         signature.setKeyPassword(tKeyPassword.getText().toCharArray());
-        signature.setKeyAlias(tKeyName.getText());
+        signature.setKeyName(tKeyName.getText());
     }
 
     /**

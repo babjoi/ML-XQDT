@@ -671,7 +671,7 @@ public class PageCreateKeystore extends WizardPage implements Listener {
         signature.setKeystore(keystore);
         signature.setKeystorePassword(tKeystorePassword.getText().toCharArray());
         signature.setKeyPassword(tKeyPassword.getText().toCharArray());
-        signature.setKeyAlias(tKeyName.getText());
+        signature.setKeyName(tKeyName.getText());
         if (cKeyAlgorithm.getText().equals("DSA")) {
             signature.setKeyAlgorithm("SHA1withDSA");
         } else if (cKeyAlgorithm.getText().equals("EC")) {

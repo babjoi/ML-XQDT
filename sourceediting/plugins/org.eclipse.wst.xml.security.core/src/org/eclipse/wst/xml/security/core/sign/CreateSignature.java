@@ -11,7 +11,6 @@
 package org.eclipse.wst.xml.security.core.sign;
 
 import java.io.File;
-import java.io.StringWriter;
 import java.security.PrivateKey;
 import java.security.cert.CertificateExpiredException;
 import java.security.cert.CertificateNotYetValidException;
@@ -19,10 +18,6 @@ import java.security.cert.X509Certificate;
 import java.util.ArrayList;
 
 import javax.xml.namespace.NamespaceContext;
-import javax.xml.transform.Transformer;
-import javax.xml.transform.TransformerFactory;
-import javax.xml.transform.dom.DOMSource;
-import javax.xml.transform.stream.StreamResult;
 import javax.xml.xpath.XPath;
 import javax.xml.xpath.XPathConstants;
 import javax.xml.xpath.XPathFactory;
@@ -45,12 +40,10 @@ import org.w3c.dom.Document;
 import org.w3c.dom.DocumentFragment;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
-import org.xml.sax.InputSource;
-
 
 /**
- * <p>Creates the XML digital signature for the selected XML document (fragment) based
- * on the user settings in the <i>XML Digital Signature Wizard</i> or based on the stored
+ * <p>Creates the XML signature for the selected XML document (fragment) based
+ * on the user settings in the <i>XML Signature Wizard</i> or based on the stored
  * settings in the workspace preferences (<i>Quick Signature</i>).</p>
  *
  * @author Dominik Schadow
@@ -73,12 +66,10 @@ public class CreateSignature {
     private String signatureType = null;
     /** The Java Keystore. */
     private Keystore keystore = null;
-    /** The Java Keystore password. */
-    private char[] keystorePassword = null;
     /** The certificate password. */
-    private char[] privateKeyPassword = null;
+    private char[] keyPassword = null;
     /** The certificate alias. */
-    private String certificateAlias = null;
+    private String keyName = null;
     /** The optional signature ID. */
     private String signatureId = null;
     /** The message digest algorithm. */
@@ -125,7 +116,7 @@ public class CreateSignature {
             monitor.worked(1);
 
             // Get the private key for signing
-            PrivateKey privateKey = (PrivateKey) keystore.getPrivateKey(certificateAlias, privateKeyPassword);
+            PrivateKey privateKey = (PrivateKey) keystore.getPrivateKey(keyName, keyPassword);
 
             monitor.worked(1);
 
@@ -139,11 +130,11 @@ public class CreateSignature {
             monitor.worked(1);
 
             if ("enveloping".equalsIgnoreCase(signatureType)) {
-                signedDoc = envelopingSignature(privateKey, xmlFile);
+                signedDoc = createEnvelopingSignature(privateKey, doc);
             } else if ("enveloped".equalsIgnoreCase(signatureType)) {
-                signedDoc = envelopedSignature(privateKey, doc);
+                signedDoc = createEnvelopedSignature(privateKey, doc);
             } else if ("detached".equalsIgnoreCase(signatureType)) {
-                signedDoc = detachedSignature(privateKey, doc);
+                signedDoc = createDetachedSignature(privateKey, doc);
             }
         } catch (Exception ex) {
             throw ex;
@@ -184,9 +175,8 @@ public class CreateSignature {
         }
 
         keystore = signature.getKeystore();
-        keystorePassword = signature.getKeystorePassword();
-        privateKeyPassword = signature.getKeyPassword();
-        certificateAlias = signature.getKeyAlias();
+        keyPassword = signature.getKeyPassword();
+        keyName = signature.getKeyName();
 
         if (signature.getSignatureProperties() != null) {
             properties = signature.getSignatureProperties();
@@ -214,7 +204,7 @@ public class CreateSignature {
      * @return The signed XML document
      * @throws Exception to indicate any exceptional condition
      */
-    private Document detachedSignature(PrivateKey privateKey, Document doc) throws Exception {
+    private Document createDetachedSignature(PrivateKey privateKey, Document doc) throws Exception {
         Element root = doc.getDocumentElement();
         Transforms transforms = null;
         root.appendChild(sig.getElement());
@@ -251,7 +241,7 @@ public class CreateSignature {
      * @return The signed XML document
      * @throws Exception to indicate any exceptional condition
      */
-    private Document envelopedSignature(PrivateKey privateKey, Document doc) throws Exception {
+    private Document createEnvelopedSignature(PrivateKey privateKey, Document doc) throws Exception {
         Element root = doc.getDocumentElement();
 
         if ("document".equalsIgnoreCase(resource)) {
@@ -306,98 +296,74 @@ public class CreateSignature {
      * and stores it inside the <code>object</code> element in the XML digital signature. The nodes name is used
      * as id for the <code>object</code> element.</p>
      *
-     * @param keystore The Java Keystore with the certificate used for signing
      * @param privateKey The private key to create the digital signature
-     * @param file The XML document to sign
+     * @param doc The XML document to sign
      * @return The signed XML document
      * @throws Exception to indicate any exceptional condition
      */
-    private Document envelopingSignature(PrivateKey privateKey, File file) throws Exception {
-        Document doc = Utils.parse(file);
+    private Document createEnvelopingSignature(PrivateKey privateKey, Document doc) throws Exception {
         Element root = doc.getDocumentElement();
         ObjectContainer obj = new ObjectContainer(doc);
-        String objectId = "";
+        String objectId = root.getLocalName();
 
         if ("document".equalsIgnoreCase(resource)) {
-            TransformerFactory transformerFactory = TransformerFactory.newInstance();
-            Transformer transformer = transformerFactory.newTransformer();
-            StringWriter stringWriter = new StringWriter();
-            transformer.transform(new DOMSource(doc), new StreamResult(stringWriter));
-            objectId = root.getNodeName();
-            String namespaceURI = root.getNamespaceURI();
-            String prefix = root.getPrefix();
-            DocumentFragment documentFragment = parseXml(doc, stringWriter.toString());
-
-            // remove root node with all children
-            doc.removeChild(doc.getDocumentElement());
-
-            Element anElement = doc.createElementNS(prefix, objectId);
-
-            if (namespaceURI != null && !"".equals(namespaceURI)) {
-                anElement.setPrefix(prefix);
-                anElement.setAttribute("xmlns:" + prefix, namespaceURI);
-            }
-
-            anElement.appendChild(documentFragment);
-
-            obj.appendChild(anElement);
+            obj.appendChild(root);
             obj.setId(objectId);
 
+            // TODO insert line break after XML declaration and root element
             doc.appendChild(sig.getElement());
         } else if ("selection".equalsIgnoreCase(resource)) {
             Document selectionDoc = Utils.parse(textSelection);
             String selectionXpath = Utils.getUniqueXPathToNode(doc, selectionDoc);
             XPath xpath = XPathFactory.newInstance().newXPath();
             NamespaceContext ns = new SignatureNamespaceContext();
-            InputSource inputSource = new InputSource(new java.io.FileInputStream(file));
             xpath.setNamespaceContext(ns);
-            Element node = (Element) xpath.evaluate(selectionXpath, inputSource, XPathConstants.NODE);
+            Element selectedElement = (Element) xpath.evaluate(selectionXpath, doc, XPathConstants.NODE);
             Node parentNode = null;
 
-            if (!doc.getDocumentElement().isSameNode(node)) {
-                parentNode = node.getParentNode();
+            if (!doc.getDocumentElement().isSameNode(selectedElement)) {
+                parentNode = selectedElement.getParentNode();
             }
 
-            TransformerFactory tf = TransformerFactory.newInstance();
-            Transformer tx = tf.newTransformer();
-            StringWriter sw = new StringWriter();
-            tx.transform(new DOMSource(selectionDoc), new StreamResult(sw));
+//            TransformerFactory tf = TransformerFactory.newInstance();
+//            Transformer tx = tf.newTransformer();
+//            StringWriter sw = new StringWriter();
+//            tx.transform(new DOMSource(selectionDoc), new StreamResult(sw));
             objectId = selectionDoc.getDocumentElement().getNodeName();
             String namespaceURI = root.getNamespaceURI();
             String prefix = root.getPrefix();
-            DocumentFragment documentFragment = parseXml(doc, sw.toString());
+            DocumentFragment selectionFragment = importXML(doc, selectionDoc);
 
             if (parentNode != null) {
                 // remove the selected node
-                parentNode.removeChild(node);
+                parentNode.removeChild(selectedElement);
                 // TODO remove whitespace node
             } else {
                 // remove root node with all children
                 doc.removeChild(doc.getDocumentElement());
             }
 
-            Element anElement = doc.createElementNS(prefix, node.getNodeName());
+            Element anElement = doc.createElementNS(prefix, selectedElement.getNodeName());
             if (namespaceURI != null && !"".equals(namespaceURI)) {
                 anElement.setPrefix(prefix);
                 anElement.setAttribute("xmlns:" + prefix, namespaceURI);
             }
 
-            anElement.appendChild(documentFragment);
+            anElement.appendChild(selectionFragment);
 
             obj.appendChild(anElement);
             obj.setId(objectId);
 
             if (parentNode != null) {
-                root.appendChild(sig.getElement());
+                root.appendChild(doc.importNode(sig.getElement(), true));
             } else {
                 doc.appendChild(sig.getElement());
             }
         } else if ("xpath".equalsIgnoreCase(resource)) {
             XPath xpath = XPathFactory.newInstance().newXPath();
             NamespaceContext ns = new SignatureNamespaceContext();
-            InputSource inputSource = new InputSource(new java.io.FileInputStream(file));
             xpath.setNamespaceContext(ns);
-            Element node = (Element) xpath.evaluate(expression, inputSource, XPathConstants.NODE);
+            Element node = (Element) xpath.evaluate(expression, doc, XPathConstants.NODE);
             Node parentNode = null;
 
             if (!doc.getDocumentElement().isSameNode(node)) {
@@ -422,7 +388,7 @@ public class CreateSignature {
             obj.setId(objectId);
 
             if (parentNode != null) {
-                parentNode.appendChild(sig.getElement());
+                parentNode.appendChild(doc.importNode(sig.getElement(), true));
             } else {
                 doc.appendChild(sig.getElement());
             }
@@ -498,7 +464,7 @@ public class CreateSignature {
      */
     private boolean addCertificate() throws Exception {
         boolean addedCertificate = false;
-        X509Certificate cert = (X509Certificate) keystore.getCertificate(certificateAlias);
+        X509Certificate cert = (X509Certificate) keystore.getCertificate(keyName);
 
         if (cert != null) {
             try {
@@ -521,15 +487,15 @@ public class CreateSignature {
      * <p>Imports the nodes of the document fragment into the old one (context document) so that they will be compatible
      * with it. Creates the document fragment node to hold the new nodes and moves the nodes into the fragment.</p>
      *
-     * @param doc The context XML document
-     * @param fragment The fragment to import into the context document
+     * @param contextDoc The context XML document
+     * @param fragmentDoc The fragment to import into the context document
      * @return The merged document fragment
      * @throws Exception to indicate any exceptional condition
      */
-    private DocumentFragment parseXml(Document doc, String fragment) throws Exception {
-        Document include = Utils.parse(fragment);
-        Node node = doc.importNode(include.getDocumentElement(), true);
-        DocumentFragment documentFragment = doc.createDocumentFragment();
+    private DocumentFragment importXML(Document contextDoc, Document fragmentDoc) throws Exception {
+//        Document include = Utils.parse(fragmentDoc);
+        Node node = contextDoc.importNode(fragmentDoc.getDocumentElement(), true);
+        DocumentFragment documentFragment = contextDoc.createDocumentFragment();
         while (node.hasChildNodes()) {
             documentFragment.appendChild(node.removeChild(node.getFirstChild()));
         }

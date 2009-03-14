@@ -180,7 +180,7 @@ public class SignQuickAction extends XmlSecurityActionAdapter {
         signatureWizard.setSignatureType(signatureType);
         signatureWizard.setBsp(false);
         signatureWizard.setKeystore(keystore);
-        signatureWizard.setKeyAlias(keyName);
+        signatureWizard.setKeyName(keyName);
         signatureWizard.setKeystorePassword(keystorePassword);
         signatureWizard.setKeyPassword(keyPassword);
         signatureWizard.setCanonicalizationAlgorithm(canonicalizationAlgorithm);

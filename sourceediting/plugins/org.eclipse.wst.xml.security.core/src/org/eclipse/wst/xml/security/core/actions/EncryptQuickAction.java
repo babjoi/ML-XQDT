@@ -76,7 +76,7 @@ public class EncryptQuickAction extends XmlSecurityActionAdapter {
     private String encryptionId;
     /** All necessary preferences are available. */
     private boolean completePrefs = false;
-    /** Error message for the logfile. */
+    /** Error message for the log file. */
     private static final String ERROR_TEXT = "An error occured during quick encryption"; //$NON-NLS-1$
     /** Action type. */
     private static final String ACTION = "encrypt";
@@ -179,7 +179,7 @@ public class EncryptQuickAction extends XmlSecurityActionAdapter {
         keyFile = store.getString(PreferenceConstants.ENCRYPT_KEY_STORE);
         encryptionId = store.getString(PreferenceConstants.ENCRYPT_ID);
 
-        if (resource != null && resource.equals("xpath")) {
+        if (resource != null && "xpath".equals(resource)) {
             xpath = store.getString(PreferenceConstants.ENCRYPT_XPATH);
         }
     }
@@ -232,7 +232,7 @@ public class EncryptQuickAction extends XmlSecurityActionAdapter {
                             CreateEncryption content = new CreateEncryption();
                             Document doc = null;
 
-                            if (resource.equals("selection")) {
+                            if ("selection".equals(resource)) {
                                 ITextSelection textSelection = (ITextSelection) editor.getSelectionProvider().getSelection();
 
                                 if (textSelection != null && !textSelection.isEmpty()
@@ -278,7 +278,7 @@ public class EncryptQuickAction extends XmlSecurityActionAdapter {
             }
         } else if (file != null && file.isAccessible() && !file.isReadOnly()) { // call in view
             IProject project = file.getProject();
-            if (resource.equals("selection")) { //$NON-NLS-1$
+            if ("selection".equals(resource)) { //$NON-NLS-1$
                 showInfo(Messages.quickEncryptionImpossible, Messages.quickEncryptionImpossibleText);
             } else {
                 final String filename = file.getLocation().toString();
@@ -338,14 +338,14 @@ public class EncryptQuickAction extends XmlSecurityActionAdapter {
         final String prefId = "org.eclipse.wst.xml.security.core.preferences.Encryption";
         int result = 2;
 
-        if (resource == null || resource.equals("")) { //$NON-NLS-1$
+        if (resource == null || "".equals(resource)) { //$NON-NLS-1$
             result = showMissingParameterDialog(Messages.quickEncryptionTitle, NLS.bind(Messages.missingParameter,
                     Messages.missingResource), prefId);
-        } else if (resource != null && resource.equals("xpath") //$NON-NLS-2$
+        } else if (resource != null && "xpath".equals(resource) //$NON-NLS-2$
                 && (xpath == null || xpath.equals(""))) { //$NON-NLS-1$
             result = showMissingParameterDialog(Messages.quickEncryptionTitle, NLS.bind(Messages.missingParameter,
                     Messages.missingXPathExpression), prefId);
-        } else if (keyFile == null || keyFile.equals("")) {
+        } else if (keyFile == null || "".equals(keyFile)) {
             result = showMissingParameterDialog(Messages.quickEncryptionTitle, NLS.bind(Messages.missingParameter,
                     Messages.missingKeystore), prefId);
         } else {

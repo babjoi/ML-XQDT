@@ -60,7 +60,7 @@ public class CreateSignatureTest extends TestCase {
         signature.setBsp(false);
         signature.setLaunchEncryptionWizard(false);
         signature.setCanonicalizationAlgorithm("Exclusive with comments");
-        signature.setKeyAlias(KEY_ALIAS);
+        signature.setKeyName(KEY_ALIAS);
         signature.setKeyPassword(KEY_PASSWORD.toCharArray());
         signature.setDetachedFile(null);
         signature.setFile(XMLSecurityToolsTestPlugin.getTestFileLocation("resources/FirstSteps.xml"));

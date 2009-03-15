@@ -36,6 +36,7 @@ import org.eclipse.wst.xml.security.core.XmlSecurityPlugin;
 import org.eclipse.wst.xml.security.core.preferences.PreferenceConstants;
 import org.eclipse.wst.xml.security.core.sign.CreateSignature;
 import org.eclipse.wst.xml.security.core.sign.Signature;
+import org.eclipse.wst.xml.security.core.utils.Globals;
 import org.eclipse.wst.xml.security.core.utils.Keystore;
 import org.eclipse.wst.xml.security.core.utils.PasswordDialog;
 import org.eclipse.wst.xml.security.core.utils.Utils;
@@ -44,7 +45,7 @@ import org.xml.sax.SAXParseException;
 
 /**
  * <p>Action class used to create an <b>XML Signature</b> of the selected XML document (fragment) with
- * predefined settings defined in the preferences of the current workspace (Quick Signature).</p>
+ * predefined settings defined in the preferences of the current workspace (<b>Quick Signature</b>).</p>
  *
  * @author Dominik Schadow
  * @version 0.5.0
@@ -62,6 +63,8 @@ public class SignQuickAction extends XmlSecurityActionAdapter {
     private String signatureType;
     /** Keystore. */
     private Keystore keystore;
+    /** Keystore path and filename. */
+    private String keyFile;
     /** Keystore password. */
     private char[] keystorePassword;
     /** Key name. */
@@ -77,10 +80,10 @@ public class SignQuickAction extends XmlSecurityActionAdapter {
     /** Signature algorithm. */
     private String signatureAlgorithm;
     /** Signature ID. */
-    private String signatureID;
+    private String signatureId;
     /** All necessary preferences are available. */
     private boolean completePrefs = false;
-    /** Error message for the logfile. */
+    /** Error message for the log file. */
     private static final String ERROR_TEXT = "An error occured during quick signing"; //$NON-NLS-1$
     /** Action type. */
     private static final String ACTION = "sign";
@@ -130,7 +133,11 @@ public class SignQuickAction extends XmlSecurityActionAdapter {
 
             if (checkPasswords()) {
                 try {
-                    quickSign();
+                    if (loadKeystore()) {
+                        quickSign();
+                    } else {
+                        showError(Messages.error, Messages.failedLoadingKeystore);
+                    }
                 } catch (SAXParseException spe) {
                     showError(Messages.parsingError, Messages.parsingErrorText
                             + spe.getLocalizedMessage());
@@ -147,6 +154,33 @@ public class SignQuickAction extends XmlSecurityActionAdapter {
     }
 
     /**
+     * Loads the entered key in the selected keystore.
+     *
+     * @return Keystore/ key information correct or not
+     *
+     * @throws Exception to indicate any exceptional condition
+     */
+    private boolean loadKeystore() throws Exception {
+        try {
+            keystore = new Keystore(keyFile, keystorePassword.toString(), Globals.KEYSTORE_TYPE);
+            keystore.load();
+
+            if (!keystore.containsKey(keyName)) {
+                return false;
+            }
+
+            if (keystore.getPrivateKey(keyName, keyPassword) == null) {
+                return false;
+            }
+
+            return true;
+        } catch (Exception ex) {
+            log(ERROR_TEXT, ex);
+            return false;
+        }
+    }
+
+    /**
      * Determines the preference values for <i>Quick Signature</i>.
      */
     private void getPreferenceValues() {
@@ -158,14 +192,13 @@ public class SignQuickAction extends XmlSecurityActionAdapter {
         }
 
         signatureType = store.getString(PreferenceConstants.SIGN_TYPE);
-        // FIXME
-        keystore = null;//store.getString(PreferenceConstants.SIGN_KEYSTORE_FILE);
+        keyFile = store.getString(PreferenceConstants.SIGN_KEYSTORE_FILE);
         keyName = store.getString(PreferenceConstants.SIGN_KEY_ALIAS);
         canonicalizationAlgorithm = store.getString(PreferenceConstants.SIGN_CANON);
         transformationAlgorithm = store.getString(PreferenceConstants.SIGN_TRANS);
         messageDigestAlgorithm = store.getString(PreferenceConstants.SIGN_MDA);
         signatureAlgorithm = store.getString(PreferenceConstants.SIGN_SA);
-        signatureID = store.getString(PreferenceConstants.SIGN_ID);
+        signatureId = store.getString(PreferenceConstants.SIGN_ID);
     }
 
     /**
@@ -187,7 +220,7 @@ public class SignQuickAction extends XmlSecurityActionAdapter {
         signatureWizard.setTransformationAlgorithm(transformationAlgorithm);
         signatureWizard.setMessageDigestAlgorithm(messageDigestAlgorithm);
         signatureWizard.setSignatureAlgorithm(signatureAlgorithm);
-        signatureWizard.setSignatureId(signatureID);
+        signatureWizard.setSignatureId(signatureId);
 
         IWorkbenchPart workbenchPart = getWorkbenchPart();
 
@@ -210,12 +243,12 @@ public class SignQuickAction extends XmlSecurityActionAdapter {
             final ITextSelection textSelection = (ITextSelection) editor.getSelectionProvider()
                     .getSelection();
 
-            if (resource.equals("selection") && textSelection != null && !textSelection.isEmpty()
+            if ("selection".equals(resource) && textSelection != null && !textSelection.isEmpty()
                     && textSelection.getLength() > 0 && file != null) {
                 validSelection = parseSelection(textSelection.getText());
             }
 
-            if (file != null && resource.equals("selection") && validSelection) { // with text selection
+            if (file != null && validSelection) { // with text selection
                 signatureWizard.setFile(file.getLocation().toString());
                 IRunnableWithProgress op = new IRunnableWithProgress() {
                     public void run(final IProgressMonitor monitor) {
@@ -248,7 +281,7 @@ public class SignQuickAction extends XmlSecurityActionAdapter {
                 } catch (InterruptedException ie) {
                     log(ERROR_TEXT, ie);
                 }
-            } else if (file != null && !resource.equals("selection")) { // without text selection
+            } else if (file != null && !"selection".equals(resource)) { // without text selection
                 signatureWizard.setFile(file.getLocation().toString());
                 IRunnableWithProgress op = new IRunnableWithProgress() {
                     public void run(final IProgressMonitor monitor) {
@@ -281,14 +314,14 @@ public class SignQuickAction extends XmlSecurityActionAdapter {
                 } catch (InterruptedException ie) {
                     log(ERROR_TEXT, ie);
                 }
-            } else if (resource.equals("selection") && !validSelection) { //$NON-NLS-1$
+            } else if ("selection".equals(resource) && !validSelection) { //$NON-NLS-1$
                 showInfo(Messages.invalidTextSelection, Messages.invalidTextSelectionText);
             } else {
                 showInfo(Messages.quickSignatureImpossible, NLS.bind(Messages.protectedDoc, ACTION));
             }
         } else if (file != null && file.isAccessible() && !file.isReadOnly()) { // call in view
             IProject project = file.getProject();
-            if (resource.equals("selection")) { //$NON-NLS-1$
+            if ("selection".equals(resource)) { //$NON-NLS-1$
                 showInfo(Messages.quickSignatureImpossible, Messages.quickSignatureImpossibleText);
             } else {
                 final String filename = file.getLocation().toString();
@@ -346,34 +379,34 @@ public class SignQuickAction extends XmlSecurityActionAdapter {
         final String prefId = "org.eclipse.wst.xml.security.core.preferences.Signatures";
         int result = 2;
 
-        if (resource == null || resource.equals("")) {
+        if (resource == null || "".equals(resource)) {
             result = showMissingParameterDialog(title, NLS.bind(Messages.missingParameter,
                     Messages.missingResource), prefId);
-        } else if (resource != null && resource.equals("xpath") && (xpath == null || xpath.equals(""))) {
+        } else if (resource != null && "xpath".equals(resource) && (xpath == null || "".equals(xpath))) {
             result = showMissingParameterDialog(title, NLS.bind(Messages.missingParameter,
                     Messages.missingXPathExpression), prefId);
-        } else if (signatureType == null || signatureType.equals("")) {
+        } else if (signatureType == null || "".equals(signatureType)) {
             result = showMissingParameterDialog(title, NLS.bind(Messages.missingParameter,
                     Messages.missingSignatureType), prefId);
-        } else if (keystore == null) {
+        } else if (keyFile == null || "".equals(keyFile)) {
             result = showMissingParameterDialog(title, NLS.bind(Messages.missingParameter,
                     Messages.missingKeystoreFile), prefId);
-        } else if (keyName == null || keyName.equals("")) {
+        } else if (keyName == null || "".equals(keyName)) {
             result = showMissingParameterDialog(title, NLS.bind(Messages.missingParameter,
                     Messages.missingKeyName), prefId);
-        } else if (canonicalizationAlgorithm == null || canonicalizationAlgorithm.equals("")) {
+        } else if (canonicalizationAlgorithm == null || "".equals(canonicalizationAlgorithm)) {
             result = showMissingParameterDialog(title, NLS.bind(Messages.missingParameter,
                     Messages.missingCanonicalizationAlgorithm), prefId);
-        } else if (transformationAlgorithm != null && transformationAlgorithm.equals("")) {
+        } else if (transformationAlgorithm != null && "".equals(transformationAlgorithm)) {
             result = showMissingParameterDialog(title, NLS.bind(Messages.missingParameter,
                     Messages.missingTransformationAlgorithm), prefId);
-        } else if (messageDigestAlgorithm == null || messageDigestAlgorithm.equals("")) {
+        } else if (messageDigestAlgorithm == null || "".equals(messageDigestAlgorithm)) {
             result = showMissingParameterDialog(title, NLS.bind(Messages.missingParameter,
                     Messages.missingMDAlgorithm), prefId);
-        } else if (signatureAlgorithm == null || signatureAlgorithm.equals("")) {
+        } else if (signatureAlgorithm == null || "".equals(signatureAlgorithm)) {
             result = showMissingParameterDialog(title, NLS.bind(Messages.missingParameter,
                     Messages.missingSignatureAlgorithm), prefId);
-        } else if (signatureID == null || signatureID.equals("")) {
+        } else if (signatureId == null || "".equals(signatureId)) {
             result = showMissingParameterDialog(title, NLS.bind(Messages.missingParameter,
                     Messages.missingSignatureId), prefId);
         } else {
@@ -390,9 +423,9 @@ public class SignQuickAction extends XmlSecurityActionAdapter {
     }
 
     /**
-     * Checks the entered passwords for the Keystore and private key.
+     * Checks the entered passwords for the keystore and private key.
      *
-     * @return Password is OK or not
+     * @return Both passwords are OK
      */
     private boolean checkPasswords() {
         if (keystorePassword == null || keystorePassword.length == 0) {

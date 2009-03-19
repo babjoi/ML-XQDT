@@ -209,8 +209,8 @@ public class PageCreateKeystore extends WizardPage implements Listener {
         lKeyAlgorithm.setLayoutData(data);
 
         cKeyAlgorithm = new Combo(gKey, SWT.READ_ONLY);
-        cKeyAlgorithm.setItems(Algorithms.KEY_FILE_ALOGRITHMS);
-        cKeyAlgorithm.setText(Algorithms.KEY_FILE_ALOGRITHMS[0]);
+        cKeyAlgorithm.setItems(Algorithms.ENCRYPTION_KEY_ALOGRITHMS);
+        cKeyAlgorithm.setText(Algorithms.ENCRYPTION_KEY_ALOGRITHMS[0]);
         data = new FormData();
         data.top = new FormAttachment(lKeyAlgorithm, 0, SWT.CENTER);
         data.left = new FormAttachment(lKeyAlgorithm);
@@ -400,8 +400,8 @@ public class PageCreateKeystore extends WizardPage implements Listener {
                 cKeyAlgorithmSize.setItems(Algorithms.KEY_SIZES_DESEDE);
                 cKeyAlgorithmSize.setText(Algorithms.KEY_SIZES_DESEDE[0]);
             } else {
-                cKeyAlgorithmSize.setItems(Algorithms.KEY_FILE_ALGORITHMS_SIZES);
-                cKeyAlgorithmSize.setText(Algorithms.KEY_FILE_ALGORITHMS_SIZES[0]);
+                cKeyAlgorithmSize.setItems(Algorithms.ENCRYPTION_KEY_ALGORITHMS_SIZES);
+                cKeyAlgorithmSize.setText(Algorithms.ENCRYPTION_KEY_ALGORITHMS_SIZES[0]);
             }
         }
     }

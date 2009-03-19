@@ -13,9 +13,10 @@ package org.eclipse.wst.xml.security.core.sign;
 import java.io.File;
 import java.security.KeyPair;
 import java.security.NoSuchAlgorithmException;
+import java.security.cert.Certificate;
 import java.util.HashMap;
 
-import java.security.cert.Certificate;
+import javax.security.auth.x500.X500Principal;
 
 import org.eclipse.jface.dialogs.DialogPage;
 import org.eclipse.jface.wizard.IWizardPage;
@@ -608,14 +609,16 @@ public class PageCreateKeystore extends WizardPage implements Listener {
         try {
             keystore = new Keystore(keystorePath, tKeystorePassword.getText(), Globals.KEYSTORE_TYPE);
 
-            KeyPair kp = keystore.generateKeyPair(cKeyAlgorithm.getText(), 512);
-
-            XmlSecurityCertificate certificate = new XmlSecurityCertificate();
-
             keystore.store();
             keystore.load();
 
-            generated = keystore.insertPrivateKey(tKeyName.getText(), tKeyPassword.getText().toCharArray(), kp.getPrivate(), new Certificate[] {certificate});
+            KeyPair kp = keystore.generateKeyPair(cKeyAlgorithm.getText(), 512);
+            X500Principal subjectDN = Keystore.generatePrincipal(certificateData);
+
+            Certificate[] certs = new Certificate[1];
+            certs[0] = new XmlSecurityCertificate(kp.getPublic(), subjectDN);
+
+            generated = keystore.insertPrivateKey(tKeyName.getText(), tKeyPassword.getText().toCharArray(), kp.getPrivate(), certs);
 
             keystore.store();
         } catch (NoSuchAlgorithmException ex) {
@@ -643,10 +646,10 @@ public class PageCreateKeystore extends WizardPage implements Listener {
      */
     public void onEnterPage() {
         if (signature.getBsp()) { // BSP selected
-            cKeyAlgorithm.setItems(Algorithms.CERTIFICATE_ALGORITHMS_RSA);
+            cKeyAlgorithm.setItems(Algorithms.SIGNATURE_KEY_ALGORITHMS_BSP);
             cKeyAlgorithm.select(0);
         } else { // BSP not selected
-            cKeyAlgorithm.setItems(Algorithms.CERTIFICATE_ALGORITHMS);
+            cKeyAlgorithm.setItems(Algorithms.SIGNATURE_KEY_ALGORITHMS);
             cKeyAlgorithm.select(0);
         }
         setMessage(null);

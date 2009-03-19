@@ -23,15 +23,18 @@ import java.security.KeyStore.PasswordProtection;
 import java.security.KeyStore.PrivateKeyEntry;
 import java.security.KeyStore.SecretKeyEntry;
 import java.security.cert.Certificate;
+import java.util.HashMap;
 
 import javax.crypto.KeyGenerator;
 import javax.crypto.SecretKey;
+import javax.security.auth.x500.X500Principal;
 
 /**
  * <p>Manages the Java KeyStores (jks files). The generated Java KeyStores as well as the public and
  * private keys are standard compliant and can be used with other tools too. Newly generated
- * public keys are stored in their certificate. The default <b>JKS</b> keystore can only store
- * private key and certificate entries. A <b>JCEKS</b> keystore can also store secret key entries.</p>
+ * public keys are stored together with their certificate (chains). The default <b>JKS</b> keystore
+ * can only store private key and certificate entries. A <b>JCEKS</b> keystore can also store secret
+ * key entries.</p>
  *
  * <p>The keystore file and, optionally (but recommended), their included entries, are password
  * protected.</p>
@@ -64,6 +67,25 @@ public class Keystore {
         keystore = KeyStore.getInstance(type);
 
         keystore.load(null, this.password);
+    }
+
+    public static X500Principal generatePrincipal(HashMap<String, String> certificateData) {
+        String data = "";
+
+        for (String key : certificateData.keySet()) {
+            String value = certificateData.get(key);
+
+            if (!"".equals(value)) {
+                data += key + "=" + value + ", ";
+            }
+        }
+
+        if (data.endsWith(", ")) {
+            data = data.substring(0, data.length() - 2);
+        }
+
+        return new X500Principal(data);
+
     }
 
     /**
@@ -110,7 +132,7 @@ public class Keystore {
     }
 
     /**
-     * Generates a new certificate with the given parameters and stores it in the
+     * Inserts the given certificate with the given alias name and stores it in the
      * selected Java KeyStore.
      *
      * @param alias The certificate key alias (must be unique in the keystore)
@@ -118,7 +140,7 @@ public class Keystore {
      * @return Certificate generation result
      * @throws Exception General exception during certificate generation
      */
-    public boolean generateCertificate(String alias, Certificate cert) throws Exception {
+    public boolean insertCertificate(String alias, Certificate cert) throws Exception {
         int sizeBefore = keystore.size();
 
         if (!keystore.containsAlias(alias)) {
@@ -237,7 +259,8 @@ public class Keystore {
             if (!keystore.containsAlias(alias)) {
                 int sizeBefore = keystore.size();
 
-                keystore.setKeyEntry(alias, key, password, chain);
+                KeyStore.PrivateKeyEntry pkEntry = new KeyStore.PrivateKeyEntry(key, chain);
+                keystore.setEntry(alias, pkEntry, new PasswordProtection(password));
 
                 int sizeAfter = keystore.size();
 

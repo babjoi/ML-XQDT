@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2008 Dominik Schadow - http://www.xml-sicherheit.de
+ * Copyright (c) 2009 Dominik Schadow - http://www.xml-sicherheit.de
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -10,14 +10,23 @@
  *******************************************************************************/
 package org.eclipse.wst.xml.security.core.utils;
 
+import java.math.BigInteger;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
 import java.security.NoSuchProviderException;
+import java.security.Principal;
 import java.security.PublicKey;
 import java.security.SignatureException;
-import java.security.cert.Certificate;
 import java.security.cert.CertificateEncodingException;
 import java.security.cert.CertificateException;
+import java.security.cert.CertificateExpiredException;
+import java.security.cert.CertificateNotYetValidException;
+import java.security.cert.X509Certificate;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.Set;
+
+import javax.security.auth.x500.X500Principal;
 
 /**
  * <p>Generates a new X.509 certificate. This certificate may be stored in a Java KeyStore.</p>
@@ -25,34 +34,130 @@ import java.security.cert.CertificateException;
  * @author Dominik Schadow
  * @version 0.5.0
  */
-public class XmlSecurityCertificate extends Certificate {
-    public XmlSecurityCertificate(String type) {
-        super(type);
-    }
+public class XmlSecurityCertificate extends X509Certificate {
+    private PublicKey publicKey = null;
+    private X500Principal subjectDN = null;
 
-    /**
-     * Default constructor. Generates a new certificate with the default
-     * type <b>X.509</b>. The supported types depend on the Java 2 SDK Security API.
-     */
-    public XmlSecurityCertificate() {
-        super("X.509");
+    public XmlSecurityCertificate(PublicKey publicKey, X500Principal subjectDN) {
+        this.publicKey = publicKey;
+        this.subjectDN = subjectDN;
     }
 
     @Override
-    public byte[] getEncoded() throws CertificateEncodingException {
-        return "PKCS#8".getBytes();
+    public void checkValidity() throws CertificateExpiredException, CertificateNotYetValidException {
+        // TODO Auto-generated method stub
+
     }
 
     @Override
-    public PublicKey getPublicKey() {
+    public void checkValidity(Date date) throws CertificateExpiredException,
+            CertificateNotYetValidException {
+        // TODO Auto-generated method stub
+
+    }
+
+    @Override
+    public int getBasicConstraints() {
+        // TODO Auto-generated method stub
+        return 0;
+    }
+
+    @Override
+    public Principal getIssuerDN() {
+        return subjectDN;
+    }
+
+    @Override
+    public boolean[] getIssuerUniqueID() {
         // TODO Auto-generated method stub
         return null;
     }
 
     @Override
-    public String toString() {
+    public boolean[] getKeyUsage() {
         // TODO Auto-generated method stub
-        return "dummy";
+        return null;
+    }
+
+    @Override
+    public Date getNotAfter() {
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(2099, Calendar.DECEMBER, 31);
+
+        return calendar.getTime();
+    }
+
+    @Override
+    public Date getNotBefore() {
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(2000, Calendar.JANUARY, 1);
+
+        return calendar.getTime();
+    }
+
+    @Override
+    public BigInteger getSerialNumber() {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    public String getSigAlgName() {
+        return publicKey.getAlgorithm();
+    }
+
+    @Override
+    public String getSigAlgOID() {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    public byte[] getSigAlgParams() {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    public byte[] getSignature() {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    public Principal getSubjectDN() {
+        return subjectDN;
+    }
+
+    @Override
+    public boolean[] getSubjectUniqueID() {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    public byte[] getTBSCertificate() throws CertificateEncodingException {
+        return subjectDN.getEncoded();
+    }
+
+    @Override
+    public int getVersion() {
+        return 2;
+    }
+
+    @Override
+    public byte[] getEncoded() throws CertificateEncodingException {
+        return toString().getBytes();
+    }
+
+    @Override
+    public PublicKey getPublicKey() {
+        return publicKey;
+    }
+
+    @Override
+    public String toString() {
+        return "";
     }
 
     @Override
@@ -68,5 +173,24 @@ public class XmlSecurityCertificate extends Certificate {
             SignatureException {
         // TODO Auto-generated method stub
 
+    }
+
+    public Set<String> getCriticalExtensionOIDs() {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    public byte[] getExtensionValue(String oid) {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    public Set<String> getNonCriticalExtensionOIDs() {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    public boolean hasUnsupportedCriticalExtension() {
+        return false;
     }
 }

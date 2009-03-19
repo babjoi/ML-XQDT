@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2008 Dominik Schadow - http://www.xml-sicherheit.de
+ * Copyright (c) 2009 Dominik Schadow - http://www.xml-sicherheit.de
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -23,10 +23,10 @@ public final class Algorithms {
      */
     private Algorithms() { }
 
-    /** Key algorithms. */
-    public static final String[] KEY_FILE_ALOGRITHMS = {"AES", "Blowfish", "DES", "DESede"};
-    /** Key file algorithm sizes. */
-    public static final String[] KEY_FILE_ALGORITHMS_SIZES = {"56", "64", "128", "192", "256",
+    /** Encryption key algorithms. */
+    public static final String[] ENCRYPTION_KEY_ALOGRITHMS = {"AES", "Blowfish", "DES", "DESede"};
+    /** Encryption key algorithm sizes. */
+    public static final String[] ENCRYPTION_KEY_ALGORITHMS_SIZES = {"56", "64", "128", "192", "256",
         "320", "384", "448"};
     /** Canonicalization algorithms. */
     public static final String[] CANONICALIZATION_ALOGRITHMS = {"Exclusive without comments",
@@ -78,8 +78,8 @@ public final class Algorithms {
     public static final String[] KEY_SIZES_DES = {"56"};
     /** Key sizes for the Triple DES algorithm. */
     public static final String[] KEY_SIZES_DESEDE = {"112", "168"};
-    /** Certificate algorithms (Java Keystores). */
-    public static final String[] CERTIFICATE_ALGORITHMS = {"DSA", "EC", "RSA"};
-    /** Certificate algorithms RSA (Java Keystores). */
-    public static final String[] CERTIFICATE_ALGORITHMS_RSA = {"RSA"};
+    /** Signature key algorithms. */
+    public static final String[] SIGNATURE_KEY_ALGORITHMS = {"DSA", "EC", "RSA"};
+    /** Signature key algorithms for Basic Security Profile. */
+    public static final String[] SIGNATURE_KEY_ALGORITHMS_BSP = {"RSA"};
 }

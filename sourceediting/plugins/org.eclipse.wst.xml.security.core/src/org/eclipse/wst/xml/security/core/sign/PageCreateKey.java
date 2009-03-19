@@ -10,7 +10,12 @@
  *******************************************************************************/
 package org.eclipse.wst.xml.security.core.sign;
 
+import java.security.KeyPair;
+import java.security.NoSuchAlgorithmException;
+import java.security.cert.Certificate;
 import java.util.HashMap;
+
+import javax.security.auth.x500.X500Principal;
 
 import org.eclipse.jface.dialogs.DialogPage;
 import org.eclipse.jface.wizard.IWizardPage;
@@ -63,8 +68,8 @@ public class PageCreateKey extends WizardPage implements Listener {
     private Button bEchoKeystorePassword = null;
     /** Button <i>Echo Key Password</i>. */
     private Button bEchoKeyPassword = null;
-    /** Algorithm combo. */
-    private Combo cAlgorithm = null;
+    /** Key algorithm combo. */
+    private Combo cKeyAlgorithm = null;
     /** Key preview label. */
     private Label lPreview = null;
     /** Key generation result label. */
@@ -173,7 +178,7 @@ public class PageCreateKey extends WizardPage implements Listener {
         data.right = new FormAttachment(Globals.GROUP_NUMERATOR);
         gKeystore.setLayoutData(data);
 
-        // Elements for group "Distinguished Name"
+        // Elements for group "Certificate"
         Label lCommonName = new Label(gDN, SWT.SHADOW_IN);
         lCommonName.setText(Messages.commonName);
         data = new FormData();
@@ -278,7 +283,7 @@ public class PageCreateKey extends WizardPage implements Listener {
         data.right = new FormAttachment(Globals.GROUP_NUMERATOR);
         lPreview.setLayoutData(data);
 
-        // Elements for group "key"
+        // Elements for group "Key"
         Label lKeyName = new Label(gKey, SWT.SHADOW_IN);
         lKeyName.setText(Messages.name);
         data = new FormData();
@@ -320,12 +325,12 @@ public class PageCreateKey extends WizardPage implements Listener {
         data.left = new FormAttachment(gKey);
         lKeyAlgorithm.setLayoutData(data);
 
-        cAlgorithm = new Combo(gKey, SWT.READ_ONLY);
+        cKeyAlgorithm = new Combo(gKey, SWT.READ_ONLY);
         data = new FormData();
         data.top = new FormAttachment(lKeyAlgorithm, 0, SWT.CENTER);
         data.left = new FormAttachment(lKeyAlgorithm);
         data.width = Globals.COMBO_WIDTH;
-        cAlgorithm.setLayoutData(data);
+        cKeyAlgorithm.setLayoutData(data);
 
         bEchoKeyPassword = new Button(gKey, SWT.PUSH);
         bEchoKeyPassword.setImage(XmlSecurityImageRegistry.getImageRegistry().get("echo_password"));
@@ -451,7 +456,7 @@ public class PageCreateKey extends WizardPage implements Listener {
                 dialogChanged();
             }
         });
-        cAlgorithm.addModifyListener(new ModifyListener() {
+        cKeyAlgorithm.addModifyListener(new ModifyListener() {
             public void modifyText(final ModifyEvent e) {
                 dialogChanged();
             }
@@ -512,7 +517,7 @@ public class PageCreateKey extends WizardPage implements Listener {
             updateStatus(Messages.enterNewKeyPassword, DialogPage.INFORMATION);
             return;
         }
-        if (cAlgorithm.getSelectionIndex() < 0) {
+        if (cKeyAlgorithm.getSelectionIndex() < 0) {
             updateStatus(Messages.selectKeyAlgorithm, DialogPage.INFORMATION);
             return;
         }
@@ -578,7 +583,7 @@ public class PageCreateKey extends WizardPage implements Listener {
             openKeystore();
         } else if (e.widget == bGenerate) {
             try {
-                generateCertificate();
+                createKey();
                 updateStatus(null, DialogPage.NONE);
             } catch (Exception e1) {
                 updateStatus(Messages.keyGenerationFailed, DialogPage.ERROR);
@@ -626,11 +631,12 @@ public class PageCreateKey extends WizardPage implements Listener {
     }
 
     /**
-     * Generates the certificate based on the entered data and shows the user an information text about the result.
+     * Generates the key based on the entered data and displays the user an
+     * information message about the generation result.
      *
      * @throws Exception to indicate any exceptional condition
      */
-    private void generateCertificate() throws Exception {
+    private void createKey() throws Exception {
         HashMap<String, String> certificateData = new HashMap<String, String>();
         certificateData.put("CN", tCommonName.getText()); //$NON-NLS-1$
         certificateData.put("OU", tOrganizationalUnit.getText()); //$NON-NLS-1$
@@ -639,15 +645,28 @@ public class PageCreateKey extends WizardPage implements Listener {
         certificateData.put("ST", tState.getText()); //$NON-NLS-1$
         certificateData.put("C", tCountry.getText()); //$NON-NLS-1$
 
-        XmlSecurityCertificate certificate = new XmlSecurityCertificate();
-        //CertificateFactory.getInstance("X.509");
-        generated = keystore.generateCertificate(tKeyName.getText(), certificate);
+        try {
+            keystore = new Keystore(tKeystore.getText(), tKeystorePassword.getText(), Globals.KEYSTORE_TYPE);
+            keystore.load();
+
+            KeyPair kp = keystore.generateKeyPair(cKeyAlgorithm.getText(), 512);
+            X500Principal subjectDN = Keystore.generatePrincipal(certificateData);
+
+            Certificate[] certs = new Certificate[1];
+            certs[0] = new XmlSecurityCertificate(kp.getPublic(), subjectDN);
+
+            generated = keystore.insertPrivateKey(tKeyName.getText(), tKeyPassword.getText().toCharArray(), kp.getPrivate(), certs);
+
+            keystore.store();
+        } catch (NoSuchAlgorithmException ex) {
+            generated = false;
+
+            lResult.setText(Messages.keyGenerationFailed);
+        }
 
         if (generated) {
             lResult.setText(NLS.bind(Messages.keyGenerated, keystoreName));
             updateStatus(null, DialogPage.NONE);
-        } else {
-            lResult.setText(Messages.keyGenerationFailed);
         }
     }
 
@@ -657,11 +676,11 @@ public class PageCreateKey extends WizardPage implements Listener {
      */
     public void onEnterPage() {
         if (signature.getBsp()) { // BSP selected
-            cAlgorithm.setItems(Algorithms.CERTIFICATE_ALGORITHMS_RSA);
-            cAlgorithm.select(0);
+            cKeyAlgorithm.setItems(Algorithms.SIGNATURE_KEY_ALGORITHMS_BSP);
+            cKeyAlgorithm.select(0);
         } else { // BSP not selected
-            cAlgorithm.setItems(Algorithms.CERTIFICATE_ALGORITHMS);
-            cAlgorithm.select(0);
+            cKeyAlgorithm.setItems(Algorithms.SIGNATURE_KEY_ALGORITHMS);
+            cKeyAlgorithm.select(0);
         }
         setMessage(null);
     }
@@ -686,11 +705,11 @@ public class PageCreateKey extends WizardPage implements Listener {
         signature.setKeystorePassword(tKeystorePassword.getText().toCharArray());
         signature.setKeyPassword(tKeyPassword.getText().toCharArray());
         signature.setKeyName(tKeyName.getText());
-        if (cAlgorithm.getText().equals("DSA")) {
+        if (cKeyAlgorithm.getText().equals("DSA")) {
             signature.setKeyAlgorithm("SHA1withDSA");
-        } else if (cAlgorithm.getText().equals("EC")) {
+        } else if (cKeyAlgorithm.getText().equals("EC")) {
             signature.setKeyAlgorithm("SHA1withECDSA");
-        } else if (cAlgorithm.getText().equals("RSA")) {
+        } else if (cKeyAlgorithm.getText().equals("RSA")) {
             signature.setKeyAlgorithm("SHA1withRSA");
         }
     }

@@ -25,9 +25,9 @@ public class Decryption {
     private String keystorePassword;
     /** Encryption ID. */
     private String encryptionId;
-    /** The secrets key name (alias). */
+    /** The key name. */
 	private String keyName;
-	/** The secrets key password. */
+	/** The key password. */
 	private char[] keyPassword;
 
     /**
@@ -67,9 +67,9 @@ public class Decryption {
     }
 
     /**
-     * Sets the key alias name.
+     * Sets the key name.
      *
-     * @param keyName The key alias
+     * @param keyName The key name
      */
 	public void setKeyName(String keyName) {
 		this.keyName = keyName;
@@ -121,7 +121,7 @@ public class Decryption {
     }
 
     /**
-     * Returns the secret keys name (alias).
+     * Returns the key name.
      *
      * @return The key name
      */
@@ -130,7 +130,7 @@ public class Decryption {
 	}
 
 	/**
-	 * Returns the secret keys password.
+	 * Returns the key password.
 	 *
 	 * @return The key password
 	 */

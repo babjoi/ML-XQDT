@@ -43,13 +43,13 @@ public class Encryption {
     private Keystore keystore;
     /** Keystore Password. */
     private char[] keystorePassword;
-    /** Key alias name. */
+    /** Key name. */
     private String keyName;
     /** Key password. */
 	private char[] keyPassword;
     /** Encryption ID. */
     private String encryptionId;
-    /** Launch Digital Signature Wizard after encryption. */
+    /** Launch XML Signature Wizard after encryption. */
     private boolean launchSignatureWizard;
 
     /**
@@ -152,9 +152,9 @@ public class Encryption {
     }
 
     /**
-     * Sets the alias name for the key.
+     * Sets the name for the key.
      *
-     * @param keyName The key alias name
+     * @param keyName The key name
      */
     public void setKeyName(final String keyName) {
         this.keyName = keyName;
@@ -179,9 +179,9 @@ public class Encryption {
     }
 
     /**
-     * Call the Digital Signature Wizard after encrypting the resource.
+     * Call the XML Signature Wizard after encrypting the resource.
      *
-     * @param launchSignatureWizard Call Digital Signature Wizard afterwards
+     * @param launchSignatureWizard Call XML Signature Wizard afterwards
      */
     public void setLaunchSignatureWizard(final boolean launchSignatureWizard) {
         this.launchSignatureWizard = launchSignatureWizard;
@@ -287,9 +287,9 @@ public class Encryption {
     }
 
     /**
-     * Returns the public key alias name.
+     * Returns the key name.
      *
-     * @return The alias name of the public key
+     * @return The name key
      */
     public String getKeyName() {
         return keyName;
@@ -314,9 +314,9 @@ public class Encryption {
     }
 
     /**
-     * Returns whether or not to call the Digital Signature Wizard after encrypting the resource.
+     * Returns whether or not to call the XML Signature Wizard after encrypting the resource.
      *
-     * @return Call Digital Signature Wizard afterwards
+     * @return Call XML Signature Wizard afterwards
      */
     public boolean getLaunchSignatureWizard() {
         return launchSignatureWizard;

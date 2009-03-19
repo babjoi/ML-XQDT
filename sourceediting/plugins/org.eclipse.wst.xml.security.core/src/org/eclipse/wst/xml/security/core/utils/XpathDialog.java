@@ -26,7 +26,7 @@ import org.w3c.dom.Document;
 /**
  * <p>Provides a dialog window (<code>ElementListSelectionDialog</code>) with the XPath
  * expressions of all the elements of the selected XML document. Used on the first pages of the
- * Digital Signature Wizard and the Encryption Wizard.</p>
+ * XML Signature Wizard and the XML Encryption Wizard.</p>
  *
  * @author Dominik Schadow
  * @version 0.5.0

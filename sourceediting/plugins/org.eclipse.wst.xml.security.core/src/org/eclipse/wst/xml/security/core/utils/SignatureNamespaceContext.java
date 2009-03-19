@@ -16,7 +16,7 @@ import javax.xml.XMLConstants;
 import javax.xml.namespace.NamespaceContext;
 
 /**
- * <p>XML Digital Signature namespace implementation.</p>
+ * <p>XML Signature namespace implementation.</p>
  *
  * @author Dominik Schadow
  * @version 0.5.0

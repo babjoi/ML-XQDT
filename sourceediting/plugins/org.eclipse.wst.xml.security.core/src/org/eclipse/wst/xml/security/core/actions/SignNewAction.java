@@ -82,7 +82,7 @@ public class SignNewAction extends XmlSecurityActionAdapter {
 
     /**
      * Takes the resource (selected file or editor content) and starts the XML
-     * Digital Signature Wizard. The returned signed XML document is not pretty
+     * Signature Wizard. The returned signed XML document is not pretty
      * printed because this would change the hash value of the signed content
      * and verification would fail.
      */
@@ -158,7 +158,7 @@ public class SignNewAction extends XmlSecurityActionAdapter {
      * without a text selection) or via a view.
      *
      * @param data The resource to sign
-     * @param wizard The Digital Signature Wizard
+     * @param wizard The Signature Wizard
      * @param document The document to sign, null if a file is signed directly
      * @param filename The filename, empty if editor content is signed
      * @throws Exception to indicate any exceptional condition
@@ -170,7 +170,7 @@ public class SignNewAction extends XmlSecurityActionAdapter {
         dialog.open();
 
         if (dialog.getReturnCode() == Dialog.OK && wizard.getModel() != null) {
-            Job job = new Job("XML Digital Signature") {
+            Job job = new Job("XML Signature") {
                 public IStatus run(final IProgressMonitor monitor) {
                     try {
                         monitor.beginTask(Messages.signatureTaskInfo, 5);
@@ -216,7 +216,7 @@ public class SignNewAction extends XmlSecurityActionAdapter {
     /**
      * Calls the <i>XML Encryption Wizard</i> after successfully signing the
      * selected resource if the user selected the checkbox in the
-     * <i>XML Digital Signature Wizard</i>.
+     * <i>XML Signature Wizard</i>.
      */
     private void callEncryptionWizard() {
         EncryptNewAction encrypt = new EncryptNewAction();

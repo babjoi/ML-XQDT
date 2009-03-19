@@ -43,7 +43,7 @@ import org.eclipse.wst.xml.security.core.actions.ShowSignatureProperties;
 import org.eclipse.wst.xml.security.core.utils.IContextHelpIds;
 
 /**
- * <p>Displays the <b>XML Signatures</b> view with all discovered digital signatures in the
+ * <p>Displays the <b>XML Signatures</b> view with all discovered signatures in the
  * current XML document. Shows the properties (status, id, type and algorithm) of every signature
  * and enables a rescan of the opened XML document for new signatures. The top info area contains
  * the number of all discovered signatures and the number of valid, invalid and unknown ones.</p>
@@ -183,7 +183,7 @@ public class SignatureView extends ViewPart {
     }
 
     /**
-     * Initializes the copy and paste functionality of the XML Digital Signature View. Verification
+     * Initializes the copy and paste functionality of the XML Signatures View. Verification
      * Results can be copied in a readable String format.
      */
     private void initCopyAndPaste() {

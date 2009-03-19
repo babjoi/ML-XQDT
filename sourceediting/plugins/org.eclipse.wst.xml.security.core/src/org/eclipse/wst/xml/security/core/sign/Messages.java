@@ -41,12 +41,12 @@ public final class Messages extends NLS {
             signatureTitle, select, selection, signatureType, useKey, verifyDetachedFile, xpath, xpathAttribute,
             xpathMultipleElements, xpathNoElement, xpathPopup, documentInvalid, keystoreAndKey;
     /** PageOpenKey externalized strings. */
-    public static String enterKeyAlias, enterKeyPassword, enterKeystorePassword, open, password, selectKeyFile,
-            useKeyDescription, verifyAll, verifyKeyAlias, verifyKeyPassword, verifyKeystore,
+    public static String enterKeyName, enterKeyPassword, enterKeystorePassword, open, password, selectKeyFile,
+            useKeyDescription, verifyAll, verifyKeyName, verifyKeyPassword, verifyKeystore,
             verifyKeystorePassword, wrongKeyAlgorithm, keystoreNotFound;
     /** PageCreateKey externalized strings. */
     public static String commonName, country, createKeyDescription, certificate, generate,
-            enterCommonName, enterNewKeyAlias, enterNewKeyPassword, enterNewKeystoreName, enterNewKeystorePassword,
+            enterCommonName, enterNewKeyName, enterNewKeyPassword, enterNewKeystoreName, enterNewKeystorePassword,
             keyAlgorithm, keyExistsInKeystore, keyGenerated, keyGenerationFailed, keystore, keystoreAlreadyExists,
             location, organization, organizationalUnit, selectKeyAlgorithm, state, selectKeystoreForInsert;
     /** PageCreateKeystore externalized strings. */

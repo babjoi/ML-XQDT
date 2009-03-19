@@ -17,7 +17,7 @@ import org.eclipse.wst.xml.security.core.verify.VerificationResult;
 
 
 /**
- * <p>Special dialog type (based on MessageDialog) to show the verification result of a digital
+ * <p>Special dialog type (based on MessageDialog) to show the verification result of a
  * signature with an image indicating the signature status on the left side.</p>
  *
  * @author Dominik Schadow

@@ -53,7 +53,7 @@ public class PageAlgorithms extends WizardPage implements Listener {
     private Combo cKeyWrapAlgorithm = null;
     /** Textfield <i>Encryption ID</i>. */
     private Text tID = null;
-    /** Start Digital Signature Wizard afterwards checkbox. */
+    /** Start XML Signature Wizard afterwards checkbox. */
     private Button bSigWiz = null;
     /** Checkbox to encrypt only element content. */
     private Button bContentOnly = null;
@@ -103,7 +103,7 @@ public class PageAlgorithms extends WizardPage implements Listener {
 
     /**
      * Fills this wizard page with content. Four groups (<i>Algorithms</i>, <i>Key File</i>, <i>Encryption ID</i>
-     * and <i>Digital Signature Wizard</i>) and all their widgets are inserted.
+     * and <i>XML Signature Wizard</i>) and all their widgets are inserted.
      *
      * @param parent Parent composite
      */
@@ -192,7 +192,7 @@ public class PageAlgorithms extends WizardPage implements Listener {
         data.width = Globals.MEDIUM_TEXT_WIDTH;
         tID.setLayoutData(data);
 
-        // Elements for group "Digital Signature Wizard"
+        // Elements for group "XML Signature Wizard"
         bSigWiz = new Button(gSigWiz, SWT.CHECK);
         bSigWiz.setText(Messages.startSignatureWizard);
         data = new FormData();

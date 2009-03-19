@@ -27,7 +27,7 @@ import org.osgi.framework.BundleContext;
 
 /**
  * <p>The <b>XML Security Tools</b> allows users to experiment with the complex W3C
- * recommendations on digital signatures and encryption with the Extensible Markup Language and to gather
+ * recommendations on signatures and encryption with the Extensible Markup Language and to gather
  * information about the theoretical background of these recommendations.</p>
  *
  * <p>Arbitrary XML documents can be canonicalized, signed, verified as well as encrypted and decrypted inside most of

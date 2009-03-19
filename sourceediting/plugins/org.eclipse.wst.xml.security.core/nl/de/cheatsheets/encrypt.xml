@@ -26,7 +26,7 @@ Auf der ersten Seite müssen Sie die zu verschlüsselnde Ressource auswählen  (
          Auf der letzten Seite des Encryption Wizard müssen Sie die verschiedenen Algorithmen auswählen. Die Drop Down Boxen lassen nur sinnvolle Kombinationen zu und passen sich automatisch an. Sie können damit verschiedene Kombinationen ausprobieren.<br/>
 Anschließend müssen Sie eine Datei bestimmen, in der der symmetrische Schlüssel gespeichert werden soll. Diese Datei müssen Sie sorgfältig aufbewahren, sie wird zur anschließenden Entschlüsselung wieder benötigt.<br/>
 Zum Abschluss können Sie der Verschlüsselung noch eine ID zuweisen (empfohlen).<br/>
-Durch Markieren der Checkbox &quot;Start Digital Signature Wizard afterwards&quot; wird direkt nach dem Verschlüsseln der XML Digital Signature Wizard aufgerufen.<br/>
+Durch Markieren der Checkbox &quot;Start XML Signature Wizard afterwards&quot; wird direkt nach dem Verschlüsseln der XML Signature Wizard aufgerufen.<br/>
 Nach der Angabe aller gewünschten und erforderlichen Daten klicken Sie auf den Button &quot;Finish&quot; um das XML-Dokument zu verschlüsseln.
       </description>
    </item>

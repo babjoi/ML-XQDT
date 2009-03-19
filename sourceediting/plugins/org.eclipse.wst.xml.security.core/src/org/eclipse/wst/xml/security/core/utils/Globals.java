@@ -27,10 +27,10 @@ public final class Globals {
     public static final int ID_LIMIT = 20;
     /** Maximum number of characters of each key information (like OU). */
     public static final int KEY_DATA_LIMIT = 50;
-    /** Minimum key alias size. */
-    public static final int KEY_ALIAS_MIN_SIZE = 4;
-    /** Maximum key alias size. */
-    public static final int KEY_ALIAS_MAX_SIZE = 20;
+    /** Minimum key name size. */
+    public static final int KEY_NAME_MIN_SIZE = 4;
+    /** Maximum key name size. */
+    public static final int KEY_NAME_MAX_SIZE = 20;
     /** Minimum keystore password size. */
     public static final int KEYSTORE_PASSWORD_MIN_SIZE = 6;
     /** Maximum keystore password size. */

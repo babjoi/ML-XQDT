@@ -82,7 +82,7 @@ public final class Verification {
     /**
      * Shows an information popup window with a message.
      *
-     * @param status The status of the digital signature
+     * @param status The status of the signature
      * @param message The message
      * @param shell The parent shell
      */

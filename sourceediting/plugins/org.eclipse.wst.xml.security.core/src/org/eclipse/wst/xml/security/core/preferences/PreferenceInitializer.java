@@ -59,6 +59,6 @@ public class PreferenceInitializer extends AbstractPreferenceInitializer {
     store.setDefault(PreferenceConstants.SIGN_MDA, "SHA 1");
     store.setDefault(PreferenceConstants.SIGN_SA, "DSA with SHA 1 (DSS)");
     store.setDefault(PreferenceConstants.SIGN_KEYSTORE_FILE, "");
-    store.setDefault(PreferenceConstants.SIGN_KEY_ALIAS, "");
+    store.setDefault(PreferenceConstants.SIGN_KEY_NAME, "");
   }
 }

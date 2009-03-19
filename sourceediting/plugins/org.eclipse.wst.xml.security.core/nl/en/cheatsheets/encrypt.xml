@@ -26,7 +26,7 @@ On the first page you have to select the resource you want to encrypt (the compl
          On the last page of the Encryption Wizard you have to select different algorithms.<br/>
 After that you have to select a file in which you want to store the key used for encryption. Keep this file in a save place, you will need it again for decryption.<br/>
 Finally you can enter an id to identify your encryption (recommended).<br/>
-By selecting the &apos;Start Digital Signature Wizard afterwards&apos; checkbox the XML Digital Signature Wizard will be called after the signature is created.<br/>
+By selecting the &apos;Start XML Signature Wizard afterwards&apos; checkbox the XML Signature Wizard will be called after the signature is created.<br/>
 The document will be encrypted after clicking on &apos;Finish&apos;.
       </description>
    </item>

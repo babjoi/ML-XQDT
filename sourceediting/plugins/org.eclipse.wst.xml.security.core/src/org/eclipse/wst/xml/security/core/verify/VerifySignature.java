@@ -35,7 +35,7 @@ import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 
 /**
- * <p>Verifies exactly one XML Digital Signature with the included <code>KeyInfo</code> element or
+ * <p>Verifies exactly one XML Signature with the included <code>KeyInfo</code> element or
  * <i>public key</i> identified by the unique signature id. The verification result is returned as a
  * VerificationResult object, which contains all available information about this signature (like
  * type and algorithm) and its status.</p>

@@ -56,7 +56,7 @@ public class Signature {
     private String signatureId;
     /** Launch Encryption Wizard after signing. */
     private boolean launchEncryptionWizard;
-    /** Additional signature properties for the digital signature. */
+    /** Additional signature properties for the signature. */
     private ArrayList<DigitalSignatureProperty> signatureProperties;
 
     /**

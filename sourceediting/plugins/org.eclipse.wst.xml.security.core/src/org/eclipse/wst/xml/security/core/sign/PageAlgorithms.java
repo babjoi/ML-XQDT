@@ -99,7 +99,7 @@ public class PageAlgorithms extends WizardPage implements Listener {
     private Button bRemoveProperty = null;
     /** Stored setting for the Encryption Wizard call after signing. */
     private static final String SETTING_CALL_ENCRYPTION_WIZARD = "sign_enc";
-    /** Model for the XML Digital Signature Wizard. */
+    /** Model for the XML Signature Wizard. */
     private Signature signature = null;
 
     /**

@@ -66,7 +66,7 @@ public class CreateSignature {
     private Keystore keystore = null;
     /** The certificate password. */
     private char[] keyPassword = null;
-    /** The certificate alias. */
+    /** The certificate name. */
     private String keyName = null;
     /** The optional signature ID. */
     private String signatureId = null;
@@ -80,7 +80,7 @@ public class CreateSignature {
     private String transformationAlgorithm = null;
     /** The text selection in an editor. */
     private String textSelection = null;
-    /** Additional signature properties for the digital signature. */
+    /** Additional signature properties for the XML Signature. */
     private ArrayList<DigitalSignatureProperty> properties = null;
 
     /**
@@ -144,7 +144,7 @@ public class CreateSignature {
     }
 
     /**
-     * <p>Loads the user settings from the <i>XML Digital Signature Wizard</i> out of the <code>SignatureWizard</code>
+     * <p>Loads the user settings from the <i>XML Signature Wizard</i> out of the <code>SignatureWizard</code>
      * object into different member variables.</p>
      *
      * <p>Determines the correct and fully qualified names of the selected algorithms for direct use with the Apache XML
@@ -196,7 +196,7 @@ public class CreateSignature {
      * reference to the signed XML document (detached document). The detached document won't be changed at all, only its
      * hash value will be calculated.</p>
      *
-     * @param privateKey The private key to create the digital signature
+     * @param privateKey The private key to create the signature
      * @param doc The context XML document which contains the signature
      * @return The signed XML document
      * @throws Exception to indicate any exceptional condition
@@ -232,7 +232,7 @@ public class CreateSignature {
      * <p>Creates an enveloped signature. Adds the signature element to the current root element, so the signed document
      * (fragment) surrounds the signature.</p>
      *
-     * @param privateKey The private key to create the digital signature
+     * @param privateKey The private key to create the signature
      * @param doc The XML document to sign
      * @return The signed XML document
      * @throws Exception to indicate any exceptional condition
@@ -289,10 +289,10 @@ public class CreateSignature {
 
     /**
      * <p>Creates an enveloping signature. Removes the signed node(s) or text content from its original location
-     * and stores it inside the <code>object</code> element in the XML digital signature. The nodes name is used
+     * and stores it inside the <code>object</code> element in the XML Signature. The nodes name is used
      * as id for the <code>object</code> element.</p>
      *
-     * @param privateKey The private key to create the digital signature
+     * @param privateKey The private key to create the signature
      * @param doc The XML document to sign
      * @return The signed XML document
      * @throws Exception to indicate any exceptional condition

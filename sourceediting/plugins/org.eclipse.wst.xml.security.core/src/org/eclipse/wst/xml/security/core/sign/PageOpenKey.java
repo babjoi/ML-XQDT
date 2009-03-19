@@ -37,7 +37,7 @@ import org.eclipse.wst.xml.security.core.utils.IContextHelpIds;
 import org.eclipse.wst.xml.security.core.utils.XmlSecurityImageRegistry;
 
 /**
- * <p>Second default page of the Digital Signature Wizard. Lets the user select an existing <i>key</i> and enter the
+ * <p>Second default page of the XML Signature Wizard. Lets the user select an existing <i>key</i> and enter the
  * corresponding information.</p>
  *
  * @author Dominik Schadow
@@ -60,7 +60,7 @@ public class PageOpenKey extends WizardPage implements Listener {
     private Text tKeystorePassword = null;
     /** Key password text. */
     private Text tKeyPassword = null;
-    /** Key alias text. */
+    /** Key name text. */
     private Text tKeyName = null;
     /** Key algorithm: EC, DSA, RSA. */
     private String keyAlgorithm = "";
@@ -68,9 +68,9 @@ public class PageOpenKey extends WizardPage implements Listener {
     private static final int LABELWIDTH = 120;
     /** Stored setting for the keystore. */
     private static final String SETTING_KEYSTORE = "sign_keystore";
-    /** Stored setting for the key alias. */
-    private static final String SETTING_KEY_ALIAS = "sign_key_alias";
-    /** Model for the XML Digital Signature Wizard. */
+    /** Stored setting for the key name. */
+    private static final String SETTING_KEY_NAME = "sign_key_name";
+    /** Model for the XML Signature Wizard. */
     private Signature signature = null;
     /** The keystore containing all required key information. */
     private Keystore keystore = null;
@@ -192,7 +192,7 @@ public class PageOpenKey extends WizardPage implements Listener {
         lKeyName.setLayoutData(data);
 
         tKeyName = new Text(gKey, SWT.SINGLE);
-        tKeyName.setTextLimit(Globals.KEY_ALIAS_MAX_SIZE);
+        tKeyName.setTextLimit(Globals.KEY_NAME_MAX_SIZE);
         data = new FormData();
         data.top = new FormAttachment(lKeyName, 0, SWT.CENTER);
         data.left = new FormAttachment(lKeyName);
@@ -273,7 +273,7 @@ public class PageOpenKey extends WizardPage implements Listener {
             return;
         }
         if (tKeyName.getText().length() == 0) {
-            updateStatus(Messages.enterKeyAlias, DialogPage.INFORMATION);
+            updateStatus(Messages.enterKeyName, DialogPage.INFORMATION);
             return;
         }
         if (tKeyPassword.getText().length() == 0) {
@@ -293,7 +293,7 @@ public class PageOpenKey extends WizardPage implements Listener {
                             return;
                         }
                     } else {
-                        updateStatus(Messages.verifyKeyAlias, DialogPage.ERROR);
+                        updateStatus(Messages.verifyKeyName, DialogPage.ERROR);
                         return;
                     }
                 } else {
@@ -407,8 +407,8 @@ public class PageOpenKey extends WizardPage implements Listener {
     private void loadSettings() {
         tKeystore.setText(getDialogSettings().get(SETTING_KEYSTORE) != null
                 ? getDialogSettings().get(SETTING_KEYSTORE) : "");
-        tKeyName.setText(getDialogSettings().get(SETTING_KEY_ALIAS) != null
-                ? getDialogSettings().get(SETTING_KEY_ALIAS) : "");
+        tKeyName.setText(getDialogSettings().get(SETTING_KEY_NAME) != null
+                ? getDialogSettings().get(SETTING_KEY_NAME) : "");
     }
 
     /**
@@ -417,6 +417,6 @@ public class PageOpenKey extends WizardPage implements Listener {
     protected void storeSettings() {
         IDialogSettings settings = getDialogSettings();
         settings.put(SETTING_KEYSTORE, tKeystore.getText());
-        settings.put(SETTING_KEY_ALIAS, tKeyName.getText());
+        settings.put(SETTING_KEY_NAME, tKeyName.getText());
     }
 }

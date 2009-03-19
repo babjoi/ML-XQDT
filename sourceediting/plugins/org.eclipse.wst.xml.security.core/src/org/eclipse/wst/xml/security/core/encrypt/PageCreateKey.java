@@ -69,7 +69,7 @@ public class PageCreateKey extends WizardPage implements Listener {
     private Combo cKeyAlgorithmSize = null;
     /** Key generation result label. */
     private Label lResult = null;
-    /** Public key alias name. */
+    /** Key name. */
     private Text tKeyName = null;
     /** Keystore. */
     private Text tKeystore = null;
@@ -244,7 +244,7 @@ public class PageCreateKey extends WizardPage implements Listener {
         lKeyName.setLayoutData(data);
 
         tKeyName = new Text(gKey, SWT.SINGLE);
-        tKeyName.setTextLimit(Globals.KEY_ALIAS_MAX_SIZE);
+        tKeyName.setTextLimit(Globals.KEY_NAME_MAX_SIZE);
         data = new FormData();
         data.width = Globals.SHORT_TEXT_WIDTH;
         data.top = new FormAttachment(lKeyName, 0, SWT.CENTER);
@@ -336,9 +336,9 @@ public class PageCreateKey extends WizardPage implements Listener {
             updateStatus(Messages.enterKeystorePassword, DialogPage.INFORMATION);
             return;
         }
-        if (tKeyName.getText().length() < Globals.KEY_ALIAS_MIN_SIZE
-            || tKeyName.getText().length() > Globals.KEY_ALIAS_MAX_SIZE) {
-            updateStatus(Messages.enterNewKeyAlias, DialogPage.INFORMATION);
+        if (tKeyName.getText().length() < Globals.KEY_NAME_MIN_SIZE
+            || tKeyName.getText().length() > Globals.KEY_NAME_MAX_SIZE) {
+            updateStatus(Messages.enterNewKeyName, DialogPage.INFORMATION);
             return;
         }
         if (tKeyPassword.getText().length() < Globals.KEY_PASSWORD_MIN_SIZE
@@ -352,7 +352,7 @@ public class PageCreateKey extends WizardPage implements Listener {
             keystore.load();
 
             if (keystore.containsKey(tKeyName.getText())) {
-                updateStatus(Messages.existingKeyAlias, DialogPage.NONE);
+                updateStatus(Messages.existingKeyName, DialogPage.NONE);
                 return;
             }
         } catch (Exception ex) {

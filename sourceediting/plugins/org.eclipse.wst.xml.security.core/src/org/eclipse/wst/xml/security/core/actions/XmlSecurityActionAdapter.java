@@ -160,7 +160,7 @@ public abstract class XmlSecurityActionAdapter implements IObjectActionDelegate 
     }
 
     /**
-     * Called when there is a text selection and either the Digital Signature Wizard or the Encryption Wizard is called.
+     * Called when there is a text selection and either the XML Signature Wizard or the XML Encryption Wizard is called.
      * If the selection is invalid, the radio button in the wizard is disabled. This method returns always
      * <code>true</code> if only element content (no &gt; or &lt; included) is selected.
      *

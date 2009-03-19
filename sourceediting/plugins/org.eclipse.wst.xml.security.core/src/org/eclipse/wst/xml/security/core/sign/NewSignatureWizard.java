@@ -24,7 +24,7 @@ import org.eclipse.wst.xml.security.core.XmlSecurityPlugin;
 
 /**
  * <p>This class prepares and adds all wizard pages to the wizard and launches the
- * <i>XML Digital Signature Wizard</i> afterwards.</p>
+ * <i>XML Signature Wizard</i> afterwards.</p>
  *
  * @author Dominik Schadow
  * @version 0.5.0
@@ -58,7 +58,7 @@ public class NewSignatureWizard extends Wizard implements INewWizard {
         super();
         signature = new Signature();
         setWindowTitle(Messages.signatureWizard);
-        setDialogSettings(getDigitalSignatureWizardSettings());
+        setDialogSettings(getSignatureWizardSettings());
         ImageDescriptor image = AbstractUIPlugin.imageDescriptorFromPlugin(XmlSecurityPlugin.getId(),
                 "icons/wiz_sig.gif");
         setDefaultPageImageDescriptor(image);
@@ -66,15 +66,15 @@ public class NewSignatureWizard extends Wizard implements INewWizard {
     }
 
     /**
-     * Return the settings used for all Digital Signature Wizard pages.
+     * Return the settings used for all XML Signature Wizard pages.
      *
-     * @return The IDialogSettings for the Digital Signature Wizard
+     * @return The IDialogSettings for the XML Signature Wizard
      */
-    private IDialogSettings getDigitalSignatureWizardSettings() {
+    private IDialogSettings getSignatureWizardSettings() {
         IDialogSettings workbenchSettings = XmlSecurityPlugin.getDefault().getDialogSettings();
-        IDialogSettings section = workbenchSettings.getSection("DigitalSignatureWizard"); // $NON-NLS-1$
+        IDialogSettings section = workbenchSettings.getSection("SignatureWizard"); // $NON-NLS-1$
         if (section == null) {
-            section = workbenchSettings.addNewSection("DigitalSignatureWizard"); // $NON-NLS-1$
+            section = workbenchSettings.addNewSection("SignatureWizard"); // $NON-NLS-1$
         }
         return section;
     }
@@ -137,8 +137,8 @@ public class NewSignatureWizard extends Wizard implements INewWizard {
 
     /**
      * Checks the currently active wizard page. It is impossible to finish the
-     * <i>Digital Signature Wizard</i> from the first or second page. Only the
-     * third wizard page can successfully generate a digital signature.
+     * <i>XML Signature Wizard</i> from the first or second page. Only the
+     * third wizard page can successfully generate a signature.
      *
      * @return Wizard completion status
      */

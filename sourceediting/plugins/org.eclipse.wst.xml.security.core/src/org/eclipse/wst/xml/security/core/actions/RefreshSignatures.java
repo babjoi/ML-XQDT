@@ -33,7 +33,7 @@ import org.eclipse.wst.xml.security.core.verify.VerificationResult;
 import org.eclipse.wst.xml.security.core.verify.VerifyDocument;
 
 /**
- * <p>Action class used to refresh all digital signatures in the <b>XML Signatures</b> view.</p>
+ * <p>Action class used to refresh all signatures in the <b>XML Signatures</b> view.</p>
  *
  * @author Dominik Schadow
  * @version 0.5.0
@@ -52,8 +52,7 @@ public class RefreshSignatures extends XmlSecurityActionAdapter implements IView
     }
 
     /**
-     * Refreshes the XML Digital Signature view and verifies all available
-     * digital signatures again.
+     * Refreshes the XML Signatures view and verifies all available signatures again.
      *
      * @param action The causing action
      */

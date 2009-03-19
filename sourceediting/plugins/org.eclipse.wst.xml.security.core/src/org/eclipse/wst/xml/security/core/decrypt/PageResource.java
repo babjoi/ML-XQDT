@@ -216,7 +216,7 @@ public class PageResource extends WizardPage implements Listener {
         lKeyName.setLayoutData(data);
 
         tKeyName = new Text(gKey, SWT.SINGLE);
-        tKeyName.setTextLimit(Globals.KEY_ALIAS_MAX_SIZE);
+        tKeyName.setTextLimit(Globals.KEY_NAME_MAX_SIZE);
         data = new FormData();
         data.width = Globals.SHORT_TEXT_WIDTH;
         data.top = new FormAttachment(lKeyName, 0, SWT.CENTER);

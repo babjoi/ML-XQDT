@@ -35,15 +35,15 @@ import org.xml.sax.InputSource;
 
 
 /**
- * <p>Verifies all signatures in the selected XML document and displays the results in the <i>XML
- * Digital Signatures View</i>.</p>
+ * <p>Verifies all signatures in the selected XML document and displays the results in the
+ * <i>XML Signatures View</i>.</p>
  *
  * @author Dominik Schadow
  * @version 0.5.0
  */
 public class VerifyDocument {
     /**
-     * This method verifies all XML Digital Signatures in the XML document.
+     * This method verifies all XML Signatures in the XML document.
      *
      * @param signatureFileName Path and filename of the XML document
      * @return Result of verification

@@ -16,8 +16,6 @@ import java.security.NoSuchAlgorithmException;
 import java.security.cert.Certificate;
 import java.util.HashMap;
 
-import javax.security.auth.x500.X500Principal;
-
 import org.eclipse.jface.dialogs.DialogPage;
 import org.eclipse.jface.wizard.IWizardPage;
 import org.eclipse.jface.wizard.WizardPage;
@@ -38,8 +36,6 @@ import org.eclipse.swt.widgets.Listener;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.wst.xml.security.core.cryptography.Keystore;
-import org.eclipse.wst.xml.security.core.cryptography.Principal;
-import org.eclipse.wst.xml.security.core.cryptography.XmlSecurityCertificate;
 import org.eclipse.wst.xml.security.core.utils.Algorithms;
 import org.eclipse.wst.xml.security.core.utils.Globals;
 import org.eclipse.wst.xml.security.core.utils.IContextHelpIds;
@@ -95,7 +91,7 @@ public class PageCreateKeystore extends WizardPage implements Listener {
     private Text tKeystoreName = null;
     /** Keystore password. */
     private Text tKeystorePassword = null;
-    /** Key alias. */
+    /** Key name. */
     private Text tKeyName = null;
     /** Key password. */
     private Text tKeyPassword = null;
@@ -300,7 +296,7 @@ public class PageCreateKeystore extends WizardPage implements Listener {
         lKeyName.setLayoutData(data);
 
         tKeyName = new Text(gKey, SWT.SINGLE);
-        tKeyName.setTextLimit(Globals.KEY_ALIAS_MAX_SIZE);
+        tKeyName.setTextLimit(Globals.KEY_NAME_MAX_SIZE);
         data = new FormData();
         data.width = Globals.SHORT_TEXT_WIDTH;
         data.top = new FormAttachment(lKeyName, 0, SWT.CENTER);
@@ -508,8 +504,8 @@ public class PageCreateKeystore extends WizardPage implements Listener {
                     + ", ST=" + tState.getText() //$NON-NLS-1$
                     + ", C=" + tCountry.getText()); //$NON-NLS-1$
         }
-        if (tKeyName.getText().length() < Globals.KEY_ALIAS_MIN_SIZE) {
-            updateStatus(Messages.enterNewKeyAlias, DialogPage.INFORMATION);
+        if (tKeyName.getText().length() < Globals.KEY_NAME_MIN_SIZE) {
+            updateStatus(Messages.enterNewKeyName, DialogPage.INFORMATION);
             return;
         }
         if (tKeyPassword.getText().length() < Globals.KEY_PASSWORD_MIN_SIZE) {
@@ -614,10 +610,10 @@ public class PageCreateKeystore extends WizardPage implements Listener {
             keystore.load();
 
             KeyPair kp = keystore.generateKeyPair(cKeyAlgorithm.getText(), 512);
-            X500Principal subjectDN = Principal.generatePrincipal(certificateData);
+//            X500Principal subjectDN = Principal.generatePrincipal(certificateData);
 
             Certificate[] certs = new Certificate[1];
-            certs[0] = new XmlSecurityCertificate(kp.getPublic(), subjectDN);
+//            certs[0] = new XmlSecurityCertificate(kp.getPublic(), subjectDN);
 
             generated = keystore.insertPrivateKey(tKeyName.getText(), tKeyPassword.getText().toCharArray(), kp.getPrivate(), certs);
 

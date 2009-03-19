@@ -14,7 +14,7 @@ import org.apache.xml.security.signature.XMLSignature;
 import org.eclipse.osgi.util.NLS;
 
 /**
- * <p>The verification result container stores the result of the digital signature verifications.</p>
+ * <p>The verification result container stores the result of the signature verifications.</p>
  *
  * @author Dominik Schadow
  * @version 0.5.0

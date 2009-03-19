@@ -72,7 +72,7 @@ public class PageCreateKeystore extends WizardPage implements Listener {
     private Combo cKeyAlgorithm = null;
     /** Drop down box <i>Key Algorithm Size</i>. */
     private Combo cKeyAlgorithmSize = null;
-    /** Key alias name. */
+    /** Key name. */
     private Text tKeyName = null;
     /** Key password. */
     private Text tKeyPassword = null;
@@ -234,27 +234,27 @@ public class PageCreateKeystore extends WizardPage implements Listener {
         data.width = Globals.COMBO_WIDTH;
         cKeyAlgorithmSize.setLayoutData(data);
 
-        Label lKeyAlias = new Label(gKey, SWT.SHADOW_IN);
-        lKeyAlias.setText(Messages.name);
+        Label lKeyName = new Label(gKey, SWT.SHADOW_IN);
+        lKeyName.setText(Messages.name);
         data = new FormData();
         data.width = LABELWIDTH;
         data.top = new FormAttachment(lKeyAlgorithmSize, Globals.MARGIN);
         data.left = new FormAttachment(gKey);
-        lKeyAlias.setLayoutData(data);
+        lKeyName.setLayoutData(data);
 
         tKeyName = new Text(gKey, SWT.SINGLE);
-        tKeyName.setTextLimit(Globals.KEY_ALIAS_MAX_SIZE);
+        tKeyName.setTextLimit(Globals.KEY_NAME_MAX_SIZE);
         data = new FormData();
         data.width = Globals.SHORT_TEXT_WIDTH;
-        data.top = new FormAttachment(lKeyAlias, 0, SWT.CENTER);
-        data.left = new FormAttachment(lKeyAlias);
+        data.top = new FormAttachment(lKeyName, 0, SWT.CENTER);
+        data.left = new FormAttachment(lKeyName);
         tKeyName.setLayoutData(data);
 
         Label lKeyPassword = new Label(gKey, SWT.SHADOW_IN);
         lKeyPassword.setText(Messages.password);
         data = new FormData();
         data.width = LABELWIDTH;
-        data.top = new FormAttachment(lKeyAlias, Globals.MARGIN);
+        data.top = new FormAttachment(lKeyName, Globals.MARGIN);
         data.left = new FormAttachment(gKey);
         lKeyPassword.setLayoutData(data);
 
@@ -343,9 +343,9 @@ public class PageCreateKeystore extends WizardPage implements Listener {
             updateStatus(Messages.enterNewKeystorePassword, DialogPage.INFORMATION);
             return;
         }
-        if (tKeyName.getText().length() < Globals.KEY_ALIAS_MIN_SIZE
-            || tKeyName.getText().length() > Globals.KEY_ALIAS_MAX_SIZE) {
-            updateStatus(Messages.enterNewKeyAlias, DialogPage.INFORMATION);
+        if (tKeyName.getText().length() < Globals.KEY_NAME_MIN_SIZE
+            || tKeyName.getText().length() > Globals.KEY_NAME_MAX_SIZE) {
+            updateStatus(Messages.enterNewKeyName, DialogPage.INFORMATION);
             return;
         }
         if (tKeyPassword.getText().length() < Globals.KEY_PASSWORD_MIN_SIZE

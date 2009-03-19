@@ -95,7 +95,7 @@ public class PageResource extends WizardPage implements Listener {
     private static final String EMPTY = "";
     /** Stored setting for the BSP signature selection. */
     private static final String SETTING_BSP_COMPLIANT_SIGNATURE = "sign_bsp_compliant";
-    /** Model for the XML Digital Signature Wizard. */
+    /** Model for the XML Signature Wizard. */
     private Signature signature = null;
 
     /**

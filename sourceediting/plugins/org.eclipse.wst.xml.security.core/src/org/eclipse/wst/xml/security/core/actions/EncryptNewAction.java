@@ -118,7 +118,7 @@ public class EncryptNewAction extends XmlSecurityActionAdapter {
                     encryptData(encryption, encWizard, document, "");
 
                     if (encWizard.getModel().getLaunchSignatureWizard()) {
-                        callDigitalSignatureWizard();
+                        launchXMLSignatureWizard();
                     }
                 } else {
                     showInfo(Messages.encryptionImpossible, NLS.bind(Messages.protectedDoc, ACTION));
@@ -131,7 +131,7 @@ public class EncryptNewAction extends XmlSecurityActionAdapter {
                 encryptData(encryption, encWizard, null, file.getLocation().toString());
                 project.refreshLocal(IProject.DEPTH_INFINITE, null);
                 if (encWizard.getModel().getLaunchSignatureWizard()) {
-                    callDigitalSignatureWizard();
+                    launchXMLSignatureWizard();
                 }
             } else {
                 showInfo(Messages.encryptionImpossible, NLS.bind(Messages.protectedDoc, ACTION));
@@ -213,7 +213,7 @@ public class EncryptNewAction extends XmlSecurityActionAdapter {
      * selected resource if the user selected the checkbox in the
      * <i>XML Encryption Wizard</i>.
      */
-    private void callDigitalSignatureWizard() {
+    private void launchXMLSignatureWizard() {
         SignNewAction sign = new SignNewAction();
         sign.signAfterEncryption(file);
     }

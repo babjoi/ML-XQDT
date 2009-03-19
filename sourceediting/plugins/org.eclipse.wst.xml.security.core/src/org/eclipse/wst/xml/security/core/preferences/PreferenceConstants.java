@@ -59,10 +59,10 @@ public final class PreferenceConstants {
     public static final String SIGN_MDA = "signatureMDA";
     /** Signature Algorithm. */
     public static final String SIGN_SA = "signatureAlgorithm";
-    /** Keystore File. */
+    /** Keystore file. */
     public static final String SIGN_KEYSTORE_FILE = "signatureKeystoreFile";
-    /** Key Alias. */
-    public static final String SIGN_KEY_ALIAS = "signatureKeyAlias";
+    /** Key name. */
+    public static final String SIGN_KEY_NAME = "signatureKeyName";
     /** Layout textfield length. */
     public static final int TEXTFIELD = 20;
     /** Layout margin. */

@@ -145,7 +145,7 @@ public class PageOpenKey extends WizardPage implements Listener {
         lKeyName.setLayoutData(data);
 
         tKeyName = new Text(gKey, SWT.SINGLE);
-        tKeyName.setTextLimit(Globals.KEY_ALIAS_MAX_SIZE);
+        tKeyName.setTextLimit(Globals.KEY_NAME_MAX_SIZE);
         data = new FormData();
         data.top = new FormAttachment(lKeyName, 0, SWT.CENTER);
         data.left = new FormAttachment(lKeyName);
@@ -280,7 +280,7 @@ public class PageOpenKey extends WizardPage implements Listener {
 	        	keystore = new Keystore(tKeystore.getText(), tKeystorePassword.getText(), Globals.KEYSTORE_TYPE);
 	        	keystore.load();
 	        	if (!keystore.containsKey(tKeyName.getText())) {
-	        	    updateStatus(Messages.verifyKeyAlias, DialogPage.ERROR);
+	        	    updateStatus(Messages.verifyKeyName, DialogPage.ERROR);
 	                return;
 	        	}
 

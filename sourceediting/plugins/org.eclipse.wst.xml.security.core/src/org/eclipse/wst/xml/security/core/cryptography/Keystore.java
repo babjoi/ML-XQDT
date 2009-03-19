@@ -111,7 +111,7 @@ public class Keystore {
     }
 
     /**
-     * Inserts the given certificate with the given alias name and stores it in the
+     * Inserts the given certificate with the given name and stores it in the
      * selected Java KeyStore.
      *
      * @param alias The certificate key alias (must be unique in the keystore)

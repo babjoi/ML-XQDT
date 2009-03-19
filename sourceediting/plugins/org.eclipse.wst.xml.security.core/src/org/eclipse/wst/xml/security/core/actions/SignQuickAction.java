@@ -101,7 +101,7 @@ public class SignQuickAction extends XmlSecurityActionAdapter {
     }
 
     /**
-     * Takes the selected file, selection or editor content and starts the XML Quick Digital
+     * Takes the selected file, selection or editor content and starts the XML Quick
      * Signature. The returned signed XML document is not pretty printed because this would change
      * the hash value of the signed content and verification would fail.<br/> Before any operation
      * on the XML data, the preference store is searched for the necessary settings. Then these
@@ -193,7 +193,7 @@ public class SignQuickAction extends XmlSecurityActionAdapter {
 
         signatureType = store.getString(PreferenceConstants.SIGN_TYPE);
         keyFile = store.getString(PreferenceConstants.SIGN_KEYSTORE_FILE);
-        keyName = store.getString(PreferenceConstants.SIGN_KEY_ALIAS);
+        keyName = store.getString(PreferenceConstants.SIGN_KEY_NAME);
         canonicalizationAlgorithm = store.getString(PreferenceConstants.SIGN_CANON);
         transformationAlgorithm = store.getString(PreferenceConstants.SIGN_TRANS);
         messageDigestAlgorithm = store.getString(PreferenceConstants.SIGN_MDA);

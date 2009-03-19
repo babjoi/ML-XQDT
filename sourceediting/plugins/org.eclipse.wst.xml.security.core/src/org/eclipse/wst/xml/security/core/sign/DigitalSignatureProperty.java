@@ -11,7 +11,7 @@
 package org.eclipse.wst.xml.security.core.sign;
 
 /**
- * <p>Creates a new signature property in the <i>Digital Signature Wizard</i>.
+ * <p>Creates a new signature property in the <i>XML Signature Wizard</i>.
  * Each property has an id, a target and a content.</p>
  *
  * @author Dominik Schadow
@@ -32,7 +32,7 @@ public class DigitalSignatureProperty {
      * @param newTarget The target for the property
      * @param newContent The content for the property
      */
-    DigitalSignatureProperty(final String newId, final String newTarget, final String newContent) {
+    public DigitalSignatureProperty(final String newId, final String newTarget, final String newContent) {
         id = newId;
         target = newTarget;
         content = newContent;

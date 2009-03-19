@@ -20,8 +20,8 @@ import org.eclipse.wst.xml.security.core.verify.VerificationResult;
 
 
 /**
- * <p>Action class used to show the properties of the selected XML Digital Signature in the
- * XML Digital Signatures view.</p>
+ * <p>Action class used to show the properties of the selected XML Signature in the
+ * XML Signatures view.</p>
  *
  * @author Dominik Schadow
  * @version 0.5.0

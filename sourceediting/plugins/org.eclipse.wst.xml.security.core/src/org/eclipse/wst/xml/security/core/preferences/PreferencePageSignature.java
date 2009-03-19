@@ -42,7 +42,7 @@ import org.eclipse.wst.xml.security.core.utils.IContextHelpIds;
 
 
 /**
- * <p>This class represents the Digital Signatures and Verification preference page of the
+ * <p>This class represents the Quick Signature and Quick Verification preference page of the
  * XML Security Tools.</p>
  *
  * @author Dominik Schadow
@@ -69,8 +69,8 @@ public class PreferencePageSignature extends PreferencePage implements IWorkbenc
   private Combo algoMDCombo;
   /** Combo signature algorithm. */
   private Combo algoSignCombo;
-  /** Text key alias. */
-  private Text keyAliasText;
+  /** Text key name. */
+  private Text keyNameText;
   /** Text signature id. */
   private Text signIdText;
   /** Sign XPath label. */
@@ -269,11 +269,11 @@ public class PreferencePageSignature extends PreferencePage implements IWorkbenc
     keystoreFile.load();
     keystoreFile.fillIntoGrid(keystoreGroup, PreferenceConstants.LARGE_GROUP);
 
-    Label keyAliasLabel = new Label(keystoreGroup, SWT.NONE);
-    keyAliasLabel.setText(Messages.key);
-    keyAliasText = addTextControl(keystoreGroup, keyAliasLabel,
-        PreferenceConstants.SIGN_KEY_ALIAS, indent);
-    keyAliasText.addModifyListener(modifyListener);
+    Label keyNameLabel = new Label(keystoreGroup, SWT.NONE);
+    keyNameLabel.setText(Messages.key);
+    keyNameText = addTextControl(keystoreGroup, keyNameLabel,
+        PreferenceConstants.SIGN_KEY_NAME, indent);
+    keyNameText.addModifyListener(modifyListener);
 
     gd = new GridData(GridData.FILL_HORIZONTAL);
     gd.horizontalSpan = PreferenceConstants.SMALL_GROUP;

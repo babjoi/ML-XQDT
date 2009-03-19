@@ -54,7 +54,7 @@ public class DecryptQuickAction extends XmlSecurityActionAdapter {
     private String keystore;
     /** Keystore password. */
     private String keystorePassword;
-    /** Key name (alias). */
+    /** Key name. */
     private String keyName;
     /** Key password. */
     private char[] keyPassword;

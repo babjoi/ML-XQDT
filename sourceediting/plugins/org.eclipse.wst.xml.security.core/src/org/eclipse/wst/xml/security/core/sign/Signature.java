@@ -13,7 +13,7 @@ package org.eclipse.wst.xml.security.core.sign;
 import java.io.File;
 import java.util.ArrayList;
 
-import org.eclipse.wst.xml.security.core.utils.Keystore;
+import org.eclipse.wst.xml.security.core.cryptography.Keystore;
 
 /**
  * <p>Model for the <i>XML Signature Wizard</i>.</p>

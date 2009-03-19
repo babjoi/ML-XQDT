@@ -8,7 +8,7 @@
  * Contributors:
  *     Dominik Schadow - initial API and implementation
  *******************************************************************************/
-package org.eclipse.wst.xml.security.core.utils;
+package org.eclipse.wst.xml.security.core.cryptography;
 
 import java.math.BigInteger;
 import java.security.InvalidKeyException;

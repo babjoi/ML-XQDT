@@ -12,7 +12,7 @@ package org.eclipse.wst.xml.security.core.encrypt;
 
 import java.io.File;
 
-import org.eclipse.wst.xml.security.core.utils.Keystore;
+import org.eclipse.wst.xml.security.core.cryptography.Keystore;
 
 /**
  * <p>Model for the <i>XML Encryption Wizard</i>.</p>

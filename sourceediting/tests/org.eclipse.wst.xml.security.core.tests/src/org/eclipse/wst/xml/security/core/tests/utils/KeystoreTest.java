@@ -18,12 +18,12 @@ import javax.crypto.SecretKey;
 
 import junit.framework.TestCase;
 
+import org.eclipse.wst.xml.security.core.cryptography.Keystore;
 import org.eclipse.wst.xml.security.core.tests.XMLSecurityToolsTestPlugin;
 import org.eclipse.wst.xml.security.core.utils.Globals;
-import org.eclipse.wst.xml.security.core.utils.Keystore;
 
 /**
- * <p>JUnit tests for {@link org.eclipse.wst.xml.security.core.utils.Keystore}. Uses the existing
+ * <p>JUnit tests for {@link org.eclipse.wst.xml.security.core.cryptography.Keystore}. Uses the existing
  * sample keystore (<i>resources/sample_keystore.jks</i>) for loading operations and creates a
  * temporary keystore (<i>resources/temp_keystore.jks</i>) for creating operations. The sample
  * keystore is not changed in these tests.</p>
@@ -70,7 +70,7 @@ public class KeystoreTest extends TestCase {
     }
 
     /**
-     * Test method for {@link org.eclipse.wst.xml.security.core.utils.Keystore#Keystore(java.lang.String, java.lang.String, java.lang.String)}.
+     * Test method for {@link org.eclipse.wst.xml.security.core.cryptography.Keystore#Keystore(java.lang.String, java.lang.String, java.lang.String)}.
      */
     public void testKeystore() {
         assertNotNull(keystore);
@@ -78,7 +78,7 @@ public class KeystoreTest extends TestCase {
     }
 
     /**
-     * Test method for {@link org.eclipse.wst.xml.security.core.utils.Keystore#store()}.
+     * Test method for {@link org.eclipse.wst.xml.security.core.cryptography.Keystore#store()}.
      */
     public void testStore() {
         try {
@@ -97,7 +97,7 @@ public class KeystoreTest extends TestCase {
     }
 
     /**
-     * Test method for {@link org.eclipse.wst.xml.security.core.utils.Keystore#load()}.
+     * Test method for {@link org.eclipse.wst.xml.security.core.cryptography.Keystore#load()}.
      */
     public void testLoad() {
         try {
@@ -121,13 +121,13 @@ public class KeystoreTest extends TestCase {
     }
 
     /**
-     * Test method for {@link org.eclipse.wst.xml.security.core.utils.Keystore#insertCertificate(java.lang.String, java.security.cert.Certificate)}.
+     * Test method for {@link org.eclipse.wst.xml.security.core.cryptography.Keystore#insertCertificate(java.lang.String, java.security.cert.Certificate)}.
      */
     public void testGenerateCertificate() {
     }
 
     /**
-     * Test method for {@link org.eclipse.wst.xml.security.core.utils.Keystore#generateSecretKey(java.lang.String, java.lang.Integer)}.
+     * Test method for {@link org.eclipse.wst.xml.security.core.cryptography.Keystore#generateSecretKey(java.lang.String, java.lang.Integer)}.
      */
     public void testGenerateSecretKey() {
         try {
@@ -157,7 +157,7 @@ public class KeystoreTest extends TestCase {
     }
 
     /**
-     * Test method for {@link org.eclipse.wst.xml.security.core.utils.Keystore#insertSecretKey(java.lang.String, char, javax.crypto.SecretKey)}.
+     * Test method for {@link org.eclipse.wst.xml.security.core.cryptography.Keystore#insertSecretKey(java.lang.String, char, javax.crypto.SecretKey)}.
      */
     public void testInsertSecretKey() {
         try {
@@ -197,7 +197,7 @@ public class KeystoreTest extends TestCase {
     }
 
     /**
-     * Test method for {@link org.eclipse.wst.xml.security.core.utils.Keystore#getPrivateKey(java.lang.String, char[])}.
+     * Test method for {@link org.eclipse.wst.xml.security.core.cryptography.Keystore#getPrivateKey(java.lang.String, char[])}.
      */
     public void testGetPrivateKey() {
         try {
@@ -221,7 +221,7 @@ public class KeystoreTest extends TestCase {
     }
 
     /**
-     * Test method for {@link org.eclipse.wst.xml.security.core.utils.Keystore#containsKey(java.lang.String)}.
+     * Test method for {@link org.eclipse.wst.xml.security.core.cryptography.Keystore#containsKey(java.lang.String)}.
      */
     public void testContainsKey() {
         try {
@@ -242,7 +242,7 @@ public class KeystoreTest extends TestCase {
     }
 
     /**
-     * Test method for {@link org.eclipse.wst.xml.security.core.utils.Keystore#getCertificate(java.lang.String)}.
+     * Test method for {@link org.eclipse.wst.xml.security.core.cryptography.Keystore#getCertificate(java.lang.String)}.
      */
     public void testGetCertificate() {
         try {

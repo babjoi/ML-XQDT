@@ -15,9 +15,9 @@ import java.util.HashMap;
 
 import junit.framework.TestCase;
 
+import org.eclipse.wst.xml.security.core.cryptography.Keystore;
 import org.eclipse.wst.xml.security.core.tests.XMLSecurityToolsTestPlugin;
 import org.eclipse.wst.xml.security.core.utils.Globals;
-import org.eclipse.wst.xml.security.core.utils.Keystore;
 
 /**
  * <p>JUnit tests for the Certificate class.</p>
@@ -52,13 +52,11 @@ public class CertificateTest extends TestCase {
         try {
             HashMap<String, String> certificateData = new HashMap<String, String>();
             certificateData.put("keyalg", "DSA");
-            // assertEquals(false, cert.generateKeystoreAndCertificate(certificateData));
             certificateData.put("alias", "dos");
             certificateData.put("CN", "dos");
             certificateData.put("keypass", "unitTest");
             certificateData.put("keystore", "dos.jks");
             certificateData.put("storepass", "unitTest");
-            // assertEquals(true, cert.generateKeystoreAndCertificate(certificateData));
 
 
             File tempFile = new File(XMLSecurityToolsTestPlugin.getTestFileLocation(TEMP_KEYSTORE_PATH));

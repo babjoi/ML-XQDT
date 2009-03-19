@@ -17,11 +17,11 @@ import java.util.ArrayList;
 import junit.framework.TestCase;
 
 import org.apache.xml.security.utils.XMLUtils;
+import org.eclipse.wst.xml.security.core.cryptography.Keystore;
 import org.eclipse.wst.xml.security.core.sign.CreateSignature;
 import org.eclipse.wst.xml.security.core.sign.Signature;
 import org.eclipse.wst.xml.security.core.tests.XMLSecurityToolsTestPlugin;
 import org.eclipse.wst.xml.security.core.utils.Globals;
-import org.eclipse.wst.xml.security.core.utils.Keystore;
 import org.eclipse.wst.xml.security.core.verify.VerificationResult;
 import org.eclipse.wst.xml.security.core.verify.VerifySignature;
 import org.w3c.dom.Document;
@@ -45,7 +45,7 @@ public class CreateSignatureTest extends TestCase {
     private static final String KEY_PASSWORD = "sampleKey";
 
     /**
-     * Sets up the Apache XML Security API and repares the SignatureWizard object.
+     * Sets up the Apache XML Security API and prepares the SignatureWizard object.
      *
      * @throws Exception to indicate any exceptional condition
      */
@@ -105,7 +105,7 @@ public class CreateSignatureTest extends TestCase {
         Document result = null;
         try {
             result = sign.sign(signature, null, null);
-            
+
             String signedFilename = XMLSecurityToolsTestPlugin.getTestFileLocation(SIGNED_FILE_NAME);
 
             FileOutputStream fos = new FileOutputStream(signedFilename);

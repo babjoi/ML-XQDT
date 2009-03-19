@@ -37,11 +37,12 @@ import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Listener;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.ui.PlatformUI;
+import org.eclipse.wst.xml.security.core.cryptography.Keystore;
+import org.eclipse.wst.xml.security.core.cryptography.Principal;
+import org.eclipse.wst.xml.security.core.cryptography.XmlSecurityCertificate;
 import org.eclipse.wst.xml.security.core.utils.Algorithms;
 import org.eclipse.wst.xml.security.core.utils.Globals;
 import org.eclipse.wst.xml.security.core.utils.IContextHelpIds;
-import org.eclipse.wst.xml.security.core.utils.Keystore;
-import org.eclipse.wst.xml.security.core.utils.XmlSecurityCertificate;
 import org.eclipse.wst.xml.security.core.utils.XmlSecurityImageRegistry;
 
 /**
@@ -650,7 +651,7 @@ public class PageCreateKey extends WizardPage implements Listener {
             keystore.load();
 
             KeyPair kp = keystore.generateKeyPair(cKeyAlgorithm.getText(), 512);
-            X500Principal subjectDN = Keystore.generatePrincipal(certificateData);
+            X500Principal subjectDN = Principal.generatePrincipal(certificateData);
 
             Certificate[] certs = new Certificate[1];
             certs[0] = new XmlSecurityCertificate(kp.getPublic(), subjectDN);

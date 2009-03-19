@@ -40,8 +40,7 @@ import org.xml.sax.SAXException;
  * VerificationResult object, which contains all available information about this signature (like
  * type and algorithm) and its status.</p>
  *
- * <p>A <code>KeyInfo</code> element is always required to verify a signature with the XML-Security
- * Plug-In.</p>
+ * <p>A <code>KeyInfo</code> element is always required to verify a signature with the XML Security Tools.</p>
  *
  * @author Dominik Schadow
  * @version 0.5.0

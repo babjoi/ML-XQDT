@@ -280,12 +280,12 @@ public class PageOpenKey extends WizardPage implements Listener {
 	        	keystore = new Keystore(tKeystore.getText(), tKeystorePassword.getText(), Globals.KEYSTORE_TYPE);
 	        	keystore.load();
 	        	if (!keystore.containsKey(tKeyName.getText())) {
-	        	    updateStatus(Messages.verifyKeyAlias, DialogPage.INFORMATION);
+	        	    updateStatus(Messages.verifyKeyAlias, DialogPage.ERROR);
 	                return;
 	        	}
 
 	        	if (keystore.getSecretKey(tKeyName.getText(), tKeyPassword.getText().toCharArray()) == null) {
-	        	    updateStatus(Messages.verifyKeyPassword, DialogPage.INFORMATION);
+	        	    updateStatus(Messages.verifyKeyPassword, DialogPage.ERROR);
                     return;
 	        	}
 			} catch (Exception ex) {

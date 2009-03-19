@@ -23,11 +23,9 @@ import java.security.KeyStore.PasswordProtection;
 import java.security.KeyStore.PrivateKeyEntry;
 import java.security.KeyStore.SecretKeyEntry;
 import java.security.cert.Certificate;
-import java.util.HashMap;
 
 import javax.crypto.KeyGenerator;
 import javax.crypto.SecretKey;
-import javax.security.auth.x500.X500Principal;
 
 /**
  * <p>Manages the Java KeyStores (jks files). The generated Java KeyStores as well as the public and
@@ -67,25 +65,6 @@ public class Keystore {
         keystore = KeyStore.getInstance(type);
 
         keystore.load(null, this.password);
-    }
-
-    public static X500Principal generatePrincipal(HashMap<String, String> certificateData) {
-        String data = "";
-
-        for (String key : certificateData.keySet()) {
-            String value = certificateData.get(key);
-
-            if (!"".equals(value)) {
-                data += key + "=" + value + ", ";
-            }
-        }
-
-        if (data.endsWith(", ")) {
-            data = data.substring(0, data.length() - 2);
-        }
-
-        return new X500Principal(data);
-
     }
 
     /**

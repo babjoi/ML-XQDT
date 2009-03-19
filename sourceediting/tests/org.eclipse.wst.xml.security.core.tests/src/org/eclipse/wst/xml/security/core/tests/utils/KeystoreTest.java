@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2008 Dominik Schadow - http://www.xml-sicherheit.de
+ * Copyright (c) 2009 Dominik Schadow - http://www.xml-sicherheit.de
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -12,6 +12,7 @@ package org.eclipse.wst.xml.security.core.tests.utils;
 
 import java.io.File;
 import java.security.PrivateKey;
+import java.util.HashMap;
 
 import javax.crypto.SecretKey;
 
@@ -20,7 +21,6 @@ import junit.framework.TestCase;
 import org.eclipse.wst.xml.security.core.tests.XMLSecurityToolsTestPlugin;
 import org.eclipse.wst.xml.security.core.utils.Globals;
 import org.eclipse.wst.xml.security.core.utils.Keystore;
-import org.eclipse.wst.xml.security.core.utils.XmlSecurityCertificate;
 
 /**
  * <p>JUnit tests for {@link org.eclipse.wst.xml.security.core.utils.Keystore}. Uses the existing
@@ -36,7 +36,6 @@ import org.eclipse.wst.xml.security.core.utils.XmlSecurityCertificate;
  * @version 0.5.0
  */
 public class KeystoreTest extends TestCase {
-    private XmlSecurityCertificate certificate = new XmlSecurityCertificate();
     private Keystore keystore = null;
     private Keystore tempKeystore = null;
     private static final String TEMP_KEYSTORE_PATH = "resources/temp_keystore.jks";
@@ -44,6 +43,8 @@ public class KeystoreTest extends TestCase {
     private static final String KEYSTORE_PASSWORD = "sampleKeystore";
     private static final String KEY_ALIAS = "sampleKey";
     private static final String KEY_PASSWORD = "sampleKey";
+
+    private HashMap<String, String> certificateData = new HashMap<String, String>();
 
     /**
      * Set up method. Sets up the sample keystore used in these test cases.
@@ -59,6 +60,13 @@ public class KeystoreTest extends TestCase {
 
         keystore = new Keystore(XMLSecurityToolsTestPlugin.getTestFileLocation(KEYSTORE_PATH), KEYSTORE_PASSWORD, Globals.KEYSTORE_TYPE);
         tempKeystore = new Keystore(XMLSecurityToolsTestPlugin.getTestFileLocation(TEMP_KEYSTORE_PATH), KEYSTORE_PASSWORD, Globals.KEYSTORE_TYPE);
+
+        certificateData.put("CN", "dummy"); //$NON-NLS-1$
+        certificateData.put("OU", "dummy"); //$NON-NLS-1$
+        certificateData.put("O", "dummy"); //$NON-NLS-1$
+        certificateData.put("L", "dummy"); //$NON-NLS-1$
+        certificateData.put("ST", "dummy"); //$NON-NLS-1$
+        certificateData.put("C", "dummy"); //$NON-NLS-1$
     }
 
     /**
@@ -113,27 +121,9 @@ public class KeystoreTest extends TestCase {
     }
 
     /**
-     * Test method for {@link org.eclipse.wst.xml.security.core.utils.Keystore#generateCertificate(java.lang.String, java.security.cert.Certificate)}.
+     * Test method for {@link org.eclipse.wst.xml.security.core.utils.Keystore#insertCertificate(java.lang.String, java.security.cert.Certificate)}.
      */
     public void testGenerateCertificate() {
-        try {
-            assertNotNull(tempKeystore);
-            tempKeystore.store();
-            tempKeystore.load();
-
-            assertTrue(tempKeystore.generateCertificate(KEY_ALIAS, certificate));
-
-            tempKeystore.store();
-
-            assertTrue(tempKeystore.containsKey(KEY_ALIAS));
-            assertFalse(tempKeystore.containsKey("wrong"));
-
-            assertNotNull(tempKeystore.getCertificate(KEY_ALIAS));
-            assertNull(tempKeystore.getCertificate("wrong"));
-        } catch (Exception ex) {
-            ex.printStackTrace();
-            fail(ex.getMessage());
-        }
     }
 
     /**

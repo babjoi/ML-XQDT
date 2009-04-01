@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2008 Dominik Schadow - http://www.xml-sicherheit.de
+ * Copyright (c) 2009 Dominik Schadow - http://www.xml-sicherheit.de
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -20,7 +20,7 @@ import org.eclipse.ui.cheatsheets.ICheatSheetManager;
 
 /**
  * <p>Cheat Sheet action. Opens the preferences of the current workspace and jumps directly to the
- * general <i>XML Security</i> node.</p>
+ * general <b>XML Security</b> node located in the <b>XML</b> category.</p>
  *
  * @author Dominik Schadow
  * @version 0.5.0

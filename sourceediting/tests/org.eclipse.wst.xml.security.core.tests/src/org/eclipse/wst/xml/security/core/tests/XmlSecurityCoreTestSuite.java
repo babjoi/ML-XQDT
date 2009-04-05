@@ -13,6 +13,7 @@ package org.eclipse.wst.xml.security.core.tests;
 import junit.framework.Test;
 import junit.framework.TestSuite;
 
+import org.eclipse.wst.xml.security.core.cheatsheets.CreateSampleProjectTest;
 import org.eclipse.wst.xml.security.core.tests.sign.CreateSignatureTest;
 import org.eclipse.wst.xml.security.core.tests.utils.CertificateTest;
 import org.eclipse.wst.xml.security.core.tests.utils.KeystoreTest;
@@ -32,6 +33,7 @@ public class XmlSecurityCoreTestSuite extends TestSuite {
 
     public XmlSecurityCoreTestSuite() {
         super("XML Security Core Tests");
+        addTestSuite(CreateSampleProjectTest.class);
         addTestSuite(CreateSignatureTest.class);
         addTestSuite(CertificateTest.class);
         addTestSuite(KeystoreTest.class);

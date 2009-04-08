@@ -3,18 +3,16 @@
 <plugin>
    <!-- View and Editor Context Menu -->
    <extension
-         id="org.eclipse.wst.xml.security.core.viewextension"
-         name="org.eclipse.wst.xml.security.core.viewextension"
          point="org.eclipse.ui.popupMenus">
       <objectContribution
-            objectClass="org.eclipse.core.resources.IFile"
+            objectClass="org.eclipse.core.resources.IResource"
             adaptable="true"
             nameFilter="*.xml"
-            id="org.eclipse.wst.xml.security.core.objectContribution">
+            id="org.eclipse.wst.xml.security.core.popupMenu">
          <menu
                label="%xmlSecurityMenu"
                path="additions"
-               id="xmlSecurityMenu">
+               id="org.eclipse.wst.xml.security.core.popupSubMenu">
             <groupMarker name="canonicalizeGroup"/>
             <separator name="canonicalizeSeparator"/>
             <groupMarker name="signGroup"/>
@@ -24,6 +22,7 @@
             <groupMarker name="encryptGroup"/>
             <separator name="encryptSeparator"/>
             <groupMarker name="decryptGroup"/>
+            <separator name="additions"/>
          </menu>
          <action
                class="org.eclipse.wst.xml.security.core.actions.DecryptQuickAction"
@@ -31,7 +30,7 @@
                icon="icons/new_decrypt.gif"
                id="org.eclipse.wst.xml.security.core.actions.QuickDecryption"
                label="%quickDecryptionAction"
-               menubarPath="xmlSecurityMenu/decryptGroup"
+               menubarPath="org.eclipse.wst.xml.security.core.popupSubMenu/decryptGroup"
                tooltip="%quickDecryptionTooltip">
          </action>
          <action
@@ -40,7 +39,7 @@
                icon="icons/new_decrypt.gif"
                id="org.eclipse.wst.xml.security.core.actions.NewDecryption"
                label="%newDecryptionAction"
-               menubarPath="xmlSecurityMenu/decryptGroup"
+               menubarPath="org.eclipse.wst.xml.security.core.popupSubMenu/decryptGroup"
                tooltip="%newDecryptionTooltip">
          </action>
          <action
@@ -49,7 +48,7 @@
                icon="icons/new_encrypt.gif"
                id="org.eclipse.wst.xml.security.core.actions.QuickEncryption"
                label="%quickEncryptionAction"
-               menubarPath="xmlSecurityMenu/encryptGroup"
+               menubarPath="org.eclipse.wst.xml.security.core.popupSubMenu/encryptGroup"
                tooltip="%quickEncryptionTooltip">
          </action>
          <action
@@ -58,7 +57,7 @@
                icon="icons/new_encrypt.gif"
                id="org.eclipse.wst.xml.security.core.actions.NewEncryption"
                label="%newEncryptionAction"
-               menubarPath="xmlSecurityMenu/encryptGroup"
+               menubarPath="org.eclipse.wst.xml.security.core.popupSubMenu/encryptGroup"
                tooltip="%newEncryptionTooltip">
          </action>
          <action
@@ -67,7 +66,7 @@
                icon="icons/new_verify.gif"
                id="org.eclipse.wst.xml.security.core.actions.QuickVerification"
                label="%quickVerificationAction"
-               menubarPath="xmlSecurityMenu/verifyGroup"
+               menubarPath="org.eclipse.wst.xml.security.core.popupSubMenu/verifyGroup"
                tooltip="%quickVerificationTooltip">
          </action>
          <action
@@ -76,7 +75,7 @@
                icon="icons/new_verify.gif"
                id="org.eclipse.wst.xml.security.core.actions.NewVerification"
                label="%newVerificationAction"
-               menubarPath="xmlSecurityMenu/verifyGroup"
+               menubarPath="org.eclipse.wst.xml.security.core.popupSubMenu/verifyGroup"
                tooltip="%newVerificationTooltip">
          </action>
          <action
@@ -85,7 +84,7 @@
                icon="icons/new_sign.gif"
                id="org.eclipse.wst.xml.security.core.actions.QuickSignature"
                label="%quickSignatureAction"
-               menubarPath="xmlSecurityMenu/signGroup"
+               menubarPath="org.eclipse.wst.xml.security.core.popupSubMenu/signGroup"
                tooltip="%quickSignatureTooltip">
          </action>
          <action
@@ -94,7 +93,7 @@
                icon="icons/new_sign.gif"
                id="org.eclipse.wst.xml.security.core.actions.NewSignature"
                label="%newSignatureAction"
-               menubarPath="xmlSecurityMenu/signGroup"
+               menubarPath="org.eclipse.wst.xml.security.core.popupSubMenu/signGroup"
                tooltip="%newSignatureTooltip">
          </action>
          <action
@@ -103,7 +102,7 @@
                icon="icons/new_canon.gif"
                id="org.eclipse.wst.xml.security.core.actions.CanonicalizationRemoveComments"
                label="%newCanonicalizationAction"
-               menubarPath="xmlSecurityMenu/canonicalizeGroup"
+               menubarPath="org.eclipse.wst.xml.security.core.popupSubMenu/canonicalizeGroup"
                tooltip="%newCanonicalizationTooltip">
          </action>
          <action
@@ -112,7 +111,7 @@
                icon="icons/new_canon.gif"
                id="org.eclipse.wst.xml.security.core.actions.CanonicalizationMaintainComments"
                label="%newCanonicalizationCommentsAction"
-               menubarPath="xmlSecurityMenu/canonicalizeGroup"
+               menubarPath="org.eclipse.wst.xml.security.core.popupSubMenu/canonicalizeGroup"
                tooltip="%newCanonicalizationCommentsTooltip">
          </action>
       </objectContribution>

@@ -53,7 +53,7 @@ import org.eclipse.wst.xml.security.core.utils.IContextHelpIds;
  */
 public class SignatureView extends ViewPart {
     /** TableViewer in the view. */
-    private TableViewer signatures;
+    private TableViewer viewer;
     /** Double click on a signature in the view. */
     private ShowSignatureProperties doubleClickAction = new ShowSignatureProperties();
     /** XML Signatures view ID. */
@@ -67,8 +67,8 @@ public class SignatureView extends ViewPart {
      * @param results Input as ArrayList
      */
     public void setInput(final ArrayList<VerificationResult> results) {
-        signatures.setLabelProvider(new SignatureLabelProvider());
-        signatures.setInput(results);
+        viewer.setLabelProvider(new SignatureLabelProvider());
+        viewer.setInput(results);
         updateViewInfo(results);
     }
 
@@ -87,21 +87,22 @@ public class SignatureView extends ViewPart {
      * @param parent The parent composite
      */
     public void createPartControl(final Composite parent) {
-        signatures = new TableViewer(parent, SWT.BORDER | SWT.H_SCROLL | SWT.V_SCROLL | SWT.FULL_SELECTION);
-        signatures.setContentProvider(new SignatureContentProvider());
-        signatures.setLabelProvider(new SignatureLabelProvider());
+        viewer = new TableViewer(parent, SWT.BORDER | SWT.H_SCROLL | SWT.V_SCROLL | SWT.FULL_SELECTION);
+        viewer.setContentProvider(new SignatureContentProvider());
+        viewer.setLabelProvider(new SignatureLabelProvider());
 
-        getSite().setSelectionProvider(signatures);
+        getSite().setSelectionProvider(viewer);
 
-        signatures.getTable().setLinesVisible(true);
-        signatures.getTable().setHeaderVisible(true);
+        viewer.getTable().setLinesVisible(true);
+        viewer.getTable().setHeaderVisible(true);
 
-        TableViewerColumn column = new TableViewerColumn(signatures, SWT.CENTER);
+        TableViewerColumn column = new TableViewerColumn(viewer, SWT.CENTER);
+        column.getColumn().setText("");
         column.getColumn().setToolTipText(Messages.signatureStatus);
         column.getColumn().setWidth(50);
         column.getColumn().setMoveable(true);
 
-        SignatureComparator signatureSorter = new SignatureComparator(signatures, column) {
+        SignatureComparator signatureSorter = new SignatureComparator(viewer, column) {
             protected int doCompare(Viewer viewer, Object o1, Object o2) {
                 VerificationResult result1 = (VerificationResult) o1;
                 VerificationResult result2 = (VerificationResult) o2;
@@ -114,13 +115,13 @@ public class SignatureView extends ViewPart {
             }
         };
 
-        column = new TableViewerColumn(signatures, SWT.LEFT);
+        column = new TableViewerColumn(viewer, SWT.LEFT);
         column.getColumn().setText(Messages.signatureId);
         column.getColumn().setToolTipText(Messages.signatureId);
         column.getColumn().setWidth(200);
         column.getColumn().setMoveable(true);
 
-        new SignatureComparator(signatures, column) {
+        new SignatureComparator(viewer, column) {
             protected int doCompare(Viewer viewer, Object o1, Object o2) {
                 VerificationResult result1 = (VerificationResult) o1;
                 VerificationResult result2 = (VerificationResult) o2;
@@ -133,13 +134,13 @@ public class SignatureView extends ViewPart {
             }
         };
 
-        column = new TableViewerColumn(signatures, SWT.LEFT);
+        column = new TableViewerColumn(viewer, SWT.LEFT);
         column.getColumn().setText(Messages.signatureType);
         column.getColumn().setToolTipText(Messages.signatureType);
         column.getColumn().setWidth(100);
         column.getColumn().setMoveable(true);
 
-        new SignatureComparator(signatures, column) {
+        new SignatureComparator(viewer, column) {
             protected int doCompare(Viewer viewer, Object o1, Object o2) {
                 VerificationResult result1 = (VerificationResult) o1;
                 VerificationResult result2 = (VerificationResult) o2;
@@ -152,13 +153,13 @@ public class SignatureView extends ViewPart {
             }
         };
 
-        column = new TableViewerColumn(signatures, SWT.LEFT);
+        column = new TableViewerColumn(viewer, SWT.LEFT);
         column.getColumn().setText(Messages.signatureAlgorithm);
         column.getColumn().setToolTipText(Messages.signatureAlgorithm);
         column.getColumn().setWidth(200);
         column.getColumn().setMoveable(true);
 
-        new SignatureComparator(signatures, column) {
+        new SignatureComparator(viewer, column) {
             protected int doCompare(Viewer viewer, Object o1, Object o2) {
                 VerificationResult result1 = (VerificationResult) o1;
                 VerificationResult result2 = (VerificationResult) o2;
@@ -179,7 +180,7 @@ public class SignatureView extends ViewPart {
         contributeToActionBars();
         updateViewInfo(new ArrayList<VerificationResult>());
 
-        PlatformUI.getWorkbench().getHelpSystem().setHelp(signatures.getControl(), IContextHelpIds.SIGNATURE_VIEW);
+        PlatformUI.getWorkbench().getHelpSystem().setHelp(viewer.getControl(), IContextHelpIds.SIGNATURE_VIEW);
     }
 
     /**
@@ -226,7 +227,7 @@ public class SignatureView extends ViewPart {
      * @return The selected Verification Result
      */
     private VerificationResult getSelectedItem() {
-        IStructuredSelection selection = (IStructuredSelection) signatures.getSelection();
+        IStructuredSelection selection = (IStructuredSelection) viewer.getSelection();
         VerificationResult result = (VerificationResult) selection.getFirstElement();
         return result;
     }
@@ -237,9 +238,9 @@ public class SignatureView extends ViewPart {
     private void initContextMenu() {
         MenuManager manager = new MenuManager();
         manager.add(new Separator(IWorkbenchActionConstants.MB_ADDITIONS));
-        Menu menu = manager.createContextMenu(signatures.getControl());
-        signatures.getControl().setMenu(menu);
-        getSite().registerContextMenu(manager, signatures);
+        Menu menu = manager.createContextMenu(viewer.getControl());
+        viewer.getControl().setMenu(menu);
+        getSite().registerContextMenu(manager, viewer);
     }
 
     /**
@@ -268,9 +269,9 @@ public class SignatureView extends ViewPart {
      * Double click in the view.
      */
     private void hookDoubleClickAction() {
-        signatures.addDoubleClickListener(new IDoubleClickListener() {
+        viewer.addDoubleClickListener(new IDoubleClickListener() {
             public void doubleClick(final DoubleClickEvent event) {
-                ISelection selection = signatures.getSelection();
+                ISelection selection = viewer.getSelection();
 
                 if (selection != null && selection instanceof IStructuredSelection) {
                     Object o = ((IStructuredSelection) selection).getFirstElement();
@@ -288,7 +289,7 @@ public class SignatureView extends ViewPart {
      * Passes the focus request to the viewer's control.
      */
     public void setFocus() {
-        signatures.getControl().setFocus();
+        viewer.getControl().setFocus();
     }
 
     /**
@@ -324,5 +325,14 @@ public class SignatureView extends ViewPart {
 
         setContentDescription(NLS.bind(Messages.signatureInfo,
             new Object[] {totalSignatures, validSignatures, invalidSignatures, unknownSignatures}));
+    }
+
+    /**
+     * Returns the table viewer in the Signatures view.
+     *
+     * @return the table viewer in the Signatures view
+     */
+    public TableViewer getSignaturesViewer() {
+        return viewer;
     }
 }

@@ -19,6 +19,7 @@ import org.eclipse.wst.xml.security.core.tests.utils.CertificateTest;
 import org.eclipse.wst.xml.security.core.tests.utils.KeystoreTest;
 import org.eclipse.wst.xml.security.core.tests.utils.UtilsTest;
 import org.eclipse.wst.xml.security.core.tests.utils.XmlSecurityConstantsTest;
+import org.eclipse.wst.xml.security.core.tests.verify.SignatureViewTest;
 
 /**
  * This class sets up the XML Security Tools test suite.
@@ -39,6 +40,7 @@ public class XmlSecurityCoreTestSuite extends TestSuite {
         addTestSuite(KeystoreTest.class);
         addTestSuite(UtilsTest.class);
         addTestSuite(XmlSecurityConstantsTest.class);
+        addTestSuite(SignatureViewTest.class);
     }
 }
 

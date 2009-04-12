@@ -15,7 +15,8 @@ import java.io.InputStream;
 
 import org.apache.xml.security.c14n.Canonicalizer;
 import org.eclipse.core.resources.IFile;
-import org.eclipse.core.resources.IProject;
+import org.eclipse.core.resources.ResourcesPlugin;
+import org.eclipse.core.runtime.IPath;
 import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.jface.text.IDocument;
@@ -32,7 +33,6 @@ import org.eclipse.ui.texteditor.ITextEditor;
 import org.eclipse.wst.xml.security.core.XmlSecurityPlugin;
 import org.eclipse.wst.xml.security.core.canonicalize.Canonicalization;
 import org.eclipse.wst.xml.security.core.preferences.PreferenceConstants;
-
 
 /**
  * <p>Action class used to generate the canonical XML form with or without comments of the selected XML
@@ -115,8 +115,7 @@ public class CanonicalizeAction extends XmlSecurityActionAdapter {
                         IWorkbenchPage page = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage();
 
                         if (page != null) {
-                            IFile newFile = saveCanonicalizedFile(getCanonicalizedFileName(),
-                                    outputBytes, file.getProject());
+                            IFile newFile = saveCanonicalizedFile(getCanonicalizedPath(), outputBytes);
                             IEditorDescriptor desc = PlatformUI.getWorkbench().getEditorRegistry()
                                     .getDefaultEditor(newFile.getName());
                             page.openEditor(new FileEditorInput(newFile), desc.getId());
@@ -128,14 +127,12 @@ public class CanonicalizeAction extends XmlSecurityActionAdapter {
             } else if (file != null && file.isAccessible() && !file.isReadOnly()) { // call in view
                 byte[] outputBytes = canonicalize(file.getContents());
 
-                String newFileName = "";
                 if (canonTarget.equals("internal")) {
-                    newFileName = file.getLocation().toString();
+                    saveCanonicalizedFile(file.getLocation(), outputBytes);
                 } else {
-                    newFileName = getCanonicalizedFileName();
+                    saveCanonicalizedFile(getCanonicalizedPath(), outputBytes);
                 }
 
-                saveCanonicalizedFile(newFileName, outputBytes, file.getProject());
             } else {
                 showInfo(Messages.canonicalizationImpossible, NLS.bind(Messages.protectedDoc, ACTION));
             }
@@ -146,45 +143,44 @@ public class CanonicalizeAction extends XmlSecurityActionAdapter {
     }
 
     /**
-     * Returns the filename for the canonicalized XML document. The new filename consists of the old
-     * filename with an added <i>_canon</i> and the file extension <i>xml</i>. If the <i>_canon</i>
+     * Returns the path (with filename) for the canonicalized XML document. The new filename consists
+     * of the old filename with an added <i>_canon</i> and the file extension <i>xml</i>. If the <i>_canon</i>
      * is already added the new filename consists of <i>_canon[x]</i> with a raising number starting
      * with 2.
      *
-     * @return The new filename
+     * @return The path of the new file
      */
-    private String getCanonicalizedFileName() {
-        String fileName = file.getName();
-        String newFileName = "";
+    private IPath getCanonicalizedPath() {
+        IPath path = file.getLocation().removeFileExtension();
+        String filename = path.lastSegment();
+        path = path.removeLastSegments(1);
 
-        newFileName = fileName.substring(0, fileName.indexOf(file.getFileExtension()) - 1);
-
-        if (newFileName.endsWith("_canon")) {
-            newFileName += "[2].xml";
-        } else if (newFileName.contains("_canon[")) {
-            int canonNumber = Integer.parseInt(newFileName.substring(newFileName.indexOf("[") + 1,
-                    newFileName.indexOf("]")));
-            newFileName = newFileName.substring(0, newFileName.indexOf("[") + 1)
+        if (filename.endsWith("_canon")) {
+            filename += "[2].xml";
+        } else if (filename.contains("_canon[")) {
+            int canonNumber = Integer.parseInt(filename.substring(filename.indexOf("[") + 1,
+                    filename.indexOf("]")));
+            filename = filename.substring(0, filename.indexOf("[") + 1)
                     + (canonNumber + 1) + "].xml";
         } else {
-            newFileName += "_canon.xml";
+            filename += "_canon.xml";
         }
 
-        return newFileName;
+        path = path.append(filename);
+
+        return path;
     }
 
     /**
      * Saves the canonicalized XML document in the current project folder with the given file name.
      *
-     * @param newFileName The canonicalized filename and path
+     * @param newFilePath The path and filename of the new canonicalized XML document
      * @param outputBytes The canonicalized data
-     * @param project The current project
      * @return The new file
      * @throws Exception to indicate any exceptional condition
      */
-    private IFile saveCanonicalizedFile(final String newFileName, final byte[] outputBytes,
-        final IProject project) throws Exception {
-        IFile newFile = project.getFile(newFileName);
+    private IFile saveCanonicalizedFile(final IPath newFilePath, final byte[] outputBytes) throws Exception {
+        IFile newFile = ResourcesPlugin.getWorkspace().getRoot().getFileForLocation(newFilePath);
 
         if (newFile.exists()) {
             newFile.setContents(new ByteArrayInputStream(outputBytes), true, true, null);

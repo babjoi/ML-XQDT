@@ -107,7 +107,6 @@ public class CanonicalizeAction extends XmlSecurityActionAdapter {
 
                 if (file != null) {
                     byte[] outputBytes = canonicalize(file.getContents());
-                    // TODO pretty print the doc (remove empty comments lines)
 
                     if (canonTarget.equals("internal")) {
                         document.set(new String(outputBytes, "UTF8"));

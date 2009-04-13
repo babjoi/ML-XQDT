@@ -35,8 +35,6 @@ public class NewDecryptionWizard extends Wizard implements INewWizard {
     private IFile xmlDocument;
     /** The Decryption model. */
     private Decryption decryption;
-    /** Path of the openend project. */
-    private String path;
     /** Stored setting for the decryption Keystore. */
     public static final String SETTING_KEYSTORE = "dec_keystore";
     /** Stored setting for the secret key name. */
@@ -87,14 +85,13 @@ public class NewDecryptionWizard extends Wizard implements INewWizard {
      */
     public void init(final IProject project, final IFile file) {
         xmlDocument = file;
-        path = project.getLocation().toOSString();
     }
 
     /**
      * Adds a single page (<code>PageResource</code>) to the wizard.
      */
     public void addPages() {
-        pageResource = new PageResource(decryption, xmlDocument, path);
+        pageResource = new PageResource(decryption, xmlDocument);
         addPage(pageResource);
     }
 

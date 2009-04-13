@@ -16,7 +16,6 @@ import java.lang.reflect.InvocationTargetException;
 
 import org.apache.xml.security.utils.XMLUtils;
 import org.eclipse.core.resources.IFile;
-import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.dialogs.Dialog;
@@ -196,7 +195,6 @@ public class DecryptQuickAction extends XmlSecurityActionAdapter {
                 showInfo(Messages.quickDecryptionImpossible, NLS.bind(Messages.protectedDoc, ACTION));
             }
         } else if (file != null && file.isAccessible() && !file.isReadOnly()) { // call in view
-            IProject project = file.getProject();
             final String filename = file.getLocation().toString();
             wizard.setFile(file.getLocation().toString());
 
@@ -241,8 +239,6 @@ public class DecryptQuickAction extends XmlSecurityActionAdapter {
             } catch (InterruptedException ie) {
                 log(ERROR_TEXT, ie);
             }
-
-            project.refreshLocal(IProject.DEPTH_INFINITE, null);
         } else {
             showInfo(Messages.quickDecryptionImpossible, NLS.bind(Messages.protectedDoc, ACTION));
         }

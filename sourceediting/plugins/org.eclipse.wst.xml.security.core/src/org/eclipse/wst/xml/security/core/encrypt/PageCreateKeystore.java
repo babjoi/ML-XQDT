@@ -56,10 +56,10 @@ public class PageCreateKeystore extends WizardPage implements Listener {
     private String keystorePath;
     /** Keystore name. */
     private String keystoreName;
-    /** Name of the opened project. */
+    /** The active folder. */
     private String name;
-    /** Path of the opened project. */
-    private String project;
+    /** The path of the selected file. */
+    private String path;
     /** Keystore and key generation successful. */
     private boolean generated = false;
     /** Generate button. */
@@ -95,16 +95,16 @@ public class PageCreateKeystore extends WizardPage implements Listener {
      * Constructor for PageCreateKeystore.
      *
      * @param encryption The encryption wizard model
-     * @param project The path of the opened project
-     * @param name The name of the opened project
+     * @param path The path of the selected file
+     * @param name The name of the selected file
      */
-    public PageCreateKeystore(final Encryption encryption, final String project, final String name) {
+    public PageCreateKeystore(final Encryption encryption, final String path, final String name) {
         super(PAGE_NAME);
         setTitle(Messages.encryptionTitle);
         setDescription(Messages.createKeystoreDescription);
 
         this.encryption = encryption;
-        this.project = project;
+        this.path = path;
         this.name = name;
     }
 
@@ -328,7 +328,7 @@ public class PageCreateKeystore extends WizardPage implements Listener {
     private void dialogChanged() {
         if (tKeystore.getText().length() > 0) {
             keystoreName = tKeystore.getText() + Globals.KEYSTORE_EXTENSION;
-            keystorePath = project + System.getProperty("file.separator") + keystoreName; //$NON-NLS-1$
+            keystorePath = path + System.getProperty("file.separator") + keystoreName; //$NON-NLS-1$
 
             File tempFile = new File(keystorePath);
             if (tempFile.exists()) {

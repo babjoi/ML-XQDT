@@ -171,7 +171,7 @@ public class CanonicalizeAction extends XmlSecurityActionAdapter {
     }
 
     /**
-     * Saves the canonicalized XML document in the current project folder with the given file name.
+     * Saves the canonicalized XML document in the active folder with the given file name.
      *
      * @param newFilePath The path and filename of the new canonicalized XML document
      * @param outputBytes The canonicalized data

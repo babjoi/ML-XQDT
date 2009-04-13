@@ -84,8 +84,6 @@ public class PageResource extends WizardPage implements Listener {
     private Document document = null;
     /** Empty text field. */
     private static final String EMPTY = "";
-    /** Path of the opened project. */
-    private String project;
     /** Model for the XML Encryption Wizard. */
     private Encryption encryption = null;
 
@@ -94,18 +92,15 @@ public class PageResource extends WizardPage implements Listener {
      *
      * @param encryption The encryption wizard model
      * @param file The selected file
-     * @param project The path of the opened project
      * @param textSelection Status of text selection in editor
      */
-    public PageResource(final Encryption encryption, final IFile file,
-        final String project, final boolean textSelection) {
+    public PageResource(final Encryption encryption, final IFile file, final boolean textSelection) {
         super(PAGE_NAME);
         setTitle(Messages.encryptionTitle);
         setDescription(Messages.resourceDescription);
 
         this.encryption = encryption;
         this.file = file;
-        this.project = project;
         this.textSelection = textSelection;
 
         try {
@@ -383,7 +378,7 @@ public class PageResource extends WizardPage implements Listener {
      */
     private void selectDetachedFile() {
         FileDialog dialog = new FileDialog(getShell(), SWT.OPEN);
-        dialog.setFilterPath(project);
+        dialog.setFilterPath(file.getLocation().removeFileExtension().removeLastSegments(1).toString());
         dialog.setFilterNames(Globals.DETACHED_FILE_EXTENSION_NAME);
         dialog.setFilterExtensions(Globals.DETACHED_FILE_EXTENSION);
         String detachedFile = dialog.open();

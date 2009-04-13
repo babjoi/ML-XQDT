@@ -55,8 +55,6 @@ import org.w3c.dom.Document;
 public class PageResource extends WizardPage implements Listener {
     /** Wizard page name. */
     public static final String PAGE_NAME = "SignPageResource"; //$NON-NLS-1$
-    /** Path of the opened project. */
-    private String project;
     /** Select detached file button. */
     private Button bSelectDetachedFile = null;
     /** Browse XPath button. */
@@ -103,18 +101,15 @@ public class PageResource extends WizardPage implements Listener {
      *
      * @param signature The signature wizard model
      * @param file The selected file
-     * @param project The path of the opened project
      * @param textSelection Status of text selection in editor
      */
-    public PageResource(final Signature signature, final IFile file,
-        final String project, final boolean textSelection) {
+    public PageResource(final Signature signature, final IFile file, final boolean textSelection) {
         super(PAGE_NAME);
         setTitle(Messages.signatureTitle);
         setDescription(Messages.resourceDescription);
 
         this.signature = signature;
         this.file = file;
-        this.project = project;
         this.textSelection = textSelection;
 
         try {
@@ -398,7 +393,7 @@ public class PageResource extends WizardPage implements Listener {
      */
     private void selectDetachedFile() {
         FileDialog dialog = new FileDialog(getShell(), SWT.OPEN);
-        dialog.setFilterPath(project);
+        dialog.setFilterPath(file.getLocation().removeFileExtension().removeLastSegments(1).toString());
         dialog.setFilterNames(Globals.DETACHED_FILE_EXTENSION_NAME);
         dialog.setFilterExtensions(Globals.DETACHED_FILE_EXTENSION);
         String detachedFile = dialog.open();

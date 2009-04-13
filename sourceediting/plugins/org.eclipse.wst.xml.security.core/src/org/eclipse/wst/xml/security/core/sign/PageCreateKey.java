@@ -53,8 +53,8 @@ public class PageCreateKey extends WizardPage implements Listener {
     public static final String PAGE_NAME = "SignPageCreateKey"; //$NON-NLS-1$
     /** Keystore name. */
     private String keystoreName;
-    /** Path of the opened project. */
-    private String project;
+    /** The path of the selected file. */
+    private String path;
     /** Key generation successful. */
     private boolean generated = false;
     /** Open keystore button. */
@@ -104,15 +104,15 @@ public class PageCreateKey extends WizardPage implements Listener {
      * Constructor for PageCreateKey.
      *
      * @param signature The signature wizard model
-     * @param project The path of the opened project
+     * @param path The path of the selected file
      */
-    public PageCreateKey(final Signature signature, final String project) {
+    public PageCreateKey(final Signature signature, final String path) {
         super(PAGE_NAME);
         setTitle(Messages.signatureTitle);
         setDescription(Messages.createKeyDescription);
 
         this.signature = signature;
-        this.project = project;
+        this.path = path;
     }
 
     /**
@@ -620,7 +620,7 @@ public class PageCreateKey extends WizardPage implements Listener {
         FileDialog dialog = new FileDialog(getShell(), SWT.OPEN);
         dialog.setFilterNames(Globals.KEY_STORE_EXTENSION_NAME);
         dialog.setFilterExtensions(Globals.KEY_STORE_EXTENSION);
-        dialog.setFilterPath(project);
+        dialog.setFilterPath(path);
         String file = dialog.open();
         if (file != null && file.length() > 0) {
             tKeystore.setText(file);

@@ -57,9 +57,9 @@ public class PageCreateKeystore extends WizardPage implements Listener {
     private String keystorePath;
     /** Keystore name. */
     private String keystoreName;
-    /** Path of the opened project. */
-    private String project;
-    /** Name of the opened project. */
+    /** The path of the selected file. */
+    private String path;
+    /** The active folder. */
     private String name;
     /** Keystore and key generation successful. */
     private boolean generated = false;
@@ -108,16 +108,16 @@ public class PageCreateKeystore extends WizardPage implements Listener {
      * Constructor for PageCreateKeystore.
      *
      * @param signature The signature wizard model
-     * @param project The path of the opened project
-     * @param name The name of the opened project
+     * @param path The path of the selected file
+     * @param name The name of the active folder
      */
-    public PageCreateKeystore(final Signature signature, final String project, final String name) {
+    public PageCreateKeystore(final Signature signature, final String path, final String name) {
         super(PAGE_NAME);
         setTitle(Messages.signatureTitle);
         setDescription(Messages.createKeystoreDescription);
 
         this.signature = signature;
-        this.project = project;
+        this.path = path;
         this.name = name;
     }
 
@@ -518,7 +518,7 @@ public class PageCreateKeystore extends WizardPage implements Listener {
         }
         if (tKeystoreName.getText().length() > 0) {
             keystoreName = tKeystoreName.getText() + ".jks"; //$NON-NLS-1$
-            keystorePath = project + System.getProperty("file.separator") + keystoreName; //$NON-NLS-1$
+            keystorePath = path + System.getProperty("file.separator") + keystoreName; //$NON-NLS-1$
 
             File tempFile = new File(keystorePath);
             if (tempFile.exists()) {

@@ -42,13 +42,9 @@ public class NewSignatureWizard extends Wizard implements INewWizard {
     /** The XML document to sign. */
     private IFile file;
     /** The text selection in the editor. */
-    private ITextSelection selection;
+    private ITextSelection textSelection;
     /** The Signature model. */
     private Signature signature;
-    /** Path of the opened project. */
-    private String path;
-    /** Name of the opened project. */
-    private String name;
 
     /**
      * Constructor for the wizard launcher.
@@ -100,13 +96,11 @@ public class NewSignatureWizard extends Wizard implements INewWizard {
      * Initializes the wizard with a selected file and a text selection.
      *
      * @param file The selected file
-     * @param selection The text selection
+     * @param textSelection The text selection
      */
-    public void init(final IFile file, final ITextSelection selection) {
+    public void init(final IFile file, final ITextSelection textSelection) {
         this.file = file;
-        this.selection = selection;
-        path = file.getProject().getLocation().toOSString();
-        name = file.getProject().getName();
+        this.textSelection = textSelection;
     }
 
     /**
@@ -116,11 +110,10 @@ public class NewSignatureWizard extends Wizard implements INewWizard {
      * to the wizard.
      */
     public void addPages() {
-        if (selection == null) {
-            pageResource = new PageResource(signature, file, path, false);
-        } else {
-            pageResource = new PageResource(signature, file, path, true);
-        }
+        String path = file.getLocation().removeFileExtension().removeLastSegments(1).toString();
+        String name = file.getLocation().removeFileExtension().removeLastSegments(1).lastSegment();
+
+        pageResource = new PageResource(signature, file, textSelection != null ? true : false);
         addPage(pageResource);
         pageOpenKey = new PageOpenKey(signature, path);
         addPage(pageOpenKey);

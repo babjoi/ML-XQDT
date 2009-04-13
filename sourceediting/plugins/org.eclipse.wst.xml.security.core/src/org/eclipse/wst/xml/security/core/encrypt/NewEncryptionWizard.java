@@ -40,15 +40,11 @@ public class NewEncryptionWizard extends Wizard implements INewWizard {
     /** PageAlgorithms third wizard page. */
     private PageAlgorithms pageAlgorithms = null;
     /** The XML document to encrypt. */
-    private IFile xmlDocument;
+    private IFile file;
     /** The text selection in the editor. */
-    private ITextSelection xmlSelection;
+    private ITextSelection textSelection;
     /** The Encryption model. */
     private Encryption encryption;
-    /** Path of the opened project. */
-    private String path;
-    /** Name of the opened project. */
-    private String name;
     /** Stored setting for the encryption Keystore. */
     public static final String SETTING_KEYSTORE = "enc_keystore";
     /** Stored setting for the secret key name. */
@@ -113,10 +109,8 @@ public class NewEncryptionWizard extends Wizard implements INewWizard {
      * @param textSelection The text selection
      */
     public void init(final IFile file, final ITextSelection textSelection) {
-        xmlDocument = file;
-        xmlSelection = textSelection;
-        path = file.getProject().getLocation().toOSString();
-        name = file.getProject().getName();
+        this.file = file;
+        this.textSelection = textSelection;
     }
 
     /**
@@ -126,11 +120,10 @@ public class NewEncryptionWizard extends Wizard implements INewWizard {
      * to the wizard.
      */
     public void addPages() {
-        if (xmlSelection == null) {
-            pageResource = new PageResource(encryption, xmlDocument, path, false);
-        } else {
-            pageResource = new PageResource(encryption, xmlDocument, path, true);
-        }
+        String path = file.getLocation().removeFileExtension().removeLastSegments(1).toString();
+        String name = file.getLocation().removeFileExtension().removeLastSegments(1).lastSegment();
+
+        pageResource = new PageResource(encryption, file, textSelection != null ? true : false);
         addPage(pageResource);
         pageOpenKey = new PageOpenKey(encryption, path);
         addPage(pageOpenKey);
@@ -138,14 +131,14 @@ public class NewEncryptionWizard extends Wizard implements INewWizard {
         addPage(pageCreateKey);
         pageCreateKeystore = new PageCreateKeystore(encryption, path, name);
         addPage(pageCreateKeystore);
-        pageAlgorithms = new PageAlgorithms(encryption, xmlDocument);
+        pageAlgorithms = new PageAlgorithms(encryption, file);
         addPage(pageAlgorithms);
     }
 
     /**
-     * Checks the currently active wizard page. It is impossible to finish the <i>Encryption
-     * Wizard</i> from the first page. Only the second wizard page can successfully generate an
-     * encryption.
+     * Checks the currently active wizard page. It is impossible to finish the <i>XML Encryption
+     * Wizard</i> from any other than the last page. Only the last wizard page can successfully
+     * generate the expected XML encryption.
      *
      * @return Wizard completion status
      */

@@ -46,8 +46,8 @@ import org.eclipse.wst.xml.security.core.utils.XmlSecurityImageRegistry;
 public class PageOpenKey extends WizardPage implements Listener {
     /** Wizard page name. */
     public static final String PAGE_NAME = "SignPageOpenKey"; //$NON-NLS-1$
-    /** Path of the opened project. */
-    private String project;
+    /** The path of the selected file. */
+    private String path;
     /** Open keystore button. */
     private Button bOpen = null;
     /** Button <i>Echo Keystore Password</i>. */
@@ -79,15 +79,15 @@ public class PageOpenKey extends WizardPage implements Listener {
      * Constructor for PageOpenKey.
      *
      * @param signature The signature wizard model
-     * @param project The path of the opened project
+     * @param path The path of the selected file
      */
-    public PageOpenKey(final Signature signature, final String project) {
+    public PageOpenKey(final Signature signature, final String path) {
         super(PAGE_NAME);
         setTitle(Messages.signatureTitle);
         setDescription(Messages.useKeyDescription);
 
         this.signature = signature;
-        this.project = project;
+        this.path = path;
     }
 
     /**
@@ -371,7 +371,7 @@ public class PageOpenKey extends WizardPage implements Listener {
         FileDialog dialog = new FileDialog(getShell(), SWT.OPEN);
         dialog.setFilterNames(Globals.KEY_STORE_EXTENSION_NAME);
         dialog.setFilterExtensions(Globals.KEY_STORE_EXTENSION);
-        dialog.setFilterPath(project);
+        dialog.setFilterPath(path);
         String file = dialog.open();
         if (file != null && file.length() > 0) {
             tKeystore.setText(file);

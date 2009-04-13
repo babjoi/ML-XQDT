@@ -51,8 +51,8 @@ import org.eclipse.wst.xml.security.core.utils.XmlSecurityImageRegistry;
 public class PageCreateKey extends WizardPage implements Listener {
     /** Wizard page name. */
     public static final String PAGE_NAME = "EncryptPageCreateKey"; //$NON-NLS-1$
-    /** Path of the opened project. */
-    private String project;
+    /** The path of the selected file. */
+    private String path;
     /** Key generation successful. */
     private boolean generated = false;
     /** Open keystore button. */
@@ -90,15 +90,15 @@ public class PageCreateKey extends WizardPage implements Listener {
      * Constructor for PageCreateKey.
      *
      * @param encryption The encryption wizard model
-     * @param project The path of the opened project
+     * @param path The path of the selected file
      */
-    public PageCreateKey(final Encryption encryption, final String project) {
+    public PageCreateKey(final Encryption encryption, final String path) {
         super(PAGE_NAME);
         setTitle(Messages.encryptionTitle);
         setDescription(Messages.createKeyDescription);
 
         this.encryption = encryption;
-        this.project = project;
+        this.path = path;
     }
 
     /**
@@ -444,7 +444,7 @@ public class PageCreateKey extends WizardPage implements Listener {
         FileDialog dialog = new FileDialog(getShell(), SWT.OPEN);
         dialog.setFilterNames(Globals.KEY_STORE_EXTENSION_NAME);
         dialog.setFilterExtensions(Globals.KEY_STORE_EXTENSION);
-        dialog.setFilterPath(project);
+        dialog.setFilterPath(path);
         String file = dialog.open();
         if (file != null && file.length() > 0) {
             tKeystore.setText(file);

@@ -102,9 +102,8 @@ public abstract class XmlSecurityActionAdapter implements IObjectActionDelegate 
      * @param ex The exception to log
      */
     protected void log(final String message, final Exception ex) {
-        XmlSecurityPlugin plugin = XmlSecurityPlugin.getDefault();
-        IStatus status = new Status(IStatus.ERROR, plugin.getBundle().getSymbolicName(), 0, message, ex);
-        plugin.getLog().log(status);
+        IStatus status = new Status(IStatus.ERROR, XmlSecurityPlugin.getDefault().getBundle().getSymbolicName(), 0, message, ex);
+        XmlSecurityPlugin.getDefault().getLog().log(status);
     }
 
     /**
@@ -140,8 +139,7 @@ public abstract class XmlSecurityActionAdapter implements IObjectActionDelegate 
             reason = Messages.errorReasonUnavailable;
         }
 
-        XmlSecurityPlugin plugin = XmlSecurityPlugin.getDefault();
-        IStatus status = new Status(IStatus.ERROR, plugin.getBundle().getSymbolicName(), 0, reason, ex);
+        IStatus status = new Status(IStatus.ERROR, XmlSecurityPlugin.getDefault().getBundle().getSymbolicName(), 0, reason, ex);
 
         ErrorDialog.openError(shell, title, message, status);
     }

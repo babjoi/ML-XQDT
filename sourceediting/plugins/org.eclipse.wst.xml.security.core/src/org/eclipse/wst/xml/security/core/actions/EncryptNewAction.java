@@ -13,7 +13,6 @@ package org.eclipse.wst.xml.security.core.actions;
 import java.io.FileWriter;
 
 import org.eclipse.core.resources.IFile;
-import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
@@ -106,12 +105,10 @@ public class EncryptNewAction extends XmlSecurityActionAdapter {
                 boolean validSelection = parseSelection(textSelection.getText());
 
                 if (file != null) {
-                    IProject project = file.getProject();
-
                     if (validSelection) { // with text selection
-                        encWizard.init(project, file, textSelection);
+                        encWizard.init(file, textSelection);
                     } else { // without text selection
-                        encWizard.init(project, file);
+                        encWizard.init(file);
                     }
 
                     CreateEncryption encryption = new CreateEncryption();
@@ -124,12 +121,10 @@ public class EncryptNewAction extends XmlSecurityActionAdapter {
                     showInfo(Messages.encryptionImpossible, NLS.bind(Messages.protectedDoc, ACTION));
                 }
             } else if (file != null && file.isAccessible() && !file.isReadOnly()) { // call in view
-                IProject project = file.getProject();
-                encWizard.init(project, file);
+                encWizard.init(file);
 
                 CreateEncryption encryption = new CreateEncryption();
                 encryptData(encryption, encWizard, null, file.getLocation().toString());
-                project.refreshLocal(IProject.DEPTH_INFINITE, null);
                 if (encWizard.getModel().getLaunchSignatureWizard()) {
                     launchXMLSignatureWizard();
                 }

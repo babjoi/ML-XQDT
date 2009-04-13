@@ -14,7 +14,6 @@ import java.io.FileWriter;
 import java.lang.reflect.InvocationTargetException;
 
 import org.eclipse.core.resources.IFile;
-import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.dialogs.Dialog;
@@ -277,7 +276,6 @@ public class EncryptQuickAction extends XmlSecurityActionAdapter {
                 showInfo(Messages.quickEncryptionImpossible, NLS.bind(Messages.protectedDoc, ACTION));
             }
         } else if (file != null && file.isAccessible() && !file.isReadOnly()) { // call in view
-            IProject project = file.getProject();
             if ("selection".equals(resource)) { //$NON-NLS-1$
                 showInfo(Messages.quickEncryptionImpossible, Messages.quickEncryptionImpossibleText);
             } else {
@@ -320,8 +318,6 @@ public class EncryptQuickAction extends XmlSecurityActionAdapter {
                     log(ERROR_TEXT, ie);
                 }
             }
-
-            project.refreshLocal(IProject.DEPTH_INFINITE, null);
         } else {
             showInfo(Messages.quickEncryptionImpossible, NLS.bind(Messages.protectedDoc, ACTION));
         }

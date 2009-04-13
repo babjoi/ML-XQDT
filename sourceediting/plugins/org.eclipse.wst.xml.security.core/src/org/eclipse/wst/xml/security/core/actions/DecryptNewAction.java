@@ -14,7 +14,6 @@ import java.io.FileOutputStream;
 
 import org.apache.xml.security.utils.XMLUtils;
 import org.eclipse.core.resources.IFile;
-import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
@@ -101,19 +100,16 @@ public class DecryptNewAction extends XmlSecurityActionAdapter {
                 IDocument document = editor.getDocumentProvider().getDocument(input);
 
                 if (file != null) {
-                    wizard.init(file.getProject(), file);
+                    wizard.init(file);
 
                     decryptData(decryption, wizard, document, "");
                 } else {
                     showInfo(Messages.decryptionImpossible, NLS.bind(Messages.protectedDoc, ACTION));
                 }
             } else if (file != null && file.isAccessible() && !file.isReadOnly()) { // call in view
-                IProject project = file.getProject();
-                wizard.init(project, file);
+                wizard.init(file);
 
                 decryptData(decryption, wizard, null, file.getLocation().toString());
-
-                project.refreshLocal(IProject.DEPTH_INFINITE, null);
             } else {
                 showInfo(Messages.decryptionImpossible, NLS.bind(Messages.protectedDoc, ACTION));
             }

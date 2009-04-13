@@ -54,8 +54,6 @@ import org.eclipse.wst.xml.security.core.utils.XmlSecurityImageRegistry;
 public class PageResource extends WizardPage implements Listener {
     /** Wizard page name. */
     public static final String PAGE_NAME = "DecryptPageResource"; //$NON-NLS-1$
-    /** Path of the opened project. */
-    private String project;
     /** Open Keystore button. */
     private Button bOpen = null;
     /** Button <i>Echo Key Password</i>. */
@@ -84,16 +82,14 @@ public class PageResource extends WizardPage implements Listener {
      *
      * @param decryption The decryption wizard model
      * @param file The selected file
-     * @param project The path of the opened project
      */
-    public PageResource(final Decryption decryption, final IFile file, final String project) {
+    public PageResource(final Decryption decryption, final IFile file) {
         super(PAGE_NAME);
         setTitle(Messages.decryptionTitle);
         setDescription(Messages.decryptionDescription);
 
         this.decryption = decryption;
         this.file = file;
-        this.project = project;
     }
 
     /**
@@ -427,7 +423,7 @@ public class PageResource extends WizardPage implements Listener {
         FileDialog dialog = new FileDialog(getShell(), SWT.OPEN);
         dialog.setFilterNames(Globals.KEY_STORE_EXTENSION_NAME);
         dialog.setFilterExtensions(Globals.KEY_STORE_EXTENSION);
-        dialog.setFilterPath(project);
+        dialog.setFilterPath(file.getLocation().removeFileExtension().removeLastSegments(1).toString());
         String fileName = dialog.open();
 
         if (fileName != null && !fileName.equals("")) {

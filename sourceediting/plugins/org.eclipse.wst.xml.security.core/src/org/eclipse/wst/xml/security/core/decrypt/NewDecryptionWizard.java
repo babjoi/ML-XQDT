@@ -11,7 +11,6 @@
 package org.eclipse.wst.xml.security.core.decrypt;
 
 import org.eclipse.core.resources.IFile;
-import org.eclipse.core.resources.IProject;
 import org.eclipse.jface.dialogs.IDialogSettings;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.jface.viewers.IStructuredSelection;
@@ -80,10 +79,9 @@ public class NewDecryptionWizard extends Wizard implements INewWizard {
     /**
      * Initializes the wizard with a selected file.
      *
-     * @param project The opened project
      * @param file The selected IFile
      */
-    public void init(final IProject project, final IFile file) {
+    public void init(final IFile file) {
         xmlDocument = file;
     }
 

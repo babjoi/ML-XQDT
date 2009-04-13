@@ -16,7 +16,6 @@ import java.io.IOException;
 
 import org.apache.xml.security.utils.XMLUtils;
 import org.eclipse.core.resources.IFile;
-import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
@@ -111,12 +110,10 @@ public class SignNewAction extends XmlSecurityActionAdapter {
                 boolean validSelection = parseSelection(textSelection.getText());
 
                 if (file != null) {
-                    IProject project = file.getProject();
-
                     if (validSelection) { // with text selection
-                        sigWizard.init(project, file, textSelection);
+                        sigWizard.init(file, textSelection);
                     } else { // without text selection
-                        sigWizard.init(project, file);
+                        sigWizard.init(file);
                     }
 
                     CreateSignature signature = new CreateSignature();
@@ -129,12 +126,10 @@ public class SignNewAction extends XmlSecurityActionAdapter {
                     showInfo(Messages.signatureImpossible, NLS.bind(Messages.protectedDoc, ACTION));
                 }
             } else if (file != null && file.isAccessible() && !file.isReadOnly()) { // call in view
-                IProject project = file.getProject();
-                sigWizard.init(project, file);
+                sigWizard.init(file);
 
                 CreateSignature signature = new CreateSignature();
                 signData(signature, sigWizard, null, file.getLocation().toString());
-                project.refreshLocal(IProject.DEPTH_INFINITE, null);
                 if (sigWizard.getModel().getLaunchEncryptionWizard()) {
                     callEncryptionWizard();
                 }

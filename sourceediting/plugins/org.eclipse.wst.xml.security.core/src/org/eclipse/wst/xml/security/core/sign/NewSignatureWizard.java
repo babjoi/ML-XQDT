@@ -11,7 +11,6 @@
 package org.eclipse.wst.xml.security.core.sign;
 
 import org.eclipse.core.resources.IFile;
-import org.eclipse.core.resources.IProject;
 import org.eclipse.jface.dialogs.IDialogSettings;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.jface.text.ITextSelection;
@@ -91,25 +90,23 @@ public class NewSignatureWizard extends Wizard implements INewWizard {
     /**
      * Initializes the wizard with a selected file.
      *
-     * @param project The opened project
      * @param file The selected IFile
      */
-    public void init(final IProject project, final IFile file) {
-        init(project, file, null);
+    public void init(final IFile file) {
+        init(file, null);
     }
 
     /**
      * Initializes the wizard with a selected file and a text selection.
      *
-     * @param project The opened project
      * @param file The selected file
      * @param selection The text selection
      */
-    public void init(final IProject project, final IFile file, final ITextSelection selection) {
+    public void init(final IFile file, final ITextSelection selection) {
         this.file = file;
         this.selection = selection;
-        path = project.getLocation().toOSString();
-        name = project.getName();
+        path = file.getProject().getLocation().toOSString();
+        name = file.getProject().getName();
     }
 
     /**

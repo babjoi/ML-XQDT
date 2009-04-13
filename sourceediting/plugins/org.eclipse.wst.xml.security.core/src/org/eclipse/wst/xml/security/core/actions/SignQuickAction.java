@@ -17,7 +17,6 @@ import java.lang.reflect.InvocationTargetException;
 
 import org.apache.xml.security.utils.XMLUtils;
 import org.eclipse.core.resources.IFile;
-import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.dialogs.Dialog;
@@ -320,7 +319,6 @@ public class SignQuickAction extends XmlSecurityActionAdapter {
                 showInfo(Messages.quickSignatureImpossible, NLS.bind(Messages.protectedDoc, ACTION));
             }
         } else if (file != null && file.isAccessible() && !file.isReadOnly()) { // call in view
-            IProject project = file.getProject();
             if ("selection".equals(resource)) { //$NON-NLS-1$
                 showInfo(Messages.quickSignatureImpossible, Messages.quickSignatureImpossibleText);
             } else {
@@ -360,8 +358,6 @@ public class SignQuickAction extends XmlSecurityActionAdapter {
                     log(ERROR_TEXT, ie);
                 }
             }
-
-            project.refreshLocal(IProject.DEPTH_INFINITE, null);
         } else {
             showInfo(Messages.quickSignatureImpossible, NLS.bind(Messages.protectedDoc, ACTION));
         }

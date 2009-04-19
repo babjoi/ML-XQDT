@@ -10,7 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wst.xml.security.core.cheatsheets;
 
-import java.io.IOException;
 import java.io.InputStream;
 
 import org.eclipse.core.resources.IFile;
@@ -79,7 +78,7 @@ public class CreateSampleProject extends Action implements ICheatSheetAction {
 
                     // create the new file and fill it with the sample content
                     sampleFile.create(sampleData, true, null);
-                } catch (IOException ex) {
+                } catch (Exception ex) {
                     if (sampleData != null) {
                         sampleData.close();
                     }

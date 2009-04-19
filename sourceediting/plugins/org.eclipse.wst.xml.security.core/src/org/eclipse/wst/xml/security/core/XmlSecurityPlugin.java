@@ -45,7 +45,6 @@ public class XmlSecurityPlugin extends AbstractUIPlugin {
      * The main constructor of the XML Security Tools.
      */
     public XmlSecurityPlugin() {
-        super();
     }
 
     /**

@@ -10,6 +10,9 @@
  *******************************************************************************/
 package org.eclipse.wst.xml.security.core.cheatsheets;
 
+import java.io.IOException;
+import java.io.InputStream;
+
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.ResourcesPlugin;
@@ -69,9 +72,28 @@ public class CreateSampleProject extends Action implements ICheatSheetAction {
             IFile sampleFile = sampleProject.getFile(new Path(EXAMPLE_FILE));
 
             if (!sampleFile.exists()) {
-                // create the new file and fill it with the sample content
-                sampleFile.create(FileLocator.openStream(XmlSecurityPlugin.getDefault().getBundle(),
-                        new Path(SAMPLE_FILE), false), true, null);
+                InputStream sampleData = null;
+
+                try {
+                    sampleData = FileLocator.openStream(XmlSecurityPlugin.getDefault().getBundle(), new Path(SAMPLE_FILE), false);
+
+                    // create the new file and fill it with the sample content
+                    sampleFile.create(sampleData, true, null);
+                } catch (IOException ex) {
+                    if (sampleData != null) {
+                        sampleData.close();
+                    }
+
+                    String reason = ex.getMessage();
+                    if (reason == null) {
+                        reason = Messages.errorReasonUnavailable;
+                    }
+
+                    IStatus status = new Status(IStatus.ERROR, XmlSecurityPlugin.getDefault().getBundle().getSymbolicName(), 0, reason, ex);
+                    XmlSecurityPlugin.getDefault().getLog().log(status);
+
+                    showErrorDialog(Messages.error, Messages.createProjectFileXMLError, reason, status);
+                }
             }
 
             PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().openEditor(new FileEditorInput(sampleFile),

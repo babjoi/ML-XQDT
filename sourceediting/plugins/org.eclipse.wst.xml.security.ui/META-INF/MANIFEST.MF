@@ -10,3 +10,4 @@ Require-Bundle: org.eclipse.wst.xml.security.core;bundle-version="0.5.0",
  org.eclipse.ui,
  org.eclipse.core.runtime
 Bundle-Activator: org.eclipse.wst.xml.security.ui.internal.XSTUIPlugin
+Bundle-Localization: plugin

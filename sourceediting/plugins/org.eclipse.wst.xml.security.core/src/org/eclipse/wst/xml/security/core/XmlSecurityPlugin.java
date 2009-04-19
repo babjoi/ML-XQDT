@@ -13,6 +13,7 @@ package org.eclipse.wst.xml.security.core;
 import org.eclipse.core.runtime.preferences.InstanceScope;
 import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.jface.resource.ImageDescriptor;
+import org.eclipse.jface.resource.ImageRegistry;
 import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
 import org.eclipse.ui.preferences.ScopedPreferenceStore;
@@ -115,6 +116,17 @@ public class XmlSecurityPlugin extends AbstractUIPlugin {
             preferenceStore = new ScopedPreferenceStore(new InstanceScope(), getBundle().getSymbolicName());
         }
         return preferenceStore;
+    }
+
+    @Override
+    protected void initializeImageRegistry(ImageRegistry registry) {
+        registry.put("sig_valid_small", getImageDescriptor("icons/sig_valid_small.gif"));
+        registry.put("sig_invalid_small", getImageDescriptor("icons/sig_invalid_small.gif"));
+        registry.put("sig_unknown_small", getImageDescriptor("icons/sig_unknown_small.gif"));
+        registry.put("sig_valid_large", getImageDescriptor("icons/sig_valid_large.gif"));
+        registry.put("sig_invalid_large", getImageDescriptor("icons/sig_invalid_large.gif"));
+        registry.put("sig_unknown_large", getImageDescriptor("icons/sig_unknown_large.gif"));
+        registry.put("echo_password", getImageDescriptor("icons/but_echo_password.gif"));
     }
 
     /**

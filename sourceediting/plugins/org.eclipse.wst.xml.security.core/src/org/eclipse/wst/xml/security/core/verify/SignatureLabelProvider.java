@@ -13,7 +13,7 @@ package org.eclipse.wst.xml.security.core.verify;
 import org.eclipse.jface.viewers.ILabelProviderListener;
 import org.eclipse.jface.viewers.ITableLabelProvider;
 import org.eclipse.swt.graphics.Image;
-import org.eclipse.wst.xml.security.core.utils.XmlSecurityImageRegistry;
+import org.eclipse.wst.xml.security.core.XmlSecurityPlugin;
 
 /**
  * <p>The label provider for the <b>XML Signatures</b> view. Prepares
@@ -61,11 +61,11 @@ public class SignatureLabelProvider implements ITableLabelProvider {
         }
 
         if (VerificationResult.VALID.equals(result.getStatus())) {
-            return XmlSecurityImageRegistry.getImageRegistry().get("sig_valid_small");
+            return XmlSecurityPlugin.getDefault().getImageRegistry().get("sig_valid_small");
         } else if (VerificationResult.INVALID.equals(result.getStatus())) {
-            return XmlSecurityImageRegistry.getImageRegistry().get("sig_invalid_small");
+            return XmlSecurityPlugin.getDefault().getImageRegistry().get("sig_invalid_small");
         } else {
-            return XmlSecurityImageRegistry.getImageRegistry().get("sig_unknown_small");
+            return XmlSecurityPlugin.getDefault().getImageRegistry().get("sig_unknown_small");
         }
     }
 

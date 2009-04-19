@@ -13,6 +13,7 @@ package org.eclipse.wst.xml.security.core.utils;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.widgets.Shell;
+import org.eclipse.wst.xml.security.core.XmlSecurityPlugin;
 import org.eclipse.wst.xml.security.core.verify.VerificationResult;
 
 
@@ -48,11 +49,11 @@ public class VerificationDialog extends MessageDialog {
      */
     public Image getImage() {
         if (status.equals(VerificationResult.VALID)) {
-            return XmlSecurityImageRegistry.getImageRegistry().get("sig_valid_large");
+            return XmlSecurityPlugin.getDefault().getImageRegistry().get("sig_valid_large");
         } else if (status.equals(VerificationResult.INVALID)) {
-            return XmlSecurityImageRegistry.getImageRegistry().get("sig_invalid_large");
+            return XmlSecurityPlugin.getDefault().getImageRegistry().get("sig_invalid_large");
         } else {
-            return XmlSecurityImageRegistry.getImageRegistry().get("sig_unknown_large");
+            return XmlSecurityPlugin.getDefault().getImageRegistry().get("sig_unknown_large");
         }
     }
 }

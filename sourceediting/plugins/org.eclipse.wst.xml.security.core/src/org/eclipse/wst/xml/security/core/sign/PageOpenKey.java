@@ -31,10 +31,10 @@ import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Listener;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.ui.PlatformUI;
+import org.eclipse.wst.xml.security.core.XmlSecurityPlugin;
 import org.eclipse.wst.xml.security.core.cryptography.Keystore;
 import org.eclipse.wst.xml.security.core.utils.Globals;
 import org.eclipse.wst.xml.security.core.utils.IContextHelpIds;
-import org.eclipse.wst.xml.security.core.utils.XmlSecurityImageRegistry;
 
 /**
  * <p>Second default page of the XML Signature Wizard. Lets the user select an existing <i>key</i> and enter the
@@ -217,14 +217,14 @@ public class PageOpenKey extends WizardPage implements Listener {
         tKeyPassword.setLayoutData(data);
 
         bEchoKeystorePassword = new Button(gKeystore, SWT.PUSH);
-        bEchoKeystorePassword.setImage(XmlSecurityImageRegistry.getImageRegistry().get("echo_password"));
+        bEchoKeystorePassword.setImage(XmlSecurityPlugin.getDefault().getImageRegistry().get("echo_password"));
         data = new FormData();
         data.top = new FormAttachment(tKeystorePassword, 0, SWT.CENTER);
         data.left = new FormAttachment(tKeystorePassword, Globals.MARGIN);
         bEchoKeystorePassword.setLayoutData(data);
 
         bEchoKeyPassword = new Button(gKey, SWT.PUSH);
-        bEchoKeyPassword.setImage(XmlSecurityImageRegistry.getImageRegistry().get("echo_password"));
+        bEchoKeyPassword.setImage(XmlSecurityPlugin.getDefault().getImageRegistry().get("echo_password"));
         data = new FormData();
         data.top = new FormAttachment(tKeyPassword, 0, SWT.CENTER);
         data.left = new FormAttachment(tKeyPassword, Globals.MARGIN);

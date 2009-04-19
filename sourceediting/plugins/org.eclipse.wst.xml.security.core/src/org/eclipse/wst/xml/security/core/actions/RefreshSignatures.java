@@ -16,6 +16,7 @@ import java.util.ArrayList;
 import org.apache.xml.security.keys.keyresolver.KeyResolverException;
 import org.apache.xml.security.signature.XMLSignatureException;
 import org.eclipse.core.resources.IFile;
+import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.operation.IRunnableWithProgress;
@@ -72,7 +73,7 @@ public class RefreshSignatures extends XmlSecurityActionAdapter implements IView
                     try {
                         PlatformUI.getWorkbench().getProgressService().runInUI(
                                 XmlSecurityPlugin.getActiveWorkbenchWindow(), op,
-                                XmlSecurityPlugin.getWorkspace().getRoot());
+                                ResourcesPlugin.getWorkspace().getRoot());
                     } catch (InvocationTargetException ite) {
                         log("Error while saving editor content", ite); //$NON-NLS-1$
                     } catch (InterruptedException ie) {

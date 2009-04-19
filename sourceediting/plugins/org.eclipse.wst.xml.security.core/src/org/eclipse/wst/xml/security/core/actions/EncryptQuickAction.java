@@ -14,6 +14,7 @@ import java.io.FileWriter;
 import java.lang.reflect.InvocationTargetException;
 
 import org.eclipse.core.resources.IFile;
+import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.dialogs.Dialog;
@@ -266,7 +267,7 @@ public class EncryptQuickAction extends XmlSecurityActionAdapter {
                 try {
                     PlatformUI.getWorkbench().getProgressService().runInUI(
                             XmlSecurityPlugin.getActiveWorkbenchWindow(), op,
-                            XmlSecurityPlugin.getWorkspace().getRoot());
+                            ResourcesPlugin.getWorkspace().getRoot());
                 } catch (InvocationTargetException ite) {
                     log(ERROR_TEXT, ite);
                 } catch (InterruptedException ie) {
@@ -311,7 +312,7 @@ public class EncryptQuickAction extends XmlSecurityActionAdapter {
                 try {
                     PlatformUI.getWorkbench().getProgressService().runInUI(
                             XmlSecurityPlugin.getActiveWorkbenchWindow(), op,
-                            XmlSecurityPlugin.getWorkspace().getRoot());
+                            ResourcesPlugin.getWorkspace().getRoot());
                 } catch (InvocationTargetException ite) {
                     log(ERROR_TEXT, ite);
                 } catch (InterruptedException ie) {

@@ -19,6 +19,7 @@ import java.util.regex.Pattern;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.parsers.SAXParserFactory;
 
+import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
@@ -210,7 +211,7 @@ public abstract class XmlSecurityActionAdapter implements IObjectActionDelegate 
             };
             try {
                 PlatformUI.getWorkbench().getProgressService().runInUI(XmlSecurityPlugin.getActiveWorkbenchWindow(),
-                        op, XmlSecurityPlugin.getWorkspace().getRoot());
+                        op, ResourcesPlugin.getWorkspace().getRoot());
             } catch (InvocationTargetException ite) {
                 log("Error while saving editor content", ite); //$NON-NLS-1$
             } catch (InterruptedException ie) {

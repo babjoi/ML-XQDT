@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2008 Dominik Schadow - http://www.xml-sicherheit.de
+ * Copyright (c) 2009 Dominik Schadow - http://www.xml-sicherheit.de
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -10,13 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wst.xml.security.core;
 
-import java.util.MissingResourceException;
-import java.util.ResourceBundle;
-
-import org.eclipse.core.resources.IWorkspace;
-import org.eclipse.core.resources.ResourcesPlugin;
-import org.eclipse.core.runtime.IStatus;
-import org.eclipse.core.runtime.Status;
 import org.eclipse.core.runtime.preferences.InstanceScope;
 import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.jface.resource.ImageDescriptor;
@@ -47,21 +40,12 @@ public class XmlSecurityPlugin extends AbstractUIPlugin {
     private ScopedPreferenceStore preferenceStore;
     /** The main instance of the XML Security Tools. */
     private static XmlSecurityPlugin plugin;
-    /** Resource bundle of the XML Security Tools. */
-    private ResourceBundle resourceBundle;
-    /** XML Security Tools resource bundle location. */
-    private static final String RESOURCE_BUNDLE = "org.eclipse.wst.xml.security.core.XmlsecurityPluginResources"; //$NON-NLS-1$
 
     /**
      * The main constructor of the XML Security Tools.
      */
     public XmlSecurityPlugin() {
         super();
-        try {
-            resourceBundle = ResourceBundle.getBundle(RESOURCE_BUNDLE);
-        } catch (MissingResourceException x) {
-            resourceBundle = null;
-        }
     }
 
     /**
@@ -96,53 +80,6 @@ public class XmlSecurityPlugin extends AbstractUIPlugin {
      */
     public static XmlSecurityPlugin getDefault() {
         return plugin;
-    }
-
-    /**
-     * Returns the active workspace of the XML Security Tools.
-     *
-     * @return The workspace
-     */
-    public static IWorkspace getWorkspace() {
-        return ResourcesPlugin.getWorkspace();
-    }
-
-    /**
-     * Returns the value from the resource bundle, or the <code>key</code> if not found.
-     *
-     * @param key The key to look for
-     * @return The resource String
-     */
-    public static String getResourceString(final String key) {
-        ResourceBundle bundle = XmlSecurityPlugin.getDefault().getResourceBundle();
-        try {
-            if (bundle != null) {
-                return bundle.getString(key);
-            }
-
-            return key;
-        } catch (MissingResourceException e) {
-            return key;
-        }
-    }
-
-    /**
-     * Returns the resource bundle of the XML Security Tools.
-     *
-     * @return The resource bundle
-     */
-    public ResourceBundle getResourceBundle() {
-        return resourceBundle;
-    }
-
-    /**
-     * Shows exceptions in the log view.
-     *
-     * @param t The exception
-     */
-    public void log(final Throwable t) {
-        IStatus status = new Status(IStatus.ERROR, getId(), -1, "Exception", t); //$NON-NLS-1$
-        getLog().log(status);
     }
 
     /**

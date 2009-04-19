@@ -208,49 +208,5 @@
       </initializer>
    </extension>
    <!-- Cheat Sheets -->
-   <extension
-         id="org.eclipse.wst.xml.security.core.cheatsheets"
-         name="org.eclipse.wst.xml.security.core.cheatsheets"
-         point="org.eclipse.ui.cheatsheets.cheatSheetContent">
-   	  <category
-   	  	name="%xmlSecurityCheatSheet"
-   	  	id="org.eclipse.wst.xml.security.core.cheatsheets.category">
-   	  </category>
-   	  <cheatsheet
-   	  	name="%signatureCheatSheet"
-   	  	contentFile="$nl$/cheatsheets/sign.xml"
-   	  	category="org.eclipse.wst.xml.security.core.cheatsheets.category"
-   	  	id="org.eclipse.wst.xml.security.core.cheatsheets.sign">
-   	  	<description>%signatureCheatSheetDescription</description>
-   	  </cheatsheet>
-   	  <cheatsheet
-   	  	name="%verificationCheatSheet"
-   	  	contentFile="$nl$/cheatsheets/verify.xml"
-   	  	category="org.eclipse.wst.xml.security.core.cheatsheets.category"
-   	  	id="org.eclipse.wst.xml.security.core.cheatsheets.verify">
-   	  	<description>%verificationCheatSheetDescription</description>
-   	  </cheatsheet>
-   	  <cheatsheet
-   	  	name="%encryptionCheatSheet"
-   	  	contentFile="$nl$/cheatsheets/encrypt.xml"
-   	  	category="org.eclipse.wst.xml.security.core.cheatsheets.category"
-   	  	id="org.eclipse.wst.xml.security.core.cheatsheets.encrypt">
-   	  	<description>%encryptionCheatSheetDescription</description>
-   	  </cheatsheet>
-   	  <cheatsheet
-   	  	name="%decryptionCheatSheet"
-   	  	contentFile="$nl$/cheatsheets/decrypt.xml"
-   	  	category="org.eclipse.wst.xml.security.core.cheatsheets.category"
-   	  	id="org.eclipse.wst.xml.security.core.cheatsheets.decrypt">
-   	  	<description>%decryptionCheatSheetDescription</description>
-   	  </cheatsheet>
-   	  <cheatsheet
-   	  	name="%quickFunctionsCheatSheet"
-   	  	contentFile="$nl$/cheatsheets/quick.xml"
-   	  	category="org.eclipse.wst.xml.security.core.cheatsheets.category"
-   	  	id="org.eclipse.wst.xml.security.core.cheatsheets.quick">
-   	  	<description>%quickFunctionsCheatSheetDescription</description>
-   	  </cheatsheet>
-   </extension>
 
 </plugin>

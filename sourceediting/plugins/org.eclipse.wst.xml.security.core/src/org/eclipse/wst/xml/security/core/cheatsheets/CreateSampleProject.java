@@ -10,19 +10,15 @@
  *******************************************************************************/
 package org.eclipse.wst.xml.security.core.cheatsheets;
 
-import java.io.ByteArrayInputStream;
-
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
-import org.eclipse.core.resources.IWorkspace;
 import org.eclipse.core.resources.ResourcesPlugin;
-import org.eclipse.core.runtime.IPath;
+import org.eclipse.core.runtime.FileLocator;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.jface.action.Action;
 import org.eclipse.jface.dialogs.ErrorDialog;
-import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.cheatsheets.ICheatSheetAction;
 import org.eclipse.ui.cheatsheets.ICheatSheetManager;
@@ -39,60 +35,26 @@ import org.eclipse.wst.xml.security.core.XmlSecurityPlugin;
  * @version 0.5.0
  */
 public class CreateSampleProject extends Action implements ICheatSheetAction {
-    /** The example project to create. */
+    /** The sample project to create. */
     private static final String EXAMPLE_PROJECT = "XML-Security"; //$NON-NLS-1$
-    /** The example XML document to create. */
+    /** The sample XML document to create. */
     private static final String EXAMPLE_FILE = "FirstSteps.xml"; //$NON-NLS-1$
-    /** First steps sample XML document. */
-    private static final StringBuffer FIRST_STEPS = new StringBuffer(
-            "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" //$NON-NLS-1$
-            + "<Invoice>\n" //$NON-NLS-1$
-            + " <ID>IN 2008/00645</ID>\n" //$NON-NLS-1$
-            + " <IssueDate>2008-03-30</IssueDate>\n" //$NON-NLS-1$
-            + " <BuyerParty>\n" //$NON-NLS-1$
-            + "  <ID>458746</ID>\n" //$NON-NLS-1$
-            + "  <name>John Doe</name>\n" //$NON-NLS-1$
-            + " </BuyerParty>\n" //$NON-NLS-1$
-            + " <PaymentMeans>\n" //$NON-NLS-1$
-            + "  <PayeeFinancialAccount>\n" //$NON-NLS-1$
-            + "   <ID>07044961</ID>\n" //$NON-NLS-1$
-            + "   <Name>The Specialists Company</Name>\n" //$NON-NLS-1$
-            + "   <AccountTypeCode>Credit</AccountTypeCode>\n" //$NON-NLS-1$
-            + "   <FinancialInstitutionBranch>\n" //$NON-NLS-1$
-            + "    <ID>776631</ID>\n" //$NON-NLS-1$
-            + "    <Institution>LOYDGB852</Institution>\n" //$NON-NLS-1$
-            + "   </FinancialInstitutionBranch>\n" //$NON-NLS-1$
-            + "  </PayeeFinancialAccount>\n" //$NON-NLS-1$
-            + " </PaymentMeans>\n" //$NON-NLS-1$
-            + " <TotalAmount currencyID=\"EUR\">382.00</TotalAmount>\n" //$NON-NLS-1$
-            + " <!-- item 1 -->\n" //$NON-NLS-1$
-            + " <InvoiceLine id=\"1\">\n" //$NON-NLS-1$
-            + "  <Quantity>2</Quantity>\n" //$NON-NLS-1$
-            + "  <LineAmount currencyID=\"EUR\">205.00</LineAmount>\n" //$NON-NLS-1$
-            + "  <Item id=\"236WV\">\n" //$NON-NLS-1$
-            + "   <BasePrice currencyID=\"EUR\">102.50</BasePrice>\n" //$NON-NLS-1$
-            + "  </Item>\n" //$NON-NLS-1$
-            + " </InvoiceLine>\n" //$NON-NLS-1$
-            + " <!-- item 2 -->\n" //$NON-NLS-1$
-            + " <InvoiceLine id=\"2\">\n" //$NON-NLS-1$
-            + "  <Quantity>1</Quantity>\n" //$NON-NLS-1$
-            + "  <LineAmount currencyID=\"EUR\">177.00</LineAmount>\n" //$NON-NLS-1$
-            + "  <Item id=\"193DX\">\n" //$NON-NLS-1$
-            + "   <BasePrice currencyID=\"EUR\">177.00</BasePrice>\n" //$NON-NLS-1$
-            + "  </Item>\n" //$NON-NLS-1$
-            + " </InvoiceLine>\n" //$NON-NLS-1$
-            + "</Invoice>"); //$NON-NLS-1$
+    /** The sample XML file located in the plug-in. */
+    private static final String SAMPLE_FILE = "resources/FirstSteps.xml"; //$NON-NLS-1$
 
     /**
-     * Creates the project and the sample XML document if neither doesn't exist.
+     * Attempts to create the sample project <b>XML-Security</b> and the sample file
+     * <b>FirstSteps.xml</b>. Opens the project if it already exists. The sample file
+     * is only created if it doesn't exist either. After everything is done the sample
+     * file will be opened in the dedicated XML editor (the opened file may be the
+     * original sample file or the file that already existed in the workspace).
      *
      * @param params Parameters for the action
      * @param manager The Cheat Sheet manager
      */
     public void run(final String[] params, final ICheatSheetManager manager) {
         try {
-            IWorkspace workspace = ResourcesPlugin.getWorkspace();
-            IProject sampleProject = workspace.getRoot().getProject(EXAMPLE_PROJECT);
+            IProject sampleProject = ResourcesPlugin.getWorkspace().getRoot().getProject(EXAMPLE_PROJECT);
 
             // create project if it does not yet exist
             if (!sampleProject.exists()) {
@@ -104,17 +66,16 @@ public class CreateSampleProject extends Action implements ICheatSheetAction {
                 sampleProject.open(null);
             }
 
-            IPath path = new Path(EXAMPLE_FILE);
-            IFile sampleFile = sampleProject.getFile(path);
-            IWorkbench workbench = PlatformUI.getWorkbench();
+            IFile sampleFile = sampleProject.getFile(new Path(EXAMPLE_FILE));
 
             if (!sampleFile.exists()) {
                 // create the new file and fill it with the sample content
-                sampleFile.create(new ByteArrayInputStream(FIRST_STEPS.toString().getBytes("UTF-8")), true, null);
+                sampleFile.create(FileLocator.openStream(XmlSecurityPlugin.getDefault().getBundle(),
+                        new Path(SAMPLE_FILE), false), true, null);
             }
 
-            workbench.getActiveWorkbenchWindow().getActivePage().openEditor(new FileEditorInput(sampleFile),
-                    workbench.getEditorRegistry().getDefaultEditor(sampleFile.getName()).getId(), true);
+            PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().openEditor(new FileEditorInput(sampleFile),
+                    PlatformUI.getWorkbench().getEditorRegistry().getDefaultEditor(sampleFile.getName()).getId(), true);
         } catch (Exception ex) {
             String reason = ex.getMessage();
             if (reason == null) {

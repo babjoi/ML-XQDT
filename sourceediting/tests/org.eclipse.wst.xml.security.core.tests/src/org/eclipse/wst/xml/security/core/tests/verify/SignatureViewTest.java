@@ -13,10 +13,10 @@ package org.eclipse.wst.xml.security.core.tests.verify;
 import junit.framework.TestCase;
 
 import org.eclipse.core.runtime.jobs.Job;
+import org.eclipse.jface.viewers.ArrayContentProvider;
 import org.eclipse.jface.viewers.TableViewer;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.ui.PlatformUI;
-import org.eclipse.wst.xml.security.core.verify.SignatureContentProvider;
 import org.eclipse.wst.xml.security.core.verify.SignatureLabelProvider;
 import org.eclipse.wst.xml.security.core.verify.SignatureView;
 
@@ -46,7 +46,7 @@ public class SignatureViewTest extends TestCase {
         TableViewer viewer = testView.getSignaturesViewer();
         assertNotNull(viewer);
 
-        SignatureContentProvider contentProvider = (SignatureContentProvider) viewer.getContentProvider();
+        ArrayContentProvider contentProvider = (ArrayContentProvider) viewer.getContentProvider();
         assertNotNull(contentProvider);
 
         SignatureLabelProvider labelProvider = (SignatureLabelProvider) viewer.getLabelProvider();

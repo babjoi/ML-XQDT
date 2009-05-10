@@ -16,6 +16,7 @@ import org.eclipse.jface.action.Action;
 import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.action.MenuManager;
 import org.eclipse.jface.action.Separator;
+import org.eclipse.jface.viewers.ArrayContentProvider;
 import org.eclipse.jface.viewers.DoubleClickEvent;
 import org.eclipse.jface.viewers.IDoubleClickListener;
 import org.eclipse.jface.viewers.ISelection;
@@ -83,7 +84,7 @@ public class SignatureView extends ViewPart {
      */
     public void createPartControl(final Composite parent) {
         viewer = new TableViewer(parent, SWT.BORDER | SWT.H_SCROLL | SWT.V_SCROLL | SWT.FULL_SELECTION);
-        viewer.setContentProvider(new SignatureContentProvider());
+        viewer.setContentProvider(new ArrayContentProvider());
         viewer.setLabelProvider(new SignatureLabelProvider());
 
         getSite().setSelectionProvider(viewer);

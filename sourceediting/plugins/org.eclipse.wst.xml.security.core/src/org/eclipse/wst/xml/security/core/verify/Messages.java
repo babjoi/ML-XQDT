@@ -35,9 +35,8 @@ public final class Messages extends NLS {
 
     /** Signature View externalized strings. */
     public static String signatureId, signatureStatus, signatureType, signatureAlgorithm, validSignature,
-            invalidSignature, unknownSignature, properties, propertiesInfo, refresh,
-            refreshInfo, verificationImpossible, verificationImpossibleInfo, invalidXml, invalidCertificate,
-            generalError, noDocument, title, impossibleToGetKeyInformation, verificationResult;
+            invalidSignature, unknownSignature, verificationImpossible, title, impossibleToGetKeyInformation,
+            verificationResult;
 
     /** Signature Content Provider externalized strings. */
     public static String signatureInfo;

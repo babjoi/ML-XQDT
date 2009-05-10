@@ -101,15 +101,6 @@ public class VerificationResult {
     }
 
     /**
-     * Converts a VerificationResult item into a byte array.
-     *
-     * @return The byte array version of the VerificationResult
-     */
-    public byte[] resultToByteArray() {
-        return resultToReadableString().getBytes();
-    }
-
-    /**
      * Converts a VerificationResult item into a readable String format.
      *
      * @return A readable version of the VerificationResult

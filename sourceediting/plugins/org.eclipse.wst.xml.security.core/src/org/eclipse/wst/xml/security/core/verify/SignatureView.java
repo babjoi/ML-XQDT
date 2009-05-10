@@ -12,8 +12,6 @@ package org.eclipse.wst.xml.security.core.verify;
 
 import java.util.ArrayList;
 
-import org.eclipse.core.runtime.IStatus;
-import org.eclipse.core.runtime.Status;
 import org.eclipse.jface.action.Action;
 import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.action.MenuManager;
@@ -35,10 +33,7 @@ import org.eclipse.swt.widgets.Menu;
 import org.eclipse.ui.IActionBars;
 import org.eclipse.ui.IWorkbenchActionConstants;
 import org.eclipse.ui.PlatformUI;
-import org.eclipse.ui.part.PluginTransfer;
-import org.eclipse.ui.part.PluginTransferData;
 import org.eclipse.ui.part.ViewPart;
-import org.eclipse.wst.xml.security.core.XmlSecurityPlugin;
 import org.eclipse.wst.xml.security.core.actions.ShowSignatureProperties;
 import org.eclipse.wst.xml.security.core.utils.IContextHelpIds;
 
@@ -54,10 +49,8 @@ import org.eclipse.wst.xml.security.core.utils.IContextHelpIds;
 public class SignatureView extends ViewPart {
     /** TableViewer in the view. */
     private TableViewer viewer;
-    /** Double click on a signature in the view. */
-    private ShowSignatureProperties doubleClickAction = new ShowSignatureProperties();
     /** XML Signatures view ID. */
-    public static final String ID = "org.eclipse.wst.xml.security.core.views.SignatureView";
+    public static final String ID = "org.eclipse.wst.xml.security.core.views.SignatureView"; //$NON-NLS-1$
     /** The system clipboard. */
     private Clipboard clipboard = null;
 
@@ -76,8 +69,10 @@ public class SignatureView extends ViewPart {
      * Disposes the view, frees all system resources.
      */
     public void dispose() {
-        clipboard.dispose();
-        clipboard = null;
+        if (clipboard != null) {
+            clipboard.dispose();
+            clipboard = null;
+        }
         super.dispose();
     }
 
@@ -97,7 +92,7 @@ public class SignatureView extends ViewPart {
         viewer.getTable().setHeaderVisible(true);
 
         TableViewerColumn column = new TableViewerColumn(viewer, SWT.CENTER);
-        column.getColumn().setText("");
+        column.getColumn().setText(""); //$NON-NLS-1$
         column.getColumn().setToolTipText(Messages.signatureStatus);
         column.getColumn().setWidth(50);
         column.getColumn().setMoveable(true);
@@ -194,7 +189,7 @@ public class SignatureView extends ViewPart {
                 setClipboardData();
             }
         };
-        getViewSite().getActionBars().setGlobalActionHandler("copy", copyAction);
+        getViewSite().getActionBars().setGlobalActionHandler("copy", copyAction); //$NON-NLS-1$
     }
 
     /**
@@ -209,13 +204,10 @@ public class SignatureView extends ViewPart {
             return false;
         }
 
-        PluginTransferData pluginData = new PluginTransferData("org.eclipse.wst.xml.security.core.verificationResultCopyAction",
-                result.resultToByteArray());
         String text = result.resultToReadableString();
         TextTransfer textTransfer = TextTransfer.getInstance();
-        PluginTransfer pluginTransfer = PluginTransfer.getInstance();
-        Transfer[] transfers = new Transfer[] {textTransfer, pluginTransfer};
-        Object[] data = new Object[] {text, pluginData};
+        Transfer[] transfers = new Transfer[] {textTransfer};
+        Object[] data = new Object[] {text};
         clipboard.setContents(data, transfers);
 
         return true;
@@ -227,9 +219,17 @@ public class SignatureView extends ViewPart {
      * @return The selected Verification Result
      */
     private VerificationResult getSelectedItem() {
-        IStructuredSelection selection = (IStructuredSelection) viewer.getSelection();
-        VerificationResult result = (VerificationResult) selection.getFirstElement();
-        return result;
+        ISelection selection = viewer.getSelection();
+
+        if (selection != null && selection instanceof IStructuredSelection) {
+            Object o = ((IStructuredSelection) selection).getFirstElement();
+
+            if (o instanceof VerificationResult) {
+                return (VerificationResult) o;
+            }
+        }
+
+        return null;
     }
 
     /**
@@ -253,34 +253,16 @@ public class SignatureView extends ViewPart {
     }
 
     /**
-     * Writes the message into the log file.
-     *
-     * @param message The message to log
-     * @param ex The exception to log
-     */
-    protected void log(final String message, final Exception ex) {
-        XmlSecurityPlugin plugin = XmlSecurityPlugin.getDefault();
-        IStatus status = new Status(IStatus.ERROR, plugin.getBundle().getSymbolicName(), 0,
-                message, ex);
-        plugin.getLog().log(status);
-    }
-
-    /**
-     * Double click in the view.
+     * Double click on an entry in the view. Shows a dialog with additional signature properties.
      */
     private void hookDoubleClickAction() {
         viewer.addDoubleClickListener(new IDoubleClickListener() {
             public void doubleClick(final DoubleClickEvent event) {
-                ISelection selection = viewer.getSelection();
+                VerificationResult result = getSelectedItem();
 
-                if (selection != null && selection instanceof IStructuredSelection) {
-                    Object o = ((IStructuredSelection) selection).getFirstElement();
-
-                    if (o instanceof VerificationResult) {
-                        doubleClickAction.run((VerificationResult) o);
-                    }
+                if (result != null) {
+                    (new ShowSignatureProperties()).run(result);
                 }
-
             }
         });
     }

@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2008 Dominik Schadow - http://www.xml-sicherheit.de
+ * Copyright (c) 2009 Dominik Schadow - http://www.xml-sicherheit.de
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -23,7 +23,7 @@ public final class Messages extends NLS {
     private static final String BUNDLE_NAME = "org.eclipse.wst.xml.security.core.verify.messages";
 
     /**
-     * Private Constructor to avoid instantiation.
+     * Private constructor to avoid instantiation.
      */
     private Messages() {
     }
@@ -36,8 +36,5 @@ public final class Messages extends NLS {
     /** Signature View externalized strings. */
     public static String signatureId, signatureStatus, signatureType, signatureAlgorithm, validSignature,
             invalidSignature, unknownSignature, verificationImpossible, title, impossibleToGetKeyInformation,
-            verificationResult;
-
-    /** Signature Content Provider externalized strings. */
-    public static String signatureInfo;
+            verificationResult, signatureInfo;
 }

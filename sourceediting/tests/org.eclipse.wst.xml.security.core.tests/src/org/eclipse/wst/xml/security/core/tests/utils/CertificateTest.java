@@ -16,7 +16,7 @@ import java.util.HashMap;
 import junit.framework.TestCase;
 
 import org.eclipse.wst.xml.security.core.cryptography.Keystore;
-import org.eclipse.wst.xml.security.core.tests.XMLSecurityToolsTestPlugin;
+import org.eclipse.wst.xml.security.core.tests.XMLSecurityToolsCoreTestPlugin;
 import org.eclipse.wst.xml.security.core.utils.Globals;
 
 /**
@@ -36,12 +36,12 @@ public class CertificateTest extends TestCase {
      * @throws Exception during loading the sample keystore
      */
     public void setUp() throws Exception {
-        File tempFile = new File(XMLSecurityToolsTestPlugin.getTestFileLocation(TEMP_KEYSTORE_PATH));
+        File tempFile = new File(XMLSecurityToolsCoreTestPlugin.getTestFileLocation(TEMP_KEYSTORE_PATH));
         if (tempFile.exists()) {
             assertTrue(tempFile.delete());
         }
 
-        tempKeystore = new Keystore(XMLSecurityToolsTestPlugin.getTestFileLocation(TEMP_KEYSTORE_PATH),
+        tempKeystore = new Keystore(XMLSecurityToolsCoreTestPlugin.getTestFileLocation(TEMP_KEYSTORE_PATH),
                 KEYSTORE_PASSWORD, Globals.KEYSTORE_TYPE);
     }
 
@@ -59,7 +59,7 @@ public class CertificateTest extends TestCase {
             certificateData.put("storepass", "unitTest");
 
 
-            File tempFile = new File(XMLSecurityToolsTestPlugin.getTestFileLocation(TEMP_KEYSTORE_PATH));
+            File tempFile = new File(XMLSecurityToolsCoreTestPlugin.getTestFileLocation(TEMP_KEYSTORE_PATH));
             assertFalse(tempFile.exists());
 
             assertNotNull(tempKeystore);

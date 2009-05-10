@@ -21,8 +21,8 @@ import junit.framework.TestSuite;
  */
 public class AllTestsSuite extends TestSuite {
     public AllTestsSuite() {
-        super("All XML Security Tools Test Suite");
-        addTest(XmlSecurityCoreTestSuite.suite());
+        super("All XML Security Tools Core Test Suite");
+        addTest(XmlSecurityToolsCoreTestSuite.suite());
     }
 
     /**

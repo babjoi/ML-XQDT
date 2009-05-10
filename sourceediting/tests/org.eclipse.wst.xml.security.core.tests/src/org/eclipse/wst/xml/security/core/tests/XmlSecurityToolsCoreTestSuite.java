@@ -13,13 +13,11 @@ package org.eclipse.wst.xml.security.core.tests;
 import junit.framework.Test;
 import junit.framework.TestSuite;
 
-import org.eclipse.wst.xml.security.core.cheatsheets.CreateSampleProjectTest;
 import org.eclipse.wst.xml.security.core.tests.sign.CreateSignatureTest;
 import org.eclipse.wst.xml.security.core.tests.utils.CertificateTest;
 import org.eclipse.wst.xml.security.core.tests.utils.KeystoreTest;
 import org.eclipse.wst.xml.security.core.tests.utils.UtilsTest;
 import org.eclipse.wst.xml.security.core.tests.utils.XmlSecurityConstantsTest;
-import org.eclipse.wst.xml.security.core.tests.verify.SignatureViewTest;
 
 /**
  * This class sets up the XML Security Tools test suite.
@@ -27,20 +25,18 @@ import org.eclipse.wst.xml.security.core.tests.verify.SignatureViewTest;
  * @author Dominik Schadow
  * @version 0.5.0
  */
-public class XmlSecurityCoreTestSuite extends TestSuite {
+public class XmlSecurityToolsCoreTestSuite extends TestSuite {
     public static Test suite() {
-        return new XmlSecurityCoreTestSuite();
+        return new XmlSecurityToolsCoreTestSuite();
     }
 
-    public XmlSecurityCoreTestSuite() {
+    public XmlSecurityToolsCoreTestSuite() {
         super("XML Security Core Tests");
-        addTestSuite(CreateSampleProjectTest.class);
         addTestSuite(CreateSignatureTest.class);
         addTestSuite(CertificateTest.class);
         addTestSuite(KeystoreTest.class);
         addTestSuite(UtilsTest.class);
         addTestSuite(XmlSecurityConstantsTest.class);
-        addTestSuite(SignatureViewTest.class);
     }
 }
 

@@ -14,7 +14,7 @@ import java.io.File;
 
 import junit.framework.TestCase;
 
-import org.eclipse.wst.xml.security.core.tests.XMLSecurityToolsTestPlugin;
+import org.eclipse.wst.xml.security.core.tests.XMLSecurityToolsCoreTestPlugin;
 import org.eclipse.wst.xml.security.core.utils.Utils;
 import org.w3c.dom.Document;
 
@@ -38,7 +38,7 @@ public class UtilsTest extends TestCase {
      * @throws Exception
      */
     public void setUp() throws Exception {
-        xml = Utils.parse(new File(XMLSecurityToolsTestPlugin.getTestFileLocation("resources/FirstSteps.xml")));
+        xml = Utils.parse(new File(XMLSecurityToolsCoreTestPlugin.getTestFileLocation("resources/FirstSteps.xml")));
         // BUG not working correctly
 //        IFileStore fileStore = EFS.getLocalFileSystem().fromLocalFile(new File("resources/ids.xml"));
 //        FileStoreEditorInput input = new FileStoreEditorInput(fileStore);

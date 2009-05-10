@@ -25,14 +25,14 @@ import org.eclipse.core.runtime.Plugin;
  * @author Dominik Schadow
  * @version 0.5.0
  */
-public class XMLSecurityToolsTestPlugin extends Plugin {
+public class XMLSecurityToolsCoreTestPlugin extends Plugin {
     /** The shared plug-in instance. */
-    private static XMLSecurityToolsTestPlugin plugin;
+    private static XMLSecurityToolsCoreTestPlugin plugin;
 
     /**
      * The constructor.
      */
-    public XMLSecurityToolsTestPlugin() {
+    public XMLSecurityToolsCoreTestPlugin() {
         super();
 
         plugin = this;
@@ -41,7 +41,7 @@ public class XMLSecurityToolsTestPlugin extends Plugin {
     /**
      * Returns the shared instance.
      */
-    public static XMLSecurityToolsTestPlugin getDefault() {
+    public static XMLSecurityToolsCoreTestPlugin getDefault() {
         return plugin;
     }
 

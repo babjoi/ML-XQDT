@@ -19,7 +19,7 @@ import javax.crypto.SecretKey;
 import junit.framework.TestCase;
 
 import org.eclipse.wst.xml.security.core.cryptography.Keystore;
-import org.eclipse.wst.xml.security.core.tests.XMLSecurityToolsTestPlugin;
+import org.eclipse.wst.xml.security.core.tests.XMLSecurityToolsCoreTestPlugin;
 import org.eclipse.wst.xml.security.core.utils.Globals;
 
 /**
@@ -53,13 +53,13 @@ public class KeystoreTest extends TestCase {
      * @throws Exception during loading the sample keystore
      */
     public void setUp() throws Exception {
-        File tempFile = new File(XMLSecurityToolsTestPlugin.getTestFileLocation(TEMP_KEYSTORE_PATH));
+        File tempFile = new File(XMLSecurityToolsCoreTestPlugin.getTestFileLocation(TEMP_KEYSTORE_PATH));
         if (tempFile.exists()) {
             assertTrue(tempFile.delete());
         }
 
-        keystore = new Keystore(XMLSecurityToolsTestPlugin.getTestFileLocation(KEYSTORE_PATH), KEYSTORE_PASSWORD, Globals.KEYSTORE_TYPE);
-        tempKeystore = new Keystore(XMLSecurityToolsTestPlugin.getTestFileLocation(TEMP_KEYSTORE_PATH), KEYSTORE_PASSWORD, Globals.KEYSTORE_TYPE);
+        keystore = new Keystore(XMLSecurityToolsCoreTestPlugin.getTestFileLocation(KEYSTORE_PATH), KEYSTORE_PASSWORD, Globals.KEYSTORE_TYPE);
+        tempKeystore = new Keystore(XMLSecurityToolsCoreTestPlugin.getTestFileLocation(TEMP_KEYSTORE_PATH), KEYSTORE_PASSWORD, Globals.KEYSTORE_TYPE);
 
         certificateData.put("CN", "dummy"); //$NON-NLS-1$
         certificateData.put("OU", "dummy"); //$NON-NLS-1$
@@ -82,7 +82,7 @@ public class KeystoreTest extends TestCase {
      */
     public void testStore() {
         try {
-        	String keystorePath = XMLSecurityToolsTestPlugin.getTestFileLocation(TEMP_KEYSTORE_PATH);
+        	String keystorePath = XMLSecurityToolsCoreTestPlugin.getTestFileLocation(TEMP_KEYSTORE_PATH);
             File tempFile = new File(keystorePath);
 
             assertFalse(tempFile.exists());

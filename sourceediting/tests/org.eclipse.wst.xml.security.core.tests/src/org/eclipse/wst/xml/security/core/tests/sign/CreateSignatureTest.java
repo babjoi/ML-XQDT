@@ -20,7 +20,7 @@ import org.apache.xml.security.utils.XMLUtils;
 import org.eclipse.wst.xml.security.core.cryptography.Keystore;
 import org.eclipse.wst.xml.security.core.sign.CreateSignature;
 import org.eclipse.wst.xml.security.core.sign.Signature;
-import org.eclipse.wst.xml.security.core.tests.XMLSecurityToolsTestPlugin;
+import org.eclipse.wst.xml.security.core.tests.XMLSecurityToolsCoreTestPlugin;
 import org.eclipse.wst.xml.security.core.utils.Globals;
 import org.eclipse.wst.xml.security.core.verify.VerificationResult;
 import org.eclipse.wst.xml.security.core.verify.VerifySignature;
@@ -52,7 +52,7 @@ public class CreateSignatureTest extends TestCase {
     protected void setUp() throws Exception {
         org.apache.xml.security.Init.init();
 
-        Keystore sampleKeyStore = new Keystore(XMLSecurityToolsTestPlugin.getTestFileLocation(KEYSTORE_PATH), KEYSTORE_PASSWORD,
+        Keystore sampleKeyStore = new Keystore(XMLSecurityToolsCoreTestPlugin.getTestFileLocation(KEYSTORE_PATH), KEYSTORE_PASSWORD,
                 Globals.KEYSTORE_TYPE);
         sampleKeyStore.load();
 
@@ -63,7 +63,7 @@ public class CreateSignatureTest extends TestCase {
         signature.setKeyName(KEY_ALIAS);
         signature.setKeyPassword(KEY_PASSWORD.toCharArray());
         signature.setDetachedFile(null);
-        signature.setFile(XMLSecurityToolsTestPlugin.getTestFileLocation("resources/FirstSteps.xml"));
+        signature.setFile(XMLSecurityToolsCoreTestPlugin.getTestFileLocation("resources/FirstSteps.xml"));
         signature.setKeystore(sampleKeyStore);
         signature.setKeystorePassword(KEYSTORE_PASSWORD.toCharArray());
         signature.setMessageDigestAlgorithm("SHA 1");
@@ -85,7 +85,7 @@ public class CreateSignatureTest extends TestCase {
         signature = null;
 
         try {
-            File file = new File(XMLSecurityToolsTestPlugin.getTestFileLocation(SIGNED_FILE_NAME));
+            File file = new File(XMLSecurityToolsCoreTestPlugin.getTestFileLocation(SIGNED_FILE_NAME));
             if (file.exists()) {
                 file.delete();
             }
@@ -106,7 +106,7 @@ public class CreateSignatureTest extends TestCase {
         try {
             result = sign.sign(signature, null, null);
 
-            String signedFilename = XMLSecurityToolsTestPlugin.getTestFileLocation(SIGNED_FILE_NAME);
+            String signedFilename = XMLSecurityToolsCoreTestPlugin.getTestFileLocation(SIGNED_FILE_NAME);
 
             FileOutputStream fos = new FileOutputStream(signedFilename);
             if (result != null) {

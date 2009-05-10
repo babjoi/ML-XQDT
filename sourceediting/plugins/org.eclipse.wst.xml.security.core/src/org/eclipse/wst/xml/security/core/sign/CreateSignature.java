@@ -31,7 +31,6 @@ import org.apache.xml.security.transforms.params.XPath2FilterContainer;
 import org.apache.xml.security.utils.resolver.implementations.ResolverFragment;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.NullProgressMonitor;
-import org.eclipse.jface.text.ITextSelection;
 import org.eclipse.wst.xml.security.core.cryptography.Keystore;
 import org.eclipse.wst.xml.security.core.utils.SignatureNamespaceContext;
 import org.eclipse.wst.xml.security.core.utils.Utils;
@@ -96,7 +95,7 @@ public class CreateSignature {
      * @throws Exception to indicate any exceptional condition
      * @return The signed XML document
      */
-    public Document sign(Signature model, ITextSelection selection, IProgressMonitor monitor)
+    public Document sign(Signature model, String selection, IProgressMonitor monitor)
         throws Exception {
         Document signedDoc = null;
 
@@ -154,7 +153,7 @@ public class CreateSignature {
      * @param selection A possibly existing text selection
      * @throws Exception to indicate any exceptional condition
      */
-    private void loadSettings(Signature signature, ITextSelection selection) throws Exception {
+    private void loadSettings(Signature signature, String selection) throws Exception {
         xmlFile = new File(signature.getFile());
         baseURI = xmlFile.toURI().toString();
         resource = signature.getResource();
@@ -163,7 +162,7 @@ public class CreateSignature {
         if ("xpath".equalsIgnoreCase(resource)) {
             expression = signature.getXpath();
         } else if ("selection".equalsIgnoreCase(resource)) {
-            textSelection = selection.getText();
+            textSelection = selection;
         }
 
         signatureType = signature.getSignatureType();

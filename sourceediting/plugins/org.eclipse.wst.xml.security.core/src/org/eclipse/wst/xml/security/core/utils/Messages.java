@@ -31,9 +31,6 @@ public final class Messages extends NLS {
     // initialize resource bundle
     NLS.initializeMessages(BUNDLE_NAME, Messages.class);
   }
-
-  /** XPath popup window externalized strings. */
-  public static String xpathSelectionTitle, xpathSelectionError;
   /** Utils externalized strings. */
   public static String errorDuringIdSearch;
 }

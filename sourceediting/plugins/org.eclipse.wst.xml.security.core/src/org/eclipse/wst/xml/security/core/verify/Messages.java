@@ -33,8 +33,6 @@ public final class Messages extends NLS {
         NLS.initializeMessages(BUNDLE_NAME, Messages.class);
     }
 
-    /** Signature View externalized strings. */
-    public static String signatureId, signatureStatus, signatureType, signatureAlgorithm, validSignature,
-            invalidSignature, unknownSignature, verificationImpossible, title, impossibleToGetKeyInformation,
-            verificationResult, signatureInfo;
+    /** Verification Result externalized strings. */
+    public static String verificationResult;
 }

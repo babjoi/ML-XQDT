@@ -524,9 +524,8 @@ public final class Utils {
      * @param message The error message
      */
     public static void logError(final Exception ex, final String message) {
-        XmlSecurityPlugin plugin = XmlSecurityPlugin.getDefault();
-        IStatus status = new Status(IStatus.ERROR, plugin.getBundle().getSymbolicName(), 0,
+        IStatus status = new Status(IStatus.ERROR, XmlSecurityPlugin.getDefault().getBundle().getSymbolicName(), 0,
                 message, ex);
-        plugin.getLog().log(status);
+        XmlSecurityPlugin.getDefault().getLog().log(status);
     }
 }

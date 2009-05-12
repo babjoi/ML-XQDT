@@ -1,8 +1,4 @@
-plugin@org.eclipse.xquery=v20090306-1147,:extssh:anonymous@dev.eclipse.org:/cvsroot/tools,,org.eclipse.gef/plugins/org.eclipse.draw2d
-plugin@org.eclipse.zest.core=v20090303-1850,:pserver:anonymous@dev.eclipse.org:/cvsroot/tools,,org.eclipse.gef/plugins/org.eclipse.zest.core
-plugin@org.eclipse.zest.layouts=v20081217-1603,:pserver:anonymous@dev.eclipse.org:/cvsroot/tools,,org.eclipse.gef/plugins/org.eclipse.zest.layouts
+feature@org.eclipse.wst.xquery.feature=v200904300211,:pserver:anonymous@dev.eclipse.org:/cvsroot/webtools,,incubator/sourceediting/features/org.eclipse.wst.xquery.feature
 
-plugin@org.eclipse.gef.test=v20080508,:pserver:anonymous@dev.eclipse.org:/cvsroot/tools,,org.eclipse.gef/test/org.eclipse.gef.test
-plugin@org.eclipse.draw2d.test=v20081217-1720,:pserver:anonymous@dev.eclipse.org:/cvsroot/tools,,org.eclipse.gef/test/org.eclipse.draw2d.test
-
-feature@org.eclipse.gef.all=v20090316-1158,:pserver:anonymous@dev.eclipse.org:/cvsroot/tools,,org.eclipse.gef/features/org.eclipse.gef.all-feature
+plugin@org.eclipse.wst.xquery=v200904240436,:pserver:anonymous@dev.eclipse.org:/cvsroot/webtools,,incubator/sourceediting/plugins/org.eclipse.wst.xquery
+plugin@org.eclipse.wst.xquery.core=v200904240436,:pserver:anonymous@dev.eclipse.org:/cvsroot/webtools,,incubator/sourceediting/plugins/org.eclipse.wst.xquery.core

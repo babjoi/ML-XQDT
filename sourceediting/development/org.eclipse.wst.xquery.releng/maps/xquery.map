@@ -1,4 +1,4 @@
-feature@org.eclipse.wst.xquery.feature=v200904300211,:pserver:anonymous@dev.eclipse.org:/cvsroot/webtools,,incubator/sourceediting/features/org.eclipse.wst.xquery.feature
+feature@org.eclipse.wst.xquery.feature=v200905120017,:pserver:anonymous@dev.eclipse.org:/cvsroot/webtools,,incubator/sourceediting/features/org.eclipse.wst.xquery.feature
 
-plugin@org.eclipse.wst.xquery=v200904240436,:pserver:anonymous@dev.eclipse.org:/cvsroot/webtools,,incubator/sourceediting/plugins/org.eclipse.wst.xquery
-plugin@org.eclipse.wst.xquery.core=v200904240436,:pserver:anonymous@dev.eclipse.org:/cvsroot/webtools,,incubator/sourceediting/plugins/org.eclipse.wst.xquery.core
+plugin@org.eclipse.wst.xquery=v200905120017,:pserver:anonymous@dev.eclipse.org:/cvsroot/webtools,,incubator/sourceediting/plugins/org.eclipse.wst.xquery
+plugin@org.eclipse.wst.xquery.core=v200905120017,:pserver:anonymous@dev.eclipse.org:/cvsroot/webtools,,incubator/sourceediting/plugins/org.eclipse.wst.xquery.core

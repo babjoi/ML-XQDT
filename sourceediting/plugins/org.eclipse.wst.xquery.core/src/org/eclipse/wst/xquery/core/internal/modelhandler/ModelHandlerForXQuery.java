@@ -11,8 +11,6 @@ import org.eclipse.wst.xml.core.internal.modelhandler.ModelHandlerForXML;
 import org.eclipse.wst.sse.core.internal.ltk.modelhandler.IModelHandler;
 import org.eclipse.wst.sse.core.internal.document.IDocumentLoader;
 import org.eclipse.wst.sse.core.internal.provisional.IModelLoader;
-import org.eclipse.wst.sse.core.internal.document.IDocumentCharsetDetector;
-import org.eclipse.wst.xml.core.internal.encoding.XMLDocumentCharsetDetector;
 import org.eclipse.wst.xquery.core.internal.encoding.XQueryDocumentLoader;
 
 
@@ -37,10 +35,12 @@ public class ModelHandlerForXQuery  extends ModelHandlerForXML implements IModel
 		setAssociatedContentTypeId(AssociatedContentTypeID);
 	}
 
+	@Override
 	public IDocumentLoader getDocumentLoader() {
 		return new XQueryDocumentLoader();
 	}
 
+	@Override
 	public IModelLoader getModelLoader() {
 		return new XQueryModelLoader();
 	}	

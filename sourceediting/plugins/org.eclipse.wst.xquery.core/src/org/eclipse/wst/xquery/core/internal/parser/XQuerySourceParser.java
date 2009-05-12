@@ -7,11 +7,6 @@
 
 package org.eclipse.wst.xquery.core.internal.parser;
 
-import java.io.Reader;
-import java.util.List;
-
-import org.eclipse.wst.sse.core.internal.ltk.parser.RegionParser;
-import org.eclipse.wst.sse.core.internal.provisional.text.IStructuredDocumentRegion;
 import org.eclipse.wst.xml.core.internal.parser.XMLSourceParser;
 
 public class XQuerySourceParser extends XMLSourceParser {

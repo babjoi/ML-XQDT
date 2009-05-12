@@ -7,17 +7,11 @@
 
 package org.eclipse.wst.xquery.core.internal.modelhandler;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.eclipse.wst.xml.core.internal.modelhandler.XMLModelLoader;
-import org.eclipse.wst.sse.core.internal.provisional.INodeAdapterFactory;
 import org.eclipse.wst.sse.core.internal.document.IDocumentLoader;
 import org.eclipse.wst.xquery.core.internal.encoding.XQueryDocumentLoader;
 //import org.eclipse.wst.xquery.ui.internal.style.XQueryStyleAdapterFactory;
 import org.eclipse.wst.sse.core.internal.provisional.IModelLoader;
-import org.eclipse.wst.sse.core.internal.provisional.IStructuredModel;
-import org.eclipse.wst.xml.core.internal.document.DOMModelImpl;
 
 public class XQueryModelLoader extends XMLModelLoader {
 

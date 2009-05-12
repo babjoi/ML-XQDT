@@ -15,7 +15,6 @@ import org.eclipse.wst.xml.core.text.IXMLPartitions;
 import org.eclipse.wst.xquery.core.internal.text.IXQueryPartitions;
 import org.eclipse.wst.xml.core.internal.regions.DOMRegionContext;
 import org.eclipse.wst.sse.core.internal.provisional.text.ITextRegion;
-import org.eclipse.jface.text.IDocumentPartitioner;
 
 
 /**
@@ -50,6 +49,7 @@ public class StructuredTextPartitionerForXQuery extends StructuredTextPartitione
 		return result;
 	}
 	
+	@Override
 	public String getPartitionTypeBetween(IStructuredDocumentRegion previousNode, IStructuredDocumentRegion nextNode) {
 
 		//System.out.println("getPartitionTypeBetween " + previousNode.getFullText() );
@@ -63,6 +63,7 @@ public class StructuredTextPartitionerForXQuery extends StructuredTextPartitione
 		return result;
 	}
 
+	@Override
 	protected String getPartitionType(ForeignRegion region, int offset) {
 		//System.out.println("getForeignPartitionType " + region.getType() );
 		

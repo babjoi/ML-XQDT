@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feature
+      id="org.eclipse.wst.xquery.feature"
+      label="XQuery"
+      version="0.5.0"
+      provider-name="Eclipse">
+
+   <description>
+      XQuery Editor and Debugger
+   </description>
+
+   <copyright url="http://www.example.com/copyright">
+      Eclipse Copyright Notice here.
+   </copyright>
+
+   <license url="http://www.example.com/license">
+      Eclipse Text Notice
+   </license>
+
+   <requires>
+      <import plugin="org.eclipse.ui"/>
+      <import plugin="org.eclipse.jface.text"/>
+      <import plugin="org.eclipse.wst.sse.ui"/>
+      <import plugin="org.eclipse.wst.xml.ui"/>
+      <import plugin="org.eclipse.wst.xml.core"/>
+      <import plugin="org.eclipse.wst.sse.core"/>
+      <import plugin="org.eclipse.core.runtime.compatibility"/>
+      <import plugin="org.eclipse.wst.validation"/>
+      <import plugin="com.matinprobst.xqpretty"/>
+      <import plugin="org.eclipse.core.resources"/>
+      <import plugin="org.antlr.runtime_v31" version="3.1.0" match="greaterOrEqual"/>
+      <import plugin="org.eclipse.core.runtime"/>
+   </requires>
+
+   <plugin
+         id="org.eclipse.wst.xquery"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"/>
+
+   <plugin
+         id="org.eclipse.wst.xquery.core"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="org.junit"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"/>
+
+</feature>

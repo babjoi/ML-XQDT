@@ -51,4 +51,18 @@
          install-size="0"
          version="0.0.0"/>
 
+   <plugin
+         id="org.antlr.runtime_v31"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="com.matinprobst.xqpretty"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
 </feature>

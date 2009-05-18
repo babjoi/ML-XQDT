@@ -1,6 +1,6 @@
-feature@org.eclipse.wst.xquery.feature=v200905120017,:pserver:anonymous@dev.eclipse.org:/cvsroot/webtools,,incubator/sourceediting/features/org.eclipse.wst.xquery.feature
+feature@org.eclipse.wst.xquery.feature=v200905181551,:pserver:anonymous@dev.eclipse.org:/cvsroot/webtools,,incubator/sourceediting/features/org.eclipse.wst.xquery.feature
 
 plugin@org.eclipse.wst.xquery=v200905120017,:pserver:anonymous@dev.eclipse.org:/cvsroot/webtools,,incubator/sourceediting/plugins/org.eclipse.wst.xquery
 plugin@org.eclipse.wst.xquery.core=v200905120017,:pserver:anonymous@dev.eclipse.org:/cvsroot/webtools,,incubator/sourceediting/plugins/org.eclipse.wst.xquery.core
-plugin@com.matinprobst.xqpretty=v200905120017,:pserver:anonymous@dev.eclipse.org:/cvsroot/webtools,,incubator/sourceediting/plugins/com.matinprobst.xqpretty
-plugin@org.antlr.runtime_v31=v200905120017,:pserver:anonymous@dev.eclipse.org:/cvsroot/webtools,,incubator/sourceediting/plugins/org.antlr.runtime_v31
+plugin@com.matinprobst.xqpretty=v200905181551,:pserver:anonymous@dev.eclipse.org:/cvsroot/webtools,,incubator/sourceediting/plugins/com.matinprobst.xqpretty
+plugin@org.antlr.runtime_v31=v200905181551,:pserver:anonymous@dev.eclipse.org:/cvsroot/webtools,,incubator/sourceediting/plugins/org.antlr.runtime_v31

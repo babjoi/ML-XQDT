@@ -10,8 +10,8 @@
  *******************************************************************************/
 package org.eclipse.wst.xml.security.ui.verify;
 
-import org.eclipse.jface.viewers.ILabelProviderListener;
 import org.eclipse.jface.viewers.ITableLabelProvider;
+import org.eclipse.jface.viewers.LabelProvider;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.wst.xml.security.core.verify.VerificationResult;
 import org.eclipse.wst.xml.security.ui.XSTUIPlugin;
@@ -23,7 +23,7 @@ import org.eclipse.wst.xml.security.ui.XSTUIPlugin;
  * @author Dominik Schadow
  * @version 0.5.0
  */
-public class SignatureLabelProvider implements ITableLabelProvider {
+public class SignatureLabelProvider extends LabelProvider implements ITableLabelProvider {
     /**
      * Returns the text for the current column.
      *
@@ -68,39 +68,5 @@ public class SignatureLabelProvider implements ITableLabelProvider {
         } else {
             return XSTUIPlugin.getDefault().getImageRegistry().get("sig_unknown_small");
         }
-    }
-
-    /**
-     * Adds a listener to this label provider.
-     *
-     * @param listener A label provider listener
-     */
-    public void addListener(final ILabelProviderListener listener) {
-    }
-
-    /**
-     * Disposes this label provider.
-     */
-    public void dispose() {
-    }
-
-    /**
-     * Returns whether the label would be affected by a change to the given property of the given
-     * element.
-     *
-     * @param element The element
-     * @param property The property
-     * @return True if the label would be affected, and false if it would be unaffected
-     */
-    public boolean isLabelProperty(final Object element, final String property) {
-        return false;
-    }
-
-    /**
-     * Removes a listener of this label provider.
-     *
-     * @param listener A label provider listener
-     */
-    public void removeListener(final ILabelProviderListener listener) {
     }
 }

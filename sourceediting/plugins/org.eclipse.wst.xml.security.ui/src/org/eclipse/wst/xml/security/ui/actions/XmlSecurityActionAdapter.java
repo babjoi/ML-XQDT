@@ -167,7 +167,7 @@ public abstract class XmlSecurityActionAdapter implements IObjectActionDelegate 
      * @return true or false which activates or deactivates the selection radio button in the wizard
      */
     protected boolean parseSelection(final String textSelection) {
-        if (textSelection == null || textSelection.length() == 0) {
+        if (textSelection == null || textSelection.trim().length() == 0) {
             return false;
         }
 

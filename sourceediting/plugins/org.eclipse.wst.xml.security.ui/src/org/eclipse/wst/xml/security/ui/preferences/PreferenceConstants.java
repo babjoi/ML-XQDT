@@ -22,7 +22,9 @@ public final class PreferenceConstants {
      * Private Constructor to avoid instantiation.
      */
     private PreferenceConstants() { }
-
+    
+    /** Number of characters for pixel width conversion. */
+    public static final int CHARS_TO_PIXEL = 30;
     /** Canonicalization type. */
     public static final String CANON_TYPE = "canonType";
     /** Canonicalization document. */

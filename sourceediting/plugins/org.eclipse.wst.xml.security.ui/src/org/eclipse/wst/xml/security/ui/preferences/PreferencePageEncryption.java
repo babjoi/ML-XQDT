@@ -82,8 +82,6 @@ public class PreferencePageEncryption extends PreferencePage implements IWorkben
     private SelectionListener selectionListener;
     /** Modify listerner. */
     private ModifyListener modifyListener;
-    /** Number of characters for pixel width conversion. */
-    private static final int CHARS_TO_PIXEL = 30;
 
     /**
      * Constructor.
@@ -311,7 +309,7 @@ public class PreferencePageEncryption extends PreferencePage implements IWorkben
         labelControl.setLayoutData(gd);
 
         gd = new GridData(GridData.FILL_HORIZONTAL);
-        gd.widthHint = convertWidthInCharsToPixels(CHARS_TO_PIXEL);
+        gd.widthHint = convertWidthInCharsToPixels(PreferenceConstants.CHARS_TO_PIXEL);
 
         Text text = new Text(parent, SWT.SINGLE | SWT.BORDER);
         text.setData(key);
@@ -341,7 +339,7 @@ public class PreferencePageEncryption extends PreferencePage implements IWorkben
         labelControl.setLayoutData(gd);
 
         gd = new GridData(GridData.FILL_HORIZONTAL);
-        gd.widthHint = convertWidthInCharsToPixels(CHARS_TO_PIXEL);
+        gd.widthHint = convertWidthInCharsToPixels(PreferenceConstants.CHARS_TO_PIXEL);
 
         Combo combo = new Combo(parent, SWT.SINGLE | SWT.BORDER | SWT.READ_ONLY);
         combo.setItems(items);

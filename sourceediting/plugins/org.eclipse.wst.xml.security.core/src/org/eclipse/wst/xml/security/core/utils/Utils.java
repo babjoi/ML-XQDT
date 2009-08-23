@@ -58,6 +58,8 @@ public final class Utils {
     private static HashSet<String> xpathCollector = new HashSet<String>();
     /** Contains the XPath to the selected element content. */
     private static String xpathExpressionToContent = null;
+    private static final String TEMPORARY_ELEMENT_LOCAL_NAME = "xmlsectempelement"; //$NON-NLS-1$
+    private static final String ID_ATTRIBUTE = "Id"; //$NON-NLS-1$
 
     /**
      * Utility class, no instance required since all methods are static.
@@ -67,57 +69,53 @@ public final class Utils {
 
     /**
      * Parses the IFile in a W3C document.
-     *
+     * 
      * @param file The IFile to parse
      * @return The parsed XML document
      * @throws IOException during document preparation
      * @throws SAXException during document generation
      * @throws ParserConfigurationException during document builder factory initialization
      */
-    public static Document parse(final IFile file) throws SAXException, IOException,
-        ParserConfigurationException {
+    public static Document parse(final IFile file) throws SAXException, IOException, ParserConfigurationException {
         return prepareDocumentBuilder(true, false).parse(file.getLocationURI().toString());
     }
 
     /**
      * Parses the File in a W3C document.
-     *
+     * 
      * @param file The file to parse
      * @return The parsed XML document
      * @throws IOException during document preparation
      * @throws SAXException during document generation
      * @throws ParserConfigurationException during document builder factory initialization
      */
-    public static Document parse(final File file) throws SAXException, IOException,
-        ParserConfigurationException {
+    public static Document parse(final File file) throws SAXException, IOException, ParserConfigurationException {
         return prepareDocumentBuilder(true, false).parse(file);
     }
 
     /**
      * Parses the byte array in a W3C document.
-     *
+     * 
      * @param content The byte array to parse
      * @return The parsed XML document
      * @throws IOException during document preparation
      * @throws SAXException during document generation
      * @throws ParserConfigurationException during document builder factory initialization
      */
-    public static Document parse(final byte[] content) throws SAXException, IOException,
-        ParserConfigurationException {
+    public static Document parse(final byte[] content) throws SAXException, IOException, ParserConfigurationException {
         return prepareDocumentBuilder(true, false).parse(new ByteArrayInputStream(content));
     }
 
     /**
      * Parses the InputStream in a W3C document.
-     *
+     * 
      * @param content The InputStream to parse
      * @return The parsed XML document
      * @throws IOException during document preparation
      * @throws SAXException during document generation
      * @throws ParserConfigurationException during document builder factory initialization
      */
-    public static Document parse(final InputStream content) throws SAXException, IOException,
-        ParserConfigurationException {
+    public static Document parse(final InputStream content) throws SAXException, IOException, ParserConfigurationException {
         return prepareDocumentBuilder(true, false).parse(content);
     }
 
@@ -125,24 +123,29 @@ public final class Utils {
      * Parses the String in a W3C document. Adds a temporary root element
      * <code>xmlsectempelement</code> if the String only consists of character data (element
      * content) and doesn't start/end with &lt; and &gt;.
-     *
+     * 
      * @param content The String to parse
      * @return The parsed XML document
      * @throws IOException during document preparation
      * @throws SAXException during document generation
      * @throws ParserConfigurationException during document builder factory initialization
      */
-    public static Document parse(String content) throws SAXException, IOException,
-        ParserConfigurationException {
-        if (!content.startsWith("<") && !content.endsWith(">")) {
-            content = "<xmlsectempelement>" + content + "</xmlsectempelement>";
+    public static Document parse(String content) throws SAXException, IOException, ParserConfigurationException {
+        StringBuffer xml = new StringBuffer();
+        
+        if (!content.startsWith("<") && !content.endsWith(">")) { //$NON-NLS-1$ //$NON-NLS-2$
+            xml.append("<" + TEMPORARY_ELEMENT_LOCAL_NAME + ">"); //$NON-NLS-1$ //$NON-NLS-2$
+            xml.append(content);
+            xml.append("</" + TEMPORARY_ELEMENT_LOCAL_NAME + ">"); //$NON-NLS-1$ //$NON-NLS-2$
         }
-        return prepareDocumentBuilder(true, false).parse(new InputSource(new StringReader(content)));
+        
+        return prepareDocumentBuilder(true, false)
+                .parse(new InputSource(new StringReader(xml.toString())));
     }
 
     /**
      * Creates a new W3C document.
-     *
+     * 
      * @return The new XML document
      * @throws ParserConfigurationException during document builder factory initialization
      */
@@ -152,7 +155,7 @@ public final class Utils {
 
     /**
      * Prepares a <code>DocumentBuilder</code> to parse XML documents.
-     *
+     * 
      * @param namespaceAware Is DocumentBuilderFactory namespace aware
      * @param validating is DocumentBuilderFactory validating
      * @return The DocumentBuilder
@@ -170,55 +173,55 @@ public final class Utils {
     /**
      * Collects all IDs (signature or encryption, based on the type) in the given XML document and
      * returns them in a String array.
-     *
+     * 
      * @param xml The XML document as an InputStream
      * @param type Indicates signature or encryption id search
      * @return All IDs in a String array
      */
     public static String[] getIds(final IFile xml, final String type) {
-        String ids = "Use first " + type + ";";
+        String ids = "Use first " + type + ";"; //$NON-NLS-1$ //$NON-NLS-2$
 
         try {
             Document doc = parse(xml);
             Element current = null;
             NodeList nodes = null;
 
-            if (type != null && type.equals("encryption")) {
+            if (type != null && type.equals("encryption")) { //$NON-NLS-1$
                 nodes = doc.getElementsByTagNameNS(EncryptionConstants.EncryptionSpecNS,
                         EncryptionConstants._TAG_ENCRYPTEDDATA);
-            } else if (type != null && type.equals("signature")) {
+            } else if (type != null && type.equals("signature")) { //$NON-NLS-1$
                 XPath xpath = XPathFactory.newInstance().newXPath();
                 NamespaceContext ns = new SignatureNamespaceContext();
                 xpath.setNamespaceContext(ns);
-                nodes = (NodeList) xpath.evaluate("//ds:Signature", new InputSource(xml.getContents()),
-                        XPathConstants.NODESET);
+                nodes = (NodeList) xpath.evaluate("//ds:Signature", new InputSource(xml //$NON-NLS-1$
+                        .getContents()), XPathConstants.NODESET);
             }
 
             if (nodes != null) {
                 for (int i = 0, length = nodes.getLength(); i < length; i++) {
                     current = (Element) nodes.item(i);
 
-                    if (null != current.getAttribute("Id")
-                            && current.getAttribute("Id").trim().length() > 0) {
-                        ids += current.getAttribute("Id") + ";";
+                    if (null != current.getAttribute(ID_ATTRIBUTE)
+                            && current.getAttribute(ID_ATTRIBUTE).trim().length() > 0) {
+                        ids += current.getAttribute(ID_ATTRIBUTE) + ";"; //$NON-NLS-1$
                     }
                 }
             }
         } catch (Exception ex) {
             logError(ex, Messages.errorDuringIdSearch);
         }
-        return ids.split(";");
+        return ids.split(";"); //$NON-NLS-1$
     }
 
     /**
      * Collects all IDs (no difference between signature or encryption id) in the given XML document
      * and stores them in a String array.
-     *
+     * 
      * @param xml The XML document as an InputStream
      * @return All IDs in a String array
      */
     public static String[] getAllIds(final IFile xml) {
-        String ids = "";
+        String ids = ""; //$NON-NLS-1$
 
         try {
             Document doc = parse(xml);
@@ -230,24 +233,24 @@ public final class Utils {
             XPath xpath = XPathFactory.newInstance().newXPath();
             NamespaceContext ns = new SignatureNamespaceContext();
             xpath.setNamespaceContext(ns);
-            NodeList sigNodes = (NodeList) xpath.evaluate("//ds:Signature", new InputSource(xml.getContents()),
-                    XPathConstants.NODESET);
+            NodeList sigNodes = (NodeList) xpath.evaluate("//ds:Signature", new InputSource(xml //$NON-NLS-1$
+                    .getContents()), XPathConstants.NODESET);
 
             for (int i = 0, length = encNodes.getLength(); i < length; i++) {
                 current = (Element) encNodes.item(i);
 
-                if (null != current.getAttribute("Id")
-                        && current.getAttribute("Id").trim().length() > 0) {
-                    ids += current.getAttribute("Id") + ";";
+                if (null != current.getAttribute(ID_ATTRIBUTE)
+                        && current.getAttribute(ID_ATTRIBUTE).trim().length() > 0) {
+                    ids += current.getAttribute(ID_ATTRIBUTE) + ";"; //$NON-NLS-1$
                 }
             }
 
             for (int i = 0, length = sigNodes.getLength(); i < length; i++) {
                 current = (Element) sigNodes.item(i);
 
-                if (null != current.getAttribute("Id")
-                        && current.getAttribute("Id").trim().length() > 0) {
-                    ids += current.getAttribute("Id") + ";";
+                if (null != current.getAttribute(ID_ATTRIBUTE)
+                        && current.getAttribute(ID_ATTRIBUTE).trim().length() > 0) {
+                    ids += current.getAttribute(ID_ATTRIBUTE) + ";"; //$NON-NLS-1$
                 }
             }
         } catch (Exception ex) {
@@ -255,14 +258,14 @@ public final class Utils {
             logError(ex, Messages.errorDuringIdSearch);
         }
 
-        return ids.split(";");
+        return ids.split(";"); //$NON-NLS-1$
     }
 
     /**
      * Returns the XPath for every element of the XML document as an <code>Object</code> array. Gets
      * the root element first, then calls the method <code>childNodes</code> to determine all
      * children of the element.
-     *
+     * 
      * @param doc The XML document
      * @return Object array with the XPath expressions for every node
      */
@@ -278,7 +281,7 @@ public final class Utils {
     /**
      * Determines all child nodes and stores the XPath expression for every node in the HashSet.
      * Only element nodes are added to the HashSet.
-     *
+     * 
      * @param node The node to determine the XPath expression for and possible child nodes
      */
     private static void childNodes(final Node node) {
@@ -298,7 +301,7 @@ public final class Utils {
 
     /**
      * Returns the unique XPath expression for the given node.
-     *
+     * 
      * @param node The node to determine the XPath for
      * @return The XPath expression as string
      */
@@ -319,8 +322,8 @@ public final class Utils {
             if (node.getParentNode() instanceof Document) {
                 ; // do nothing
             } else {
-                xpathExpression = getXPathExpression(node.getParentNode()) + "/" + xpathExpression
-                        + "[" + String.valueOf(index) + "]";
+                xpathExpression = getXPathExpression(node.getParentNode()) + "/" + xpathExpression //$NON-NLS-1$
+                        + "[" + String.valueOf(index) + "]"; //$NON-NLS-1$ //$NON-NLS-2$
             }
         }
 
@@ -331,17 +334,17 @@ public final class Utils {
      * Determines the unique XPath expression for the selected element or element content in the
      * editor. Selected element content (character data) is indicated by the temporarily added root
      * element <code>xmlsectempelement</code>.
-     *
+     * 
      * @param doc The complete XML document
      * @param selection The selected element or element content as XML document
      * @return The unique XPath expression for the selection
      */
     public static String getUniqueXPathToNode(final Document doc, final Document selection) {
-        String xpathExpression = "/";
-        if (!selection.getDocumentElement().getLocalName().equals("xmlsectempelement")) {
+        String xpathExpression = "/"; //$NON-NLS-1$
+        if (!selection.getDocumentElement().getLocalName().equals(TEMPORARY_ELEMENT_LOCAL_NAME)) {
             // a node is selected
             String selectionRootElement = selection.getDocumentElement().getLocalName();
-            xpathExpression = "//" + selectionRootElement;
+            xpathExpression = "//" + selectionRootElement; //$NON-NLS-1$
             NodeList matchingNodes = doc.getElementsByTagName(selectionRootElement);
 
             if (matchingNodes.getLength() == 1) {
@@ -381,7 +384,7 @@ public final class Utils {
     /**
      * Determines the XPath expression to the selected character data (element content). The first
      * matching content is used, so this XPath may point to another element content.
-     *
+     * 
      * @param root The root element of the XML document
      * @param selectedContent The selected character data
      * @return The XPath expression to the selected character data
@@ -401,13 +404,13 @@ public final class Utils {
             getXPathToContent(childNode, selectedContent);
         }
 
-        return xpathExpressionToContent + "/text()";
+        return xpathExpressionToContent + "/text()"; //$NON-NLS-1$
     }
 
     /**
      * Validates the XPath expression entered by the user in a wizard. The user can only continue
      * with the entered XPath if <i>single</i> is returned.
-     *
+     * 
      * @param doc The XML document
      * @param xpathExpression The XPath expression
      * @return <i>single</i>, <i>multiple</i>, <i>none</i> or <i>attribute</i> depending on the
@@ -421,24 +424,24 @@ public final class Utils {
 
             if (nodes.getLength() == 1) {
                 if (nodes.item(0).getNodeType() == Node.ATTRIBUTE_NODE) {
-                    return "attribute";
+                    return "attribute"; //$NON-NLS-1$
                 } else if (nodes.item(0).getNodeType() == Node.ELEMENT_NODE) {
-                    return "single";
+                    return "single"; //$NON-NLS-1$
                 }
             } else if (nodes.getLength() > 1) {
-                return "multiple";
+                return "multiple"; //$NON-NLS-1$
             }
 
-            return "none";
+            return "none"; //$NON-NLS-1$
         } catch (Exception ex) {
-            return "none";
+            return "none"; //$NON-NLS-1$
         }
     }
 
     /**
      * Returns the XML document parsed as a String. The output String can be pretty printed or not
      * (never pretty print a signed XML document, this will break the signature).
-     *
+     * 
      * @param doc The XML document to convert
      * @param prettyPrint Pretty print the output String
      * @return The Document as a String
@@ -451,7 +454,7 @@ public final class Utils {
         TransformerFactory factory = TransformerFactory.newInstance();
         if (prettyPrint) {
             try {
-                factory.setAttribute("indent-number", "4");
+                factory.setAttribute("indent-number", "4"); //$NON-NLS-1$ //$NON-NLS-2$
             } catch (IllegalArgumentException e) {
                 indentFallback = true;
             }
@@ -459,14 +462,14 @@ public final class Utils {
 
         Transformer transformer = factory.newTransformer();
         Properties props = new Properties();
-        props.setProperty(OutputKeys.METHOD, "xml");
-        props.setProperty(OutputKeys.STANDALONE, "yes");
-        props.setProperty(OutputKeys.OMIT_XML_DECLARATION, "no");
+        props.setProperty(OutputKeys.METHOD, "xml"); //$NON-NLS-1$
+        props.setProperty(OutputKeys.STANDALONE, "yes"); //$NON-NLS-1$
+        props.setProperty(OutputKeys.OMIT_XML_DECLARATION, "no"); //$NON-NLS-1$
         if (prettyPrint) {
-            props.setProperty(OutputKeys.INDENT, "yes");
+            props.setProperty(OutputKeys.INDENT, "yes"); //$NON-NLS-1$
 
             if (indentFallback) {
-                props.setProperty("{http://xml.apache.org/xslt}indent-amount", String.valueOf(4));
+                props.setProperty("{http://xml.apache.org/xslt}indent-amount", String.valueOf(4)); //$NON-NLS-1$
             }
         }
 
@@ -491,17 +494,17 @@ public final class Utils {
     /**
      * Validates the ID (signature ID or encryption ID) entered by the user. An ID containing &lt;,
      * &gt;, &qout;, &apos; or &amp; or whitespace is invalid.
-     *
+     * 
      * @param id The entered ID
      * @return Validity of the ID
      */
     public static boolean validateId(final String id) {
-        return Pattern.matches("[^<>&\"\'\\s]+", id);
+        return Pattern.matches("[^<>&\"\'\\s]+", id); //$NON-NLS-1$
     }
 
     /**
      * Checks whether the valid ID is unique in the current XML document.
-     *
+     * 
      * @param newId The entered ID
      * @param ids All existing IDs in the XML document
      * @return Uniqueness of the ID
@@ -519,13 +522,13 @@ public final class Utils {
 
     /**
      * Logs the given error message to the workspace default log file.
-     *
+     * 
      * @param ex The error message to log
      * @param message The error message
      */
     public static void logError(final Exception ex, final String message) {
-        IStatus status = new Status(IStatus.ERROR, XmlSecurityPlugin.getDefault().getBundle().getSymbolicName(), 0,
-                message, ex);
+        IStatus status = new Status(IStatus.ERROR, XmlSecurityPlugin.getDefault().getBundle()
+                .getSymbolicName(), 0, message, ex);
         XmlSecurityPlugin.getDefault().getLog().log(status);
     }
 }

@@ -27,6 +27,10 @@ import java.security.cert.Certificate;
 import javax.crypto.KeyGenerator;
 import javax.crypto.SecretKey;
 
+import org.eclipse.core.runtime.IStatus;
+import org.eclipse.core.runtime.Status;
+import org.eclipse.wst.xml.security.core.XmlSecurityPlugin;
+
 /**
  * <p>Manages the Java KeyStores (jks files). The generated Java KeyStores as well as the public and
  * private keys are standard compliant and can be used with other tools too. Newly generated
@@ -42,7 +46,7 @@ import javax.crypto.SecretKey;
  */
 public class Keystore {
     /** Keystore file name. */
-    private String file = "";
+    private String file = ""; //$NON-NLS-1$
     /** Keystore password. */
     private char[] password = null;
     /** The Java KeyStore. */
@@ -102,6 +106,10 @@ public class Keystore {
 
             return true;
         } catch (IOException ex) {
+            IStatus status = new Status(IStatus.ERROR, XmlSecurityPlugin.getDefault().getBundle().getSymbolicName(),
+                    0, "Failed to load the keystore", ex); //$NON-NLS-1$
+            XmlSecurityPlugin.getDefault().getLog().log(status);
+            
             return false;
         } finally {
             if (fis != null) {
@@ -182,6 +190,10 @@ public class Keystore {
                 return false;
             }
         } catch (KeyStoreException ex) {
+            IStatus status = new Status(IStatus.ERROR, XmlSecurityPlugin.getDefault().getBundle().getSymbolicName(),
+                    0, "Failed to insert the private key into the keystore", ex); //$NON-NLS-1$
+            XmlSecurityPlugin.getDefault().getLog().log(status);
+            
             return false;
         }
     }
@@ -203,6 +215,10 @@ public class Keystore {
                 return null;
             }
         } catch (Exception ex) {
+            IStatus status = new Status(IStatus.ERROR, XmlSecurityPlugin.getDefault().getBundle().getSymbolicName(),
+                    0, "Failed to retrieve the secret key from the keystore", ex); //$NON-NLS-1$
+            XmlSecurityPlugin.getDefault().getLog().log(status);
+            
             return null;
         }
     }
@@ -228,9 +244,10 @@ public class Keystore {
      * Inserts the given private key into the loaded keystore by using the given alias and the
      * given password.
      *
-     * @param alias The alias name of the private key
+     * @param alias The alias name of the private key, may not be null
      * @param password The password to protect the private key
-     * @param key The private key to insert
+     * @param key The private key to insert, may not be null
+     * @param chain The certificate chain, may not be null
      * @return Private key insertion result
      */
     public boolean insertPrivateKey(String alias, char[] password, PrivateKey key, Certificate[] chain) {
@@ -252,6 +269,10 @@ public class Keystore {
                 return false;
             }
         } catch (KeyStoreException ex) {
+            IStatus status = new Status(IStatus.ERROR, XmlSecurityPlugin.getDefault().getBundle().getSymbolicName(),
+                    0, "Failed to insert the private key into the keystore", ex); //$NON-NLS-1$
+            XmlSecurityPlugin.getDefault().getLog().log(status);
+            
             return false;
         }
     }
@@ -274,6 +295,10 @@ public class Keystore {
 
             return null;
         } catch (Exception ex) {
+            IStatus status = new Status(IStatus.ERROR, XmlSecurityPlugin.getDefault().getBundle().getSymbolicName(),
+                    0, "Failed to retrieve the private key", ex); //$NON-NLS-1$
+            XmlSecurityPlugin.getDefault().getLog().log(status);
+            
             return null;
         }
     }
@@ -288,6 +313,10 @@ public class Keystore {
         try {
             return keystore.containsAlias(alias);
         } catch (KeyStoreException ex) {
+            IStatus status = new Status(IStatus.ERROR, XmlSecurityPlugin.getDefault().getBundle().getSymbolicName(),
+                    0, "Failed to retrieve the private key from the keystore", ex); //$NON-NLS-1$
+            XmlSecurityPlugin.getDefault().getLog().log(status);
+            
             return false;
         }
     }
@@ -306,6 +335,10 @@ public class Keystore {
                 return null;
             }
         } catch (KeyStoreException ex) {
+            IStatus status = new Status(IStatus.ERROR, XmlSecurityPlugin.getDefault().getBundle().getSymbolicName(),
+                    0, "Failed to retrieve the certificate from the keystore", ex); //$NON-NLS-1$
+            XmlSecurityPlugin.getDefault().getLog().log(status);
+            
             return null;
         }
     }

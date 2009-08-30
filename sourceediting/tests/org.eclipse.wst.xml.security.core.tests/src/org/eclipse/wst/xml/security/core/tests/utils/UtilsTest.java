@@ -11,6 +11,8 @@
 package org.eclipse.wst.xml.security.core.tests.utils;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.InputStream;
 
 import junit.framework.TestCase;
 
@@ -29,8 +31,6 @@ public class UtilsTest extends TestCase {
     private Document xml = null;
     /** The selection in the XML document. */
     private Document selection = null;
-    /** XML file containing different encryption and signature IDs. */
-//    private IFile idFile = null;
 
     /**
      * Set up method. Sets up the XML document used in these test cases.
@@ -39,10 +39,6 @@ public class UtilsTest extends TestCase {
      */
     public void setUp() throws Exception {
         xml = Utils.parse(new File(XMLSecurityToolsCoreTestPlugin.getTestFileLocation("resources/FirstSteps.xml")));
-        // BUG not working correctly
-//        IFileStore fileStore = EFS.getLocalFileSystem().fromLocalFile(new File("resources/ids.xml"));
-//        FileStoreEditorInput input = new FileStoreEditorInput(fileStore);
-//        idFile = (IFile) input.getAdapter(IFile.class);
     }
 
     /**
@@ -69,18 +65,21 @@ public class UtilsTest extends TestCase {
      * or encryption.
      */
     public void testGetIds() throws Exception {
-//        String[] idsEncryption = {"Use first encryption id", "myEncryptionA", "myEncryptionB"};
-//        assertArrayEquals(idsEncryption, Utils.getIds(idFile, "encryption"));
-//        String[] idsSignature = {"Use first signature id", "mySignature"};
-//        assertArrayEquals(idsSignature, Utils.getIds(idFile, "signature"));
+        InputStream idStream = new FileInputStream(new File(XMLSecurityToolsCoreTestPlugin.getTestFileLocation("resources/ids.xml")));
+        String[] idsEncryption = {"Use first encryption id", "myEncryptionA", "myEncryptionB"};
+        assertEquals(idsEncryption.length, Utils.getIds(idStream, "encryption").length);
+        idStream = new FileInputStream(new File(XMLSecurityToolsCoreTestPlugin.getTestFileLocation("resources/ids.xml")));
+        String[] idsSignature = {"Use first signature id", "mySignature"};
+        assertEquals(idsSignature.length, Utils.getIds(idStream, "signature").length);
     }
 
     /**
      * Test for the ID method to determine all IDs in the XML document.
      */
     public void testGetAllIds() throws Exception {
-//        String[] ids = {"myEncryptionA", "myEncryptionB", "mySignature"};
-//        assertArrayEquals(ids, Utils.getAllIds(idFile));
+        InputStream idStream = new FileInputStream(new File(XMLSecurityToolsCoreTestPlugin.getTestFileLocation("resources/ids.xml")));
+        String[] ids = {"myEncryptionA", "myEncryptionB", "mySignature"};
+        assertEquals(ids.length, Utils.getAllIds(idStream).length);
     }
 
     /**
@@ -104,20 +103,20 @@ public class UtilsTest extends TestCase {
         assertEquals(false, Utils.validateId("'"));
         assertEquals(false, Utils.validateId("&"));
         assertEquals(false, Utils.validateId(" "));
-        assertEquals(true, Utils.validateId("����$%/()"));
+        assertEquals(true, Utils.validateId("äöüß$%/()"));
     }
 
     /**
      * Test for id uniqueness.
      */
     public void testCheckIdUniqueness() {
-        String[] ids = {"myID", "myid", "aaa", "bbb", "x", "���"};
+        String[] ids = {"myID", "myid", "aaa", "bbb", "x", "öäü"};
         assertEquals(true, Utils.ensureIdIsUnique("aa", ids));
         assertEquals(true, Utils.ensureIdIsUnique("mySignatureID", ids));
-        assertEquals(true, Utils.ensureIdIsUnique("���ߧ", ids));
+        assertEquals(true, Utils.ensureIdIsUnique("äöüß", ids));
         assertEquals(true, Utils.ensureIdIsUnique("myId", ids));
         assertEquals(false, Utils.ensureIdIsUnique("myid", ids));
-        assertEquals(false, Utils.ensureIdIsUnique("���", ids));
+        assertEquals(false, Utils.ensureIdIsUnique("öäü", ids));
         assertEquals(false, Utils.ensureIdIsUnique("x", ids));
         assertEquals(false, Utils.ensureIdIsUnique("bbb", ids));
     }

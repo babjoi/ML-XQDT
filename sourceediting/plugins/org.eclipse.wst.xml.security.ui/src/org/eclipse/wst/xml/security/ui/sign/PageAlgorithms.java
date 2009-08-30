@@ -458,7 +458,7 @@ public class PageAlgorithms extends WizardPage implements Listener {
      */
     private void determineIds() {
         try {
-            ids = Utils.getAllIds(file);
+            ids = Utils.getAllIds(file.getContents());
         } catch (Exception ex) {
             ids = new String[] {};
         }

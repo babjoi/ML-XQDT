@@ -263,7 +263,7 @@ public class PageResource extends WizardPage implements Listener {
         String[] ids = null;
 
         try {
-            ids = Utils.getIds(file, "encryption");
+            ids = Utils.getIds(file.getContents(), "encryption");
         } catch (Exception ex) {
             ids = new String[] {};
         }

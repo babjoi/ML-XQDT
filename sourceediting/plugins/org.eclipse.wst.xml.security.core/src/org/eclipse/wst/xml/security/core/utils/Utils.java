@@ -176,11 +176,11 @@ public final class Utils {
      * Collects all IDs (signature or encryption, based on the type) in the given XML document and
      * returns them in a String array.
      * 
-     * @param xml The XML document as an InputStream
+     * @param xml The XML document containing the IDs to search for
      * @param type Indicates signature or encryption id search
      * @return All IDs in a String array
      */
-    public static String[] getIds(final IFile xml, final String type) {
+    public static String[] getIds(final InputStream xml, final String type) {
         String ids = "Use first " + type + ";"; //$NON-NLS-1$ //$NON-NLS-2$
 
         try {
@@ -188,15 +188,15 @@ public final class Utils {
             Element current = null;
             NodeList nodes = null;
 
-            if (type != null && type.equals("encryption")) { //$NON-NLS-1$
+            if ("encryption".equals(type)) { //$NON-NLS-1$
                 nodes = doc.getElementsByTagNameNS(EncryptionConstants.EncryptionSpecNS,
                         EncryptionConstants._TAG_ENCRYPTEDDATA);
-            } else if (type != null && type.equals("signature")) { //$NON-NLS-1$
+            } else if ("signature".equals(type)) { //$NON-NLS-1$
                 XPath xpath = XPathFactory.newInstance().newXPath();
                 NamespaceContext ns = new SignatureNamespaceContext();
                 xpath.setNamespaceContext(ns);
-                nodes = (NodeList) xpath.evaluate("//ds:Signature", new InputSource(xml //$NON-NLS-1$
-                        .getContents()), XPathConstants.NODESET);
+                nodes = (NodeList) xpath.evaluate("//ds:Signature", doc, //$NON-NLS-1$
+                        XPathConstants.NODESET);
             }
 
             if (nodes != null) {
@@ -219,10 +219,10 @@ public final class Utils {
      * Collects all IDs (no difference between signature or encryption id) in the given XML document
      * and stores them in a String array.
      * 
-     * @param xml The XML document as an InputStream
+     * @param xml The XML document containing the IDs to search for
      * @return All IDs in a String array
      */
-    public static String[] getAllIds(final IFile xml) {
+    public static String[] getAllIds(final InputStream xml) {
         String ids = ""; //$NON-NLS-1$
 
         try {
@@ -235,8 +235,8 @@ public final class Utils {
             XPath xpath = XPathFactory.newInstance().newXPath();
             NamespaceContext ns = new SignatureNamespaceContext();
             xpath.setNamespaceContext(ns);
-            NodeList sigNodes = (NodeList) xpath.evaluate("//ds:Signature", new InputSource(xml //$NON-NLS-1$
-                    .getContents()), XPathConstants.NODESET);
+            NodeList sigNodes = (NodeList) xpath.evaluate("//ds:Signature", doc, //$NON-NLS-1$
+                    XPathConstants.NODESET);
 
             for (int i = 0, length = encNodes.getLength(); i < length; i++) {
                 current = (Element) encNodes.item(i);
@@ -256,7 +256,6 @@ public final class Utils {
                 }
             }
         } catch (Exception ex) {
-            ex.printStackTrace();
             logError(ex, Messages.errorDuringIdSearch);
         }
 

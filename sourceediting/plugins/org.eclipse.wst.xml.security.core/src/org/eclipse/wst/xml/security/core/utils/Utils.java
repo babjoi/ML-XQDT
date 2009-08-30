@@ -137,6 +137,8 @@ public final class Utils {
             xml.append("<" + TEMPORARY_ELEMENT_LOCAL_NAME + ">"); //$NON-NLS-1$ //$NON-NLS-2$
             xml.append(content);
             xml.append("</" + TEMPORARY_ELEMENT_LOCAL_NAME + ">"); //$NON-NLS-1$ //$NON-NLS-2$
+        } else {
+            xml.append(content);
         }
         
         return prepareDocumentBuilder(true, false)

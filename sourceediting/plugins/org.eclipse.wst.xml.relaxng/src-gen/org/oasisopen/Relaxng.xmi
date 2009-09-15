@@ -1,0 +1,638 @@
+<?xml version="1.0" encoding="ASCII"?>
+<xmi:XMI xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:xtext="http://www.eclipse.org/2008/Xtext">
+  <xtext:Grammar name="org.oasisopen.Relaxng" usedGrammars="/1">
+    <metamodelDeclarations xsi:type="xtext:GeneratedMetamodel" name="relaxng">
+      <ePackage href="http://www.oasis-open.org/relaxng#/"/>
+    </metamodelDeclarations>
+    <rules xsi:type="xtext:ParserRule" name="TopLevel">
+      <type metamodel="/0/@metamodelDeclarations.0">
+        <classifier xsi:type="ecore:EClass" href="http://www.oasis-open.org/relaxng#//TopLevel"/>
+      </type>
+      <alternatives xsi:type="xtext:Group">
+        <tokens xsi:type="xtext:Assignment" cardinality="*" feature="decls" operator="+=">
+          <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.1"/>
+        </tokens>
+        <tokens xsi:type="xtext:Alternatives">
+          <groups xsi:type="xtext:Assignment" feature="pattern" operator="=">
+            <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.2"/>
+          </groups>
+          <groups xsi:type="xtext:Assignment" cardinality="*" feature="grammarContent" operator="+=">
+            <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.7"/>
+          </groups>
+        </tokens>
+      </alternatives>
+    </rules>
+    <rules xsi:type="xtext:ParserRule" name="Decl">
+      <type metamodel="/0/@metamodelDeclarations.0">
+        <classifier xsi:type="ecore:EClass" href="http://www.oasis-open.org/relaxng#//Decl"/>
+      </type>
+      <alternatives xsi:type="xtext:Alternatives">
+        <groups xsi:type="xtext:Group">
+          <tokens xsi:type="xtext:Keyword" value="namespace"/>
+          <tokens xsi:type="xtext:Assignment" feature="prefix" operator="=">
+            <terminal xsi:type="xtext:RuleCall" rule="/1/@rules.0"/>
+          </tokens>
+          <tokens xsi:type="xtext:Keyword" value="="/>
+          <tokens xsi:type="xtext:Assignment" feature="uri" operator="=">
+            <terminal xsi:type="xtext:RuleCall" rule="/1/@rules.2"/>
+          </tokens>
+        </groups>
+        <groups xsi:type="xtext:Group">
+          <tokens xsi:type="xtext:Keyword" value="default"/>
+          <tokens xsi:type="xtext:Keyword" value="namespace"/>
+          <tokens xsi:type="xtext:Assignment" feature="prefix" operator="=">
+            <terminal xsi:type="xtext:RuleCall" rule="/1/@rules.0"/>
+          </tokens>
+          <tokens xsi:type="xtext:Keyword" value="="/>
+          <tokens xsi:type="xtext:Assignment" feature="uri" operator="=">
+            <terminal xsi:type="xtext:RuleCall" rule="/1/@rules.2"/>
+          </tokens>
+        </groups>
+        <groups xsi:type="xtext:Group">
+          <tokens xsi:type="xtext:Keyword" value="datatypes"/>
+          <tokens xsi:type="xtext:Assignment" feature="datatypeId" operator="=">
+            <terminal xsi:type="xtext:RuleCall" rule="/1/@rules.0"/>
+          </tokens>
+          <tokens xsi:type="xtext:Keyword" value="="/>
+          <tokens xsi:type="xtext:Assignment" feature="value" operator="=">
+            <terminal xsi:type="xtext:RuleCall" rule="/1/@rules.2"/>
+          </tokens>
+        </groups>
+      </alternatives>
+    </rules>
+    <rules xsi:type="xtext:ParserRule" name="Pattern">
+      <type metamodel="/0/@metamodelDeclarations.0">
+        <classifier xsi:type="ecore:EClass" href="http://www.oasis-open.org/relaxng#//Pattern"/>
+      </type>
+      <alternatives xsi:type="xtext:Alternatives">
+        <groups xsi:type="xtext:Assignment" cardinality="+" feature="val" operator="=">
+          <terminal xsi:type="xtext:Alternatives">
+            <groups xsi:type="xtext:RuleCall" rule="/0/@rules.3"/>
+            <groups xsi:type="xtext:RuleCall" rule="/0/@rules.4"/>
+          </terminal>
+        </groups>
+        <groups xsi:type="xtext:Group">
+          <tokens xsi:type="xtext:Keyword" value="list"/>
+          <tokens xsi:type="xtext:Keyword" value="{"/>
+          <tokens xsi:type="xtext:Assignment" cardinality="*" feature="pattern" operator="+=">
+            <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.2"/>
+          </tokens>
+          <tokens xsi:type="xtext:Keyword" value="}"/>
+        </groups>
+        <groups xsi:type="xtext:Group">
+          <tokens xsi:type="xtext:Keyword" value="mixed"/>
+          <tokens xsi:type="xtext:Keyword" value="{"/>
+          <tokens xsi:type="xtext:Assignment" cardinality="*" feature="pattern" operator="+=">
+            <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.2"/>
+          </tokens>
+          <tokens xsi:type="xtext:Keyword" value="}"/>
+        </groups>
+        <groups xsi:type="xtext:Group">
+          <tokens xsi:type="xtext:RuleCall" rule="/1/@rules.0"/>
+          <tokens xsi:type="xtext:Keyword" cardinality="?" value="="/>
+        </groups>
+        <groups xsi:type="xtext:Group">
+          <tokens xsi:type="xtext:Keyword" value="parent"/>
+          <tokens xsi:type="xtext:RuleCall" rule="/1/@rules.0"/>
+        </groups>
+        <groups xsi:type="xtext:Keyword" value="empty"/>
+        <groups xsi:type="xtext:Keyword" value="text"/>
+        <groups xsi:type="xtext:Keyword" value="|"/>
+        <groups xsi:type="xtext:Assignment" cardinality="+" feature="value" operator="=">
+          <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.15"/>
+        </groups>
+        <groups xsi:type="xtext:Group">
+          <tokens xsi:type="xtext:RuleCall" rule="/0/@rules.14"/>
+          <tokens xsi:type="xtext:Group" cardinality="*">
+            <tokens xsi:type="xtext:Keyword" value="{"/>
+            <tokens xsi:type="xtext:Assignment" cardinality="*" feature="param" operator="+=">
+              <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.5"/>
+            </tokens>
+            <tokens xsi:type="xtext:Keyword" value="}"/>
+          </tokens>
+          <tokens xsi:type="xtext:Assignment" cardinality="*" feature="exceptPattern" operator="=">
+            <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.6"/>
+          </tokens>
+        </groups>
+        <groups xsi:type="xtext:Keyword" value="notAllowed"/>
+        <groups xsi:type="xtext:Group">
+          <tokens xsi:type="xtext:Keyword" value="external"/>
+          <tokens xsi:type="xtext:Assignment" feature="uri" operator="=">
+            <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.16"/>
+          </tokens>
+          <tokens xsi:type="xtext:Assignment" cardinality="*" feature="inherit" operator="=">
+            <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.18"/>
+          </tokens>
+        </groups>
+        <groups xsi:type="xtext:Group">
+          <tokens xsi:type="xtext:Keyword" value="grammar"/>
+          <tokens xsi:type="xtext:Keyword" value="{"/>
+          <tokens xsi:type="xtext:Assignment" cardinality="*" feature="grammarContent" operator="+=">
+            <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.7"/>
+          </tokens>
+          <tokens xsi:type="xtext:Keyword" value="}"/>
+        </groups>
+        <groups xsi:type="xtext:Group">
+          <tokens xsi:type="xtext:Keyword" value="("/>
+          <tokens xsi:type="xtext:Assignment" cardinality="*" feature="group" operator="+=">
+            <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.2"/>
+          </tokens>
+          <tokens xsi:type="xtext:Keyword" value=")"/>
+          <tokens xsi:type="xtext:Assignment" cardinality="?" feature="continue" operator="=">
+            <terminal xsi:type="xtext:Keyword" value=","/>
+          </tokens>
+        </groups>
+      </alternatives>
+    </rules>
+    <rules xsi:type="xtext:ParserRule" name="Element">
+      <type metamodel="/0/@metamodelDeclarations.0">
+        <classifier xsi:type="ecore:EClass" href="http://www.oasis-open.org/relaxng#//Element"/>
+      </type>
+      <alternatives xsi:type="xtext:Group">
+        <tokens xsi:type="xtext:Keyword" value="element"/>
+        <tokens xsi:type="xtext:Assignment" feature="name" operator="=">
+          <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.13"/>
+        </tokens>
+        <tokens xsi:type="xtext:Keyword" value="{"/>
+        <tokens xsi:type="xtext:Assignment" cardinality="*" feature="pattern" operator="+=">
+          <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.2"/>
+        </tokens>
+        <tokens xsi:type="xtext:Keyword" value="}"/>
+        <tokens xsi:type="xtext:Assignment" cardinality="?" feature="cardinality" operator="=">
+          <terminal xsi:type="xtext:Alternatives">
+            <groups xsi:type="xtext:Keyword" value="?"/>
+            <groups xsi:type="xtext:Keyword" value="+"/>
+            <groups xsi:type="xtext:Keyword" value="*"/>
+          </terminal>
+        </tokens>
+        <tokens xsi:type="xtext:Assignment" cardinality="?" feature="continue" operator="=">
+          <terminal xsi:type="xtext:Alternatives">
+            <groups xsi:type="xtext:Keyword" value=","/>
+            <groups xsi:type="xtext:Keyword" value="&amp;"/>
+            <groups xsi:type="xtext:Keyword" value="|"/>
+          </terminal>
+        </tokens>
+      </alternatives>
+    </rules>
+    <rules xsi:type="xtext:ParserRule" name="Attribute">
+      <type metamodel="/0/@metamodelDeclarations.0">
+        <classifier xsi:type="ecore:EClass" href="http://www.oasis-open.org/relaxng#//Attribute"/>
+      </type>
+      <alternatives xsi:type="xtext:Group">
+        <tokens xsi:type="xtext:Keyword" value="attribute"/>
+        <tokens xsi:type="xtext:Assignment" feature="name" operator="=">
+          <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.13"/>
+        </tokens>
+        <tokens xsi:type="xtext:Keyword" value="{"/>
+        <tokens xsi:type="xtext:Assignment" cardinality="*" feature="pattern" operator="+=">
+          <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.2"/>
+        </tokens>
+        <tokens xsi:type="xtext:Keyword" value="}"/>
+        <tokens xsi:type="xtext:Assignment" cardinality="?" feature="cardinality" operator="=">
+          <terminal xsi:type="xtext:Keyword" value="?"/>
+        </tokens>
+        <tokens xsi:type="xtext:Assignment" cardinality="?" feature="continue" operator="=">
+          <terminal xsi:type="xtext:Alternatives">
+            <groups xsi:type="xtext:Keyword" value=","/>
+            <groups xsi:type="xtext:Keyword" value="|"/>
+          </terminal>
+        </tokens>
+      </alternatives>
+    </rules>
+    <rules xsi:type="xtext:ParserRule" name="Param">
+      <type metamodel="/0/@metamodelDeclarations.0">
+        <classifier xsi:type="ecore:EClass" href="http://www.oasis-open.org/relaxng#//Param"/>
+      </type>
+      <alternatives xsi:type="xtext:Group">
+        <tokens xsi:type="xtext:RuleCall" rule="/0/@rules.19"/>
+        <tokens xsi:type="xtext:Keyword" value="="/>
+        <tokens xsi:type="xtext:Assignment" feature="parmValue" operator="=">
+          <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.24"/>
+        </tokens>
+      </alternatives>
+    </rules>
+    <rules xsi:type="xtext:ParserRule" name="ExceptPattern">
+      <type metamodel="/0/@metamodelDeclarations.0">
+        <classifier xsi:type="ecore:EClass" href="http://www.oasis-open.org/relaxng#//ExceptPattern"/>
+      </type>
+      <alternatives xsi:type="xtext:Group">
+        <tokens xsi:type="xtext:Keyword" value="-"/>
+        <tokens xsi:type="xtext:RuleCall" rule="/0/@rules.2"/>
+      </alternatives>
+    </rules>
+    <rules xsi:type="xtext:ParserRule" name="GrammarContent">
+      <type metamodel="/0/@metamodelDeclarations.0">
+        <classifier xsi:type="ecore:EClass" href="http://www.oasis-open.org/relaxng#//GrammarContent"/>
+      </type>
+      <alternatives xsi:type="xtext:Alternatives">
+        <groups xsi:type="xtext:RuleCall" rule="/0/@rules.9"/>
+        <groups xsi:type="xtext:RuleCall" rule="/0/@rules.10"/>
+        <groups xsi:type="xtext:Group">
+          <tokens xsi:type="xtext:Keyword" value="div"/>
+          <tokens xsi:type="xtext:Keyword" value="{"/>
+          <tokens xsi:type="xtext:Assignment" cardinality="*" feature="grammarContenGrammarContent" operator="+=">
+            <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.7"/>
+          </tokens>
+          <tokens xsi:type="xtext:Keyword" value="}"/>
+        </groups>
+        <groups xsi:type="xtext:Group">
+          <tokens xsi:type="xtext:Keyword" value="include"/>
+          <tokens xsi:type="xtext:RuleCall" rule="/0/@rules.16"/>
+          <tokens xsi:type="xtext:Assignment" feature="inherit" operator="=">
+            <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.18"/>
+          </tokens>
+          <tokens xsi:type="xtext:Group">
+            <tokens xsi:type="xtext:Keyword" value="{"/>
+            <tokens xsi:type="xtext:Assignment" cardinality="*" feature="includeContent" operator="+=">
+              <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.8"/>
+            </tokens>
+            <tokens xsi:type="xtext:Keyword" value="}"/>
+          </tokens>
+        </groups>
+      </alternatives>
+    </rules>
+    <rules xsi:type="xtext:ParserRule" name="IncludeContent">
+      <type metamodel="/0/@metamodelDeclarations.0">
+        <classifier xsi:type="ecore:EClass" href="http://www.oasis-open.org/relaxng#//IncludeContent"/>
+      </type>
+      <alternatives xsi:type="xtext:Alternatives">
+        <groups xsi:type="xtext:RuleCall" rule="/0/@rules.10"/>
+        <groups xsi:type="xtext:RuleCall" rule="/0/@rules.9"/>
+        <groups xsi:type="xtext:Group">
+          <tokens xsi:type="xtext:Keyword" value="div"/>
+          <tokens xsi:type="xtext:Keyword" value="{"/>
+          <tokens xsi:type="xtext:Assignment" cardinality="*" feature="includeGrammarContent" operator="+=">
+            <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.7"/>
+          </tokens>
+          <tokens xsi:type="xtext:Keyword" value="}"/>
+        </groups>
+      </alternatives>
+    </rules>
+    <rules xsi:type="xtext:ParserRule" name="Start">
+      <type metamodel="/0/@metamodelDeclarations.0">
+        <classifier xsi:type="ecore:EClass" href="http://www.oasis-open.org/relaxng#//Start"/>
+      </type>
+      <alternatives xsi:type="xtext:Group">
+        <tokens xsi:type="xtext:Keyword" value="start"/>
+        <tokens xsi:type="xtext:Alternatives">
+          <groups xsi:type="xtext:Keyword" value="="/>
+          <groups xsi:type="xtext:Keyword" value="|="/>
+          <groups xsi:type="xtext:Keyword" value="&amp;="/>
+        </tokens>
+        <tokens xsi:type="xtext:Alternatives">
+          <groups xsi:type="xtext:RuleCall" rule="/1/@rules.0"/>
+          <groups xsi:type="xtext:Assignment" feature="pattern" operator="=">
+            <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.2"/>
+          </groups>
+        </tokens>
+      </alternatives>
+    </rules>
+    <rules xsi:type="xtext:ParserRule" name="Define">
+      <type metamodel="/0/@metamodelDeclarations.0">
+        <classifier xsi:type="ecore:EClass" href="http://www.oasis-open.org/relaxng#//Define"/>
+      </type>
+      <alternatives xsi:type="xtext:Group">
+        <tokens xsi:type="xtext:RuleCall" rule="/1/@rules.0"/>
+        <tokens xsi:type="xtext:Alternatives">
+          <groups xsi:type="xtext:Keyword" value="="/>
+          <groups xsi:type="xtext:Keyword" value="|="/>
+          <groups xsi:type="xtext:Keyword" value="&amp;="/>
+        </tokens>
+        <tokens xsi:type="xtext:Assignment" feature="pattern" operator="=">
+          <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.2"/>
+        </tokens>
+      </alternatives>
+    </rules>
+    <rules xsi:type="xtext:ParserRule" name="Name">
+      <type metamodel="/0/@metamodelDeclarations.0">
+        <classifier xsi:type="ecore:EClass" href="http://www.oasis-open.org/relaxng#//Name"/>
+      </type>
+      <alternatives xsi:type="xtext:Alternatives">
+        <groups xsi:type="xtext:RuleCall" rule="/0/@rules.19"/>
+        <groups xsi:type="xtext:RuleCall" rule="/0/@rules.22"/>
+      </alternatives>
+    </rules>
+    <rules xsi:type="xtext:ParserRule" name="ExceptNameClass">
+      <type metamodel="/0/@metamodelDeclarations.0">
+        <classifier xsi:type="ecore:EClass" href="http://www.oasis-open.org/relaxng#//ExceptNameClass"/>
+      </type>
+      <alternatives xsi:type="xtext:Group">
+        <tokens xsi:type="xtext:Keyword" value="-"/>
+        <tokens xsi:type="xtext:RuleCall" rule="/0/@rules.13"/>
+      </alternatives>
+    </rules>
+    <rules xsi:type="xtext:ParserRule" name="NameClass">
+      <type metamodel="/0/@metamodelDeclarations.0">
+        <classifier xsi:type="ecore:EClass" href="http://www.oasis-open.org/relaxng#//NameClass"/>
+      </type>
+      <alternatives xsi:type="xtext:Alternatives">
+        <groups xsi:type="xtext:RuleCall" rule="/0/@rules.11"/>
+        <groups xsi:type="xtext:Group">
+          <tokens xsi:type="xtext:RuleCall" rule="/1/@rules.0"/>
+          <tokens xsi:type="xtext:Assignment" cardinality="?" feature="exceptClassName" operator="=">
+            <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.12"/>
+          </tokens>
+        </groups>
+        <groups xsi:type="xtext:Group">
+          <tokens xsi:type="xtext:RuleCall" rule="/0/@rules.23"/>
+          <tokens xsi:type="xtext:Assignment" cardinality="?" feature="exceptClassName" operator="=">
+            <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.12"/>
+          </tokens>
+        </groups>
+        <groups xsi:type="xtext:Group">
+          <tokens xsi:type="xtext:Keyword" value="|"/>
+          <tokens xsi:type="xtext:Assignment" feature="nc" operator="=">
+            <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.13"/>
+          </tokens>
+        </groups>
+        <groups xsi:type="xtext:Group">
+          <tokens xsi:type="xtext:Keyword" value="("/>
+          <tokens xsi:type="xtext:Assignment" feature="nc" operator="=">
+            <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.13"/>
+          </tokens>
+          <tokens xsi:type="xtext:Keyword" value=")"/>
+        </groups>
+      </alternatives>
+    </rules>
+    <rules xsi:type="xtext:ParserRule" name="DataTypeName">
+      <type metamodel="/1/@metamodelDeclarations.0">
+        <classifier xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      </type>
+      <alternatives xsi:type="xtext:Alternatives">
+        <groups xsi:type="xtext:RuleCall" rule="/0/@rules.22"/>
+        <groups xsi:type="xtext:Keyword" value="string"/>
+        <groups xsi:type="xtext:Keyword" value="token"/>
+      </alternatives>
+    </rules>
+    <rules xsi:type="xtext:ParserRule" name="DataTypeValue">
+      <type metamodel="/0/@metamodelDeclarations.0">
+        <classifier xsi:type="ecore:EClass" href="http://www.oasis-open.org/relaxng#//DataTypeValue"/>
+      </type>
+      <alternatives xsi:type="xtext:RuleCall" rule="/0/@rules.24"/>
+    </rules>
+    <rules xsi:type="xtext:ParserRule" name="AnyURILiteral">
+      <type metamodel="/0/@metamodelDeclarations.0">
+        <classifier xsi:type="ecore:EClass" href="http://www.oasis-open.org/relaxng#//AnyURILiteral"/>
+      </type>
+      <alternatives xsi:type="xtext:RuleCall" rule="/0/@rules.24"/>
+    </rules>
+    <rules xsi:type="xtext:ParserRule" name="NamespaceURILiteral">
+      <type metamodel="/0/@metamodelDeclarations.0">
+        <classifier xsi:type="ecore:EClass" href="http://www.oasis-open.org/relaxng#//NamespaceURILiteral"/>
+      </type>
+      <alternatives xsi:type="xtext:Alternatives">
+        <groups xsi:type="xtext:RuleCall" rule="/0/@rules.24"/>
+        <groups xsi:type="xtext:Keyword" value="inherit"/>
+      </alternatives>
+    </rules>
+    <rules xsi:type="xtext:ParserRule" name="Inherit">
+      <type metamodel="/0/@metamodelDeclarations.0">
+        <classifier xsi:type="ecore:EClass" href="http://www.oasis-open.org/relaxng#//Inherit"/>
+      </type>
+      <alternatives xsi:type="xtext:Group">
+        <tokens xsi:type="xtext:Keyword" value="inherit"/>
+        <tokens xsi:type="xtext:Keyword" value="="/>
+        <tokens xsi:type="xtext:RuleCall" rule="/0/@rules.19"/>
+      </alternatives>
+    </rules>
+    <rules xsi:type="xtext:ParserRule" name="IdentifierOrKeyWord">
+      <type metamodel="/0/@metamodelDeclarations.0">
+        <classifier xsi:type="ecore:EClass" href="http://www.oasis-open.org/relaxng#//IdentifierOrKeyWord"/>
+      </type>
+      <alternatives xsi:type="xtext:Alternatives">
+        <groups xsi:type="xtext:RuleCall" rule="/0/@rules.20"/>
+        <groups xsi:type="xtext:RuleCall" rule="/0/@rules.25"/>
+      </alternatives>
+    </rules>
+    <rules xsi:type="xtext:ParserRule" name="Identifier">
+      <type metamodel="/0/@metamodelDeclarations.0">
+        <classifier xsi:type="ecore:EClass" href="http://www.oasis-open.org/relaxng#//Identifier"/>
+      </type>
+      <alternatives xsi:type="xtext:Alternatives">
+        <groups xsi:type="xtext:Group">
+          <tokens xsi:type="xtext:RuleCall" rule="/1/@rules.0"/>
+          <tokens xsi:type="xtext:Assignment" feature="keyWord" operator="=">
+            <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.25"/>
+          </tokens>
+        </groups>
+        <groups xsi:type="xtext:RuleCall" rule="/0/@rules.21"/>
+      </alternatives>
+    </rules>
+    <rules xsi:type="xtext:ParserRule" name="QuotedIdentifier">
+      <type metamodel="/1/@metamodelDeclarations.0">
+        <classifier xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      </type>
+      <alternatives xsi:type="xtext:Group">
+        <tokens xsi:type="xtext:Keyword" value="\"/>
+        <tokens xsi:type="xtext:RuleCall" rule="/1/@rules.0"/>
+      </alternatives>
+    </rules>
+    <rules xsi:type="xtext:ParserRule" name="CName">
+      <type metamodel="/1/@metamodelDeclarations.0">
+        <classifier xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      </type>
+      <alternatives xsi:type="xtext:Group">
+        <tokens xsi:type="xtext:RuleCall" rule="/1/@rules.0"/>
+        <tokens xsi:type="xtext:Keyword" value=":"/>
+        <tokens xsi:type="xtext:RuleCall" rule="/1/@rules.0"/>
+      </alternatives>
+    </rules>
+    <rules xsi:type="xtext:ParserRule" name="AnyName">
+      <type metamodel="/0/@metamodelDeclarations.0">
+        <classifier xsi:type="ecore:EClass" href="http://www.oasis-open.org/relaxng#//AnyName"/>
+      </type>
+      <alternatives xsi:type="xtext:Keyword" value="*"/>
+    </rules>
+    <rules xsi:type="xtext:ParserRule" name="Literal">
+      <type metamodel="/0/@metamodelDeclarations.0">
+        <classifier xsi:type="ecore:EClass" href="http://www.oasis-open.org/relaxng#//Literal"/>
+      </type>
+      <alternatives xsi:type="xtext:Group">
+        <tokens xsi:type="xtext:RuleCall" rule="/1/@rules.2"/>
+        <tokens xsi:type="xtext:Group" cardinality="+">
+          <tokens xsi:type="xtext:Keyword" value="~"/>
+          <tokens xsi:type="xtext:Assignment" feature="literalSegment" operator="=">
+            <terminal xsi:type="xtext:RuleCall" rule="/1/@rules.2"/>
+          </tokens>
+        </tokens>
+      </alternatives>
+    </rules>
+    <rules xsi:type="xtext:ParserRule" name="KeyWord">
+      <type metamodel="/0/@metamodelDeclarations.0">
+        <classifier xsi:type="ecore:EClass" href="http://www.oasis-open.org/relaxng#//KeyWord"/>
+      </type>
+      <alternatives xsi:type="xtext:Alternatives">
+        <groups xsi:type="xtext:Keyword" value="attribute"/>
+        <groups xsi:type="xtext:Keyword" value="default"/>
+        <groups xsi:type="xtext:Keyword" value="datatypes"/>
+        <groups xsi:type="xtext:Keyword" value="div"/>
+        <groups xsi:type="xtext:Keyword" value="element"/>
+        <groups xsi:type="xtext:Keyword" value="empty"/>
+        <groups xsi:type="xtext:Keyword" value="external"/>
+        <groups xsi:type="xtext:Keyword" value="grammar"/>
+        <groups xsi:type="xtext:Keyword" value="include"/>
+        <groups xsi:type="xtext:Keyword" value="inherit"/>
+        <groups xsi:type="xtext:Keyword" value="list"/>
+        <groups xsi:type="xtext:Keyword" value="mixed"/>
+        <groups xsi:type="xtext:Keyword" value="namespace"/>
+        <groups xsi:type="xtext:Keyword" value="notAllowed"/>
+        <groups xsi:type="xtext:Keyword" value="parent"/>
+        <groups xsi:type="xtext:Keyword" value="start"/>
+        <groups xsi:type="xtext:Keyword" value="string"/>
+        <groups xsi:type="xtext:Keyword" value="text"/>
+        <groups xsi:type="xtext:Keyword" value="token"/>
+      </alternatives>
+    </rules>
+  </xtext:Grammar>
+  <xtext:Grammar name="org.eclipse.xtext.common.Terminals" definesHiddenTokens="true" hiddenTokens="/1/@rules.5 /1/@rules.3 /1/@rules.4">
+    <metamodelDeclarations xsi:type="xtext:ReferencedMetamodel" alias="ecore">
+      <ePackage href="http://www.eclipse.org/emf/2002/Ecore#/"/>
+    </metamodelDeclarations>
+    <rules xsi:type="xtext:TerminalRule" name="ID">
+      <type metamodel="/1/@metamodelDeclarations.0">
+        <classifier xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      </type>
+      <alternatives xsi:type="xtext:Group">
+        <tokens xsi:type="xtext:Keyword" cardinality="?" value="^"/>
+        <tokens xsi:type="xtext:Alternatives">
+          <groups xsi:type="xtext:CharacterRange">
+            <left value="a"/>
+            <right value="z"/>
+          </groups>
+          <groups xsi:type="xtext:CharacterRange">
+            <left value="A"/>
+            <right value="Z"/>
+          </groups>
+          <groups xsi:type="xtext:Keyword" value="_"/>
+        </tokens>
+        <tokens xsi:type="xtext:Alternatives" cardinality="*">
+          <groups xsi:type="xtext:CharacterRange">
+            <left value="a"/>
+            <right value="z"/>
+          </groups>
+          <groups xsi:type="xtext:CharacterRange">
+            <left value="A"/>
+            <right value="Z"/>
+          </groups>
+          <groups xsi:type="xtext:Keyword" value="_"/>
+          <groups xsi:type="xtext:CharacterRange">
+            <left value="0"/>
+            <right value="9"/>
+          </groups>
+        </tokens>
+      </alternatives>
+    </rules>
+    <rules xsi:type="xtext:TerminalRule" name="INT">
+      <type metamodel="/1/@metamodelDeclarations.0">
+        <classifier xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+      </type>
+      <alternatives xsi:type="xtext:CharacterRange" cardinality="+">
+        <left value="0"/>
+        <right value="9"/>
+      </alternatives>
+    </rules>
+    <rules xsi:type="xtext:TerminalRule" name="STRING">
+      <type metamodel="/1/@metamodelDeclarations.0">
+        <classifier xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      </type>
+      <alternatives xsi:type="xtext:Alternatives">
+        <groups xsi:type="xtext:Group">
+          <tokens xsi:type="xtext:Keyword" value="&quot;"/>
+          <tokens xsi:type="xtext:Alternatives" cardinality="*">
+            <groups xsi:type="xtext:Group">
+              <tokens xsi:type="xtext:Keyword" value="\"/>
+              <tokens xsi:type="xtext:Alternatives">
+                <groups xsi:type="xtext:Keyword" value="b"/>
+                <groups xsi:type="xtext:Keyword" value="t"/>
+                <groups xsi:type="xtext:Keyword" value="n"/>
+                <groups xsi:type="xtext:Keyword" value="f"/>
+                <groups xsi:type="xtext:Keyword" value="r"/>
+                <groups xsi:type="xtext:Keyword" value="&quot;"/>
+                <groups xsi:type="xtext:Keyword" value="'"/>
+                <groups xsi:type="xtext:Keyword" value="\"/>
+              </tokens>
+            </groups>
+            <groups xsi:type="xtext:NegatedToken">
+              <terminal xsi:type="xtext:Alternatives">
+                <groups xsi:type="xtext:Keyword" value="\"/>
+                <groups xsi:type="xtext:Keyword" value="&quot;"/>
+              </terminal>
+            </groups>
+          </tokens>
+          <tokens xsi:type="xtext:Keyword" value="&quot;"/>
+        </groups>
+        <groups xsi:type="xtext:Group">
+          <tokens xsi:type="xtext:Keyword" value="'"/>
+          <tokens xsi:type="xtext:Alternatives" cardinality="*">
+            <groups xsi:type="xtext:Group">
+              <tokens xsi:type="xtext:Keyword" value="\"/>
+              <tokens xsi:type="xtext:Alternatives">
+                <groups xsi:type="xtext:Keyword" value="b"/>
+                <groups xsi:type="xtext:Keyword" value="t"/>
+                <groups xsi:type="xtext:Keyword" value="n"/>
+                <groups xsi:type="xtext:Keyword" value="f"/>
+                <groups xsi:type="xtext:Keyword" value="r"/>
+                <groups xsi:type="xtext:Keyword" value="&quot;"/>
+                <groups xsi:type="xtext:Keyword" value="'"/>
+                <groups xsi:type="xtext:Keyword" value="\"/>
+              </tokens>
+            </groups>
+            <groups xsi:type="xtext:NegatedToken">
+              <terminal xsi:type="xtext:Alternatives">
+                <groups xsi:type="xtext:Keyword" value="\"/>
+                <groups xsi:type="xtext:Keyword" value="'"/>
+              </terminal>
+            </groups>
+          </tokens>
+          <tokens xsi:type="xtext:Keyword" value="'"/>
+        </groups>
+      </alternatives>
+    </rules>
+    <rules xsi:type="xtext:TerminalRule" name="ML_COMMENT">
+      <type metamodel="/1/@metamodelDeclarations.0">
+        <classifier xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      </type>
+      <alternatives xsi:type="xtext:Group">
+        <tokens xsi:type="xtext:Keyword" value="/*"/>
+        <tokens xsi:type="xtext:UntilToken">
+          <terminal xsi:type="xtext:Keyword" value="*/"/>
+        </tokens>
+      </alternatives>
+    </rules>
+    <rules xsi:type="xtext:TerminalRule" name="SL_COMMENT">
+      <type metamodel="/1/@metamodelDeclarations.0">
+        <classifier xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      </type>
+      <alternatives xsi:type="xtext:Group">
+        <tokens xsi:type="xtext:Keyword" value="//"/>
+        <tokens xsi:type="xtext:NegatedToken" cardinality="*">
+          <terminal xsi:type="xtext:Alternatives">
+            <groups xsi:type="xtext:Keyword" value="&#xA;"/>
+            <groups xsi:type="xtext:Keyword" value="&#xD;"/>
+          </terminal>
+        </tokens>
+        <tokens xsi:type="xtext:Group" cardinality="?">
+          <tokens xsi:type="xtext:Keyword" cardinality="?" value="&#xD;"/>
+          <tokens xsi:type="xtext:Keyword" value="&#xA;"/>
+        </tokens>
+      </alternatives>
+    </rules>
+    <rules xsi:type="xtext:TerminalRule" name="WS">
+      <type metamodel="/1/@metamodelDeclarations.0">
+        <classifier xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      </type>
+      <alternatives xsi:type="xtext:Alternatives" cardinality="+">
+        <groups xsi:type="xtext:Keyword" value=" "/>
+        <groups xsi:type="xtext:Keyword" value="&#x9;"/>
+        <groups xsi:type="xtext:Keyword" value="&#xD;"/>
+        <groups xsi:type="xtext:Keyword" value="&#xA;"/>
+      </alternatives>
+    </rules>
+    <rules xsi:type="xtext:TerminalRule" name="ANY_OTHER">
+      <type metamodel="/1/@metamodelDeclarations.0">
+        <classifier xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+      </type>
+      <alternatives xsi:type="xtext:Wildcard"/>
+    </rules>
+  </xtext:Grammar>
+</xmi:XMI>

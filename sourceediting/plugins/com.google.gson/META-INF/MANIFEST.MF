@@ -3,8 +3,5 @@ Bundle-ManifestVersion: 2
 Bundle-Name: Gson
 Bundle-SymbolicName: com.google.gson
 Bundle-Version: 1.3
-Bundle-Activator: com.google.gson.internal.Activator
 Bundle-Vendor: GOOGLE
-Require-Bundle: org.eclipse.core.runtime
 Bundle-RequiredExecutionEnvironment: J2SE-1.5
-Bundle-ActivationPolicy: lazy

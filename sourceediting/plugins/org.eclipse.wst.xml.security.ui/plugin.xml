@@ -207,6 +207,93 @@
             class="org.eclipse.wst.xml.security.ui.preferences.PreferenceInitializer">
       </initializer>
    </extension>
+   <extension
+         point="org.eclipse.ui.commands">
+      <category
+            description="XML Signature category"
+            id="org.eclipse.wst.xml.security.ui.signCategory"
+            name="XML Signature">
+      </category>
+      <command
+            categoryId="org.eclipse.wst.xml.security.ui.signCategory"
+            description="Create a new XML Signature with the XML Signature wizard."
+            id="org.eclipse.wst.xml.security.ui.sign"
+            name="New Signature...">
+      </command>
+   </extension>
+   <extension
+         point="org.eclipse.ui.handlers">
+      <handler
+            class="org.eclipse.wst.xml.security.ui.commands.NewSignatureCommand"
+            commandId="org.eclipse.wst.xml.security.ui.sign">
+         <enabledWhen>
+            <with
+                  variable="selection">
+               <iterate
+                     ifEmpty="false">
+                  <instanceof
+                        value="org.eclipse.core.resources.IResource">
+                  </instanceof>
+                  <test
+                        forcePluginActivation="true"
+                        property="org.eclipse.core.resources.name"
+                        value="*.xml">
+                  </test>
+               </iterate>
+               <count
+                     value="1">
+               </count>
+            </with>
+         </enabledWhen>
+      </handler>
+   </extension>
+   <extension
+         point="org.eclipse.ui.menus">
+      <menuContribution
+            locationURI="popup:org.eclipse.ui.popup.any?after=additions">
+         <menu
+               label="XML Security">
+            <visibleWhen
+                  checkEnabled="false">
+               <and>
+                  <with
+                        variable="activeWorkbenchWindow.activePerspective">
+                     <equals
+                           value="org.eclipse.wst.xml.ui.perspective">
+                     </equals>
+                  </with>
+                  <with
+                        variable="activePartId">
+                     <equals
+                           value="org.eclipse.ui.navigator.ProjectExplorer">
+                     </equals>
+                  </with>
+                  <with
+                        variable="selection">
+                     <iterate
+                           ifEmpty="false">
+                        <instanceof
+                              value="org.eclipse.core.resources.IResource">
+                        </instanceof>
+                        <test
+                              forcePluginActivation="true"
+                              property="org.eclipse.core.resources.name"
+                              value="*.xml">
+                        </test>
+                     </iterate>
+                  </with>
+               </and>
+            </visibleWhen>
+            <command
+                  commandId="org.eclipse.wst.xml.security.ui.sign"
+                  helpContextId="org.eclipse.wst.xml.seucrity.doc.wizard_signature"
+                  icon="icons/new_sign.gif"
+                  style="push"
+                  tooltip="Create a new XML Signature with the XML Signature wizard.">
+            </command>
+         </menu>
+      </menuContribution>
+   </extension>
    <!-- Cheat Sheets -->
 
 </plugin>

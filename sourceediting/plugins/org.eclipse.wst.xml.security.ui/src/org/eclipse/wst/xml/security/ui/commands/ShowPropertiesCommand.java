@@ -13,16 +13,27 @@ package org.eclipse.wst.xml.security.ui.commands;
 import org.eclipse.core.commands.AbstractHandler;
 import org.eclipse.core.commands.ExecutionEvent;
 import org.eclipse.core.commands.ExecutionException;
+import org.eclipse.jface.viewers.IStructuredSelection;
+import org.eclipse.ui.handlers.HandlerUtil;
+import org.eclipse.wst.xml.security.core.verify.VerificationResult;
+import org.eclipse.wst.xml.security.ui.verify.Verification;
 
 /**
+ * <p>Shows additional properties in a popup dialog of the selected XML Signature
+ * in the XML Signatures view.</p>
  * 
  * @author Dominik Schadow
  * @version 0.5.0
  */
-public class NewSignatureCommand extends AbstractHandler {
+public class ShowPropertiesCommand extends AbstractHandler {
     public Object execute(ExecutionEvent event) throws ExecutionException {
-        // TODO Auto-generated method stub
+        Object o = ((IStructuredSelection) HandlerUtil.getCurrentSelection(event)).getFirstElement();
+
+        if (o instanceof VerificationResult) {
+            Verification.showVerificationResult((VerificationResult) o, 
+                    HandlerUtil.getActiveShell(event));
+        }
+        
         return null;
     }
-
 }

@@ -19,7 +19,8 @@ import org.eclipse.core.commands.ExecutionException;
  * @author Dominik Schadow
  * @version 0.5.0
  */
-public class NewSignatureCommand extends AbstractHandler {
+public class NewVerificationCommand extends AbstractHandler {
+
     public Object execute(ExecutionEvent event) throws ExecutionException {
         // TODO Auto-generated method stub
         return null;

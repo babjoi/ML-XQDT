@@ -1,166 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<?eclipse version="3.2"?>
+<?eclipse version="3.4"?>
 <plugin>
    <!-- View and Editor Context Menu -->
-   <extension
-         point="org.eclipse.ui.popupMenus">
-      <objectContribution
-            objectClass="org.eclipse.core.resources.IResource"
-            adaptable="true"
-            nameFilter="*.xml"
-            id="org.eclipse.wst.xml.security.ui.popupMenu">
-         <menu
-               label="%xmlSecurityMenu"
-               path="additions"
-               id="org.eclipse.wst.xml.security.ui.popupSubMenu">
-            <groupMarker name="canonicalizeGroup"/>
-            <separator name="canonicalizeSeparator"/>
-            <groupMarker name="signGroup"/>
-            <separator name="signSeparator"/>
-            <groupMarker name="verifyGroup"/>
-            <separator name="verifySeparator"/>
-            <groupMarker name="encryptGroup"/>
-            <separator name="encryptSeparator"/>
-            <groupMarker name="decryptGroup"/>
-            <separator name="additions"/>
-         </menu>
-         <action
-               class="org.eclipse.wst.xml.security.ui.actions.DecryptQuickAction"
-               enablesFor="1"
-               icon="icons/new_decrypt.gif"
-               id="org.eclipse.wst.xml.security.ui.actions.QuickDecryption"
-               label="%quickDecryptionAction"
-               menubarPath="org.eclipse.wst.xml.security.ui.popupSubMenu/decryptGroup"
-               tooltip="%quickDecryptionTooltip">
-         </action>
-         <action
-               class="org.eclipse.wst.xml.security.ui.actions.DecryptNewAction"
-               enablesFor="1"
-               icon="icons/new_decrypt.gif"
-               id="org.eclipse.wst.xml.security.ui.actions.NewDecryption"
-               label="%newDecryptionAction"
-               menubarPath="org.eclipse.wst.xml.security.ui.popupSubMenu/decryptGroup"
-               tooltip="%newDecryptionTooltip">
-         </action>
-         <action
-               class="org.eclipse.wst.xml.security.ui.actions.EncryptQuickAction"
-               enablesFor="1"
-               icon="icons/new_encrypt.gif"
-               id="org.eclipse.wst.xml.security.ui.actions.QuickEncryption"
-               label="%quickEncryptionAction"
-               menubarPath="org.eclipse.wst.xml.security.ui.popupSubMenu/encryptGroup"
-               tooltip="%quickEncryptionTooltip">
-         </action>
-         <action
-               class="org.eclipse.wst.xml.security.ui.actions.EncryptNewAction"
-               enablesFor="1"
-               icon="icons/new_encrypt.gif"
-               id="org.eclipse.wst.xml.security.ui.actions.NewEncryption"
-               label="%newEncryptionAction"
-               menubarPath="org.eclipse.wst.xml.security.ui.popupSubMenu/encryptGroup"
-               tooltip="%newEncryptionTooltip">
-         </action>
-         <action
-               class="org.eclipse.wst.xml.security.ui.actions.VerifyQuickAction"
-               enablesFor="1"
-               icon="icons/new_verify.gif"
-               id="org.eclipse.wst.xml.security.ui.actions.QuickVerification"
-               label="%quickVerificationAction"
-               menubarPath="org.eclipse.wst.xml.security.ui.popupSubMenu/verifyGroup"
-               tooltip="%quickVerificationTooltip">
-         </action>
-         <action
-               class="org.eclipse.wst.xml.security.ui.actions.VerifyNewAction"
-               enablesFor="1"
-               icon="icons/new_verify.gif"
-               id="org.eclipse.wst.xml.security.ui.actions.NewVerification"
-               label="%newVerificationAction"
-               menubarPath="org.eclipse.wst.xml.security.ui.popupSubMenu/verifyGroup"
-               tooltip="%newVerificationTooltip">
-         </action>
-         <action
-               class="org.eclipse.wst.xml.security.ui.actions.SignQuickAction"
-               enablesFor="1"
-               icon="icons/new_sign.gif"
-               id="org.eclipse.wst.xml.security.ui.actions.QuickSignature"
-               label="%quickSignatureAction"
-               menubarPath="org.eclipse.wst.xml.security.ui.popupSubMenu/signGroup"
-               tooltip="%quickSignatureTooltip">
-         </action>
-         <action
-               class="org.eclipse.wst.xml.security.ui.actions.SignNewAction"
-               enablesFor="1"
-               icon="icons/new_sign.gif"
-               id="org.eclipse.wst.xml.security.ui.actions.NewSignature"
-               label="%newSignatureAction"
-               menubarPath="org.eclipse.wst.xml.security.ui.popupSubMenu/signGroup"
-               tooltip="%newSignatureTooltip">
-         </action>
-         <action
-               class="org.eclipse.wst.xml.security.ui.actions.CanonicalizeAction"
-               enablesFor="1"
-               icon="icons/new_canon.gif"
-               id="org.eclipse.wst.xml.security.ui.actions.CanonicalizationRemoveComments"
-               label="%newCanonicalizationAction"
-               menubarPath="org.eclipse.wst.xml.security.ui.popupSubMenu/canonicalizeGroup"
-               tooltip="%newCanonicalizationTooltip">
-         </action>
-         <action
-               class="org.eclipse.wst.xml.security.ui.actions.CanonicalizeAction"
-               enablesFor="1"
-               icon="icons/new_canon.gif"
-               id="org.eclipse.wst.xml.security.ui.actions.CanonicalizationMaintainComments"
-               label="%newCanonicalizationCommentsAction"
-               menubarPath="org.eclipse.wst.xml.security.ui.popupSubMenu/canonicalizeGroup"
-               tooltip="%newCanonicalizationCommentsTooltip">
-         </action>
-      </objectContribution>
-      <objectContribution
-            adaptable="false"
-            id="org.eclipse.wst.xml.security.ui.verify.contextMenu"
-            objectClass="org.eclipse.wst.xml.security.core.verify.VerificationResult">
-         <action
-               class="org.eclipse.wst.xml.security.ui.actions.RefreshSignatures"
-               icon="icons/refresh.gif"
-               id="org.eclipse.wst.xml.security.ui.actions.refreshSignatures"
-               label="%refreshActionLabel"
-               tooltip="%refreshActionTooltip">
-         </action>
-         <action
-               class="org.eclipse.wst.xml.security.ui.actions.ShowSignatureProperties"
-               icon="icons/properties.gif"
-               id="org.eclipse.wst.xml.security.ui.actions.showSignatureProperties"
-               label="%showPropertiesActionLabel"
-               tooltip="%showPropertiesActionTooltip">
-         </action>
-      </objectContribution>
-   </extension>
-   <extension point="org.eclipse.ui.viewActions">
-      <viewContribution
-               id="org.eclipse.wst.xml.security.ui.actions.signature.view"
-               targetID="org.eclipse.wst.xml.security.ui.SignatureView">
-         <action
-               class="org.eclipse.wst.xml.security.ui.actions.RefreshSignatures"
-               icon="icons/refresh.gif"
-               id="org.eclipse.wst.xml.security.ui.actions.refreshSignatures"
-               label="%refreshActionLabel"
-               tooltip="%refreshActionTooltip"
-               menubarPath="additions"
-               toolbarPath="additions"
-               enablesFor="*">
-         </action>
-         <action
-               class="org.eclipse.wst.xml.security.ui.actions.ShowSignatureProperties"
-               icon="icons/properties.gif"
-               id="org.eclipse.wst.xml.security.ui.actions.showSignatureProperties"
-               label="%showPropertiesActionLabel"
-               tooltip="%showPropertiesActionTooltip"
-               menubarPath="additions"
-               toolbarPath="additions"
-               enablesFor="1">
-         </action>
-      </viewContribution>
-   </extension>
    <!-- Views -->
    <extension
          id="org.eclipse.wst.xml.security.ui.views"
@@ -210,19 +51,149 @@
    <extension
          point="org.eclipse.ui.commands">
       <category
+            description="XML Canonicalization category"
+            id="org.eclipse.wst.xml.security.ui.canonCategory"
+            name="XML Canonicalization">
+      </category>
+      <category
             description="XML Signature category"
             id="org.eclipse.wst.xml.security.ui.signCategory"
             name="XML Signature">
       </category>
+      <category
+            description="XML Verification category"
+            id="org.eclipse.wst.xml.security.ui.verifyCategory"
+            name="XML Verification">
+      </category>
+      <category
+            description="XML Encryption category"
+            id="org.eclipse.wst.xml.security.ui.encryptCategory"
+            name="XML Encryption">
+      </category>
+      <category
+            description="XML Decryption category"
+            id="org.eclipse.wst.xml.security.ui.decryptCategory"
+            name="XML Decryption">
+      </category>
+      <command
+            categoryId="org.eclipse.wst.xml.security.ui.canonCategory"
+            description="Canonicalize the selected XML document and maintain all comments."
+            id="org.eclipse.wst.xml.security.ui.canonicalizeMaintain"
+            name="Canonicalization (Maintain Comments)">
+      </command>
+      <command
+            categoryId="org.eclipse.wst.xml.security.ui.canonCategory"
+            description="Canonicalize the selected XML document and remove all comments."
+            id="org.eclipse.wst.xml.security.ui.canonicalizeRemove"
+            name="Canonicalization (Remove Comments)">
+      </command>
       <command
             categoryId="org.eclipse.wst.xml.security.ui.signCategory"
             description="Create a new XML Signature with the XML Signature wizard."
             id="org.eclipse.wst.xml.security.ui.sign"
             name="New Signature...">
       </command>
+      <command
+            categoryId="org.eclipse.wst.xml.security.ui.signCategory"
+            description="Create a quick XML Signature based on predefined settings."
+            id="org.eclipse.wst.xml.security.ui.signQuick"
+            name="Quick Signature">
+      </command>
+      <command
+            categoryId="org.eclipse.wst.xml.security.ui.verifyCategory"
+            description="Verify all XML Signatures in the selected XML document."
+            id="org.eclipse.wst.xml.security.ui.verify"
+            name="New Verification...">
+      </command>
+      <command
+            categoryId="org.eclipse.wst.xml.security.ui.verifyCategory"
+            description="Verify one XML Signature based on predefined settings."
+            id="org.eclipse.wst.xml.security.ui.verifyQuick"
+            name="Quick Verification">
+      </command>
+      <command
+            categoryId="org.eclipse.wst.xml.security.ui.encryptCategory"
+            description="Create a new XML Encryption with the XML Encryption wizard."
+            id="org.eclipse.wst.xml.security.ui.encrypt"
+            name="New Encryption...">
+      </command>
+      <command
+            categoryId="org.eclipse.wst.xml.security.ui.encryptCategory"
+            description="Create a quick XML Encryption based on predefined settings."
+            id="org.eclipse.wst.xml.security.ui.encryptQuick"
+            name="Quick Encryption">
+      </command>
+      <command
+            categoryId="org.eclipse.wst.xml.security.ui.decryptCategory"
+            description="Create a new XML Decryption with the XML Decryption wizard."
+            id="org.eclipse.wst.xml.security.ui.decrypt"
+            name="New Decryption...">
+      </command>
+      <command
+            categoryId="org.eclipse.wst.xml.security.ui.decryptCategory"
+            description="Create a quick XML Decryption based on predefined settings."
+            id="org.eclipse.wst.xml.security.ui.decryptQuick"
+            name="Quick Decryption">
+      </command>
+      <command
+            description="Refresh all XML Signatures in the XML Signature view."
+            id="org.eclipse.wst.xml.security.ui.refreshSignatures"
+            name="Refresh Signatures">
+      </command>
+      <command
+            description="Show all properties of the selected XML Signature."
+            id="org.eclipse.wst.xml.security.ui.showProperties"
+            name="Show Properties">
+      </command>
    </extension>
    <extension
          point="org.eclipse.ui.handlers">
+      <handler
+            class="org.eclipse.wst.xml.security.ui.commands.NewCanonicalizationMaintainCommand"
+            commandId="org.eclipse.wst.xml.security.ui.canonicalizeMaintain">
+         <enabledWhen>
+            <with
+                  variable="selection">
+               <iterate
+                     ifEmpty="false">
+                  <instanceof
+                        value="org.eclipse.core.resources.IResource">
+                  </instanceof>
+                  <test
+                        forcePluginActivation="true"
+                        property="org.eclipse.core.resources.name"
+                        value="*.xml">
+                  </test>
+               </iterate>
+               <count
+                     value="1">
+               </count>
+            </with>
+         </enabledWhen>
+      </handler>
+      <handler
+            class="org.eclipse.wst.xml.security.ui.commands.NewCanonicalizationRemoveCommand"
+            commandId="org.eclipse.wst.xml.security.ui.canonicalizeRemove">
+         <enabledWhen>
+            <with
+                  variable="selection">
+               <iterate
+                     ifEmpty="false">
+                  <instanceof
+                        value="org.eclipse.core.resources.IResource">
+                  </instanceof>
+                  <test
+                        forcePluginActivation="true"
+                        property="org.eclipse.core.resources.name"
+                        value="*.xml">
+                  </test>
+               </iterate>
+               <count
+                     value="1">
+               </count>
+            </with>
+         </enabledWhen>
+      </handler>
       <handler
             class="org.eclipse.wst.xml.security.ui.commands.NewSignatureCommand"
             commandId="org.eclipse.wst.xml.security.ui.sign">
@@ -246,6 +217,213 @@
             </with>
          </enabledWhen>
       </handler>
+      <handler
+            class="org.eclipse.wst.xml.security.ui.commands.QuickSignatureCommand"
+            commandId="org.eclipse.wst.xml.security.ui.signQuick">
+         <enabledWhen>
+            <with
+                  variable="selection">
+               <iterate
+                     ifEmpty="false">
+                  <instanceof
+                        value="org.eclipse.core.resources.IResource">
+                  </instanceof>
+                  <test
+                        forcePluginActivation="true"
+                        property="org.eclipse.core.resources.name"
+                        value="*.xml">
+                  </test>
+               </iterate>
+               <count
+                     value="1">
+               </count>
+            </with>
+         </enabledWhen>
+      </handler>
+      <handler
+            class="org.eclipse.wst.xml.security.ui.commands.NewVerificationCommand"
+            commandId="org.eclipse.wst.xml.security.ui.verify">
+         <enabledWhen>
+            <with
+                  variable="selection">
+               <iterate
+                     ifEmpty="false">
+                  <instanceof
+                        value="org.eclipse.core.resources.IResource">
+                  </instanceof>
+                  <test
+                        forcePluginActivation="true"
+                        property="org.eclipse.core.resources.name"
+                        value="*.xml">
+                  </test>
+               </iterate>
+               <count
+                     value="1">
+               </count>
+            </with>
+         </enabledWhen>
+      </handler>
+      <handler
+            class="org.eclipse.wst.xml.security.ui.commands.QuickVerificationCommand"
+            commandId="org.eclipse.wst.xml.security.ui.verifyQuick">
+         <enabledWhen>
+            <with
+                  variable="selection">
+               <iterate
+                     ifEmpty="false">
+                  <instanceof
+                        value="org.eclipse.core.resources.IResource">
+                  </instanceof>
+                  <test
+                        forcePluginActivation="true"
+                        property="org.eclipse.core.resources.name"
+                        value="*.xml">
+                  </test>
+               </iterate>
+               <count
+                     value="1">
+               </count>
+            </with>
+         </enabledWhen>
+      </handler>
+      <handler
+            class="org.eclipse.wst.xml.security.ui.commands.NewEncryptionCommand"
+            commandId="org.eclipse.wst.xml.security.ui.encrypt">
+         <enabledWhen>
+            <with
+                  variable="selection">
+               <iterate
+                     ifEmpty="false">
+                  <instanceof
+                        value="org.eclipse.core.resources.IResource">
+                  </instanceof>
+                  <test
+                        forcePluginActivation="true"
+                        property="org.eclipse.core.resources.name"
+                        value="*.xml">
+                  </test>
+               </iterate>
+               <count
+                     value="1">
+               </count>
+            </with>
+         </enabledWhen>
+      </handler>
+      <handler
+            class="org.eclipse.wst.xml.security.ui.commands.QuickEncryptionCommand"
+            commandId="org.eclipse.wst.xml.security.ui.encryptQuick">
+         <enabledWhen>
+            <with
+                  variable="selection">
+               <iterate
+                     ifEmpty="false">
+                  <instanceof
+                        value="org.eclipse.core.resources.IResource">
+                  </instanceof>
+                  <test
+                        forcePluginActivation="true"
+                        property="org.eclipse.core.resources.name"
+                        value="*.xml">
+                  </test>
+               </iterate>
+               <count
+                     value="1">
+               </count>
+            </with>
+         </enabledWhen>
+      </handler>
+      <handler
+            class="org.eclipse.wst.xml.security.ui.commands.NewDecryptionCommand"
+            commandId="org.eclipse.wst.xml.security.ui.decrypt">
+         <enabledWhen>
+            <with
+                  variable="selection">
+               <iterate
+                     ifEmpty="false">
+                  <instanceof
+                        value="org.eclipse.core.resources.IResource">
+                  </instanceof>
+                  <test
+                        forcePluginActivation="true"
+                        property="org.eclipse.core.resources.name"
+                        value="*.xml">
+                  </test>
+               </iterate>
+               <count
+                     value="1">
+               </count>
+            </with>
+         </enabledWhen>
+      </handler>
+      <handler
+            class="org.eclipse.wst.xml.security.ui.commands.QuickDecryptionCommand"
+            commandId="org.eclipse.wst.xml.security.ui.decryptQuick">
+         <enabledWhen>
+            <with
+                  variable="selection">
+               <iterate
+                     ifEmpty="false">
+                  <instanceof
+                        value="org.eclipse.core.resources.IResource">
+                  </instanceof>
+                  <test
+                        forcePluginActivation="true"
+                        property="org.eclipse.core.resources.name"
+                        value="*.xml">
+                  </test>
+               </iterate>
+               <count
+                     value="1">
+               </count>
+            </with>
+         </enabledWhen>
+      </handler>
+      <handler
+            class="org.eclipse.wst.xml.security.ui.commands.RefreshSignaturesCommand"
+            commandId="org.eclipse.wst.xml.security.ui.refreshSignatures">
+         <enabledWhen>
+            <or>
+               <with
+                     variable="selection">
+                  <iterate
+                        ifEmpty="false">
+                     <instanceof
+                           value="org.eclipse.core.resources.IResource">
+                     </instanceof>
+                     <test
+                           forcePluginActivation="true"
+                           property="org.eclipse.core.resources.name"
+                           value="*.xml">
+                     </test>
+                  </iterate>
+               </with>
+               <with
+                     variable="activeEditorId">
+                  <equals
+                        value="org.eclipse.wst.xml.ui.internal.tabletree.XMLMultiPageEditorPart">
+                  </equals>
+               </with>
+            </or>
+         </enabledWhen>
+      </handler>
+      <handler
+            class="org.eclipse.wst.xml.security.ui.commands.ShowPropertiesCommand"
+            commandId="org.eclipse.wst.xml.security.ui.showProperties">
+         <enabledWhen>
+            <with
+                  variable="selection">
+               <iterate
+                     ifEmpty="false">
+                  <instanceof
+                        value="org.eclipse.wst.xml.security.core.verify.VerificationResult">
+                  </instanceof>
+               </iterate>
+               <count
+                     value="1">
+               </count>
+            </with>
+         </enabledWhen>
+      </handler>
    </extension>
    <extension
          point="org.eclipse.ui.menus">
@@ -262,28 +440,56 @@
                            value="org.eclipse.wst.xml.ui.perspective">
                      </equals>
                   </with>
-                  <with
-                        variable="activePartId">
-                     <equals
-                           value="org.eclipse.ui.navigator.ProjectExplorer">
-                     </equals>
-                  </with>
-                  <with
-                        variable="selection">
-                     <iterate
-                           ifEmpty="false">
-                        <instanceof
-                              value="org.eclipse.core.resources.IResource">
-                        </instanceof>
-                        <test
-                              forcePluginActivation="true"
-                              property="org.eclipse.core.resources.name"
-                              value="*.xml">
-                        </test>
-                     </iterate>
-                  </with>
+                  <or>
+                     <and>
+                        <with
+                              variable="activePartId">
+                           <equals
+                                 value="org.eclipse.ui.navigator.ProjectExplorer">
+                           </equals>
+                        </with>
+                        <with
+                              variable="selection">
+                           <iterate
+                                 ifEmpty="false">
+                              <instanceof
+                                    value="org.eclipse.core.resources.IResource">
+                              </instanceof>
+                              <test
+                                    forcePluginActivation="true"
+                                    property="org.eclipse.core.resources.name"
+                                    value="*.xml">
+                              </test>
+                           </iterate>
+                        </with>
+                     </and>
+                     <with
+                           variable="activeEditorId">
+                        <equals
+                              value="org.eclipse.wst.xml.ui.internal.tabletree.XMLMultiPageEditorPart">
+                        </equals>
+                     </with>
+                  </or>
                </and>
             </visibleWhen>
+            <command
+                  commandId="org.eclipse.wst.xml.security.ui.canonicalizeMaintain"
+                  helpContextId="org.eclipse.wst.xml.seucrity.doc.canonicalize"
+                  icon="icons/new_canon.gif"
+                  style="push"
+                  tooltip="Canonicalize the selected XML document and maintain all comments.">
+            </command>
+            <command
+                  commandId="org.eclipse.wst.xml.security.ui.canonicalizeRemove"
+                  helpContextId="org.eclipse.wst.xml.seucrity.doc.canonicalize"
+                  icon="icons/new_canon.gif"
+                  style="push"
+                  tooltip="Canonicalize the selected XML document and remove all comments.">
+            </command>
+            <separator
+                  name="org.eclipse.wst.xml.security.ui.separator1"
+                  visible="true">
+            </separator>
             <command
                   commandId="org.eclipse.wst.xml.security.ui.sign"
                   helpContextId="org.eclipse.wst.xml.seucrity.doc.wizard_signature"
@@ -291,7 +497,113 @@
                   style="push"
                   tooltip="Create a new XML Signature with the XML Signature wizard.">
             </command>
+            <command
+                  commandId="org.eclipse.wst.xml.security.ui.signQuick"
+                  helpContextId="org.eclipse.wst.xml.seucrity.doc.quick_signature"
+                  style="push"
+                  tooltip="Create a quick XML Signature based on predefined settings.">
+            </command>
+            <separator
+                  name="org.eclipse.wst.xml.security.ui.separator2"
+                  visible="true">
+            </separator>
+            <command
+                  commandId="org.eclipse.wst.xml.security.ui.verify"
+                  helpContextId="org.eclipse.wst.xml.seucrity.doc.view_verification"
+                  icon="icons/new_verify.gif"
+                  style="push"
+                  tooltip="Verify all XML Signatures in the selected XML document.">
+            </command>
+            <command
+                  commandId="org.eclipse.wst.xml.security.ui.verifyQuick"
+                  helpContextId="org.eclipse.wst.xml.seucrity.doc.quick_verification"
+                  style="push"
+                  tooltip="Verify one XML Signature based on predefined settings.">
+            </command>
+            <separator
+                  name="org.eclipse.wst.xml.security.ui.separator3"
+                  visible="true">
+            </separator>
+            <command
+                  commandId="org.eclipse.wst.xml.security.ui.encrypt"
+                  helpContextId="org.eclipse.wst.xml.seucrity.doc.wizard_encryption"
+                  icon="icons/new_encrypt.gif"
+                  style="push"
+                  tooltip="Create a new XML Encryption with the XML Encryption wizard.">
+            </command>
+            <command
+                  commandId="org.eclipse.wst.xml.security.ui.encryptQuick"
+                  helpContextId="org.eclipse.wst.xml.seucrity.doc.quick_encryption"
+                  style="push"
+                  tooltip="Create a quick XML Encryption based on predefined settings.">
+            </command>
+            <separator
+                  name="org.eclipse.wst.xml.security.ui.separator4"
+                  visible="true">
+            </separator>
+            <command
+                  commandId="org.eclipse.wst.xml.security.ui.decrypt"
+                  helpContextId="org.eclipse.wst.xml.seucrity.doc.wizard_decryption"
+                  icon="icons/new_decrypt.gif"
+                  style="push"
+                  tooltip="Create a new XML Decryption with the XML Decryption wizard.">
+            </command>
+            <command
+                  commandId="org.eclipse.wst.xml.security.ui.decryptQuick"
+                  helpContextId="org.eclipse.wst.xml.seucrity.doc.quick_decryption"
+                  style="push"
+                  tooltip="Create a quick XML Decryption based on predefined settings.">
+            </command>
          </menu>
+      </menuContribution>
+      <menuContribution
+            locationURI="toolbar:org.eclipse.wst.xml.security.ui.SignatureView">
+         <command
+               commandId="org.eclipse.wst.xml.security.ui.showProperties"
+               icon="icons/properties.gif"
+               style="push"
+               tooltip="Show all properties of the selected XML Signature.">
+         </command>
+         <command
+               commandId="org.eclipse.wst.xml.security.ui.refreshSignatures"
+               icon="icons/refresh.gif"
+               style="push"
+               tooltip="Refresh all XML Signatures in the XML Signature view.">
+         </command>
+      </menuContribution>
+      <menuContribution
+            locationURI="menu:org.eclipse.wst.xml.security.ui.SignatureView">
+         <command
+               commandId="org.eclipse.wst.xml.security.ui.showProperties"
+               icon="icons/properties.gif"
+               label="Properties"
+               style="push"
+               tooltip="Show all properties of the selected XML Signature.">
+         </command>
+         <command
+               commandId="org.eclipse.wst.xml.security.ui.refreshSignatures"
+               icon="icons/refresh.gif"
+               label="Refresh"
+               style="push"
+               tooltip="Refresh all XML Signatures in the XML Signature view.">
+         </command>
+      </menuContribution>
+      <menuContribution
+            locationURI="popup:org.eclipse.wst.xml.security.ui.SignatureView">
+         <command
+               commandId="org.eclipse.wst.xml.security.ui.showProperties"
+               icon="icons/properties.gif"
+               label="Properties"
+               style="push"
+               tooltip="Show all properties of the selected XML Signature.">
+         </command>
+         <command
+               commandId="org.eclipse.wst.xml.security.ui.refreshSignatures"
+               icon="icons/refresh.gif"
+               label="Refresh"
+               style="push"
+               tooltip="Refresh all XML Signatures in the XML Signature view.">
+         </command>
       </menuContribution>
    </extension>
    <!-- Cheat Sheets -->

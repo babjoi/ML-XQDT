@@ -152,258 +152,102 @@
             class="org.eclipse.wst.xml.security.ui.commands.NewCanonicalizationMaintainCommand"
             commandId="org.eclipse.wst.xml.security.ui.canonicalizeMaintain">
          <enabledWhen>
-            <with
-                  variable="selection">
-               <iterate
-                     ifEmpty="false">
-                  <instanceof
-                        value="org.eclipse.core.resources.IResource">
-                  </instanceof>
-                  <test
-                        forcePluginActivation="true"
-                        property="org.eclipse.core.resources.name"
-                        value="*.xml">
-                  </test>
-               </iterate>
-               <count
-                     value="1">
-               </count>
-            </with>
+            <count
+                  value="1">
+            </count>
          </enabledWhen>
       </handler>
       <handler
             class="org.eclipse.wst.xml.security.ui.commands.NewCanonicalizationRemoveCommand"
             commandId="org.eclipse.wst.xml.security.ui.canonicalizeRemove">
          <enabledWhen>
-            <with
-                  variable="selection">
-               <iterate
-                     ifEmpty="false">
-                  <instanceof
-                        value="org.eclipse.core.resources.IResource">
-                  </instanceof>
-                  <test
-                        forcePluginActivation="true"
-                        property="org.eclipse.core.resources.name"
-                        value="*.xml">
-                  </test>
-               </iterate>
-               <count
-                     value="1">
-               </count>
-            </with>
+            <count
+                  value="1">
+            </count>
          </enabledWhen>
       </handler>
       <handler
             class="org.eclipse.wst.xml.security.ui.commands.NewSignatureCommand"
             commandId="org.eclipse.wst.xml.security.ui.sign">
          <enabledWhen>
-            <with
-                  variable="selection">
-               <iterate
-                     ifEmpty="false">
-                  <instanceof
-                        value="org.eclipse.core.resources.IResource">
-                  </instanceof>
-                  <test
-                        forcePluginActivation="true"
-                        property="org.eclipse.core.resources.name"
-                        value="*.xml">
-                  </test>
-               </iterate>
-               <count
-                     value="1">
-               </count>
-            </with>
+            <count
+                  value="1">
+            </count>
          </enabledWhen>
       </handler>
       <handler
             class="org.eclipse.wst.xml.security.ui.commands.QuickSignatureCommand"
             commandId="org.eclipse.wst.xml.security.ui.signQuick">
          <enabledWhen>
-            <with
-                  variable="selection">
-               <iterate
-                     ifEmpty="false">
-                  <instanceof
-                        value="org.eclipse.core.resources.IResource">
-                  </instanceof>
-                  <test
-                        forcePluginActivation="true"
-                        property="org.eclipse.core.resources.name"
-                        value="*.xml">
-                  </test>
-               </iterate>
-               <count
-                     value="1">
-               </count>
-            </with>
+            <count
+                  value="1">
+            </count>
          </enabledWhen>
       </handler>
       <handler
             class="org.eclipse.wst.xml.security.ui.commands.NewVerificationCommand"
             commandId="org.eclipse.wst.xml.security.ui.verify">
          <enabledWhen>
-            <with
-                  variable="selection">
-               <iterate
-                     ifEmpty="false">
-                  <instanceof
-                        value="org.eclipse.core.resources.IResource">
-                  </instanceof>
-                  <test
-                        forcePluginActivation="true"
-                        property="org.eclipse.core.resources.name"
-                        value="*.xml">
-                  </test>
-               </iterate>
-               <count
-                     value="1">
-               </count>
-            </with>
+            <count
+                  value="1">
+            </count>
          </enabledWhen>
       </handler>
       <handler
             class="org.eclipse.wst.xml.security.ui.commands.QuickVerificationCommand"
             commandId="org.eclipse.wst.xml.security.ui.verifyQuick">
          <enabledWhen>
-            <with
-                  variable="selection">
-               <iterate
-                     ifEmpty="false">
-                  <instanceof
-                        value="org.eclipse.core.resources.IResource">
-                  </instanceof>
-                  <test
-                        forcePluginActivation="true"
-                        property="org.eclipse.core.resources.name"
-                        value="*.xml">
-                  </test>
-               </iterate>
-               <count
-                     value="1">
-               </count>
-            </with>
+            <count
+                  value="1">
+            </count>
          </enabledWhen>
       </handler>
       <handler
             class="org.eclipse.wst.xml.security.ui.commands.NewEncryptionCommand"
             commandId="org.eclipse.wst.xml.security.ui.encrypt">
          <enabledWhen>
-            <with
-                  variable="selection">
-               <iterate
-                     ifEmpty="false">
-                  <instanceof
-                        value="org.eclipse.core.resources.IResource">
-                  </instanceof>
-                  <test
-                        forcePluginActivation="true"
-                        property="org.eclipse.core.resources.name"
-                        value="*.xml">
-                  </test>
-               </iterate>
-               <count
-                     value="1">
-               </count>
-            </with>
+            <count
+                  value="1">
+            </count>
          </enabledWhen>
       </handler>
       <handler
             class="org.eclipse.wst.xml.security.ui.commands.QuickEncryptionCommand"
             commandId="org.eclipse.wst.xml.security.ui.encryptQuick">
          <enabledWhen>
-            <with
-                  variable="selection">
-               <iterate
-                     ifEmpty="false">
-                  <instanceof
-                        value="org.eclipse.core.resources.IResource">
-                  </instanceof>
-                  <test
-                        forcePluginActivation="true"
-                        property="org.eclipse.core.resources.name"
-                        value="*.xml">
-                  </test>
-               </iterate>
-               <count
-                     value="1">
-               </count>
-            </with>
+            <count
+                  value="1">
+            </count>
          </enabledWhen>
       </handler>
       <handler
             class="org.eclipse.wst.xml.security.ui.commands.NewDecryptionCommand"
             commandId="org.eclipse.wst.xml.security.ui.decrypt">
          <enabledWhen>
-            <with
-                  variable="selection">
-               <iterate
-                     ifEmpty="false">
-                  <instanceof
-                        value="org.eclipse.core.resources.IResource">
-                  </instanceof>
-                  <test
-                        forcePluginActivation="true"
-                        property="org.eclipse.core.resources.name"
-                        value="*.xml">
-                  </test>
-               </iterate>
-               <count
-                     value="1">
-               </count>
-            </with>
+            <count
+                  value="1">
+            </count>
          </enabledWhen>
       </handler>
       <handler
             class="org.eclipse.wst.xml.security.ui.commands.QuickDecryptionCommand"
             commandId="org.eclipse.wst.xml.security.ui.decryptQuick">
          <enabledWhen>
-            <with
-                  variable="selection">
-               <iterate
-                     ifEmpty="false">
-                  <instanceof
-                        value="org.eclipse.core.resources.IResource">
-                  </instanceof>
-                  <test
-                        forcePluginActivation="true"
-                        property="org.eclipse.core.resources.name"
-                        value="*.xml">
-                  </test>
-               </iterate>
-               <count
-                     value="1">
-               </count>
-            </with>
+            <count
+                  value="1">
+            </count>
          </enabledWhen>
       </handler>
       <handler
             class="org.eclipse.wst.xml.security.ui.commands.RefreshSignaturesCommand"
             commandId="org.eclipse.wst.xml.security.ui.refreshSignatures">
          <enabledWhen>
-            <or>
-               <with
-                     variable="selection">
-                  <iterate
-                        ifEmpty="false">
-                     <instanceof
-                           value="org.eclipse.core.resources.IResource">
-                     </instanceof>
-                     <test
-                           forcePluginActivation="true"
-                           property="org.eclipse.core.resources.name"
-                           value="*.xml">
-                     </test>
-                  </iterate>
-               </with>
-               <with
-                     variable="activeEditorId">
-                  <equals
-                        value="org.eclipse.wst.xml.ui.internal.tabletree.XMLMultiPageEditorPart">
-                  </equals>
-               </with>
-            </or>
+            <with
+                  variable="activeEditorId">
+               <equals
+                     value="org.eclipse.wst.xml.ui.internal.tabletree.XMLMultiPageEditorPart">
+               </equals>
+            </with>
          </enabledWhen>
       </handler>
       <handler
@@ -433,44 +277,36 @@
                label="XML Security">
             <visibleWhen
                   checkEnabled="false">
-               <and>
+               <or>
                   <with
-                        variable="activeWorkbenchWindow.activePerspective">
+                        variable="activeEditorId">
                      <equals
-                           value="org.eclipse.wst.xml.ui.perspective">
+                           value="org.eclipse.wst.xml.ui.internal.tabletree.XMLMultiPageEditorPart">
                      </equals>
                   </with>
-                  <or>
-                     <and>
-                        <with
-                              variable="activePartId">
+                  <and>
+                     <with
+                           variable="activePartId">
+                        <or>
                            <equals
                                  value="org.eclipse.ui.navigator.ProjectExplorer">
                            </equals>
-                        </with>
-                        <with
-                              variable="selection">
-                           <iterate
-                                 ifEmpty="false">
-                              <instanceof
-                                    value="org.eclipse.core.resources.IResource">
-                              </instanceof>
-                              <test
-                                    forcePluginActivation="true"
-                                    property="org.eclipse.core.resources.name"
-                                    value="*.xml">
-                              </test>
-                           </iterate>
-                        </with>
-                     </and>
+                           <equals
+                                 value="org.eclipse.ui.views.ResourceNavigator">
+                           </equals>
+                           <equals
+                                 value="org.eclipse.jdt.ui.PackageExplorer">
+                           </equals>
+                        </or>
+                     </with>
                      <with
-                           variable="activeEditorId">
+                           variable="activeWorkbenchWindow.activePerspective">
                         <equals
-                              value="org.eclipse.wst.xml.ui.internal.tabletree.XMLMultiPageEditorPart">
+                              value="org.eclipse.wst.xml.ui.perspective">
                         </equals>
                      </with>
-                  </or>
-               </and>
+                  </and>
+               </or>
             </visibleWhen>
             <command
                   commandId="org.eclipse.wst.xml.security.ui.canonicalizeMaintain"

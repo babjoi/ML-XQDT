@@ -18,12 +18,14 @@ import java.io.StringReader;
 import java.io.StringWriter;
 import java.util.HashSet;
 import java.util.Properties;
+import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import javax.xml.namespace.NamespaceContext;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.parsers.SAXParserFactory;
 import javax.xml.transform.OutputKeys;
 import javax.xml.transform.Transformer;
 import javax.xml.transform.TransformerFactory;
@@ -45,6 +47,7 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
+import org.xml.sax.XMLReader;
 
 /**
  * <p>Main utility class with different supporting methods used all over
@@ -519,6 +522,48 @@ public final class Utils {
             }
         }
         return uniqueId;
+    }
+    
+    /**
+     * Called when there is a text selection and either the XML Signature Wizard or the XML Encryption Wizard is called.
+     * If the selection is invalid, the radio button in the wizard is disabled. This method returns always
+     * <code>true</code> if only element content (no &gt; or &lt; included) is selected.
+     *
+     * @param textSelection The text selection as a String value
+     * @return true or false which activates or deactivates the selection radio button in the wizard
+     */
+    public static boolean parseSelection(final String textSelection) {
+        if (textSelection == null || textSelection.trim().length() == 0) {
+            return false;
+        }
+
+        Pattern p = Pattern.compile("[^<>]+");
+        Matcher m = p.matcher(textSelection);
+
+        // a tag (or parts of it) are selected
+        if (!m.matches()) {
+            SAXParserFactory spf = SAXParserFactory.newInstance();
+            spf.setNamespaceAware(true);
+            try {
+                XMLReader xmlReader = spf.newSAXParser().getXMLReader();
+                xmlReader.setErrorHandler(null);
+                xmlReader.parse(new InputSource(new StringReader(textSelection)));
+            } catch (IOException ex) {
+                logError(ex, "Error during parsing textselection");
+                return false;
+            } catch (SAXException ex) {
+                logError(ex, "Error during parsing textselection");
+                return false;
+            } catch (ParserConfigurationException ex) {
+                logError(ex, "Error during parsing textselection");
+                return false;
+            }
+
+            return true;
+        }
+
+        // only element content, no < or > selected, always return true
+        return true;
     }
 
     /**

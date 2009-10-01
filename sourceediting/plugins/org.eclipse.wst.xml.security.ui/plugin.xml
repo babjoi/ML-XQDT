@@ -311,14 +311,12 @@
             <command
                   commandId="org.eclipse.wst.xml.security.ui.canonicalizeMaintain"
                   helpContextId="org.eclipse.wst.xml.seucrity.doc.canonicalize"
-                  icon="icons/new_canon.gif"
                   style="push"
                   tooltip="Canonicalize the selected XML document and maintain all comments.">
             </command>
             <command
                   commandId="org.eclipse.wst.xml.security.ui.canonicalizeRemove"
                   helpContextId="org.eclipse.wst.xml.seucrity.doc.canonicalize"
-                  icon="icons/new_canon.gif"
                   style="push"
                   tooltip="Canonicalize the selected XML document and remove all comments.">
             </command>

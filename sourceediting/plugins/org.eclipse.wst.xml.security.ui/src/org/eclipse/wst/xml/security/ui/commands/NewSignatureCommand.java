@@ -48,7 +48,7 @@ import org.w3c.dom.Document;
 import org.xml.sax.SAXParseException;
 
 /**
- * <p>Command used to start the <b>XML Signature</b> wizard for a new XML Signature for the selected XML document. 
+ * <p>Command used to start the <b>XML Signature</b> wizard for sa new XML Signature for the selected XML document. 
  * The signature process differs depending on whether editor content or a file via a view should be signed.</p>
  * 
  * @author Dominik Schadow
@@ -91,7 +91,8 @@ public class NewSignatureCommand extends AbstractHandler {
                             }
                         };
                         try {
-                            PlatformUI.getWorkbench().getProgressService().runInUI(XSTUIPlugin.getActiveWorkbenchWindow(), op, ResourcesPlugin.getWorkspace().getRoot());
+                            PlatformUI.getWorkbench().getProgressService().runInUI(XSTUIPlugin.getActiveWorkbenchWindow(), 
+                                    op, ResourcesPlugin.getWorkspace().getRoot());
                         } catch (InvocationTargetException ite) {
                             log("Error while saving editor content", ite); //$NON-NLS-1$
                         } catch (InterruptedException ie) {
@@ -123,7 +124,7 @@ public class NewSignatureCommand extends AbstractHandler {
                 }
 
                 CreateSignature signature = new CreateSignature();
-                String fileLocation = "";
+                String fileLocation = ""; //$NON-NLS-1$
 
                 if (document == null) {
                     fileLocation = file.getLocation().toString();
@@ -135,17 +136,18 @@ public class NewSignatureCommand extends AbstractHandler {
                     callEncryptionWizard();
                 }
             } else {
-                MessageDialog.openInformation(HandlerUtil.getActiveShell(event), "XML Signature", NLS.bind("It is impossible to {0} the selected document. Please remove the read-only-flag and try again.", "sign"));
+                MessageDialog.openInformation(HandlerUtil.getActiveShell(event), Messages.NewSignatureCommand_0, 
+                        NLS.bind(Messages.NewSignatureCommand_1, "sign")); //$NON-NLS-3$
             }
         } catch (SAXParseException spe) {
-            showErrorDialog("XML Signature", "Could not sign the document because of a parsing error.", spe);
+            showErrorDialog(Messages.NewSignatureCommand_0, Messages.NewSignatureCommand_2, spe);
         } catch (FileNotFoundException fnfe) {
-            MessageDialog.openError(HandlerUtil.getActiveShell(event), "XML Signature", "Could not find the selected keystore.");
+            MessageDialog.openError(HandlerUtil.getActiveShell(event), Messages.NewSignatureCommand_0, Messages.NewSignatureCommand_3);
         } catch (IOException ioe) {
-            showErrorDialog("XML Signature", "An error occurred while trying to use the selected keystore.", ioe);
+            showErrorDialog(Messages.NewSignatureCommand_0, Messages.NewSignatureCommand_4, ioe);
         } catch (Exception ex) {
-            showErrorDialog("XML Signature", "An error occurred during signing the XML document.", ex);
-            log("An error occured during signing", ex);
+            showErrorDialog(Messages.NewSignatureCommand_0, Messages.NewSignatureCommand_5, ex);
+            log("An error occured during signing", ex); //$NON-NLS-1$
         }
     }
 
@@ -158,8 +160,8 @@ public class NewSignatureCommand extends AbstractHandler {
      */
     private void showErrorDialog(final String title, final String message, final Exception ex) {
         String reason = ex.getMessage();
-        if (reason == null || "".equals(reason)) {
-            reason = "Error reason not available.";
+        if (reason == null || "".equals(reason)) { //$NON-NLS-1$
+            reason = Messages.NewSignatureCommand_6;
         }
 
         IStatus status = new Status(IStatus.ERROR, XSTUIPlugin.getDefault().getBundle().getSymbolicName(), 0, reason, ex);
@@ -188,10 +190,10 @@ public class NewSignatureCommand extends AbstractHandler {
         dialog.open();
 
         if (dialog.getReturnCode() == Dialog.OK && wizard.getModel() != null) {
-            Job job = new Job("XML Signature") {
+            Job job = new Job(Messages.NewSignatureCommand_0) {
                 public IStatus run(final IProgressMonitor monitor) {
                     try {
-                        monitor.beginTask("Creating a new XML Signature...", 5);
+                        monitor.beginTask(Messages.NewSignatureCommand_7, 5);
 
                         Document doc = data.sign(wizard.getModel(), textSelection.getText(), monitor);
 
@@ -212,8 +214,8 @@ public class NewSignatureCommand extends AbstractHandler {
                     } catch (final Exception ex) {
                         HandlerUtil.getActiveShell(event).getDisplay().asyncExec(new Runnable() {
                             public void run() {
-                                showErrorDialog("XML Signature", "An error occurred during signing the XML document.", ex);
-                                log("An error occured during signing", ex);
+                                showErrorDialog(Messages.NewSignatureCommand_0, Messages.NewSignatureCommand_8, ex);
+                                log("An error occured during signing", ex); //$NON-NLS-1$
                             }
                         });
                     } finally {

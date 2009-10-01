@@ -24,6 +24,8 @@ import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
+import org.eclipse.jface.dialogs.ErrorDialog;
+import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.operation.IRunnableWithProgress;
 import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.jface.text.IDocument;
@@ -31,7 +33,6 @@ import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.osgi.util.NLS;
 import org.eclipse.ui.IEditorDescriptor;
-import org.eclipse.ui.IEditorInput;
 import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.PlatformUI;
@@ -39,10 +40,12 @@ import org.eclipse.ui.handlers.HandlerUtil;
 import org.eclipse.ui.part.FileEditorInput;
 import org.eclipse.wst.xml.security.core.canonicalize.Canonicalization;
 import org.eclipse.wst.xml.security.ui.XSTUIPlugin;
-import org.eclipse.wst.xml.security.ui.actions.Messages;
 import org.eclipse.wst.xml.security.ui.preferences.PreferenceConstants;
+import org.eclipse.wst.xml.security.ui.utils.IXMLSecurityConstants;
 
 /**
+ * <p>Command used to start the <b>XML Canonicalization</b> for a new XML Canonicalization for the selected XML document. 
+ * The canonicalization process differs depending on whether editor content or a file via a view should be canonicalized.</p>
  * 
  * @author Dominik Schadow
  * @version 0.5.0
@@ -52,68 +55,87 @@ public class NewCanonicalizationMaintainCommand extends AbstractHandler {
     private String canonVersion;
     /** Canonicalization target (same or new document). */
     private String canonTarget;
+    /** The file to canonicalize. */
+    private IFile file = null;
+    private ExecutionEvent event;
 
     public Object execute(ExecutionEvent event) throws ExecutionException {
-        getPreferenceValues();
-        
-        if (HandlerUtil.getActiveEditor(event) != null) {
-            final IEditorPart editorPart = HandlerUtil.getActiveEditor(event);
+        this.event = event;
 
-            if (editorPart.isDirty()) {
-                if (null != editorPart.getTitle() && editorPart.getTitle().length() > 0) {
-                    IRunnableWithProgress op = new IRunnableWithProgress() {
-                        public void run(final IProgressMonitor monitor) {
-                            editorPart.doSave(monitor);
-                        }
-                    };
-                    try {
-                        PlatformUI.getWorkbench().getProgressService().runInUI(XSTUIPlugin.getActiveWorkbenchWindow(), op, ResourcesPlugin.getWorkspace().getRoot());
-                    } catch (InvocationTargetException ite) {
-                        log("Error while saving editor content", ite); //$NON-NLS-1$
-                    } catch (InterruptedException ie) {
-                        log("Error while saving editor content", ie); //$NON-NLS-1$
-                    }
-                } else {
-                    editorPart.doSaveAs();
-                }
-            }
-            
-//            IEditorInput input = editorPart.getEditorInput();
-//            IDocument document = editorPart.getDocumentProvider().getDocument(input);
-//            file = (IFile) input.getAdapter(IFile.class);
-//
-//            if (file != null) {
-//                byte[] outputBytes = canonicalize(file.getContents());
-//
-//                if (canonTarget.equals("internal")) {
-//                    document.set(new String(outputBytes, "UTF8"));
-//                } else {
-//                    IWorkbenchPage page = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage();
-//
-//                    if (page != null) {
-//                        IFile newFile = saveCanonicalizedFile(getCanonicalizedPath(), outputBytes);
-//                        IEditorDescriptor desc = PlatformUI.getWorkbench().getEditorRegistry()
-//                                .getDefaultEditor(newFile.getName());
-//                        page.openEditor(new FileEditorInput(newFile), desc.getId());
-//                    }
-//                }
-//            } else {
-//                showInfo(Messages.canonicalizationImpossible, NLS.bind(Messages.protectedDoc, ACTION));
-//            }
-        } else if (HandlerUtil.getCurrentSelection(event) != null) {
-            System.out.println("juhu");
-            ISelection selection = HandlerUtil.getCurrentSelection(event);
-            if (selection instanceof IStructuredSelection) {
-                IFile file = (IFile) ((IStructuredSelection) selection).getFirstElement();
-            }
-        }
-        
+        getPreferenceValues();
+
+        canonicalize();
+
         return null;
     }
 
-    private void log(final String message, final Exception ex) {
-        IStatus status = new Status(IStatus.ERROR, XSTUIPlugin.getDefault().getBundle().getSymbolicName(), 0, message, ex);
-        XSTUIPlugin.getDefault().getLog().log(status);
+    private void canonicalize() {
+        try {
+            IDocument document = null;
+
+            if (HandlerUtil.getActivePart(event) instanceof IEditorPart) {
+                final IEditorPart editorPart = (IEditorPart) HandlerUtil.getActivePart(event);
+
+                if (editorPart.isDirty()) {
+                    if (null != editorPart.getTitle() && editorPart.getTitle().length() > 0) {
+                        IRunnableWithProgress op = new IRunnableWithProgress() {
+                            public void run(final IProgressMonitor monitor) {
+                                editorPart.doSave(monitor);
+                            }
+                        };
+                        try {
+                            PlatformUI.getWorkbench().getProgressService().runInUI(XSTUIPlugin.getActiveWorkbenchWindow(), 
+                                    op, ResourcesPlugin.getWorkspace().getRoot());
+                        } catch (InvocationTargetException ite) {
+                            log("Error while saving editor content", ite); //$NON-NLS-1$
+                        } catch (InterruptedException ie) {
+                            log("Error while saving editor content", ie); //$NON-NLS-1$
+                        }
+                    } else {
+                        editorPart.doSaveAs();
+                    }
+                }
+
+                file = (IFile) editorPart.getEditorInput().getAdapter(IFile.class);
+                document = (IDocument) editorPart.getAdapter(IDocument.class);
+            } else {
+                ISelection selection = HandlerUtil.getCurrentSelection(event);
+                if (selection instanceof IStructuredSelection) {
+                    file = (IFile) ((IStructuredSelection) selection).getFirstElement();
+                }
+            }
+
+            if (file != null) {
+                byte[] outputBytes = canonicalize(file.getContents());
+                
+                if (document != null) {
+                    if (IXMLSecurityConstants.INTERNAL_CANONICALIZATION.equals(canonTarget)) {
+                        document.set(new String(outputBytes, "UTF8")); //$NON-NLS-1$
+                    } else {                        
+                        IWorkbenchPage page = HandlerUtil.getActiveWorkbenchWindow(event).getActivePage();
+
+                        if (page != null) {
+                            IFile newFile = saveCanonicalizedFile(getCanonicalizedPath(), outputBytes);
+                            IEditorDescriptor desc = PlatformUI.getWorkbench().getEditorRegistry().getDefaultEditor(newFile.getName());
+                            page.openEditor(new FileEditorInput(newFile), desc.getId());
+                        }
+                    }
+                } else {
+                    if (IXMLSecurityConstants.INTERNAL_CANONICALIZATION.equals(canonTarget)) {
+                        saveCanonicalizedFile(file.getLocation(), outputBytes);
+                    } else {
+                        saveCanonicalizedFile(getCanonicalizedPath(), outputBytes);
+                    }
+                }
+            } else {
+                MessageDialog.openInformation(HandlerUtil.getActiveShell(event), Messages.NewCanonicalizationMaintainCommand_0, 
+                        NLS.bind(Messages.RemoveReadOnlyFlag, "canonicalize")); //$NON-NLS-1$
+            }
+        } catch (Exception ex) {
+            showErrorDialog(Messages.NewCanonicalizationMaintainCommand_0, 
+                    Messages.NewCanonicalizationMaintainCommand_1, ex); //$NON-NLS-1$
+            log("An error occured during canonicalization", ex); //$NON-NLS-1$            
+        }
     }
 
     /**
@@ -127,37 +149,34 @@ public class NewCanonicalizationMaintainCommand extends AbstractHandler {
     }
 
     /**
-     * Returns the path (with filename) for the canonicalized XML document. The new filename consists
-     * of the old filename with an added <i>_canon</i> and the file extension <i>xml</i>. If the <i>_canon</i>
-     * is already added the new filename consists of <i>_canon[x]</i> with a raising number starting
-     * with 2.
-     *
+     * Returns the path (with filename) for the canonicalized XML document. The new filename consists of the old
+     * filename with an added <i>_canon</i> and the file extension <i>xml</i>. If the <i>_canon</i> is already added the
+     * new filename consists of <i>_canon[x]</i> with a raising number starting with 2.
+     * 
      * @return The path of the new file
      */
-//    private IPath getCanonicalizedPath() {
-//        IPath path = file.getLocation().removeFileExtension();
-//        String filename = path.lastSegment();
-//        path = path.removeLastSegments(1);
-//
-//        if (filename.endsWith("_canon")) {
-//            filename += "[2].xml";
-//        } else if (filename.contains("_canon[")) {
-//            int canonNumber = Integer.parseInt(filename.substring(filename.indexOf("[") + 1,
-//                    filename.indexOf("]")));
-//            filename = filename.substring(0, filename.indexOf("[") + 1)
-//                    + (canonNumber + 1) + "].xml";
-//        } else {
-//            filename += "_canon.xml";
-//        }
-//
-//        path = path.append(filename);
-//
-//        return path;
-//    }
+    private IPath getCanonicalizedPath() {
+        IPath path = file.getLocation().removeFileExtension();
+        String filename = path.lastSegment();
+        path = path.removeLastSegments(1);
+
+        if (filename.endsWith("_canon")) { //$NON-NLS-1$
+            filename += "[2].xml"; //$NON-NLS-1$
+        } else if (filename.contains("_canon[")) { //$NON-NLS-1$
+            int canonNumber = Integer.parseInt(filename.substring(filename.indexOf("[") + 1, filename.indexOf("]"))); //$NON-NLS-1$ //$NON-NLS-2$
+            filename = filename.substring(0, filename.indexOf("[") + 1) + (canonNumber + 1) + "].xml"; //$NON-NLS-1$ //$NON-NLS-2$
+        } else {
+            filename += "_canon.xml"; //$NON-NLS-1$
+        }
+
+        path = path.append(filename);
+
+        return path;
+    }
 
     /**
      * Saves the canonicalized XML document in the active folder with the given file name.
-     *
+     * 
      * @param newFilePath The path and filename of the new canonicalized XML document
      * @param outputBytes The canonicalized data
      * @return The new file
@@ -176,9 +195,8 @@ public class NewCanonicalizationMaintainCommand extends AbstractHandler {
     }
 
     /**
-     * Calls the canonicalization method of the Apache XML Security API and executes the
-     * canonicalization.
-     *
+     * Calls the canonicalization method of the Apache XML Security API and executes the canonicalization.
+     * 
      * @param stream The XML document to canonicalize as InputStream
      * @return The canonicalized XML
      * @throws Exception Exception during canonicalization
@@ -191,15 +209,15 @@ public class NewCanonicalizationMaintainCommand extends AbstractHandler {
     }
 
     /**
-     * Determines the canonicalization algorithm (exclusive or inclusive) based on the preference
-     * selection and the called action in the context menu (maintain or remove comments).
-     *
+     * Determines the canonicalization algorithm (exclusive or inclusive) based on the preference selection and the
+     * called action in the context menu (maintain or remove comments).
+     * 
      * @return The canonicalization algorithm to use
      */
     private String getCanonicalizationAlgorithm() {
-        String algorithm = "";
-        
-        if (canonVersion.equals("exclusive")) {
+        String algorithm = ""; //$NON-NLS-1$
+
+        if (IXMLSecurityConstants.EXCLUSIVE_CANONICALIZATION.equals(canonVersion)) {
             algorithm = Canonicalizer.ALGO_ID_C14N_EXCL_WITH_COMMENTS;
         } else {
             algorithm = Canonicalizer.ALGO_ID_C14N_WITH_COMMENTS;
@@ -208,4 +226,26 @@ public class NewCanonicalizationMaintainCommand extends AbstractHandler {
         return algorithm;
     }
 
+    /**
+     * Shows an error dialog with an details button for detailed error information.
+     * 
+     * @param title The title of the message box
+     * @param message The message to display
+     * @param ex The exception
+     */
+    private void showErrorDialog(final String title, final String message, final Exception ex) {
+        String reason = ex.getMessage();
+        if (reason == null || "".equals(reason)) { //$NON-NLS-1$
+            reason = Messages.ErrorReasonNotAvailable;
+        }
+
+        IStatus status = new Status(IStatus.ERROR, XSTUIPlugin.getDefault().getBundle().getSymbolicName(), 0, reason, ex);
+
+        ErrorDialog.openError(HandlerUtil.getActiveShell(event), title, message, status);
+    }
+
+    private void log(final String message, final Exception ex) {
+        IStatus status = new Status(IStatus.ERROR, XSTUIPlugin.getDefault().getBundle().getSymbolicName(), 0, message, ex);
+        XSTUIPlugin.getDefault().getLog().log(status);
+    }
 }

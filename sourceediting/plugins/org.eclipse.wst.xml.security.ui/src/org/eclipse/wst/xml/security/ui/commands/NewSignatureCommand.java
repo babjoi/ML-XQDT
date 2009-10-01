@@ -48,7 +48,7 @@ import org.w3c.dom.Document;
 import org.xml.sax.SAXParseException;
 
 /**
- * <p>Command used to start the <b>XML Signature</b> wizard for sa new XML Signature for the selected XML document. 
+ * <p>Command used to start the <b>XML Signature</b> wizard for a new XML Signature for the selected XML document. 
  * The signature process differs depending on whether editor content or a file via a view should be signed.</p>
  * 
  * @author Dominik Schadow
@@ -103,7 +103,8 @@ public class NewSignatureCommand extends AbstractHandler {
                     }
                 }
 
-                textSelection = (ITextSelection) ((ITextEditor) editorPart.getAdapter(ITextEditor.class)).getSelectionProvider().getSelection();
+                textSelection = (ITextSelection) ((ITextEditor) 
+                        editorPart.getAdapter(ITextEditor.class)).getSelectionProvider().getSelection();
                 file = (IFile) editorPart.getEditorInput().getAdapter(IFile.class);
                 document = (IDocument) editorPart.getAdapter(IDocument.class);
             } else {
@@ -137,7 +138,7 @@ public class NewSignatureCommand extends AbstractHandler {
                 }
             } else {
                 MessageDialog.openInformation(HandlerUtil.getActiveShell(event), Messages.NewSignatureCommand_0, 
-                        NLS.bind(Messages.NewSignatureCommand_1, "sign")); //$NON-NLS-3$
+                        NLS.bind(Messages.RemoveReadOnlyFlag, "sign")); //$NON-NLS-3$ //$NON-NLS-1$
             }
         } catch (SAXParseException spe) {
             showErrorDialog(Messages.NewSignatureCommand_0, Messages.NewSignatureCommand_2, spe);
@@ -149,29 +150,6 @@ public class NewSignatureCommand extends AbstractHandler {
             showErrorDialog(Messages.NewSignatureCommand_0, Messages.NewSignatureCommand_5, ex);
             log("An error occured during signing", ex); //$NON-NLS-1$
         }
-    }
-
-    /**
-     * Shows an error dialog with an details button for detailed error information.
-     * 
-     * @param title The title of the message box
-     * @param message The message to display
-     * @param ex The exception
-     */
-    private void showErrorDialog(final String title, final String message, final Exception ex) {
-        String reason = ex.getMessage();
-        if (reason == null || "".equals(reason)) { //$NON-NLS-1$
-            reason = Messages.NewSignatureCommand_6;
-        }
-
-        IStatus status = new Status(IStatus.ERROR, XSTUIPlugin.getDefault().getBundle().getSymbolicName(), 0, reason, ex);
-
-        ErrorDialog.openError(HandlerUtil.getActiveShell(event), title, message, status);
-    }
-
-    private void log(final String message, final Exception ex) {
-        IStatus status = new Status(IStatus.ERROR, XSTUIPlugin.getDefault().getBundle().getSymbolicName(), 0, message, ex);
-        XSTUIPlugin.getDefault().getLog().log(status);
     }
 
     /**
@@ -251,5 +229,28 @@ public class NewSignatureCommand extends AbstractHandler {
         this.file = encryptedFile;
 
         createSignature();
+    }
+
+    /**
+     * Shows an error dialog with an details button for detailed error information.
+     * 
+     * @param title The title of the message box
+     * @param message The message to display
+     * @param ex The exception
+     */
+    private void showErrorDialog(final String title, final String message, final Exception ex) {
+        String reason = ex.getMessage();
+        if (reason == null || "".equals(reason)) { //$NON-NLS-1$
+            reason = Messages.ErrorReasonNotAvailable;
+        }
+
+        IStatus status = new Status(IStatus.ERROR, XSTUIPlugin.getDefault().getBundle().getSymbolicName(), 0, reason, ex);
+
+        ErrorDialog.openError(HandlerUtil.getActiveShell(event), title, message, status);
+    }
+
+    private void log(final String message, final Exception ex) {
+        IStatus status = new Status(IStatus.ERROR, XSTUIPlugin.getDefault().getBundle().getSymbolicName(), 0, message, ex);
+        XSTUIPlugin.getDefault().getLog().log(status);
     }
 }

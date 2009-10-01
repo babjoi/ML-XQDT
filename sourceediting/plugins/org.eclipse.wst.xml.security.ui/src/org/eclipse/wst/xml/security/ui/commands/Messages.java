@@ -20,13 +20,18 @@ import org.eclipse.osgi.util.NLS;
  */
 public class Messages extends NLS {
     private static final String BUNDLE_NAME = "org.eclipse.wst.xml.security.ui.commands.messages"; //$NON-NLS-1$
+    public static String NewCanonicalizationMaintainCommand_0;
+    public static String NewCanonicalizationMaintainCommand_1;
+    public static String NewEncryptionCommand_0;
+    public static String NewEncryptionCommand_1;
+    public static String NewEncryptionCommand_2;
     public static String NewSignatureCommand_0;
-    public static String NewSignatureCommand_1;
+    public static String RemoveReadOnlyFlag;
     public static String NewSignatureCommand_2;
     public static String NewSignatureCommand_3;
     public static String NewSignatureCommand_4;
     public static String NewSignatureCommand_5;
-    public static String NewSignatureCommand_6;
+    public static String ErrorReasonNotAvailable;
     public static String NewSignatureCommand_7;
     public static String NewSignatureCommand_8;
     static {

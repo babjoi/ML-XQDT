@@ -106,6 +106,7 @@ public class NewSignatureCommand extends AbstractHandler {
                 file = (IFile) editorPart.getEditorInput().getAdapter(IFile.class);
                 document = (IDocument) editorPart.getAdapter(IDocument.class);
             } else {
+                textSelection = null;
                 ISelection selection = HandlerUtil.getCurrentSelection(event);
                 if (selection instanceof IStructuredSelection) {
                     file = (IFile) ((IStructuredSelection) selection).getFirstElement();

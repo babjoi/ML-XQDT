@@ -1,0 +1,8 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Jing
+Bundle-SymbolicName: com.thaiopensource.jing
+Bundle-Version: 1.0.0
+Bundle-Vendor: THAIOPENSOURCE
+Bundle-RequiredExecutionEnvironment: J2SE-1.4
+Require-Bundle: org.apache.xerces;bundle-version="2.9.0";resolution:=optional

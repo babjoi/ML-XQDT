@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<plugin>
+	<extension-point id="schemaBinding" name="RELAX NG Schema Binding" schema="schema/org.eclipse.wst.rng.core.schemaBinding.exsd"/>
+	<extension
+         point="org.eclipse.core.contenttype.contentTypes">
+   		 <content-type
+            base-type="org.eclipse.core.runtime.xml"
+            default-charset="UTF-8"
+            describer="org.eclipse.wst.rng.core.internal.contenttype.RngDocumentContentDescriber"
+            id="org.eclipse.wst.rng.core.relaxngDocument"
+            name="RELAX NG Document"
+            priority="normal"/>
+      <content-type
+            base-type="org.eclipse.core.runtime.xml"
+            default-charset="UTF-8"
+            id="org.eclipse.wst.rng.core.relaxngSchema"
+            name="RELAX NG Schema in XML Syntax"
+            priority="normal">
+         <describer
+               class="org.eclipse.core.runtime.content.XMLRootElementContentDescriber2">
+            <parameter
+                  name="element"
+                  value="{http://relaxng.org/ns/structure/1.0}*">
+            </parameter>
+         </describer>
+      </content-type>
+      <content-type
+            default-charset="UTF-8"
+            id="org.eclipse.wst.rng.core.relaxngSchemaCompact"
+            name="RELAX NG Schema in Compact Syntax"
+            priority="normal">
+      </content-type>
+      <file-association
+            content-type="org.eclipse.wst.rng.core.relaxngSchemaCompact"
+            file-extensions="rnc">
+      </file-association>
+      <file-association
+            content-type="org.eclipse.wst.rng.core.relaxngSchema"
+            file-extensions="rng">
+      </file-association>
+   </extension>
+   <extension
+         point="org.eclipse.core.expressions.definitions">
+      <definition
+            id="org.eclipse.wst.rng.core.relaxngDocument.definition">
+         <iterate
+               ifEmpty="false">
+            <adapt
+                  type="org.eclipse.core.resources.IFile">
+               <test
+                     property="org.eclipse.core.resources.contentTypeId"
+                     value="org.eclipse.wst.rng.core.relaxngDocument">
+               </test>
+            </adapt>
+         </iterate>
+      </definition>
+   </extension>
+   <extension
+         point="org.eclipse.wst.sse.ui.sourcevalidation">
+      <validator
+            class="org.eclipse.wst.rng.core.internal.validator.DelegatingSourceValidatorForRngDocuments"
+            id="jing"
+            scope="total">
+         <contentTypeIdentifier
+               id="org.eclipse.wst.rng.core.relaxngDocument">
+         	<partitionType id="org.eclipse.wst.xml.XML_DEFAULT"/>
+         </contentTypeIdentifier>
+      </validator>
+   </extension>
+</plugin>

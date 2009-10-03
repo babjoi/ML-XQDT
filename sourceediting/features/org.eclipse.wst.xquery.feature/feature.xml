@@ -1,20 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <feature
       id="org.eclipse.wst.xquery.feature"
-      label="XQuery"
+      label="%featureName"
       version="0.5.0"
-      provider-name="Eclipse">
+      provider-name="%providerName">
 
    <description>
-      XQuery Editor and Debugger
+      %description
    </description>
 
-   <copyright url="http://www.example.com/copyright">
-      Eclipse Copyright Notice here.
+   <copyright>
+      %copyright
    </copyright>
 
-   <license url="http://www.example.com/license">
-      Eclipse Text Notice
+   <license url="%licenseURL">
+      %license
    </license>
 
    <requires>
@@ -33,33 +33,7 @@
    </requires>
 
    <plugin
-         id="org.eclipse.wst.xquery"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"/>
-
-   <plugin
-         id="org.eclipse.wst.xquery.core"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/>
-
-   <plugin
-         id="org.junit"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"/>
-
-   <plugin
-         id="org.antlr.runtime_v31"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/>
-
-   <plugin
-         id="com.matinprobst.xqpretty"
+         id="org.eclipse.wst.xquery.marklogic"
          download-size="0"
          install-size="0"
          version="0.0.0"

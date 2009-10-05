@@ -26,7 +26,6 @@ import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.core.runtime.jobs.Job;
 import org.eclipse.jface.dialogs.Dialog;
-import org.eclipse.jface.dialogs.ErrorDialog;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.operation.IRunnableWithProgress;
 import org.eclipse.jface.text.IDocument;
@@ -40,17 +39,17 @@ import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.handlers.HandlerUtil;
 import org.eclipse.ui.texteditor.ITextEditor;
 import org.eclipse.wst.xml.security.core.sign.CreateSignature;
-import org.eclipse.wst.xml.security.core.utils.Utils;
 import org.eclipse.wst.xml.security.ui.XSTUIPlugin;
 import org.eclipse.wst.xml.security.ui.actions.EncryptNewAction;
 import org.eclipse.wst.xml.security.ui.sign.NewSignatureWizard;
+import org.eclipse.wst.xml.security.ui.utils.Utils;
 import org.w3c.dom.Document;
 import org.xml.sax.SAXParseException;
 
 /**
- * <p>Command used to start the <b>XML Signature</b> wizard for a new XML Signature for the selected XML document. 
+ * <p>Command used to start the <b>XML Signature</b> wizard for a new XML Signature for the selected XML document.
  * The signature process differs depending on whether editor content or a file via a view should be signed.</p>
- * 
+ *
  * @author Dominik Schadow
  * @version 0.5.0
  */
@@ -77,7 +76,6 @@ public class NewSignatureCommand extends AbstractHandler {
     private void createSignature() {
         try {
             NewSignatureWizard wizard = new NewSignatureWizard();
-            IFile file = null;
             IDocument document = null;
 
             if (HandlerUtil.getActivePart(event) instanceof IEditorPart) {
@@ -91,19 +89,19 @@ public class NewSignatureCommand extends AbstractHandler {
                             }
                         };
                         try {
-                            PlatformUI.getWorkbench().getProgressService().runInUI(XSTUIPlugin.getActiveWorkbenchWindow(), 
+                            PlatformUI.getWorkbench().getProgressService().runInUI(XSTUIPlugin.getActiveWorkbenchWindow(),
                                     op, ResourcesPlugin.getWorkspace().getRoot());
                         } catch (InvocationTargetException ite) {
-                            log("Error while saving editor content", ite); //$NON-NLS-1$
+                            Utils.log("Error while saving editor content", ite); //$NON-NLS-1$
                         } catch (InterruptedException ie) {
-                            log("Error while saving editor content", ie); //$NON-NLS-1$
+                            Utils.log("Error while saving editor content", ie); //$NON-NLS-1$
                         }
                     } else {
                         editorPart.doSaveAs();
                     }
                 }
 
-                textSelection = (ITextSelection) ((ITextEditor) 
+                textSelection = (ITextSelection) ((ITextEditor)
                         editorPart.getAdapter(ITextEditor.class)).getSelectionProvider().getSelection();
                 file = (IFile) editorPart.getEditorInput().getAdapter(IFile.class);
                 document = (IDocument) editorPart.getAdapter(IDocument.class);
@@ -115,8 +113,8 @@ public class NewSignatureCommand extends AbstractHandler {
                 }
             }
 
-            if (file != null) {
-                if (textSelection != null && Utils.parseSelection(textSelection.getText())) {
+            if (file != null && file.isAccessible()) {
+                if (textSelection != null && org.eclipse.wst.xml.security.core.utils.Utils.parseSelection(textSelection.getText())) {
                     // with valid text selection
                     wizard.init(file, textSelection);
                 } else {
@@ -137,24 +135,27 @@ public class NewSignatureCommand extends AbstractHandler {
                     callEncryptionWizard();
                 }
             } else {
-                MessageDialog.openInformation(HandlerUtil.getActiveShell(event), Messages.NewSignatureCommand_0, 
+                MessageDialog.openInformation(HandlerUtil.getActiveShell(event), Messages.NewSignatureCommand_0,
                         NLS.bind(Messages.RemoveReadOnlyFlag, "sign")); //$NON-NLS-3$ //$NON-NLS-1$
             }
         } catch (SAXParseException spe) {
-            showErrorDialog(Messages.NewSignatureCommand_0, Messages.NewSignatureCommand_2, spe);
+            Utils.showErrorDialog(HandlerUtil.getActiveShell(event), Messages.NewSignatureCommand_0,
+                    Messages.NewSignatureCommand_2, spe);
         } catch (FileNotFoundException fnfe) {
             MessageDialog.openError(HandlerUtil.getActiveShell(event), Messages.NewSignatureCommand_0, Messages.NewSignatureCommand_3);
         } catch (IOException ioe) {
-            showErrorDialog(Messages.NewSignatureCommand_0, Messages.NewSignatureCommand_4, ioe);
+            Utils.showErrorDialog(HandlerUtil.getActiveShell(event), Messages.NewSignatureCommand_0,
+                    Messages.NewSignatureCommand_4, ioe);
         } catch (Exception ex) {
-            showErrorDialog(Messages.NewSignatureCommand_0, Messages.NewSignatureCommand_5, ex);
-            log("An error occured during signing", ex); //$NON-NLS-1$
+            Utils.showErrorDialog(HandlerUtil.getActiveShell(event), Messages.NewSignatureCommand_0,
+                    Messages.NewSignatureCommand_5, ex);
+            Utils.log("An error occured during signing", ex); //$NON-NLS-1$
         }
     }
 
     /**
      * Signing an XML resource inside an opened editor (with or without a text selection) or via a view.
-     * 
+     *
      * @param data The resource to sign
      * @param wizard The Signature Wizard
      * @param document The document to sign, null if a file is signed directly
@@ -181,7 +182,7 @@ public class NewSignatureCommand extends AbstractHandler {
 
                         if (doc != null) {
                             if (document != null) {
-                                document.set(Utils.docToString(doc, false));
+                                document.set(org.eclipse.wst.xml.security.core.utils.Utils.docToString(doc, false));
                             } else {
                                 FileOutputStream fos = new FileOutputStream(filename);
                                 XMLUtils.outputDOM(doc, fos);
@@ -192,8 +193,9 @@ public class NewSignatureCommand extends AbstractHandler {
                     } catch (final Exception ex) {
                         HandlerUtil.getActiveShell(event).getDisplay().asyncExec(new Runnable() {
                             public void run() {
-                                showErrorDialog(Messages.NewSignatureCommand_0, Messages.NewSignatureCommand_8, ex);
-                                log("An error occured during signing", ex); //$NON-NLS-1$
+                                Utils.showErrorDialog(HandlerUtil.getActiveShell(event), Messages.NewSignatureCommand_0,
+                                        Messages.NewSignatureCommand_8, ex);
+                                Utils.log("An error occured during signing", ex); //$NON-NLS-1$
                             }
                         });
                     } finally {
@@ -222,35 +224,12 @@ public class NewSignatureCommand extends AbstractHandler {
 
     /**
      * Signs the given XML document after successfully encrypting it.
-     * 
+     *
      * @param encryptedFile The encrypted file, now used to sign
      */
     public void signAfterEncryption(final IFile encryptedFile) {
         this.file = encryptedFile;
 
         createSignature();
-    }
-
-    /**
-     * Shows an error dialog with an details button for detailed error information.
-     * 
-     * @param title The title of the message box
-     * @param message The message to display
-     * @param ex The exception
-     */
-    private void showErrorDialog(final String title, final String message, final Exception ex) {
-        String reason = ex.getMessage();
-        if (reason == null || "".equals(reason)) { //$NON-NLS-1$
-            reason = Messages.ErrorReasonNotAvailable;
-        }
-
-        IStatus status = new Status(IStatus.ERROR, XSTUIPlugin.getDefault().getBundle().getSymbolicName(), 0, reason, ex);
-
-        ErrorDialog.openError(HandlerUtil.getActiveShell(event), title, message, status);
-    }
-
-    private void log(final String message, final Exception ex) {
-        IStatus status = new Status(IStatus.ERROR, XSTUIPlugin.getDefault().getBundle().getSymbolicName(), 0, message, ex);
-        XSTUIPlugin.getDefault().getLog().log(status);
     }
 }

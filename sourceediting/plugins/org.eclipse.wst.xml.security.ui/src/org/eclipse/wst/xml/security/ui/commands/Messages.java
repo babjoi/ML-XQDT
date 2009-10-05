@@ -20,8 +20,11 @@ import org.eclipse.osgi.util.NLS;
  */
 public class Messages extends NLS {
     private static final String BUNDLE_NAME = "org.eclipse.wst.xml.security.ui.commands.messages"; //$NON-NLS-1$
-    public static String NewCanonicalizationMaintainCommand_0;
-    public static String NewCanonicalizationMaintainCommand_1;
+    public static String XMLCanonicalization;
+    public static String ErrorDuringCanonicalization;
+    public static String NewDecryptionCommand_0;
+    public static String NewDecryptionCommand_1;
+    public static String NewDecryptionCommand_2;
     public static String NewEncryptionCommand_0;
     public static String NewEncryptionCommand_1;
     public static String NewEncryptionCommand_2;
@@ -31,9 +34,20 @@ public class Messages extends NLS {
     public static String NewSignatureCommand_3;
     public static String NewSignatureCommand_4;
     public static String NewSignatureCommand_5;
-    public static String ErrorReasonNotAvailable;
     public static String NewSignatureCommand_7;
     public static String NewSignatureCommand_8;
+    public static String NewVerificationCommand_0;
+    public static String NewVerificationCommand_1;
+    public static String NewVerificationCommand_2;
+    public static String NewVerificationCommand_3;
+    public static String NewVerificationCommand_4;
+    public static String QuickVerificationCommand_0;
+    public static String QuickVerificationCommand_1;
+    public static String QuickVerificationCommand_2;
+    public static String QuickVerificationCommand_3;
+    public static String QuickVerificationCommand_4;
+    public static String MissingParameter;
+    public static String MissingSignatureId;
     static {
         // initialize resource bundle
         NLS.initializeMessages(BUNDLE_NAME, Messages.class);

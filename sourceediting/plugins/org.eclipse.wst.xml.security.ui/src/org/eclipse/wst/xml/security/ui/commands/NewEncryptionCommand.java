@@ -23,7 +23,6 @@ import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.core.runtime.jobs.Job;
 import org.eclipse.jface.dialogs.Dialog;
-import org.eclipse.jface.dialogs.ErrorDialog;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.operation.IRunnableWithProgress;
 import org.eclipse.jface.text.IDocument;
@@ -37,16 +36,16 @@ import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.handlers.HandlerUtil;
 import org.eclipse.ui.texteditor.ITextEditor;
 import org.eclipse.wst.xml.security.core.encrypt.CreateEncryption;
-import org.eclipse.wst.xml.security.core.utils.Utils;
 import org.eclipse.wst.xml.security.ui.XSTUIPlugin;
 import org.eclipse.wst.xml.security.ui.actions.SignNewAction;
 import org.eclipse.wst.xml.security.ui.encrypt.NewEncryptionWizard;
+import org.eclipse.wst.xml.security.ui.utils.Utils;
 import org.w3c.dom.Document;
 
 /**
- * <p>Command used to start the <b>XML Encryption</b> wizard for a new XML Encryption for the selected XML document. 
+ * <p>Command used to start the <b>XML Encryption</b> wizard for a new XML Encryption for the selected XML document.
  * The encryption process differs depending on whether editor content or a file via a view should be encrypted.</p>
- * 
+ *
  * @author Dominik Schadow
  * @version 0.5.0
  */
@@ -72,7 +71,6 @@ public class NewEncryptionCommand extends AbstractHandler {
     private void createEncryption() {
         try {
             NewEncryptionWizard wizard = new NewEncryptionWizard();
-            IFile file = null;
             IDocument document = null;
 
             if (HandlerUtil.getActivePart(event) instanceof IEditorPart) {
@@ -86,19 +84,19 @@ public class NewEncryptionCommand extends AbstractHandler {
                             }
                         };
                         try {
-                            PlatformUI.getWorkbench().getProgressService().runInUI(XSTUIPlugin.getActiveWorkbenchWindow(), 
+                            PlatformUI.getWorkbench().getProgressService().runInUI(XSTUIPlugin.getActiveWorkbenchWindow(),
                                     op, ResourcesPlugin.getWorkspace().getRoot());
                         } catch (InvocationTargetException ite) {
-                            log("Error while saving editor content", ite); //$NON-NLS-1$
+                            Utils.log("Error while saving editor content", ite); //$NON-NLS-1$
                         } catch (InterruptedException ie) {
-                            log("Error while saving editor content", ie); //$NON-NLS-1$
+                            Utils.log("Error while saving editor content", ie); //$NON-NLS-1$
                         }
                     } else {
                         editorPart.doSaveAs();
                     }
                 }
 
-                textSelection = (ITextSelection) ((ITextEditor) 
+                textSelection = (ITextSelection) ((ITextEditor)
                         editorPart.getAdapter(ITextEditor.class)).getSelectionProvider().getSelection();
                 file = (IFile) editorPart.getEditorInput().getAdapter(IFile.class);
                 document = (IDocument) editorPart.getAdapter(IDocument.class);
@@ -110,8 +108,8 @@ public class NewEncryptionCommand extends AbstractHandler {
                 }
             }
 
-            if (file != null) {
-                if (textSelection != null && Utils.parseSelection(textSelection.getText())) {
+            if (file != null && file.isAccessible()) {
+                if (textSelection != null && org.eclipse.wst.xml.security.core.utils.Utils.parseSelection(textSelection.getText())) {
                     // with valid text selection
                     wizard.init(file, textSelection);
                 } else {
@@ -132,18 +130,19 @@ public class NewEncryptionCommand extends AbstractHandler {
                     launchXMLSignatureWizard();
                 }
             } else {
-                MessageDialog.openInformation(HandlerUtil.getActiveShell(event), Messages.NewEncryptionCommand_0, 
+                MessageDialog.openInformation(HandlerUtil.getActiveShell(event), Messages.NewEncryptionCommand_0,
                         NLS.bind(Messages.RemoveReadOnlyFlag, "encrypt")); //$NON-NLS-1$
             }
         } catch (Exception ex) {
-            showErrorDialog(Messages.NewEncryptionCommand_0, Messages.NewEncryptionCommand_1, ex);
-            log("An error occured during encrypting", ex); //$NON-NLS-1$
+            Utils.showErrorDialog(HandlerUtil.getActiveShell(event), Messages.NewEncryptionCommand_0,
+                    Messages.NewEncryptionCommand_1, ex);
+            Utils.log("An error occured during encrypting", ex); //$NON-NLS-1$
         }
     }
 
     /**
      * Encrypting an XML resource inside an opened editor (with or without a text selection) or via a view.
-     * 
+     *
      * @param data The resource to encrypt
      * @param wizard The Encryption Wizard
      * @param document The document to encrypt, null if a file is encrypted directly
@@ -176,10 +175,10 @@ public class NewEncryptionCommand extends AbstractHandler {
 
                         if (doc != null) {
                             if (document != null) {
-                                document.set(Utils.docToString(doc, true));
+                                document.set(org.eclipse.wst.xml.security.core.utils.Utils.docToString(doc, true));
                             } else {
                                 FileWriter fw = new FileWriter(filename);
-                                fw.write(Utils.docToString(doc, true));
+                                fw.write(org.eclipse.wst.xml.security.core.utils.Utils.docToString(doc, true));
                                 fw.flush();
                                 fw.close();
                             }
@@ -187,8 +186,9 @@ public class NewEncryptionCommand extends AbstractHandler {
                     } catch (final Exception ex) {
                         HandlerUtil.getActiveShell(event).getDisplay().asyncExec(new Runnable() {
                             public void run() {
-                                showErrorDialog(Messages.NewEncryptionCommand_0, Messages.NewEncryptionCommand_1, ex);
-                                log("An error occured during encrypting", ex); //$NON-NLS-1$
+                                Utils.showErrorDialog(HandlerUtil.getActiveShell(event), Messages.NewEncryptionCommand_0,
+                                        Messages.NewEncryptionCommand_1, ex);
+                                Utils.log("An error occured during encrypting", ex); //$NON-NLS-1$
                             }
                         });
                     } finally {
@@ -217,35 +217,12 @@ public class NewEncryptionCommand extends AbstractHandler {
 
     /**
      * Encrypts the given XML document after successfully signing it.
-     * 
+     *
      * @param signedFile The signed file, now used to encrypt
      */
     public void encryptAfterSignature(final IFile signedFile) {
         this.file = signedFile;
 
         createEncryption();
-    }
-
-    /**
-     * Shows an error dialog with an details button for detailed error information.
-     * 
-     * @param title The title of the message box
-     * @param message The message to display
-     * @param ex The exception
-     */
-    private void showErrorDialog(final String title, final String message, final Exception ex) {
-        String reason = ex.getMessage();
-        if (reason == null || "".equals(reason)) { //$NON-NLS-1$
-            reason = Messages.ErrorReasonNotAvailable;
-        }
-
-        IStatus status = new Status(IStatus.ERROR, XSTUIPlugin.getDefault().getBundle().getSymbolicName(), 0, reason, ex);
-
-        ErrorDialog.openError(HandlerUtil.getActiveShell(event), title, message, status);
-    }
-
-    private void log(final String message, final Exception ex) {
-        IStatus status = new Status(IStatus.ERROR, XSTUIPlugin.getDefault().getBundle().getSymbolicName(), 0, message, ex);
-        XSTUIPlugin.getDefault().getLog().log(status);
     }
 }

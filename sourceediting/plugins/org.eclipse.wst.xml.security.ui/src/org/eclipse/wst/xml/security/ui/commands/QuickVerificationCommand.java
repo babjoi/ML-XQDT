@@ -122,7 +122,7 @@ public class QuickVerificationCommand extends AbstractHandler {
             results = verify.verify(file.getLocation().toString(), signatureId);
         } else {
             MessageDialog.openInformation(HandlerUtil.getActiveShell(event), Messages.QuickVerificationCommand_0,
-                    NLS.bind(Messages.RemoveReadOnlyFlag, "verify")); //$NON-NLS-1$
+                    NLS.bind(Messages.RemoveReadOnlyFlag, Messages.QuickVerificationCommand_5));
         }
 
         if (results.size() == 1) {
@@ -130,12 +130,12 @@ public class QuickVerificationCommand extends AbstractHandler {
             if (result.getSignature() != null) {
                 Verification.showVerificationResult(result, HandlerUtil.getActiveShell(event));
             } else {
-                MessageDialog.openError(HandlerUtil.getActiveShell(event), Messages.QuickVerificationCommand_0, NLS.bind(
-                        Messages.QuickVerificationCommand_4, signatureId));
+                MessageDialog.openError(HandlerUtil.getActiveShell(event), Messages.QuickVerificationCommand_0,
+                        NLS.bind(Messages.QuickVerificationCommand_4, signatureId));
             }
         } else {
-            MessageDialog.openError(HandlerUtil.getActiveShell(event), Messages.QuickVerificationCommand_0, NLS.bind(
-                    "The signature with the ID {0} was not found in the XML document.", signatureId)); //$NON-NLS-1$
+            MessageDialog.openError(HandlerUtil.getActiveShell(event), Messages.QuickVerificationCommand_0,
+                    NLS.bind(Messages.QuickVerificationCommand_4, signatureId));
         }
     }
 

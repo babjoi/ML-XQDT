@@ -131,7 +131,7 @@ public class NewEncryptionCommand extends AbstractHandler {
                 }
             } else {
                 MessageDialog.openInformation(HandlerUtil.getActiveShell(event), Messages.NewEncryptionCommand_0,
-                        NLS.bind(Messages.RemoveReadOnlyFlag, "encrypt")); //$NON-NLS-1$
+                        NLS.bind(Messages.RemoveReadOnlyFlag, Messages.NewEncryptionCommand_3));
             }
         } catch (Exception ex) {
             Utils.showErrorDialog(HandlerUtil.getActiveShell(event), Messages.NewEncryptionCommand_0,

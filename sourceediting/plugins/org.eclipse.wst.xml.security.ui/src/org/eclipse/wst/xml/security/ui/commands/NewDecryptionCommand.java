@@ -111,7 +111,7 @@ public class NewDecryptionCommand extends AbstractHandler {
                 decryptData(decryption, wizard, document, fileLocation);
             } else {
                 MessageDialog.openInformation(HandlerUtil.getActiveShell(event), Messages.NewDecryptionCommand_0,
-                        NLS.bind(Messages.RemoveReadOnlyFlag, "decrypt")); //$NON-NLS-1$
+                        NLS.bind(Messages.RemoveReadOnlyFlag, Messages.NewDecryptionCommand_3));
             }
         } catch (Exception ex) {
             Utils.showErrorDialog(HandlerUtil.getActiveShell(event), Messages.NewDecryptionCommand_0,

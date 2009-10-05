@@ -50,7 +50,8 @@ public class RefreshSignaturesCommand extends AbstractHandler {
                         }
                     };
                     try {
-                        PlatformUI.getWorkbench().getProgressService().runInUI(XSTUIPlugin.getActiveWorkbenchWindow(), op, ResourcesPlugin.getWorkspace().getRoot());
+                        PlatformUI.getWorkbench().getProgressService().runInUI(XSTUIPlugin.getActiveWorkbenchWindow(),
+                                op, ResourcesPlugin.getWorkspace().getRoot());
                     } catch (InvocationTargetException ite) {
                         Utils.log("Error while saving editor content", ite); //$NON-NLS-1$
                     } catch (InterruptedException ie) {
@@ -68,11 +69,14 @@ public class RefreshSignaturesCommand extends AbstractHandler {
                 if (file != null) {
                     results = verify.verify(file.getLocation().toString());
                 } else {
-                    MessageDialog.openInformation(HandlerUtil.getActiveShell(event), "XML Signatures", NLS.bind("It is impossible to {0} the selected document. Please remove the read-only-flag and try again.", "verify"));
+                    MessageDialog.openInformation(HandlerUtil.getActiveShell(event),
+                            Messages.RefreshSignaturesCommand_0,
+                            NLS.bind(Messages.RemoveReadOnlyFlag, Messages.RefreshSignaturesCommand_1));
                 }
 
                 if (results.size() == 0) {
-                    MessageDialog.openInformation(HandlerUtil.getActiveShell(event), "XML Signatures", "There are no XML Signatures in the selected XML document.");
+                    MessageDialog.openInformation(HandlerUtil.getActiveShell(event),
+                            Messages.RefreshSignaturesCommand_0, Messages.RefreshSignaturesCommand_2);
                 }
 
                 // show results
@@ -81,11 +85,14 @@ public class RefreshSignaturesCommand extends AbstractHandler {
                     ((SignatureView) vp).setInput(results);
                 }
             } catch (XMLSignatureException xmlse) {
-                MessageDialog.openError(HandlerUtil.getActiveShell(event), "Invalid SignatureValue or DigestValue, impossible to verify:\n\n", xmlse.getLocalizedMessage());
+                MessageDialog.openError(HandlerUtil.getActiveShell(event), Messages.RefreshSignaturesCommand_3,
+                        xmlse.getLocalizedMessage());
             } catch (KeyResolverException kre) {
-                MessageDialog.openError(HandlerUtil.getActiveShell(event), "Invalid X.509 certificate, impossible to verify:\n\n", kre.getLocalizedMessage());
+                MessageDialog.openError(HandlerUtil.getActiveShell(event), Messages.RefreshSignaturesCommand_4,
+                        kre.getLocalizedMessage());
             } catch (Exception ex) {
-                MessageDialog.openError(HandlerUtil.getActiveShell(event), "An error occurred during verification of the XML Signature.", ex.getLocalizedMessage());
+                MessageDialog.openError(HandlerUtil.getActiveShell(event), Messages.RefreshSignaturesCommand_5,
+                        ex.getLocalizedMessage());
                 Utils.log("Error during verification of XML signature", ex); //$NON-NLS-1$
             }
         }

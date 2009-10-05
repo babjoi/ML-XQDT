@@ -129,11 +129,11 @@ public class NewCanonicalizationMaintainCommand extends AbstractHandler {
                 }
             } else {
                 MessageDialog.openInformation(HandlerUtil.getActiveShell(event), Messages.XMLCanonicalization,
-                        NLS.bind(Messages.RemoveReadOnlyFlag, "canonicalize")); //$NON-NLS-1$
+                        NLS.bind(Messages.RemoveReadOnlyFlag, Messages.NewCanonicalizationMaintainCommand_0));
             }
         } catch (Exception ex) {
             Utils.showErrorDialog(HandlerUtil.getActiveShell(event), Messages.XMLCanonicalization,
-                    Messages.ErrorDuringCanonicalization, ex); //$NON-NLS-1$
+                    Messages.ErrorDuringCanonicalization, ex);
             Utils.log("An error occured during canonicalization", ex); //$NON-NLS-1$
         }
     }

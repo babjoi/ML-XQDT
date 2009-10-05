@@ -22,13 +22,24 @@ public class Messages extends NLS {
     private static final String BUNDLE_NAME = "org.eclipse.wst.xml.security.ui.commands.messages"; //$NON-NLS-1$
     public static String XMLCanonicalization;
     public static String ErrorDuringCanonicalization;
+    public static String NewCanonicalizationMaintainCommand_0;
+    public static String NewCanonicalizationRemoveCommand_0;
     public static String NewDecryptionCommand_0;
     public static String NewDecryptionCommand_1;
     public static String NewDecryptionCommand_2;
+    public static String NewDecryptionCommand_3;
     public static String NewEncryptionCommand_0;
     public static String NewEncryptionCommand_1;
     public static String NewEncryptionCommand_2;
+    public static String NewEncryptionCommand_3;
     public static String NewSignatureCommand_0;
+    public static String NewSignatureCommand_1;
+    public static String RefreshSignaturesCommand_0;
+    public static String RefreshSignaturesCommand_1;
+    public static String RefreshSignaturesCommand_2;
+    public static String RefreshSignaturesCommand_3;
+    public static String RefreshSignaturesCommand_4;
+    public static String RefreshSignaturesCommand_5;
     public static String RemoveReadOnlyFlag;
     public static String NewSignatureCommand_2;
     public static String NewSignatureCommand_3;
@@ -41,11 +52,13 @@ public class Messages extends NLS {
     public static String NewVerificationCommand_2;
     public static String NewVerificationCommand_3;
     public static String NewVerificationCommand_4;
+    public static String NewVerificationCommand_5;
     public static String QuickVerificationCommand_0;
     public static String QuickVerificationCommand_1;
     public static String QuickVerificationCommand_2;
     public static String QuickVerificationCommand_3;
     public static String QuickVerificationCommand_4;
+    public static String QuickVerificationCommand_5;
     public static String MissingParameter;
     public static String MissingSignatureId;
     static {

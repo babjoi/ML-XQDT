@@ -96,7 +96,7 @@ public class NewVerificationCommand extends AbstractHandler {
                 results = verify.verify(file.getLocation().toString());
             } else {
                 MessageDialog.openInformation(HandlerUtil.getActiveShell(event), Messages.NewVerificationCommand_0,
-                        NLS.bind(Messages.RemoveReadOnlyFlag, "verify")); //$NON-NLS-1$
+                        NLS.bind(Messages.RemoveReadOnlyFlag, Messages.NewVerificationCommand_5));
             }
 
             if (results.size() == 0) {

@@ -136,13 +136,14 @@ public class NewSignatureCommand extends AbstractHandler {
                 }
             } else {
                 MessageDialog.openInformation(HandlerUtil.getActiveShell(event), Messages.NewSignatureCommand_0,
-                        NLS.bind(Messages.RemoveReadOnlyFlag, "sign")); //$NON-NLS-3$ //$NON-NLS-1$
+                        NLS.bind(Messages.RemoveReadOnlyFlag, Messages.NewSignatureCommand_1));
             }
         } catch (SAXParseException spe) {
             Utils.showErrorDialog(HandlerUtil.getActiveShell(event), Messages.NewSignatureCommand_0,
                     Messages.NewSignatureCommand_2, spe);
         } catch (FileNotFoundException fnfe) {
-            MessageDialog.openError(HandlerUtil.getActiveShell(event), Messages.NewSignatureCommand_0, Messages.NewSignatureCommand_3);
+            MessageDialog.openError(HandlerUtil.getActiveShell(event), Messages.NewSignatureCommand_0,
+                    Messages.NewSignatureCommand_3);
         } catch (IOException ioe) {
             Utils.showErrorDialog(HandlerUtil.getActiveShell(event), Messages.NewSignatureCommand_0,
                     Messages.NewSignatureCommand_4, ioe);

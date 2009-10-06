@@ -36,7 +36,6 @@ import org.eclipse.ui.IWorkbenchActionConstants;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.part.ViewPart;
 import org.eclipse.wst.xml.security.core.verify.VerificationResult;
-import org.eclipse.wst.xml.security.ui.actions.ShowSignatureProperties;
 import org.eclipse.wst.xml.security.ui.utils.IContextHelpIds;
 
 /**
@@ -263,7 +262,7 @@ public class SignatureView extends ViewPart {
                 VerificationResult result = getSelectedItem();
 
                 if (result != null) {
-                    (new ShowSignatureProperties()).run(result);
+                    Verification.showVerificationResult(result, getSite().getShell());
                 }
             }
         });

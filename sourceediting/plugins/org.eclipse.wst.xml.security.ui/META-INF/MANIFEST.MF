@@ -19,7 +19,6 @@ Bundle-Activator: org.eclipse.wst.xml.security.ui.XSTUIPlugin
 Bundle-Localization: plugin
 Import-Package: org.eclipse.ui.part
 Export-Package: org.eclipse.wst.xml.security.ui,
- org.eclipse.wst.xml.security.ui.actions,
  org.eclipse.wst.xml.security.ui.cheatsheets,
  org.eclipse.wst.xml.security.ui.decrypt,
  org.eclipse.wst.xml.security.ui.dialogs,

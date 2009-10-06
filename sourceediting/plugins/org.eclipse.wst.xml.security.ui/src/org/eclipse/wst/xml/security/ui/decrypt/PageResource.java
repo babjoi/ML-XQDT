@@ -451,8 +451,8 @@ public class PageResource extends WizardPage implements Listener {
      */
     private void saveDataToModel() {
         decryption.setFile(file.getLocation().toString());
-        decryption.setKeystore(tKeystore.getText());
-        decryption.setKeystorePassword(tKeystorePassword.getText());
+//        decryption.setKeystore(tKeystore.getText());
+        decryption.setKeystorePassword(tKeystorePassword.getText().toCharArray());
         decryption.setKeyName(tKeyName.getText());
         decryption.setKeyPassword(tKeyPassword.getText().toCharArray());
         decryption.setEncryptionId(cEncryptionId.getText());

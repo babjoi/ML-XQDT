@@ -10,6 +10,8 @@
  *******************************************************************************/
 package org.eclipse.wst.xml.security.core.decrypt;
 
+import org.eclipse.wst.xml.security.core.cryptography.Keystore;
+
 /**
  * <p>Model for the <i>XML Decryption Wizard</i>.</p>
  *
@@ -20,9 +22,9 @@ public class Decryption {
     /** XML document to decrypt. */
     private String file;
     /** The Keystore. */
-    private String keystore;
+    private Keystore keystore;
     /** The Keystore password. */
-    private String keystorePassword;
+    private char[] keystorePassword;
     /** Encryption ID. */
     private String encryptionId;
     /** The key name. */
@@ -44,7 +46,7 @@ public class Decryption {
      *
      * @param keystore Keystore containing the secret key
      */
-    public void setKeystore(final String keystore) {
+    public void setKeystore(final Keystore keystore) {
         this.keystore = keystore;
     }
 
@@ -53,7 +55,7 @@ public class Decryption {
      *
      * @param keystorePassword Keystore password
      */
-    public void setKeystorePassword(final String keystorePassword) {
+    public void setKeystorePassword(final char[] keystorePassword) {
         this.keystorePassword = keystorePassword;
     }
 
@@ -98,7 +100,7 @@ public class Decryption {
      *
      * @return The keystore
      */
-    public String getKeystore() {
+    public Keystore getKeystore() {
         return keystore;
     }
 
@@ -107,7 +109,7 @@ public class Decryption {
      *
      * @return The keystore password
      */
-    public String getKeystorePassword() {
+    public char[] getKeystorePassword() {
         return keystorePassword;
     }
 

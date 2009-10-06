@@ -37,7 +37,6 @@ import org.eclipse.ui.handlers.HandlerUtil;
 import org.eclipse.ui.texteditor.ITextEditor;
 import org.eclipse.wst.xml.security.core.encrypt.CreateEncryption;
 import org.eclipse.wst.xml.security.ui.XSTUIPlugin;
-import org.eclipse.wst.xml.security.ui.actions.SignNewAction;
 import org.eclipse.wst.xml.security.ui.encrypt.NewEncryptionWizard;
 import org.eclipse.wst.xml.security.ui.utils.Utils;
 import org.w3c.dom.Document;
@@ -209,10 +208,13 @@ public class NewEncryptionCommand extends AbstractHandler {
     /**
      * Calls the <i>XML Signature Wizard</i> after successfully encrypting the selected resource if the user selected
      * the checkbox in the <i>XML Encryption Wizard</i>.
+     *
+     * @throws ExecutionException
      */
-    private void launchXMLSignatureWizard() {
-        SignNewAction sign = new SignNewAction();
+    private void launchXMLSignatureWizard() throws ExecutionException {
+        NewSignatureCommand sign = new NewSignatureCommand();
         sign.signAfterEncryption(file);
+        sign.execute(event);
     }
 
     /**

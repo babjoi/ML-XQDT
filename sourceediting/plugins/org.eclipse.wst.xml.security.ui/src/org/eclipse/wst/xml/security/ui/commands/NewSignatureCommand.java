@@ -40,7 +40,6 @@ import org.eclipse.ui.handlers.HandlerUtil;
 import org.eclipse.ui.texteditor.ITextEditor;
 import org.eclipse.wst.xml.security.core.sign.CreateSignature;
 import org.eclipse.wst.xml.security.ui.XSTUIPlugin;
-import org.eclipse.wst.xml.security.ui.actions.EncryptNewAction;
 import org.eclipse.wst.xml.security.ui.sign.NewSignatureWizard;
 import org.eclipse.wst.xml.security.ui.utils.Utils;
 import org.w3c.dom.Document;
@@ -160,10 +159,10 @@ public class NewSignatureCommand extends AbstractHandler {
      * @param data The resource to sign
      * @param wizard The Signature Wizard
      * @param document The document to sign, null if a file is signed directly
-     * @param filename The filename, empty if editor content is signed
+     * @param file The filename, empty if editor content is signed
      * @throws Exception to indicate any exceptional condition
      */
-    private void signData(final CreateSignature data, final NewSignatureWizard wizard, final IDocument document, final String filename)
+    private void signData(final CreateSignature data, final NewSignatureWizard wizard, final IDocument document, final String file)
             throws Exception {
         WizardDialog dialog = new WizardDialog(HandlerUtil.getActiveShell(event), wizard);
         dialog.create();
@@ -185,7 +184,7 @@ public class NewSignatureCommand extends AbstractHandler {
                             if (document != null) {
                                 document.set(org.eclipse.wst.xml.security.core.utils.Utils.docToString(doc, false));
                             } else {
-                                FileOutputStream fos = new FileOutputStream(filename);
+                                FileOutputStream fos = new FileOutputStream(file);
                                 XMLUtils.outputDOM(doc, fos);
                                 fos.flush();
                                 fos.close();
@@ -217,10 +216,12 @@ public class NewSignatureCommand extends AbstractHandler {
     /**
      * Calls the <i>XML Encryption Wizard</i> after successfully signing the selected resource if the user selected the
      * checkbox in the <i>XML Signature Wizard</i>.
+     * @throws ExecutionException
      */
-    private void callEncryptionWizard() {
-        EncryptNewAction encrypt = new EncryptNewAction();
+    private void callEncryptionWizard() throws ExecutionException {
+        NewEncryptionCommand encrypt = new NewEncryptionCommand();
         encrypt.encryptAfterSignature(file);
+        encrypt.execute(event);
     }
 
     /**

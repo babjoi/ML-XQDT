@@ -110,7 +110,7 @@ public class NewCanonicalizationRemoveCommand extends AbstractHandler {
 
                 if (document != null) {
                     if (IXMLSecurityConstants.INTERNAL_CANONICALIZATION.equals(canonTarget)) {
-                        document.set(new String(outputBytes, "UTF8")); //$NON-NLS-1$
+                        document.set(new String(outputBytes, IXMLSecurityConstants.CHARSET));
                     } else {
                         IWorkbenchPage page = HandlerUtil.getActiveWorkbenchWindow(event).getActivePage();
 

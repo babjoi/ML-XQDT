@@ -123,7 +123,7 @@ public class QuickDecryptionCommand extends AbstractHandler {
 
         // Ask the user for the passwords
         PasswordDialog keystorePasswordDialog = new PasswordDialog(HandlerUtil.getActiveShell(event),
-                "Keystore Password", "Enter the keystore password.", "");
+                Messages.QuickDecryptionCommand_4, Messages.QuickDecryptionCommand_1, ""); //$NON-NLS-1$
         if (keystorePasswordDialog.open() == Dialog.OK) {
             keystorePassword = keystorePasswordDialog.getValue().toCharArray();
         } else {
@@ -131,7 +131,7 @@ public class QuickDecryptionCommand extends AbstractHandler {
         }
 
         PasswordDialog privateKeyPasswordDialog = new PasswordDialog(HandlerUtil.getActiveShell(event),
-                "Key Password", "Enter the key password.", "");
+                Messages.QuickDecryptionCommand_4, Messages.QuickDecryptionCommand_3, ""); //$NON-NLS-1$
         if (privateKeyPasswordDialog.open() == Dialog.OK) {
             keyPassword = privateKeyPasswordDialog.getValue().toCharArray();
         } else {
@@ -144,25 +144,25 @@ public class QuickDecryptionCommand extends AbstractHandler {
                     if (file != null && file.isAccessible()) {
                         decryptData(document);
                     } else {
-                        MessageDialog.openInformation(HandlerUtil.getActiveShell(event), "XML Decryption",
-                                NLS.bind(Messages.RemoveReadOnlyFlag, "decrypt"));
+                        MessageDialog.openInformation(HandlerUtil.getActiveShell(event), Messages.QuickDecryptionCommand_4,
+                                NLS.bind(Messages.RemoveReadOnlyFlag, Messages.QuickDecryptionCommand_5));
                     }
                 } else {
-                    MessageDialog.openError(HandlerUtil.getActiveShell(event), "XML Decryption",
-                            "An error occurred during key recovery. Verify all key information (name and passwords) and try again.");
+                    MessageDialog.openError(HandlerUtil.getActiveShell(event), Messages.QuickDecryptionCommand_4,
+                            Messages.QuickDecryptionCommand_6);
                 }
             } catch (SAXParseException spe) {
-                Utils.showErrorDialog(HandlerUtil.getActiveShell(event), "XML Decryption",
-                        "Could not decrypt the document because of a parsing error.", spe);
+                Utils.showErrorDialog(HandlerUtil.getActiveShell(event), Messages.QuickDecryptionCommand_4,
+                        Messages.QuickDecryptionCommand_7, spe);
             } catch (FileNotFoundException fnfe) {
-                MessageDialog.openError(HandlerUtil.getActiveShell(event), "XML Decryption",
-                        "Could not find the selected keystore.");
+                MessageDialog.openError(HandlerUtil.getActiveShell(event), Messages.QuickDecryptionCommand_4,
+                        Messages.QuickDecryptionCommand_8);
             } catch (IOException ioe) {
-                Utils.showErrorDialog(HandlerUtil.getActiveShell(event), "XML Decryption",
-                        "An error occurred while trying to use the selected keystore.", ioe);
+                Utils.showErrorDialog(HandlerUtil.getActiveShell(event), Messages.QuickDecryptionCommand_4,
+                        Messages.QuickDecryptionCommand_9, ioe);
             } catch (Exception ex) {
-                Utils.showErrorDialog(HandlerUtil.getActiveShell(event), "XML Decryption",
-                        "An error occurred during decrypting the XML document.", ex);
+                Utils.showErrorDialog(HandlerUtil.getActiveShell(event), Messages.QuickDecryptionCommand_4,
+                        Messages.QuickDecryptionCommand_10, ex);
                 Utils.log("An error occured during quick decrypting", ex); //$NON-NLS-1$
             }
         }
@@ -178,10 +178,10 @@ public class QuickDecryptionCommand extends AbstractHandler {
         data.setEncryptionId(encryptionId);
         data.setFile(file.getLocation().toString());
 
-        Job job = new Job("XML Decryption") {
+        Job job = new Job(Messages.QuickDecryptionCommand_4) {
             public IStatus run(final IProgressMonitor monitor) {
                 try {
-                    monitor.beginTask("Creating a new Quick XML Decryption...", 5);
+                    monitor.beginTask(Messages.QuickDecryptionCommand_11, 5);
 
                     Document doc = null;
 
@@ -204,8 +204,8 @@ public class QuickDecryptionCommand extends AbstractHandler {
                 } catch (final Exception ex) {
                     HandlerUtil.getActiveShell(event).getDisplay().asyncExec(new Runnable() {
                         public void run() {
-                            Utils.showErrorDialog(HandlerUtil.getActiveShell(event), "XML Decryption",
-                                    "An error occurred during decrypting the XML document.", ex);
+                            Utils.showErrorDialog(HandlerUtil.getActiveShell(event), Messages.QuickDecryptionCommand_4,
+                                    Messages.QuickDecryptionCommand_12, ex);
                             Utils.log("An error occured during decrypting", ex); //$NON-NLS-1$
                         }
                     });
@@ -266,16 +266,16 @@ public class QuickDecryptionCommand extends AbstractHandler {
      * @return Preferences OK or not
      */
     private boolean checkPreferences() {
-        final String title = "XML Decryption";
-        final String prefId = "org.eclipse.wst.xml.security.ui.preferences.Encryption";
+        final String title = Messages.QuickDecryptionCommand_4;
+        final String prefId = "org.eclipse.wst.xml.security.ui.preferences.Encryption"; //$NON-NLS-1$
         int result = 2;
 
-        if (keystore == null || keystore.equals("")) {
+        if (keystore == null || keystore.equals("")) { //$NON-NLS-1$
             result = showMissingParameterDialog(title, NLS.bind(Messages.MissingParameter,
-                    "keystore"), prefId);
-        } else if (keyName == null || keyName.equals("")) {
+                    Messages.QuickDecryptionCommand_15), prefId);
+        } else if (keyName == null || keyName.equals("")) { //$NON-NLS-1$
             result = showMissingParameterDialog(title, NLS.bind(Messages.MissingParameter,
-                    "key name"), prefId);
+                    Messages.QuickDecryptionCommand_16), prefId);
         } else {
             completePrefs = true;
         }
@@ -296,10 +296,12 @@ public class QuickDecryptionCommand extends AbstractHandler {
      */
     private boolean checkPasswords() {
         if (keystorePassword == null || keystorePassword.length == 0) {
-            MessageDialog.openInformation(HandlerUtil.getActiveShell(event), "XML Decryption", "Enter the keystore password.");
+            MessageDialog.openInformation(HandlerUtil.getActiveShell(event), Messages.QuickDecryptionCommand_4,
+                    Messages.QuickDecryptionCommand_1);
             return false;
         } else if (keyPassword == null || keyPassword.length == 0) {
-            MessageDialog.openInformation(HandlerUtil.getActiveShell(event), "XML Decryption", "Enter the key password.");
+            MessageDialog.openInformation(HandlerUtil.getActiveShell(event), Messages.QuickDecryptionCommand_4,
+                    Messages.QuickDecryptionCommand_3);
             return false;
         }
 
@@ -318,5 +320,4 @@ public class QuickDecryptionCommand extends AbstractHandler {
         MissingPreferenceDialog dialog = new MissingPreferenceDialog(HandlerUtil.getActiveShell(event), title, message, prefId);
         return dialog.open();
     }
-
 }

@@ -12,11 +12,12 @@ package org.eclipse.wst.xml.security.ui.utils;
 
 /**
  * Constant definitions for the <b>XML Security Tools</b> UI plug-in.
- * 
+ *
  * @author Dominik Schadow
  * @version 0.5.0
  */
 public interface IXMLSecurityConstants {
     public static final String EXCLUSIVE_CANONICALIZATION = "exclusive";
     public static final String INTERNAL_CANONICALIZATION = "internal";
+    public static final String CHARSET = "UTF8";
 }

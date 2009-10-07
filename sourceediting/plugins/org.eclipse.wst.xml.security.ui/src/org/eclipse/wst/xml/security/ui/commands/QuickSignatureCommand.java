@@ -144,7 +144,7 @@ public class QuickSignatureCommand extends AbstractHandler {
 
         // Ask the user for the passwords
         PasswordDialog keystorePasswordDialog = new PasswordDialog(HandlerUtil.getActiveShell(event),
-                "Keystore Password", "Enter the keystore password.", "");
+                Messages.QuickSignatureCommand_4, Messages.QuickSignatureCommand_1, ""); //$NON-NLS-1$
         if (keystorePasswordDialog.open() == Dialog.OK) {
             keystorePassword = keystorePasswordDialog.getValue().toCharArray();
         } else {
@@ -152,7 +152,7 @@ public class QuickSignatureCommand extends AbstractHandler {
         }
 
         PasswordDialog privateKeyPasswordDialog = new PasswordDialog(HandlerUtil.getActiveShell(event),
-                "Key Password", "Enter the key password.", "");
+                Messages.QuickSignatureCommand_4, Messages.QuickSignatureCommand_3, ""); //$NON-NLS-1$
         if (privateKeyPasswordDialog.open() == Dialog.OK) {
             keyPassword = privateKeyPasswordDialog.getValue().toCharArray();
         } else {
@@ -165,25 +165,25 @@ public class QuickSignatureCommand extends AbstractHandler {
                     if (file != null && file.isAccessible()) {
                         signData(document);
                     } else {
-                        MessageDialog.openInformation(HandlerUtil.getActiveShell(event), "XML Signature",
-                                NLS.bind(Messages.RemoveReadOnlyFlag, "sign"));
+                        MessageDialog.openInformation(HandlerUtil.getActiveShell(event), Messages.QuickSignatureCommand_4,
+                                NLS.bind(Messages.RemoveReadOnlyFlag, Messages.QuickSignatureCommand_5));
                     }
                 } else {
-                    MessageDialog.openError(HandlerUtil.getActiveShell(event), "XML Signature",
-                            "An error occurred during key recovery. Verify all key information (name and passwords) and try again.");
+                    MessageDialog.openError(HandlerUtil.getActiveShell(event), Messages.QuickSignatureCommand_4,
+                            Messages.QuickSignatureCommand_6);
                 }
             } catch (SAXParseException spe) {
-                Utils.showErrorDialog(HandlerUtil.getActiveShell(event), "XML Signature",
-                        "Could not sign the document because of a parsing error.", spe);
+                Utils.showErrorDialog(HandlerUtil.getActiveShell(event), Messages.QuickSignatureCommand_4,
+                        Messages.QuickSignatureCommand_7, spe);
             } catch (FileNotFoundException fnfe) {
-                MessageDialog.openError(HandlerUtil.getActiveShell(event), "XML Signature",
-                        "Could not find the selected keystore.");
+                MessageDialog.openError(HandlerUtil.getActiveShell(event), Messages.QuickSignatureCommand_4,
+                        Messages.QuickSignatureCommand_8);
             } catch (IOException ioe) {
-                Utils.showErrorDialog(HandlerUtil.getActiveShell(event), "XML Signature",
-                        "An error occurred while trying to use the selected keystore.", ioe);
+                Utils.showErrorDialog(HandlerUtil.getActiveShell(event), Messages.QuickSignatureCommand_4,
+                        Messages.QuickSignatureCommand_9, ioe);
             } catch (Exception ex) {
-                Utils.showErrorDialog(HandlerUtil.getActiveShell(event), "XML Signature",
-                        "An error occurred during signing the XML document.", ex);
+                Utils.showErrorDialog(HandlerUtil.getActiveShell(event), Messages.QuickSignatureCommand_4,
+                        Messages.QuickSignatureCommand_10, ex);
                 Utils.log("An error occured during quick signing", ex); //$NON-NLS-1$
             }
         }
@@ -207,7 +207,7 @@ public class QuickSignatureCommand extends AbstractHandler {
         data.setSignatureId(signatureId);
         data.setFile(file.getLocation().toOSString());
 
-        Job job = new Job(Messages.NewSignatureCommand_0) {
+        Job job = new Job(Messages.QuickSignatureCommand_4) {
             public IStatus run(final IProgressMonitor monitor) {
                 try {
                     monitor.beginTask(Messages.NewSignatureCommand_7, 5);
@@ -237,7 +237,7 @@ public class QuickSignatureCommand extends AbstractHandler {
                 } catch (final Exception ex) {
                     HandlerUtil.getActiveShell(event).getDisplay().asyncExec(new Runnable() {
                         public void run() {
-                            Utils.showErrorDialog(HandlerUtil.getActiveShell(event), Messages.NewSignatureCommand_0,
+                            Utils.showErrorDialog(HandlerUtil.getActiveShell(event), Messages.QuickSignatureCommand_4,
                                     Messages.NewSignatureCommand_8, ex);
                             Utils.log("An error occured during signing", ex); //$NON-NLS-1$
                         }
@@ -309,38 +309,38 @@ public class QuickSignatureCommand extends AbstractHandler {
      * @return Preferences OK or not
      */
     private boolean checkPreferences() {
-        final String title = "XML Signature";
-        final String prefId = "org.eclipse.wst.xml.security.ui.preferences.Signatures";
+        final String title = Messages.QuickSignatureCommand_4;
+        final String prefId = "org.eclipse.wst.xml.security.ui.preferences.Signatures"; //$NON-NLS-1$
         int result = 2;
 
-        if (resource == null || "".equals(resource)) {
+        if (resource == null || "".equals(resource)) { //$NON-NLS-1$
             result = showMissingParameterDialog(title, NLS.bind(Messages.MissingParameter,
-                    "resource"), prefId);
-        } else if (resource != null && "xpath".equals(resource) && (xpath == null || "".equals(xpath))) {
+                    Messages.QuickSignatureCommand_11), prefId);
+        } else if (resource != null && "xpath".equals(resource) && (xpath == null || "".equals(xpath))) { //$NON-NLS-1$ //$NON-NLS-2$
             result = showMissingParameterDialog(title, NLS.bind(Messages.MissingParameter,
-                    "XPath expression"), prefId);
-        } else if (signatureType == null || "".equals(signatureType)) {
+                    Messages.QuickSignatureCommand_12), prefId);
+        } else if (signatureType == null || "".equals(signatureType)) { //$NON-NLS-1$
             result = showMissingParameterDialog(title, NLS.bind(Messages.MissingParameter,
-                    "signature type"), prefId);
-        } else if (keyFile == null || "".equals(keyFile)) {
+                    Messages.QuickSignatureCommand_13), prefId);
+        } else if (keyFile == null || "".equals(keyFile)) { //$NON-NLS-1$
             result = showMissingParameterDialog(title, NLS.bind(Messages.MissingParameter,
-                    "keystore file"), prefId);
-        } else if (keyName == null || "".equals(keyName)) {
+                    Messages.QuickSignatureCommand_14), prefId);
+        } else if (keyName == null || "".equals(keyName)) { //$NON-NLS-1$
             result = showMissingParameterDialog(title, NLS.bind(Messages.MissingParameter,
-                    "key name"), prefId);
-        } else if (canonicalizationAlgorithm == null || "".equals(canonicalizationAlgorithm)) {
+                    Messages.QuickSignatureCommand_15), prefId);
+        } else if (canonicalizationAlgorithm == null || "".equals(canonicalizationAlgorithm)) { //$NON-NLS-1$
             result = showMissingParameterDialog(title, NLS.bind(Messages.MissingParameter,
-                    "canonicalization algorithm"), prefId);
-        } else if (transformationAlgorithm != null && "".equals(transformationAlgorithm)) {
+                    Messages.QuickSignatureCommand_16), prefId);
+        } else if (transformationAlgorithm != null && "".equals(transformationAlgorithm)) { //$NON-NLS-1$
             result = showMissingParameterDialog(title, NLS.bind(Messages.MissingParameter,
-                    "transformation algorithm"), prefId);
-        } else if (messageDigestAlgorithm == null || "".equals(messageDigestAlgorithm)) {
+                    Messages.QuickSignatureCommand_17), prefId);
+        } else if (messageDigestAlgorithm == null || "".equals(messageDigestAlgorithm)) { //$NON-NLS-1$
             result = showMissingParameterDialog(title, NLS.bind(Messages.MissingParameter,
-                    "message digest algorithm"), prefId);
-        } else if (signatureAlgorithm == null || "".equals(signatureAlgorithm)) {
+                    Messages.QuickSignatureCommand_18), prefId);
+        } else if (signatureAlgorithm == null || "".equals(signatureAlgorithm)) { //$NON-NLS-1$
             result = showMissingParameterDialog(title, NLS.bind(Messages.MissingParameter,
-                    "signature algorithm"), prefId);
-        } else if (signatureId == null || "".equals(signatureId)) {
+                    Messages.QuickSignatureCommand_19), prefId);
+        } else if (signatureId == null || "".equals(signatureId)) { //$NON-NLS-1$
             result = showMissingParameterDialog(title, NLS.bind(Messages.MissingParameter,
                     Messages.MissingSignatureId), prefId);
         } else {
@@ -363,10 +363,12 @@ public class QuickSignatureCommand extends AbstractHandler {
      */
     private boolean checkPasswords() {
         if (keystorePassword == null || keystorePassword.length == 0) {
-            MessageDialog.openInformation(HandlerUtil.getActiveShell(event), "XML Signature", "Enter the keystore password.");
+            MessageDialog.openInformation(HandlerUtil.getActiveShell(event), Messages.QuickSignatureCommand_4,
+                    Messages.QuickSignatureCommand_1);
             return false;
         } else if (keyPassword == null || keyPassword.length == 0) {
-            MessageDialog.openInformation(HandlerUtil.getActiveShell(event), "XML Signature", "Enter the key password.");
+            MessageDialog.openInformation(HandlerUtil.getActiveShell(event), Messages.QuickSignatureCommand_4,
+                    Messages.QuickSignatureCommand_3);
             return false;
         }
 

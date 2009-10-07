@@ -16,13 +16,7 @@ package org.eclipse.wst.xml.security.core.utils;
  * @author Dominik Schadow
  * @version 0.5.0
  */
-public final class Globals {
-    /**
-     * Utility class, no instance allowed.
-     */
-    private Globals() {
-    }
-
+public interface Globals {
     /** Maximum number of characters of signature and encryption ID. */
     public static final int ID_LIMIT = 20;
     /** Maximum number of characters of each key information (like OU). */

@@ -66,7 +66,7 @@ public class QuickEncryptionCommand extends AbstractHandler {
     /** Document (-fragment) to encrypt. */
     private String resource;
     /** XPath expression to encrypt. */
-    private String xpath = "";
+    private String xpath = ""; //$NON-NLS-1$
     /** Encryption type. */
     private String encryptionType;
     /** Key wrap algorithm. */
@@ -140,7 +140,7 @@ public class QuickEncryptionCommand extends AbstractHandler {
 
         // Ask the user for the passwords
         PasswordDialog keystorePasswordDialog = new PasswordDialog(HandlerUtil.getActiveShell(event),
-                "Keystore Password", "Enter the keystore password.", "");
+                Messages.QuickEncryptionCommand_4, Messages.QuickEncryptionCommand_1, ""); //$NON-NLS-1$
         if (keystorePasswordDialog.open() == Dialog.OK) {
             keystorePassword = keystorePasswordDialog.getValue().toCharArray();
         } else {
@@ -148,7 +148,7 @@ public class QuickEncryptionCommand extends AbstractHandler {
         }
 
         PasswordDialog privateKeyPasswordDialog = new PasswordDialog(HandlerUtil.getActiveShell(event),
-                "Key Password", "Enter the key password.", "");
+                Messages.QuickEncryptionCommand_4, Messages.QuickEncryptionCommand_3, ""); //$NON-NLS-1$
         if (privateKeyPasswordDialog.open() == Dialog.OK) {
             keyPassword = privateKeyPasswordDialog.getValue().toCharArray();
         } else {
@@ -161,25 +161,25 @@ public class QuickEncryptionCommand extends AbstractHandler {
                     if (file != null && file.isAccessible()) {
                         encryptData(document);
                     } else {
-                        MessageDialog.openInformation(HandlerUtil.getActiveShell(event), "XML Encryption",
-                                NLS.bind(Messages.RemoveReadOnlyFlag, "encrypt"));
+                        MessageDialog.openInformation(HandlerUtil.getActiveShell(event), Messages.QuickEncryptionCommand_4,
+                                NLS.bind(Messages.RemoveReadOnlyFlag, Messages.QuickEncryptionCommand_5));
                     }
                 } else {
-                    MessageDialog.openError(HandlerUtil.getActiveShell(event), "XML Encryption",
-                            "An error occurred during key recovery. Verify all key information (name and passwords) and try again.");
+                    MessageDialog.openError(HandlerUtil.getActiveShell(event), Messages.QuickEncryptionCommand_4,
+                            Messages.QuickEncryptionCommand_6);
                 }
             } catch (SAXParseException spe) {
-                Utils.showErrorDialog(HandlerUtil.getActiveShell(event), "XML Encryption",
-                        "Could not encrypt the document because of a parsing error.", spe);
+                Utils.showErrorDialog(HandlerUtil.getActiveShell(event), Messages.QuickEncryptionCommand_4,
+                        Messages.QuickEncryptionCommand_7, spe);
             } catch (FileNotFoundException fnfe) {
-                MessageDialog.openError(HandlerUtil.getActiveShell(event), "XML Encryption",
-                        "Could not find the selected keystore.");
+                MessageDialog.openError(HandlerUtil.getActiveShell(event), Messages.QuickEncryptionCommand_4,
+                        Messages.QuickEncryptionCommand_8);
             } catch (IOException ioe) {
-                Utils.showErrorDialog(HandlerUtil.getActiveShell(event), "XML Encryption",
-                        "An error occurred while trying to use the selected keystore.", ioe);
+                Utils.showErrorDialog(HandlerUtil.getActiveShell(event), Messages.QuickEncryptionCommand_4,
+                        Messages.QuickEncryptionCommand_9, ioe);
             } catch (Exception ex) {
-                Utils.showErrorDialog(HandlerUtil.getActiveShell(event), "XML Encryption",
-                        "An error occurred during encrypting the XML document.", ex);
+                Utils.showErrorDialog(HandlerUtil.getActiveShell(event), Messages.QuickEncryptionCommand_4,
+                        Messages.QuickEncryptionCommand_10, ex);
                 Utils.log("An error occured during quick encrypting", ex); //$NON-NLS-1$
             }
         }
@@ -202,10 +202,10 @@ public class QuickEncryptionCommand extends AbstractHandler {
         data.setEncryptionId(encryptionId);
         data.setFile(file.getLocation().toString());
 
-        Job job = new Job("XML Encryption") {
+        Job job = new Job(Messages.QuickEncryptionCommand_11) {
             public IStatus run(final IProgressMonitor monitor) {
                 try {
-                    monitor.beginTask("Creating a new Quick XML Encryption...", 5);
+                    monitor.beginTask(Messages.QuickEncryptionCommand_12, 5);
 
                     Document doc = null;
 
@@ -232,8 +232,8 @@ public class QuickEncryptionCommand extends AbstractHandler {
                 } catch (final Exception ex) {
                     HandlerUtil.getActiveShell(event).getDisplay().asyncExec(new Runnable() {
                         public void run() {
-                            Utils.showErrorDialog(HandlerUtil.getActiveShell(event), "XML Encryption",
-                                    "An error occurred during encrypting the XML document.", ex);
+                            Utils.showErrorDialog(HandlerUtil.getActiveShell(event), Messages.QuickEncryptionCommand_4,
+                                    Messages.QuickEncryptionCommand_13, ex);
                             Utils.log("An error occured during encrypting", ex); //$NON-NLS-1$
                         }
                     });
@@ -289,7 +289,7 @@ public class QuickEncryptionCommand extends AbstractHandler {
         keyFile = store.getString(PreferenceConstants.ENCRYPT_KEY_STORE);
         encryptionId = store.getString(PreferenceConstants.ENCRYPT_ID);
 
-        if (resource != null && "xpath".equals(resource)) {
+        if (resource != null && "xpath".equals(resource)) { //$NON-NLS-1$
             xpath = store.getString(PreferenceConstants.ENCRYPT_XPATH);
         }
     }
@@ -302,20 +302,20 @@ public class QuickEncryptionCommand extends AbstractHandler {
      * @return Preferences OK or not
      */
     private boolean checkPreferences() {
-        final String title = "XML Encryption";
-        final String prefId = "org.eclipse.wst.xml.security.ui.preferences.Encryption";
+        final String title = Messages.QuickEncryptionCommand_4;
+        final String prefId = "org.eclipse.wst.xml.security.ui.preferences.Encryption"; //$NON-NLS-1$
         int result = 2;
 
         if (resource == null || "".equals(resource)) { //$NON-NLS-1$
             result = showMissingParameterDialog(title, NLS.bind(Messages.MissingParameter,
-                    "resource"), prefId);
-        } else if (resource != null && "xpath".equals(resource) //$NON-NLS-2$
+                    Messages.QuickEncryptionCommand_14), prefId);
+        } else if (resource != null && "xpath".equals(resource) //$NON-NLS-1$
                 && (xpath == null || xpath.equals(""))) { //$NON-NLS-1$
             result = showMissingParameterDialog(title, NLS.bind(Messages.MissingParameter,
-                    "XPath expression"), prefId);
-        } else if (keyFile == null || "".equals(keyFile)) {
+                    Messages.QuickEncryptionCommand_15), prefId);
+        } else if (keyFile == null || "".equals(keyFile)) { //$NON-NLS-1$
             result = showMissingParameterDialog(title, NLS.bind(Messages.MissingParameter,
-                    "keystore file"), prefId);
+                    Messages.QuickEncryptionCommand_16), prefId);
         } else {
             completePrefs = true;
         }
@@ -336,10 +336,12 @@ public class QuickEncryptionCommand extends AbstractHandler {
      */
     private boolean checkPasswords() {
         if (keystorePassword == null || keystorePassword.length == 0) {
-            MessageDialog.openInformation(HandlerUtil.getActiveShell(event), "XML Encryption", "Enter the keystore password.");
+            MessageDialog.openInformation(HandlerUtil.getActiveShell(event), Messages.QuickEncryptionCommand_4,
+                    Messages.QuickEncryptionCommand_1);
             return false;
         } else if (keyPassword == null || keyPassword.length == 0) {
-            MessageDialog.openInformation(HandlerUtil.getActiveShell(event), "XML Encryption", "Enter the key password.");
+            MessageDialog.openInformation(HandlerUtil.getActiveShell(event), Messages.QuickEncryptionCommand_4,
+                    Messages.QuickEncryptionCommand_3);
             return false;
         }
 

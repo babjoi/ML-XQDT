@@ -77,6 +77,8 @@ public class PageResource extends WizardPage implements Listener {
     private Decryption decryption = null;
     /** Default label width. */
     private static final int LABELWIDTH = 120;
+    /** The keystore containing all required key information. */
+    private Keystore keystore = null;
 
     /**
      * Constructor for the algorithms page with three parameters.
@@ -351,7 +353,7 @@ public class PageResource extends WizardPage implements Listener {
 
         if (new File(tKeystore.getText()).exists()) {
             try {
-                Keystore keystore = new Keystore(tKeystore.getText(), tKeystorePassword.getText(), Globals.KEYSTORE_TYPE);
+                keystore = new Keystore(tKeystore.getText(), tKeystorePassword.getText(), Globals.KEYSTORE_TYPE);
                 keystore.load();
                 if (!keystore.containsKey(tKeyName.getText())) {
                     updateStatus(Messages.verifyKeyName, DialogPage.ERROR);
@@ -451,7 +453,7 @@ public class PageResource extends WizardPage implements Listener {
      */
     private void saveDataToModel() {
         decryption.setFile(file.getLocation().toString());
-//        decryption.setKeystore(tKeystore.getText());
+        decryption.setKeystore(keystore);
         decryption.setKeystorePassword(tKeystorePassword.getText().toCharArray());
         decryption.setKeyName(tKeyName.getText());
         decryption.setKeyPassword(tKeyPassword.getText().toCharArray());

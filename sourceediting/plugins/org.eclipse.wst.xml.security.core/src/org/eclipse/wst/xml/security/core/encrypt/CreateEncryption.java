@@ -95,6 +95,10 @@ public class CreateEncryption {
 
         SecretKey key = keystore.getSecretKey(encryption.getKeyName(), encryption.getKeyPassword());
 
+        if (key == null) {
+            throw new Exception("Key " + keyName + " not found in keystore " + keystore);
+        }
+
         monitor.worked(1);
 
         if (encryptionType.equalsIgnoreCase("enveloping")) {

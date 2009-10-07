@@ -12,7 +12,6 @@ package org.eclipse.wst.xml.security.core.decrypt;
 
 import java.io.File;
 import java.net.URL;
-import java.security.Key;
 
 import javax.crypto.SecretKey;
 
@@ -21,7 +20,6 @@ import org.apache.xml.security.encryption.XMLCipher;
 import org.apache.xml.security.utils.EncryptionConstants;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.wst.xml.security.core.cryptography.Keystore;
-import org.eclipse.wst.xml.security.core.utils.Globals;
 import org.eclipse.wst.xml.security.core.utils.Utils;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -43,12 +41,8 @@ public class CreateDecryption {
     private Keystore keystore = null;
     /** The encryption id. */
     private String encryptionId = null;
-    /** The Keystore password. */
-    private char[] keystorePassword = null;
     /** The keys name. */
     private String keyName = "";
-    /** The keys password. */
-    private char[] keyPassword = null;
 
     /**
      * <p>Decrypts the selected document based on the settings in the <i>XML Decryption wizard</i>.</p>
@@ -97,15 +91,18 @@ public class CreateDecryption {
 
         monitor.worked(1);
 
-        Key secretKey = getPrivateKey();
-        if (secretKey == null) {
+        keystore.load();
+
+        SecretKey key = keystore.getSecretKey(decryption.getKeyName(), decryption.getKeyPassword());
+
+        if (key == null) {
         	throw new Exception("Key " + keyName + " not found in keystore " + keystore);
         }
 
         monitor.worked(1);
 
         XMLCipher xmlCipher = XMLCipher.getInstance();
-        xmlCipher.init(XMLCipher.DECRYPT_MODE, secretKey);
+        xmlCipher.init(XMLCipher.DECRYPT_MODE, key);
 
         boolean envelopingEncryption = true;
 
@@ -156,23 +153,6 @@ public class CreateDecryption {
         xmlDocument = new File(decryption.getFile());
         keystore = decryption.getKeystore();
         encryptionId = decryption.getEncryptionId();
-        keystorePassword = decryption.getKeystorePassword();
         keyName = decryption.getKeyName();
-        keyPassword = decryption.getKeyPassword();
-    }
-
-    /**
-     * Loads the private key which belongs to the public key used for
-     * encrypting in the selected XML document (-fragment).
-     *
-     * @return The private key
-     * @throws Exception to indicate any exceptional condition
-     */
-    private SecretKey getPrivateKey() throws Exception {
-//    	Keystore keystore = new Keystore(keystore, String.valueOf(keystorePassword), Globals.KEYSTORE_TYPE);
-//    	keystore.load();
-//
-//    	return keystore.getSecretKey(keyName, keyPassword);
-        return null;
     }
 }

@@ -51,99 +51,99 @@
    <extension
          point="org.eclipse.ui.commands">
       <category
-            description="XML Canonicalization category"
+            description="%category.description"
             id="org.eclipse.wst.xml.security.ui.canonCategory"
-            name="XML Canonicalization">
+            name="%category.name">
       </category>
       <category
-            description="XML Signature category"
+            description="%category.description.0"
             id="org.eclipse.wst.xml.security.ui.signCategory"
-            name="XML Signature">
+            name="%category.name.0">
       </category>
       <category
-            description="XML Verification category"
+            description="%category.description.1"
             id="org.eclipse.wst.xml.security.ui.verifyCategory"
-            name="XML Verification">
+            name="%category.name.1">
       </category>
       <category
-            description="XML Encryption category"
+            description="%category.description.2"
             id="org.eclipse.wst.xml.security.ui.encryptCategory"
-            name="XML Encryption">
+            name="%category.name.2">
       </category>
       <category
-            description="XML Decryption category"
+            description="%category.description.3"
             id="org.eclipse.wst.xml.security.ui.decryptCategory"
-            name="XML Decryption">
+            name="%category.name.3">
       </category>
       <command
             categoryId="org.eclipse.wst.xml.security.ui.canonCategory"
-            description="Canonicalize the selected XML document and maintain all comments."
+            description="%command.description"
             id="org.eclipse.wst.xml.security.ui.canonicalizeMaintain"
-            name="Canonicalization (Maintain Comments)">
+            name="%command.name">
       </command>
       <command
             categoryId="org.eclipse.wst.xml.security.ui.canonCategory"
-            description="Canonicalize the selected XML document and remove all comments."
+            description="%command.description.0"
             id="org.eclipse.wst.xml.security.ui.canonicalizeRemove"
-            name="Canonicalization (Remove Comments)">
+            name="%command.name.0">
       </command>
       <command
             categoryId="org.eclipse.wst.xml.security.ui.signCategory"
-            description="Create a new XML Signature with the XML Signature wizard."
+            description="%command.description.1"
             id="org.eclipse.wst.xml.security.ui.sign"
-            name="New Signature...">
+            name="%command.name.1">
       </command>
       <command
             categoryId="org.eclipse.wst.xml.security.ui.signCategory"
-            description="Create a quick XML Signature based on predefined settings."
+            description="%command.description.2"
             id="org.eclipse.wst.xml.security.ui.signQuick"
-            name="Quick Signature">
+            name="%command.name.2">
       </command>
       <command
             categoryId="org.eclipse.wst.xml.security.ui.verifyCategory"
-            description="Verify all XML Signatures in the selected XML document."
+            description="%command.description.3"
             id="org.eclipse.wst.xml.security.ui.verify"
-            name="New Verification...">
+            name="%command.name.3">
       </command>
       <command
             categoryId="org.eclipse.wst.xml.security.ui.verifyCategory"
-            description="Verify one XML Signature based on predefined settings."
+            description="%command.description.4"
             id="org.eclipse.wst.xml.security.ui.verifyQuick"
-            name="Quick Verification">
+            name="%command.name.4">
       </command>
       <command
             categoryId="org.eclipse.wst.xml.security.ui.encryptCategory"
-            description="Create a new XML Encryption with the XML Encryption wizard."
+            description="%command.description.5"
             id="org.eclipse.wst.xml.security.ui.encrypt"
-            name="New Encryption...">
+            name="%command.name.5">
       </command>
       <command
             categoryId="org.eclipse.wst.xml.security.ui.encryptCategory"
-            description="Create a quick XML Encryption based on predefined settings."
+            description="%command.description.6"
             id="org.eclipse.wst.xml.security.ui.encryptQuick"
-            name="Quick Encryption">
+            name="%command.name.6">
       </command>
       <command
             categoryId="org.eclipse.wst.xml.security.ui.decryptCategory"
-            description="Create a new XML Decryption with the XML Decryption wizard."
+            description="%command.description.7"
             id="org.eclipse.wst.xml.security.ui.decrypt"
-            name="New Decryption...">
+            name="%command.name.7">
       </command>
       <command
             categoryId="org.eclipse.wst.xml.security.ui.decryptCategory"
-            description="Create a quick XML Decryption based on predefined settings."
+            description="%command.description.8"
             id="org.eclipse.wst.xml.security.ui.decryptQuick"
-            name="Quick Decryption">
+            name="%command.name.8">
       </command>
       <command
-            description="Refresh all XML Signatures in the XML Signature view."
+            description="%command.description.9"
             id="org.eclipse.wst.xml.security.ui.refreshSignatures"
-            name="Refresh Signatures">
+            name="%command.name.9">
       </command>
       <command
-            description="Show all properties of the selected XML Signature."
+            description="%command.description.10"
             id="org.eclipse.wst.xml.security.ui.showProperties"
-            name="Show Properties">
+            name="%command.name.10">
       </command>
    </extension>
    <extension
@@ -274,12 +274,12 @@
       <menuContribution
             locationURI="popup:org.eclipse.ui.popup.any?after=additions">
          <menu
-               label="XML Security">
+               label="%menu.label">
             <visibleWhen
                   checkEnabled="false">
                <or>
                   <with
-                        variable="activeEditorId">
+                        variable="activePartId">
                      <equals
                            value="org.eclipse.wst.xml.ui.internal.tabletree.XMLMultiPageEditorPart">
                      </equals>
@@ -312,13 +312,13 @@
                   commandId="org.eclipse.wst.xml.security.ui.canonicalizeMaintain"
                   helpContextId="org.eclipse.wst.xml.seucrity.doc.canonicalize"
                   style="push"
-                  tooltip="Canonicalize the selected XML document and maintain all comments.">
+                  tooltip="%command.tooltip">
             </command>
             <command
                   commandId="org.eclipse.wst.xml.security.ui.canonicalizeRemove"
                   helpContextId="org.eclipse.wst.xml.seucrity.doc.canonicalize"
                   style="push"
-                  tooltip="Canonicalize the selected XML document and remove all comments.">
+                  tooltip="%command.tooltip.0">
             </command>
             <separator
                   name="org.eclipse.wst.xml.security.ui.separator1"
@@ -329,13 +329,13 @@
                   helpContextId="org.eclipse.wst.xml.seucrity.doc.wizard_signature"
                   icon="icons/new_sign.gif"
                   style="push"
-                  tooltip="Create a new XML Signature with the XML Signature wizard.">
+                  tooltip="%command.tooltip.1">
             </command>
             <command
                   commandId="org.eclipse.wst.xml.security.ui.signQuick"
                   helpContextId="org.eclipse.wst.xml.seucrity.doc.quick_signature"
                   style="push"
-                  tooltip="Create a quick XML Signature based on predefined settings.">
+                  tooltip="%command.tooltip.2">
             </command>
             <separator
                   name="org.eclipse.wst.xml.security.ui.separator2"
@@ -346,13 +346,13 @@
                   helpContextId="org.eclipse.wst.xml.seucrity.doc.view_verification"
                   icon="icons/new_verify.gif"
                   style="push"
-                  tooltip="Verify all XML Signatures in the selected XML document.">
+                  tooltip="%command.tooltip.3">
             </command>
             <command
                   commandId="org.eclipse.wst.xml.security.ui.verifyQuick"
                   helpContextId="org.eclipse.wst.xml.seucrity.doc.quick_verification"
                   style="push"
-                  tooltip="Verify one XML Signature based on predefined settings.">
+                  tooltip="%command.tooltip.4">
             </command>
             <separator
                   name="org.eclipse.wst.xml.security.ui.separator3"
@@ -363,13 +363,13 @@
                   helpContextId="org.eclipse.wst.xml.seucrity.doc.wizard_encryption"
                   icon="icons/new_encrypt.gif"
                   style="push"
-                  tooltip="Create a new XML Encryption with the XML Encryption wizard.">
+                  tooltip="%command.tooltip.5">
             </command>
             <command
                   commandId="org.eclipse.wst.xml.security.ui.encryptQuick"
                   helpContextId="org.eclipse.wst.xml.seucrity.doc.quick_encryption"
                   style="push"
-                  tooltip="Create a quick XML Encryption based on predefined settings.">
+                  tooltip="%command.tooltip.6">
             </command>
             <separator
                   name="org.eclipse.wst.xml.security.ui.separator4"
@@ -380,13 +380,13 @@
                   helpContextId="org.eclipse.wst.xml.seucrity.doc.wizard_decryption"
                   icon="icons/new_decrypt.gif"
                   style="push"
-                  tooltip="Create a new XML Decryption with the XML Decryption wizard.">
+                  tooltip="%command.tooltip.7">
             </command>
             <command
                   commandId="org.eclipse.wst.xml.security.ui.decryptQuick"
                   helpContextId="org.eclipse.wst.xml.seucrity.doc.quick_decryption"
                   style="push"
-                  tooltip="Create a quick XML Decryption based on predefined settings.">
+                  tooltip="%command.tooltip.8">
             </command>
          </menu>
       </menuContribution>
@@ -396,13 +396,13 @@
                commandId="org.eclipse.wst.xml.security.ui.showProperties"
                icon="icons/properties.gif"
                style="push"
-               tooltip="Show all properties of the selected XML Signature.">
+               tooltip="%command.tooltip.9">
          </command>
          <command
                commandId="org.eclipse.wst.xml.security.ui.refreshSignatures"
                icon="icons/refresh.gif"
                style="push"
-               tooltip="Refresh all XML Signatures in the XML Signature view.">
+               tooltip="%command.tooltip.10">
          </command>
       </menuContribution>
       <menuContribution
@@ -410,16 +410,16 @@
          <command
                commandId="org.eclipse.wst.xml.security.ui.showProperties"
                icon="icons/properties.gif"
-               label="Properties"
+               label="%command.label"
                style="push"
-               tooltip="Show all properties of the selected XML Signature.">
+               tooltip="%command.tooltip.11">
          </command>
          <command
                commandId="org.eclipse.wst.xml.security.ui.refreshSignatures"
                icon="icons/refresh.gif"
-               label="Refresh"
+               label="%command.label.0"
                style="push"
-               tooltip="Refresh all XML Signatures in the XML Signature view.">
+               tooltip="%command.tooltip.12">
          </command>
       </menuContribution>
       <menuContribution
@@ -427,16 +427,16 @@
          <command
                commandId="org.eclipse.wst.xml.security.ui.showProperties"
                icon="icons/properties.gif"
-               label="Properties"
+               label="%command.label.1"
                style="push"
-               tooltip="Show all properties of the selected XML Signature.">
+               tooltip="%command.tooltip.13">
          </command>
          <command
                commandId="org.eclipse.wst.xml.security.ui.refreshSignatures"
                icon="icons/refresh.gif"
-               label="Refresh"
+               label="%command.label.2"
                style="push"
-               tooltip="Refresh all XML Signatures in the XML Signature view.">
+               tooltip="%command.tooltip.14">
          </command>
       </menuContribution>
    </extension>

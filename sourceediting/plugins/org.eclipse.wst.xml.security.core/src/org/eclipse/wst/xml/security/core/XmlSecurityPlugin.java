@@ -23,7 +23,7 @@ import org.osgi.framework.BundleContext;
  * possible features of XML security in an easy and interesting way and to provide a tool to learn all about the
  * extensive W3C recommendations.</p>
  *
- * <p>This is the main plug-in class for the <b>XML Security Tools</b> to be used in the workbench. This class does
+ * <p>This is the main plug-in class for the <b>XML Security Tools</b> core plug-in to be used in the workbench. This class does
  * the initialization work for the <b>Apache XML Security</b> library and the resource bundle initialization. Starts and
  * stops the complete plug-in.</p>
  *

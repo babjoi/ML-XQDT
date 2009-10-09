@@ -30,7 +30,7 @@ import org.eclipse.wst.xml.security.core.utils.Globals;
  *
  * <p>The sample keystore was generated with the following command (single line):<br/>
  * <code>keytool -genkey -alias sampleKey -keypass sampleKey -keystore sample_keystore.jks
- * -storepass sampleKeystore</code></p>
+ * -storetype JCEKS -storepass sampleKeystore</code></p>
  *
  * @author Dominik Schadow
  * @version 0.5.0

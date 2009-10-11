@@ -310,7 +310,7 @@ public class QuickSignatureCommand extends AbstractHandler {
      */
     private boolean checkPreferences() {
         final String title = Messages.QuickSignatureCommand_4;
-        final String prefId = "org.eclipse.wst.xml.security.ui.preferences.Signatures"; //$NON-NLS-1$
+        final String prefId = "org.eclipse.wst.xml.security.ui.preferences.Signature"; //$NON-NLS-1$
         int result = 2;
 
         if (resource == null || "".equals(resource)) { //$NON-NLS-1$

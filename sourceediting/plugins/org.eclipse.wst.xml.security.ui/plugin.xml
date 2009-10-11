@@ -28,10 +28,10 @@
             name="%xmlSecurityPreferencePage">
       </page>
       <page
-      		category="org.eclipse.wst.xml.security.ui.preferences.XmlSecurity"
-            name="%xmlSignaturePreferencePage"
+            category="org.eclipse.wst.xml.security.ui.preferences.XmlSecurity"
             class="org.eclipse.wst.xml.security.ui.preferences.PreferencePageSignature"
-            id="org.eclipse.wst.xml.security.ui.preferences.Signatures">
+            id="org.eclipse.wst.xml.security.ui.preferences.Signature"
+            name="%xmlSignaturePreferencePage">
       </page>
       <page
       		category="org.eclipse.wst.xml.security.ui.preferences.XmlSecurity"

@@ -2,7 +2,7 @@
 <feature
       id="org.eclipse.wst.xquery.feature"
       label="%featureName"
-      version="0.5.0"
+      version="0.7.0"
       provider-name="%providerName">
 
    <description>
@@ -16,6 +16,22 @@
    <license url="%licenseURL">
       %license
    </license>
+
+   <includes
+         id="org.eclipse.wst.xqdt.feature"
+         version="0.0.0"/>
+
+   <includes
+         id="org.eclipse.wst.xqdt.marklogic.feature"
+         version="0.0.0"/>
+
+   <includes
+         id="org.eclipse.wst.xqdt.set.feature"
+         version="0.0.0"/>
+
+   <includes
+         id="org.eclipse.wst.xqdt.zorba.feature"
+         version="0.0.0"/>
 
    <requires>
       <import plugin="org.eclipse.ui"/>

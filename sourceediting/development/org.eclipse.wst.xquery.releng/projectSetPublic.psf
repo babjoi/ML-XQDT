@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<psf version="2.0">
+<provider id="org.eclipse.team.cvs.core.cvsnature">
+<project reference="1.0,:extssh:dev.eclipse.org:/cvsroot/webtools,incubator/sourceediting/plugins/com.google.gson,com.google.gson"/>
+<project reference="1.0,:pserver:dev.eclipse.org:/cvsroot/webtools,incubator/sourceediting/plugins/org.antlr.runtime_v31,org.antlr.runtime_v31"/>
+<project reference="1.0,:pserver:dev.eclipse.org:/cvsroot/technology,org.eclipse.dash/athena/org.eclipse.dash.commonbuilder/org.eclipse.dash.common.releng,org.eclipse.dash.common.releng"/>
+<project reference="1.0,:pserver:dev.eclipse.org:/cvsroot/eclipse,org.eclipse.releng.basebuilder,org.eclipse.releng.basebuilder,R35_M7"/>
+<project reference="1.0,:pserver:dev.eclipse.org:/cvsroot/webtools,incubator/sourceediting/plugins/org.eclipse.wst.xqdt.core,org.eclipse.wst.xqdt.core"/>
+<project reference="1.0,:pserver:dev.eclipse.org:/cvsroot/webtools,incubator/sourceediting/plugins/org.eclipse.wst.xqdt.debug.core,org.eclipse.wst.xqdt.debug.core"/>
+<project reference="1.0,:pserver:dev.eclipse.org:/cvsroot/webtools,incubator/sourceediting/plugins/org.eclipse.wst.xqdt.debug.debugger.marklogic,org.eclipse.wst.xqdt.debug.debugger.marklogic"/>
+<project reference="1.0,:pserver:dev.eclipse.org:/cvsroot/webtools,incubator/sourceediting/plugins/org.eclipse.wst.xqdt.debug.debugger.zorba,org.eclipse.wst.xqdt.debug.debugger.zorba"/>
+<project reference="1.0,:pserver:dev.eclipse.org:/cvsroot/webtools,incubator/sourceediting/plugins/org.eclipse.wst.xqdt.debug.ui,org.eclipse.wst.xqdt.debug.ui"/>
+<project reference="1.0,:pserver:dev.eclipse.org:/cvsroot/webtools,incubator/sourceediting/plugins/org.eclipse.wst.xqdt.debug.ui.marklogic,org.eclipse.wst.xqdt.debug.ui.marklogic"/>
+<project reference="1.0,:pserver:dev.eclipse.org:/cvsroot/webtools,incubator/sourceediting/plugins/org.eclipse.wst.xqdt.debug.ui.zorba,org.eclipse.wst.xqdt.debug.ui.zorba"/>
+<project reference="1.0,:pserver:dev.eclipse.org:/cvsroot/webtools,incubator/sourceediting/features/org.eclipse.wst.xqdt.feature,org.eclipse.wst.xqdt.feature"/>
+<project reference="1.0,:pserver:dev.eclipse.org:/cvsroot/webtools,incubator/sourceediting/plugins/org.eclipse.wst.xqdt.launching,org.eclipse.wst.xqdt.launching"/>
+<project reference="1.0,:pserver:dev.eclipse.org:/cvsroot/webtools,incubator/sourceediting/plugins/org.eclipse.wst.xqdt.launching.marklogic,org.eclipse.wst.xqdt.launching.marklogic"/>
+<project reference="1.0,:pserver:dev.eclipse.org:/cvsroot/webtools,incubator/sourceediting/plugins/org.eclipse.wst.xqdt.launching.zorba,org.eclipse.wst.xqdt.launching.zorba"/>
+<project reference="1.0,:pserver:dev.eclipse.org:/cvsroot/webtools,incubator/sourceediting/features/org.eclipse.wst.xqdt.marklogic.feature,org.eclipse.wst.xqdt.marklogic.feature"/>
+<project reference="1.0,:pserver:dev.eclipse.org:/cvsroot/webtools,incubator/sourceediting/plugins/org.eclipse.wst.xqdt.set.core,org.eclipse.wst.xqdt.set.core"/>
+<project reference="1.0,:pserver:dev.eclipse.org:/cvsroot/webtools,incubator/sourceediting/plugins/org.eclipse.wst.xqdt.set.debug.core,org.eclipse.wst.xqdt.set.debug.core"/>
+<project reference="1.0,:pserver:dev.eclipse.org:/cvsroot/webtools,incubator/sourceediting/plugins/org.eclipse.wst.xqdt.set.debug.ui,org.eclipse.wst.xqdt.set.debug.ui"/>
+<project reference="1.0,:pserver:dev.eclipse.org:/cvsroot/webtools,incubator/sourceediting/features/org.eclipse.wst.xqdt.set.feature,org.eclipse.wst.xqdt.set.feature"/>
+<project reference="1.0,:pserver:dev.eclipse.org:/cvsroot/webtools,incubator/sourceediting/plugins/org.eclipse.wst.xqdt.set.launching,org.eclipse.wst.xqdt.set.launching"/>
+<project reference="1.0,:pserver:dev.eclipse.org:/cvsroot/webtools,incubator/sourceediting/plugins/org.eclipse.wst.xqdt.set.ui,org.eclipse.wst.xqdt.set.ui"/>
+<project reference="1.0,:pserver:dev.eclipse.org:/cvsroot/webtools,incubator/sourceediting/plugins/org.eclipse.wst.xqdt.ui,org.eclipse.wst.xqdt.ui"/>
+<project reference="1.0,:pserver:dev.eclipse.org:/cvsroot/webtools,incubator/sourceediting/features/org.eclipse.wst.xqdt.zorba.feature,org.eclipse.wst.xqdt.zorba.feature"/>
+<project reference="1.0,:pserver:dev.eclipse.org:/cvsroot/webtools,incubator/sourceediting/development/org.eclipse.wst.xquery.releng,org.eclipse.wst.xquery.releng"/>
+</provider>
+</psf>

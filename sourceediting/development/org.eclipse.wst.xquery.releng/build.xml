@@ -20,8 +20,7 @@
 			can build in /tmp, eg., in /tmp/build, or in workspace, eg.,
 			${WORKSPACE}/build
 		-->
-		<property name="writableBuildRoot" value="/tmp/build" />
-
+		<property name="buildDir" value="${writableBuildRoot}/${buildType}${buildTimestamp}" />
 		<!-- 
 			can be simple path, eg., 
 			${writableBuildRoot}/${buildType}${buildTimestamp} or longer, eg.,

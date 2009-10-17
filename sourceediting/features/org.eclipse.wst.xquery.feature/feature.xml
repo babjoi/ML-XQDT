@@ -48,18 +48,4 @@
       <import plugin="org.eclipse.core.runtime"/>
    </requires>
 
-   <plugin
-         id="org.eclipse.wst.xquery.marklogic"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/>
-
-   <plugin
-         id="com.google.gson"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/>
-
 </feature>

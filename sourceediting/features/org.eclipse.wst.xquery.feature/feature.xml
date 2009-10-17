@@ -17,10 +17,6 @@
       %license
    </license>
 
-   <includes
-         id="org.eclipse.wst.xqdt.feature"
-         version="0.0.0"/>
-
    <requires>
       <import plugin="org.eclipse.ui"/>
       <import plugin="org.eclipse.jface.text"/>
@@ -37,70 +33,21 @@
    </requires>
 
    <plugin
-         id="org.eclipse.dltk"
+         id="org.antlr.runtime_v31"
          download-size="0"
          install-size="0"
          version="0.0.0"
          unpack="false"/>
 
    <plugin
-         id="org.eclipse.dltk.core"
+         id="org.eclipse.wst.xqdt.core"
          download-size="0"
          install-size="0"
          version="0.0.0"
          unpack="false"/>
 
    <plugin
-         id="org.eclipse.dltk.console"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/>
-
-   <plugin
-         id="org.eclipse.dltk.debug"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/>
-
-   <plugin
-         id="org.eclipse.dltk.formatter"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/>
-
-   <plugin
-         id="org.eclipse.dltk.launching"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/>
-
-   <plugin
-         id="org.eclipse.dltk.ui"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/>
-
-   <plugin
-         id="org.eclipse.dltk.validators.core"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/>
-
-   <plugin
-         id="org.eclipse.dltk.validators.externalchecker"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/>
-
-   <plugin
-         id="org.eclipse.dltk.validators.ui"
+         id="org.eclipse.wst.xqdt.ui"
          download-size="0"
          install-size="0"
          version="0.0.0"

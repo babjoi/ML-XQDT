@@ -21,18 +21,6 @@
          id="org.eclipse.wst.xqdt.feature"
          version="0.0.0"/>
 
-   <includes
-         id="org.eclipse.wst.xqdt.marklogic.feature"
-         version="0.0.0"/>
-
-   <includes
-         id="org.eclipse.wst.xqdt.set.feature"
-         version="0.0.0"/>
-
-   <includes
-         id="org.eclipse.wst.xqdt.zorba.feature"
-         version="0.0.0"/>
-
    <requires>
       <import plugin="org.eclipse.ui"/>
       <import plugin="org.eclipse.jface.text"/>

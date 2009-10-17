@@ -39,12 +39,12 @@
         <mkdir dir="${writableBuildRoot}"/>
 
         <get src="http://downloads.sourceforge.net/ant-contrib/ant-contrib-1.0b2-bin.zip"
-             dest="${downloadsDir}/ant-contrib-1.0b2-bin.zip"
+             dest="${writableBuildRoot}/ant-contrib-1.0b2-bin.zip"
              usetimestamp="true"
         />
-        <touch file="${downloadsDir}/ant-contrib-1.0b2-bin.zip" />
+        <touch file="${writableBuildRoot}/ant-contrib-1.0b2-bin.zip" />
         <mkdir dir="/tmp/ant-contrib-1.0b2-bin.zip_" />
-        <unzip src="${downloadsDir}/ant-contrib-1.0b2-bin.zip" dest="/tmp/ant-contrib-1.0b2-bin.zip_" overwrite="true" />
+        <unzip src="${writableBuildRoot}/ant-contrib-1.0b2-bin.zip" dest="/tmp/ant-contrib-1.0b2-bin.zip_" overwrite="true" />
         <mkdir dir="${relengBuilderDir}/lib" />
         <copy file="/tmp/ant-contrib-1.0b2-bin.zip_/ant-contrib/lib/ant-contrib.jar"
               tofile="${relengBuilderDir}/lib/ant-contrib.jar"

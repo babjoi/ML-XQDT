@@ -37,6 +37,20 @@
 		<property name="relengCommonBuilderDir" value="${workspaceDir}/org.eclipse.dash.common.releng" />
         <echo message="Releng Dir: ${relengBuilderDir}"/>
         <mkdir dir="${writableBuildRoot}"/>
+
+        <get src="http://downloads.sourceforge.net/ant-contrib/ant-contrib-1.0b2-bin.zip"
+             dest="${downloadsDir}/ant-contrib-1.0b2-bin.zip"
+             usetimestamp="true"
+        />
+        <touch file="${downloadsDir}/ant-contrib-1.0b2-bin.zip" />
+        <mkdir dir="/tmp/ant-contrib-1.0b2-bin.zip_" />
+        <unzip src="${downloadsDir}/ant-contrib-1.0b2-bin.zip" dest="/tmp/ant-contrib-1.0b2-bin.zip_" overwrite="true" />
+        <mkdir dir="${relengBuilderDir}/lib" />
+        <copy file="/tmp/ant-contrib-1.0b2-bin.zip_/ant-contrib/lib/ant-contrib.jar"
+              tofile="${relengBuilderDir}/lib/ant-contrib.jar"
+              failonerror="true"
+        />
+        <delete dir="/tmp/ant-contrib-1.0b2-bin.zip_" includeemptydirs="true" quiet="true" />
 		
 		<ant antfile="${relengCommonBuilderDir}/buildAll.xml" target="runEclipse" dir="${relengCommonBuilderDir}" inheritall="yes" />
 	</target>

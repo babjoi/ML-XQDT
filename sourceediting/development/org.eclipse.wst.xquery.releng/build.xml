@@ -19,7 +19,7 @@
 			can build in /tmp, eg., in /tmp/build, or in workspace, eg.,
 			${WORKSPACE}/build
 		-->
-		<property name="writableBuildRoot" value="/tmp/build" />
+		<property name="writableBuildRoot" value="${WORKSPACE}/build2" />
 
 		<!-- 
 			can be simple path, eg., 
@@ -32,9 +32,12 @@
 		<delete dir="${writableBuildRoot}"/>
 		<echo message="Workspace: ${WORKSPACE}"/>
 		<echo message="Writable Build Root: ${writableBuildRoot}"/>
-		<mkdir dir="${writableBuildRoot}"/>
+		<echo message="Common builder Dir: ${relengCommonBuilderDir}"/>
 		<!-- invoke a new Eclipse process and launch the build from the common.releng folder -->
 		<property name="relengCommonBuilderDir" value="${workspaceDir}/org.eclipse.dash.common.releng" />
-		<ant antfile="${relengCommonBuilderDir}/buildAll.xml" target="runEclipse" dir="${relengCommonBuilderDir}" />
+        <echo message="Releng Dir: ${relengBuilderDir}"/>
+        <mkdir dir="${writableBuildRoot}"/>
+		
+		<ant antfile="${relengCommonBuilderDir}/buildAll.xml" target="runEclipse" dir="${relengCommonBuilderDir}" inheritall="yes" />
 	</target>
 </project>

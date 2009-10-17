@@ -35,7 +35,7 @@
 		<echo message="Common builder Dir: ${relengCommonBuilderDir}"/>
 		<!-- invoke a new Eclipse process and launch the build from the common.releng folder -->
 		<property name="relengCommonBuilderDir" value="${workspaceDir}/org.eclipse.dash.common.releng" />
-        <echo message="Releng Dir: ${relengBuilderDir}"/>
+        <echo message="RelengBuilderDir: ${relengBuilderDir}"/>
         <mkdir dir="${writableBuildRoot}"/>
 		
 		<ant antfile="${relengCommonBuilderDir}/buildAll.xml" target="runEclipse" dir="${relengCommonBuilderDir}">

@@ -26,5 +26,6 @@ plugin@org.eclipse.wst.xqdt.set.debug.ui=HEAD,:pserver:anonymous@dev.eclipse.org
 plugin@org.eclipse.wst.xqdt.set.launching=HEAD,:pserver:anonymous@dev.eclipse.org:/cvsroot/webtools,,incubator/sourceediting/plugins/org.eclipse.wst.xqdt.set.launching
 plugin@org.eclipse.wst.xqdt.set.ui=HEAD,:pserver:anonymous@dev.eclipse.org:/cvsroot/webtools,,incubator/sourceediting/plugins/org.eclipse.wst.xqdt.set.ui
 plugin@org.eclipse.wst.xqdt.ui=HEAD,:pserver:anonymous@dev.eclipse.org:/cvsroot/webtools,,incubator/sourceediting/plugins/org.eclipse.wst.xqdt.ui
+plugin@org.antlr.runtime_v31=HEAD,:pserver:anonymous@dev.eclipse.org:/cvsroot/webtools,,incubator/sourceediting/plugins/org.antlr.runtime_v31
 
 !***************

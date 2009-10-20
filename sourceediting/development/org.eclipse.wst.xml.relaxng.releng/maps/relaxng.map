@@ -8,6 +8,9 @@ plugin@com.thaiopensource.jing=HEAD,:pserver:anonymous@dev.eclipse.org:/cvsroot/
 plugin@org.eclipse.wst.rng.contentassist=HEAD,:pserver:anonymous@dev.eclipse.org:/cvsroot/webtools,,incubator/sourceediting/plugins/org.eclipse.wst.rng.contentassist
 plugin@org.eclipse.wst.rng.core=HEAD,:pserver:anonymous@dev.eclipse.org:/cvsroot/webtools,,incubator/sourceediting/plugins/org.eclipse.wst.rng.core
 plugin@org.eclipse.wst.rng.ui=HEAD,:pserver:anonymous@dev.eclipse.org:/cvsroot/webtools,,incubator/sourceediting/plugins/org.eclipse.wst.rng.ui
+plugin@org.eclipse.wst.xml.relaxng=HEAD,:pserver:anonymous@dev.eclipse.org:/cvsroot/webtools,,incubator/sourceediting/plugins/org.eclipse.wst.xml.relaxng
+plugin@org.eclipse.wst.xml.relaxng.generator=HEAD,:pserver:anonymous@dev.eclipse.org:/cvsroot/webtools,,incubator/sourceediting/plugins/org.eclipse.wst.xml.relaxng.generator
+plugin@org.eclipse.wst.xml.relaxng.ui=HEAD,:pserver:anonymous@dev.eclipse.org:/cvsroot/webtools,,incubator/sourceediting/plugins/org.eclipse.wst.xml.relaxng.ui
 
 
 !***************

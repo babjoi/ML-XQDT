@@ -1,0 +1,15 @@
+/*
+ * This is an example model
+ */
+datatype String;
+
+class Leaf extends Composable {
+  attr name: String;
+}
+
+class Composite extends Composable {
+  ref content: Composable;
+}
+
+class Composable {
+}

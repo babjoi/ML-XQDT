@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.0"?>
+
+<plugin>
+
+    <extension
+            point="org.eclipse.ui.editors">
+        <editor
+            class="org.oasisopen.RelaxngExecutableExtensionFactory:org.eclipse.xtext.ui.core.editor.XtextEditor"
+            contributorClass="org.eclipse.ui.editors.text.TextEditorActionContributor"
+            default="true"
+            extensions="rnc"
+            id="org.oasisopen.Relaxng"
+            name="Relaxng Editor">
+        </editor>
+    </extension>
+    <extension
+        point="org.eclipse.ui.handlers">
+        <handler
+            class="org.oasisopen.RelaxngExecutableExtensionFactory:org.eclipse.xtext.ui.common.editor.hyperlinking.OpenDeclarationHandler"
+            commandId="org.eclipse.xtext.ui.common.editor.hyperlinking.OpenDeclaration">
+            <activeWhen>
+                <reference
+                    definitionId="org.oasisopen.Relaxng.Editor.opened">
+                </reference>
+            </activeWhen>
+        </handler>
+        <handler
+            class="org.oasisopen.RelaxngExecutableExtensionFactory:org.eclipse.xtext.ui.core.editor.handler.ValidateActionHandler"
+            commandId="org.oasisopen.Relaxng.validate">
+         <activeWhen>
+            <reference
+                    definitionId="org.oasisopen.Relaxng.Editor.opened">
+            </reference>
+         </activeWhen>
+      </handler>
+    </extension>
+    <extension point="org.eclipse.core.expressions.definitions">
+        <definition id="org.oasisopen.Relaxng.Editor.opened">
+            <and>
+                <reference definitionId="isActiveEditorAnInstanceOfXtextEditor"/>
+                <with variable="activeEditor">
+                    <test property="org.eclipse.xtext.ui.core.editor.XtextEditor.languageName" 
+                        value="org.oasisopen.Relaxng" 
+                        forcePluginActivation="true"/>
+                </with>        
+            </and>
+        </definition>
+    </extension>
+    <extension
+            point="org.eclipse.ui.preferencePages">
+        <page
+            class="org.oasisopen.RelaxngExecutableExtensionFactory:org.eclipse.xtext.ui.core.editor.preferences.LanguageRootPreferencePage"
+            id="org.oasisopen.Relaxng"
+            name="Relaxng"
+            category="org.eclipse.xtext.languages">
+            <keywordReference id="org.oasisopen.ui.keyword_Relaxng"/>
+        </page>
+        <page
+            category="org.oasisopen.Relaxng"
+            class="org.oasisopen.RelaxngExecutableExtensionFactory:org.eclipse.xtext.ui.common.editor.syntaxcoloring.SyntaxColoringPreferencePage"
+            id="org.oasisopen.Relaxng.coloring"
+            name="Syntax Coloring">
+            <keywordReference id="org.oasisopen.ui.keyword_Relaxng"/>
+        </page>
+        <page
+            category="org.oasisopen.Relaxng"
+            class="org.oasisopen.RelaxngExecutableExtensionFactory:org.eclipse.xtext.ui.common.editor.templates.XtextTemplatePreferencePage"
+            id="org.oasisopen.Relaxng.templates"
+            name="Templates">
+            <keywordReference id="org.oasisopen.ui.keyword_Relaxng"/>
+        </page>
+    </extension>
+    <extension
+        point="org.eclipse.ui.keywords">
+        <keyword
+            id="org.oasisopen.ui.keyword_Relaxng"
+            label="Relaxng"/>
+    </extension>
+    <extension
+         point="org.eclipse.ui.commands">
+      <command
+            description="Trigger expensive validation"
+            id="org.oasisopen.Relaxng.validate"
+            name="Validate">
+      </command>
+    </extension>
+    <extension point="org.eclipse.ui.menus">
+        <menuContribution
+            locationURI="popup:#TextEditorContext?after=group.open">
+             <command
+                 commandId="org.oasisopen.Relaxng.validate"
+                 style="push"
+                 tooltip="Trigger expensive validation">
+            <visibleWhen checkEnabled="false">
+                <reference
+                    definitionId="org.oasisopen.Relaxng.Editor.opened">
+                </reference>
+            </visibleWhen>
+         </command>  
+         </menuContribution>
+    </extension>
+
+<!-- adding resource factories -->
+
+	<extension
+		point="org.eclipse.emf.ecore.extension_parser">
+		<parser
+			class="org.oasisopen.RelaxngExecutableExtensionFactory:org.eclipse.xtext.resource.XtextResourceFactory"
+			type="rnc">
+		</parser>
+	</extension>
+
+
+
+
+</plugin>

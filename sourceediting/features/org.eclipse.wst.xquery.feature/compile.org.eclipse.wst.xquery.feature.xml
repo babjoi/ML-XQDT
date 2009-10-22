@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="Compile org.eclipse.wst.xquery.feature" default="main">
+	<target name="main">
+		<ant antfile="build.xml" dir="../org.antlr.runtime_v31" target="build.jars"/>
+		<ant antfile="build.xml" dir="../com.google.gson" target="build.jars"/>
+		<ant antfile="build.xml" dir="../org.eclipse.wst.xquery.marklogic" target="build.jars"/>
+		<ant antfile="build.xml" dir="../org.eclipse.wst.xqdt.core" target="build.jars"/>
+		<ant antfile="build.xml" dir="../org.eclipse.wst.xqdt.set.core" target="build.jars"/>
+		<ant antfile="build.xml" dir="../org.eclipse.wst.xqdt.set.debug.core" target="build.jars"/>
+		<ant antfile="build.xml" dir="../org.eclipse.wst.xqdt.debug.core" target="build.jars"/>
+		<ant antfile="build.xml" dir="../org.eclipse.wst.xqdt.launching" target="build.jars"/>
+		<ant antfile="build.xml" dir="../org.eclipse.wst.xqdt.launching.zorba" target="build.jars"/>
+		<ant antfile="build.xml" dir="../org.eclipse.wst.xqdt.launching.marklogic" target="build.jars"/>
+		<ant antfile="build.xml" dir="../org.eclipse.wst.xqdt.set.launching" target="build.jars"/>
+		<ant antfile="build.xml" dir="../org.eclipse.wst.xqdt.ui" target="build.jars"/>
+		<ant antfile="build.xml" dir="../org.eclipse.wst.xqdt.set.ui" target="build.jars"/>
+		<ant antfile="build.xml" dir="../org.eclipse.wst.xqdt.set.debug.ui" target="build.jars"/>
+		<ant antfile="build.xml" dir="../org.eclipse.wst.xqdt.debug.ui" target="build.jars"/>
+		<ant antfile="build.xml" dir="../org.eclipse.wst.xqdt.debug.debugger.zorba" target="build.jars"/>
+		<ant antfile="build.xml" dir="../org.eclipse.wst.xqdt.debug.ui.marklogic" target="build.jars"/>
+		<ant antfile="build.xml" dir="../org.eclipse.wst.xqdt.debug.ui.zorba" target="build.jars"/>
+		<ant antfile="build.xml" dir="../org.eclipse.wst.xqdt.debug.debugger.marklogic" target="build.jars"/>
+	</target>
+</project>

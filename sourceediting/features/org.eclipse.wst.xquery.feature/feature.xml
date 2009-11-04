@@ -2,157 +2,47 @@
 <feature
       id="org.eclipse.wst.xquery.feature"
       label="%featureName"
-      version="0.7.0"
+      version="0.7.2.qualifier"
       provider-name="%providerName">
 
    <description>
       %description
    </description>
 
-   <copyright>
-      %copyright
-   </copyright>
-
    <license url="%licenseURL">
       %license
    </license>
 
-   <requires>
-      <import plugin="org.eclipse.ui"/>
-      <import plugin="org.eclipse.jface.text"/>
-      <import plugin="org.eclipse.wst.sse.ui"/>
-      <import plugin="org.eclipse.wst.xml.ui"/>
-      <import plugin="org.eclipse.wst.xml.core"/>
-      <import plugin="org.eclipse.wst.sse.core"/>
-      <import plugin="org.eclipse.core.runtime.compatibility"/>
-      <import plugin="org.eclipse.wst.validation"/>
-      <import plugin="com.matinprobst.xqpretty"/>
-      <import plugin="org.eclipse.core.resources"/>
-      <import plugin="org.antlr.runtime_v31" version="3.1.0" match="greaterOrEqual"/>
-      <import plugin="org.eclipse.core.runtime"/>
-   </requires>
-
    <plugin
-         id="org.eclipse.wst.xquery.marklogic"
+         id="org.eclipse.wst.xquery.core"
          download-size="0"
          install-size="0"
          version="0.0.0"
          unpack="false"/>
 
    <plugin
-         id="com.google.gson"
+         id="org.eclipse.wst.xquery.debug.ui"
          download-size="0"
          install-size="0"
          version="0.0.0"
          unpack="false"/>
 
    <plugin
-         id="org.eclipse.wst.xqdt.core"
+         id="org.eclipse.wst.xquery.launching"
          download-size="0"
          install-size="0"
          version="0.0.0"
          unpack="false"/>
 
    <plugin
-         id="org.eclipse.wst.xqdt.debug.core"
+         id="org.eclipse.wst.xquery.ui"
          download-size="0"
          install-size="0"
          version="0.0.0"
          unpack="false"/>
 
    <plugin
-         id="org.eclipse.wst.xqdt.debug.debugger.marklogic"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/>
-
-   <plugin
-         id="org.eclipse.wst.xqdt.debug.debugger.zorba"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/>
-
-   <plugin
-         id="org.eclipse.wst.xqdt.debug.ui"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/>
-
-   <plugin
-         id="org.eclipse.wst.xqdt.debug.ui.marklogic"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/>
-
-   <plugin
-         id="org.eclipse.wst.xqdt.debug.ui.zorba"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/>
-
-   <plugin
-         id="org.eclipse.wst.xqdt.launching"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/>
-
-   <plugin
-         id="org.eclipse.wst.xqdt.launching.marklogic"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/>
-
-   <plugin
-         id="org.eclipse.wst.xqdt.launching.zorba"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/>
-
-   <plugin
-         id="org.eclipse.wst.xqdt.set.core"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/>
-
-   <plugin
-         id="org.eclipse.wst.xqdt.set.debug.core"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/>
-
-   <plugin
-         id="org.eclipse.wst.xqdt.set.debug.ui"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/>
-
-   <plugin
-         id="org.eclipse.wst.xqdt.set.launching"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/>
-
-   <plugin
-         id="org.eclipse.wst.xqdt.set.ui"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/>
-
-   <plugin
-         id="org.eclipse.wst.xqdt.ui"
+         id="org.eclipse.wst.xquery.debug.core"
          download-size="0"
          install-size="0"
          version="0.0.0"

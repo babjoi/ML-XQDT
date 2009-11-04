@@ -2,7 +2,7 @@
 ! This map file is for the WTP 3.2 and XQuery 0.7 release
 ! These bundles are currently being developed and released from the HEAD branch
 
-feature@org.eclipse.wst.xquery.feature=HEAD,:pserver:anonymous@dev.eclipse.org:/cvsroot/webtools,,incubator/sourceediting/features/org.eclipse.wst.xquery.feature
+feature@org.eclipse.wst.xquery.build.feature=HEAD,:pserver:anonymous@dev.eclipse.org:/cvsroot/webtools,,incubator/sourceediting/features/org.eclipse.wst.xquery.build.feature
 feature@org.eclipse.wst.xquery.feature=HEAD,:pserver:anonymous@dev.eclipse.org:/cvsroot/webtools,,incubator/sourceediting/features/org.eclipse.wst.xquery.feature
 feature@org.eclipse.wst.xquery.set.feature=HEAD,:pserver:anonymous@dev.eclipse.org:/cvsroot/webtools,,incubator/sourceediting/features/org.eclipse.wst.xquery.set.feature
 feature@org.eclipse.wst.xquery.zorba.feature=HEAD,:pserver:anonymous@dev.eclipse.org:/cvsroot/webtools,,incubator/sourceediting/features/org.eclipse.wst.xquery.zorba.feature

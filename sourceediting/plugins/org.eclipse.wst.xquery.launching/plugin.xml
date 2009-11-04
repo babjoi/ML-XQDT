@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.2"?>
+<plugin>
+   <extension
+         point="org.eclipse.core.expressions.propertyTesters">
+      <propertyTester
+            class="org.eclipse.wst.xquery.internal.launching.XQDTLaunchableTester"
+            id="org.eclipse.wst.xquery.launching.XQDTLaunchableTester"
+            namespace="org.eclipse.wst.xquery.launching"
+            properties="isMainModule, isLibraryModule"
+            type="org.eclipse.core.runtime.IAdaptable">
+      </propertyTester>
+   </extension>
+   <extension
+         point="org.eclipse.debug.core.sourceLocators">
+      <sourceLocator
+            class="org.eclipse.wst.xquery.launching.XQDTSourceLookupDirector"
+            id="xqdtSourceLocator"
+            name="XQDT namespace-based module locator">
+      </sourceLocator>
+   </extension>
+   <extension
+         point="org.eclipse.debug.core.sourcePathComputers">
+      <sourcePathComputer
+            class="org.eclipse.dltk.launching.sourcelookup.ScriptSourcePathComputer"
+            id="xqdtSourcePathComputer">
+      </sourcePathComputer>
+   </extension>
+   <extension
+         point="org.eclipse.debug.core.launchConfigurationTypes">
+      <launchConfigurationType
+            delegate="org.eclipse.wst.xquery.launching.XQDTLaunchConfigurationDelegate"
+            id="org.eclipse.wst.xquery.launching.XQDTLaunchConfigurationType"
+            modes="run,debug"
+            name="XQuery"
+            sourceLocatorId="xqdtSourceLocator"
+            sourcePathComputerId="xqdtSourcePathComputer">
+      </launchConfigurationType>
+   </extension>
+   <extension
+         point="org.eclipse.dltk.core.buildParticipant">
+      <buildParticipant
+            class="org.eclipse.wst.xquery.internal.launching.XQDTSemanticBuilderFactory"
+            id="org.eclipse.wst.xquery.core.semanticBuilder"
+            name="XQDT Semantic Builder"
+            nature="org.eclipse.wst.xquery.core.nature">
+      </buildParticipant>
+   </extension>
+   <extension
+         point="org.eclipse.dltk.launching.interpreterInstallTypes">
+      <interpreterInstallType
+            class="org.eclipse.wst.xquery.internal.launching.XQDTJavaInterpreterInstallType"
+            id="org.eclipse.wst.xquery.launching.JavaInterpreterInstallType">
+      </interpreterInstallType>
+   </extension>
+
+</plugin>

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="Compile org.eclipse.wst.xquery.zorba.feature" default="main">
+	<target name="main">
+		<ant antfile="build.xml" dir="../com.google.gson" target="build.jars"/>
+		<ant antfile="build.xml" dir="../org.eclipse.wst.xquery.launching.zorba" target="build.jars"/>
+		<ant antfile="build.xml" dir="../org.eclipse.wst.xquery.debug.debugger.zorba" target="build.jars"/>
+		<ant antfile="build.xml" dir="../org.eclipse.wst.xquery.debug.ui.zorba" target="build.jars"/>
+	</target>
+</project>

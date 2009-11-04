@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.2"?>
+<plugin>
+   <extension
+         point="org.eclipse.dltk.launching.debuggingEngine">
+      <engineContribution
+            natureId="org.eclipse.wst.xquery.core.nature">
+         <engine
+               class="org.eclipse.wst.xquery.debug.engines.marklogic.MarkLogicDebuggerRunnerFactory"
+               description=""
+               id="org.eclipse.wst.xquery.debug.engines.marklogic"
+               name="MarkLogic Server"
+               priority="10">
+         </engine>
+      </engineContribution>
+   </extension>
+   <extension
+         point="org.eclipse.ui.preferencePages">
+      <page
+            category="org.eclipse.wst.xquery.preferences.debug.engines"
+            class="org.eclipse.wst.xquery.debug.debugger.marklogic.preferences.MarkLogicDebuggerPreferencePage"
+            id="org.eclipse.wst.xquery.preferences.debug.engines.marklogic"
+            name="MarkLogic Server">
+      </page>
+   </extension>
+   <extension
+         point="org.eclipse.ui.propertyPages">
+      <page
+            category="org.eclipse.wst.xquery.properties.debug.engines"
+            class="org.eclipse.wst.xquery.debug.debugger.marklogic.preferences.MarkLogicDebuggerPreferencePage"
+            id="org.eclipse.wst.xquery.properties.debug.engines.marklogic"
+            name="MarkLogic Server">
+         <enabledWhen>
+            <adapt
+                  type="org.eclipse.core.resources.IProject">
+               <test
+                     property="org.eclipse.core.resources.projectNature"
+                     value="org.eclipse.wst.xquery.core.nature">
+               </test>
+            </adapt>
+         </enabledWhen>
+      </page>
+   </extension>
+
+</plugin>

@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.2"?>
+<plugin>
+   <extension
+         point="org.eclipse.debug.ui.launchConfigurationTabGroups">
+      <launchConfigurationTabGroup
+            class="org.eclipse.wst.xquery.set.internal.debug.ui.launchConfigurations.SETTabGroup"
+            description="Create a Sausalito launch configuration."
+            id="org.eclipse.wst.xquery.set.debug.ui.SETTabGroup"
+            type="org.eclipse.wst.xquery.set.launching.SETLaunchConfigurationType">
+      </launchConfigurationTabGroup>
+   </extension>
+   <extension
+         point="org.eclipse.debug.ui.launchConfigurationTypeImages">
+      <launchConfigurationTypeImage
+            configTypeID="org.eclipse.wst.xquery.set.launching.SETLaunchConfigurationType"
+            icon="$nl$/icons/obj16/scloud.gif"
+            id="org.eclipse.wst.xquery.set.debug.ui.launchConfigurationTypeImage">
+      </launchConfigurationTypeImage>
+   </extension>
+   <extension
+         point="org.eclipse.debug.ui.launchShortcuts">
+      <shortcut
+            class="org.eclipse.wst.xquery.set.internal.debug.ui.launcher.SETLaunchShortcut"
+            icon="$nl$/icons/obj16/scloud.gif"
+            id="org.eclipse.wst.xquery.set.debug.ui.launchShortcut"
+            label="Sausalito Application"
+            modes="run,debug">
+         <description
+               description="Starts a Sausalito Application"
+               mode="run">
+         </description>
+         <description
+               description="Starts a Sausalito Application"
+               mode="debug">
+         </description>
+         <contextualLaunch>
+            <enablement>
+               <with
+                     variable="selection">
+                  <count
+                        value="1">
+                  </count>
+                  <iterate>
+                        <or>
+                           <adapt
+                                 type="org.eclipse.dltk.core.IModelElement">
+                              <test
+                                    args="org.eclipse.wst.xquery.set.core.nature"
+                                    property="org.eclipse.dltk.launching.hasProjectNature">
+                              </test>
+                           </adapt>
+                           <adapt
+                                 type="org.eclipse.core.resources.IFile">
+                              <adapt
+                                    type="org.eclipse.dltk.core.IModelElement">
+                                 <test
+                                       args="org.eclipse.wst.xquery.set.core.nature"
+                                       property="org.eclipse.dltk.launching.hasProjectNature">
+                                 </test>
+                              </adapt>
+                           </adapt>
+                        </or>
+                  </iterate>
+               </with>
+            </enablement>
+            <contextLabel
+                  label="Sausalito Application"
+                  mode="run">
+            </contextLabel>
+            <contextLabel
+                  label="Sausalito Application"
+                  mode="debug">
+            </contextLabel>
+         </contextualLaunch>
+      </shortcut>
+   </extension>
+   <extension
+         point="org.eclipse.ui.preferencePages">
+      <page
+            category="org.eclipse.wst.xquery.set.preferences"
+            class="org.eclipse.wst.xquery.set.internal.debug.ui.interpreters.SETCoreSDKPreferencePage"
+            id="org.eclipse.wst.xquery.set.preferences.interpreters"
+            name="CoreSDK">
+      </page>
+   </extension>
+   <extension
+         point="org.eclipse.dltk.ui.buildpathContainerPage">
+      <buildpathContainerPage
+            class="org.eclipse.wst.xquery.set.internal.debug.ui.interpreters.SETCoreSDKContainerWizardPage"
+            id="org.eclipse.wst.xquery.set.launching.INTERPRETER_CONTAINER"
+            name="Sausalito CoreSDK Libraries"
+            nature="org.eclipse.wst.xquery.set.core.nature">
+      </buildpathContainerPage>
+   </extension>
+
+</plugin>

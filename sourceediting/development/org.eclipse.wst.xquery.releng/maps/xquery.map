@@ -1,31 +1,31 @@
 !*************** xsl.map
-! This map file is for the WTP 3.2 and XQuery 0.5 release
+! This map file is for the WTP 3.2 and XQuery 0.7 release
 ! These bundles are currently being developed and released from the HEAD branch
 
 feature@org.eclipse.wst.xquery.feature=HEAD,:pserver:anonymous@dev.eclipse.org:/cvsroot/webtools,,incubator/sourceediting/features/org.eclipse.wst.xquery.feature
-feature@org.eclipse.wst.xqdt.feature=HEAD,:pserver:anonymous@dev.eclipse.org:/cvsroot/webtools,,incubator/sourceediting/features/org.eclipse.wst.xqdt.feature
-feature@org.eclipse.wst.xqdt.set.feature=HEAD,:pserver:anonymous@dev.eclipse.org:/cvsroot/webtools,,incubator/sourceediting/features/org.eclipse.wst.xqdt.set.feature
-feature@org.eclipse.wst.xqdt.zorba.feature=HEAD,:pserver:anonymous@dev.eclipse.org:/cvsroot/webtools,,incubator/sourceediting/features/org.eclipse.wst.xqdt.zorba.feature
-feature@org.eclipse.wst.xqdt.marklogic.feature=HEAD,:pserver:anonymous@dev.eclipse.org:/cvsroot/webtools,,incubator/sourceediting/features/org.eclipse.wst.xqdt.marklogic.feature
+feature@org.eclipse.wst.xquery.feature=HEAD,:pserver:anonymous@dev.eclipse.org:/cvsroot/webtools,,incubator/sourceediting/features/org.eclipse.wst.xquery.feature
+feature@org.eclipse.wst.xquery.set.feature=HEAD,:pserver:anonymous@dev.eclipse.org:/cvsroot/webtools,,incubator/sourceediting/features/org.eclipse.wst.xquery.set.feature
+feature@org.eclipse.wst.xquery.zorba.feature=HEAD,:pserver:anonymous@dev.eclipse.org:/cvsroot/webtools,,incubator/sourceediting/features/org.eclipse.wst.xquery.zorba.feature
+feature@org.eclipse.wst.xquery.marklogic.feature=HEAD,:pserver:anonymous@dev.eclipse.org:/cvsroot/webtools,,incubator/sourceediting/features/org.eclipse.wst.xquery.marklogic.feature
 
-plugin@org.eclipse.wst.xquery.marklogic=HEAD,:pserver:anonymous@dev.eclipse.org:/cvsroot/webtools,,incubator/sourceediting/plugins/org.eclipse.wst.xquery.marklogic
+plugin@org.eclipse.wst.xquery.launching.marklogic.xcc=HEAD,:pserver:anonymous@dev.eclipse.org:/cvsroot/webtools,,incubator/sourceediting/plugins/org.eclipse.wst.xquery.launching.marklogic.xcc
 plugin@com.google.gson=HEAD,:pserver:anonymous@dev.eclipse.org:/cvsroot/webtools,,incubator/sourceediting/plugins/com.google.gson
-plugin@org.eclipse.wst.xqdt.core=HEAD,:pserver:anonymous@dev.eclipse.org:/cvsroot/webtools,,incubator/sourceediting/plugins/org.eclipse.wst.xqdt.core
-plugin@org.eclipse.wst.xqdt.debug.core=HEAD,:pserver:anonymous@dev.eclipse.org:/cvsroot/webtools,,incubator/sourceediting/plugins/org.eclipse.wst.xqdt.debug.core
-plugin@org.eclipse.wst.xqdt.debug.debugger.marklogic=HEAD,:pserver:anonymous@dev.eclipse.org:/cvsroot/webtools,,incubator/sourceediting/plugins/org.eclipse.wst.xqdt.debug.debugger.marklogic
-plugin@org.eclipse.wst.xqdt.debug.debugger.zorba=HEAD,:pserver:anonymous@dev.eclipse.org:/cvsroot/webtools,,incubator/sourceediting/plugins/org.eclipse.wst.xqdt.debug.debugger.zorba
-plugin@org.eclipse.wst.xqdt.debug.ui=HEAD,:pserver:anonymous@dev.eclipse.org:/cvsroot/webtools,,incubator/sourceediting/plugins/org.eclipse.wst.xqdt.debug.ui
-plugin@org.eclipse.wst.xqdt.debug.ui.marklogic=HEAD,:pserver:anonymous@dev.eclipse.org:/cvsroot/webtools,,incubator/sourceediting/plugins/org.eclipse.wst.xqdt.debug.ui.marklogic
-plugin@org.eclipse.wst.xqdt.debug.ui.zorba=HEAD,:pserver:anonymous@dev.eclipse.org:/cvsroot/webtools,,incubator/sourceediting/plugins/org.eclipse.wst.xqdt.debug.ui.zorba
-plugin@org.eclipse.wst.xqdt.launching=HEAD,:pserver:anonymous@dev.eclipse.org:/cvsroot/webtools,,incubator/sourceediting/plugins/org.eclipse.wst.xqdt.launching
-plugin@org.eclipse.wst.xqdt.launching.marklogic=HEAD,:pserver:anonymous@dev.eclipse.org:/cvsroot/webtools,,incubator/sourceediting/plugins/org.eclipse.wst.xqdt.launching.marklogic
-plugin@org.eclipse.wst.xqdt.launching.zorba=HEAD,:pserver:anonymous@dev.eclipse.org:/cvsroot/webtools,,incubator/sourceediting/plugins/org.eclipse.wst.xqdt.launching.zorba
-plugin@org.eclipse.wst.xqdt.set.core=HEAD,:pserver:anonymous@dev.eclipse.org:/cvsroot/webtools,,incubator/sourceediting/plugins/org.eclipse.wst.xqdt.set.core
-plugin@org.eclipse.wst.xqdt.set.debug.core=HEAD,:pserver:anonymous@dev.eclipse.org:/cvsroot/webtools,,incubator/sourceediting/plugins/org.eclipse.wst.xqdt.set.debug.core
-plugin@org.eclipse.wst.xqdt.set.debug.ui=HEAD,:pserver:anonymous@dev.eclipse.org:/cvsroot/webtools,,incubator/sourceediting/plugins/org.eclipse.wst.xqdt.set.debug.ui
-plugin@org.eclipse.wst.xqdt.set.launching=HEAD,:pserver:anonymous@dev.eclipse.org:/cvsroot/webtools,,incubator/sourceediting/plugins/org.eclipse.wst.xqdt.set.launching
-plugin@org.eclipse.wst.xqdt.set.ui=HEAD,:pserver:anonymous@dev.eclipse.org:/cvsroot/webtools,,incubator/sourceediting/plugins/org.eclipse.wst.xqdt.set.ui
-plugin@org.eclipse.wst.xqdt.ui=HEAD,:pserver:anonymous@dev.eclipse.org:/cvsroot/webtools,,incubator/sourceediting/plugins/org.eclipse.wst.xqdt.ui
+plugin@org.eclipse.wst.xquery.core=HEAD,:pserver:anonymous@dev.eclipse.org:/cvsroot/webtools,,incubator/sourceediting/plugins/org.eclipse.wst.xquery.core
+plugin@org.eclipse.wst.xquery.debug.core=HEAD,:pserver:anonymous@dev.eclipse.org:/cvsroot/webtools,,incubator/sourceediting/plugins/org.eclipse.wst.xquery.debug.core
+plugin@org.eclipse.wst.xquery.debug.debugger.marklogic=HEAD,:pserver:anonymous@dev.eclipse.org:/cvsroot/webtools,,incubator/sourceediting/plugins/org.eclipse.wst.xquery.debug.debugger.marklogic
+plugin@org.eclipse.wst.xquery.debug.debugger.zorba=HEAD,:pserver:anonymous@dev.eclipse.org:/cvsroot/webtools,,incubator/sourceediting/plugins/org.eclipse.wst.xquery.debug.debugger.zorba
+plugin@org.eclipse.wst.xquery.debug.ui=HEAD,:pserver:anonymous@dev.eclipse.org:/cvsroot/webtools,,incubator/sourceediting/plugins/org.eclipse.wst.xquery.debug.ui
+plugin@org.eclipse.wst.xquery.debug.ui.marklogic=HEAD,:pserver:anonymous@dev.eclipse.org:/cvsroot/webtools,,incubator/sourceediting/plugins/org.eclipse.wst.xquery.debug.ui.marklogic
+plugin@org.eclipse.wst.xquery.debug.ui.zorba=HEAD,:pserver:anonymous@dev.eclipse.org:/cvsroot/webtools,,incubator/sourceediting/plugins/org.eclipse.wst.xquery.debug.ui.zorba
+plugin@org.eclipse.wst.xquery.launching=HEAD,:pserver:anonymous@dev.eclipse.org:/cvsroot/webtools,,incubator/sourceediting/plugins/org.eclipse.wst.xquery.launching
+plugin@org.eclipse.wst.xquery.launching.marklogic=HEAD,:pserver:anonymous@dev.eclipse.org:/cvsroot/webtools,,incubator/sourceediting/plugins/org.eclipse.wst.xquery.launching.marklogic
+plugin@org.eclipse.wst.xquery.launching.zorba=HEAD,:pserver:anonymous@dev.eclipse.org:/cvsroot/webtools,,incubator/sourceediting/plugins/org.eclipse.wst.xquery.launching.zorba
+plugin@org.eclipse.wst.xquery.set.core=HEAD,:pserver:anonymous@dev.eclipse.org:/cvsroot/webtools,,incubator/sourceediting/plugins/org.eclipse.wst.xquery.set.core
+plugin@org.eclipse.wst.xquery.set.debug.core=HEAD,:pserver:anonymous@dev.eclipse.org:/cvsroot/webtools,,incubator/sourceediting/plugins/org.eclipse.wst.xquery.set.debug.core
+plugin@org.eclipse.wst.xquery.set.debug.ui=HEAD,:pserver:anonymous@dev.eclipse.org:/cvsroot/webtools,,incubator/sourceediting/plugins/org.eclipse.wst.xquery.set.debug.ui
+plugin@org.eclipse.wst.xquery.set.launching=HEAD,:pserver:anonymous@dev.eclipse.org:/cvsroot/webtools,,incubator/sourceediting/plugins/org.eclipse.wst.xquery.set.launching
+plugin@org.eclipse.wst.xquery.set.ui=HEAD,:pserver:anonymous@dev.eclipse.org:/cvsroot/webtools,,incubator/sourceediting/plugins/org.eclipse.wst.xquery.set.ui
+plugin@org.eclipse.wst.xquery.ui=HEAD,:pserver:anonymous@dev.eclipse.org:/cvsroot/webtools,,incubator/sourceediting/plugins/org.eclipse.wst.xquery.ui
 plugin@org.antlr.runtime_v31=HEAD,:pserver:anonymous@dev.eclipse.org:/cvsroot/webtools,,incubator/sourceediting/plugins/org.antlr.runtime_v31
 
 !***************

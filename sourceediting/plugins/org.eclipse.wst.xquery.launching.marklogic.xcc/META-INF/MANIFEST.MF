@@ -1,0 +1,17 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: %pluginName
+Bundle-SymbolicName: org.eclipse.wst.xquery.launching.marklogic.xcc
+Bundle-Version: 0.5.0.qualifier
+Bundle-Vendor: %providerName
+Bundle-RequiredExecutionEnvironment: J2SE-1.5
+Export-Package: org.eclipse.wst.xquery.marklogic.http,
+ org.eclipse.wst.xquery.marklogic.io,
+ org.eclipse.wst.xquery.marklogic.xcc,
+ org.eclipse.wst.xquery.marklogic.xcc.exceptions,
+ org.eclipse.wst.xquery.marklogic.xcc.impl,
+ org.eclipse.wst.xquery.marklogic.xcc.impl.handlers,
+ org.eclipse.wst.xquery.marklogic.xcc.jndi,
+ org.eclipse.wst.xquery.marklogic.xcc.spi,
+ org.eclipse.wst.xquery.marklogic.xcc.types,
+ org.eclipse.wst.xquery.marklogic.xcc.types.impl

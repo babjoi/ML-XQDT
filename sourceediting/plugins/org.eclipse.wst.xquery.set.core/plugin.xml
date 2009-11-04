@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.2"?>
+<plugin>
+   <extension
+         id="nature"
+         name="Sausalito Nature"
+         point="org.eclipse.core.resources.natures">
+      <runtime>
+         <run
+               class="org.eclipse.wst.xquery.set.core.SETNature">
+         </run>
+      </runtime>
+   </extension>
+   <extension
+         point="org.eclipse.dltk.core.language">
+      <language
+            class="org.eclipse.wst.xquery.set.core.SETLanguageToolkit"
+            nature="org.eclipse.wst.xquery.set.core.nature"
+            priority="0">
+      </language>
+   </extension>
+   <extension
+         point="org.eclipse.dltk.core.sourceParsers">
+      <parserContribution
+            natureId="org.eclipse.wst.xquery.set.core.nature">
+         <parser
+               class="org.eclipse.wst.xquery.set.internal.core.parser.SETSourceParserFactory"
+               description="Sausalito XQuery parser"
+               id="org.eclipse.wst.xquery.set.parser.SETXQueryParser"
+               name="SET XQuery Parser"
+               priority="1">
+         </parser>
+      </parserContribution>
+   </extension>
+   <extension
+         point="org.eclipse.dltk.core.sourceElementParsers">
+      <parser
+            class="org.eclipse.wst.xquery.internal.core.parser.XQDTSourceElementParser"
+            nature="org.eclipse.wst.xquery.set.core.nature"
+            priority="0">
+      </parser>
+   </extension>
+   <extension
+         point="org.eclipse.dltk.core.completionEngine">
+      <completionEngine
+            class="org.eclipse.wst.xquery.set.internal.core.codeassist.SETCompletionEngine"
+            nature="org.eclipse.wst.xquery.set.core.nature"
+            priority="0">
+      </completionEngine>
+   </extension>
+   <extension
+         point="org.eclipse.dltk.core.buildParticipant">
+      <buildParticipant
+            class="org.eclipse.wst.xquery.internal.core.builder.XQDTParserBuildParticipantFactory"
+            id="org.eclipse.wst.xquery.set.core.buildParticipant.parser"
+            name="XQuery Parser"
+            nature="org.eclipse.wst.xquery.set.core.nature">
+      </buildParticipant>
+   </extension>
+</plugin>

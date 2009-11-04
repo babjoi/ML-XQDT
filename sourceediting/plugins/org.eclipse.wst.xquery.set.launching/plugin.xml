@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.2"?>
+<plugin>
+   <extension
+         point="org.eclipse.dltk.launching.interpreterInstallTypes">
+      <interpreterInstallType
+            class="org.eclipse.wst.xquery.set.internal.launching.CoreSDKInstallType"
+            id="org.eclipse.wst.xquery.set.launching.CoreSDKInstallType">
+      </interpreterInstallType>
+   </extension>
+   <extension
+         point="org.eclipse.core.variables.dynamicVariables">
+      <variable
+            description="This retrieves the Windows shipped CoreSDK location in this bundle"
+            name="sdk_loc"
+            resolver="org.eclipse.wst.xquery.set.internal.launching.variables.CoreSdkLocationResolver">
+      </variable>
+   </extension>
+   <extension
+         point="org.eclipse.debug.core.launchConfigurationTypes">
+      <launchConfigurationType
+            delegate="org.eclipse.wst.xquery.set.internal.launching.SETLaunchConfigurationDelegate"
+            id="org.eclipse.wst.xquery.set.launching.SETLaunchConfigurationType"
+            modes="run,debug"
+            name="Sausalito Application">
+      </launchConfigurationType>
+   </extension>
+   <extension
+         point="org.eclipse.dltk.core.buildParticipant">
+      <buildParticipant
+            class="org.eclipse.wst.xquery.internal.launching.XQDTSemanticBuilderFactory"
+            id="org.eclipse.wst.xquery.set.core.sausalitoSemanticBuilder"
+            name="Sausalito Semantic Builder"
+            nature="org.eclipse.wst.xquery.set.core.nature">
+      </buildParticipant>
+   </extension>
+
+</plugin>

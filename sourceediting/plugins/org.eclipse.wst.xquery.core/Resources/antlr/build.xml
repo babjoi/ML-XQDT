@@ -1,0 +1,36 @@
+<?xml version="1.0" ?><!--
+    Copyright (c) 2008, 2009 28msec Inc. and others.
+    All rights reserved. This program and the accompanying materials
+    are made available under the terms of the Eclipse Public License v1.0
+    which accompanies this distribution, and is available at
+    http://www.eclipse.org/legal/epl-v10.html
+   
+    Contributors:
+        William Candillon (28msec) - initial API and implementation
+ -->
+
+<!--
+    ****************************** IMPORTANT ******************************
+    The antlr-3.1.2.jar file must be in the same directory with this script
+    ***********************************************************************
+-->
+<project name="XQDTParser" default="generateParser" basedir=".">
+        <target name="generateParser">
+                <property name="destination" value="../../src/org/xqdt/internal/core/parser/antlr" />
+                <java classpath="antlr-3.1.2.jar" classname="org.antlr.Tool">
+                		<arg value="-o ." />
+                		<arg value="XQueryLexer.g" />
+                    	<arg value="XMLLexer.g" />
+            			<arg value="StringLexer.g" />
+    					<arg value="XQueryParser.g" />
+                </java>
+            	<move file="StringLexer.tokens" todir="${destination}" />
+        		<move file="StringLexer.java" todir="${destination}" />
+    			<move file="XMLLexer.tokens" todir="${destination}" />
+				<move file="XMLLexer.java" todir="${destination}" />
+				<move file="XQueryLexer.tokens" todir="${destination}" />
+				<move file="XQueryLexer.java" todir="${destination}" />
+				<move file="XQueryParser.tokens" todir="${destination}" />
+				<move file="XQueryParser.java" todir="${destination}" />
+        </target>
+</project>

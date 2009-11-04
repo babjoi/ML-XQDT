@@ -1,0 +1,104 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!-- Schema file written by PDE -->
+<schema targetNamespace="org.eclipse.wst.xquery.debug.ui" xmlns="http://www.w3.org/2001/XMLSchema">
+<annotation>
+      <appInfo>
+         <meta.schema plugin="org.eclipse.wst.xquery.debug.ui" id="interpreterInstallTypeAddDialogBlock" name="Add Interpreter Dialog Block"/>
+      </appInfo>
+      <documentation>
+         This extension provides custom controls for the &apos;Add Interpreter&apos; dialog.
+      </documentation>
+   </annotation>
+
+   <element name="extension">
+      <annotation>
+         <appInfo>
+            <meta.element />
+         </appInfo>
+      </annotation>
+      <complexType>
+         <sequence>
+            <element ref="addDialogBlock"/>
+         </sequence>
+         <attribute name="point" type="string">
+            <annotation>
+               <documentation>
+                  
+               </documentation>
+            </annotation>
+         </attribute>
+         <attribute name="id" type="string">
+            <annotation>
+               <documentation>
+                  
+               </documentation>
+            </annotation>
+         </attribute>
+         <attribute name="name" type="string">
+            <annotation>
+               <documentation>
+                  
+               </documentation>
+               <appInfo>
+                  <meta.attribute translatable="true"/>
+               </appInfo>
+            </annotation>
+         </attribute>
+      </complexType>
+   </element>
+
+   <element name="addDialogBlock">
+      <complexType>
+         <attribute name="class" type="string" use="required">
+            <annotation>
+               <documentation>
+                  The class provides the functionality to the &apos;Add Interpterter&apos; dialog. This class must inherit from &lt;code&gt;org.eclipse.wst.xquery.internal.debug.ui.interpreters.AbstractAddInterpreterDialogBlock&lt;/code&gt;
+               </documentation>
+               <appInfo>
+                  <meta.attribute kind="java" basedOn="org.eclipse.wst.xquery.internal.debug.ui.interpreters.AbstractAddInterpreterDialogBlock:"/>
+               </appInfo>
+            </annotation>
+         </attribute>
+         <attribute name="interpreterInstallTypeID" type="string" use="required">
+            <annotation>
+               <documentation>
+                  
+               </documentation>
+               <appInfo>
+                  <meta.attribute kind="identifier" basedOn="org.eclipse.dltk.launching.interpreterInstallTypes/interpreterInstallType/@id"/>
+               </appInfo>
+            </annotation>
+         </attribute>
+      </complexType>
+   </element>
+
+   <annotation>
+      <appInfo>
+         <meta.section type="since"/>
+      </appInfo>
+      <documentation>
+         2.1.0
+      </documentation>
+   </annotation>
+
+
+   <annotation>
+      <appInfo>
+         <meta.section type="apiinfo"/>
+      </appInfo>
+      <documentation>
+         Extension classes must subclass &lt;code&gt;org.eclipse.wst.xquery.internal.debug.ui.interpreters.AbstractAddInterpreterDialogBlock&lt;/code&gt;
+      </documentation>
+   </annotation>
+
+   <annotation>
+      <appInfo>
+         <meta.section type="implementation"/>
+      </appInfo>
+      <documentation>
+         No supplied implementation at this point.
+      </documentation>
+   </annotation>
+
+
+</schema>

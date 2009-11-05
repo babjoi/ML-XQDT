@@ -21,10 +21,6 @@
          id="org.eclipse.wst.xquery.feature"
          version="0.0.0"/>
 
-   <includes
-         id="org.eclipse.wst.xquery.marklogic.feature"
-         version="0.0.0"/>
-
    <requires>
       <import plugin="org.eclipse.core.runtime"/>
       <import plugin="org.eclipse.core.runtime.compatibility"/>
@@ -47,6 +43,27 @@
 
    <plugin
          id="org.antlr.runtime_v31"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="org.eclipse.wst.xquery.marklogic"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="org.eclipse.wst.xquery.launching.marklogic"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="org.eclipse.wst.xquery.launching.marklogic.xcc"
          download-size="0"
          install-size="0"
          version="0.0.0"

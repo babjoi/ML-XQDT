@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<project name="Compile org.eclipse.wst.xquery.marklogic.feature" default="main">
-	<target name="main">
-		<ant antfile="build.xml" dir="../org.eclipse.wst.xquery.marklogic" target="build.jars"/>
-		<ant antfile="build.xml" dir="../org.eclipse.wst.xquery.launching.marklogic" target="build.jars"/>
-		<ant antfile="build.xml" dir="../org.eclipse.wst.xquery.debug.ui.marklogic" target="build.jars"/>
-		<ant antfile="build.xml" dir="../org.eclipse.wst.xquery.debug.debugger.marklogic" target="build.jars"/>
-	</target>
-</project>

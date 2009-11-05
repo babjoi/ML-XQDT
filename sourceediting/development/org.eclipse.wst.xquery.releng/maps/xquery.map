@@ -25,7 +25,7 @@ plugin@org.eclipse.wst.xquery.set.debug.ui=HEAD,:pserver:anonymous@dev.eclipse.o
 plugin@org.eclipse.wst.xquery.set.launching=HEAD,:pserver:anonymous@dev.eclipse.org:/cvsroot/webtools,,incubator/sourceediting/plugins/org.eclipse.wst.xquery.set.launching
 plugin@org.eclipse.wst.xquery.set.ui=HEAD,:pserver:anonymous@dev.eclipse.org:/cvsroot/webtools,,incubator/sourceediting/plugins/org.eclipse.wst.xquery.set.ui
 plugin@org.eclipse.wst.xquery.ui=HEAD,:pserver:anonymous@dev.eclipse.org:/cvsroot/webtools,,incubator/sourceediting/plugins/org.eclipse.wst.xquery.ui
-plugin@org.eclipse.wst.xquery.marklogic=HEAD,::pserver:anonymous@dev.eclipse.org:/cvsroot/webtools,,incubator/sourceediting/plugins/org.eclipse.wst.xquery.marklogic
+plugin@org.eclipse.wst.xquery.marklogic=HEAD,:pserver:anonymous@dev.eclipse.org:/cvsroot/webtools,,incubator/sourceediting/plugins/org.eclipse.wst.xquery.marklogic
 
 plugin@org.antlr.runtime_v31=HEAD,:pserver:anonymous@dev.eclipse.org:/cvsroot/webtools,,incubator/sourceediting/plugins/org.antlr.runtime_v31
 plugin@com.google.gson=HEAD,:pserver:anonymous@dev.eclipse.org:/cvsroot/webtools,,incubator/sourceediting/plugins/com.google.gson

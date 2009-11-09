@@ -19,4 +19,4 @@ Import-Package: org.apache.commons.logging;version="[1.0.4,2.0.0)",
  org.relaxng.datatype.helpers;version="[1.0.0,2.0.0)"
 Export-Package: org.eclipse.wst.rng.contentassist;version="0.5.1";uses:="org.kohsuke.rngom.binary,org.w3c.dom,org.xml.sax"
 Bundle-Vendor: schmeedy.com
-Require-Bundle: com.thaiopensource.jing;bundle-version="1.0.0"
+Require-Bundle: com.thaiopensource.jing;bundle-version="[1.1.1,2.0.0)"

@@ -4,7 +4,7 @@ import org.kohsuke.rngom.binary.visitor.PatternFunction;
 import org.kohsuke.rngom.binary.visitor.PatternVisitor;
 
 public class NotAllowedPattern extends Pattern {
-  NotAllowedPattern() {
+  public NotAllowedPattern() {
     super(false, EMPTY_CONTENT_TYPE, NOT_ALLOWED_HASH_CODE);
   }
   boolean isNotAllowed() {

@@ -32,7 +32,6 @@ import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 import org.xml.sax.SAXParseException;
 
-import com.thaiopensource.relaxng.impl.JingValidationException;
 import com.thaiopensource.util.SinglePropertyMap;
 import com.thaiopensource.validate.SchemaReader;
 import com.thaiopensource.validate.ValidateProperty;
@@ -152,7 +151,7 @@ public class JingValidationDelegate extends AbstractNestedValidator {
 		}
 		
 		private void report(SAXParseException exception, int severity) {
-			if (exception instanceof JingValidationException) {
+			/*if (exception instanceof JingValidationException) {
 				JingValidationException validationError = (JingValidationException) exception;
 				validationInfo.addError(
 						exception.getMessage(),
@@ -161,13 +160,13 @@ public class JingValidationDelegate extends AbstractNestedValidator {
 						uri,
 						validationError.getProblemId(),
 						validationError.getMessageArg() == null ? new Object[]{} : new Object[]{validationError.getMessageArg()});
-			} else {
+			} else { */
 				validationInfo.addError(
 						exception.getMessage(),
 						exception.getLineNumber(),
 						exception.getColumnNumber(),
 						uri);
-			}
+//			}
 		}
 	}
 	

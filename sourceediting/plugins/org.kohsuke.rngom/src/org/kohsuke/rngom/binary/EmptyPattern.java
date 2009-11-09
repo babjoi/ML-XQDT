@@ -4,7 +4,7 @@ import org.kohsuke.rngom.binary.visitor.PatternFunction;
 import org.kohsuke.rngom.binary.visitor.PatternVisitor;
 
 public class EmptyPattern extends Pattern {
-  EmptyPattern() {
+  public EmptyPattern() {
     super(true, EMPTY_CONTENT_TYPE, EMPTY_HASH_CODE);
   }
   boolean samePattern(Pattern other) {

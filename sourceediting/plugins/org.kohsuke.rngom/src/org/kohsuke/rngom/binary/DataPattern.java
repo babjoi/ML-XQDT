@@ -26,7 +26,7 @@ public class DataPattern extends StringPattern {
     return f.caseData(this);
   }
 
-  Datatype getDatatype() {
+  public Datatype getDatatype() {
     return dt;
   }
 

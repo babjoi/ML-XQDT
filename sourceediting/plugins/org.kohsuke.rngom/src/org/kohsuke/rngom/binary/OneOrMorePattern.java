@@ -7,7 +7,7 @@ import org.xml.sax.SAXException;
 public class OneOrMorePattern extends Pattern {
   Pattern p;
 
-  OneOrMorePattern(Pattern p) {
+  public OneOrMorePattern(Pattern p) {
     super(p.isNullable(),
 	  p.getContentType(),
 	  combineHashCode(ONE_OR_MORE_HASH_CODE, p.hashCode()));
@@ -58,7 +58,7 @@ public class OneOrMorePattern extends Pattern {
     return f.caseOneOrMore(this);
   }
 
-  Pattern getOperand() {
+  public Pattern getOperand() {
     return p;
   }
 }

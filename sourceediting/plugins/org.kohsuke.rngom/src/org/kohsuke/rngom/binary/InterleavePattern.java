@@ -4,7 +4,7 @@ import org.kohsuke.rngom.binary.visitor.PatternFunction;
 import org.kohsuke.rngom.binary.visitor.PatternVisitor;
 
 public class InterleavePattern extends BinaryPattern {
-  InterleavePattern(Pattern p1, Pattern p2) {
+  public InterleavePattern(Pattern p1, Pattern p2) {
     super(p1.isNullable() && p2.isNullable(),
 	  combineHashCode(INTERLEAVE_HASH_CODE, p1.hashCode(), p2.hashCode()),
 	  p1,

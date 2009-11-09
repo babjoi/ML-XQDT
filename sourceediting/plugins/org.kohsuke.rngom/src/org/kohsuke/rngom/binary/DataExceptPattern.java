@@ -3,6 +3,7 @@ package org.kohsuke.rngom.binary;
 import org.kohsuke.rngom.binary.visitor.PatternFunction;
 import org.kohsuke.rngom.binary.visitor.PatternVisitor;
 //import org.relaxng.datatype.Datatype;
+import org.relaxng.datatype.Datatype;
 import org.xml.sax.Locator;
 
 public class DataExceptPattern extends DataPattern {

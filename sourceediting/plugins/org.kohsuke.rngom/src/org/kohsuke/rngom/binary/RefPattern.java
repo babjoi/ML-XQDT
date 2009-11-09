@@ -28,7 +28,7 @@ public class RefPattern extends Pattern {
     this.name = name;
   }
 
-  Pattern getPattern() {
+  public Pattern getPattern() {
     return p;
   }
   

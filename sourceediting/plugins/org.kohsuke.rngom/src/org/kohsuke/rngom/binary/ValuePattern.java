@@ -43,7 +43,7 @@ public class ValuePattern extends StringPattern {
     return dt;
   }
 
-  Object getValue() {
+  public Object getValue() {
     return obj;
   }
 

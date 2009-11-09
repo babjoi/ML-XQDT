@@ -4,7 +4,7 @@ import org.kohsuke.rngom.binary.visitor.PatternFunction;
 import org.kohsuke.rngom.binary.visitor.PatternVisitor;
 
 public class ChoicePattern extends BinaryPattern {
-  ChoicePattern(Pattern p1, Pattern p2) {
+  public ChoicePattern(Pattern p1, Pattern p2) {
     super(p1.isNullable() || p2.isNullable(),
 	  combineHashCode(CHOICE_HASH_CODE, p1.hashCode(), p2.hashCode()),
 	  p1,

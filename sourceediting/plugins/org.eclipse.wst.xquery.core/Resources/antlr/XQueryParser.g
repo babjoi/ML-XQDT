@@ -247,12 +247,12 @@ p_DFPropertyName
 
 //[19]
 p_PreserveMode
-        :   k+=PRESERVE | k+=NO_PRESERVE {ak($k);}
+        :   (k+=PRESERVE | k+=NO_PRESERVE) {ak($k);}
         ;
 
 //[20]
 p_InheritMode
-        :   k+=INHERIT | k+=NO_INHERIT {ak($k);}
+        :   (k+=INHERIT | k+=NO_INHERIT) {ak($k);}
         ;
         
 //[21]

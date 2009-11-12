@@ -15,22 +15,22 @@
     ***********************************************************************
 -->
 <project name="XQDTParser" default="generateParser" basedir=".">
-        <target name="generateParser">
-                <property name="destination" value="../../src/org/xqdt/internal/core/parser/antlr" />
-                <java classpath="antlr-3.1.2.jar" classname="org.antlr.Tool">
-                		<arg value="-o ." />
-                		<arg value="XQueryLexer.g" />
-                    	<arg value="XMLLexer.g" />
-            			<arg value="StringLexer.g" />
-    					<arg value="XQueryParser.g" />
-                </java>
-            	<move file="StringLexer.tokens" todir="${destination}" />
-        		<move file="StringLexer.java" todir="${destination}" />
-    			<move file="XMLLexer.tokens" todir="${destination}" />
-				<move file="XMLLexer.java" todir="${destination}" />
-				<move file="XQueryLexer.tokens" todir="${destination}" />
-				<move file="XQueryLexer.java" todir="${destination}" />
-				<move file="XQueryParser.tokens" todir="${destination}" />
-				<move file="XQueryParser.java" todir="${destination}" />
-        </target>
+  <target name="generateParser">
+    <property name="destination" value="../../src/org/eclipse/wst/xquery/internal/core/parser/antlr" />
+    <java classpath="antlr-3.1.2.jar" classname="org.antlr.Tool">
+      <arg value="-o ." />
+      <arg value="XQueryLexer.g" />
+      <arg value="XMLLexer.g" />
+      <arg value="StringLexer.g" />
+      <arg value="XQueryParser.g" />
+    </java>
+    <move file="StringLexer.tokens" todir="${destination}" />
+    <move file="StringLexer.java" todir="${destination}" />
+    <move file="XMLLexer.tokens" todir="${destination}" />
+    <move file="XMLLexer.java" todir="${destination}" />
+    <move file="XQueryLexer.tokens" todir="${destination}" />
+    <move file="XQueryLexer.java" todir="${destination}" />
+    <move file="XQueryParser.tokens" todir="${destination}" />
+    <move file="XQueryParser.java" todir="${destination}" />
+  </target>
 </project>

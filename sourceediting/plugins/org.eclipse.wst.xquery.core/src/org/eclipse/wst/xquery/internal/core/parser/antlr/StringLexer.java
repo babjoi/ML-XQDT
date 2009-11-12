@@ -1,4 +1,4 @@
-// $ANTLR 3.1.2 StringLexer.g 2009-10-08 14:27:44
+// $ANTLR 3.1.2 StringLexer.g 2009-11-12 01:39:47
 
 /*******************************************************************************
  * Copyright (c) 2008, 2009 28msec Inc. and others.
@@ -18,7 +18,7 @@ import java.util.Stack;
 import java.util.List;
 import java.util.ArrayList;
 
-@SuppressWarnings({ "unused" })
+@SuppressWarnings("unused")
 public class StringLexer extends XQDTLexer {
     public static final int L_CDataSection=7;
     public static final int NAMESPACE_NODE=123;

@@ -128,7 +128,7 @@ public class NewEncryptionWizard extends Wizard implements INewWizard {
         addPage(pageResource);
         pageOpenKey = new PageOpenKey(encryption, path);
         addPage(pageOpenKey);
-        pageCreateKey = new PageCreateKey(encryption, path);
+        pageCreateKey = new PageCreateKey(encryption, path, name);
         addPage(pageCreateKey);
         pageCreateKeystore = new PageCreateKeystore(encryption, path, name);
         addPage(pageCreateKeystore);

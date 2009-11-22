@@ -10,6 +10,7 @@
  *******************************************************************************/
 package org.eclipse.wst.xml.security.ui.encrypt;
 
+import java.io.File;
 import java.security.NoSuchAlgorithmException;
 
 import javax.crypto.SecretKey;
@@ -43,7 +44,7 @@ import org.eclipse.wst.xml.security.ui.XSTUIPlugin;
 import org.eclipse.wst.xml.security.ui.utils.IContextHelpIds;
 
 /**
- * <p>Second alternative page of the Encryption Wizard. Lets the user create a new <i>Private Key</i> in an
+ * <p>Second alternative page of the Encryption Wizard. Lets the user create a new <i>Key</i> in an
  * existing <i>Java KeyStore</i>.</p>
  *
  * @author Dominik Schadow
@@ -54,6 +55,8 @@ public class PageCreateKey extends WizardPage implements Listener {
     public static final String PAGE_NAME = "EncryptPageCreateKey"; //$NON-NLS-1$
     /** The path of the selected file. */
     private String path;
+    /** The active folder. */
+    private String name;
     /** Key generation successful. */
     private boolean generated = false;
     /** Open keystore button. */
@@ -92,14 +95,16 @@ public class PageCreateKey extends WizardPage implements Listener {
      *
      * @param encryption The encryption wizard model
      * @param path The path of the selected file
+     * @param name The name of the active project
      */
-    public PageCreateKey(final Encryption encryption, final String path) {
+    public PageCreateKey(final Encryption encryption, final String path, final String name) {
         super(PAGE_NAME);
         setTitle(Messages.encryptionTitle);
         setDescription(Messages.createKeyDescription);
 
         this.encryption = encryption;
         this.path = path;
+        this.name = name;
     }
 
     /**
@@ -477,7 +482,8 @@ public class PageCreateKey extends WizardPage implements Listener {
         }
 
         if (generated) {
-        	lResult.setText(NLS.bind(Messages.keyGenerated, new Object[] {tKeyName.getText(), tKeystore.getText()}));
+            String keystoreName = tKeystore.getText().substring(tKeystore.getText().lastIndexOf(File.separator) + 1);
+        	lResult.setText(NLS.bind(Messages.keyGenerated, new Object[] {tKeyName.getText(), keystoreName, name}));
             updateStatus(null, DialogPage.NONE);
         }
     }

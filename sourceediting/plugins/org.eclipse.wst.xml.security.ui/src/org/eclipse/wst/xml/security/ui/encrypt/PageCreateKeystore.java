@@ -97,7 +97,7 @@ public class PageCreateKeystore extends WizardPage implements Listener {
      *
      * @param encryption The encryption wizard model
      * @param path The path of the selected file
-     * @param name The name of the selected file
+     * @param name The name of the active project
      */
     public PageCreateKeystore(final Encryption encryption, final String path, final String name) {
         super(PAGE_NAME);

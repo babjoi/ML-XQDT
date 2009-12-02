@@ -53,13 +53,13 @@ L_CharRef
 L_QuotStringLiteralChar
 	:	{ inQuotStr }? =>
 		('\u0009' | '\u000A' | '\u000D' | '\u0020'..'\u0021' | '\u0023'..'\u0025' 
-		| '\u0027'..'\u003B' | '\u003D'..'\uD7FF' |	'\uE000'..'\uFFFD')+
+		| '\u0027'..'\uD7FF' |	'\uE000'..'\uFFFD')+
 	;
 
 L_AposStringLiteralChar
 	:	{ inAposStr }? =>
 		('\u0009' | '\u000A' | '\u000D' | '\u0020'..'\u0025'
-		| '\u0028'..'\u003B' | '\u003D'..'\uD7FF' | '\uE000'..'\uFFFD')+
+		| '\u0028'..'\uD7FF' | '\uE000'..'\uFFFD')+
 	;
 
 //L_AnyChar 

@@ -25,7 +25,7 @@ tokenVocab=XQueryLexer;
 }
 
 tokens {
-// define the tokenx from side-lexers (String and XML)
+// define the tokens from side-lexers (String and XML)
 // in order to avoid token ID overlapping
 L_QuotStringLiteralChar;
 L_AposStringLiteralChar;

@@ -1,4 +1,4 @@
-// $ANTLR 3.1.2 StringLexer.g 2009-11-12 01:39:47
+// $ANTLR 3.1.2 StringLexer.g 2009-12-02 16:41:46
 
 /*******************************************************************************
  * Copyright (c) 2008, 2009 28msec Inc. and others.
@@ -630,20 +630,20 @@ public class StringLexer extends XQDTLexer {
         try {
             int _type = L_QuotStringLiteralChar;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // StringLexer.g:54:2: ({...}? => ( '\\u0009' | '\\u000A' | '\\u000D' | '\\u0020' .. '\\u0021' | '\\u0023' .. '\\u0025' | '\\u0027' .. '\\u003B' | '\\u003D' .. '\\uD7FF' | '\\uE000' .. '\\uFFFD' )+ )
-            // StringLexer.g:54:4: {...}? => ( '\\u0009' | '\\u000A' | '\\u000D' | '\\u0020' .. '\\u0021' | '\\u0023' .. '\\u0025' | '\\u0027' .. '\\u003B' | '\\u003D' .. '\\uD7FF' | '\\uE000' .. '\\uFFFD' )+
+            // StringLexer.g:54:2: ({...}? => ( '\\u0009' | '\\u000A' | '\\u000D' | '\\u0020' .. '\\u0021' | '\\u0023' .. '\\u0025' | '\\u0027' .. '\\uD7FF' | '\\uE000' .. '\\uFFFD' )+ )
+            // StringLexer.g:54:4: {...}? => ( '\\u0009' | '\\u000A' | '\\u000D' | '\\u0020' .. '\\u0021' | '\\u0023' .. '\\u0025' | '\\u0027' .. '\\uD7FF' | '\\uE000' .. '\\uFFFD' )+
             {
             if ( !(( inQuotStr )) ) {
                 throw new FailedPredicateException(input, "L_QuotStringLiteralChar", " inQuotStr ");
             }
-            // StringLexer.g:55:3: ( '\\u0009' | '\\u000A' | '\\u000D' | '\\u0020' .. '\\u0021' | '\\u0023' .. '\\u0025' | '\\u0027' .. '\\u003B' | '\\u003D' .. '\\uD7FF' | '\\uE000' .. '\\uFFFD' )+
+            // StringLexer.g:55:3: ( '\\u0009' | '\\u000A' | '\\u000D' | '\\u0020' .. '\\u0021' | '\\u0023' .. '\\u0025' | '\\u0027' .. '\\uD7FF' | '\\uE000' .. '\\uFFFD' )+
             int cnt5=0;
             loop5:
             do {
                 int alt5=2;
                 int LA5_0 = input.LA(1);
 
-                if ( ((LA5_0>='\t' && LA5_0<='\n')||LA5_0=='\r'||(LA5_0>=' ' && LA5_0<='!')||(LA5_0>='#' && LA5_0<='%')||(LA5_0>='\'' && LA5_0<=';')||(LA5_0>='=' && LA5_0<='\uD7FF')||(LA5_0>='\uE000' && LA5_0<='\uFFFD')) ) {
+                if ( ((LA5_0>='\t' && LA5_0<='\n')||LA5_0=='\r'||(LA5_0>=' ' && LA5_0<='!')||(LA5_0>='#' && LA5_0<='%')||(LA5_0>='\'' && LA5_0<='\uD7FF')||(LA5_0>='\uE000' && LA5_0<='\uFFFD')) ) {
                     alt5=1;
                 }
 
@@ -652,7 +652,7 @@ public class StringLexer extends XQDTLexer {
             	case 1 :
             	    // StringLexer.g:
             	    {
-            	    if ( (input.LA(1)>='\t' && input.LA(1)<='\n')||input.LA(1)=='\r'||(input.LA(1)>=' ' && input.LA(1)<='!')||(input.LA(1)>='#' && input.LA(1)<='%')||(input.LA(1)>='\'' && input.LA(1)<=';')||(input.LA(1)>='=' && input.LA(1)<='\uD7FF')||(input.LA(1)>='\uE000' && input.LA(1)<='\uFFFD') ) {
+            	    if ( (input.LA(1)>='\t' && input.LA(1)<='\n')||input.LA(1)=='\r'||(input.LA(1)>=' ' && input.LA(1)<='!')||(input.LA(1)>='#' && input.LA(1)<='%')||(input.LA(1)>='\'' && input.LA(1)<='\uD7FF')||(input.LA(1)>='\uE000' && input.LA(1)<='\uFFFD') ) {
             	        input.consume();
 
             	    }
@@ -690,20 +690,20 @@ public class StringLexer extends XQDTLexer {
         try {
             int _type = L_AposStringLiteralChar;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // StringLexer.g:60:2: ({...}? => ( '\\u0009' | '\\u000A' | '\\u000D' | '\\u0020' .. '\\u0025' | '\\u0028' .. '\\u003B' | '\\u003D' .. '\\uD7FF' | '\\uE000' .. '\\uFFFD' )+ )
-            // StringLexer.g:60:4: {...}? => ( '\\u0009' | '\\u000A' | '\\u000D' | '\\u0020' .. '\\u0025' | '\\u0028' .. '\\u003B' | '\\u003D' .. '\\uD7FF' | '\\uE000' .. '\\uFFFD' )+
+            // StringLexer.g:60:2: ({...}? => ( '\\u0009' | '\\u000A' | '\\u000D' | '\\u0020' .. '\\u0025' | '\\u0028' .. '\\uD7FF' | '\\uE000' .. '\\uFFFD' )+ )
+            // StringLexer.g:60:4: {...}? => ( '\\u0009' | '\\u000A' | '\\u000D' | '\\u0020' .. '\\u0025' | '\\u0028' .. '\\uD7FF' | '\\uE000' .. '\\uFFFD' )+
             {
             if ( !(( inAposStr )) ) {
                 throw new FailedPredicateException(input, "L_AposStringLiteralChar", " inAposStr ");
             }
-            // StringLexer.g:61:3: ( '\\u0009' | '\\u000A' | '\\u000D' | '\\u0020' .. '\\u0025' | '\\u0028' .. '\\u003B' | '\\u003D' .. '\\uD7FF' | '\\uE000' .. '\\uFFFD' )+
+            // StringLexer.g:61:3: ( '\\u0009' | '\\u000A' | '\\u000D' | '\\u0020' .. '\\u0025' | '\\u0028' .. '\\uD7FF' | '\\uE000' .. '\\uFFFD' )+
             int cnt6=0;
             loop6:
             do {
                 int alt6=2;
                 int LA6_0 = input.LA(1);
 
-                if ( ((LA6_0>='\t' && LA6_0<='\n')||LA6_0=='\r'||(LA6_0>=' ' && LA6_0<='%')||(LA6_0>='(' && LA6_0<=';')||(LA6_0>='=' && LA6_0<='\uD7FF')||(LA6_0>='\uE000' && LA6_0<='\uFFFD')) ) {
+                if ( ((LA6_0>='\t' && LA6_0<='\n')||LA6_0=='\r'||(LA6_0>=' ' && LA6_0<='%')||(LA6_0>='(' && LA6_0<='\uD7FF')||(LA6_0>='\uE000' && LA6_0<='\uFFFD')) ) {
                     alt6=1;
                 }
 
@@ -712,7 +712,7 @@ public class StringLexer extends XQDTLexer {
             	case 1 :
             	    // StringLexer.g:
             	    {
-            	    if ( (input.LA(1)>='\t' && input.LA(1)<='\n')||input.LA(1)=='\r'||(input.LA(1)>=' ' && input.LA(1)<='%')||(input.LA(1)>='(' && input.LA(1)<=';')||(input.LA(1)>='=' && input.LA(1)<='\uD7FF')||(input.LA(1)>='\uE000' && input.LA(1)<='\uFFFD') ) {
+            	    if ( (input.LA(1)>='\t' && input.LA(1)<='\n')||input.LA(1)=='\r'||(input.LA(1)>=' ' && input.LA(1)<='%')||(input.LA(1)>='(' && input.LA(1)<='\uD7FF')||(input.LA(1)>='\uE000' && input.LA(1)<='\uFFFD') ) {
             	        input.consume();
 
             	    }
@@ -898,31 +898,29 @@ public class StringLexer extends XQDTLexer {
         "\1\16\1\4\1\12\1\21\1\2\1\14\1\6\1\1\1\20\2\uffff\1\3\1\0\1\13"+
         "\3\uffff\1\15\1\7\1\10\1\uffff\1\5\1\11\1\uffff\1\17\2\uffff}>";
     static final String[] DFA8_transitionS = {
-            "\2\4\2\uffff\1\4\22\uffff\2\4\1\1\3\4\1\3\1\2\24\4\1\uffff"+
-            "\76\4\1\5\1\4\1\5\ud782\4\u0800\uffff\u1ffe\4",
+            "\2\4\2\uffff\1\4\22\uffff\2\4\1\1\3\4\1\3\1\2\24\4\1\5\76\4"+
+            "\1\5\1\4\1\5\ud782\4\u0800\uffff\u1ffe\4",
             "\2\10\2\uffff\1\10\22\uffff\2\10\1\6\3\10\1\uffff\1\11\24"+
-            "\10\1\uffff\76\10\1\12\1\10\1\12\ud782\10\u0800\uffff\u1ffe"+
-            "\10",
+            "\10\1\12\76\10\1\12\1\10\1\12\ud782\10\u0800\uffff\u1ffe\10",
             "\2\15\2\uffff\1\15\22\uffff\2\15\1\11\3\15\1\uffff\1\13\24"+
-            "\15\1\uffff\76\15\1\16\1\15\1\16\ud782\15\u0800\uffff\u1ffe"+
-            "\15",
+            "\15\1\16\76\15\1\16\1\15\1\16\ud782\15\u0800\uffff\u1ffe\15",
             "\1\17\75\uffff\1\20\5\uffff\1\20\4\uffff\1\20\4\uffff\1\20",
             "\2\4\2\uffff\1\4\22\uffff\2\4\1\10\3\4\1\uffff\1\15\24\4\1"+
-            "\uffff\76\4\1\5\1\4\1\5\ud782\4\u0800\uffff\u1ffe\4",
-            "\2\5\2\uffff\1\5\22\uffff\2\5\1\12\3\5\1\uffff\1\16\24\5\1"+
-            "\uffff\ud7c3\5\u0800\uffff\u1ffe\5",
-            "\2\10\2\uffff\1\10\22\uffff\6\10\1\uffff\1\11\24\10\1\uffff"+
-            "\76\10\1\12\1\10\1\12\ud782\10\u0800\uffff\u1ffe\10",
+            "\5\76\4\1\5\1\4\1\5\ud782\4\u0800\uffff\u1ffe\4",
+            "\2\5\2\uffff\1\5\22\uffff\2\5\1\12\3\5\1\uffff\1\16\ud7d8"+
+            "\5\u0800\uffff\u1ffe\5",
+            "\2\10\2\uffff\1\10\22\uffff\6\10\1\uffff\1\11\24\10\1\12\76"+
+            "\10\1\12\1\10\1\12\ud782\10\u0800\uffff\u1ffe\10",
             "\1\uffff",
-            "\2\10\2\uffff\1\10\22\uffff\6\10\1\uffff\1\11\24\10\1\uffff"+
-            "\76\10\1\12\1\10\1\12\ud782\10\u0800\uffff\u1ffe\10",
+            "\2\10\2\uffff\1\10\22\uffff\6\10\1\uffff\1\11\24\10\1\12\76"+
+            "\10\1\12\1\10\1\12\ud782\10\u0800\uffff\u1ffe\10",
             "",
             "",
             "\2\15\2\uffff\1\15\22\uffff\2\15\1\11\3\15\1\uffff\25\15\1"+
-            "\uffff\76\15\1\16\1\15\1\16\ud782\15\u0800\uffff\u1ffe\15",
+            "\16\76\15\1\16\1\15\1\16\ud782\15\u0800\uffff\u1ffe\15",
             "\1\uffff",
             "\2\15\2\uffff\1\15\22\uffff\2\15\1\11\3\15\1\uffff\25\15\1"+
-            "\uffff\76\15\1\16\1\15\1\16\ud782\15\u0800\uffff\u1ffe\15",
+            "\16\76\15\1\16\1\15\1\16\ud782\15\u0800\uffff\u1ffe\15",
             "",
             "",
             "",
@@ -1017,7 +1015,7 @@ public class StringLexer extends XQDTLexer {
                         s = -1;
                         if ( ((LA8_4>='\t' && LA8_4<='\n')||LA8_4=='\r'||(LA8_4>=' ' && LA8_4<='!')||(LA8_4>='#' && LA8_4<='%')||(LA8_4>='(' && LA8_4<=';')||(LA8_4>='=' && LA8_4<='z')||LA8_4=='|'||(LA8_4>='~' && LA8_4<='\uD7FF')||(LA8_4>='\uE000' && LA8_4<='\uFFFD')) && ((( !inQuotStr && !inAposStr )||( inQuotStr )||( inAposStr )))) {s = 4;}
 
-                        else if ( (LA8_4=='{'||LA8_4=='}') && ((( inQuotStr )||( inAposStr )))) {s = 5;}
+                        else if ( (LA8_4=='<'||LA8_4=='{'||LA8_4=='}') && ((( inQuotStr )||( inAposStr )))) {s = 5;}
 
                         else if ( (LA8_4=='\"') && ((( !inQuotStr && !inAposStr )||( inAposStr )))) {s = 8;}
 
@@ -1038,7 +1036,7 @@ public class StringLexer extends XQDTLexer {
                         s = -1;
                         if ( ((LA8_11>='\t' && LA8_11<='\n')||LA8_11=='\r'||(LA8_11>=' ' && LA8_11<='!')||(LA8_11>='#' && LA8_11<='%')||(LA8_11>='\'' && LA8_11<=';')||(LA8_11>='=' && LA8_11<='z')||LA8_11=='|'||(LA8_11>='~' && LA8_11<='\uD7FF')||(LA8_11>='\uE000' && LA8_11<='\uFFFD')) && ((( !inQuotStr && !inAposStr )||( inQuotStr )))) {s = 13;}
 
-                        else if ( (LA8_11=='{'||LA8_11=='}') && (( inQuotStr ))) {s = 14;}
+                        else if ( (LA8_11=='<'||LA8_11=='{'||LA8_11=='}') && (( inQuotStr ))) {s = 14;}
 
                         else if ( (LA8_11=='\"') && (( !inQuotStr && !inAposStr ))) {s = 9;}
 
@@ -1061,7 +1059,7 @@ public class StringLexer extends XQDTLexer {
 
                         else if ( (LA8_1=='\'') && (( !inQuotStr && !inAposStr ))) {s = 9;}
 
-                        else if ( (LA8_1=='{'||LA8_1=='}') && (( inAposStr ))) {s = 10;}
+                        else if ( (LA8_1=='<'||LA8_1=='{'||LA8_1=='}') && (( inAposStr ))) {s = 10;}
 
                         else s = 7;
 
@@ -1093,7 +1091,7 @@ public class StringLexer extends XQDTLexer {
                         s = -1;
                         if ( ((LA8_6>='\t' && LA8_6<='\n')||LA8_6=='\r'||(LA8_6>=' ' && LA8_6<='%')||(LA8_6>='(' && LA8_6<=';')||(LA8_6>='=' && LA8_6<='z')||LA8_6=='|'||(LA8_6>='~' && LA8_6<='\uD7FF')||(LA8_6>='\uE000' && LA8_6<='\uFFFD')) && ((( !inQuotStr && !inAposStr )||( inAposStr )))) {s = 8;}
 
-                        else if ( (LA8_6=='{'||LA8_6=='}') && (( inAposStr ))) {s = 10;}
+                        else if ( (LA8_6=='<'||LA8_6=='{'||LA8_6=='}') && (( inAposStr ))) {s = 10;}
 
                         else if ( (LA8_6=='\'') && (( !inQuotStr && !inAposStr ))) {s = 9;}
 
@@ -1163,7 +1161,7 @@ public class StringLexer extends XQDTLexer {
 
                         else if ( ((LA8_2>='\t' && LA8_2<='\n')||LA8_2=='\r'||(LA8_2>=' ' && LA8_2<='!')||(LA8_2>='#' && LA8_2<='%')||(LA8_2>='(' && LA8_2<=';')||(LA8_2>='=' && LA8_2<='z')||LA8_2=='|'||(LA8_2>='~' && LA8_2<='\uD7FF')||(LA8_2>='\uE000' && LA8_2<='\uFFFD')) && ((( !inQuotStr && !inAposStr )||( inQuotStr )))) {s = 13;}
 
-                        else if ( (LA8_2=='{'||LA8_2=='}') && (( inQuotStr ))) {s = 14;}
+                        else if ( (LA8_2=='<'||LA8_2=='{'||LA8_2=='}') && (( inQuotStr ))) {s = 14;}
 
                         else if ( (LA8_2=='\"') && (( !inQuotStr && !inAposStr ))) {s = 9;}
 
@@ -1182,7 +1180,7 @@ public class StringLexer extends XQDTLexer {
                         s = -1;
                         if ( ((LA8_13>='\t' && LA8_13<='\n')||LA8_13=='\r'||(LA8_13>=' ' && LA8_13<='!')||(LA8_13>='#' && LA8_13<='%')||(LA8_13>='\'' && LA8_13<=';')||(LA8_13>='=' && LA8_13<='z')||LA8_13=='|'||(LA8_13>='~' && LA8_13<='\uD7FF')||(LA8_13>='\uE000' && LA8_13<='\uFFFD')) && ((( !inQuotStr && !inAposStr )||( inQuotStr )))) {s = 13;}
 
-                        else if ( (LA8_13=='{'||LA8_13=='}') && (( inQuotStr ))) {s = 14;}
+                        else if ( (LA8_13=='<'||LA8_13=='{'||LA8_13=='}') && (( inQuotStr ))) {s = 14;}
 
                         else if ( (LA8_13=='\"') && (( !inQuotStr && !inAposStr ))) {s = 9;}
 
@@ -1199,7 +1197,7 @@ public class StringLexer extends XQDTLexer {
                         int index8_5 = input.index();
                         input.rewind();
                         s = -1;
-                        if ( ((LA8_5>='\t' && LA8_5<='\n')||LA8_5=='\r'||(LA8_5>=' ' && LA8_5<='!')||(LA8_5>='#' && LA8_5<='%')||(LA8_5>='(' && LA8_5<=';')||(LA8_5>='=' && LA8_5<='\uD7FF')||(LA8_5>='\uE000' && LA8_5<='\uFFFD')) && ((( inQuotStr )||( inAposStr )))) {s = 5;}
+                        if ( ((LA8_5>='\t' && LA8_5<='\n')||LA8_5=='\r'||(LA8_5>=' ' && LA8_5<='!')||(LA8_5>='#' && LA8_5<='%')||(LA8_5>='(' && LA8_5<='\uD7FF')||(LA8_5>='\uE000' && LA8_5<='\uFFFD')) && ((( inQuotStr )||( inAposStr )))) {s = 5;}
 
                         else if ( (LA8_5=='\'') && (( inQuotStr ))) {s = 14;}
 
@@ -1243,7 +1241,7 @@ public class StringLexer extends XQDTLexer {
 
                         else if ( ((LA8_0>='\t' && LA8_0<='\n')||LA8_0=='\r'||(LA8_0>=' ' && LA8_0<='!')||(LA8_0>='#' && LA8_0<='%')||(LA8_0>='(' && LA8_0<=';')||(LA8_0>='=' && LA8_0<='z')||LA8_0=='|'||(LA8_0>='~' && LA8_0<='\uD7FF')||(LA8_0>='\uE000' && LA8_0<='\uFFFD')) && ((( !inQuotStr && !inAposStr )||( inQuotStr )||( inAposStr )))) {s = 4;}
 
-                        else if ( (LA8_0=='{'||LA8_0=='}') && ((( inQuotStr )||( inAposStr )))) {s = 5;}
+                        else if ( (LA8_0=='<'||LA8_0=='{'||LA8_0=='}') && ((( inQuotStr )||( inAposStr )))) {s = 5;}
 
                          
                         input.seek(index8_0);
@@ -1273,7 +1271,7 @@ public class StringLexer extends XQDTLexer {
                         s = -1;
                         if ( ((LA8_8>='\t' && LA8_8<='\n')||LA8_8=='\r'||(LA8_8>=' ' && LA8_8<='%')||(LA8_8>='(' && LA8_8<=';')||(LA8_8>='=' && LA8_8<='z')||LA8_8=='|'||(LA8_8>='~' && LA8_8<='\uD7FF')||(LA8_8>='\uE000' && LA8_8<='\uFFFD')) && ((( !inQuotStr && !inAposStr )||( inAposStr )))) {s = 8;}
 
-                        else if ( (LA8_8=='{'||LA8_8=='}') && (( inAposStr ))) {s = 10;}
+                        else if ( (LA8_8=='<'||LA8_8=='{'||LA8_8=='}') && (( inAposStr ))) {s = 10;}
 
                         else if ( (LA8_8=='\'') && (( !inQuotStr && !inAposStr ))) {s = 9;}
 

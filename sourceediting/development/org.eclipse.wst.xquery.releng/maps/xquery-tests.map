@@ -1,0 +1,7 @@
+!*************** xquery.map
+! This map file is for the WTP 3.2 and XQuery 0.7 release
+! These bundles are currently being developed and released from the HEAD branch
+
+feature@org.eclipse.wst.xquery_tests.feature=HEAD,:pserver:anonymous@dev.eclipse.org:/cvsroot/webtools,,incubator/sourceediting/features/org.eclipse.wst.xquery_tests.feature
+
+plugin@org.eclipse.wst.xquery.tests=HEAD,:pserver:anonymous@dev.eclipse.org:/cvsroot/webtools,,incubator/sourceediting/tests/org.eclipse.wst.xquery.tests

@@ -1,0 +1,10 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Tests
+Bundle-SymbolicName: org.eclipse.wst.xquery.tests
+Bundle-Version: 0.7.0.qualifier
+Bundle-Activator: org.eclipse.wst.xquery.tests.XQueryTestsPlugin
+Require-Bundle: org.eclipse.core.runtime,
+ org.junit;bundle-version="3.8.2"
+Bundle-ActivationPolicy: lazy
+Bundle-RequiredExecutionEnvironment: J2SE-1.5

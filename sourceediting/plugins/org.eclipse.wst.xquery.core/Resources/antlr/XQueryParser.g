@@ -635,7 +635,7 @@ p_ValidateExpr
 
 //[87]
 p_ValidationMode
-        :   k=LAX | k=STRICT | (k=AS p_QName) {ak($k);}
+        :   (k=LAX | k=STRICT | (k=AS p_QName)) {ak($k);}
         ;
 
 //[88]

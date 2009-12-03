@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feature
+      id="org.eclipse.wst.xquery_sdk.feature"
+      label="%featureName"
+      version="0.7.0.qualifier"
+      provider-name="%providerName">
+
+   <description>
+      %description
+   </description>
+
+   <copyright>
+      %copyright
+   </copyright>
+
+   <license>
+      %license
+   </license>
+
+   <includes
+         id="org.eclipse.wst.xquery.feature"
+         version="0.0.0"/>
+
+   <includes
+         id="org.eclipse.wst.xquery.marklogic.feature"
+         version="0.0.0"/>
+
+   <includes
+         id="org.eclipse.wst.xquery.set.feature"
+         version="0.0.0"/>
+
+   <includes
+         id="org.eclipse.wst.xquery.zorba.feature"
+         version="0.0.0"/>
+
+</feature>

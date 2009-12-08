@@ -268,7 +268,7 @@ pm_BaseURIDecl
 
 //[23]
 pm_SchemaImport
-        : k+=IMPORT k+=SCHEMA sp=p_SchemaPrefix? us=p_StringLiteral (AT ah+=p_StringLiteral (COMMA ah+=p_StringLiteral)*)? SEMICOLON {ak($k);}
+        : k+=IMPORT k+=SCHEMA sp=p_SchemaPrefix? us=p_StringLiteral (k+=AT ah+=p_StringLiteral (COMMA ah+=p_StringLiteral)*)? SEMICOLON {ak($k);}
                 -> ^(SchemaImport ^(SchemaPrefix $sp?) $us ^(AtHints $ah*))
         ;
 

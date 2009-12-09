@@ -52,7 +52,7 @@
         	<exclude name="**/plugins/org.antlr*.jar"/>
         </patternset>
         <getFindBugs downloadDir="${writableBuildRoot}/downloads" destDir="${writableBuildRoot}/3rdPartyJars/findbugs"/>
-        <extractJarsForAnalysis src="${sdkzipUrl}${zipPrefix}-SDK-${buildType}${buildTimestamp}.zip" refid="xqueryjars"/>
+        <extractJarsForAnalysis src="${sdkzipUrl}${zipPrefix}-SDK${incubation}-${buildType}${buildTimestamp}.zip" refid="xqueryjars"/>
         <findBugs outputfile="${writableBuildRoot}/athena/fb-xquery.xml"/>
     </target>
 	

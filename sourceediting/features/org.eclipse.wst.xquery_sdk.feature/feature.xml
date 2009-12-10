@@ -21,16 +21,4 @@
          id="org.eclipse.wst.xquery.feature"
          version="0.0.0"/>
 
-   <includes
-         id="org.eclipse.wst.xquery.marklogic.feature"
-         version="0.0.0"/>
-
-   <includes
-         id="org.eclipse.wst.xquery.set.feature"
-         version="0.0.0"/>
-
-   <includes
-         id="org.eclipse.wst.xquery.zorba.feature"
-         version="0.0.0"/>
-
 </feature>

@@ -12,12 +12,9 @@ Require-Bundle: org.eclipse.core.resources;bundle-version="3.4.0",
  org.eclipse.ui;bundle-version="3.4.0",
  org.eclipse.ui.cheatsheets;bundle-version="3.3.1",
  org.eclipse.ui.workbench.texteditor;bundle-version="3.4.0",
- org.eclipse.wst.xml.security.core;bundle-version="0.5.0",
- org.apache.xml.security;bundle-version="1.4.2",
- org.eclipse.core.expressions
+ org.apache.xml.security;bundle-version="1.4.2"
 Bundle-Activator: org.eclipse.wst.xml.security.ui.XSTUIPlugin
 Bundle-Localization: plugin
-Import-Package: org.eclipse.ui.part
 Export-Package: org.eclipse.wst.xml.security.ui,
  org.eclipse.wst.xml.security.ui.cheatsheets,
  org.eclipse.wst.xml.security.ui.decrypt,
@@ -27,3 +24,11 @@ Export-Package: org.eclipse.wst.xml.security.ui,
  org.eclipse.wst.xml.security.ui.sign,
  org.eclipse.wst.xml.security.ui.utils,
  org.eclipse.wst.xml.security.ui.verify
+Import-Package: org.eclipse.ui.part,
+ org.eclipse.wst.xml.security.core.canonicalize,
+ org.eclipse.wst.xml.security.core.cryptography,
+ org.eclipse.wst.xml.security.core.decrypt,
+ org.eclipse.wst.xml.security.core.encrypt,
+ org.eclipse.wst.xml.security.core.sign,
+ org.eclipse.wst.xml.security.core.utils,
+ org.eclipse.wst.xml.security.core.verify

@@ -262,7 +262,7 @@ public class SignatureView extends ViewPart {
                 VerificationResult result = getSelectedItem();
 
                 if (result != null) {
-                    Verification.showVerificationResult(result, getSite().getShell());
+                    Verification.showVerificationResult(result);
                 }
             }
         });

@@ -128,7 +128,7 @@ public class QuickVerificationCommand extends AbstractHandler {
         if (results.size() == 1) {
             VerificationResult result = (VerificationResult) results.get(0);
             if (result.getSignature() != null) {
-                Verification.showVerificationResult(result, HandlerUtil.getActiveShell(event));
+                Verification.showVerificationResult(result);
             } else {
                 MessageDialog.openError(HandlerUtil.getActiveShell(event), Messages.QuickVerificationCommand_0,
                         NLS.bind(Messages.QuickVerificationCommand_4, signatureId));

@@ -21,7 +21,7 @@ import org.eclipse.wst.xml.security.ui.verify.Verification;
 /**
  * <p>Shows additional properties in a popup dialog of the selected XML Signature
  * in the XML Signatures view.</p>
- * 
+ *
  * @author Dominik Schadow
  * @version 0.5.0
  */
@@ -30,10 +30,9 @@ public class ShowPropertiesCommand extends AbstractHandler {
         Object o = ((IStructuredSelection) HandlerUtil.getCurrentSelection(event)).getFirstElement();
 
         if (o instanceof VerificationResult) {
-            Verification.showVerificationResult((VerificationResult) o, 
-                    HandlerUtil.getActiveShell(event));
+            Verification.showVerificationResult((VerificationResult) o);
         }
-        
+
         return null;
     }
 }

@@ -19,6 +19,7 @@ import org.apache.xml.security.utils.resolver.implementations.ResolverFragment;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.osgi.util.NLS;
 import org.eclipse.swt.widgets.Shell;
+import org.eclipse.ui.PlatformUI;
 import org.eclipse.wst.xml.security.core.verify.VerificationResult;
 import org.eclipse.wst.xml.security.ui.dialogs.VerificationDialog;
 
@@ -36,47 +37,55 @@ public final class Verification {
     }
 
     /**
-     * Shows a popup window with the verification result. The displayed image depends on the
+     * Shows a dialog with the verification result. The displayed image depends on the
      * verification result.
      *
      * @param result VerificationResult object
-     * @param shell The parent shell
      */
-    public static void showVerificationResult(final VerificationResult result, final Shell shell) {
+    public static void showVerificationResult(final VerificationResult result) {
         XMLSignature signature = result.getSignature();
 
         ResolverFragment fragmentResolver = new ResolverFragment();
 
-        signature.addResourceResolver(fragmentResolver);
+        if (signature != null) {
+            signature.addResourceResolver(fragmentResolver);
 
-        try {
-            X509Certificate cert = signature.getKeyInfo().getX509Certificate();
-            PublicKey pk = signature.getKeyInfo().getPublicKey();
-            String additionalInfo = ""; //$NON-NLS-1$
+            try {
+                X509Certificate cert = signature.getKeyInfo().getX509Certificate();
+                PublicKey pk = signature.getKeyInfo().getPublicKey();
+                String additionalInfo = ""; //$NON-NLS-1$
 
-            if (cert != null) {
-                additionalInfo = "Certificate Type: " + cert.getType(); //$NON-NLS-1$
-                additionalInfo += ", Certificate Version: " + cert.getVersion(); //$NON-NLS-1$
-                additionalInfo += ", Certificate Algorithm: " + cert.getSigAlgName(); //$NON-NLS-1$
-                additionalInfo += ", Certificate Algorithm ID: " + cert.getSigAlgOID(); //$NON-NLS-1$
-            } else if (pk != null) {
-                additionalInfo = "Public Key Format: " + pk.getFormat(); //$NON-NLS-1$
-                additionalInfo += ", Public Key Algorithm: " + pk.getAlgorithm(); //$NON-NLS-1$
+                if (cert != null) {
+                    additionalInfo = "Certificate Type: " + cert.getType(); //$NON-NLS-1$
+                    additionalInfo += ", Certificate Version: " + cert.getVersion(); //$NON-NLS-1$
+                    additionalInfo += ", Certificate Algorithm: " + cert.getSigAlgName(); //$NON-NLS-1$
+                    additionalInfo += ", Certificate Algorithm ID: " + cert.getSigAlgOID(); //$NON-NLS-1$
+                } else if (pk != null) {
+                    additionalInfo = "Public Key Format: " + pk.getFormat(); //$NON-NLS-1$
+                    additionalInfo += ", Public Key Algorithm: " + pk.getAlgorithm(); //$NON-NLS-1$
+                }
+
+                if (VerificationResult.VALID.equals(result.getStatus())) { //$NON-NLS-1$
+                    showVerificationDialog(result.getStatus(), NLS.bind(Messages.validSignature,
+                            new Object[] {result.getId(), additionalInfo}),
+                            PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell());
+                } else if (VerificationResult.INVALID.equals(result.getStatus())) { //$NON-NLS-1$
+                    showVerificationDialog(result.getStatus(), NLS.bind(Messages.invalidSignature,
+                            new Object[] {result.getId(), additionalInfo}),
+                            PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell());
+                } else {
+                    showVerificationDialog(result.getStatus(), NLS.bind(Messages.unknownSignature,
+                            new Object[] {result.getId(), additionalInfo}),
+                            PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell());
+                }
+            } catch (KeyResolverException ex) {
+                MessageDialog.openInformation(PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell(),
+                        Messages.verificationImpossible, Messages.impossibleToGetKeyInformation);
             }
-
-            if (VerificationResult.VALID.equals(result.getStatus())) { //$NON-NLS-1$
-                showVerificationDialog(result.getStatus(), NLS.bind(Messages.validSignature,
-                        new Object[] {result.getId(), additionalInfo}), shell);
-            } else if (VerificationResult.INVALID.equals(result.getStatus())) { //$NON-NLS-1$
-                showVerificationDialog(result.getStatus(), NLS.bind(Messages.invalidSignature,
-                        new Object[] {result.getId(), additionalInfo}), shell);
-            } else {
-                showVerificationDialog(result.getStatus(), NLS.bind(Messages.unknownSignature,
-                        new Object[] {result.getId(), additionalInfo}), shell);
-            }
-        } catch (KeyResolverException ex) {
-            MessageDialog.openInformation(shell, Messages.verificationImpossible,
-                    Messages.impossibleToGetKeyInformation);
+        } else {
+            showVerificationDialog(result.getStatus(), NLS.bind(Messages.unknownSignature,
+                    new Object[] {result.getId(), ""}), //$NON-NLS-1$
+                    PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell());
         }
     }
 

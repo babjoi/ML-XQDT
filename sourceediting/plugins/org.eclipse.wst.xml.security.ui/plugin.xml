@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?eclipse version="3.4"?>
 <plugin>
-   <!-- View and Editor Context Menu -->
    <!-- Views -->
    <extension
          id="org.eclipse.wst.xml.security.ui.views"
@@ -310,13 +309,11 @@
             </visibleWhen>
             <command
                   commandId="org.eclipse.wst.xml.security.ui.canonicalizeMaintain"
-                  helpContextId="org.eclipse.wst.xml.seucrity.doc.canonicalize"
                   style="push"
                   tooltip="%command.tooltip">
             </command>
             <command
                   commandId="org.eclipse.wst.xml.security.ui.canonicalizeRemove"
-                  helpContextId="org.eclipse.wst.xml.seucrity.doc.canonicalize"
                   style="push"
                   tooltip="%command.tooltip.0">
             </command>
@@ -326,14 +323,12 @@
             </separator>
             <command
                   commandId="org.eclipse.wst.xml.security.ui.sign"
-                  helpContextId="org.eclipse.wst.xml.seucrity.doc.wizard_signature"
                   icon="icons/new_sign.gif"
                   style="push"
                   tooltip="%command.tooltip.1">
             </command>
             <command
                   commandId="org.eclipse.wst.xml.security.ui.signQuick"
-                  helpContextId="org.eclipse.wst.xml.seucrity.doc.quick_signature"
                   style="push"
                   tooltip="%command.tooltip.2">
             </command>
@@ -343,14 +338,12 @@
             </separator>
             <command
                   commandId="org.eclipse.wst.xml.security.ui.verify"
-                  helpContextId="org.eclipse.wst.xml.seucrity.doc.view_verification"
                   icon="icons/new_verify.gif"
                   style="push"
                   tooltip="%command.tooltip.3">
             </command>
             <command
                   commandId="org.eclipse.wst.xml.security.ui.verifyQuick"
-                  helpContextId="org.eclipse.wst.xml.seucrity.doc.quick_verification"
                   style="push"
                   tooltip="%command.tooltip.4">
             </command>
@@ -360,14 +353,12 @@
             </separator>
             <command
                   commandId="org.eclipse.wst.xml.security.ui.encrypt"
-                  helpContextId="org.eclipse.wst.xml.seucrity.doc.wizard_encryption"
                   icon="icons/new_encrypt.gif"
                   style="push"
                   tooltip="%command.tooltip.5">
             </command>
             <command
                   commandId="org.eclipse.wst.xml.security.ui.encryptQuick"
-                  helpContextId="org.eclipse.wst.xml.seucrity.doc.quick_encryption"
                   style="push"
                   tooltip="%command.tooltip.6">
             </command>
@@ -377,14 +368,12 @@
             </separator>
             <command
                   commandId="org.eclipse.wst.xml.security.ui.decrypt"
-                  helpContextId="org.eclipse.wst.xml.seucrity.doc.wizard_decryption"
                   icon="icons/new_decrypt.gif"
                   style="push"
                   tooltip="%command.tooltip.7">
             </command>
             <command
                   commandId="org.eclipse.wst.xml.security.ui.decryptQuick"
-                  helpContextId="org.eclipse.wst.xml.seucrity.doc.quick_decryption"
                   style="push"
                   tooltip="%command.tooltip.8">
             </command>
@@ -440,6 +429,4 @@
          </command>
       </menuContribution>
    </extension>
-   <!-- Cheat Sheets -->
-
 </plugin>

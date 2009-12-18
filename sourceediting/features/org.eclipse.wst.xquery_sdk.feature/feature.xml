@@ -20,5 +20,9 @@
    <includes
          id="org.eclipse.wst.xquery.feature"
          version="0.0.0"/>
+   <includes
+         id="org.eclipse.wst.xquery.feature.source"
+         version="0.0.0"/>
+
 
 </feature>

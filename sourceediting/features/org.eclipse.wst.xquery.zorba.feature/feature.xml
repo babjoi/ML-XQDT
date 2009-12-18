@@ -13,10 +13,6 @@
       %license
    </license>
 
-   <url>
-      <update label="%updateSiteName" url="http://www.xqdt.org/xqdt/2.0/"/>
-      <discovery label="%updateSiteName" url="http://www.xqdt.org/xqdt/2.0/"/>
-   </url>
 
    <plugin
          id="org.eclipse.wst.xquery.debug.debugger.zorba"

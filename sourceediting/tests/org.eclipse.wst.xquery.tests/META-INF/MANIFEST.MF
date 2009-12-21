@@ -8,5 +8,5 @@ Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.wst.xquery.core.tests,
  org.junit;bundle-version="3.8.2"
 Bundle-ActivationPolicy: lazy
-Bundle-RequiredExecutionEnvironment: J2SE-1.5
 Export-Package: org.eclipse.wst.xquery.tests
+Bundle-RequiredExecutionEnvironment: J2SE-1.4

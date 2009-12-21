@@ -9,7 +9,7 @@ Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.core.resources,
  org.eclipse.wst.xquery.core,
  org.eclipse.dltk.core;bundle-version="1.0.1",
- org.antlr.runtime_v31,
+ org.antlr.runtime_v31;bundle-version="3.1.0",
  org.junit;bundle-version="3.8.2"
 Bundle-RequiredExecutionEnvironment: J2SE-1.5
 Bundle-ActivationPolicy: lazy

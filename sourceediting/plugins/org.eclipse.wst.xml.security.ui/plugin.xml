@@ -4,7 +4,7 @@
    <!-- Views -->
    <extension
          id="org.eclipse.wst.xml.security.ui.views"
-         name="org.eclipse.wst.xml.security.ui.views"
+         name="%extension.name"
          point="org.eclipse.ui.views">
       <view
             allowMultiple="false"
@@ -18,7 +18,7 @@
    <!-- Preference Pages -->
    <extension
          id="org.eclipse.wst.xml.security.ui.preferences"
-         name="org.eclipse.wst.xml.security.ui.preferences"
+         name="%extension.name.0"
          point="org.eclipse.ui.preferencePages">
       <page
             category="org.eclipse.wst.xml.ui.preferences.xml"
@@ -41,7 +41,7 @@
    </extension>
    <extension
          id="org.eclipse.wst.xml.security.ui.preferenceinitializer"
-         name="org.eclipse.wst.xml.security.ui.preferenceinitializer"
+         name="%extension.name.1"
          point="org.eclipse.core.runtime.preferences">
       <initializer
             class="org.eclipse.wst.xml.security.ui.preferences.PreferenceInitializer">

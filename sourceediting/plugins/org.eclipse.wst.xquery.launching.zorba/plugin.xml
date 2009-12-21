@@ -52,5 +52,20 @@
             interpreterInstallTypeID="org.eclipse.wst.xquery.launching.ZorbaInstallType">
       </resolver>
    </extension>
+   <extension
+         point="org.eclipse.wst.xquery.launching.builtinModules">
+      <searchPath
+            installType="org.eclipse.wst.xquery.launching.ZorbaInstallType"
+            path="%interpreterPath%/../include/zorba/modules"
+            relative="false">
+         <implicitImports
+               activator="org.eclipse.wst.xquery.launching.zorba.ImplicitImportActivator1">
+            <prefix
+                  name="org.eclipse.wst.xquery.launching.zorba.prefix1"
+                  path="org.eclipse.wst.xquery.launching.zorba.prefix1">
+            </prefix>
+         </implicitImports>
+      </searchPath>
+   </extension>
 
 </plugin>

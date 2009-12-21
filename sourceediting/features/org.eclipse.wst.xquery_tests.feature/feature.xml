@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <feature
       id="org.eclipse.wst.xquery_tests.feature"
-      label="Tests Feature"
+      label="XQDT Tests Feature"
       version="0.7.0.qualifier"
       provider-name="Eclipse.org">
 

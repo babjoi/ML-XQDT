@@ -2,7 +2,7 @@
 <feature
       id="org.eclipse.wst.xquery.build.feature"
       label="%featureName"
-      version="0.7.0"
+      version="0.7.0.qualifier"
       provider-name="%providerName">
 
    <description>
@@ -32,7 +32,9 @@
    <includes
          id="org.eclipse.wst.xquery.zorba.feature"
          version="0.0.0"/>
-   <includes id="org.eclipse.wst.xquery.source" 
+
+   <includes
+         id="org.eclipse.wst.xquery.source"
          version="0.0.0"/>
 
    <requires>

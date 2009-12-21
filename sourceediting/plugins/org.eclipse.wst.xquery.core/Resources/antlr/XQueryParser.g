@@ -374,7 +374,9 @@ p_QueryBody
 //[38]
 //[31] Scripting 1.0
 pm_Expr
-        : p_ConcatExpr ({lc(XQS)}?=> (SEMICOLON pm_ApplyExpr*)? | /* nothing */) ({lc(MLS)}?=> (SEMICOLON p_ConcatExpr)+ | /* nothing */)
+        : p_ConcatExpr
+          ({lc(XQS)}?=> (SEMICOLON pm_ApplyExpr*)? | /* nothing */)
+          ({lc(MLS)}?=> (SEMICOLON p_ConcatExpr)+ | /* nothing */)
         ;
 
 //[39]
@@ -826,12 +828,12 @@ p_DirElemConstructor //@init {setWsExplicit(true);}
 
 //[120] /* ws: explicit */ - resolved through the XMLLexer
 p_DirAttributeList
-        :   (S (p_QName S? EQUAL S? p_DirAttributeValue)?)*
+        : (S (p_QName S? EQUAL S? p_DirAttributeValue)?)*
         ;
 
 //[121] /* ws: explicit */ - resolved through the XMLLexer
 p_DirAttributeValue
-        :   (QUOT (ESCAPE_QUOT | pm_QuotAttrValueContent)* QUOT)
+        : (QUOT (ESCAPE_QUOT | pm_QuotAttrValueContent)* QUOT)
                 -> ^(DirAttributeValue pm_QuotAttrValueContent*)
         | (APOS (ESCAPE_APOS | pm_AposAttrValueContent)* APOS)
                 -> ^(DirAttributeValue pm_AposAttrValueContent*)
@@ -839,7 +841,7 @@ p_DirAttributeValue
 
 //[122]
 pm_QuotAttrValueContent
-        :   pg_QuotAttrContentChar | pg_CommonContent | p_ElemEnclosedExpr
+        : pg_QuotAttrContentChar | pg_CommonContent | p_ElemEnclosedExpr
         ;
 
 // *************************************************
@@ -906,9 +908,9 @@ pm_CommonContent
 // This is needed in order to switch the lexer from
 // XML back to XQuery
 p_ElemEnclosedExpr
-        :   LBRACKET {pushXQueryLexer();}
-            pm_Expr
-            RBRACKET {popLexer();}
+        :   LBRACKET
+            ({pushXQueryLexer();} pm_Expr {popLexer();})
+            RBRACKET 
         ;
 // *************************************************
 

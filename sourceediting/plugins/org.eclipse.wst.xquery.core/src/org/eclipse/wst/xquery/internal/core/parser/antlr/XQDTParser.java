@@ -88,12 +88,17 @@ public class XQDTParser extends Parser implements IXQDTLanguageConstants {
     }
 
     public void pushLexer(XQDTLexer lexer) {
-        ((XQDTLexer)fStream.getTokenSource()).addToStack(fLexerStack);
+        XQDTLexer oldLexer = (XQDTLexer)fStream.getTokenSource();
+        oldLexer.addToStack(fLexerStack);
         fStream.setTokenSource(lexer);
+        oldLexer.postErrors();
     }
 
     public void popLexer() {
-        fStream.setTokenSource(fLexerStack.remove(fLexerStack.size() - 1));
+        XQDTLexer oldLexer = (XQDTLexer)fStream.getTokenSource();
+        XQDTLexer newLexer = fLexerStack.remove(fLexerStack.size() - 1);
+        fStream.setTokenSource(newLexer);
+        oldLexer.postErrors();
     }
 
     public void setWsExplicit(boolean isExplicit) {
@@ -166,6 +171,10 @@ public class XQDTParser extends Parser implements IXQDTLanguageConstants {
             fKeywords.clear();
             fStream.setWsExplicit(false);
         }
+    }
 
+    public void postErrors() {
+        XQDTLexer lexer = (XQDTLexer)fStream.getTokenSource();
+        lexer.postErrors();
     }
 }

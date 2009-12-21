@@ -10,6 +10,7 @@
  *******************************************************************************/
 package org.eclipse.wst.xquery.internal.core.parser.antlr;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.antlr.runtime.ANTLRStringStream;
@@ -26,6 +27,7 @@ public abstract class XQDTLexer extends Lexer {
     private boolean fIsWsExplicit = false;
     private IProblemReporter fReporter;
     private String fFileName;
+    private List<DefaultProblem> fProblems = new ArrayList<DefaultProblem>();
 
     public XQDTLexer() {
     }
@@ -37,6 +39,14 @@ public abstract class XQDTLexer extends Lexer {
     public void rewindToIndex(int index) {
         ANTLRStringStream stream = (ANTLRStringStream)input;
         stream.seek(index);
+        for (int i = fProblems.size() - 1; i >= 0; i--) {
+            DefaultProblem problem = fProblems.get(i);
+            if (problem.getSourceStart() >= index) {
+                fProblems.remove(i);
+            } else {
+                break;
+            }
+        }
     }
 
     public boolean isWsExplicit() {
@@ -59,13 +69,23 @@ public abstract class XQDTLexer extends Lexer {
         fFileName = fileName;
     }
 
+    public void postErrors() {
+        for (DefaultProblem problem : fProblems) {
+            if (problem.getSourceStart() > input.index()) {
+                break;
+            }
+            fReporter.reportProblem(problem);
+        }
+        fProblems.clear();
+    }
+
     @Override
     public void reportError(RecognitionException e) {
         if (fReporter != null) {
             if (input.size() != 0) {
                 String errorMessage = getErrorMessage(e, getTokenNames());
                 DefaultProblem problem = new SyntaxProblem(fFileName, errorMessage, e.index, e.index + 1, e.line);
-                fReporter.reportProblem(problem);
+                fProblems.add(problem);
             }
         }
         super.reportError(e);

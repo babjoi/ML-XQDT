@@ -30,6 +30,7 @@ CDATA_END;
  *
  * Contributors:
  *     Gabriel Petrovay (28msec) - initial API and implementation
+ *     Sam Neth (Mark Logic)
  *******************************************************************************/
 package org.eclipse.wst.xquery.internal.core.parser.antlr;
 }
@@ -200,6 +201,7 @@ EVAL                            : 'eval';
 USING                           : 'using';
 // MarkLogic
 BINARY  : 'binary';
+PRIVATE  : 'private';
 
 // entity references
 AMP_ER  : 'amp';

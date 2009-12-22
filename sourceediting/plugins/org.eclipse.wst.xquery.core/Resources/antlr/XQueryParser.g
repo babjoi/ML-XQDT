@@ -288,7 +288,7 @@ pm_ModuleImport
 
 //[26]
 pm_VarDecl
-        : k+=DECLARE vdt=pg_VarDeclType DOLLAR qn=p_QName td=p_TypeDeclaration? ((BIND es=p_ExprSingle) | (k+=EXTERNAL (BIND des=p_ExprSingle)?)) SEMICOLON {ak($k);}
+        : k+=DECLARE p_PrivateOption vdt=pg_VarDeclType DOLLAR qn=p_QName td=p_TypeDeclaration? ((BIND es=p_ExprSingle) | (k+=EXTERNAL (BIND des=p_ExprSingle)?)) SEMICOLON {ak($k);}
                 -> ^(VarDecl $vdt $qn ^(VarType $td?) ^(VarValue $es? ^(VarDefaultValue $des?)))
         ;
 
@@ -329,7 +329,7 @@ pm_ConstructionDecl
 pm_FunctionDecl
         :   {lc(XQS)}?=> k+=DECLARE k+=SEQUENTIAL k+=FUNCTION qn=p_QName LPAREN pl=p_ParamList? RPAREN td=p_TypeDeclaration? (b=p_Block | k+=EXTERNAL) SEMICOLON {ak($k);}
                 -> ^(FunctionDecl $qn ^(ParamList $pl?) ^(ReturnType $td?) $b?)
-        |   k+=DECLARE p_FunctionType k+=FUNCTION qn=p_QName LPAREN pl=p_ParamList? RPAREN td=p_TypeDeclaration? (ee=p_EnclosedExpr | k+=EXTERNAL) SEMICOLON {ak($k);}
+        |   k+=DECLARE p_PrivateOption p_FunctionType k+=FUNCTION qn=p_QName LPAREN pl=p_ParamList? RPAREN td=p_TypeDeclaration? (ee=p_EnclosedExpr | k+=EXTERNAL) SEMICOLON {ak($k);}
                 -> ^(FunctionDecl $qn ^(ParamList $pl?) ^(ReturnType $td?) $ee?)
         ;
 
@@ -343,6 +343,10 @@ p_FunctionType
         | /* nothing */
         ;
 // *************************************************
+p_PrivateOption
+        : {lc(MLS)}?=> kv=PRIVATE {ak($kv);}
+        | /* nothing */
+        ;
 
 //[33]
 //FunctionBody
@@ -1278,7 +1282,7 @@ p_NCName
         // Zorba keywords
         | EVAL | USING
         // Mark Logic keywords
-        | BINARY
+        | BINARY | PRIVATE
         // entity references
         | AMP_ER | APOS_ER | QUOT_ER
         ;
@@ -1294,6 +1298,8 @@ p_FNCName
         | BLOCK | CONSTANT | EXIT | SEQUENTIAL | SET | SIMPLE
         // Zorba keywords
         | EVAL | USING
+        // Mark Logic keywords
+        | BINARY | PRIVATE
         // entity references
         | AMP_ER | APOS_ER | QUOT_ER
         ;

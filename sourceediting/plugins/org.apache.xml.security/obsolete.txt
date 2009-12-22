@@ -1,0 +1,10 @@
+Notice
+
+This project is obsolete. 
+
+It has been superseded by project with same name in Orbit project. 
+
+/cvsroot/tools
+org.eclipse.orbit/org.apache.xml.security
+v1_4_2 (Branch)
+ 

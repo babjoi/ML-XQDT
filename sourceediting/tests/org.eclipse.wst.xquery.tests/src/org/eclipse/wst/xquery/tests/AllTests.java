@@ -10,6 +10,8 @@
  *******************************************************************************/
 package org.eclipse.wst.xquery.tests;
 
+import org.eclipse.wst.xquery.core.tests.XQDTCoreTestSuite;
+
 import junit.framework.Test;
 import junit.framework.TestSuite;
 
@@ -20,6 +22,7 @@ public class AllTests {
 		//$JUnit-BEGIN$
 //		suite.addTest(XQDTCoreTestSuite.suite());
 		suite.addTestSuite(SimpleTest.class);
+		suite.addTest(XQDTCoreTestSuite.suite());
 		
 
 		//$JUnit-END$

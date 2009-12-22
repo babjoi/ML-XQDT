@@ -108,6 +108,7 @@ BinaryTest;
  *
  * Contributors:
  *     Gabriel Petrovay (28msec) - initial API and implementation
+ *     Sam Neth (Mark Logic)
  *******************************************************************************/
 package org.eclipse.wst.xquery.internal.core.parser.antlr;
 }
@@ -945,6 +946,7 @@ p_ComputedConstructor
         | p_CompTextConstructor
         | p_CompCommentConstructor
         | p_CompPIConstructor
+        | {lc(MLS)}?=> p_CompBinaryConstructor
         ;
 
 //[133]
@@ -979,6 +981,11 @@ p_CompNamespaceConstructor
 //[140]
 p_CompTextConstructor
         :   k=TEXT {ak($k);} LBRACKET pm_Expr RBRACKET
+        ;
+
+// MarkLogic Server Extension
+p_CompBinaryConstructor
+        :   k=BINARY {ak($k);} LBRACKET pm_Expr RBRACKET
         ;
 
 //[141]

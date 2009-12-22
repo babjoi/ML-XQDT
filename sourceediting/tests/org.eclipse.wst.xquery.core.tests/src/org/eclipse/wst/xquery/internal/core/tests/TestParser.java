@@ -47,6 +47,16 @@ public class TestParser extends TestCase implements IXQDTLanguageConstants {
         testQuery("declare private function foo() as xs:string { 'bar' }; ()", true, LANGUAGE_XQUERY_MARK_LOGIC);
     }
 
+    // https://bugs.eclipse.org/bugs/show_bug.cgi?id=292340
+    public void testBug292340_1() {
+        testQuery("binary { 'deadbeef' }", false, LANGUAGE_XQUERY);
+    }
+
+    // https://bugs.eclipse.org/bugs/show_bug.cgi?id=292340
+    public void testBug292340_2() {
+        testQuery("binary { 'deadbeef' }", true, LANGUAGE_XQUERY_MARK_LOGIC);
+    }
+
     // https://bugs.eclipse.org/bugs/show_bug.cgi?id=296671 
     public void testBug296671() {
         testQuery("\"<\"", true, LANGUAGE_XQUERY);

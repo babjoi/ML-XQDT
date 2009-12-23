@@ -343,7 +343,7 @@ public class XQDTCompletionEngine extends ScriptCompletionEngine {
                 char parameterNames[][] = new char[args.size()][];
                 for (int j = 0; j < args.size(); ++j) {
                     Argument arg = (Argument)args.get(j);
-                    parameterNames[j] = arg.getName().toCharArray();
+                    parameterNames[j] = ("$" + arg.getName()).toCharArray();
                 }
                 proposal.setParameterNames(parameterNames);
 

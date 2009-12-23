@@ -23,7 +23,6 @@ public class XQDTCompletionProposalLabelProvider extends CompletionProposalLabel
                     buffer.append(',');
                     buffer.append(' ');
                 }
-                buffer.append('$');
                 buffer.append(parameterNames[i]);
             }
         }

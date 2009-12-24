@@ -136,7 +136,7 @@ public class XQDTSourceParser extends AbstractSourceParser {
         parser.setFileName(fileName);
 
         IFile file = ResourcesPlugin.getWorkspace().getRoot().getFile(new Path(fileName));
-        int language = LanguageUtil.getLanguageLevel(file, source);
+        int language = LanguageUtil.getLanguageLevel(file.getProject());
         if (XQDTCorePlugin.DEBUG) {
             System.out.println("prepareParser (" + language + "):" + new String(fileName));
         }

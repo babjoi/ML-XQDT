@@ -11,17 +11,19 @@
 package org.eclipse.wst.xquery.internal.launching.marklogic;
 
 import org.eclipse.dltk.core.ISourceModule;
-import org.eclipse.wst.xquery.core.IXQDTLanguageConstants;
+import org.eclipse.wst.xquery.core.model.ast.XQueryModule;
 import org.eclipse.wst.xquery.internal.core.codeassist.IImplicitImportActivator;
-import org.eclipse.wst.xquery.internal.core.utils.LanguageUtil;
 
 public class MarkLogicCompletionPrefixActivator implements IImplicitImportActivator {
 
-    /* (non-Javadoc)
-     * @see org.eclipse.wst.xquery.internal.launching.marklogic.IImplicitImportActivator#activateForModule(org.eclipse.dltk.core.ISourceModule)
+    /*
+     * (non-Javadoc)
+     * 
+     * @see
+     * org.eclipse.wst.xquery.internal.launching.marklogic.IImplicitImportActivator#activateForModule
+     * (org.eclipse.dltk.core.ISourceModule)
      */
     public boolean activateForModule(ISourceModule module) {
-        int languageLevel = LanguageUtil.getLanguageLevel(module);
-        return (languageLevel & IXQDTLanguageConstants.LANGUAGE_XQUERY_MARK_LOGIC) == IXQDTLanguageConstants.LANGUAGE_XQUERY_MARK_LOGIC;
+        return ((module instanceof XQueryModule) && "1.0-ml".equals(((XQueryModule)module).getVersion()));
     }
 }

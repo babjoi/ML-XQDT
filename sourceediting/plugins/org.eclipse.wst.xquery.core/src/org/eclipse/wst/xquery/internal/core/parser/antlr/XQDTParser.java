@@ -156,6 +156,15 @@ public class XQDTParser extends Parser implements IXQDTLanguageConstants {
     }
 
     /**
+     * Sets the current language level given an XQuery version (called from version prolog rule).
+     */
+    public void setLanguageVersion(String languageVersion) {
+        if ("1.0-ml".equals(languageVersion)) {
+            fLanguage = IXQDTLanguageConstants.LANGUAGE_XQUERY_MARK_LOGIC;
+        }
+    }
+
+    /**
      * Tests if the current language level is compliant with the language level specified in the
      * languageMask
      */

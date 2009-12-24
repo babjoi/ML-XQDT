@@ -10,15 +10,9 @@
  *******************************************************************************/
 package org.eclipse.wst.xquery.internal.core.utils;
 
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
-import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.dltk.core.ISourceModule;
-import org.eclipse.dltk.core.ModelException;
 import org.eclipse.dltk.core.PreferencesLookupDelegate;
-import org.eclipse.dltk.core.SourceParserUtil;
 import org.eclipse.wst.xquery.core.IXQDTCorePreferences;
 import org.eclipse.wst.xquery.core.IXQDTLanguageConstants;
 import org.eclipse.wst.xquery.core.XQDTCorePlugin;
@@ -26,50 +20,11 @@ import org.eclipse.wst.xquery.core.model.ast.XQueryModule;
 
 public class LanguageUtil {
 
-    private static final Pattern versionDecl = Pattern.compile("^xquery version \"(.*)\".*$", Pattern.MULTILINE);
-
     public static int getLanguageLevel(ISourceModule module) {
-        try {
-            XQueryModule xqModule = (XQueryModule)SourceParserUtil.getModuleDeclaration(module);
-            xqModule.getVersion();
-            int languageLevel = getDeclaredLanguageLevel(module.getSource());
-            if (languageLevel >= 0) {
-                return languageLevel;
-            }
-        } catch (ModelException e) {
-            e.printStackTrace();
-        }
-
-        return getLanguageLevel(module.getScriptProject().getProject());
-    }
-
-    public static int getDeclaredLanguageLevel(String source) {
-        if (source != null) {
-            Matcher matcher = versionDecl.matcher(source.split("\n")[0]);
-            if (matcher.matches()) {
-                String version = matcher.group(1);
-                if (version.equals("1.0-ml")) {
-                    return IXQDTLanguageConstants.LANGUAGE_XQUERY_MARK_LOGIC;
-                }
-            }
-        }
-
-        return -1;
-    }
-
-    public static int getLanguageLevel(IFile file, char source[]) {
-        int newline = 0;
-
-        while ((newline < source.length) && (newline < 1000) & (source[newline] != '\n')) {
-            ++newline;
-        }
-
-        int languageLevel = getDeclaredLanguageLevel(new String(source, 0, newline));
-
-        if (languageLevel >= 0) {
-            return languageLevel;
+        if ((module instanceof XQueryModule) && "1.0-ml".equals(((XQueryModule)module).getVersion())) {
+            return IXQDTLanguageConstants.LANGUAGE_XQUERY_MARK_LOGIC;
         } else {
-            return getLanguageLevel(file.getProject());
+            return getLanguageLevel(module.getScriptProject().getProject());
         }
     }
 

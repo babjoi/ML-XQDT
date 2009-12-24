@@ -135,7 +135,8 @@ p_Module
 
 //[2]
 p_VersionDecl
-        : k+=XQUERY ((k+=ENCODING enc=p_StringLiteral) | (k+=VERSION ver=p_StringLiteral (k+=ENCODING enc=p_StringLiteral)?)) SEMICOLON {ak($k);}
+        : k+=XQUERY ((k+=ENCODING enc=p_StringLiteral) | 
+        			 (k+=VERSION ver=p_StringLiteral {setLanguageVersion(((XQDTCommonTree)ver.getTree()).getChild(0).getText());} (k+=ENCODING enc=p_StringLiteral)?)) SEMICOLON {ak($k);}
                 -> ^(VersionDecl ^(VersionDeclVersion $ver?) ^(VersionDeclEncoding $enc?))
         ;
 

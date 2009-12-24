@@ -11,6 +11,7 @@
 package org.eclipse.wst.xquery.internal.core.utils;
 
 import org.eclipse.core.resources.IProject;
+import org.eclipse.dltk.core.IScriptProject;
 import org.eclipse.dltk.core.ISourceModule;
 import org.eclipse.dltk.core.PreferencesLookupDelegate;
 import org.eclipse.wst.xquery.core.IXQDTCorePreferences;
@@ -24,7 +25,12 @@ public class LanguageUtil {
         if ((module instanceof XQueryModule) && "1.0-ml".equals(((XQueryModule)module).getVersion())) {
             return IXQDTLanguageConstants.LANGUAGE_XQUERY_MARK_LOGIC;
         } else {
-            return getLanguageLevel(module.getScriptProject().getProject());
+            IScriptProject scriptProject = module.getScriptProject();
+            if (scriptProject != null) {
+                return getLanguageLevel(scriptProject.getProject());
+            } else {
+                return IXQDTLanguageConstants.LANGUAGE_XQUERY;
+            }
         }
     }
 

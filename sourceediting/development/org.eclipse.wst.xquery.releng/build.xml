@@ -61,7 +61,7 @@
 
     <target name="duplicateCode" description="Run PMD duplicate code analysis">
         <getPMD downloadDir="${writableBuildRoot}/downloads" destDir="${writableBuildRoot}/3rdPartyJars/pmd"/>
-        <cpd outputfile="${writableBuildRoot}/athena/cpd-xquery.xml" srcdir="${WORKSPACE}"/>
+        <cpd outputfile="${writableBuildRoot}/athena/cpd-xquery.xml" srcdir="${WORKSPACE}/incubator/sourceediting/plugins"/>
     </target>
 	
 	<target name="cleanUp">

@@ -23,8 +23,7 @@
 			</taskdef>
 		    <cpd minimumTokenCount="100" format="xml" outputFile="@{outputfile}">
 		        <fileset dir="@{srcdir}">
-		            <include name="**/wst/**/*.java"/>
-		        	<exclude name="**/XQueryParser.java"/>
+		            <include name="**/*.java"/>
 		        </fileset>
 		    </cpd>
 		</sequential>

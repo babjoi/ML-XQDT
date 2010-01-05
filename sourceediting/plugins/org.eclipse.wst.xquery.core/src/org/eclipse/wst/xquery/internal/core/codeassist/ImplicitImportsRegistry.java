@@ -12,6 +12,7 @@ import org.eclipse.core.runtime.IExtensionPoint;
 import org.eclipse.core.runtime.InvalidRegistryObjectException;
 import org.eclipse.core.runtime.Platform;
 import org.eclipse.dltk.core.IScriptProject;
+import org.eclipse.wst.xquery.core.codeassist.IImplicitImportActivator;
 
 public class ImplicitImportsRegistry {
 

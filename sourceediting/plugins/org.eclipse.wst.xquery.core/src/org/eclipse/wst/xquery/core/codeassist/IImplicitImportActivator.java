@@ -8,7 +8,7 @@
  * Contributors:
  *     Gabriel Petrovay (28msec) - initial API and implementation
  *******************************************************************************/
-package org.eclipse.wst.xquery.internal.core.codeassist;
+package org.eclipse.wst.xquery.core.codeassist;
 
 import org.eclipse.dltk.core.IScriptProject;
 

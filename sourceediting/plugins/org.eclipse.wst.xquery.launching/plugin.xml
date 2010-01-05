@@ -2,13 +2,14 @@
 <?eclipse version="3.2"?>
 <plugin>
    <extension-point id="builtinModules" name="Vendor Specific Built-in Modules" schema="schema/builtinModules.exsd"/>
+   <extension-point id="implicitImports" name="Vendor Specific Implicit Imports" schema="schema/implicitImports.exsd"/>
    <extension
          point="org.eclipse.core.expressions.propertyTesters">
       <propertyTester
             class="org.eclipse.wst.xquery.internal.launching.XQDTLaunchableTester"
             id="org.eclipse.wst.xquery.launching.XQDTLaunchableTester"
             namespace="org.eclipse.wst.xquery.launching"
-            properties="isMainModule, isLibraryModule"
+            properties="isMainModule, isLibraryModule, interpreterType"
             type="org.eclipse.core.runtime.IAdaptable">
       </propertyTester>
    </extension>

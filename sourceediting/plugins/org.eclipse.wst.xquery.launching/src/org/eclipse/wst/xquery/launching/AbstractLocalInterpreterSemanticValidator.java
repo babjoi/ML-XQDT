@@ -45,12 +45,13 @@ public abstract class AbstractLocalInterpreterSemanticValidator implements ISema
         String[] cmdLine = buildCommandLine(module);
         EnvironmentVariable[] environmentVariables = fInterpreterInstall.getEnvironmentVariables();
         String[] vars = null;
-        if (environmentVariables != null) {
+        if (environmentVariables != null && environmentVariables.length > 0) {
             vars = new String[environmentVariables.length];
             for (int i = 0; i < environmentVariables.length; i++) {
                 vars[i] = environmentVariables[i].toString();
             }
         }
+
         final Process p = exeEnv.exec(cmdLine, null, vars);
         final StringBuffer[] buffer = new StringBuffer[2];
 
@@ -71,6 +72,7 @@ public abstract class AbstractLocalInterpreterSemanticValidator implements ISema
 
                         BufferedReader errstr = new BufferedReader(new InputStreamReader(p.getErrorStream()));
                         StringBuffer errorReport = new StringBuffer();
+
                         for (String line; (line = errstr.readLine()) != null;) {
                             errorReport.append(line + "\n");
                         }

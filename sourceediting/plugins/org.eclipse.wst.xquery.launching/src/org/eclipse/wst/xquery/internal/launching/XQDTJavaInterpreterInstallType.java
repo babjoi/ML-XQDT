@@ -13,6 +13,7 @@ package org.eclipse.wst.xquery.internal.launching;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.dltk.core.environment.IFileHandle;
 import org.eclipse.dltk.launching.IInterpreterInstall;
+import org.eclipse.wst.xquery.launching.XQDTInterpreterInstallType;
 
 public class XQDTJavaInterpreterInstallType extends XQDTInterpreterInstallType {
 

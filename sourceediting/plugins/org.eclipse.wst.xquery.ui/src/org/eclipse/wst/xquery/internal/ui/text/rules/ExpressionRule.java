@@ -20,9 +20,9 @@ import org.eclipse.jface.text.rules.ICharacterScanner;
 import org.eclipse.jface.text.rules.IRule;
 import org.eclipse.jface.text.rules.IToken;
 import org.eclipse.jface.text.rules.Token;
-import org.eclipse.wst.xquery.internal.core.codeassist.XQDTKeywords;
-import org.eclipse.wst.xquery.internal.core.text.XQDTWhitespaceDetector;
-import org.eclipse.wst.xquery.internal.core.text.XQDTWordDetector;
+import org.eclipse.wst.xquery.core.codeassist.XQDTKeywords;
+import org.eclipse.wst.xquery.core.text.XQDTWhitespaceDetector;
+import org.eclipse.wst.xquery.core.text.XQDTWordDetector;
 
 public class ExpressionRule implements IRule {
 

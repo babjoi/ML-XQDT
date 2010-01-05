@@ -10,39 +10,30 @@
  *******************************************************************************/
 package org.eclipse.wst.xquery.internal.launching.xqdoc;
 
-import java.util.Collection;
-
-import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.core.runtime.jobs.Job;
-import org.eclipse.dltk.launching.IInterpreterInstall;
+import org.eclipse.wst.xquery.launching.xqdoc.AbstractXQDocRuntime;
 
 public class XQDocJob extends Job {
 
-    private IInterpreterInstall processor;
-    private Collection<IPath> queries;
-    private IPath folder;
-    private String stylesheet;
+    private AbstractXQDocRuntime fRuntime;
 
-    public XQDocJob(IInterpreterInstall processor, Collection<IPath> queries, IPath folder, String stylesheet) {
+    public XQDocJob(AbstractXQDocRuntime runtime) {
         super("Generating XQuery documentation");
-        this.processor = processor;
-        this.queries = queries;
-        this.folder = folder;
-        this.stylesheet = stylesheet;
+        fRuntime = runtime;
     }
 
     @Override
     protected IStatus run(IProgressMonitor monitor) {
         try {
-            XQDocRuntime xqDoc = new XQDocRuntime(processor, queries, folder, stylesheet, monitor);
-            xqDoc.run();
+            fRuntime.run();
         } catch (Exception e) {
             e.printStackTrace();
             return Status.CANCEL_STATUS;
         }
+
         return Status.OK_STATUS;
     }
 }

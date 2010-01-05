@@ -12,29 +12,48 @@ package org.eclipse.wst.xquery.internal.launching.marklogic;
 
 import java.net.URI;
 
-import org.eclipse.core.runtime.Path;
 import org.eclipse.dltk.core.IExternalSourceModule;
-import org.eclipse.dltk.core.IModelElement;
+import org.eclipse.dltk.core.IScriptFolder;
 import org.eclipse.dltk.core.IScriptProject;
 import org.eclipse.dltk.core.ISourceModule;
 import org.eclipse.dltk.core.ModelException;
-import org.eclipse.wst.xquery.internal.core.XQDTUriResolver;
+import org.eclipse.dltk.core.SourceParserUtil;
+import org.eclipse.wst.xquery.core.XQDTUriResolver;
+import org.eclipse.wst.xquery.core.model.ast.XQueryLibraryModule;
+import org.eclipse.wst.xquery.core.model.ast.XQueryModule;
 
 public class MarkLogicUriResolver extends XQDTUriResolver {
 
     @Override
     public ISourceModule locateSourceModule(URI uri, IScriptProject project) {
-        ISourceModule module = super.locateSourceModule(uri, project);
-        if (module == null) {
-            try {
-                IModelElement element = project.findElement(new Path(uri.getPath()));
-                if (element instanceof IExternalSourceModule) {
-                    module = (ISourceModule)element;
-                }
-            } catch (ModelException e) {
-                e.printStackTrace();
-            }
+        if (uri.toString().startsWith(IMarkLogicConstants.MARKLOGIC_MODULE_PREFIX)) {
+            return findBuiltinModule(project, uri);
         }
-        return module;
+
+        return super.locateSourceModule(uri, project);
+    }
+
+    private ISourceModule findBuiltinModule(IScriptProject project, URI uri) {
+        try {
+            IScriptFolder[] folders = project.getScriptFolders();
+            for (IScriptFolder folder : folders) {
+                if (folder.isReadOnly()) {
+                    ISourceModule[] modules = folder.getSourceModules();
+                    for (ISourceModule module : modules) {
+                        if (module instanceof IExternalSourceModule) {
+                            XQueryModule xqModule = (XQueryModule)SourceParserUtil.getModuleDeclaration(module);
+                            if (xqModule instanceof XQueryLibraryModule) {
+                                if (((XQueryLibraryModule)xqModule).getNamespaceUri().getValue().equals(uri.toString())) {
+                                    return module;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        } catch (ModelException e) {
+        }
+
+        return null;
     }
 }

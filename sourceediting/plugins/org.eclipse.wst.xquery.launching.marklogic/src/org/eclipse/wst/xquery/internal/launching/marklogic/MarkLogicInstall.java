@@ -14,8 +14,8 @@ import org.eclipse.debug.core.ILaunchManager;
 import org.eclipse.dltk.launching.IInterpreterInstallType;
 import org.eclipse.dltk.launching.IInterpreterRunner;
 import org.eclipse.wst.xquery.core.semantic.ISemanticValidator;
-import org.eclipse.wst.xquery.internal.launching.XQDTInterpreterInstall;
 import org.eclipse.wst.xquery.launching.ISemanticValidatingInterpreterInstall;
+import org.eclipse.wst.xquery.launching.XQDTInterpreterInstall;
 
 public class MarkLogicInstall extends XQDTInterpreterInstall implements ISemanticValidatingInterpreterInstall {
 
@@ -39,8 +39,15 @@ public class MarkLogicInstall extends XQDTInterpreterInstall implements ISemanti
     }
 
     public ISemanticValidator getSemanticValidator() {
-
         return new MarkLogicSemanticValidator(this);
+    }
+
+    @Override
+    protected String getDisplayName(String module) {
+        if (!module.startsWith("MarkLogic/")) {
+            return module;
+        }
+        return module;
     }
 
 }

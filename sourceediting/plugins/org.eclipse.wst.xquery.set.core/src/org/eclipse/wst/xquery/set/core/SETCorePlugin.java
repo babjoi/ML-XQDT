@@ -12,7 +12,7 @@ package org.eclipse.wst.xquery.set.core;
 
 import org.eclipse.core.runtime.Plugin;
 import org.osgi.framework.BundleContext;
-import org.eclipse.wst.xquery.core.IUriResolver;
+import org.eclipse.wst.xquery.core.IXQDTUriResolver;
 import org.eclipse.wst.xquery.set.internal.core.SETResolver;
 
 /**
@@ -26,7 +26,7 @@ public class SETCorePlugin extends Plugin {
     // The shared instance
     private static SETCorePlugin plugin;
 
-    private IUriResolver fModuleResolver = null;
+    private IXQDTUriResolver fModuleResolver = null;
 
     /**
      * The constructor
@@ -63,7 +63,7 @@ public class SETCorePlugin extends Plugin {
         return plugin;
     }
 
-    public IUriResolver getModuleResolver() {
+    public IXQDTUriResolver getModuleResolver() {
         if (fModuleResolver == null) {
             fModuleResolver = new SETResolver();
         }

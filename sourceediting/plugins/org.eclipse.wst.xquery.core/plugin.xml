@@ -2,7 +2,6 @@
 <?eclipse version="3.2"?>
 <plugin>
    <extension-point id="uriResolver" name="URI Module and Schema Resolver" schema="schema/uriResolver.exsd"/>
-   <extension-point id="implicitImports" name="Vendor Implicit Module Imports" schema="schema/implicitImports.exsd"/>
    <extension
          id="nature"
          name="XQuery Nature"

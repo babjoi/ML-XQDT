@@ -21,6 +21,7 @@ Eclipse-LazyStart: true
 Bundle-RequiredExecutionEnvironment: J2SE-1.5
 Bundle-ActivationPolicy: lazy
 Export-Package: org.eclipse.wst.xquery.debug.ui,
+ org.eclipse.wst.xquery.debug.ui.interpreters,
  org.eclipse.wst.xquery.debug.ui.preferences,
  org.eclipse.wst.xquery.internal.debug.ui;x-internal:=true,
  org.eclipse.wst.xquery.internal.debug.ui.interpreters;x-internal:=true,

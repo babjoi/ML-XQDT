@@ -266,39 +266,47 @@
             nature="org.eclipse.wst.xquery.core.nature">
       </buildpathContainerPage>
    </extension>
-   <extension point="org.eclipse.ui.popupMenus">
-         <objectContribution
-            objectClass="org.eclipse.core.resources.IProject"
-            adaptable="true"
-            id="xqDoc">
-                 <action
-                       class="org.eclipse.wst.xquery.internal.ui.actions.XQDocAction"
-                       icon="$nl$/icons/elcl16/javadoc.gif"
-                       id="xqdoc"
-                       label="Generate XQDoc"
-                       menubarPath="additions"
-                       tooltip="Generate documentation for xquery modules"
-                       style="push">
-                 </action>
-	                <visibility>
-	                	<objectState name="nature" value="org.eclipse.wst.xquery.core.nature"/>
-	         		</visibility>
-      </objectContribution>
-   </extension>
       <extension
-         point="org.eclipse.ui.exportWizards">
-      <wizard
-            category="org.eclipse.wst.xquery.ui"
-            class="org.eclipse.wst.xquery.internal.ui.wizards.XQDocWizard"
-            icon="$nl$/icons/elcl16/javadoc.gif"
-            id="XQDocExportWizard"
-            name="XQDoc">
-         <description/>
-         <selection class="org.eclipse.core.resources.IProject"/>
-      </wizard>
-      <category
-            id="org.eclipse.wst.xquery.ui"
-            name="XQuery">
-      </category>
-   </extension>
+            point="org.eclipse.ui.commands">
+         <category
+               id="org.eclipse.wst.xquery.ui.commands.xqueryCategory"
+               name="XQuery">               
+         </category>
+         <command
+               categoryId="org.eclipse.wst.xquery.ui.commands.xqueryCategory"
+               id="org.eclipse.wst.xquery.ui.commands.xqdocCommand"
+               name="Generate XQDoc...">
+         </command>
+      </extension>
+      <extension
+            point="org.eclipse.ui.menus">
+         <menuContribution
+               locationURI="popup:org.eclipse.ui.popup.any?after=additions">
+            <menu
+                  id="org.eclipse.wst.xquery.ui.menus.XQueryMenu"
+                  label="XQuery"
+                  mnemonic="X">
+               <command
+                     commandId="org.eclipse.wst.xquery.ui.commands.xqdocCommand"
+                     icon="icons/elcl16/javadoc.gif"
+                     id="org.eclipse.wst.xquery.ui.menus.xqdocCommand"
+                     mnemonic="G">
+               </command>
+               <visibleWhen
+                     checkEnabled="false">
+                  <iterate
+                        ifEmpty="false"
+                        operator="and">
+                     <adapt
+                           type="org.eclipse.core.resources.IResource">
+                        <test
+                              property="org.eclipse.core.resources.projectNature"
+                              value="org.eclipse.wst.xquery.core.nature">
+                        </test>
+                     </adapt>
+                  </iterate>
+               </visibleWhen>
+            </menu>
+         </menuContribution>
+      </extension>
 </plugin>

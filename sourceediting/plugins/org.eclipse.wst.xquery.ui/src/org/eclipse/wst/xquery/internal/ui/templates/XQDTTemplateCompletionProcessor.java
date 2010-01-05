@@ -21,9 +21,9 @@ import org.eclipse.jface.text.templates.Template;
 import org.eclipse.jface.text.templates.TemplateContext;
 import org.eclipse.jface.text.templates.TemplateContextType;
 import org.eclipse.wst.xquery.core.IXQDTLanguageConstants;
-import org.eclipse.wst.xquery.internal.core.codeassist.XQDTCompletionEngine;
-import org.eclipse.wst.xquery.internal.core.text.XQDTWordDetector;
-import org.eclipse.wst.xquery.internal.core.utils.LanguageUtil;
+import org.eclipse.wst.xquery.core.codeassist.IXQDTCompletionConstants;
+import org.eclipse.wst.xquery.core.text.XQDTWordDetector;
+import org.eclipse.wst.xquery.core.utils.LanguageUtil;
 
 public class XQDTTemplateCompletionProcessor extends ScriptTemplateCompletionProcessor {
 
@@ -76,18 +76,20 @@ public class XQDTTemplateCompletionProcessor extends ScriptTemplateCompletionPro
             // }
         }
         // else
-        if (!template.getName().startsWith(prefix))
+        if (!template.getName().startsWith(prefix)) {
             return false;
+        }
 
-        if (template.matches(prefix, context.getContextType().getId()))
+        if (template.matches(prefix, context.getContextType().getId())) {
             return true;
-        else {
+        } else {
             TemplateContextType contextType = context.getContextType();
             if (contextType instanceof XQueryTemplateContentType) {
                 String[] alsoMatches = ((XQueryTemplateContentType)contextType).getCompatibleContentTypes();
                 for (String contextTypeId : alsoMatches) {
-                    if (template.getContextTypeId().equals(contextTypeId))
+                    if (template.getContextTypeId().equals(contextTypeId)) {
                         return true;
+                    }
                 }
             }
         }
@@ -99,8 +101,9 @@ public class XQDTTemplateCompletionProcessor extends ScriptTemplateCompletionPro
     protected String extractPrefix(ITextViewer viewer, int offset) {
         int i = offset;
         IDocument document = viewer.getDocument();
-        if (i > document.getLength())
+        if (i > document.getLength()) {
             return "";
+        }
 
         XQDTWordDetector wd = new XQDTWordDetector();
 
@@ -109,15 +112,17 @@ public class XQDTTemplateCompletionProcessor extends ScriptTemplateCompletionPro
 
             while (i > 0) {
                 ch = document.getChar(i - 1);
-                if (!wd.isWordPart(ch))
+                if (!wd.isWordPart(ch)) {
                     break;
+                }
                 i--;
             }
 
-            if (ch == ':' || ch == '$')
+            if (ch == ':' || ch == '$') {
                 fIsNormalPrefixType = false;
-            else
+            } else {
                 fIsNormalPrefixType = true;
+            }
 
             return document.get(i, offset - i);
         } catch (BadLocationException e) {
@@ -127,8 +132,9 @@ public class XQDTTemplateCompletionProcessor extends ScriptTemplateCompletionPro
 
     @Override
     protected int getRelevance(Template template, String prefix) {
-        if (template.getName().startsWith(prefix))
-            return XQDTCompletionEngine.RELEVANCE_TEMPLATE;
+        if (template.getName().startsWith(prefix)) {
+            return IXQDTCompletionConstants.RELEVANCE_TEMPLATE;
+        }
         return 0;
     }
 }

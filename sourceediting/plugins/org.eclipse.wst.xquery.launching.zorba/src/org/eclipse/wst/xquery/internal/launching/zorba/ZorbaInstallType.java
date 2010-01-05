@@ -13,7 +13,7 @@ package org.eclipse.wst.xquery.internal.launching.zorba;
 import org.eclipse.dltk.core.environment.EnvironmentManager;
 import org.eclipse.dltk.core.environment.IEnvironment;
 import org.eclipse.dltk.launching.IInterpreterInstall;
-import org.eclipse.wst.xquery.internal.launching.XQDTInterpreterInstallType;
+import org.eclipse.wst.xquery.launching.XQDTInterpreterInstallType;
 
 public class ZorbaInstallType extends XQDTInterpreterInstallType {
 

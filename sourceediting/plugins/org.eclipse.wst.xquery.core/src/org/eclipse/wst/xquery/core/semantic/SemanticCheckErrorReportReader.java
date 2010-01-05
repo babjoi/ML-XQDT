@@ -26,12 +26,12 @@ import org.eclipse.dltk.core.ISourceModule;
 import org.eclipse.dltk.core.ModelException;
 import org.eclipse.jface.text.BadLocationException;
 import org.eclipse.jface.text.IDocument;
+import org.eclipse.wst.xquery.core.utils.PathUtil;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
-import org.eclipse.wst.xquery.internal.core.utils.PathUtil;
 
 public class SemanticCheckErrorReportReader {
 
@@ -135,7 +135,7 @@ public class SemanticCheckErrorReportReader {
 
         try {
             document.get();
-            int sourceStart = document.getLineOffset(lineStart - 1) + columnStart;
+            int sourceStart = document.getLineOffset(lineStart - 1) + columnStart - 1;
             int sourceEnd = document.getLineOffset(lineEnd - 1) + columnEnd;
             if (sourceEnd == sourceStart) {
                 sourceEnd++;

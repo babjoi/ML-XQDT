@@ -24,13 +24,13 @@ import org.eclipse.dltk.compiler.problem.IProblemReporter;
 import org.eclipse.wst.xquery.core.XQDTCorePlugin;
 import org.eclipse.wst.xquery.core.model.ast.XQueryLibraryModule;
 import org.eclipse.wst.xquery.core.model.ast.XQueryMainModule;
+import org.eclipse.wst.xquery.core.utils.LanguageUtil;
 import org.eclipse.wst.xquery.internal.core.parser.antlr.NewLazyTokenStream;
 import org.eclipse.wst.xquery.internal.core.parser.antlr.XQDTCommonTree;
 import org.eclipse.wst.xquery.internal.core.parser.antlr.XQDTCommonTreeAdaptor;
 import org.eclipse.wst.xquery.internal.core.parser.antlr.XQueryLexer;
 import org.eclipse.wst.xquery.internal.core.parser.antlr.XQueryParser;
 import org.eclipse.wst.xquery.internal.core.parser.visitors.XQDTCommonTreeVisitor;
-import org.eclipse.wst.xquery.internal.core.utils.LanguageUtil;
 
 public class XQDTSourceParser extends AbstractSourceParser {
 
@@ -60,6 +60,8 @@ public class XQDTSourceParser extends AbstractSourceParser {
 
         try {
             XQueryParser.p_Module_return m = parser.p_Module();
+            parser.postErrors();
+
             if (XQDTCorePlugin.DEBUG_PARSER_ACTIONS) {
                 XQDTCorePlugin.trace("Parsing complete for file: " + file);
             }

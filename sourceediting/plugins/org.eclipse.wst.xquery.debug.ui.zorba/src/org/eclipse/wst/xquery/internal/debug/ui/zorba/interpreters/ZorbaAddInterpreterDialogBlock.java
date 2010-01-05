@@ -15,10 +15,10 @@ import java.io.InputStreamReader;
 
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Path;
+import org.eclipse.wst.xquery.debug.ui.interpreters.AbstractInterpreterEnvironmentVariablesBlock;
+import org.eclipse.wst.xquery.debug.ui.interpreters.AddLocalInterpreterDialogBlock;
+import org.eclipse.wst.xquery.debug.ui.interpreters.LocalInterpreterEnvironmentVariablesBlock;
 import org.eclipse.wst.xquery.debug.ui.zorba.ZorbaDebugUIPlugin;
-import org.eclipse.wst.xquery.internal.debug.ui.interpreters.AbstractInterpreterEnvironmentVariablesBlock;
-import org.eclipse.wst.xquery.internal.debug.ui.interpreters.AddLocalInterpreterDialogBlock;
-import org.eclipse.wst.xquery.internal.debug.ui.interpreters.LocalInterpreterEnvironmentVariablesBlock;
 
 public class ZorbaAddInterpreterDialogBlock extends AddLocalInterpreterDialogBlock {
 

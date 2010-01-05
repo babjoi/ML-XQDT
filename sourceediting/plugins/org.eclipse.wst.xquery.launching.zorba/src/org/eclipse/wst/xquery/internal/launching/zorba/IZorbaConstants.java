@@ -12,7 +12,10 @@ package org.eclipse.wst.xquery.internal.launching.zorba;
 
 public interface IZorbaConstants {
 
-    public static final String ZORBA_MODULE_PREFIX = "http://www.zorba-xquery.com/zorba/";
+    public static final String ZORBA_OLD_MODULE_PREFIX = "http://www.zorba-xquery.com/zorba/";
+    public static final String ZORBA_NEW_MODULE_PREFIX = "http://www.zorba-xquery.com/modules/";
+    public static final String ZORBA_EXPATH_MODULE_PREFIX = "http://www.expath.org/mod/";
+
     public static final String ZORBA_RESOLVER_FACET_ID = "zorbaUriResolver";
 
 }

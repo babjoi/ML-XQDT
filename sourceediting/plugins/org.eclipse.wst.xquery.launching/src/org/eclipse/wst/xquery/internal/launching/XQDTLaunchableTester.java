@@ -12,12 +12,15 @@ package org.eclipse.wst.xquery.internal.launching;
 
 import org.eclipse.core.expressions.PropertyTester;
 import org.eclipse.core.resources.IResource;
+import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.dltk.ast.declarations.ModuleDeclaration;
 import org.eclipse.dltk.core.DLTKCore;
 import org.eclipse.dltk.core.IModelElement;
 import org.eclipse.dltk.core.ISourceModule;
 import org.eclipse.dltk.core.SourceParserUtil;
+import org.eclipse.dltk.launching.IInterpreterInstall;
+import org.eclipse.dltk.launching.ScriptRuntime;
 import org.eclipse.wst.xquery.core.model.ast.XQueryLibraryModule;
 import org.eclipse.wst.xquery.core.model.ast.XQueryMainModule;
 
@@ -25,6 +28,7 @@ public class XQDTLaunchableTester extends PropertyTester {
 
     private static final String PROPERTY_IS_MAIN_MODULE = "isMainModule";
     private static final String PROPERTY_IS_LIBRARY_MODULE = "isLibraryModule";
+    private static final String PROPERTY_INTERPRETER_TYPE = "interpreterType";
 
     public boolean test(Object receiver, String property, Object[] args, Object expectedValue) {
         if (!(receiver instanceof IAdaptable)) {
@@ -55,6 +59,8 @@ public class XQDTLaunchableTester extends PropertyTester {
             return isMainModule(element);
         } else if (PROPERTY_IS_LIBRARY_MODULE.equals(property)) {
             return isLibraryModule(element);
+        } else if (PROPERTY_INTERPRETER_TYPE.equals(property)) {
+            return interpreterType(element, (String)expectedValue);
         }
         throw new IllegalArgumentException("Unknown test property '" + property + "'"); //$NON-NLS-1$ //$NON-NLS-2$		
     }
@@ -79,6 +85,15 @@ public class XQDTLaunchableTester extends PropertyTester {
             }
         }
         return false;
+    }
+
+    private boolean interpreterType(IModelElement element, String expectedValue) {
+        try {
+            IInterpreterInstall install = ScriptRuntime.getInterpreterInstall(element.getScriptProject());
+            return install.getInterpreterInstallType().getId().equals(expectedValue);
+        } catch (CoreException e) {
+            return false;
+        }
     }
 
 }

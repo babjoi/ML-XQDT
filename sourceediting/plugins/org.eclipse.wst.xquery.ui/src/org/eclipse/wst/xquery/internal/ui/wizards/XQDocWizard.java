@@ -11,6 +11,7 @@
  *******************************************************************************/
 package org.eclipse.wst.xquery.internal.ui.wizards;
 
+import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.jobs.Job;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.wizard.Wizard;
@@ -19,19 +20,26 @@ import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.IExportWizard;
 import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.PlatformUI;
-import org.eclipse.wst.xquery.internal.launching.xqdoc.XQDocJob;
 import org.eclipse.wst.xquery.internal.ui.XQDTImages;
+import org.eclipse.wst.xquery.launching.xqdoc.AbstractXQDocRuntime;
+import org.eclipse.wst.xquery.launching.xqdoc.XQDocUtil;
 import org.eclipse.wst.xquery.ui.XQDTUIPlugin;
 
 public class XQDocWizard extends Wizard implements IExportWizard {
 
-    public static void openXQDocWizard(XQDocWizard wizard, Shell shell, IStructuredSelection selection) {
+    public static void openXQDocWizard(Shell shell, AbstractXQDocRuntime runtime, IStructuredSelection selection) {
+        XQDocWizard wizard = new XQDocWizard(runtime);
         wizard.init(PlatformUI.getWorkbench(), selection);
         WizardDialog dialog = new WizardDialog(shell, wizard);
         dialog.open();
     }
 
+    private AbstractXQDocRuntime fRuntime;
     private XQDocWizardPage fPage;
+
+    public XQDocWizard(AbstractXQDocRuntime runtime) {
+        fRuntime = runtime;
+    }
 
     @Override
     public void addPages() {
@@ -39,7 +47,9 @@ public class XQDocWizard extends Wizard implements IExportWizard {
     }
 
     public boolean performFinish() {
-        Job job = new XQDocJob(fPage.getInterpreter(), fPage.getQueries(), fPage.getOutputDir(), fPage.getStyleSheet());
+        IPath outDir = fPage.getOutputDir().append("xqdoc");
+        fRuntime.init(fPage.getQueries(), outDir, fPage.getStyleSheet());
+        Job job = XQDocUtil.createXQDocJob(fRuntime);
         job.schedule();
         return true;
     }

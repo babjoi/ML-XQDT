@@ -125,6 +125,28 @@ public class ZorbaBuiltinsHelper {
                                 + "declare sequential function zorba-rest:delete($url as xs:string, $payload as element(zorba-rest:payload)) as element(zorba-rest:result) external;\n"
                                 + "declare sequential function zorba-rest:delete($url as xs:string, $payload as element(zorba-rest:payload), $headers as element(zorba-rest:headers)*) as element(zorba-rest:result); external;\n");
 
+        fSources
+                .put(
+                        "file.xq",
+                        "module namespace file = 'http://www.zorba-xquery.com/modules/file';\n"
+                                + "\n"
+                                + "declare sequential function file:copy($sourceFile as xs:string, $destinationFile as xs:string) as xs:boolean external;\n"
+                                + "declare sequential function file:copy($sourceFile as xs:string, $destinationFile as xs:string, $overwrite as xs:boolean) as xs:boolean external;\n"
+                                + "declare sequential function file:exists($fileOrDir as xs:string) as xs:boolean external;\n"
+                                + "declare sequential function file:files($path as xs:string) as xs:string external;\n"
+                                + "declare sequential function file:is-directory($dir as xs:string) as xs:boolean external;\n"
+                                + "declare sequential function file:is-file($file as xs:string) as xs:boolean external;\n"
+                                + "declare sequential function file:last-modified($fileOrDir as xs:string) as xs:dateTime external;\n"
+                                + "declare sequential function file:mkdir($dir as xs:string) as xs:boolean external;\n"
+                                + "declare sequential function file:mkdirs($dir as xs:string) as xs:boolean external;\n"
+                                + "declare sequential function file:path-to-uri($file as xs:string) as xs:anyURI external;\n"
+                                + "declare sequential function file:read($file as xs:string) as xs:base64Binary external;\n"
+                                + "declare sequential function file:read-text($file as xs:string) as xs:string external;\n"
+                                + "declare sequential function file:read-xml($file as xs:string) as node() external;\n"
+                                + "declare sequential function file:remove($fileOrDir as xs:string) as xs:boolean external;\n"
+                                + "declare sequential function file:write($file as xs:string, $content as item()*, $serializer-params as item()) external;\n"
+                                + "declare sequential function file:write($file as xs:string, $content as item()*, $serializer-params as item(), $append as xs:boolean) external;\n");
+
         Thread readerThread = new Thread(new Runnable() {
 
             public void run() {

@@ -36,7 +36,7 @@ import org.eclipse.jface.text.templates.TemplateContextType;
 import org.eclipse.wst.xquery.core.XQDTCorePlugin;
 import org.eclipse.wst.xquery.core.model.ast.XQueryLibraryModule;
 import org.eclipse.wst.xquery.core.model.ast.XQueryModule;
-import org.eclipse.wst.xquery.internal.core.utils.PathUtil;
+import org.eclipse.wst.xquery.core.utils.PathUtil;
 import org.eclipse.wst.xquery.ui.XQDTUIPlugin;
 
 public class XQDTTemplateContext extends ScriptTemplateContext {

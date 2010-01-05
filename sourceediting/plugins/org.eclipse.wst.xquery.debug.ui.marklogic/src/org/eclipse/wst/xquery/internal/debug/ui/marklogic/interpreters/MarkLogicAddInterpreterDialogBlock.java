@@ -27,7 +27,7 @@ import org.eclipse.dltk.launching.IInterpreterInstall;
 import org.eclipse.dltk.ui.dialogs.StatusInfo;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.widgets.Composite;
-import org.eclipse.wst.xquery.internal.debug.ui.interpreters.AbstractAddInterpreterDialogBlock;
+import org.eclipse.wst.xquery.debug.ui.interpreters.AbstractAddInterpreterDialogBlock;
 
 @SuppressWarnings("restriction")
 public class MarkLogicAddInterpreterDialogBlock extends AbstractAddInterpreterDialogBlock {

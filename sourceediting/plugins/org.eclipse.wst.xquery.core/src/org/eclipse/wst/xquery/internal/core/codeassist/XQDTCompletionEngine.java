@@ -13,10 +13,10 @@ package org.eclipse.wst.xquery.internal.core.codeassist;
 import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.IPath;
+import org.eclipse.core.runtime.Path;
 import org.eclipse.dltk.ast.declarations.Argument;
 import org.eclipse.dltk.ast.declarations.MethodDeclaration;
 import org.eclipse.dltk.ast.declarations.ModuleDeclaration;
@@ -32,33 +32,25 @@ import org.eclipse.dltk.core.ISourceModule;
 import org.eclipse.dltk.core.IType;
 import org.eclipse.dltk.core.ModelException;
 import org.eclipse.dltk.core.SourceParserUtil;
-import org.eclipse.wst.xquery.core.IUriResolver;
+import org.eclipse.wst.xquery.core.IXQDTUriResolver;
 import org.eclipse.wst.xquery.core.XQDTCorePlugin;
+import org.eclipse.wst.xquery.core.codeassist.IXQDTCompletionConstants;
+import org.eclipse.wst.xquery.core.codeassist.XQDTKeywords;
 import org.eclipse.wst.xquery.core.model.ast.XQueryLibraryModule;
 import org.eclipse.wst.xquery.core.model.ast.XQueryModule;
 import org.eclipse.wst.xquery.core.model.ast.XQueryModuleImport;
 import org.eclipse.wst.xquery.core.model.ast.XQueryStringLiteral;
-import org.eclipse.wst.xquery.internal.core.text.XQDTWordDetector;
-import org.eclipse.wst.xquery.internal.core.utils.ImplicitImportsUtil;
-import org.eclipse.wst.xquery.internal.core.utils.LanguageUtil;
-import org.eclipse.wst.xquery.internal.core.utils.ResolverUtil;
+import org.eclipse.wst.xquery.core.text.XQDTWordDetector;
+import org.eclipse.wst.xquery.core.utils.LanguageUtil;
+import org.eclipse.wst.xquery.core.utils.ResolverUtil;
 
-public class XQDTCompletionEngine extends ScriptCompletionEngine {
+public class XQDTCompletionEngine extends ScriptCompletionEngine implements IXQDTCompletionConstants {
 
     protected XQDTAssistParser fParser;
     protected org.eclipse.dltk.core.ISourceModule fSourceModule;
     protected int fLanguageLevel;
     protected String fPrefix;
     protected CompletionPrefixType fPrefixType = CompletionPrefixType.NORMAL;
-
-    public static enum CompletionPrefixType {
-        NORMAL, DOLLAR, COLON, AMPERSAND
-    }
-
-    public final static int RELEVANCE_KEYWORD = 100000;
-    public final static int RELEVANCE_TEMPLATE = 1000000;
-    public final static int RELEVANCE_FUNCTIONS = 10000000;
-    public final static int RELEVANCE_VARIABLES = 100000000;
 
     protected int getEndOfEmptyToken() {
         return 0;
@@ -212,18 +204,16 @@ public class XQDTCompletionEngine extends ScriptCompletionEngine {
     }
 
     private void reportVendorImplicitImportedFunctions() {
-        Map<String, IPath> implicitModuleImports = ImplicitImportsUtil.getImplicitImportPrefixes(fSourceModule);
+        List<ImplicitImport> imports = ImplicitImportsRegistry.getImplicitImports(scriptProject);
 
-        for (String prefix : implicitModuleImports.keySet()) {
-            reportBuiltinFunctions(prefix, implicitModuleImports.get(prefix));
+        for (ImplicitImport imp : imports) {
+            reportBuiltinFunctions(imp.getPrefix(), new Path(imp.getPath()));
         }
     }
 
     private void reportBuiltinFunctions(String namespacePrefix, IPath builtinModulePath) {
         try {
-            IScriptProject project = fSourceModule.getScriptProject();
-
-            IModelElement element = project.findElement(builtinModulePath);
+            IModelElement element = scriptProject.findElement(builtinModulePath);
 
             if (element instanceof IExternalSourceModule) {
                 ModuleDeclaration imported = SourceParserUtil.getModuleDeclaration((ISourceModule)element);
@@ -282,7 +272,7 @@ public class XQDTCompletionEngine extends ScriptCompletionEngine {
 
     private List<ISourceModule> resolveImports(URI baseUri, List<XQueryModuleImport> importedModules) {
         List<URI> resolvedUris = new ArrayList<URI>(importedModules.size());
-        IUriResolver resolver = getModuleResolver();
+        IXQDTUriResolver resolver = getModuleResolver();
         if (resolver == null) {
             return null;
         }
@@ -317,7 +307,7 @@ public class XQDTCompletionEngine extends ScriptCompletionEngine {
         return resolved;
     }
 
-    protected IUriResolver getModuleResolver() {
+    protected IXQDTUriResolver getModuleResolver() {
         IProject project = fSourceModule.getScriptProject().getProject();
         return ResolverUtil.getProjectUriResolver(project);
     }

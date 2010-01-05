@@ -23,6 +23,7 @@ import org.eclipse.dltk.launching.IInterpreterInstallType;
 import org.eclipse.dltk.launching.ScriptRuntime;
 import org.eclipse.wst.xquery.core.XQDTNature;
 import org.eclipse.wst.xquery.debug.ui.XQDTDebugUIPlugin;
+import org.eclipse.wst.xquery.debug.ui.interpreters.GenericAddInterpreterDialog;
 import org.eclipse.wst.xquery.launching.IEnvironmentAwareInterpreterInstallType;
 
 public class XQDTInterpretersBlock extends InterpretersBlock {

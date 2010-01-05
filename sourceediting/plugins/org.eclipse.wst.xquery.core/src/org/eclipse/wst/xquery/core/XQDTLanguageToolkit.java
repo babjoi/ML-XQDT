@@ -12,7 +12,6 @@ package org.eclipse.wst.xquery.core;
 
 import org.eclipse.dltk.core.AbstractLanguageToolkit;
 import org.eclipse.dltk.core.IDLTKLanguageToolkit;
-import org.eclipse.wst.xquery.internal.core.IXQDTConstants;
 import org.eclipse.wst.xquery.internal.core.XQDTContentType;
 
 public class XQDTLanguageToolkit extends AbstractLanguageToolkit {

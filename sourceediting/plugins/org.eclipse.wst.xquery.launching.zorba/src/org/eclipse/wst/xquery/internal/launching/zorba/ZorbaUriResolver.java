@@ -12,31 +12,48 @@ package org.eclipse.wst.xquery.internal.launching.zorba;
 
 import java.net.URI;
 
-import org.eclipse.core.runtime.Path;
 import org.eclipse.dltk.core.IExternalSourceModule;
-import org.eclipse.dltk.core.IModelElement;
+import org.eclipse.dltk.core.IScriptFolder;
 import org.eclipse.dltk.core.IScriptProject;
 import org.eclipse.dltk.core.ISourceModule;
 import org.eclipse.dltk.core.ModelException;
-import org.eclipse.wst.xquery.internal.core.XQDTUriResolver;
+import org.eclipse.wst.xquery.core.XQDTUriResolver;
 
 public class ZorbaUriResolver extends XQDTUriResolver {
 
     @Override
     public ISourceModule locateSourceModule(URI uri, IScriptProject project) {
-        if (uri.toString().startsWith(IZorbaConstants.ZORBA_MODULE_PREFIX)) {
-            try {
-                String moduleName = new Path(uri.getPath()).lastSegment();
-                IModelElement element = project.findElement(new Path(moduleName + ".xq"));
-                if (element instanceof IExternalSourceModule) {
-                    return (IExternalSourceModule)element;
-                }
-            } catch (ModelException e) {
-                e.printStackTrace();
-                return null;
+        if (uri.toString().startsWith(IZorbaConstants.ZORBA_NEW_MODULE_PREFIX)
+                || uri.toString().startsWith(IZorbaConstants.ZORBA_OLD_MODULE_PREFIX)) {
+            return findBuiltinModule(project, uri);
+        }
+        if (uri.toString().startsWith(IZorbaConstants.ZORBA_EXPATH_MODULE_PREFIX)) {
+            ISourceModule module = findBuiltinModule(project, uri);
+            if (module != null) {
+                return module;
             }
         }
 
         return super.locateSourceModule(uri, project);
     }
+
+    private ISourceModule findBuiltinModule(IScriptProject project, URI uri) {
+        try {
+            IScriptFolder[] folders = project.getScriptFolders();
+            for (IScriptFolder folder : folders) {
+                if (folder.isReadOnly()) {
+                    ISourceModule[] modules = folder.getSourceModules();
+                    for (ISourceModule module : modules) {
+                        if (module instanceof IExternalSourceModule && module.getElementName().equals(uri.toString())) {
+                            return module;
+                        }
+                    }
+                }
+            }
+        } catch (ModelException e) {
+        }
+
+        return null;
+    }
+
 }

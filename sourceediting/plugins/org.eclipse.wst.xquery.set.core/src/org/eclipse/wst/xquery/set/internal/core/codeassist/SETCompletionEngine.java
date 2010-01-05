@@ -14,7 +14,7 @@ import java.net.URI;
 
 import org.eclipse.core.resources.IProject;
 import org.eclipse.dltk.core.ISourceModule;
-import org.eclipse.wst.xquery.core.IUriResolver;
+import org.eclipse.wst.xquery.core.IXQDTUriResolver;
 import org.eclipse.wst.xquery.core.IXQDTLanguageConstants;
 import org.eclipse.wst.xquery.internal.core.codeassist.XQDTCompletionEngine;
 import org.eclipse.wst.xquery.set.core.SETCorePlugin;
@@ -26,7 +26,7 @@ public class SETCompletionEngine extends XQDTCompletionEngine {
     private URI fBaseUri;
 
     @Override
-    protected IUriResolver getModuleResolver() {
+    protected IXQDTUriResolver getModuleResolver() {
         return SETCorePlugin.getDefault().getModuleResolver();
     }
 

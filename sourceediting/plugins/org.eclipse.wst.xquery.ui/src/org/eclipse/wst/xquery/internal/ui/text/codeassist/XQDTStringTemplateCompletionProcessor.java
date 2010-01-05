@@ -14,7 +14,7 @@ import org.eclipse.dltk.ui.DLTKPluginImages;
 import org.eclipse.dltk.ui.templates.ScriptTemplateAccess;
 import org.eclipse.dltk.ui.text.completion.ScriptContentAssistInvocationContext;
 import org.eclipse.jface.resource.ImageDescriptor;
-import org.eclipse.wst.xquery.internal.core.codeassist.XQDTCompletionEngine.CompletionPrefixType;
+import org.eclipse.wst.xquery.core.codeassist.IXQDTCompletionConstants.CompletionPrefixType;
 import org.eclipse.wst.xquery.internal.ui.templates.XQDTStringTemplateAccess;
 import org.eclipse.wst.xquery.internal.ui.templates.XQDTStringTemplateContentType;
 

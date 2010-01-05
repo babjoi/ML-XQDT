@@ -36,6 +36,8 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.FileDialog;
 import org.eclipse.swt.widgets.Label;
+import org.eclipse.wst.xquery.debug.ui.interpreters.AbstractAddInterpreterDialogBlock;
+import org.eclipse.wst.xquery.debug.ui.interpreters.AbstractInterpreterEnvironmentVariablesBlock;
 
 @SuppressWarnings("restriction")
 public class XQDTJavaInterpreterAddInterpreterDialogBlock extends AbstractAddInterpreterDialogBlock {

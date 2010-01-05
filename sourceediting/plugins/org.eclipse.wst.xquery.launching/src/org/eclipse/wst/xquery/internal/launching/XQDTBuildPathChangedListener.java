@@ -32,7 +32,8 @@ import org.eclipse.wst.common.project.facet.core.IProjectFacet;
 import org.eclipse.wst.common.project.facet.core.IProjectFacetVersion;
 import org.eclipse.wst.common.project.facet.core.ProjectFacetsManager;
 import org.eclipse.wst.common.project.facet.core.IFacetedProject.Action;
-import org.eclipse.wst.xquery.internal.core.IXQDTConstants;
+import org.eclipse.wst.xquery.core.IXQDTConstants;
+import org.eclipse.wst.xquery.launching.XQDTInterpreterInstallType;
 
 public class XQDTBuildPathChangedListener implements IElementChangedListener {
     public void elementChanged(ElementChangedEvent event) {

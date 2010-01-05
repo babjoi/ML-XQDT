@@ -1,0 +1,84 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!-- Schema file written by PDE -->
+<schema targetNamespace="org.eclipse.wst.xquery.launching" xmlns="http://www.w3.org/2001/XMLSchema">
+<annotation>
+      <appInfo>
+         <meta.schema plugin="org.eclipse.wst.xquery.launching" id="builtinModules" name="Vendor Specific Built-in Modules"/>
+      </appInfo>
+      <documentation>
+         Configures the built-in modules serarch path and implicit builtin module imports.
+      </documentation>
+   </annotation>
+
+   <element name="extension">
+      <annotation>
+         <appInfo>
+            <meta.element />
+         </appInfo>
+      </annotation>
+      <complexType>
+         <sequence>
+            <element ref="searchPath"/>
+         </sequence>
+         <attribute name="point" type="string" use="required">
+            <annotation>
+               <documentation>
+                  
+               </documentation>
+            </annotation>
+         </attribute>
+         <attribute name="id" type="string">
+            <annotation>
+               <documentation>
+                  
+               </documentation>
+            </annotation>
+         </attribute>
+         <attribute name="name" type="string">
+            <annotation>
+               <documentation>
+                  
+               </documentation>
+               <appInfo>
+                  <meta.attribute translatable="true"/>
+               </appInfo>
+            </annotation>
+         </attribute>
+      </complexType>
+   </element>
+
+   <element name="searchPath">
+      <complexType>
+         <attribute name="installType" type="string" use="required">
+            <annotation>
+               <documentation>
+                  
+               </documentation>
+               <appInfo>
+                  <meta.attribute kind="identifier" basedOn="org.eclipse.dltk.launching.interpreterInstallTypes/interpreterInstallType/@id"/>
+               </appInfo>
+            </annotation>
+         </attribute>
+         <attribute name="path" type="string">
+            <annotation>
+               <documentation>
+                  The search path where &quot;*.xq*&quot; modules are looked up for. Certain variables can also be used in this field:
+               </documentation>
+            </annotation>
+         </attribute>
+         <attribute name="relative" type="boolean">
+            <annotation>
+               <documentation>
+                  True if the indicated path should be treated as relative to this plug-in. The default value is &quot;true&quot;.
+               </documentation>
+            </annotation>
+         </attribute>
+      </complexType>
+   </element>
+
+
+
+
+
+
+</schema>

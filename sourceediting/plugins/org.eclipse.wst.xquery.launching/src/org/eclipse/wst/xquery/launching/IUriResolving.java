@@ -10,10 +10,10 @@
  *******************************************************************************/
 package org.eclipse.wst.xquery.launching;
 
-import org.eclipse.wst.xquery.core.IUriResolver;
+import org.eclipse.wst.xquery.core.IXQDTUriResolver;
 
 public interface IUriResolving {
 
-    IUriResolver getResolver();
+    IXQDTUriResolver getResolver();
 
 }

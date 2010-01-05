@@ -14,17 +14,26 @@ package org.eclipse.wst.xquery.internal.ui.wizards;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 import org.eclipse.core.resources.IContainer;
+import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResource;
-import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Path;
-import org.eclipse.core.runtime.Status;
+import org.eclipse.dltk.ast.declarations.ModuleDeclaration;
+import org.eclipse.dltk.core.DLTKCore;
+import org.eclipse.dltk.core.IModelElement;
+import org.eclipse.dltk.core.IScriptFolder;
+import org.eclipse.dltk.core.IScriptProject;
+import org.eclipse.dltk.core.ISourceModule;
+import org.eclipse.dltk.core.ModelException;
+import org.eclipse.dltk.core.SourceParserUtil;
 import org.eclipse.dltk.core.environment.EnvironmentManager;
 import org.eclipse.dltk.core.environment.IEnvironment;
 import org.eclipse.dltk.internal.ui.wizards.dialogfields.ComboDialogField;
@@ -32,12 +41,6 @@ import org.eclipse.dltk.internal.ui.wizards.dialogfields.DialogField;
 import org.eclipse.dltk.internal.ui.wizards.dialogfields.IDialogFieldListener;
 import org.eclipse.dltk.internal.ui.wizards.dialogfields.IStringButtonAdapter;
 import org.eclipse.dltk.internal.ui.wizards.dialogfields.StringButtonDialogField;
-import org.eclipse.dltk.launching.IInterpreterInstall;
-import org.eclipse.dltk.launching.IInterpreterInstallType;
-import org.eclipse.dltk.launching.InterpreterStandin;
-import org.eclipse.dltk.launching.ScriptRuntime;
-import org.eclipse.dltk.launching.ScriptRuntime.DefaultInterpreterEntry;
-import org.eclipse.dltk.ui.dialogs.StatusInfo;
 import org.eclipse.dltk.ui.environment.IEnvironmentUI;
 import org.eclipse.dltk.ui.wizards.NewElementWizardPage;
 import org.eclipse.jface.viewers.CheckStateChangedEvent;
@@ -47,14 +50,13 @@ import org.eclipse.jface.viewers.ITreeContentProvider;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
-import org.eclipse.swt.widgets.Combo;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.ui.internal.ide.misc.CheckboxTreeAndListGroup;
 import org.eclipse.ui.model.WorkbenchContentProvider;
 import org.eclipse.ui.model.WorkbenchLabelProvider;
 import org.eclipse.wst.xquery.core.XQDTNature;
-import org.eclipse.wst.xquery.internal.core.XQDTContentType;
+import org.eclipse.wst.xquery.core.model.ast.XQueryLibraryModule;
 import org.eclipse.wst.xquery.internal.ui.XQDTImages;
 
 @SuppressWarnings("restriction")
@@ -67,12 +69,6 @@ public class XQDocWizardPage extends NewElementWizardPage implements IDialogFiel
 
     private final static Object[] NO_CHILDREN = new Object[0];
 
-    private ComboDialogField fInterpreterCombo;
-
-    private IInterpreterInstall[] fInstalledInterpreters;
-
-    private String[] fComplianceLabels;
-
     private CheckboxTreeAndListGroup fSelectionGroup;
 
     private StringButtonDialogField fDestinationLocationField;
@@ -82,6 +78,8 @@ public class XQDocWizardPage extends NewElementWizardPage implements IDialogFiel
     private IStructuredSelection fSelection;
 
     private String[] fStylesheets = new String[] { "zorba.css", "28msec.css", "mark_logic.css" };
+
+    private IScriptProject fProject;
 
     protected XQDocWizardPage(IStructuredSelection selection) {
         super("XQDoc Generation");
@@ -94,20 +92,8 @@ public class XQDocWizardPage extends NewElementWizardPage implements IDialogFiel
     public void createControl(Composite parent) {
         parent.setLayout(new GridLayout(1, false));
 
-        // add the interpreter selection
-
         Composite composite = new Composite(parent, SWT.NONE);
         composite.setLayout(new GridLayout(3, false));
-
-        (new Label(composite, SWT.NULL)).setText("Select an XQuery processor:");
-        fInterpreterCombo = new ComboDialogField(SWT.READ_ONLY);
-
-        Combo comboControl = fInterpreterCombo.getComboControl(composite);
-        GridData gridData = new GridData(GridData.BEGINNING, GridData.CENTER, true, false);
-        gridData.minimumWidth = 100;
-        comboControl.setLayoutData(gridData); // make sure column 2 is grabing (but no fill)
-        comboControl.setVisibleItemCount(20);
-        fillInstalledInterpreters(fInterpreterCombo);
 
         // add the tree file selection
 
@@ -117,8 +103,14 @@ public class XQDocWizardPage extends NewElementWizardPage implements IDialogFiel
         gd.horizontalSpan = 3;
         composite.setLayoutData(gd);
 
-        fSelectionGroup = new CheckboxTreeAndListGroup(composite, getXQDTProjects(), getXQDocResourceProvider(),
-                WorkbenchLabelProvider.getDecoratingWorkbenchLabelProvider(), getXQueryResourceProvider(),
+        List<IScriptProject> projects = new ArrayList<IScriptProject>(1);
+        IScriptProject project = getProject();
+        if (project != null) {
+            projects.add(project);
+        }
+
+        fSelectionGroup = new CheckboxTreeAndListGroup(composite, projects, getTreeResourceProvider(),
+                WorkbenchLabelProvider.getDecoratingWorkbenchLabelProvider(), getListResourceProvider(),
                 WorkbenchLabelProvider.getDecoratingWorkbenchLabelProvider(), SWT.NONE, SIZING_SELECTION_WIDGET_WIDTH,
                 SIZING_SELECTION_WIDGET_HEIGHT);
         setTreeSelection();
@@ -142,6 +134,9 @@ public class XQDocWizardPage extends NewElementWizardPage implements IDialogFiel
         fDestinationLocationField.setButtonLabel("Browse...");
         fDestinationLocationField.doFillIntoGrid(composite, 3);
         fDestinationLocationField.getTextControl(null).setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
+        if (project != null) {
+            fDestinationLocationField.setText(project.getResource().getLocation().toOSString());
+        }
 
         (new Label(composite, SWT.NULL)).setText("Stylesheet:");
         fStylesheetCombo = new ComboDialogField(SWT.READ_ONLY);
@@ -151,14 +146,16 @@ public class XQDocWizardPage extends NewElementWizardPage implements IDialogFiel
 
         addControlListeners();
 
-        updateStatus(new StatusInfo(Status.ERROR, ""));
+//        if (isValid()) {
+//            updateStatus(new StatusInfo(Status.ERROR, ""));
+//            setPageComplete(true);
+//        }
 
         setControl(parent);
     }
 
     private void addControlListeners() {
         fDestinationLocationField.setDialogFieldListener(this);
-        fInterpreterCombo.setDialogFieldListener(this);
         fSelectionGroup.addCheckStateListener(new ICheckStateListener() {
             public void checkStateChanged(CheckStateChangedEvent event) {
                 setPageComplete(isValid());
@@ -166,35 +163,66 @@ public class XQDocWizardPage extends NewElementWizardPage implements IDialogFiel
         });
     }
 
-    private ArrayList<IProject> getXQDTProjects() {
-        ArrayList<IProject> input = new ArrayList<IProject>();
-        IProject[] projects = ResourcesPlugin.getWorkspace().getRoot().getProjects();
-        for (IProject project : projects) {
+    public IScriptProject getProject() {
+        if (fProject != null) {
+            return fProject;
+        }
+        if (fSelection == null || fSelection.size() == 0) {
+            return null;
+        }
+
+        Object element = fSelection.getFirstElement();
+        IProject project = null;
+        if (element instanceof IContainer) {
+            project = ((IContainer)element).getProject();
+        } else if (element instanceof IModelElement) {
+            project = ((IModelElement)element).getScriptProject().getProject();
+        } else if (element instanceof IResource) {
+            project = ((IResource)element).getProject();
+        }
+
+        if (project != null) {
             try {
                 if (project.hasNature(XQDTNature.NATURE_ID)) {
-                    input.add(project);
+                    fProject = DLTKCore.create(project);
                 }
             } catch (CoreException e) {
                 // do nothing...
             }
         }
-        return input;
+
+        return fProject;
     }
 
     private void setTreeSelection() {
-        Object[] elements = fSelection.toArray();
-        for (Object element : elements) {
-            if (element instanceof IProject) {
-                IProject project = (IProject)element;
-                try {
-                    if (project.hasNature(XQDTNature.NATURE_ID)) {
-                        fSelectionGroup.initialCheckTreeItem(project);
-                    }
-                } catch (CoreException e) {
-                    // do nothing...
-                }
-            }
+        if (fSelection == null || fSelection.size() == 0) {
+            return;
         }
+
+        Object selected = fSelection.getFirstElement();
+
+        if (selected instanceof IResource) {
+            selected = DLTKCore.create((IResource)selected);
+        }
+
+        if (selected instanceof IScriptFolder) {
+            fSelectionGroup.initialCheckTreeItem(selected);
+        } else if (selected instanceof IScriptProject) {
+            fSelectionGroup.initialCheckTreeItem(selected);
+            fSelectionGroup.setAllSelections(true);
+        } else if (selected instanceof ISourceModule) {
+            ISourceModule module = (ISourceModule)selected;
+            IModelElement parent = module.getParent();
+
+            Map<Object, List<Object>> items = new HashMap<Object, List<Object>>(1);
+            List<Object> list = new ArrayList<Object>(1);
+            list.add(module.getResource());
+            items.put(parent, list);
+            fSelectionGroup.initialCheckTreeItem(parent);
+            fSelectionGroup.updateSelections(items);
+        }
+
+        fSelectionGroup.expandAll();
     }
 
     private void browseForDestination() {
@@ -208,24 +236,24 @@ public class XQDocWizardPage extends NewElementWizardPage implements IDialogFiel
         }
     }
 
-    private ITreeContentProvider getXQueryResourceProvider() {
+    private ITreeContentProvider getListResourceProvider() {
         return new WorkbenchContentProvider() {
             @Override
             public Object[] getChildren(Object o) {
-                if (o instanceof IContainer) {
-                    IResource[] members = null;
-                    try {
-                        members = ((IContainer)o).members();
-                    } catch (CoreException e) {
-                        return NO_CHILDREN;
-                    }
+                if (o instanceof IScriptFolder) {
+                    ArrayList<IResource> results = new ArrayList<IResource>();
+                    IScriptFolder folder = (IScriptFolder)o;
 
-                    // filter out the desired resource types
-                    ArrayList<Object> results = new ArrayList<Object>();
-                    for (int i = 0; i < members.length; i++) {
-                        if (XQDTContentType.isXQueryFile(members[i])) {
-                            results.add(members[i]);
+                    try {
+                        ISourceModule[] modules = folder.getSourceModules();
+                        for (ISourceModule module : modules) {
+                            ModuleDeclaration modDecl = SourceParserUtil.getModuleDeclaration(module);
+                            if (modDecl instanceof XQueryLibraryModule) {
+                                results.add(module.getResource());
+                            }
                         }
+                    } catch (ModelException e) {
+                        return NO_CHILDREN;
                     }
                     return results.toArray();
                 } else if (o instanceof ArrayList<?>) {
@@ -233,6 +261,7 @@ public class XQDocWizardPage extends NewElementWizardPage implements IDialogFiel
                 }
                 return NO_CHILDREN;
             }
+
         };
     }
 
@@ -240,28 +269,23 @@ public class XQDocWizardPage extends NewElementWizardPage implements IDialogFiel
      * Returns a content provider for <code>IResource</code>s that returns only children of the
      * given resource type.
      */
-    private ITreeContentProvider getXQDocResourceProvider() {
+    private ITreeContentProvider getTreeResourceProvider() {
         return new WorkbenchContentProvider() {
-
-            private static final int TYPE = IResource.FOLDER | IResource.PROJECT | IResource.ROOT;
 
             @Override
             public Object[] getChildren(Object o) {
-                if (o instanceof IContainer) {
-                    IResource[] members = null;
+                if (o instanceof IScriptProject) {
+                    ArrayList<IScriptFolder> results = new ArrayList<IScriptFolder>();
+                    IScriptProject project = (IScriptProject)o;
                     try {
-                        members = ((IContainer)o).members();
-                    } catch (CoreException e) {
-                        return NO_CHILDREN;
-                    }
-
-                    // filter out the desired resource types
-                    ArrayList<Object> results = new ArrayList<Object>();
-                    for (int i = 0; i < members.length; i++) {
-                        // And the test bits with the resource types to see if they are what we want
-                        if ((members[i].getType() & TYPE) > 0) {
-                            results.add(members[i]);
+                        IScriptFolder[] folders = project.getScriptFolders();
+                        for (IScriptFolder folder : folders) {
+                            if (folder.containsScriptResources() && !folder.isReadOnly()) {
+                                results.add(folder);
+                            }
                         }
+                    } catch (ModelException e) {
+                        return NO_CHILDREN;
                     }
                     return results.toArray();
                 } else if (o instanceof ArrayList<?>) {
@@ -276,77 +300,18 @@ public class XQDocWizardPage extends NewElementWizardPage implements IDialogFiel
         setPageComplete(isValid());
     }
 
-    private void fillInstalledInterpreters(ComboDialogField comboField) {
-        String selectedItem = null;
-        int selectionIndex = -1;
-        selectionIndex = comboField.getSelectionIndex();
-        if (selectionIndex != -1) {// paranoia
-            selectedItem = comboField.getItems()[selectionIndex];
-        }
-
-        fInstalledInterpreters = getWorkspaceInterpeters();
-
-        selectionIndex = -1;// find new index
-        fComplianceLabels = new String[fInstalledInterpreters.length];
-        for (int i = 0; i < fInstalledInterpreters.length; i++) {
-            fComplianceLabels[i] = fInstalledInterpreters[i].getName();
-            if (selectedItem != null && fComplianceLabels[i].equals(selectedItem)) {
-                selectionIndex = i;
-            }
-        }
-        comboField.setItems(fComplianceLabels);
-        if (selectionIndex == -1) {
-            fInterpreterCombo.selectItem(getDefaultInterpreterName());
-        } else {
-            fInterpreterCombo.selectItem(selectedItem);
-        }
-    }
-
-    private IInterpreterInstall[] getWorkspaceInterpeters() {
-        List<IInterpreterInstall> standins = new ArrayList<IInterpreterInstall>();
-        IInterpreterInstallType[] types = ScriptRuntime.getInterpreterInstallTypes(XQDTNature.NATURE_ID);
-        IEnvironment environment = EnvironmentManager.getLocalEnvironment();
-        for (int i = 0; i < types.length; i++) {
-            IInterpreterInstallType type = types[i];
-            IInterpreterInstall[] installs = type.getInterpreterInstalls();
-            for (int j = 0; j < installs.length; j++) {
-                IInterpreterInstall install = installs[j];
-                String envId = install.getEnvironmentId();
-                if (envId != null && envId.equals(environment.getId())
-// TODO: correct this code!!!
-//                        && install instanceof ZorbaInstall
-                ) {
-                    standins.add(new InterpreterStandin(install));
-                }
-            }
-        }
-        return standins.toArray(new IInterpreterInstall[standins.size()]);
-    }
-
-    private String getDefaultInterpreterName() {
-        IInterpreterInstall inst = ScriptRuntime.getDefaultInterpreterInstall(new DefaultInterpreterEntry(
-                XQDTNature.NATURE_ID, EnvironmentManager.getLocalEnvironment().getId()));
-        if (inst != null) {
-            return inst.getName();
-        } else {
-            return "undefined"; //$NON-NLS-1$
-        }
-    }
-
     public String getStyleSheet() {
         return fStylesheetCombo.getItems()[fStylesheetCombo.getSelectionIndex()];
-    }
-
-    public IInterpreterInstall getInterpreter() {
-        return fInstalledInterpreters[fInterpreterCombo.getSelectionIndex()];
     }
 
     public Collection<IPath> getQueries() {
         List<IPath> queries = new ArrayList<IPath>();
         Iterator<?> it = fSelectionGroup.getAllCheckedListItems();
         while (it.hasNext()) {
-            IResource resource = (IResource)it.next();
-            queries.add(resource.getLocation());
+            Object o = it.next();
+            if (o instanceof IFile) {
+                queries.add(((IFile)o).getLocation());
+            }
         }
         return queries;
     }
@@ -355,21 +320,42 @@ public class XQDocWizardPage extends NewElementWizardPage implements IDialogFiel
         return new Path(fDestinationLocationField.getText().trim());
     }
 
+    @Override
+    public boolean isPageComplete() {
+        if (!isValid()) {
+            return false;
+        }
+        return super.isPageComplete();
+    }
+
     private boolean isValid() {
         String destDir = fDestinationLocationField.getText().trim();
-        File dir = null;
         if (destDir.length() == 0) {
-            setErrorMessage("The destination directory cannot e empty");
+            setErrorMessage("The destination directory cannot be empty");
             return false;
-        } else if (!fSelectionGroup.getAllCheckedListItems().hasNext()) {
+        } else if (!hasSelectedQuery()) {
             setErrorMessage("At least one XQuery file must be selected");
             return false;
-        } else if (!(dir = new File(destDir)).exists() || !dir.isDirectory()) {
-            setErrorMessage("\"" + destDir + "\" is not a valid directory");
-            return false;
+        } else {
+            File dir = new File(destDir);
+            if (!dir.exists() || !dir.isDirectory()) {
+                setErrorMessage("\"" + destDir + "\" is not a valid directory");
+                return false;
+            }
         }
 
         setErrorMessage(null);
         return true;
+    }
+
+    private boolean hasSelectedQuery() {
+        Iterator<?> iter = fSelectionGroup.getAllCheckedListItems();
+        while (iter.hasNext()) {
+            if (iter.next() instanceof IFile) {
+                return true;
+            }
+        }
+
+        return false;
     }
 }

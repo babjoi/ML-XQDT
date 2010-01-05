@@ -10,8 +10,10 @@
  *******************************************************************************/
 package org.eclipse.wst.xquery.internal.launching.marklogic;
 
-import org.eclipse.dltk.core.ISourceModule;
-import org.eclipse.wst.xquery.core.model.ast.XQueryModule;
+import org.eclipse.core.runtime.CoreException;
+import org.eclipse.dltk.core.IScriptProject;
+import org.eclipse.dltk.launching.IInterpreterInstall;
+import org.eclipse.dltk.launching.ScriptRuntime;
 import org.eclipse.wst.xquery.internal.core.codeassist.IImplicitImportActivator;
 
 public class MarkLogicCompletionPrefixActivator implements IImplicitImportActivator {
@@ -23,7 +25,13 @@ public class MarkLogicCompletionPrefixActivator implements IImplicitImportActiva
      * org.eclipse.wst.xquery.internal.launching.marklogic.IImplicitImportActivator#activateForModule
      * (org.eclipse.dltk.core.ISourceModule)
      */
-    public boolean activateForModule(ISourceModule module) {
-        return ((module instanceof XQueryModule) && "1.0-ml".equals(((XQueryModule)module).getVersion()));
+    public boolean activateForProject(IScriptProject project) {
+        try {
+            IInterpreterInstall install = ScriptRuntime.getInterpreterInstall(project);
+            return install.getInterpreterInstallType().getId().equals(MarkLogicInstallType.INSTALL_TYPE_ID);
+        } catch (CoreException e) {
+        }
+
+        return false;
     }
 }

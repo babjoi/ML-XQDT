@@ -18,8 +18,8 @@ import org.eclipse.jface.text.ITextViewer;
 import org.eclipse.jface.text.templates.Template;
 import org.eclipse.jface.text.templates.TemplateContext;
 import org.eclipse.swt.graphics.Image;
-import org.eclipse.wst.xquery.internal.core.codeassist.XQDTCompletionEngine.CompletionPrefixType;
-import org.eclipse.wst.xquery.internal.core.text.XQDTWordDetector;
+import org.eclipse.wst.xquery.core.codeassist.IXQDTCompletionConstants.CompletionPrefixType;
+import org.eclipse.wst.xquery.core.text.XQDTWordDetector;
 
 public abstract class XQDTPrefixedTemplateCompletionProcessor extends ScriptTemplateCompletionProcessor {
 

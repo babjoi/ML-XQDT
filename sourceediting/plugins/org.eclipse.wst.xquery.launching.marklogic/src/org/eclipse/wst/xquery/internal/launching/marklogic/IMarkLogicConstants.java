@@ -13,6 +13,7 @@ package org.eclipse.wst.xquery.internal.launching.marklogic;
 public interface IMarkLogicConstants {
 
     public static final String MARKLOGIC_MODULE_PREFIX = "http://marklogic.com/";
+
     public static final String MARKLOGIC_RESOLVER_FACET_ID = "marklogicUriResolver";
 
 }

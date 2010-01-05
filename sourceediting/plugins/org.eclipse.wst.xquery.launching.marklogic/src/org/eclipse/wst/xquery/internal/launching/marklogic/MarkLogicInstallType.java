@@ -15,21 +15,15 @@ import org.eclipse.dltk.core.environment.EnvironmentManager;
 import org.eclipse.dltk.core.environment.IEnvironment;
 import org.eclipse.dltk.core.environment.IFileHandle;
 import org.eclipse.dltk.launching.IInterpreterInstall;
-import org.eclipse.wst.xquery.internal.launching.XQDTInterpreterInstallType;
+import org.eclipse.wst.xquery.launching.XQDTInterpreterInstallType;
 
 public class MarkLogicInstallType extends XQDTInterpreterInstallType {
 
     public static final String INSTALL_TYPE_ID = "org.eclipse.wst.xquery.launching.MarkLogicInstallType"; //$NON-NLS-1$
     private static final String INSTALL_TYPE_NAME = "MarkLogic Server"; //$NON-NLS-1$
 
-    private static final String BUILTIN_MODULE_ROOT = "/Resources/modules";
-
     public String getName() {
         return INSTALL_TYPE_NAME;
-    }
-
-    public String[] getBuiltinModuleRoots() {
-        return new String[] { BUILTIN_MODULE_ROOT };
     }
 
     protected IInterpreterInstall doCreateInterpreterInstall(String id) {

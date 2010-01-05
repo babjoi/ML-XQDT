@@ -10,10 +10,10 @@
  *******************************************************************************/
 package org.eclipse.wst.xquery.internal.core.codeassist;
 
-import org.eclipse.dltk.core.ISourceModule;
+import org.eclipse.dltk.core.IScriptProject;
 
 public interface IImplicitImportActivator {
 
-    public abstract boolean activateForModule(ISourceModule module);
+    public abstract boolean activateForProject(IScriptProject project);
 
 }

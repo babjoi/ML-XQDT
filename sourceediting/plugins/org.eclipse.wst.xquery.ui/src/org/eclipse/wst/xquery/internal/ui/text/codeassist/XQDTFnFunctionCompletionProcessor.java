@@ -13,7 +13,7 @@ package org.eclipse.wst.xquery.internal.ui.text.codeassist;
 import org.eclipse.dltk.ui.templates.ScriptTemplateAccess;
 import org.eclipse.dltk.ui.text.completion.ScriptContentAssistInvocationContext;
 import org.eclipse.jface.resource.ImageDescriptor;
-import org.eclipse.wst.xquery.internal.core.codeassist.XQDTCompletionEngine.CompletionPrefixType;
+import org.eclipse.wst.xquery.core.codeassist.IXQDTCompletionConstants.CompletionPrefixType;
 import org.eclipse.wst.xquery.internal.ui.XQDTImages;
 import org.eclipse.wst.xquery.internal.ui.templates.XPathFunctionContentType;
 import org.eclipse.wst.xquery.internal.ui.templates.XQDTFnFunctionTemplateAccess;

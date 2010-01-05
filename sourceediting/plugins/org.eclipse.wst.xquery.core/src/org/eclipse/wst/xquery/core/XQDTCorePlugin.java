@@ -16,7 +16,6 @@ import java.util.Date;
 import org.eclipse.core.runtime.Platform;
 import org.eclipse.core.runtime.Plugin;
 import org.osgi.framework.BundleContext;
-import org.eclipse.wst.xquery.internal.core.XQDTUriResolver;
 
 /**
  * The activator class controls the plug-in life cycle
@@ -37,7 +36,7 @@ public class XQDTCorePlugin extends Plugin {
     public static final boolean DEBUG_DOCUMENT_PARTITIONER = Boolean.valueOf(
             Platform.getDebugOption(PLUGIN_ID + "/debug/document_partitioner")).booleanValue();
 
-    private static IUriResolver fUriResolver;
+    private static IXQDTUriResolver fUriResolver;
 
     /**
      * The constructor
@@ -79,7 +78,7 @@ public class XQDTCorePlugin extends Plugin {
                 new Date(), msg }));
     }
 
-    public IUriResolver getUriResolver() {
+    public IXQDTUriResolver getUriResolver() {
         if (fUriResolver == null) {
             fUriResolver = new XQDTUriResolver();
         }

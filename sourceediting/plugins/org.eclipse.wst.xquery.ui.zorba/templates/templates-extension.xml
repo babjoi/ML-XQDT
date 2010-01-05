@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="UTF-8"?><!--
+    Copyright (c) 2008, 2009 28msec Inc. and others.
+    All rights reserved. This program and the accompanying materials
+    are made available under the terms of the Eclipse Public License v1.0
+    which accompanies this distribution, and is available at
+    http://www.eclipse.org/legal/epl-v10.html
+   
+    Contributors:
+        Gabriel Petrovay (28msec) - initial API and implementation
+ -->
+
+<templateExtensions>
+	<extension id="xquery.VersionDeclV">
+		<digestTokenGroups>
+			<digestTokenGroup>
+				<token value="xquery" />
+			</digestTokenGroup>
+		</digestTokenGroups>
+	</extension>
+	<extension id="xquery.ModuleDeclN">
+		<digestTokenGroups>
+			<digestTokenGroup>
+				<token value="module" />
+			</digestTokenGroup>
+		</digestTokenGroups>
+	</extension>
+	<extension id="scripting.ServiceDeclN">
+		<digestTokenGroups>
+			<digestTokenGroup>
+				<token value="service" />
+			</digestTokenGroup>
+		</digestTokenGroups>
+	</extension>
+	<extension id="xquery.ModuleImportM">
+		<digestTokenGroups>
+			<digestTokenGroup>
+				<token value="import" />
+			</digestTokenGroup>
+		</digestTokenGroups>
+	</extension>
+	<extension id="xquery.ModuleImportAtM">
+		<digestTokenGroups>
+			<digestTokenGroup>
+				<token value="import" />
+			</digestTokenGroup>
+		</digestTokenGroups>
+	</extension>
+	<extension id="scripting.ServiceImportS">
+		<digestTokenGroups>
+			<digestTokenGroup>
+				<token value="import" />
+			</digestTokenGroup>
+		</digestTokenGroups>
+	</extension>
+	<extension id="xquery.NamespaceDecl">
+		<digestTokenGroups>
+			<digestTokenGroup>
+				<token value="declare" />
+			</digestTokenGroup>
+		</digestTokenGroups>
+	</extension>
+	<extension id="xquery.BoundarySpaceDecl">
+		<digestTokenGroups>
+			<digestTokenGroup>
+				<token value="declare" />
+			</digestTokenGroup>
+		</digestTokenGroups>
+	</extension>
+	<extension id="xquery.DefaultNamespaceDecl">
+		<digestTokenGroups>
+			<digestTokenGroup>
+				<token value="declare" />
+				<token value="default" />
+				<token value="element" />
+			</digestTokenGroup>
+			<digestTokenGroup>
+				<token value="declare" />
+				<token value="default" />
+				<token value="function" />
+			</digestTokenGroup>
+		</digestTokenGroups>
+	</extension>
+	<extension id="xquery.OptionDecl">
+		<digestTokenGroups>
+			<digestTokenGroup>
+				<token value="declare" />
+			</digestTokenGroup>
+		</digestTokenGroups>
+	</extension>
+	<extension id="xquery.OrderingModeDecl">
+		<digestTokenGroups>
+			<digestTokenGroup>
+				<token value="declare" />
+			</digestTokenGroup>
+		</digestTokenGroups>
+	</extension>
+	<extension id="xquery.EmptyOrderDeclE">
+		<digestTokenGroups>
+			<digestTokenGroup>
+				<token value="declare" />
+				<token value="default" />
+				<token value="order" />
+			</digestTokenGroup>
+		</digestTokenGroups>
+	</extension>
+	<extension id="xquery.EmptyOrderDeclO">
+		<digestTokenGroups>
+			<digestTokenGroup>
+				<token value="declare" />
+				<token value="default" />
+			</digestTokenGroup>
+		</digestTokenGroups>
+	</extension>
+	<extension id="xquery.CopyNamespacesDecl">
+		<digestTokenGroups>
+			<digestTokenGroup>
+				<token value="declare" />
+			</digestTokenGroup>
+		</digestTokenGroups>
+	</extension>
+	<extension id="xquery.DefaultCollationDecl">
+		<digestTokenGroups>
+			<digestTokenGroup>
+				<token value="declare" />
+				<token value="default" />
+			</digestTokenGroup>
+		</digestTokenGroups>
+	</extension>
+	<extension id="xquery.BaseURIDecl">
+		<digestTokenGroups>
+			<digestTokenGroup>
+				<token value="declare" />
+			</digestTokenGroup>
+		</digestTokenGroups>
+	</extension>
+	<extension id="xquery.ConstructionDecl">
+		<digestTokenGroups>
+			<digestTokenGroup>
+				<token value="declare" />
+			</digestTokenGroup>
+		</digestTokenGroups>
+	</extension>
+	
+	<extension id="xquery.VarDecl">
+		<digestTokenGroups>
+			<digestTokenGroup>
+				<token value="declare" />
+			</digestTokenGroup>
+		</digestTokenGroups>
+	</extension>
+	<extension id="xquery.VarDeclTyped">
+		<digestTokenGroups>
+			<digestTokenGroup>
+				<token value="declare" />
+			</digestTokenGroup>
+		</digestTokenGroups>
+	</extension>
+	<extension id="xquery.VarDeclExteral">
+		<digestTokenGroups>
+			<digestTokenGroup>
+				<token value="declare" />
+			</digestTokenGroup>
+		</digestTokenGroups>
+	</extension>
+	<extension id="xquery.VarDeclTypedExternal">
+		<digestTokenGroups>
+			<digestTokenGroup>
+				<token value="declare" />
+			</digestTokenGroup>
+		</digestTokenGroups>
+	</extension>
+	<extension id="xquery.FunctionDecl">
+		<digestTokenGroups>
+			<digestTokenGroup>
+				<token value="declare" />
+			</digestTokenGroup>
+		</digestTokenGroups>
+	</extension>
+	<extension id="xquery.FunctionDeclExternal">
+		<digestTokenGroups>
+			<digestTokenGroup>
+				<token value="declare" />
+			</digestTokenGroup>
+		</digestTokenGroups>
+	</extension>
+	
+	<extension id="fulltext.FTOptionDecl">
+		<digestTokenGroups>
+			<digestTokenGroup>
+				<token value="declare" />
+			</digestTokenGroup>
+		</digestTokenGroups>
+	</extension>
+	
+	<extension id="scripting.ServiceDeclN">
+		<digestTokenGroups>
+			<digestTokenGroup>
+				<token value="service" />
+			</digestTokenGroup>
+		</digestTokenGroups>
+	</extension>
+	
+</templateExtensions>

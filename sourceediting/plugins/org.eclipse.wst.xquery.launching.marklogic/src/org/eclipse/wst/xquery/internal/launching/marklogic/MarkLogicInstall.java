@@ -42,12 +42,4 @@ public class MarkLogicInstall extends XQDTInterpreterInstall implements ISemanti
         return new MarkLogicSemanticValidator(this);
     }
 
-    @Override
-    protected String getDisplayName(String module) {
-        if (!module.startsWith("MarkLogic/")) {
-            return module;
-        }
-        return module;
-    }
-
 }

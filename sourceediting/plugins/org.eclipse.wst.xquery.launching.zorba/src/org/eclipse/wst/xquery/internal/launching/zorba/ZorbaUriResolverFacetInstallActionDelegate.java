@@ -16,7 +16,7 @@ import org.eclipse.dltk.core.DLTKCore;
 import org.eclipse.dltk.core.IScriptProject;
 import org.eclipse.dltk.launching.IInterpreterInstall;
 import org.eclipse.dltk.launching.ScriptRuntime;
-import org.eclipse.wst.xquery.internal.core.facets.CheckedUriResolverFacetInstallActionDelegate;
+import org.eclipse.wst.xquery.core.facets.CheckedUriResolverFacetInstallActionDelegate;
 
 public class ZorbaUriResolverFacetInstallActionDelegate extends CheckedUriResolverFacetInstallActionDelegate {
 

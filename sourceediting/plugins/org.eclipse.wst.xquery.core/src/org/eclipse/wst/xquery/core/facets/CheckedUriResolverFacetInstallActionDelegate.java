@@ -8,7 +8,7 @@
  * Contributors:
  *     Gabriel Petrovay (28msec) - initial API and implementation
  *******************************************************************************/
-package org.eclipse.wst.xquery.internal.core.facets;
+package org.eclipse.wst.xquery.core.facets;
 
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.ProjectScope;
@@ -23,17 +23,25 @@ import org.osgi.service.prefs.BackingStoreException;
 import org.eclipse.wst.xquery.core.IXQDTCorePreferences;
 import org.eclipse.wst.xquery.core.XQDTCorePlugin;
 
-public final class UriResolverFacetUninstallActionDelegate implements IDelegate {
+public abstract class CheckedUriResolverFacetInstallActionDelegate implements IDelegate {
 
     final public void execute(IProject project, IProjectFacetVersion fv, Object config, IProgressMonitor monitor)
             throws CoreException {
+        if (!checkFacetForProject(project)) {
+            throw new CoreException(new Status(IStatus.ERROR, XQDTCorePlugin.PLUGIN_ID, getErrorMessage()));
+        }
         IEclipsePreferences preferences = new ProjectScope(project).getNode(XQDTCorePlugin.PLUGIN_ID);
-        preferences.remove(IXQDTCorePreferences.URI_RESOLVER_PREFERENCE_KEY);
+        String resolverId = fv.getPluginId() + '.' + fv.getProjectFacet().getId();
+        preferences.put(IXQDTCorePreferences.URI_RESOLVER_PREFERENCE_KEY, resolverId);
         try {
             preferences.flush();
         } catch (BackingStoreException bse) {
             throw new CoreException(new Status(IStatus.ERROR, XQDTCorePlugin.PLUGIN_ID, bse.getMessage(), bse));
         }
     }
+
+    abstract protected boolean checkFacetForProject(IProject project);
+
+    abstract protected String getErrorMessage();
 
 }

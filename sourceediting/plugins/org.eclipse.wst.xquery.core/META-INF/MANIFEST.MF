@@ -17,6 +17,7 @@ Bundle-RequiredExecutionEnvironment: J2SE-1.5
 Export-Package: org.eclipse.wst.xquery.compiler.problem;uses:="org.eclipse.dltk.compiler.problem",
  org.eclipse.wst.xquery.core;uses:="org.eclipse.core.runtime,org.osgi.framework,org.eclipse.dltk.core",
  org.eclipse.wst.xquery.core.codeassist,
+ org.eclipse.wst.xquery.core.facets,
  org.eclipse.wst.xquery.core.model.ast;
   uses:="org.eclipse.jface.text,
    org.eclipse.dltk.ast.expressions,
@@ -32,7 +33,6 @@ Export-Package: org.eclipse.wst.xquery.compiler.problem;uses:="org.eclipse.dltk.
  org.eclipse.wst.xquery.internal.core.builder;x-internal:=true,
  org.eclipse.wst.xquery.internal.core.codeassist;x-internal:=true,
  org.eclipse.wst.xquery.internal.core.environment;x-internal:=true,
- org.eclipse.wst.xquery.internal.core.facets;x-internal:=true,
  org.eclipse.wst.xquery.internal.core.modules;x-internal:=true,
  org.eclipse.wst.xquery.internal.core.parser;x-internal:=true,
  org.eclipse.wst.xquery.internal.core.parser.antlr;x-internal:=true,

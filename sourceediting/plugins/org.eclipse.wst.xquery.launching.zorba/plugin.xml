@@ -39,7 +39,7 @@
          <action
                type="uninstall">
             <delegate
-                  class="org.eclipse.wst.xquery.internal.core.facets.UriResolverFacetUninstallActionDelegate">
+                  class="org.eclipse.wst.xquery.core.facets.UriResolverFacetUninstallActionDelegate">
             </delegate>
          </action>
       </project-facet-version>

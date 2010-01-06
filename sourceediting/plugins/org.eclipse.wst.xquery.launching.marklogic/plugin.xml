@@ -55,6 +55,7 @@
    <extension
          point="org.eclipse.wst.xquery.launching.builtinModules">
       <searchPath
+            docProvider="org.eclipse.wst.xquery.internal.launching.marklogic.MarkLogicBuiltinsDoc"
             installType="org.eclipse.wst.xquery.launching.MarkLogicInstallType"
             path="Resources/modules"
             relative="true">

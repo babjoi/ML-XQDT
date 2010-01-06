@@ -12,6 +12,7 @@ package org.eclipse.wst.xquery.launching;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Map;
 
 import org.eclipse.core.runtime.ILog;
 import org.eclipse.core.runtime.IPath;
@@ -30,6 +31,7 @@ public abstract class XQDTInterpreterInstallType extends AbstractInterpreterInst
         IEnvironmentAwareInterpreterInstallType {
 
     private List<ModuleSearchPath> fBuiltinModuleSearchPaths;
+    private Map<String, String> fBuiltinDocs;
 
     public String getNatureId() {
         return XQDTNature.NATURE_ID;
@@ -54,6 +56,13 @@ public abstract class XQDTInterpreterInstallType extends AbstractInterpreterInst
             fBuiltinModuleSearchPaths = BuiltinModuleUtil.readBuiltinModuleSearchPaths(this);
         }
         return fBuiltinModuleSearchPaths.toArray(new ModuleSearchPath[fBuiltinModuleSearchPaths.size()]);
+    }
+
+    public Map<String, String> getBuiltinDocs() {
+        if (fBuiltinDocs == null) {
+            fBuiltinDocs = BuiltinModuleUtil.readBuiltinDocs(this);
+        }
+        return fBuiltinDocs;
     }
 
     protected IPath createPathFile(IDeployment deployment) throws IOException {

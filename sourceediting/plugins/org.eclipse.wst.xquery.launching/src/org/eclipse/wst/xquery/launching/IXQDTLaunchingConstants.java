@@ -13,14 +13,16 @@ package org.eclipse.wst.xquery.launching;
 public interface IXQDTLaunchingConstants {
 
     public static final String BUILTIN_MODULES_EXTENSION_ID = "builtinModules";
-    public static final String BUILTIN_SEARCH_PATH_ELEMENT = "searchPath";
-    public static final String BUILTIN_INTERPRETER_INSTALL_TYPE_ID_ATTRIBUTE = "installType";
-    public static final String BUILTIN_RELATIVE_ATTRIBUTE = "relative";
+    public static final String BUILTIN_MODULES_SEARCH_PATH_ELEMENT = "searchPath";
+    public static final String BUILTIN_MODULES_INTERPRETER_INSTALL_TYPE_ID_ATTRIBUTE = "installType";
+    public static final String BUILTIN_MODULES_RELATIVE_ATTRIBUTE = "relative";
+    public static final String BUILTIN_MODULES_PATH_ATTRIBUTE = "path";
+    public static final String BUILTIN_MODULES_DOC_PROVIDER_ATTRIBUTE = "docProvider";
 
-    public static final String BUILTIN_PREFIXES_ELEMENT = "prefixes";
-    public static final String BUILTIN_PREFIX_ELEMENT = "prefix";
-    public static final String BUILTIN_PATH_ATTRIBUTE = "path";
-    public static final String BUILTIN_ACTIVATOR_ATTRIBUTE = "activator";
-    public static final String BUILTIN_NAME_ATTRIBUTE = "name";
+    public static final String IMPLICIT_IMPORTS_EXTENSION_ID = "implicitImports";
+    public static final String IMPLICIT_IMPORTS_PREFIXES_ELEMENT = "prefixes";
+    public static final String IMPLICIT_IMPORTS_PREFIX_ELEMENT = "prefix";
+    public static final String IMPLICIT_IMPORTS_ACTIVATOR_ATTRIBUTE = "activator";
+    public static final String IMPLICIT_IMPORTS_NAME_ATTRIBUTE = "name";
 
 }

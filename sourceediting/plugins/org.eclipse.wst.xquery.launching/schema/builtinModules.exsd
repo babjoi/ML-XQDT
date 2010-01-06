@@ -18,7 +18,7 @@
       </annotation>
       <complexType>
          <sequence>
-            <element ref="searchPath"/>
+            <element ref="searchPath" minOccurs="1" maxOccurs="unbounded"/>
          </sequence>
          <attribute name="point" type="string" use="required">
             <annotation>
@@ -71,6 +71,16 @@
                <documentation>
                   True if the indicated path should be treated as relative to this plug-in. The default value is &quot;true&quot;.
                </documentation>
+            </annotation>
+         </attribute>
+         <attribute name="docProvider" type="string">
+            <annotation>
+               <documentation>
+                  
+               </documentation>
+               <appInfo>
+                  <meta.attribute kind="java" basedOn=":org.eclipse.wst.xquery.launching.IXQDTBuiltinDocs"/>
+               </appInfo>
             </annotation>
          </attribute>
       </complexType>

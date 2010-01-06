@@ -11,12 +11,16 @@
 package org.eclipse.wst.xquery.internal.launching.utils;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
+import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IConfigurationElement;
 import org.eclipse.core.runtime.IExtensionPoint;
 import org.eclipse.core.runtime.Platform;
 import org.eclipse.dltk.launching.IInterpreterInstallType;
+import org.eclipse.wst.xquery.launching.IXQDTBuiltinDocProvider;
 import org.eclipse.wst.xquery.launching.IXQDTLaunchingConstants;
 import org.eclipse.wst.xquery.launching.ModuleSearchPath;
 import org.eclipse.wst.xquery.launching.XQDTLaunchingPlugin;
@@ -31,14 +35,36 @@ public class BuiltinModuleUtil {
         IConfigurationElement[] searchPaths = extPoint.getConfigurationElements();
         for (IConfigurationElement searchPath : searchPaths) {
             String installTypeId = searchPath
-                    .getAttribute(IXQDTLaunchingConstants.BUILTIN_INTERPRETER_INSTALL_TYPE_ID_ATTRIBUTE);
+                    .getAttribute(IXQDTLaunchingConstants.BUILTIN_MODULES_INTERPRETER_INSTALL_TYPE_ID_ATTRIBUTE);
             if (installTypeId.equals(interpreterInstallType.getId())) {
-                String path = searchPath.getAttribute(IXQDTLaunchingConstants.BUILTIN_PATH_ATTRIBUTE);
+                String path = searchPath.getAttribute(IXQDTLaunchingConstants.BUILTIN_MODULES_PATH_ATTRIBUTE);
                 boolean relative = Boolean.parseBoolean(searchPath
-                        .getAttribute(IXQDTLaunchingConstants.BUILTIN_RELATIVE_ATTRIBUTE));
+                        .getAttribute(IXQDTLaunchingConstants.BUILTIN_MODULES_RELATIVE_ATTRIBUTE));
                 paths.add(new ModuleSearchPath(path, relative));
             }
         }
         return paths;
+    }
+
+    public static Map<String, String> readBuiltinDocs(IInterpreterInstallType interpreterInstallType) {
+        IExtensionPoint extPoint = Platform.getExtensionRegistry().getExtensionPoint(XQDTLaunchingPlugin.PLUGIN_ID,
+                IXQDTLaunchingConstants.BUILTIN_MODULES_EXTENSION_ID);
+
+        IConfigurationElement[] searchPaths = extPoint.getConfigurationElements();
+        for (IConfigurationElement searchPath : searchPaths) {
+            String installTypeId = searchPath
+                    .getAttribute(IXQDTLaunchingConstants.BUILTIN_MODULES_INTERPRETER_INSTALL_TYPE_ID_ATTRIBUTE);
+            if (installTypeId.equals(interpreterInstallType.getId())) {
+                try {
+                    IXQDTBuiltinDocProvider docProvider = (IXQDTBuiltinDocProvider)searchPath
+                            .createExecutableExtension(IXQDTLaunchingConstants.BUILTIN_MODULES_DOC_PROVIDER_ATTRIBUTE);
+                    return docProvider.getDocs();
+                } catch (CoreException e) {
+                    continue;
+                }
+            }
+        }
+
+        return new HashMap<String, String>();
     }
 }

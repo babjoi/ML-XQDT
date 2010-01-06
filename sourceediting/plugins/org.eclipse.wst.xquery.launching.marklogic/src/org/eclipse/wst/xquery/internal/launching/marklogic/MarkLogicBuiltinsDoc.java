@@ -13,11 +13,13 @@ package org.eclipse.wst.xquery.internal.launching.marklogic;
 import java.util.HashMap;
 import java.util.Map;
 
-public class MarkLogicBuiltinsDoc {
+import org.eclipse.wst.xquery.launching.IXQDTBuiltinDocProvider;
+
+public class MarkLogicBuiltinsDoc implements IXQDTBuiltinDocProvider {
 
 	private static Map<String, String> fDocs;
 
-	public static synchronized Map<String, String> getDocs() {
+	public synchronized Map<String, String> getDocs() {
 		if (fDocs == null) {
 			fDocs = new HashMap<String, String>();
 			loadMap();

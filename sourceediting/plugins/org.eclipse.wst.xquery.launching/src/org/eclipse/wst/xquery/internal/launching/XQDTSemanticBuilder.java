@@ -90,7 +90,7 @@ public class XQDTSemanticBuilder implements IBuildParticipant {
         IScriptProject project = source.getScriptProject();
         IBuildpathEntry[] entries = project.getRawBuildpath();
         for (IBuildpathEntry entry : entries) {
-            if (entry.getPath().equals(source.getParent().getPath())) {
+            if (entry.getPath().isPrefixOf(source.getPath())) {
                 return true;
             }
         }

@@ -20,8 +20,7 @@ public class AllTests {
 	public static Test suite() {
 		TestSuite suite = new TestSuite("org.eclipse.wst.xquery.tests: All XQDT plugin tests");
 		//$JUnit-BEGIN$
-//		suite.addTest(XQDTCoreTestSuite.suite());
-		suite.addTestSuite(SimpleTest.class);
+		//suite.addTestSuite(SimpleTest.class);
 		suite.addTest(XQDTCoreTestSuite.suite());
 		
 

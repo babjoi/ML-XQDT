@@ -90,10 +90,12 @@ public class XQDTLaunchableTester extends PropertyTester {
     private boolean interpreterType(IModelElement element, String expectedValue) {
         try {
             IInterpreterInstall install = ScriptRuntime.getInterpreterInstall(element.getScriptProject());
-            return install.getInterpreterInstallType().getId().equals(expectedValue);
+            if (install != null) {
+                return install.getInterpreterInstallType().getId().equals(expectedValue);
+            }
         } catch (CoreException e) {
-            return false;
         }
+        return false;
     }
 
 }

@@ -10,21 +10,24 @@
  *******************************************************************************/
 package org.eclipse.wst.xquery.tests;
 
-import junit.framework.TestSuite;
-
-import org.eclipse.wst.xquery.core.tests.XQDTCoreTestSuite;
+import org.junit.Test;
 
 public class AllTests {
 
-    public static TestSuite suite() {
-        TestSuite suite = new TestSuite("org.eclipse.wst.xquery.tests: All XQDT plugin tests");
-        //$JUnit-BEGIN$
+//    public static TestSuite suite() {
+//        TestSuite suite = new TestSuite("org.eclipse.wst.xquery.tests: All XQDT plugin tests");
+//        //$JUnit-BEGIN$
+//
+//        suite.addTest(XQDTCoreTestSuite.suite());
+////        suite.addTest(new MyTest());
+//
+//        //$JUnit-END$
+//        return suite;
+//    }
 
-        suite.addTest(XQDTCoreTestSuite.suite());
-//        suite.addTest(new MyTest());
-
-        //$JUnit-END$
-        return suite;
+    @Test
+    public void testOne() {
+        System.out.println("one");
     }
 
 }

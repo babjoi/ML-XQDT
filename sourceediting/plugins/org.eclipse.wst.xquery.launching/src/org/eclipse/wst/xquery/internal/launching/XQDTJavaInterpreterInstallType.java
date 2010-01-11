@@ -32,9 +32,11 @@ public class XQDTJavaInterpreterInstallType extends XQDTInterpreterInstallType {
     @Override
     public IStatus validatePossiblyName(IFileHandle installLocation) {
         String extension = installLocation.getPath().getFileExtension();
-        for (String ext : POSSIBLE_EXTENSIONS) {
-            if (extension.toLowerCase().equals(ext)) {
-                return createStatus(IStatus.OK, "", null); //$NON-NLS-1$
+        if (extension != null) {
+            for (String ext : POSSIBLE_EXTENSIONS) {
+                if (extension.toLowerCase().equals(ext)) {
+                    return createStatus(IStatus.OK, "", null); //$NON-NLS-1$
+                }
             }
         }
         return createStatus(IStatus.ERROR, "Only JAR and WAR files are supported.", null); //$NON-NLS-1$

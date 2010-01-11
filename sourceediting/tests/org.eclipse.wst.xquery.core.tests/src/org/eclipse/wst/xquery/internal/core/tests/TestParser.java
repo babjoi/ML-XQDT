@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wst.xquery.internal.core.tests;
 
-import junit.framework.TestCase;
-
 import org.antlr.runtime.ANTLRStringStream;
 import org.antlr.runtime.RecognitionException;
 import org.eclipse.wst.xquery.core.IXQDTLanguageConstants;
@@ -19,50 +17,59 @@ import org.eclipse.wst.xquery.internal.core.parser.antlr.NewLazyTokenStream;
 import org.eclipse.wst.xquery.internal.core.parser.antlr.XQDTCommonTreeAdaptor;
 import org.eclipse.wst.xquery.internal.core.parser.antlr.XQueryLexer;
 import org.eclipse.wst.xquery.internal.core.parser.antlr.XQueryParser;
+import org.junit.Test;
 
 @SuppressWarnings("restriction")
-public class TestParser extends TestCase implements IXQDTLanguageConstants {
+public class TestParser implements IXQDTLanguageConstants {
 
     // *****************************************************
     // ****************** TESTS ****************************
     // *****************************************************
 
     // https://bugs.eclipse.org/bugs/show_bug.cgi?id=297366
+    @Test
     public void testBug297366_1() {
         testQuery("declare private variable $bar := ''; ()", false, LANGUAGE_XQUERY);
     }
 
     // https://bugs.eclipse.org/bugs/show_bug.cgi?id=297366
+    @Test
     public void testBug297366_2() {
         testQuery("declare private variable $bar := ''; ()", true, LANGUAGE_XQUERY_MARK_LOGIC);
     }
 
     // https://bugs.eclipse.org/bugs/show_bug.cgi?id=297366
+    @Test
     public void testBug297366_3() {
         testQuery("declare private function foo() as xs:string { 'bar' }; ()", false, LANGUAGE_XQUERY);
     }
 
     // https://bugs.eclipse.org/bugs/show_bug.cgi?id=297366
+    @Test
     public void testBug297366_4() {
         testQuery("declare private function foo() as xs:string { 'bar' }; ()", true, LANGUAGE_XQUERY_MARK_LOGIC);
     }
 
     // https://bugs.eclipse.org/bugs/show_bug.cgi?id=292340
+    @Test
     public void testBug292340_1() {
         testQuery("binary { 'deadbeef' }", false, LANGUAGE_XQUERY);
     }
 
     // https://bugs.eclipse.org/bugs/show_bug.cgi?id=292340
+    @Test
     public void testBug292340_2() {
         testQuery("binary { 'deadbeef' }", true, LANGUAGE_XQUERY_MARK_LOGIC);
     }
 
     // https://bugs.eclipse.org/bugs/show_bug.cgi?id=296671 
+    @Test
     public void testBug296671() {
         testQuery("\"<\"", true, LANGUAGE_XQUERY);
     }
 
     // https://bugs.eclipse.org/bugs/show_bug.cgi?id=295437
+    @Test
     public void testBug295437() {
         testQuery("<e>{.}--</e>", true, LANGUAGE_XQUERY);
     }
@@ -75,10 +82,10 @@ public class TestParser extends TestCase implements IXQDTLanguageConstants {
         parser.setLanguageLevel(languageLevel);
         try {
             parser.p_Module();
-            assertEquals(valid, parser.getNumberOfSyntaxErrors() == 0);
+            assert valid == (parser.getNumberOfSyntaxErrors() == 0);
         } catch (RecognitionException e) {
             // test for RecognitionException 
-            assertFalse(e.getMessage(), true);
+            assert false;
         }
     }
 

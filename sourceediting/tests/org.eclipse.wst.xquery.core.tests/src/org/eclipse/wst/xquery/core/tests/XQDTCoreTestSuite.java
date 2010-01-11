@@ -10,21 +10,13 @@
  *******************************************************************************/
 package org.eclipse.wst.xquery.core.tests;
 
-import junit.framework.TestSuite;
-
 import org.eclipse.wst.xquery.internal.core.tests.TestParser;
+import org.junit.runner.RunWith;
+import org.junit.runners.Suite;
+import org.junit.runners.Suite.SuiteClasses;
 
-public class XQDTCoreTestSuite extends TestSuite {
-
-    public static TestSuite suite() {
-        TestSuite suite = new XQDTCoreTestSuite();
-        return suite;
-    }
-
-    public XQDTCoreTestSuite() {
-        super("org.eclipse.wst.xquery.tests: All XQDT Core plugin tests");
-
-        addTestSuite(TestParser.class);
-    }
+@RunWith(Suite.class)
+@SuiteClasses( { TestParser.class })
+public class XQDTCoreTestSuite {
 
 }

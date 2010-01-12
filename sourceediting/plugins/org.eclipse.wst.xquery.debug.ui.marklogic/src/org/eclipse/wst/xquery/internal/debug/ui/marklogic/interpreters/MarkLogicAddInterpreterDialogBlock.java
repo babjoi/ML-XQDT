@@ -19,7 +19,6 @@ import org.eclipse.core.runtime.Status;
 import org.eclipse.dltk.compiler.util.Util;
 import org.eclipse.dltk.core.environment.IEnvironment;
 import org.eclipse.dltk.internal.debug.ui.interpreters.InterpretersMessages;
-import org.eclipse.dltk.internal.launching.LazyFileHandle;
 import org.eclipse.dltk.internal.ui.wizards.dialogfields.DialogField;
 import org.eclipse.dltk.internal.ui.wizards.dialogfields.IDialogFieldListener;
 import org.eclipse.dltk.internal.ui.wizards.dialogfields.StringDialogField;
@@ -110,7 +109,7 @@ public class MarkLogicAddInterpreterDialogBlock extends AbstractAddInterpreterDi
         // fInterpreterPasswordField.getText());
 
         IEnvironment selectedEnv = fAddInterpreterDialog.getEnvironment();
-        install.setInstallLocation(new LazyFileHandle(selectedEnv.getId(), new Path("/")));
+        install.setInstallLocation(selectedEnv.getFile(new Path("/")));
         install.setInterpreterArgs(fInterpreterLocationField.getText() + SEPARATOR + fInterpreterUserField.getText()
                 + SEPARATOR + fInterpreterPasswordField.getText());
 

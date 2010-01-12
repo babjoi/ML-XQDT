@@ -22,18 +22,6 @@
          version="0.0.0"/>
 
    <plugin
-         id="org.eclipse.wst.xquery.tests"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"/>
-
-   <plugin
-         id="org.eclipse.wst.xquery.core.tests"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"/>
-
-   <plugin
          id="org.antlr.runtime_v31"
          download-size="0"
          install-size="0"

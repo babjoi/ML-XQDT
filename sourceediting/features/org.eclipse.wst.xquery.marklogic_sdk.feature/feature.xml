@@ -13,6 +13,12 @@
       %license
    </license>
    
+   <includes
+         id="org.eclipse.wst.xquery.marklogic.feature"
+         version="0.0.0"/>
    
+   <includes
+         id="org.eclipse.wst.xquery.marklogic.feature.source"
+         version="0.0.0"/>   
 
 </feature>

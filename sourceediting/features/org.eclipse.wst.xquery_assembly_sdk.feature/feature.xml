@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <feature
-      id="org.eclipse.wst.xquery_assembly.feature"
+      id="org.eclipse.wst.xquery_assembly_sdk.feature"
       label="%featureName"
       version="0.7.0.qualifier"
       provider-name="%providerName">
@@ -16,20 +16,21 @@
    <license>
       %license
    </license>
-
+   
    <includes
-         id="org.eclipse.wst.xquery.feature"
+         id="org.eclipse.wst.xquery_sdk.feature"
          version="0.0.0"/>
          
    <includes
-         id="org.eclipse.wst.xquery.marklogic.feature"
+         id="org.eclipse.wst.xquery.marklogic_sdk.feature"
          version="0.0.0"/>
 
    <includes
-         id="org.eclipse.wst.xquery.set.feature"
+         id="org.eclipse.wst.xquery.set_sdk.feature"
          version="0.0.0"/>
 
    <includes
-         id="org.eclipse.wst.xquery.zorba.feature"
-         version="0.0.0"/>
+         id="org.eclipse.wst.xquery.zorba_sdk.feature"
+         version="0.0.0"/>   
+
 </feature>

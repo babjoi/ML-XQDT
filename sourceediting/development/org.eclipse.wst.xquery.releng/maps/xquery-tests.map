@@ -3,8 +3,10 @@
 ! These bundles are currently being developed and released from the HEAD branch
 
 feature@org.eclipse.wst.xquery_tests.feature=HEAD,:pserver:anonymous@dev.eclipse.org:/cvsroot/webtools,,incubator/sourceediting/features/org.eclipse.wst.xquery_tests.feature
-!plugin@org.eclipse.wst.xquery.tests=HEAD,:pserver:anonymous@dev.eclipse.org:/cvsroot/webtools,,incubator/sourceediting/tests/org.eclipse.wst.xquery.tests
-!plugin@org.eclipse.wst.xquery.core.tests=HEAD,:pserver:anonymous@dev.eclipse.org:/cvsroot/webtools,,incubator/sourceediting/tests/org.eclipse.wst.xquery.core.tests
+plugin@org.eclipse.wst.xquery.tests=HEAD,:pserver:anonymous@dev.eclipse.org:/cvsroot/webtools,,incubator/sourceediting/tests/org.eclipse.wst.xquery.tests
+plugin@org.eclipse.wst.xquery.core.tests=HEAD,:pserver:anonymous@dev.eclipse.org:/cvsroot/webtools,,incubator/sourceediting/tests/org.eclipse.wst.xquery.core.tests
 
 fragment@org.eclipse.ant.optional.junit=v20080717,:pserver:anonymous@dev.eclipse.org:/cvsroot/eclipse,
 plugin@org.eclipse.test=v20091002,:pserver:anonymous@dev.eclipse.org:/cvsroot/eclipse
+!plugin@org.eclipse.test=v20080313,:pserver:anonymous@dev.eclipse.org:/cvsroot/eclipse,
+!fragment@org.eclipse.ant.optional.junit=v20070202,:pserver:anonymous@dev.eclipse.org:/cvsroot/eclipse,

@@ -10,6 +10,15 @@
  *******************************************************************************/
 package org.eclipse.wst.xml.security.core.tests;
 
+import org.eclipse.wst.xml.security.core.tests.sign.CreateSignatureTest;
+import org.eclipse.wst.xml.security.core.tests.utils.CertificateTest;
+import org.eclipse.wst.xml.security.core.tests.utils.KeystoreTest;
+import org.eclipse.wst.xml.security.core.tests.utils.UtilsTest;
+import org.eclipse.wst.xml.security.core.tests.utils.XmlSecurityConstantsTest;
+import org.junit.runner.RunWith;
+import org.junit.runners.Suite;
+import org.junit.runners.Suite.SuiteClasses;
+
 import junit.framework.TestSuite;
 
 /**
@@ -19,6 +28,9 @@ import junit.framework.TestSuite;
  * @author Dominik Schadow
  * @version 0.5.0
  */
+@RunWith(Suite.class)
+@SuiteClasses( { CreateSignatureTest.class, CertificateTest.class, KeystoreTest.class, UtilsTest.class,
+    XmlSecurityConstantsTest.class})
 public class AllTestsSuite extends TestSuite {
     public AllTestsSuite() {
         super("All XML Security Tools Core Test Suite");

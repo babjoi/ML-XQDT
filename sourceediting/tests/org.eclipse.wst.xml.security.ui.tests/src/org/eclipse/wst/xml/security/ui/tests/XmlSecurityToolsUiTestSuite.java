@@ -10,10 +10,10 @@
  *******************************************************************************/
 package org.eclipse.wst.xml.security.ui.tests;
 
-import junit.framework.Test;
-import junit.framework.TestSuite;
-
 import org.eclipse.wst.xml.security.ui.tests.verify.SignatureViewTest;
+import org.junit.runner.RunWith;
+import org.junit.runners.Suite;
+import org.junit.runners.Suite.SuiteClasses;
 
 /**
  * This class sets up the XML Security Tools test suite.
@@ -21,14 +21,8 @@ import org.eclipse.wst.xml.security.ui.tests.verify.SignatureViewTest;
  * @author Dominik Schadow
  * @version 0.5.0
  */
-public class XmlSecurityToolsUiTestSuite extends TestSuite {
-    public static Test suite() {
-        return new XmlSecurityToolsUiTestSuite();
-    }
-
-    public XmlSecurityToolsUiTestSuite() {
-        super("XML Security UI Tests");
-        addTestSuite(SignatureViewTest.class);
-    }
+@RunWith(Suite.class)
+@SuiteClasses( { SignatureViewTest.class})
+public class XmlSecurityToolsUiTestSuite {
 }
 

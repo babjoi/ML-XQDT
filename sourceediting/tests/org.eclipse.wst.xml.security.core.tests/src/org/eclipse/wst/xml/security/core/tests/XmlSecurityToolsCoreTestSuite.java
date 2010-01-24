@@ -10,6 +10,9 @@
  *******************************************************************************/
 package org.eclipse.wst.xml.security.core.tests;
 
+import junit.framework.Test;
+import junit.framework.TestSuite;
+
 import org.eclipse.wst.xml.security.core.tests.sign.CreateSignatureTest;
 import org.eclipse.wst.xml.security.core.tests.utils.CertificateTest;
 import org.eclipse.wst.xml.security.core.tests.utils.KeystoreTest;
@@ -28,6 +31,18 @@ import org.junit.runners.Suite.SuiteClasses;
 @RunWith(Suite.class)
 @SuiteClasses( { CreateSignatureTest.class, CertificateTest.class, KeystoreTest.class, UtilsTest.class,
     XmlSecurityConstantsTest.class})
-public class XmlSecurityToolsCoreTestSuite {
+public class XmlSecurityToolsCoreTestSuite extends TestSuite {
+    public static Test suite() {
+        return new XmlSecurityToolsCoreTestSuite();
+    }
+
+    public XmlSecurityToolsCoreTestSuite() {
+        super("XML Security Core Tests");
+        addTestSuite(CreateSignatureTest.class);
+        addTestSuite(CertificateTest.class);
+        addTestSuite(KeystoreTest.class);
+        addTestSuite(UtilsTest.class);
+        addTestSuite(XmlSecurityConstantsTest.class);
+    }
 }
 

@@ -10,34 +10,30 @@
  *******************************************************************************/
 package org.eclipse.wst.xquery.debug.internal.core;
 
-import org.eclipse.dltk.debug.core.model.ArrayScriptType;
+import java.util.Arrays;
+
 import org.eclipse.dltk.debug.core.model.AtomicScriptType;
 import org.eclipse.dltk.debug.core.model.ComplexScriptType;
-import org.eclipse.dltk.debug.core.model.HashScriptType;
 import org.eclipse.dltk.debug.core.model.IScriptType;
 import org.eclipse.dltk.debug.core.model.IScriptTypeFactory;
-import org.eclipse.dltk.debug.core.model.StringScriptType;
 
 public class XQDTTypeFactory implements IScriptTypeFactory {
 
-    private static final String[] simpleTypes = { "string", "boolean", "decimal", "float", "double", "duration",
-            "dateTime", "time", "date", "gYearMonth", "gYear", "gMonthDay", "gDay", "gMonth", "hexBinary",
-            "base64Binary", "anyURI", "QName", "NOTATION" };
+    private static final String[] simpleTypes = { "ENTITIES", "ENTITY", "ID", "IDREF", "IDREFS", "NCName", "NMTOKEN",
+            "NMTOKENS", "NOTATION", "Name", "QName", "anyAtomicType", "anySimpleType", "anyType", "anyURI",
+            "base64Binary", "boolean", "byte", "date", "dateTime", "dayTimeDuration", "decimal", "double", "duration",
+            "float", "gDay", "gMonth", "gMonthDay", "gYear", "gYearMonth", "hexBinary", "int", "integer", "language",
+            "long", "negativeInteger", "nonNegativeInteger", "nonPositiveInteger", "normalizedString",
+            "positiveInteger", "short", "string", "time", "token", "unsignedByte", "unsignedInt", "unsignedShort",
+            "unsugnedLong", "untyped", "untypedAtomic", "yearMonthDuration" };
 
     public IScriptType buildType(String type) {
-        if (STRING.equalsIgnoreCase(type)) {
-            return new StringScriptType(type);
-        }
-        if (type.endsWith("*") || type.endsWith("+")) {
-            return new ArrayScriptType();
-        }
-        if (HASH.equals(type)) {
-            return new HashScriptType();
-        }
-        for (int i = 0; i < simpleTypes.length; ++i) {
-            if (simpleTypes[i].equals(type)) {
-                return new AtomicScriptType(type);
-            }
+//        if (type.endsWith("*") || type.endsWith("+")) {
+//            return new ArrayScriptType();
+//        }
+        int index = Arrays.binarySearch(simpleTypes, type);
+        if (index >= 0) {
+            return new AtomicScriptType(type);
         }
         return new ComplexScriptType(type);
     }

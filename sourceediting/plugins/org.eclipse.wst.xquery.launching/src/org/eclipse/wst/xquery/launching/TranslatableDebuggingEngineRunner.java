@@ -39,8 +39,9 @@ public abstract class TranslatableDebuggingEngineRunner extends DebuggingEngineR
             IScriptProject project = ScriptRuntime.getScriptProject(launch.getLaunchConfiguration());
 
             IDbgpTranslator translator = getDbgpTranslator(config, project);
-            if (translator == null)
-                abort("The DGBP Translator could not be started", null);
+            if (translator == null) {
+                abort("The DBGP Translator could not be started", null);
+            }
             translator.start();
         }
         return process;

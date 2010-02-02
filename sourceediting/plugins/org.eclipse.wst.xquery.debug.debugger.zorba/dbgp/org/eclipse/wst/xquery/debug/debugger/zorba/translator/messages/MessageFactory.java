@@ -15,6 +15,7 @@ import java.io.IOException;
 
 import org.eclipse.wst.xquery.debug.debugger.zorba.translator.communication.MessageHeader;
 import org.eclipse.wst.xquery.debug.debugger.zorba.translator.communication.MessageReader;
+import org.eclipse.wst.xquery.debug.debugger.zorba.translator.communication.ProtocolException;
 import org.eclipse.wst.xquery.debug.debugger.zorba.translator.communication.ReplyMessageHeader;
 import org.eclipse.wst.xquery.debug.debugger.zorba.translator.communication.RequestMessageHeader;
 
@@ -27,73 +28,79 @@ public class MessageFactory implements ICommandSets {
         return buildCommand(command, null);
     }
 
-    public static AbstractCommandMessage buildCommand(int command, byte[] data) throws InvalidCommandException {
+    public static AbstractCommandMessage buildCommand(int command, byte[] data) {
         int commandSet = (command >> 8) & 0xFF;
-        if (data == null)
+        if (data == null) {
             data = "{}".getBytes();
+        }
 
         Gson g = new Gson();
 
         System.out.println("Building message with data: " + new String(data));
-        switch (commandSet) {
-        case COMMAND_SET_EXECUTION:
-            switch (command) {
-            case COMMAND_RUN:
-                return g.fromJson(new String(data), RunMessage.class);
-            case COMMAND_SUSPEND:
-                return g.fromJson(new String(data), SuspendMessage.class);
-            case COMMAND_RESUME:
-                return g.fromJson(new String(data), ResumeMessage.class);
-            case COMMAND_TERMINATE:
-                return g.fromJson(new String(data), TerminateMessage.class);
-            case COMMAND_STEP:
-                return g.fromJson(new String(data), StepMessage.class);
-            }
-        case COMMAND_SET_ENGINE_EVENTS:
-            switch (command) {
-            case COMMAND_STARTED:
-                return g.fromJson(new String(data), StartedMessage.class);
-            case COMMAND_SUSPENDED:
-                try {
-                    g.fromJson(new String(data), SuspendedMessage.class);
-                } catch (JsonParseException e) {
-                    e.printStackTrace();
-                    data = new String(data).replaceAll("\\\\", "\\\\\\\\").getBytes();
+        try {
+            switch (commandSet) {
+            case COMMAND_SET_EXECUTION:
+                switch (command) {
+                case COMMAND_RUN:
+                    return g.fromJson(new String(data), RunMessage.class);
+                case COMMAND_SUSPEND:
+                    return g.fromJson(new String(data), SuspendMessage.class);
+                case COMMAND_RESUME:
+                    return g.fromJson(new String(data), ResumeMessage.class);
+                case COMMAND_TERMINATE:
+                    return g.fromJson(new String(data), TerminateMessage.class);
+                case COMMAND_STEP:
+                    return g.fromJson(new String(data), StepMessage.class);
                 }
-                return g.fromJson(new String(data), SuspendedMessage.class);
-            case COMMAND_RESUMED:
-                return g.fromJson(new String(data), ResumedMessage.class);
-            case COMMAND_TERMINATED:
-                return g.fromJson(new String(data), TerminatedMessage.class);
-            case COMMAND_EVALUATED:
-                return g.fromJson(new String(data), EvaluatedMessage.class);
+            case COMMAND_SET_ENGINE_EVENTS:
+                switch (command) {
+                case COMMAND_STARTED:
+                    return g.fromJson(new String(data), StartedMessage.class);
+                case COMMAND_SUSPENDED:
+                    try {
+                        g.fromJson(new String(data), SuspendedMessage.class);
+                    } catch (JsonParseException e) {
+                        e.printStackTrace();
+                        data = new String(data).replaceAll("\\\\", "\\\\\\\\").getBytes();
+                    }
+                    return g.fromJson(new String(data), SuspendedMessage.class);
+                case COMMAND_RESUMED:
+                    return g.fromJson(new String(data), ResumedMessage.class);
+                case COMMAND_TERMINATED:
+                    return g.fromJson(new String(data), TerminatedMessage.class);
+                case COMMAND_EVALUATED:
+                    return g.fromJson(new String(data), EvaluatedMessage.class);
+                }
+            case COMMAND_SET_BREAKPOINTS:
+                switch (command) {
+                case COMMAND_SET:
+                    return g.fromJson(new String(data), SetMessage.class);
+                case COMMAND_CLEAR:
+                    return g.fromJson(new String(data), ClearMessage.class);
+                }
+            case COMMAND_SET_DYNAMIC:
+                switch (command) {
+                case COMMAND_VARIABLES:
+                    return g.fromJson(new String(data), VariablesMessage.class);
+                case COMMAND_FOCUS:
+                    return null;
+                case COMMAND_TIME:
+                    return null;
+                case COMMAND_DOCUMENTS:
+                    return null;
+                case COMMAND_COLLECTIONS:
+                    return null;
+                case COMMAND_COLLECTION:
+                    return null;
+                case COMMAND_FRAMES:
+                    return g.fromJson(new String(data), FramesMessage.class);
+                }
             }
-        case COMMAND_SET_BREAKPOINTS:
-            switch (command) {
-            case COMMAND_SET:
-                return g.fromJson(new String(data), SetMessage.class);
-            case COMMAND_CLEAR:
-                return g.fromJson(new String(data), ClearMessage.class);
-            }
-        case COMMAND_SET_DYNAMIC:
-            switch (command) {
-            case COMMAND_VARIABLES:
-                return g.fromJson(new String(data), VariablesMessage.class);
-            case COMMAND_FOCUS:
-                return null;
-            case COMMAND_TIME:
-                return null;
-            case COMMAND_DOCUMENTS:
-                return null;
-            case COMMAND_COLLECTIONS:
-                return null;
-            case COMMAND_COLLECTION:
-                return null;
-            case COMMAND_FRAMES:
-                return g.fromJson(new String(data), FramesMessage.class);
-            }
+            throw new InvalidCommandException(command);
+
+        } catch (JsonParseException jpe) {
+            throw new ProtocolException(jpe.getMessage(), jpe);
         }
-        throw new InvalidCommandException(command);
     }
 
     public static AbstractMessage buildReply(int errorCode, byte[] data) {
@@ -118,8 +125,7 @@ public class MessageFactory implements ICommandSets {
         } else if (header instanceof RequestMessageHeader) {
             AbstractCommandMessage message = null;
             RequestMessageHeader requestHeader = (RequestMessageHeader)header;
-            message = (AbstractCommandMessage)buildCommand((requestHeader.getCommandSet() << 8)
-                    | requestHeader.getCommand(), data);
+            message = buildCommand((requestHeader.getCommandSet() << 8) | requestHeader.getCommand(), data);
             message.setId(requestHeader.getId());
             message.setLength(requestHeader.getMessageLength());
             message.setFlags(requestHeader.getFlags());

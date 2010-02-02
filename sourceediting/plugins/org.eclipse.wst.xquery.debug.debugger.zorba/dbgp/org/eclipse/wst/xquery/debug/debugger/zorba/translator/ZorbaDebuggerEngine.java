@@ -24,6 +24,7 @@ import org.eclipse.debug.core.model.IBreakpoint;
 import org.eclipse.dltk.dbgp.internal.DbgpTermination;
 import org.eclipse.wst.xquery.debug.core.XQDTDebugCorePlugin;
 import org.eclipse.wst.xquery.debug.dbgp.IDebuggerEngine;
+import org.eclipse.wst.xquery.debug.debugger.zorba.ZorbaDebuggerPlugin;
 import org.eclipse.wst.xquery.debug.debugger.zorba.translator.communication.MessageReader;
 import org.eclipse.wst.xquery.debug.debugger.zorba.translator.communication.ProtocolException;
 import org.eclipse.wst.xquery.debug.debugger.zorba.translator.communication.SocketClientConnection;
@@ -80,19 +81,23 @@ public class ZorbaDebuggerEngine extends DbgpTermination implements IDebuggerEng
 
             AbstractCommandMessage event;
             try {
-                event = (AbstractCommandMessage)fEventReader.readMessage();
-                while (!fTerminated && event != null) {
-                    fReceivedEvents.add(event);
-                    notifyListeners(event);
-                    event = null;
+                while (!fTerminated) {
                     try {
                         event = (AbstractCommandMessage)fEventReader.readMessage();
+                        if (event != null) {
+                            fReceivedEvents.add(event);
+                            notifyListeners(event);
+                        }
+                        event = null;
                     } catch (IOException se) {
                         if (!fTerminated) {
                             fTerminated = true;
                             terminate();
                             fireObjectTerminated(se);
                         }
+                    } catch (ProtocolException pe) {
+                        ZorbaDebuggerPlugin.getDefault().getLog().log(
+                                new Status(IStatus.ERROR, ZorbaDebuggerPlugin.PLUGIN_ID, pe.getMessage(), pe));
                     }
                 }
             } catch (Exception e) {

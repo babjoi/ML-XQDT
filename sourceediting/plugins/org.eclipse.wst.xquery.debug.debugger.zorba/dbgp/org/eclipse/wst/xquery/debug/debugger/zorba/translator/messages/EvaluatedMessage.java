@@ -25,8 +25,6 @@ public class EvaluatedMessage extends AbstractCommandMessage {
     private String fExpr;
     @SerializedName("results")
     private List<SequenceItemResult> fResultSequence;
-    @SerializedName("type")
-    private String fType;
     @SerializedName("error")
     private String fError;
 
@@ -34,12 +32,11 @@ public class EvaluatedMessage extends AbstractCommandMessage {
         super(ICommandSets.COMMAND_SET_ENGINE_EVENTS, ICommandSets.COMMAND_EVALUATED);
     }
 
-    public EvaluatedMessage(int exprID, String expr, List<SequenceItemResult> sequence, String type, String error) {
+    public EvaluatedMessage(int exprID, String expr, List<SequenceItemResult> sequence, String error) {
         super(ICommandSets.COMMAND_SET_ENGINE_EVENTS, ICommandSets.COMMAND_EVALUATED);
         fExprId = exprID;
         fExpr = expr;
         fResultSequence = sequence;
-        fType = type;
         fError = error;
     }
 
@@ -76,6 +73,9 @@ public class EvaluatedMessage extends AbstractCommandMessage {
     }
 
     public String getResults() {
+        if (fError.length() > 0) {
+            return fError;
+        }
         if (fResultSequence == null) {
             return "";
         }
@@ -84,15 +84,20 @@ public class EvaluatedMessage extends AbstractCommandMessage {
             sb.append(item.getValue() + " ");
         }
         String result = sb.toString().trim();
+        if (fResultSequence.size() == 1) {
+            return result;
+        }
         return "(" + result + ")";
     }
 
     public String getType() {
-        return fType;
-    }
-
-    public void setType(String type) {
-        fType = type;
+        if (fError.length() > 0) {
+            return "string";
+        }
+        if (fResultSequence.size() == 1) {
+            return fResultSequence.get(0).getType();
+        }
+        return "string";
     }
 
     @Override

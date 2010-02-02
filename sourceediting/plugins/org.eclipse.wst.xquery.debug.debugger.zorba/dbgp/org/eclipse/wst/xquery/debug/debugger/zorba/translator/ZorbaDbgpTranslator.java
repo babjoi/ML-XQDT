@@ -194,10 +194,15 @@ public class ZorbaDbgpTranslator extends DbgpWorkingThread implements IDbgpTrans
             } else {
                 fEngine.resume();
             }
-        } else if (command.equals(IDbgpConstants.COMMAND_STEP_INTO) || command.equals(IDbgpConstants.COMMAND_STEP_OUT)
-                || command.equals(IDbgpConstants.COMMAND_STEP_OVER)) {
+        } else if (command.equals(IDbgpConstants.COMMAND_STEP_INTO)) {
             fLastContinuationCommand = request;
-            fEngine.resume();
+            fEngine.step(ZorbaDebuggerEngine.STEP_INTO);
+        } else if (command.equals(IDbgpConstants.COMMAND_STEP_OUT)) {
+            fLastContinuationCommand = request;
+            fEngine.step(ZorbaDebuggerEngine.STEP_RETURN);
+        } else if (command.equals(IDbgpConstants.COMMAND_STEP_OVER)) {
+            fLastContinuationCommand = request;
+            fEngine.step(ZorbaDebuggerEngine.STEP_OVER);
         } else if (command.equals(IDbgpConstants.COMMAND_STOP)) {
             fLastContinuationCommand = request;
             fEngine.terminate();
@@ -329,7 +334,9 @@ public class ZorbaDbgpTranslator extends DbgpWorkingThread implements IDbgpTrans
                         DbgpResponse response = new DbgpResponse(request);
                         response.addAttribute("success", "1");
                         String encodedValue = Base64Helper.encodeString(evald.getResults());
-                        response.setData("<property type='string' encoding='base64'>" + encodedValue + "</property>");
+                        String type = evald.getType();
+                        response.setData("<property type='" + type + "' encoding='base64'>" + encodedValue
+                                + "</property>");
                         fResponder.send(response);
                     }
                 }

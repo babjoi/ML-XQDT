@@ -17,6 +17,8 @@ import java.util.Arrays;
 import java.util.List;
 
 import org.eclipse.core.runtime.CoreException;
+import org.eclipse.core.runtime.IStatus;
+import org.eclipse.core.runtime.Status;
 import org.eclipse.debug.core.ILaunch;
 import org.eclipse.dltk.core.IScriptProject;
 import org.eclipse.dltk.core.PreferencesLookupDelegate;
@@ -33,7 +35,7 @@ public class ZorbaDebuggerRunner extends TranslatableDebuggingEngineRunner {
     private static List<String> DEFAULT_ARGS = Arrays.asList(new String[] { "-f", "-q" });
 
     private static final String NO_LOGO_KEY = "--no-logo";
-    private static final String DEBUG_SERVER_KEY = "-s";
+    private static final String DEBUG_SERVER_KEY = "--debug-server";
     private static final String PORTS_KEY = "-p";
 
     public ZorbaDebuggerRunner(IInterpreterInstall install) {
@@ -96,6 +98,8 @@ public class ZorbaDebuggerRunner extends TranslatableDebuggingEngineRunner {
             return new ZorbaDbgpTranslator(project, InetAddress.getByName(dbgpConfig.getHost()), dbgpConfig.getPort(),
                     dbgpConfig.getSessionId(), file.toURI(), ports);
         } catch (Exception e) {
+            ZorbaDebuggerPlugin.getDefault().getLog().log(
+                    new Status(IStatus.ERROR, ZorbaDebuggerPlugin.PLUGIN_ID, e.getMessage(), e));
             return null;
         }
     }

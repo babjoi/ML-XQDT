@@ -10,9 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wst.xquery.internal.ui.templates;
 
-import org.eclipse.dltk.core.ISourceModule;
-import org.eclipse.dltk.ui.templates.ScriptTemplateContext;
-import org.eclipse.jface.text.IDocument;
 
 public class XQueryScriptingTemplateContentType extends XQueryUpdateTemplateContentType {
 
@@ -30,11 +27,6 @@ public class XQueryScriptingTemplateContentType extends XQueryUpdateTemplateCont
 
     public XQueryScriptingTemplateContentType(String id, String name) {
         super(id, name);
-    }
-
-    public ScriptTemplateContext createContext(IDocument document, int completionPosition, int length,
-            ISourceModule sourceModule) {
-        return new XQDTTemplateContext(this, document, completionPosition, length, sourceModule);
     }
 
     @Override

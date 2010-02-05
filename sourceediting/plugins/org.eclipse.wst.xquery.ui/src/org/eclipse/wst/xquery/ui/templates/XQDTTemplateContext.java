@@ -8,7 +8,7 @@
  * Contributors:
  *     Gabriel Petrovay (28msec) - initial API and implementation
  *******************************************************************************/
-package org.eclipse.wst.xquery.internal.ui.templates;
+package org.eclipse.wst.xquery.ui.templates;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -41,7 +41,7 @@ import org.eclipse.wst.xquery.ui.XQDTUIPlugin;
 
 public class XQDTTemplateContext extends ScriptTemplateContext {
 
-    protected XQDTTemplateContext(TemplateContextType type, IDocument document, int completionOffset,
+    public XQDTTemplateContext(TemplateContextType type, IDocument document, int completionOffset,
             int completionLength, ISourceModule sourceModule) {
         super(type, document, completionOffset, completionLength, sourceModule);
     }

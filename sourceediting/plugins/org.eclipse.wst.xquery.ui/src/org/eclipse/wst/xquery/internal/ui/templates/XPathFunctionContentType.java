@@ -14,6 +14,7 @@ import org.eclipse.dltk.core.ISourceModule;
 import org.eclipse.dltk.ui.templates.ScriptTemplateContext;
 import org.eclipse.dltk.ui.templates.ScriptTemplateContextType;
 import org.eclipse.jface.text.IDocument;
+import org.eclipse.wst.xquery.ui.templates.XQDTTemplateContext;
 
 public class XPathFunctionContentType extends ScriptTemplateContextType {
 

@@ -35,5 +35,6 @@ Export-Package: org.eclipse.wst.xquery.internal.ui;x-internal:=true,
  org.eclipse.wst.xquery.internal.ui.util;x-internal:=true,
  org.eclipse.wst.xquery.internal.ui.wizards;x-internal:=true,
  org.eclipse.wst.xquery.ui,
- org.eclipse.wst.xquery.ui.handlers
+ org.eclipse.wst.xquery.ui.handlers,
+ org.eclipse.wst.xquery.ui.templates
 Bundle-Vendor: %providerName

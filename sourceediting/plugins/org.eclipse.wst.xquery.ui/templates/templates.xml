@@ -452,23 +452,6 @@ return
 
 
 <!-- ********************************************************************* -->
-<!-- **************************** XQuery 1.1 ***************************** -->
-<!-- ********************************************************************* -->
-
-<template
-	name="try"
-	description="%Templates.TryCatchExpr"
-	id="xquery.TryCatchExpr"
-	context="org.eclipse.wst.xquery.ui.templates.XQueryTemplateContentType"
-	enabled="true"
-	autoinsert="false">try {
-	${target_expression}${cursor}
-} catch * ($$${error_code}) {
-	${expression}
-}</template>
-
-
-<!-- ********************************************************************* -->
 <!-- ************************* XQuery Update 1.0 ************************* -->
 <!-- ********************************************************************* -->
 

@@ -14,6 +14,8 @@ import org.eclipse.dltk.core.ISourceModule;
 import org.eclipse.dltk.ui.templates.ScriptTemplateContext;
 import org.eclipse.dltk.ui.templates.ScriptTemplateContextType;
 import org.eclipse.jface.text.IDocument;
+import org.eclipse.wst.xquery.ui.templates.XQDTTemplateContext;
+import org.eclipse.wst.xquery.ui.templates.XQueryTemplateVariables;
 
 public class XQueryTemplateContentType extends ScriptTemplateContextType {
 

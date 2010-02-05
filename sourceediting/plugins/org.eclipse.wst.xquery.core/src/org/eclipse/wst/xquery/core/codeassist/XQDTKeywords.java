@@ -51,7 +51,7 @@ public class XQDTKeywords {
             "last", "modify", "nodes", "rename", "replace", "revalidation", "update", "updating", "value", "with" };
 
     /**
-     * Keywords added the XQuery Full Text 1.0 specification (not including the already existing
+     * Keywords added by the XQuery Full Text 1.0 specification (not including the already existing
      * ones in XQuery 1.0)
      */
     public static String[] FULLTEXT_KEYWORDS = { "all", "any", "content", "diacritics", "different", "distance", "end",
@@ -61,11 +61,24 @@ public class XQDTKeywords {
             "thesaurus", "times", "uppercase", "weight", "wildcards", "window", "with", "without", "word", "words" };
 
     /**
-     * Keywords added the XQuery Scripting 1.0 specification (not including the already existing
+     * Keywords added by the XQuery Scripting 1.0 specification (not including the already existing
      * ones in XQuery 1.0 or XQuery Update 1.0)
      */
     public static String[] KEYWORDS_XQUERY_SCRIPTING = { "block", "constant", "exit", "returning", "sequential", "set",
             "simple", "while" };
+
+    /**
+     * Keywords added by the Xorba XQuery DDL extensions (not including the already existing ones in
+     * XQuery 1.0, XQuery Update 1.0, XQuery Scripting 1.0)
+     */
+    public static String[] KEYWORDS_ZORBA = { "append_only", "automatically", "check", "collection", "constraint",
+            "const", "equality", "eval", "foreach", "foreign", "from", "index", "integrity", "key", "maintained",
+            "manually", "mutable", "non", "on", "queue", "range", "read-only", "unique", "using" };
+
+    /**
+     * Keywords added by the MarkLogic XQuery extensions
+     */
+    public static String[] KEYWORDS_MARKLOGIC = { "binary", "private" };
 
     /**
      * XQuery 1.0 item types
@@ -92,7 +105,6 @@ public class XQDTKeywords {
 
     public static String[] findByPrefix(String prefix, int languageLevel) {
         List<String> result = new ArrayList<String>();
-
         if (LanguageUtil.isLanguage(languageLevel, IXQDTLanguageConstants.LANGUAGE_XQUERY)) {
             for (int i = 0; i < KEYWORDS_XQUERY_11.length; i++) {
                 if (KEYWORDS_XQUERY_11[i].startsWith(prefix)) {
@@ -113,7 +125,13 @@ public class XQDTKeywords {
                     }
                 }
             }
-
+        }
+        if (LanguageUtil.isLanguage(languageLevel, IXQDTLanguageConstants.LANGUAGE_XQUERY_ZORBA)) {
+            for (int i = 0; i < KEYWORDS_ZORBA.length; i++) {
+                if (KEYWORDS_ZORBA[i].startsWith(prefix)) {
+                    result.add(KEYWORDS_ZORBA[i]);
+                }
+            }
         }
 
         return result.toArray(new String[result.size()]);

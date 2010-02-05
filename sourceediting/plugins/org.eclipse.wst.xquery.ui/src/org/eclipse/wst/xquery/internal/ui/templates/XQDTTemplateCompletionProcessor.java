@@ -87,7 +87,7 @@ public class XQDTTemplateCompletionProcessor extends ScriptTemplateCompletionPro
             if (contextType instanceof XQueryTemplateContentType) {
                 String[] alsoMatches = ((XQueryTemplateContentType)contextType).getCompatibleContentTypes();
                 for (String contextTypeId : alsoMatches) {
-                    if (template.getContextTypeId().equals(contextTypeId)) {
+                    if (template.matches(prefix, contextTypeId)) {
                         return true;
                     }
                 }

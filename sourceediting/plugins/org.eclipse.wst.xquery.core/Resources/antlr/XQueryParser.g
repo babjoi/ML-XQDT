@@ -36,34 +36,34 @@ L_CDataSection;
 LibraryModule;
 MainModule;
 VersionDecl;
-VersionDeclEncoding;        // container
-VersionDeclVersion;         // container
+VersionDeclEncoding;          // container
+VersionDeclVersion;           // container
 ModuleDecl;
 Prolog;
-DefaultNamespaceDecls;  // container
+DefaultNamespaceDecls;        // container
 DefaultNamespaceDecl;
-Setters;                                // container
+Setters;                      // container
 Setter;
-NamespaceDecls;                 // container
+NamespaceDecls;               // container
 NamespaceDecl;
-Imports;                                // container
+Imports;                      // container
 SchemaImport;
 SchemaPrefix;
-NamespaceName;                  // container
+NamespaceName;                // container
 DefaultElementNamespace;
-AtHints;                                // container
+AtHints;                      // container
 ModuleImport;
 BaseURIDecl;
-OrderedDecls;                       // container
+OrderedDecls;                 // container
 VarDecl;
-VarType;                                // container
+VarType;                      // container
 VarValue;
 VarDefaultValue;
-VarConstantDecl;                // container
-VarVariableDecl;                // container
+VarConstantDecl;              // container
+VarVariableDecl;              // container
 FunctionDecl;
-ParamList;                          // container
-ReturnType;                         // container
+ParamList;                    // container
+ReturnType;                   // container
 OptionDecl;
 TypeDeclaration;
 Param;
@@ -79,9 +79,9 @@ DirElemContent;
 CommonContent;
 
 SequenceType;
-EmptySequenceTest;              // container
+EmptySequenceTest;            // container
 KindTest;
-ItemTest;                                   // container
+ItemTest;                     // container
 AtomicType;
 
 StringLiteral;
@@ -177,13 +177,16 @@ pm_Prolog
 // A special node is needed to keep track of the prolog
 // declarations for which the order is important.
 pg_OrderedDecl
-        : (pm_VarDecl | pm_ContextItemDecl | pm_FunctionDecl | pm_OptionDecl)*
+        : (pm_VarDecl | pm_ContextItemDecl | pm_FunctionDecl | pm_OptionDecl
+        | {lc(ZORBA)}?=> p_CollectionDecl
+        | {lc(ZORBA)}?=> p_IndexDecl
+        | {lc(ZORBA)}?=> p_ICDecl)*
         ;
 // *************************************************
 
 //[7]
 p_Setter
-        :   pm_BoundarySpaceDecl
+        : pm_BoundarySpaceDecl
         | pm_DefaultCollationDecl
         | pm_BaseURIDecl
         | pm_ConstructionDecl
@@ -1278,7 +1281,7 @@ p_LocalFNCName
 
 //[155]
 p_NCName
-        :   L_NCName
+        : L_NCName
         // XQuery 1.0 keywords
         | ANCESTOR | ANCESTOR_OR_SELF | AND | AS | ASCENDING | AT | ATTRIBUTE | BASE_URI | BOUNDARY_SPACE | BY | CASE | CAST | CASTABLE | CHILD | COLLATION | COMMENT | CONSTRUCTION | COPY_NAMESPACES | DECLARE | DEFAULT | DESCENDANT | DESCENDANT_OR_SELF | DESCENDING | DIV | DOCUMENT | DOCUMENT_NODE | ELEMENT | ELSE | EMPTY | EMPTY_SEQUENCE | ENCODING | EQ | EVERY | EXCEPT | EXTERNAL | FOLLOWING | FOLLOWING_SIBLING | FOR | FUNCTION | GE | GREATEST | GT | IDIV | IF | IMPORT | IN | INHERIT | INSTANCE | INTERSECT | IS | ITEM | LAX | LE | LEAST | LET | LT | MOD | MODULE | NAMESPACE | NE | NO_INHERIT | NO_PRESERVE | NODE | OF | OPTION | OR | ORDER | ORDERED | ORDERING | PARENT | PRECEDING | PRECEDING_SIBLING | PRESERVE | PROCESSING_INSTRUCTION | RETURN | SATISFIES | SCHEMA | SCHEMA_ATTRIBUTE | SCHEMA_ELEMENT | SELF | SOME | STABLE | STRICT | STRIP | TEXT | THEN | TO | TREAT | TYPESWITCH | UNION | UNORDERED | VALIDATE | VARIABLE | VERSION | WHERE | XQUERY
         // XQuery 1.1 keywords
@@ -1289,13 +1292,15 @@ p_NCName
         | BLOCK | CONSTANT | EXIT | SEQUENTIAL | SET | SIMPLE | WHILE
         // Zorba keywords
         | EVAL | USING
+        // Zorba DDL keywords
+        | APPEND_ONLY | AUTOMATICALLY | CHECK | COLLECTION | CONSTRAINT | CONST | EQUALITY | EXPLICITLY | FOREACH | FOREIGN | FROM | INDEX | INTEGRITY | KEY | MAINTAINED | MUTABLE | NON | ON | QUEUE | RANGE | READ_ONLY | UNIQUE
         // Mark Logic keywords
         | BINARY | PRIVATE
         // entity references
         | AMP_ER | APOS_ER | QUOT_ER
         ;
 p_FNCName
-        :   L_NCName
+        : L_NCName
         // XQuery 1.0 keywords
         | ANCESTOR | ANCESTOR_OR_SELF | AND | AS | ASCENDING | AT | BASE_URI | BOUNDARY_SPACE | BY | CASE | CAST | CASTABLE | CHILD | COLLATION | CONSTRUCTION | COPY_NAMESPACES | DECLARE | DEFAULT | DESCENDANT | DESCENDANT_OR_SELF | DESCENDING | DIV | DOCUMENT | ELSE | EMPTY | ENCODING | EQ | EVERY | EXCEPT | EXTERNAL | FOLLOWING | FOLLOWING_SIBLING | FOR | FUNCTION | GE | GREATEST | GT | IDIV | IMPORT | IN | INHERIT | INSTANCE | INTERSECT | IS | LAX | LE | LEAST | LET | LT | MOD | MODULE | NAMESPACE | NE | NO_INHERIT | NO_PRESERVE | OF | OPTION | OR | ORDER | ORDERED | ORDERING | PARENT | PRECEDING | PRECEDING_SIBLING | PRESERVE | RETURN | SATISFIES | SCHEMA | SELF | SOME | STABLE | STRICT | STRIP | THEN | TO | TREAT | UNION | UNORDERED | VALIDATE | VARIABLE | VERSION | WHERE | XQUERY
         // XQuery 1.1 keywords
@@ -1306,6 +1311,8 @@ p_FNCName
         | BLOCK | CONSTANT | EXIT | SEQUENTIAL | SET | SIMPLE
         // Zorba keywords
         | EVAL | USING
+        // Zorba DDL keywords
+        | APPEND_ONLY | AUTOMATICALLY | CHECK | COLLECTION | CONSTRAINT | CONST | EQUALITY | EXPLICITLY | FOREACH | FOREIGN | FROM | INDEX | INTEGRITY | KEY | MAINTAINED | MUTABLE | NON | ON | QUEUE | RANGE | READ_ONLY | UNIQUE
         // Mark Logic keywords
         | BINARY | PRIVATE
         // entity references
@@ -1451,5 +1458,100 @@ p_EvalExpr
         ;
 
 p_UsingClause
-        : ku=USING  {ak($ku);} DOLLAR p_VarName (COMMA DOLLAR p_VarName)*
+        : ku=USING {ak($ku);} DOLLAR p_VarName (COMMA DOLLAR p_VarName)*
         ;
+// *************************************************
+
+// *************************************************
+// XQDDL
+// p_CollectionDecl, p_IndexDecl (zorba/doc/zorba/xqddf.dox)
+// p_ICDecl (http://www.zorba-xquery.com/ddl/xqddf.pdf)
+// *************************************************
+p_CollectionDecl
+        : k+=DECLARE p_CollProperties k+=COLLECTION p_QName p_CollectionTypeDecl? (k+=WITH p_NodeModifier k+=NODES)? SEMICOLON {ak($k);}
+        ;
+
+p_CollProperties
+        : ((k+=CONST | k+=MUTABLE
+        | k+=APPEND_ONLY | k+=QUEUE
+        | k+=ORDERED | k+=UNORDERED)*) {ak($k);}
+        ;
+
+p_CollectionTypeDecl
+        : (ka=AS {ak($ka);} p_KindTest ((p_OccurrenceIndicator) => p_OccurrenceIndicator)?)
+        ;
+
+p_NodeModifier
+        : (k+=READ_ONLY | k+=MUTABLE) {ak($k);}
+        ;
+
+p_IndexDecl
+        : k+=DECLARE p_IndexProperties k+=INDEX p_IndexName k+=ON k+=NODES p_IndexDomainExpr k+=BY p_IndexKeySpec (COMMA p_IndexKeySpec)* SEMICOLON {ak($k);}
+        ;
+
+p_IndexName
+        : p_QName
+        ;
+
+p_IndexProperties
+        : ((k+=UNIQUE | k+=NON k+=UNIQUE
+        | k+=VALUE k+=RANGE | k+=VALUE k+=EQUALITY
+        | k+=AUTOMATICALLY k+=MAINTAINED | k+=MANUALLY k+=MAINTAINED)*) {ak($k);}
+        ;
+
+p_IndexDomainExpr
+        : p_PathExpr
+        ;
+
+p_IndexKeySpec
+        : p_IndexKeyExpr p_IndexKeyTypeDecl p_IndexKeyCollation?
+        ;
+
+p_IndexKeyExpr
+        : p_PathExpr
+        ;
+
+p_IndexKeyTypeDecl
+        : ka=AS {ak($ka);} p_AtomicType
+        ;
+
+p_IndexKeyCollation
+        : kc=COLLATION {ak($kc);} p_StringLiteral
+        ;
+
+p_ICDecl
+        : k+=DECLARE k+=INTEGRITY k+=CONSTRAINT {ak($k);} p_QName (p_ICCollection | p_ICForeignKey) SEMICOLON
+        ;
+
+p_ICCollection
+        : k+=ON k+=COLLECTION {ak($k);} p_QName (p_ICCollSequence | p_ICCollSequenceUnique | p_ICCollNode)
+        ;
+
+p_ICCollSequence
+        : DOLLAR p_QName kc=CHECK {ak($kc);} p_ExprSingle
+        ;
+
+p_ICCollSequenceUnique
+        : k+=NODE k+=DOLLAR p_QName k+=CHECK k+=UNIQUE k+=KEY p_PathExpr {ak($k);}
+        ;
+
+p_ICCollNode
+        : k+=FOREACH k+=NODE DOLLAR p_QName k+=CHECK p_ExprSingle {ak($k);}
+        ;
+
+p_ICForeignKey
+        : k+=FOREIGN k+=KEY p_ICForeignKeySource p_ICForeignKeyTarget {ak($k);}
+        ;
+
+p_ICForeignKeySource
+        : kf=FROM {ak($kf);} p_ICForeignKeyValues
+        ;
+
+p_ICForeignKeyTarget
+        : kt=TO {ak($kt);} p_ICForeignKeyValues
+        ;
+
+p_ICForeignKeyValues
+        : k+=COLLECTION p_QName k+=NODE DOLLAR p_QName k+=KEY p_PathExpr {ak($k);}
+        ;
+// *************************************************

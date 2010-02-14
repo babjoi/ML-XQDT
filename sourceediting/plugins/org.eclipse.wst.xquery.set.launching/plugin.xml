@@ -34,5 +34,13 @@
             nature="org.eclipse.wst.xquery.set.core.nature">
       </buildParticipant>
    </extension>
+   <extension
+         point="org.eclipse.wst.xquery.launching.builtinModules">
+      <searchPath
+            installType="org.eclipse.wst.xquery.set.launching.CoreSDKInstallType"
+            path="${interpreterContainer}/../modules"
+            relative="false">
+      </searchPath>
+   </extension>
 
 </plugin>

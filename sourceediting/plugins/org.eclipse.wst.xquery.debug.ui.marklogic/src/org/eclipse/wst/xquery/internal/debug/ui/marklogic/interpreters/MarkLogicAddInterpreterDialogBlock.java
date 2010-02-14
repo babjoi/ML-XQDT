@@ -99,20 +99,10 @@ public class MarkLogicAddInterpreterDialogBlock extends AbstractAddInterpreterDi
     public void setFieldValuesToInterpreter(IInterpreterInstall install) {
         install.setName(getInterpreterName());
 
-        // try {
-        // install.setInstallLocation(new RemoteFileHandle(getEnvironemnt(), new
-        // URI(getInterpreterLocation())));
-        // } catch (URISyntaxException e) {
-        // return;
-        // }
-        // install.setInterpreterArgs(fInterpreterUserField.getText() + SEPARATOR +
-        // fInterpreterPasswordField.getText());
-
         IEnvironment selectedEnv = fAddInterpreterDialog.getEnvironment();
-        install.setInstallLocation(selectedEnv.getFile(new Path("/")));
+        install.setInstallLocation(selectedEnv.getFile(new Path(System.getProperty("java.io.tmpdir"))));
         install.setInterpreterArgs(fInterpreterLocationField.getText() + SEPARATOR + fInterpreterUserField.getText()
                 + SEPARATOR + fInterpreterPasswordField.getText());
-
     }
 
     protected IStatus validateInterpreterLocation() {

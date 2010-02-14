@@ -19,23 +19,9 @@ import org.eclipse.wst.xquery.launching.XQDTInterpreterInstall;
 
 public class ZorbaInstall extends XQDTInterpreterInstall implements ISemanticValidatingInterpreterInstall {
 
-    //private ZorbaBuiltinsHelper helper = new ZorbaBuiltinsHelper();
-
     public ZorbaInstall(IInterpreterInstallType type, String id) {
         super(type, id);
     }
-
-//    @Override
-//    public String getBuiltinModuleContent(String name) {
-//        final Map<String, String> sources = helper.getSources();
-//        return sources.get(name);
-//    }
-
-//    @Override
-//    public String[] getBuiltinModules() {
-//        final Map<String, String> sources = helper.getSources();
-//        return sources.keySet().toArray(new String[sources.size()]);
-//    }
 
     @Override
     public IInterpreterRunner getInterpreterRunner(String mode) {
@@ -57,7 +43,7 @@ public class ZorbaInstall extends XQDTInterpreterInstall implements ISemanticVal
     }
 
     @Override
-    protected String getDisplayName(String module) {
+    public String getDisplayName(String module) {
         String[] splits = module.split("/");
         if (splits.length < 3) {
             return module;

@@ -43,11 +43,4 @@ public class ZorbaInstallType extends XQDTInterpreterInstallType {
         return IZorbaConstants.ZORBA_RESOLVER_FACET_ID;
     }
 
-    // @Override
-    // protected String[] buildCommandLine(IFileHandle installLocation, IFileHandle pathFile) {
-    // String interpreterPath = installLocation.getCanonicalPath();
-    // String scriptPath = pathFile.getCanonicalPath();
-    // return new String[] { interpreterPath, "--omit-xml-declaration", "-f", "-q", scriptPath };
-    // }
-
 }

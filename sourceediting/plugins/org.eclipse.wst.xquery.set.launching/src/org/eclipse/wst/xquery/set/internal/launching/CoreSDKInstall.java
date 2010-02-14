@@ -10,18 +10,13 @@
  *******************************************************************************/
 package org.eclipse.wst.xquery.set.internal.launching;
 
-import java.util.Map;
-
-import org.eclipse.dltk.launching.AbstractInterpreterInstall;
 import org.eclipse.dltk.launching.IInterpreterInstallType;
 import org.eclipse.wst.xquery.core.semantic.ISemanticValidator;
-import org.eclipse.wst.xquery.internal.launching.zorba.ZorbaBuiltinsHelper;
 import org.eclipse.wst.xquery.launching.ISemanticValidatingInterpreterInstall;
+import org.eclipse.wst.xquery.launching.XQDTInterpreterInstall;
 import org.eclipse.wst.xquery.set.core.SETNature;
 
-public class CoreSDKInstall extends AbstractInterpreterInstall implements ISemanticValidatingInterpreterInstall {
-
-    private ZorbaBuiltinsHelper fBuiltinHelper = new ZorbaBuiltinsHelper();
+public class CoreSDKInstall extends XQDTInterpreterInstall implements ISemanticValidatingInterpreterInstall {
 
     public CoreSDKInstall(IInterpreterInstallType type, String id) {
         super(type, id);
@@ -29,18 +24,6 @@ public class CoreSDKInstall extends AbstractInterpreterInstall implements ISeman
 
     public String getNatureId() {
         return SETNature.NATURE_ID;
-    }
-
-    @Override
-    public String getBuiltinModuleContent(String name) {
-        final Map<String, String> sources = fBuiltinHelper.getSources();
-        return sources.get(name);
-    }
-
-    @Override
-    public String[] getBuiltinModules() {
-        final Map<String, String> sources = fBuiltinHelper.getSources();
-        return sources.keySet().toArray(new String[sources.size()]);
     }
 
     public ISemanticValidator getSemanticValidator() {

@@ -37,7 +37,6 @@ public class MarkLogicInstallType extends XQDTInterpreterInstallType {
 
     @Override
     public IEnvironment getEnvironment() {
-        // return RemoteEnvironment.getInstance();
         return EnvironmentManager.getLocalEnvironment();
     }
 

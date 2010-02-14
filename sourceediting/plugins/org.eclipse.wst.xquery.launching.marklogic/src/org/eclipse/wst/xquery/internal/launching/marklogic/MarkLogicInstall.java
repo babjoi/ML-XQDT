@@ -25,7 +25,7 @@ public class MarkLogicInstall extends XQDTInterpreterInstall implements ISemanti
 
     @Override
     public IInterpreterRunner getInterpreterRunner(String mode) {
-        final IInterpreterRunner runner = super.getInterpreterRunner(mode);
+        IInterpreterRunner runner = super.getInterpreterRunner(mode);
 
         if (runner != null) {
             return runner;

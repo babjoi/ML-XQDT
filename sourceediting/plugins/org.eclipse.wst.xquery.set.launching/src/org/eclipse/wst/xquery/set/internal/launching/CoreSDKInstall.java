@@ -29,4 +29,9 @@ public class CoreSDKInstall extends XQDTInterpreterInstall implements ISemanticV
     public ISemanticValidator getSemanticValidator() {
         return new CoreSDKSemanticValidator(this);
     }
+
+    @Override
+    public String[] getBuiltinModules() {
+        return null;
+    }
 }

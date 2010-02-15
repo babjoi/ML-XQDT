@@ -16,14 +16,11 @@ import java.util.Map;
 
 import org.eclipse.core.runtime.ILog;
 import org.eclipse.core.runtime.IPath;
-import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.core.runtime.Path;
 import org.eclipse.dltk.core.environment.EnvironmentManager;
 import org.eclipse.dltk.core.environment.IDeployment;
 import org.eclipse.dltk.core.environment.IEnvironment;
-import org.eclipse.dltk.core.environment.IFileHandle;
 import org.eclipse.dltk.internal.launching.AbstractInterpreterInstallType;
-import org.eclipse.dltk.launching.EnvironmentVariable;
-import org.eclipse.dltk.launching.LibraryLocation;
 import org.eclipse.wst.xquery.core.XQDTNature;
 import org.eclipse.wst.xquery.internal.launching.utils.BuiltinModuleUtil;
 
@@ -66,17 +63,11 @@ public abstract class XQDTInterpreterInstallType extends AbstractInterpreterInst
     }
 
     protected IPath createPathFile(IDeployment deployment) throws IOException {
-        return null;
+        return new Path("");
     }
 
     protected ILog getLog() {
         return XQDTLaunchingPlugin.getDefault().getLog();
-    }
-
-    @Override
-    public LibraryLocation[] getDefaultLibraryLocations(final IFileHandle installLocation,
-            EnvironmentVariable[] variables, IProgressMonitor monitor) {
-        return new LibraryLocation[0];
     }
 
     public String getResolverFacetId() {

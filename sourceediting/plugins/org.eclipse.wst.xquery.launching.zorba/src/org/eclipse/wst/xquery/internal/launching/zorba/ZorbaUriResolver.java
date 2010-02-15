@@ -12,6 +12,7 @@ package org.eclipse.wst.xquery.internal.launching.zorba;
 
 import java.net.URI;
 
+import org.eclipse.core.runtime.Path;
 import org.eclipse.dltk.core.IExternalSourceModule;
 import org.eclipse.dltk.core.IScriptFolder;
 import org.eclipse.dltk.core.IScriptProject;
@@ -39,12 +40,14 @@ public class ZorbaUriResolver extends XQDTUriResolver {
 
     private ISourceModule findBuiltinModule(IScriptProject project, URI uri) {
         try {
+            String name = new Path(uri.getPath()).lastSegment();
             IScriptFolder[] folders = project.getScriptFolders();
             for (IScriptFolder folder : folders) {
                 if (folder.isReadOnly()) {
                     ISourceModule[] modules = folder.getSourceModules();
                     for (ISourceModule module : modules) {
-                        if (module instanceof IExternalSourceModule && module.getElementName().equals(uri.toString())) {
+                        if (module instanceof IExternalSourceModule
+                                && module.getPath().removeFileExtension().lastSegment().equals(name)) {
                             return module;
                         }
                     }

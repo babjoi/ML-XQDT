@@ -43,29 +43,7 @@ public class ZorbaInstall extends XQDTInterpreterInstall implements ISemanticVal
     }
 
     @Override
-    public String getDisplayName(String module) {
-        String[] splits = module.split("/");
-        if (splits.length < 3) {
-            return module;
-        }
-
-        String lastSegment = splits[splits.length - 1];
-        if (lastSegment.endsWith(".xq")) {
-            splits[splits.length - 1] = lastSegment.substring(0, lastSegment.lastIndexOf(".xq"));
-        }
-
-        StringBuffer result = new StringBuffer();
-        result.append("http://");
-        result.append(splits[2]);
-        result.append(".");
-        result.append(splits[1]);
-        result.append(".");
-        result.append(splits[0]);
-        for (int i = 3; i < splits.length; i++) {
-            result.append("/");
-            result.append(splits[i]);
-        }
-
-        return result.toString();
+    public String[] getBuiltinModules() {
+        return null;
     }
 }

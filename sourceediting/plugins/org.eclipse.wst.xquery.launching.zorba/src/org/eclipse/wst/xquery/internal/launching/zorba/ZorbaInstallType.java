@@ -10,10 +10,16 @@
  *******************************************************************************/
 package org.eclipse.wst.xquery.internal.launching.zorba;
 
+import java.io.IOException;
+
+import org.eclipse.core.runtime.IPath;
 import org.eclipse.dltk.core.environment.EnvironmentManager;
+import org.eclipse.dltk.core.environment.IDeployment;
 import org.eclipse.dltk.core.environment.IEnvironment;
+import org.eclipse.dltk.core.environment.IFileHandle;
 import org.eclipse.dltk.launching.IInterpreterInstall;
 import org.eclipse.wst.xquery.launching.XQDTInterpreterInstallType;
+import org.eclipse.wst.xquery.launching.zorba.ZorbaLaunchingPlugin;
 
 public class ZorbaInstallType extends XQDTInterpreterInstallType {
 
@@ -41,6 +47,18 @@ public class ZorbaInstallType extends XQDTInterpreterInstallType {
     @Override
     public String getResolverFacetId() {
         return IZorbaConstants.ZORBA_RESOLVER_FACET_ID;
+    }
+
+    @Override
+    protected IPath createPathFile(IDeployment deployment) throws IOException {
+        return deployment.add(ZorbaLaunchingPlugin.getDefault().getBundle(), "Resources/scripts/path.xq");
+    }
+
+    protected String[] buildCommandLine(IFileHandle installLocation, IFileHandle pathFile) {
+        String interpreterPath = installLocation.getCanonicalPath();
+        String scriptPath = pathFile.getCanonicalPath();
+        String zorbaRoot = installLocation.getParent().getParent().getCanonicalPath();
+        return new String[] { interpreterPath, "-r", "-f", "-q", scriptPath, "-e", "zorbaRoot:=" + zorbaRoot };
     }
 
 }

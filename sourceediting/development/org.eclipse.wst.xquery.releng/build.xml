@@ -80,8 +80,9 @@
 	</target>
 	
 	<target name="site">
-		<mkdir dir="${buildDir}/site"/>
+		<property name="site" value="${buildDir}/site"/>
+		<mkdir dir="${site}"/>
 		<unzip src="${buildDir}/${zipPrefix}-Update${incubation}-${buildType}${buildTimestamp}.zip"
-		       dest="${builDir}/site"/>
+		       dest="${site}"/>
 	</target>
 </project>

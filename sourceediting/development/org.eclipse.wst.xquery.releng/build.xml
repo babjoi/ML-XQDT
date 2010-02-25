@@ -57,6 +57,7 @@
         <getFindBugs downloadDir="${writableBuildRoot}/downloads" destDir="${writableBuildRoot}/3rdPartyJars/findbugs"/>
         <extractJarsForAnalysis src="${sdkzipUrl}${zipPrefix}-SDK${incubation}-${buildType}${buildTimestamp}.zip" refid="xqueryjars"/>
         <findBugs outputfile="${writableBuildRoot}/athena/fb-xquery.xml"/>
+    	<antcall target="site"/>
     </target>
 
     <target name="duplicateCode" description="Run PMD duplicate code analysis">
@@ -76,5 +77,11 @@
 				<include name="*Master*.zip*"/>
 			</fileset>
 		</delete>
-	</target>	
+	</target>
+	
+	<target name="site">
+		<mkdir dir="${buildDir}/site"/>
+		<unzip src="${buildDir}/${zipPrefix}-Update${incubation}-{buildType}${buildTimestamp}.zip"
+		       dest="${builDir}/site"/>
+	</target>
 </project>

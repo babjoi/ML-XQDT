@@ -81,7 +81,7 @@
 	
 	<target name="site">
 		<mkdir dir="${buildDir}/site"/>
-		<unzip src="${buildDir}/${zipPrefix}-Update${incubation}-{buildType}${buildTimestamp}.zip"
+		<unzip src="${buildDir}/${zipPrefix}-Update${incubation}-${buildType}${buildTimestamp}.zip"
 		       dest="${builDir}/site"/>
 	</target>
 </project>

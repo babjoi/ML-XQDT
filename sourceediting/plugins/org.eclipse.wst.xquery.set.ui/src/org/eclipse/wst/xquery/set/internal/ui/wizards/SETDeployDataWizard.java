@@ -20,10 +20,10 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.MessageBox;
 import org.eclipse.swt.widgets.Shell;
-import org.eclipse.wst.xquery.set.internal.launching.deploy.DeployInfo;
-import org.eclipse.wst.xquery.set.internal.launching.deploy.DeployManager;
-import org.eclipse.wst.xquery.set.internal.launching.deploy.Deployer;
 import org.eclipse.wst.xquery.set.internal.launching.jobs.SETDeployDataJob;
+import org.eclipse.wst.xquery.set.launching.deploy.DeployInfo;
+import org.eclipse.wst.xquery.set.launching.deploy.DeployManager;
+import org.eclipse.wst.xquery.set.launching.deploy.Deployer;
 
 public class SETDeployDataWizard extends Wizard {
 

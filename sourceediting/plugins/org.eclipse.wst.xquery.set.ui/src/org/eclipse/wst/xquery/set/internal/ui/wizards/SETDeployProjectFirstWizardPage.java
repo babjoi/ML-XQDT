@@ -27,23 +27,21 @@ import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Group;
-import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Link;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.browser.IWebBrowser;
-import org.eclipse.wst.xquery.set.internal.core.SETProjectConfig;
-import org.eclipse.wst.xquery.set.internal.core.SETProjectConfigUtil;
-import org.eclipse.wst.xquery.set.internal.launching.deploy.DeployInfo;
-import org.eclipse.wst.xquery.set.internal.launching.deploy.DeployManager;
-import org.eclipse.wst.xquery.set.internal.launching.deploy.DeployInfo.DeployType;
+import org.eclipse.wst.xquery.set.core.SETProjectConfig;
+import org.eclipse.wst.xquery.set.core.SETProjectConfigUtil;
+import org.eclipse.wst.xquery.set.launching.deploy.DeployInfo;
+import org.eclipse.wst.xquery.set.launching.deploy.DeployManager;
 
-public class SETDeployProjectWizardPage extends WizardPage {
+public class SETDeployProjectFirstWizardPage extends WizardPage {
 
     private static final String DESCRIPTION = "Deploy the project in the Sausalito Cloud Infrastructure";
 
-    private void isvalid() {
+    private void isValid() {
         String appName = fApplicationNameText.getText();
         if (appName.equals("")) {
             setErrorMessage("Provide an application name");
@@ -60,18 +58,26 @@ public class SETDeployProjectWizardPage extends WizardPage {
             setPageComplete(false);
             return;
         }
+        if (fUsernameText.getText().trim().equals("") || fPasswordText.getText().trim().equals("")) {
+            setErrorMessage("The user name and the password cannot be empty");
+            setPageComplete(false);
+            return;
+        }
 
         setErrorMessage(null);
         setPageComplete(true);
         return;
-
     }
 
     private class WidgetListener extends SelectionAdapter implements ModifyListener {
 
         public void modifyText(ModifyEvent e) {
             if (e.widget == fApplicationNameText) {
-                isvalid();
+                isValid();
+            } else if (e.widget == fUsernameText) {
+                isValid();
+            } else if (e.widget == fPasswordText) {
+                isValid();
             }
         }
 
@@ -84,10 +90,8 @@ public class SETDeployProjectWizardPage extends WizardPage {
                 }
             } else if (e.widget == fPortalLink) {
                 openBrowser();
-            } else if (e.widget == fDeployDataCheckButton) {
-                fDeployDataDescriptionLabel.setEnabled(fDeployDataCheckButton.getSelection());
             }
-            isvalid();
+            isValid();
         }
     }
 
@@ -98,15 +102,13 @@ public class SETDeployProjectWizardPage extends WizardPage {
     private Text fPasswordText;
     private Button fRememberCheckButton;
     private Button fShowCharsCheckButton;
-    private Button fDeployDataCheckButton;
-    private Label fDeployDataDescriptionLabel;
 
     private WidgetListener fListener = new WidgetListener();
 
     private IScriptProject fProject;
     private SETProjectConfig fConfig;
 
-    protected SETDeployProjectWizardPage(IScriptProject project) {
+    protected SETDeployProjectFirstWizardPage(IScriptProject project) {
         super("Deploy Sausalito Project");
         fProject = project;
         fConfig = SETProjectConfigUtil.readProjectConfig(fProject.getProject());
@@ -124,7 +126,6 @@ public class SETDeployProjectWizardPage extends WizardPage {
 
         createDescriptionLabels(composite);
         createAppNameText(composite);
-        createDeployDataButton(composite);
         SWTFactory.createVerticalSpacer(composite, 5);
         createCredentialsGroup(composite);
 
@@ -144,7 +145,7 @@ public class SETDeployProjectWizardPage extends WizardPage {
         }
     }
 
-    private static final String PORTAL_URL = "http://28msec.dyndns.org:8080/";
+    private static final String PORTAL_URL = "http://portal.28msec.com/";
 
     private void createDescriptionLabels(Composite parent) {
         Composite composite = new Composite(parent, SWT.NONE);
@@ -193,32 +194,13 @@ public class SETDeployProjectWizardPage extends WizardPage {
     void createUsernameText(Composite parent) {
         SWTFactory.createLabel(parent, "Username:", 1);
         fUsernameText = SWTFactory.createText(parent, SWT.BORDER, 1, "");
-    }
-
-    void createDeployDataButton(Composite parent) {
-        Composite composite = new Composite(parent, SWT.NONE);
-        composite.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
-        GridLayout layout = new GridLayout(2, false);
-        composite.setLayout(layout);
-
-        fDeployDataCheckButton = SWTFactory.createCheckButton(composite, "Deploy project data", 2);
-        fDeployDataCheckButton.addSelectionListener(fListener);
-
-        fDeployDataDescriptionLabel = new Label(composite, SWT.WRAP);
-        fDeployDataDescriptionLabel
-                .setText("If this option is enabled, after a succesful project deployment, the local data\n"
-                        + "in the \"bulkload\" directory will be appended to the deployed project data.");
-        GridData gd = new GridData();
-        gd.horizontalSpan = 2;
-        gd.horizontalIndent = 20;
-        fDeployDataDescriptionLabel.setLayoutData(gd);
-        fDeployDataDescriptionLabel.setEnabled(false);
-
+        fUsernameText.addModifyListener(fListener);
     }
 
     void createPasswortText(Composite parent) {
         SWTFactory.createLabel(parent, "Password:", 1);
         fPasswordText = SWTFactory.createText(parent, SWT.BORDER | SWT.PASSWORD, 1, "");
+        fPasswordText.addModifyListener(fListener);
     }
 
     void createShowCharsCheckButton(Composite parent) {
@@ -237,7 +219,7 @@ public class SETDeployProjectWizardPage extends WizardPage {
     public DeployInfo getDeployInfo() {
         fConfig.setVersion(fVersionText.getText());
         return new DeployInfo(fProject, fConfig, fApplicationNameText.getText(), fUsernameText.getText(), fPasswordText
-                .getText(), (fDeployDataCheckButton.getSelection() ? DeployType.PROJECT_AND_DATA : DeployType.PROJECT));
+                .getText(), DeployInfo.DeployType.PROJECT, null);
     }
 
     public boolean cacheCredentials() {

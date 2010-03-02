@@ -27,8 +27,8 @@ import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Link;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.dialogs.PropertyPage;
-import org.eclipse.wst.xquery.set.internal.core.SETProjectConfig;
-import org.eclipse.wst.xquery.set.internal.core.SETProjectConfigUtil;
+import org.eclipse.wst.xquery.set.core.SETProjectConfig;
+import org.eclipse.wst.xquery.set.core.SETProjectConfigUtil;
 import org.eclipse.wst.xquery.set.internal.ui.SETEditProjectConfigDialog;
 
 public class SETSausalitoPropertyPage extends PropertyPage {

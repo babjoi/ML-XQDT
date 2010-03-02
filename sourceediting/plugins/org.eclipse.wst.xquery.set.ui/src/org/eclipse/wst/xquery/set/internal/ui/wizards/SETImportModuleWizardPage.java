@@ -90,8 +90,8 @@ import org.eclipse.wst.xquery.core.model.ast.XQueryLibraryModule;
 import org.eclipse.wst.xquery.internal.core.XQDTContentType;
 import org.eclipse.wst.xquery.internal.core.parser.XQDTSourceParser;
 import org.eclipse.wst.xquery.set.core.SETNature;
-import org.eclipse.wst.xquery.set.internal.core.SETProjectConfig;
-import org.eclipse.wst.xquery.set.internal.core.SETProjectConfigUtil;
+import org.eclipse.wst.xquery.set.core.SETProjectConfig;
+import org.eclipse.wst.xquery.set.core.SETProjectConfigUtil;
 import org.eclipse.wst.xquery.set.internal.core.preferences.ISETPreferenceConstants;
 import org.eclipse.wst.xquery.set.ui.SETUIPlugin;
 

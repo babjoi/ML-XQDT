@@ -20,7 +20,8 @@ public class SETSourceParser extends XQDTSourceParser {
     @Override
     protected XQueryParser prepareParser(String fileName, char[] source, IProblemReporter reporter) {
         XQueryParser parser = super.prepareParser(fileName, source, reporter);
-        parser.setLanguageLevel(IXQDTLanguageConstants.LANGUAGE_XQUERY_SCRIPTING);
+        parser.setLanguageLevel(IXQDTLanguageConstants.LANGUAGE_XQUERY_SCRIPTING
+                | IXQDTLanguageConstants.LANGUAGE_XQUERY_ZORBA);
         return parser;
     }
 

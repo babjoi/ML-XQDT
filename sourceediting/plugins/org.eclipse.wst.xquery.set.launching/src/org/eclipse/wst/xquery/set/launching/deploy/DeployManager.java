@@ -8,7 +8,7 @@
  * Contributors:
  *     Gabriel Petrovay (28msec) - initial API and implementation
  *******************************************************************************/
-package org.eclipse.wst.xquery.set.internal.launching.deploy;
+package org.eclipse.wst.xquery.set.launching.deploy;
 
 import java.util.HashMap;
 import java.util.Map;

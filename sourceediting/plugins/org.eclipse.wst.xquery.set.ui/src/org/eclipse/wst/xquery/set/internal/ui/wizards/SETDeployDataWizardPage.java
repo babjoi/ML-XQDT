@@ -32,11 +32,10 @@ import org.eclipse.swt.widgets.Text;
 import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.browser.IWebBrowser;
-import org.eclipse.wst.xquery.set.internal.core.SETProjectConfig;
-import org.eclipse.wst.xquery.set.internal.core.SETProjectConfigUtil;
-import org.eclipse.wst.xquery.set.internal.launching.deploy.DeployInfo;
-import org.eclipse.wst.xquery.set.internal.launching.deploy.DeployManager;
-import org.eclipse.wst.xquery.set.internal.launching.deploy.DeployInfo.DeployType;
+import org.eclipse.wst.xquery.set.core.SETProjectConfig;
+import org.eclipse.wst.xquery.set.core.SETProjectConfigUtil;
+import org.eclipse.wst.xquery.set.launching.deploy.DeployInfo;
+import org.eclipse.wst.xquery.set.launching.deploy.DeployManager;
 
 public class SETDeployDataWizardPage extends WizardPage {
 
@@ -205,7 +204,7 @@ public class SETDeployDataWizardPage extends WizardPage {
 
     public DeployInfo getDeployInfo() {
         return new DeployInfo(fProject, fConfig, fApplicationNameText.getText(), fUsernameText.getText(), fPasswordText
-                .getText(), DeployType.DATA);
+                .getText(), DeployInfo.DeployType.DATA, null);
     }
 
     public boolean cacheCredentials() {

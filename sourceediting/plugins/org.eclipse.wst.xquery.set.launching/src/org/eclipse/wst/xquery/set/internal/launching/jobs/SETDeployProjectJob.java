@@ -12,8 +12,8 @@ package org.eclipse.wst.xquery.set.internal.launching.jobs;
 
 import java.io.OutputStream;
 
-import org.eclipse.wst.xquery.set.internal.core.SETProjectConfigUtil;
-import org.eclipse.wst.xquery.set.internal.launching.deploy.DeployInfo;
+import org.eclipse.wst.xquery.set.core.SETProjectConfigUtil;
+import org.eclipse.wst.xquery.set.launching.deploy.DeployInfo;
 
 public class SETDeployProjectJob extends SETCoreSDKDeployCommandJob {
 

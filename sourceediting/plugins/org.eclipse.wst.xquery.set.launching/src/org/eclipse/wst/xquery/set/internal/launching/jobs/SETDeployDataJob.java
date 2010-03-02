@@ -23,7 +23,7 @@ import org.eclipse.core.resources.IResource;
 import org.eclipse.core.resources.IResourceVisitor;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
-import org.eclipse.wst.xquery.set.internal.launching.deploy.DeployInfo;
+import org.eclipse.wst.xquery.set.launching.deploy.DeployInfo;
 
 public class SETDeployDataJob extends SETCoreSDKDeployCommandJob {
 

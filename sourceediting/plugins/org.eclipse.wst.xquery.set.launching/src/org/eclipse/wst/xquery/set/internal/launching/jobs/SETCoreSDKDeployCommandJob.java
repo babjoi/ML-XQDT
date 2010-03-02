@@ -14,7 +14,7 @@ import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.eclipse.wst.xquery.set.internal.launching.deploy.DeployInfo;
+import org.eclipse.wst.xquery.set.launching.deploy.DeployInfo;
 
 abstract public class SETCoreSDKDeployCommandJob extends SETCoreSDKCommandJob {
 
@@ -52,6 +52,11 @@ abstract public class SETCoreSDKDeployCommandJob extends SETCoreSDKCommandJob {
         params.add(fInfo.getUserName());
         params.add("-pw");
         params.add(fInfo.getPassword());
+        String host = fInfo.getHost().trim();
+        if (host != null && !host.equals("")) {
+            params.add("-s");
+            params.add(host);
+        }
 
         return params;
     }

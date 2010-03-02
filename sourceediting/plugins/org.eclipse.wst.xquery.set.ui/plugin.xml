@@ -74,6 +74,7 @@
             </objectState>
          </visibility>
       </objectContribution>
+<!--      
       <objectContribution
             adaptable="true"
             id="org.eclipse.wst.xquery.set.ui.popup.deployData"
@@ -94,6 +95,7 @@
             </objectState>
          </visibility>
       </objectContribution>
+-->
    </extension>
    <extension
          point="org.eclipse.ui.actionSets">

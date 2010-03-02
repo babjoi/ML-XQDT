@@ -18,11 +18,11 @@ Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.wst.xquery.launching.zorba
 Bundle-RequiredExecutionEnvironment: J2SE-1.5
 Export-Package: org.eclipse.wst.xquery.set.internal.launching;x-internal:=true,
- org.eclipse.wst.xquery.set.internal.launching.deploy;x-internal:=true,
  org.eclipse.wst.xquery.set.internal.launching.jobs;x-internal:=true,
  org.eclipse.wst.xquery.set.internal.launching.server;x-internal:=true,
  org.eclipse.wst.xquery.set.internal.launching.variables;x-internal:=true,
- org.eclipse.wst.xquery.set.launching
+ org.eclipse.wst.xquery.set.launching,
+ org.eclipse.wst.xquery.set.launching.deploy
 Eclipse-LazyStart: true
 Bundle-ActivationPolicy: lazy
 Bundle-Vendor: %providerName

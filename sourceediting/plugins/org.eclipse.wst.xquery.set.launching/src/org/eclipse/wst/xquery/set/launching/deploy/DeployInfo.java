@@ -8,10 +8,10 @@
  * Contributors:
  *     Gabriel Petrovay (28msec) - initial API and implementation
  *******************************************************************************/
-package org.eclipse.wst.xquery.set.internal.launching.deploy;
+package org.eclipse.wst.xquery.set.launching.deploy;
 
 import org.eclipse.dltk.core.IScriptProject;
-import org.eclipse.wst.xquery.set.internal.core.SETProjectConfig;
+import org.eclipse.wst.xquery.set.core.SETProjectConfig;
 
 public class DeployInfo {
 
@@ -25,15 +25,21 @@ public class DeployInfo {
     private String fPassword;
     private DeployType fDeployType;
     private SETProjectConfig fConfig;
+    private String fHost = DEFAULT_DEPLOYMENT_SERVER;
+
+    public static final String DEFAULT_DEPLOYMENT_SERVER = "http://28msec.dyndns.org:8080/28msec";
 
     public DeployInfo(IScriptProject project, SETProjectConfig config, String appName, String username,
-            String password, DeployType type) {
+            String password, DeployType type, String host) {
         fProject = project;
         fConfig = config;
         fApplicationName = appName;
         fUserName = username;
         fPassword = password;
         fDeployType = type;
+        if (host != null && !host.equals("")) {
+            fHost = host;
+        }
     }
 
     public IScriptProject getProject() {
@@ -58,6 +64,10 @@ public class DeployInfo {
 
     public DeployType getDeployType() {
         return fDeployType;
+    }
+
+    public String getHost() {
+        return fHost;
     }
 
 }

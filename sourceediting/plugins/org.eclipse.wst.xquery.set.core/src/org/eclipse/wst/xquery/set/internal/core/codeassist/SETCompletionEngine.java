@@ -14,12 +14,12 @@ import java.net.URI;
 
 import org.eclipse.core.resources.IProject;
 import org.eclipse.dltk.core.ISourceModule;
-import org.eclipse.wst.xquery.core.IXQDTUriResolver;
 import org.eclipse.wst.xquery.core.IXQDTLanguageConstants;
+import org.eclipse.wst.xquery.core.IXQDTUriResolver;
 import org.eclipse.wst.xquery.internal.core.codeassist.XQDTCompletionEngine;
 import org.eclipse.wst.xquery.set.core.SETCorePlugin;
-import org.eclipse.wst.xquery.set.internal.core.SETProjectConfig;
-import org.eclipse.wst.xquery.set.internal.core.SETProjectConfigUtil;
+import org.eclipse.wst.xquery.set.core.SETProjectConfig;
+import org.eclipse.wst.xquery.set.core.SETProjectConfigUtil;
 
 public class SETCompletionEngine extends XQDTCompletionEngine {
 

@@ -20,18 +20,19 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.MessageBox;
 import org.eclipse.swt.widgets.Shell;
-import org.eclipse.wst.xquery.set.internal.launching.deploy.DeployInfo;
-import org.eclipse.wst.xquery.set.internal.launching.deploy.DeployManager;
-import org.eclipse.wst.xquery.set.internal.launching.deploy.Deployer;
 import org.eclipse.wst.xquery.set.internal.launching.jobs.SETDeployDataJob;
 import org.eclipse.wst.xquery.set.internal.launching.jobs.SETDeployProjectJob;
 import org.eclipse.wst.xquery.set.internal.ui.util.SETPluginImages;
+import org.eclipse.wst.xquery.set.launching.deploy.DeployInfo;
+import org.eclipse.wst.xquery.set.launching.deploy.DeployManager;
+import org.eclipse.wst.xquery.set.launching.deploy.Deployer;
 
 public class SETDeployProjectWizard extends Wizard {
 
     private IScriptProject fProject;
 
-    private SETDeployProjectWizardPage fDeployPage;
+    private SETDeployProjectFirstWizardPage fFirstPage;
+    private SETDeployProjectSecondWizardPage fSecondPage;
 
     public SETDeployProjectWizard(IScriptProject project) {
         setDefaultPageImageDescriptor(SETPluginImages.DESC_WIZBAN_DEPLOY_PROJECT);
@@ -40,17 +41,22 @@ public class SETDeployProjectWizard extends Wizard {
 
     @Override
     public void addPages() {
-        fDeployPage = new SETDeployProjectWizardPage(fProject);
-        addPage(fDeployPage);
+        fFirstPage = new SETDeployProjectFirstWizardPage(fProject);
+        addPage(fFirstPage);
+        fSecondPage = new SETDeployProjectSecondWizardPage(fProject);
+        addPage(fSecondPage);
 
         setWindowTitle("Deploy Sausalito Project");
     }
 
     @Override
     public boolean performFinish() {
-        final DeployInfo info = fDeployPage.getDeployInfo();
-        boolean useCache = fDeployPage.cacheCredentials();
+        DeployInfo tmpInfo = fFirstPage.getDeployInfo();
+        tmpInfo = fSecondPage.configureDeployInfo(tmpInfo);
 
+        boolean useCache = fFirstPage.cacheCredentials();
+
+        final DeployInfo info = tmpInfo;
         final Deployer deployer = DeployManager.getInstance().getDeployer(info, useCache);
 
         deployer.addJobChangeListener(new JobChangeAdapter() {

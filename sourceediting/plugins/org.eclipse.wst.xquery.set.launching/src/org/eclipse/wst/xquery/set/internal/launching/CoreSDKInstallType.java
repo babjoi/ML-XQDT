@@ -25,9 +25,15 @@ import org.eclipse.wst.xquery.set.launching.SETLaunchingPlugin;
 public class CoreSDKInstallType extends XQDTInterpreterInstallType {
 
     private static final String INSTALL_TYPE_NAME = "Sausalito CoreSDK";
+    private static final String INSTALL_TYPE_ID = "org.eclipse.wst.xquery.set.launching.CoreSDKInstallType";
 
     protected IInterpreterInstall doCreateInterpreterInstall(String id) {
         return new CoreSDKInstall(this, id);
+    }
+
+    @Override
+    public String getId() {
+        return INSTALL_TYPE_ID;
     }
 
     public String getName() {

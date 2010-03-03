@@ -30,13 +30,13 @@ import org.eclipse.dltk.launching.LibraryLocation;
 import org.eclipse.dltk.launching.ScriptRuntime;
 import org.eclipse.dltk.launching.ScriptRuntime.DefaultInterpreterEntry;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
-import org.osgi.framework.Bundle;
-import org.osgi.framework.BundleContext;
-import org.osgi.service.prefs.BackingStoreException;
-import org.eclipse.wst.xquery.set.core.SETCorePlugin;
 import org.eclipse.wst.xquery.set.core.SETNature;
 import org.eclipse.wst.xquery.set.internal.debug.ui.launcher.ServerJobTools;
 import org.eclipse.wst.xquery.set.internal.launching.CoreSDKInstallType;
+import org.eclipse.wst.xquery.set.launching.SETLaunchingPlugin;
+import org.osgi.framework.Bundle;
+import org.osgi.framework.BundleContext;
+import org.osgi.service.prefs.BackingStoreException;
 
 /**
  * The activator class controls the plug-in life cycle
@@ -64,9 +64,8 @@ public class SETDebugUIPlugin extends AbstractUIPlugin {
         super.start(context);
         plugin = this;
 
+        searchAndAddDefaultCoreSdk();
         ServerJobTools.getInstance();
-
-        //searchAndAddDefaultCoreSdk();
     }
 
     /*
@@ -88,7 +87,6 @@ public class SETDebugUIPlugin extends AbstractUIPlugin {
         return plugin;
     }
 
-    @SuppressWarnings("unused")
     private void searchAndAddDefaultCoreSdk() {
         try {
             // if on Windows, add the default shipped CoreSDK
@@ -104,7 +102,7 @@ public class SETDebugUIPlugin extends AbstractUIPlugin {
                         .getLocalEnvironment().getId());
                 ScriptRuntime.getDefaultInterpreterInstall(entry);
 
-                Bundle[] bundles = Platform.getBundles(SETCorePlugin.PLUGIN_ID + "sdk.win32", null);
+                Bundle[] bundles = Platform.getBundles(SETLaunchingPlugin.PLUGIN_ID + ".win32", null);
                 if (bundles == null || bundles.length == 0) {
                     return;
                 }

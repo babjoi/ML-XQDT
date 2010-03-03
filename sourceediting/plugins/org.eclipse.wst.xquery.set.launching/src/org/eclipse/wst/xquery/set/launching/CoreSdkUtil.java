@@ -48,8 +48,9 @@ public class CoreSdkUtil {
         for (DefaultInterpreterEntry entry : entries) {
             if (entry.getNature().equals(SETNature.NATURE_ID)) {
                 IInterpreterInstall install = ScriptRuntime.getDefaultInterpreterInstall(entry);
-                if (install == null)
+                if (install == null) {
                     return null;
+                }
                 return install.getInstallLocation().getPath().removeLastSegments(2);
             }
         }

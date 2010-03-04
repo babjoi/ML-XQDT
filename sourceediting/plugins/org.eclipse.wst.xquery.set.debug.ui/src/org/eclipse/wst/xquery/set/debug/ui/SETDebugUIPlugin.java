@@ -89,8 +89,8 @@ public class SETDebugUIPlugin extends AbstractUIPlugin {
 
     private void searchAndAddDefaultCoreSdk() {
         try {
-            // if on Windows, add the default shipped CoreSDK
-            if (Platform.getOS().equals(Platform.OS_WIN32)) {
+            String os = Platform.getOS();
+            if (os.equals(Platform.OS_WIN32) || os.equals(Platform.OS_MACOSX)) {
 //				// return if the default CoreSDK was already installed
 //				if (getPluginPreferences().getBoolean(ISETPreferenceConstants.SET_CORESDK_INITIALIZED)) {
 //					//return;
@@ -102,13 +102,17 @@ public class SETDebugUIPlugin extends AbstractUIPlugin {
                         .getLocalEnvironment().getId());
                 ScriptRuntime.getDefaultInterpreterInstall(entry);
 
-                Bundle[] bundles = Platform.getBundles(SETLaunchingPlugin.PLUGIN_ID + ".win32", null);
+                Bundle[] bundles = Platform.getBundles(SETLaunchingPlugin.PLUGIN_ID + "." + os, null);
                 if (bundles == null || bundles.length == 0) {
                     return;
                 }
 
                 Bundle bundle = bundles[0];
-                URL coreSdkURL = bundle.getEntry("/coresdk/bin/sausalito.bat");
+                String sausalitoScript = "/coresdk/bin/sausalito";
+                if (os.equals(Platform.OS_WIN32)) {
+                    sausalitoScript += ".bat";
+                }
+                URL coreSdkURL = bundle.getEntry(sausalitoScript);
                 String id = String.valueOf(System.currentTimeMillis());
                 IFileHandle installLocation = new LazyFileHandle(EnvironmentManager.getLocalEnvironment().getId(),
                         new Path(FileLocator.toFileURL(coreSdkURL).getFile()));
@@ -141,10 +145,12 @@ public class SETDebugUIPlugin extends AbstractUIPlugin {
 //                    node.putBoolean(ISETPreferenceConstants.SET_CORESDK_INITIALIZED, true);
                     node.flush();
                 }
+            }
+
+            if (Platform.getOS().equals(Platform.OS_MACOSX) || Platform.getOS().equals(Platform.OS_LINUX)) {
                 // on Unix-based platforms search the default installation location
                 // /opt/sausalito
-            } else if (Platform.getOS().equals(Platform.OS_LINUX) || Platform.getOS().equals(Platform.OS_MACOSX)) {
-//				IFileHandle installLocation = new LazyFileHandle(EnvironmentManager.getLocalEnvironment().getId(), new Path(FileLocator.toFileURL("").getFile()));				
+//              IFileHandle installLocation = new LazyFileHandle(EnvironmentManager.getLocalEnvironment().getId(), new Path(FileLocator.toFileURL("").getFile()));              
             }
 
         } catch (BackingStoreException bse) {

@@ -19,11 +19,10 @@ Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.wst.xquery.set.ui,
  org.eclipse.wst.xquery.set.launching
 Bundle-RequiredExecutionEnvironment: J2SE-1.5
-Eclipse-LazyStart: true
-Bundle-ActivationPolicy: lazy
 Export-Package: org.eclipse.wst.xquery.set.debug.ui,
  org.eclipse.wst.xquery.set.internal.debug.ui.dialogs;x-internal:=true,
  org.eclipse.wst.xquery.set.internal.debug.ui.interpreters;x-internal:=true,
  org.eclipse.wst.xquery.set.internal.debug.ui.launchConfigurations;x-internal:=true,
  org.eclipse.wst.xquery.set.internal.debug.ui.launcher;x-internal:=true
 Bundle-Vendor: %providerName
+Bundle-ActivationPolicy: lazy

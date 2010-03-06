@@ -58,6 +58,7 @@ public class ZorbaDebuggerRunner extends TranslatableDebuggingEngineRunner {
         return ZorbaDebuggerConstants.LOG_FILE_NAME;
     }
 
+    @Override
     protected String[] renderCommandLine(InterpreterConfig config) {
         String[] cmdLine = super.renderCommandLine(config);
         List<String> newCmdLine = new ArrayList<String>(Arrays.asList(cmdLine));

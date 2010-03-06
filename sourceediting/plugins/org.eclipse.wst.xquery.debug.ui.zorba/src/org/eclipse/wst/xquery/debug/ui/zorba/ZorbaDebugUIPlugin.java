@@ -10,6 +10,7 @@
  *******************************************************************************/
 package org.eclipse.wst.xquery.debug.ui.zorba;
 
+import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Platform;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
 import org.osgi.framework.BundleContext;
@@ -19,45 +20,51 @@ import org.osgi.framework.BundleContext;
  */
 public class ZorbaDebugUIPlugin extends AbstractUIPlugin {
 
-	// The plug-in ID
-	public static final String PLUGIN_ID = "org.eclipse.wst.xquery.debug.ui.zorba";
+    // The plug-in ID
+    public static final String PLUGIN_ID = "org.eclipse.wst.xquery.debug.ui.zorba";
 
-	// The shared instance
-	private static ZorbaDebugUIPlugin plugin;
-	
+    // The shared instance
+    private static ZorbaDebugUIPlugin plugin;
+
     public static final boolean DEBUG = Boolean.valueOf(Platform.getDebugOption(PLUGIN_ID + "/debug")).booleanValue();
 
-	/**
-	 * The constructor
-	 */
-	public ZorbaDebugUIPlugin() {
-	}
+    /**
+     * The constructor
+     */
+    public ZorbaDebugUIPlugin() {
+    }
 
-	/*
-	 * (non-Javadoc)
-	 * @see org.eclipse.ui.plugin.AbstractUIPlugin#start(org.osgi.framework.BundleContext)
-	 */
-	public void start(BundleContext context) throws Exception {
-		super.start(context);
-		plugin = this;
-	}
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.eclipse.ui.plugin.AbstractUIPlugin#start(org.osgi.framework.BundleContext)
+     */
+    public void start(BundleContext context) throws Exception {
+        super.start(context);
+        plugin = this;
+    }
 
-	/*
-	 * (non-Javadoc)
-	 * @see org.eclipse.ui.plugin.AbstractUIPlugin#stop(org.osgi.framework.BundleContext)
-	 */
-	public void stop(BundleContext context) throws Exception {
-		plugin = null;
-		super.stop(context);
-	}
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.eclipse.ui.plugin.AbstractUIPlugin#stop(org.osgi.framework.BundleContext)
+     */
+    public void stop(BundleContext context) throws Exception {
+        plugin = null;
+        super.stop(context);
+    }
 
-	/**
-	 * Returns the shared instance
-	 *
-	 * @return the shared instance
-	 */
-	public static ZorbaDebugUIPlugin getDefault() {
-		return plugin;
-	}
+    /**
+     * Returns the shared instance
+     * 
+     * @return the shared instance
+     */
+    public static ZorbaDebugUIPlugin getDefault() {
+        return plugin;
+    }
+
+    public static void log(IStatus status) {
+        getDefault().getLog().log(status);
+    }
 
 }

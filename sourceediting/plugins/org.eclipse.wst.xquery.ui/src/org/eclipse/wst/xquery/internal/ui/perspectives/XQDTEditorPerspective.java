@@ -78,8 +78,8 @@ public class XQDTEditorPerspective implements IPerspectiveFactory {
 
     protected void addNewWizardShortcuts(IPageLayout layout) {
         // XQDT
-        layout.addNewWizardShortcut(XQDTNewProjectWizard.WIZARD_ID);
         layout.addNewWizardShortcut("org.eclipse.wst.xquery.set.ui.wizards.SausalitoProject");
+        layout.addNewWizardShortcut(XQDTNewProjectWizard.WIZARD_ID);
         layout.addNewWizardShortcut(XQDTNewModuleWizard.WIZARD_ID);
         layout.addNewWizardShortcut("org.eclipse.wst.xml.ui.internal.wizards.NewXMLWizard");
 

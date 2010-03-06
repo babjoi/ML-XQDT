@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+   <extension
+         point="org.eclipse.dltk.launching.debuggingEngine">
+      <engineContribution
+            natureId="org.eclipse.wst.xquery.set.core.nature">
+         <engine
+               class="org.eclipse.wst.xquery.set.debug.debugger.SETDebuggerRunnerFactory"
+               description="Sausalito debugger avaialble in your Sausaltio CoreSDK distribution"
+               id="org.eclipse.wst.xquery.set.debug.engine"
+               name="Sausalito Debugger"
+               priority="0">
+         </engine>
+      </engineContribution>
+   </extension>
+
+</plugin>

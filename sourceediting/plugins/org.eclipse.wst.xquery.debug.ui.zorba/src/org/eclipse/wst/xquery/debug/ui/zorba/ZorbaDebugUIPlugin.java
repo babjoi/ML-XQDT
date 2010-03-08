@@ -26,6 +26,7 @@ public class ZorbaDebugUIPlugin extends AbstractUIPlugin {
     // The shared instance
     private static ZorbaDebugUIPlugin plugin;
 
+    // Debug trace flag
     public static final boolean DEBUG = Boolean.valueOf(Platform.getDebugOption(PLUGIN_ID + "/debug")).booleanValue();
 
     /**

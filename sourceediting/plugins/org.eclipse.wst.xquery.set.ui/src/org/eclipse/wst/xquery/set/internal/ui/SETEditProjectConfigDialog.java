@@ -47,9 +47,9 @@ import org.eclipse.ui.dialogs.ElementTreeSelectionDialog;
 import org.eclipse.ui.dialogs.ISelectionStatusValidator;
 import org.eclipse.ui.model.WorkbenchContentProvider;
 import org.eclipse.ui.model.WorkbenchLabelProvider;
+import org.eclipse.wst.xquery.set.core.ISETPreferenceConstants;
 import org.eclipse.wst.xquery.set.core.SETNature;
 import org.eclipse.wst.xquery.set.core.SETProjectConfig;
-import org.eclipse.wst.xquery.set.internal.core.preferences.ISETPreferenceConstants;
 import org.eclipse.wst.xquery.set.ui.SETUIPlugin;
 
 public class SETEditProjectConfigDialog extends TitleAreaDialog {

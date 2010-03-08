@@ -55,11 +55,11 @@ import org.eclipse.swt.widgets.Text;
 import org.eclipse.ui.dialogs.ElementListSelectionDialog;
 import org.eclipse.wst.xquery.core.model.ast.XQueryFunctionDecl;
 import org.eclipse.wst.xquery.core.model.ast.XQueryLibraryModule;
+import org.eclipse.wst.xquery.set.core.ISETPreferenceConstants;
 import org.eclipse.wst.xquery.set.core.SETNature;
 import org.eclipse.wst.xquery.set.core.SETProjectConfig;
 import org.eclipse.wst.xquery.set.core.SETProjectConfigUtil;
 import org.eclipse.wst.xquery.set.debug.core.ISETLaunchConfigurationConstants;
-import org.eclipse.wst.xquery.set.internal.core.preferences.ISETPreferenceConstants;
 import org.eclipse.wst.xquery.set.internal.launching.server.ServerManager;
 import org.eclipse.wst.xquery.set.internal.ui.SETEditProjectConfigDialog;
 

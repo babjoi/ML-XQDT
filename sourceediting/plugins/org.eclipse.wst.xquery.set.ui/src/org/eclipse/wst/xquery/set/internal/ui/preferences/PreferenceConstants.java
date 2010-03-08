@@ -11,7 +11,7 @@
 package org.eclipse.wst.xquery.set.internal.ui.preferences;
 
 import org.eclipse.jface.preference.IPreferenceStore;
-import org.eclipse.wst.xquery.set.internal.core.preferences.ISETPreferenceConstants;
+import org.eclipse.wst.xquery.set.core.ISETPreferenceConstants;
 import org.eclipse.wst.xquery.set.ui.SETUIPlugin;
 
 public class PreferenceConstants {

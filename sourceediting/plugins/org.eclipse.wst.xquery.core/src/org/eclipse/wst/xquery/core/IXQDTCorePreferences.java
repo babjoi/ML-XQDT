@@ -25,4 +25,7 @@ public interface IXQDTCorePreferences {
     // XQuery URI Resolvers
     public static final String URI_RESOLVER_PREFERENCE_KEY = "uriResolver";
 
+    // preference constants
+    public static final String DEFAULT_INTERPRETER_FOUND = "defaultInterpreterFound";
+
 }

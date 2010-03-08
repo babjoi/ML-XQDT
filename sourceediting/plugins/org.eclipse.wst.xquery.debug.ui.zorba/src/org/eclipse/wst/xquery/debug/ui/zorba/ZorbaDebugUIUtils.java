@@ -14,13 +14,13 @@ import org.eclipse.dltk.core.environment.EnvironmentManager;
 import org.eclipse.dltk.core.environment.IFileHandle;
 import org.eclipse.dltk.debug.ui.interpreters.InterpretersUpdater;
 import org.eclipse.dltk.internal.launching.LazyFileHandle;
+import org.eclipse.dltk.launching.EnvironmentVariable;
 import org.eclipse.dltk.launching.IInterpreterInstall;
-import org.eclipse.dltk.launching.IInterpreterInstallType;
 import org.eclipse.dltk.launching.InterpreterStandin;
 import org.eclipse.dltk.launching.LibraryLocation;
-import org.eclipse.dltk.launching.ScriptRuntime;
-import org.eclipse.dltk.launching.ScriptRuntime.DefaultInterpreterEntry;
+import org.eclipse.wst.xquery.core.IXQDTCorePreferences;
 import org.eclipse.wst.xquery.core.XQDTNature;
+import org.eclipse.wst.xquery.debug.ui.XQDTDebugUIPlugin;
 import org.eclipse.wst.xquery.internal.launching.zorba.ZorbaInstallType;
 import org.osgi.framework.Bundle;
 import org.osgi.service.prefs.BackingStoreException;
@@ -30,81 +30,114 @@ public class ZorbaDebugUIUtils {
     public static void searchAndAddSausalitoZorba() {
         try {
             String os = Platform.getOS();
-            if (os.equals(Platform.OS_WIN32) || os.equals(Platform.OS_MACOSX)) {
 //              // return if the default CoreSDK was already installed
 //              if (getPluginPreferences().getBoolean(ISETPreferenceConstants.SET_CORESDK_INITIALIZED)) {
 //                  //return;
 //              }
 
-                // this is only a piece of code to make sure the CoreSDK installation
-                // type is loaded form the plugin configuration in the DLTK registry
-                DefaultInterpreterEntry entry = new DefaultInterpreterEntry(XQDTNature.NATURE_ID, EnvironmentManager
-                        .getLocalEnvironment().getId());
-                ScriptRuntime.getDefaultInterpreterInstall(entry);
+            // this is only a piece of code to make sure the CoreSDK installation
+            // type is loaded form the plugin configuration in the DLTK registry
+//            DefaultInterpreterEntry entry = new DefaultInterpreterEntry(XQDTNature.NATURE_ID, EnvironmentManager
+//                    .getLocalEnvironment().getId());
+//            ScriptRuntime.getDefaultInterpreterInstall(entry);
 
+            String absoluteZorbaExec = null;
+            if (os.equals(Platform.OS_WIN32) || os.equals(Platform.OS_MACOSX)) {
+                String osPart = "." + os;
                 String archPart = "";
+
+                // in case of MacOSX we make have two versions of the Zorba
                 if (os.equals(Platform.OS_MACOSX)) {
                     archPart = "." + Platform.getOSArch();
                 }
-                String osPart = "." + os;
                 String fragment = "org.eclipse.wst.xquery.set.launching" + osPart + archPart;
-
-                ZorbaDebugUIPlugin.getDefault().getLog().log(
-                        new Status(IStatus.INFO, ZorbaDebugUIPlugin.PLUGIN_ID, "Searching CoreSDK fragment: "
-                                + fragment));
 
                 Bundle[] bundles = Platform.getBundles(fragment, null);
                 if (bundles == null || bundles.length == 0) {
+                    if (XQDTDebugUIPlugin.TRACE_AUTOMATIC_PROCESSOR_DETECTION) {
+                        error(IStatus.INFO, "Could not find plug-in fragment: " + fragment
+                                + ". No default Zorba XQuery processor will be configured.", null);
+                    }
                     return;
+                }
+                if (XQDTDebugUIPlugin.TRACE_AUTOMATIC_PROCESSOR_DETECTION) {
+                    error(IStatus.INFO, "Found plug-in fragment: " + fragment, null);
                 }
 
                 Bundle bundle = bundles[0];
-                String sausalitoScript = "/coresdk/bin/zorba";
+                String relativeZorbaExec = "/coresdk/bin/zorba";
                 if (os.equals(Platform.OS_WIN32)) {
-                    sausalitoScript += ".exe";
+                    relativeZorbaExec += ".exe";
                 }
-                URL coreSdkURL = bundle.getEntry(sausalitoScript);
-                String id = String.valueOf(System.currentTimeMillis());
-                IFileHandle installLocation = new LazyFileHandle(EnvironmentManager.getLocalEnvironment().getId(),
-                        new Path(FileLocator.toFileURL(coreSdkURL).getFile()));
+                URL zorbaURL = bundle.getEntry(relativeZorbaExec);
+                if (zorbaURL == null) {
+                    if (XQDTDebugUIPlugin.TRACE_AUTOMATIC_PROCESSOR_DETECTION) {
+                        error(IStatus.INFO, "Cound not find executable \"" + relativeZorbaExec
+                                + "\" in plug-in fragment: " + fragment, null);
+                    }
+                }
+                absoluteZorbaExec = FileLocator.toFileURL(zorbaURL).getFile();
+            } else if (os.equals(Platform.OS_LINUX)) {
+                absoluteZorbaExec = "/opt/saualito/bin/zorba";
+            } else {
+                if (XQDTDebugUIPlugin.TRACE_AUTOMATIC_PROCESSOR_DETECTION) {
+                    error(IStatus.INFO, "Automatic Zorba XQuery processor detection is not enabled on \"" + os
+                            + "\" pltforms.", null);
+                }
+                return;
+            }
 
-                IInterpreterInstallType interpreterType = new ZorbaInstallType();
-                final InterpreterStandin zorbaInstall = new InterpreterStandin(interpreterType, id);
-                zorbaInstall.setInstallLocation(installLocation);
-                zorbaInstall.setName("Zorba 1.0.1");
-                zorbaInstall.setInterpreterArgs(null);
-                LibraryLocation lib = new LibraryLocation(installLocation.getFullPath().removeLastSegments(2).append(
-                        "modules"));
-                zorbaInstall.setLibraryLocations(new LibraryLocation[] { lib });
+            if (XQDTDebugUIPlugin.TRACE_AUTOMATIC_PROCESSOR_DETECTION) {
+                error(IStatus.INFO, "Confiuguring Zorba XQuery processor from: " + absoluteZorbaExec, null);
+            }
 
-                // Save the interpreter configuration and set the preference that
-                // this was done. This will not be done next time.
-                final boolean[] canceled = new boolean[] { false };
+            IFileHandle installLocation = new LazyFileHandle(EnvironmentManager.getLocalEnvironment().getId(),
+                    new Path(absoluteZorbaExec));
+
+            // using as interpreter ID the current time in milliseconds
+            String id = String.valueOf(System.currentTimeMillis());
+            final InterpreterStandin zorbaInstall = new InterpreterStandin(new ZorbaInstallType(), id);
+            zorbaInstall.setInstallLocation(installLocation);
+            zorbaInstall.setName("Zorba 1.0.0");
+            zorbaInstall.setInterpreterArgs(null);
+            LibraryLocation moduleLoc = new LibraryLocation(installLocation.getFullPath().removeLastSegments(2).append(
+                    "modules"));
+            zorbaInstall.setLibraryLocations(new LibraryLocation[] { moduleLoc });
+
+            if (os.equals(Platform.OS_MACOSX) || os.equals(Platform.OS_LINUX)) {
+                String libraryPath = "LD_LIBRARY_PATH";
+                if (os.equals(Platform.OS_MACOSX)) {
+                    libraryPath = "DY" + libraryPath;
+                }
+                String libDir = installLocation.getParent().getParent().getFullPath().append("lib").toOSString();
+                EnvironmentVariable libPathVar = new EnvironmentVariable(libraryPath, libDir);
+
+                if (XQDTDebugUIPlugin.TRACE_AUTOMATIC_PROCESSOR_DETECTION) {
+                    error(IStatus.INFO, "Setting the " + libPathVar.getName() + " variable to: "
+                            + libPathVar.getValue(), null);
+                }
+
+                zorbaInstall.setEnvironmentVariables(new EnvironmentVariable[] { libPathVar });
+            }
+
+            final boolean[] canceled = new boolean[] { false };
 //              BusyIndicator.showWhile(null, new Runnable() {
 //                  public void run() {
-                InterpretersUpdater updater = new InterpretersUpdater();
-                if (!updater.updateInterpreterSettings(XQDTNature.NATURE_ID, new IInterpreterInstall[] { zorbaInstall },
-                        new IInterpreterInstall[] { zorbaInstall })) {
-                    canceled[0] = true;
-                }
+            InterpretersUpdater updater = new InterpretersUpdater();
+            if (!updater.updateInterpreterSettings(XQDTNature.NATURE_ID, new IInterpreterInstall[] { zorbaInstall },
+                    new IInterpreterInstall[] { zorbaInstall })) {
+                canceled[0] = true;
+            }
 //                  }
 //              });
 
-                if (canceled[0]) {
-                    error(IStatus.ERROR, "Could update the XQuery interpreter settings", null);
-                } else {
-                    IEclipsePreferences node = new InstanceScope().getNode(ZorbaDebugUIPlugin.PLUGIN_ID);
-//                    node.putBoolean(ISETPreferenceConstants.SET_CORESDK_INITIALIZED, true);
-                    node.flush();
-                }
+            if (canceled[0]) {
+                error(IStatus.ERROR, "Automatic Zorba XQuery processor detection canceled", null);
+            } else {
+                IEclipsePreferences node = new InstanceScope().getNode(ZorbaDebugUIPlugin.PLUGIN_ID);
+                node.putBoolean(IXQDTCorePreferences.DEFAULT_INTERPRETER_FOUND, true);
+                node.flush();
             }
-
-            if (Platform.getOS().equals(Platform.OS_MACOSX) || Platform.getOS().equals(Platform.OS_LINUX)) {
-                // on Unix-based platforms search the default installation location
-                // /opt/sausalito
-//              IFileHandle installLocation = new LazyFileHandle(EnvironmentManager.getLocalEnvironment().getId(), new Path(FileLocator.toFileURL("").getFile()));              
-            }
-
         } catch (BackingStoreException bse) {
             error(IStatus.ERROR, "Could not enable the default Zorba XQuery interpreter", null);
         } catch (IOException ioe) {

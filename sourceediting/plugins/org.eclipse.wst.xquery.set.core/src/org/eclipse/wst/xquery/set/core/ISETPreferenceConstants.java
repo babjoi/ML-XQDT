@@ -8,7 +8,7 @@
  * Contributors:
  *     Gabriel Petrovay (28msec) - initial API and implementation
  *******************************************************************************/
-package org.eclipse.wst.xquery.set.internal.core.preferences;
+package org.eclipse.wst.xquery.set.core;
 
 public interface ISETPreferenceConstants {
 

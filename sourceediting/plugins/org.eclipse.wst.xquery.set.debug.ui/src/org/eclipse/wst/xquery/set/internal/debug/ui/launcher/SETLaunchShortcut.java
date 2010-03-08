@@ -33,11 +33,11 @@ import org.eclipse.jface.operation.IRunnableContext;
 import org.eclipse.ui.IEditorInput;
 import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.IFileEditorInput;
+import org.eclipse.wst.xquery.set.core.ISETPreferenceConstants;
 import org.eclipse.wst.xquery.set.core.SETNature;
 import org.eclipse.wst.xquery.set.core.SETProjectConfig;
 import org.eclipse.wst.xquery.set.core.SETProjectConfigUtil;
 import org.eclipse.wst.xquery.set.debug.core.ISETLaunchConfigurationConstants;
-import org.eclipse.wst.xquery.set.internal.core.preferences.ISETPreferenceConstants;
 import org.eclipse.wst.xquery.set.internal.ui.SETEditProjectConfigDialog;
 
 public class SETLaunchShortcut extends AbstractScriptLaunchShortcut {

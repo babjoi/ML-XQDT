@@ -17,8 +17,8 @@ import org.eclipse.dltk.internal.launching.LazyFileHandle;
 import org.eclipse.dltk.launching.IInterpreterInstall;
 import org.eclipse.dltk.launching.InterpreterStandin;
 import org.eclipse.dltk.launching.LibraryLocation;
-import org.eclipse.dltk.launching.ScriptRuntime;
-import org.eclipse.dltk.launching.ScriptRuntime.DefaultInterpreterEntry;
+import org.eclipse.wst.xquery.core.IXQDTCorePreferences;
+import org.eclipse.wst.xquery.debug.ui.XQDTDebugUIPlugin;
 import org.eclipse.wst.xquery.set.core.SETNature;
 import org.eclipse.wst.xquery.set.internal.launching.CoreSDKInstallType;
 import org.eclipse.wst.xquery.set.launching.SETLaunchingPlugin;
@@ -30,33 +30,38 @@ public class SETDebugUIUtils {
     public static void searchAndAddDefaultCoreSdk() {
         try {
             String os = Platform.getOS();
-            if (os.equals(Platform.OS_WIN32) || os.equals(Platform.OS_MACOSX)) {
 //              // return if the default CoreSDK was already installed
 //              if (getPluginPreferences().getBoolean(ISETPreferenceConstants.SET_CORESDK_INITIALIZED)) {
 //                  //return;
 //              }
 
-                // this is only a piece of code to make sure the CoreSDK installation
-                // type is loaded form the plugin configuration in the DLTK registry
-                DefaultInterpreterEntry entry = new DefaultInterpreterEntry(SETNature.NATURE_ID, EnvironmentManager
-                        .getLocalEnvironment().getId());
-                ScriptRuntime.getDefaultInterpreterInstall(entry);
+            // this is only a piece of code to make sure the CoreSDK installation
+            // type is loaded form the plugin configuration in the DLTK registry
+//                DefaultInterpreterEntry entry = new DefaultInterpreterEntry(SETNature.NATURE_ID, EnvironmentManager
+//                        .getLocalEnvironment().getId());
+//                ScriptRuntime.getDefaultInterpreterInstall(entry);
 
+            String absoluteCoreSDKScript = null;
+            if (os.equals(Platform.OS_WIN32) || os.equals(Platform.OS_MACOSX)) {
+                String osPart = "." + os;
                 String archPart = "";
+
+                // in case of MacOSX we make have two versions of the CoreSDK
                 if (os.equals(Platform.OS_MACOSX)) {
                     archPart = "." + Platform.getOSArch();
                 }
-                String osPart = "." + os;
                 String fragment = SETLaunchingPlugin.PLUGIN_ID + osPart + archPart;
-
-                SETDebugUIPlugin.getDefault().getLog()
-                        .log(
-                                new Status(IStatus.INFO, SETDebugUIPlugin.PLUGIN_ID, "Searching CoreSDK fragment: "
-                                        + fragment));
 
                 Bundle[] bundles = Platform.getBundles(fragment, null);
                 if (bundles == null || bundles.length == 0) {
+                    if (XQDTDebugUIPlugin.TRACE_AUTOMATIC_PROCESSOR_DETECTION) {
+                        error(IStatus.INFO, "Could not find plug-in fragment: " + fragment
+                                + ". No default Sausalito CoreSDK will be configured.", null);
+                    }
                     return;
+                }
+                if (XQDTDebugUIPlugin.TRACE_AUTOMATIC_PROCESSOR_DETECTION) {
+                    error(IStatus.INFO, "Found Sausalito CoreSDK plug-in fragment: " + fragment, null);
                 }
 
                 Bundle bundle = bundles[0];
@@ -64,47 +69,58 @@ public class SETDebugUIUtils {
                 if (os.equals(Platform.OS_WIN32)) {
                     sausalitoScript += ".bat";
                 }
-                URL coreSdkURL = bundle.getEntry(sausalitoScript);
-                String id = String.valueOf(System.currentTimeMillis());
-                IFileHandle installLocation = new LazyFileHandle(EnvironmentManager.getLocalEnvironment().getId(),
-                        new Path(FileLocator.toFileURL(coreSdkURL).getFile()));
+                URL sausalitoURL = bundle.getEntry(sausalitoScript);
+                if (sausalitoURL == null) {
+                    if (XQDTDebugUIPlugin.TRACE_AUTOMATIC_PROCESSOR_DETECTION) {
+                        error(IStatus.INFO, "Cound not find script \"" + sausalitoScript + "\" in plug-in fragment: "
+                                + fragment, null);
+                    }
+                }
+                absoluteCoreSDKScript = FileLocator.toFileURL(sausalitoURL).getFile();
+            } else if (os.equals(Platform.OS_LINUX)) {
+                absoluteCoreSDKScript = "/opt/saualito/bin/sausalito";
+            } else {
+                if (XQDTDebugUIPlugin.TRACE_AUTOMATIC_PROCESSOR_DETECTION) {
+                    error(IStatus.INFO, "Automatic Sausalito CoreSDK detection is not enabled on \"" + os
+                            + "\" pltforms.", null);
+                }
+                return;
+            }
 
-                final InterpreterStandin coreSdk = new InterpreterStandin(new CoreSDKInstallType(), id);
-                coreSdk.setInstallLocation(installLocation);
-                coreSdk.setName("Sausalito CoreSDK 1.0");
-                coreSdk.setInterpreterArgs(null);
-                LibraryLocation lib = new LibraryLocation(installLocation.getFullPath().removeLastSegments(2).append(
-                        "modules"));
-                coreSdk.setLibraryLocations(new LibraryLocation[] { lib });
+            if (XQDTDebugUIPlugin.TRACE_AUTOMATIC_PROCESSOR_DETECTION) {
+                error(IStatus.INFO, "Confiuguring Sausalito CoreSDK script from: " + absoluteCoreSDKScript, null);
+            }
 
-                // Save the interpreter configuration and set the preference that
-                // this was done. This will not be done next time.
-                final boolean[] canceled = new boolean[] { false };
+            IFileHandle installLocation = new LazyFileHandle(EnvironmentManager.getLocalEnvironment().getId(),
+                    new Path(absoluteCoreSDKScript));
+
+            String id = String.valueOf(System.currentTimeMillis());
+            final InterpreterStandin coreSdk = new InterpreterStandin(new CoreSDKInstallType(), id);
+            coreSdk.setInstallLocation(installLocation);
+            coreSdk.setName("Sausalito CoreSDK 1.0");
+            coreSdk.setInterpreterArgs(null);
+            LibraryLocation lib = new LibraryLocation(installLocation.getFullPath().removeLastSegments(2).append(
+                    "modules"));
+            coreSdk.setLibraryLocations(new LibraryLocation[] { lib });
+
+            final boolean[] canceled = new boolean[] { false };
 //              BusyIndicator.showWhile(null, new Runnable() {
 //                  public void run() {
-                InterpretersUpdater updater = new InterpretersUpdater();
-                if (!updater.updateInterpreterSettings(SETNature.NATURE_ID, new IInterpreterInstall[] { coreSdk },
-                        new IInterpreterInstall[] { coreSdk })) {
-                    canceled[0] = true;
-                }
+            InterpretersUpdater updater = new InterpretersUpdater();
+            if (!updater.updateInterpreterSettings(SETNature.NATURE_ID, new IInterpreterInstall[] { coreSdk },
+                    new IInterpreterInstall[] { coreSdk })) {
+                canceled[0] = true;
+            }
 //                  }
 //              });
 
-                if (canceled[0]) {
-                    error(IStatus.ERROR, "Could update the Sausalito CoreSDK settings", null);
-                } else {
-                    IEclipsePreferences node = new InstanceScope().getNode(SETDebugUIPlugin.PLUGIN_ID);
-//                    node.putBoolean(ISETPreferenceConstants.SET_CORESDK_INITIALIZED, true);
-                    node.flush();
-                }
+            if (canceled[0]) {
+                error(IStatus.ERROR, "Automatic Sausalito CoreSDK detection canceled", null);
+            } else {
+                IEclipsePreferences node = new InstanceScope().getNode(SETDebugUIPlugin.PLUGIN_ID);
+                node.putBoolean(IXQDTCorePreferences.DEFAULT_INTERPRETER_FOUND, true);
+                node.flush();
             }
-
-            if (Platform.getOS().equals(Platform.OS_MACOSX) || Platform.getOS().equals(Platform.OS_LINUX)) {
-                // on Unix-based platforms search the default installation location
-                // /opt/sausalito
-//              IFileHandle installLocation = new LazyFileHandle(EnvironmentManager.getLocalEnvironment().getId(), new Path(FileLocator.toFileURL("").getFile()));              
-            }
-
         } catch (BackingStoreException bse) {
             error(IStatus.ERROR, "Could not enable the default Sausalito CoreSDK", null);
         } catch (IOException ioe) {

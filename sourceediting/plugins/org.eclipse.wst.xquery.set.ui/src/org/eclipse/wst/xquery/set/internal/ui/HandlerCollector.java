@@ -16,7 +16,7 @@ import java.util.List;
 import org.eclipse.dltk.core.IMethod;
 import org.eclipse.dltk.core.IModelElement;
 import org.eclipse.dltk.core.IModelElementVisitor;
-import org.eclipse.wst.xquery.set.internal.core.preferences.ISETPreferenceConstants;
+import org.eclipse.wst.xquery.set.core.ISETPreferenceConstants;
 
 public class HandlerCollector implements IModelElementVisitor {
 

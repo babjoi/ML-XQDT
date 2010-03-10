@@ -35,7 +35,6 @@ import org.eclipse.swt.widgets.Display;
 import org.eclipse.wst.xquery.set.debug.core.ISETLaunchConfigurationConstants;
 import org.eclipse.wst.xquery.set.debug.core.SETDebugCorePlugin;
 import org.eclipse.wst.xquery.set.debug.core.model.SETDebugTarget;
-import org.eclipse.wst.xquery.set.internal.launching.SETLaunchConfigurationDelegate;
 
 public class ServerLaunchJob extends Job {
 
@@ -53,21 +52,14 @@ public class ServerLaunchJob extends Job {
     }
 
     protected IStatus run(IProgressMonitor monitor) {
-        final IProject project;
-        try {
-            project = SETLaunchConfigurationDelegate.getLaunchProject(fLaunch);
-        } catch (CoreException ce) {
-            return new Status(IStatus.ERROR, SETDebugCorePlugin.PLUGIN_ID,
-                    "Could not retreive the project for this launch configuration", ce);
-        }
+        final IProject project = fServer.getProject();
 
         ServerManager sm = ServerManager.getInstance();
-        Server s = sm.getProjectServer(project);
 
         // do not launch started projects
         if (sm.isProjectStarted(project)) {
             // check if the process of this server is still running
-            if (sm.isServerRunning(s)) {
+            if (sm.isServerRunning(fServer)) {
                 // this means we cannot launch one more time this project
                 DebugPlugin.getDefault().getLaunchManager().removeLaunch(fLaunch);
                 return new Status(IStatus.ERROR, SETDebugCorePlugin.PLUGIN_ID,
@@ -78,7 +70,7 @@ public class ServerLaunchJob extends Job {
         }
 
         // check for zombie server processes
-        if (sm.isServerRunning(s)) {
+        if (sm.isServerRunning(fServer)) {
             return new Status(IStatus.ERROR, SETDebugCorePlugin.PLUGIN_ID,
                     "An old server process is still running for this project (Project: " + project.getName() + ")");
         }
@@ -165,6 +157,11 @@ public class ServerLaunchJob extends Job {
         }
 
         return Status.OK_STATUS;
+    }
+
+    @Override
+    protected void canceling() {
+        cancel();
     }
 
     private IStatus cancelJob(IDebugTarget target, IProcess process, boolean notify, Throwable t) {

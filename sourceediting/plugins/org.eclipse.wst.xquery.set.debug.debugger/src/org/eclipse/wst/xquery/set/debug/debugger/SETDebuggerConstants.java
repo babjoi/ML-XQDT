@@ -23,8 +23,8 @@ public final class SETDebuggerConstants {
     public static final String DEBUGGING_ENGINE_NEEDS_DBGP_TRANSLATOR = "debugging_engine_needs_dbgp_translator";
     public static final String DEBUGGING_ENGINE_SERVER_PORTS = "debugging_engine_server_ports";
 
-    public static final int SERVER_COMMAND_PORT = 9928;
-    public static final int SERVER_EVENT_PORT = 9929;
+    public static final int SERVER_COMMAND_PORT = 8028;
+    public static final int SERVER_EVENT_PORT = 9028;
 
     public static void initalizeDefaults(IPreferenceStore store) {
         store.setDefault(LOG_ENABLE_KEY, Util.EMPTY_STRING);

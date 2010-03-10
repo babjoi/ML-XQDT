@@ -72,4 +72,5 @@ public class ZorbaDebuggerPreferencePage extends AbstractConfigurationBlockPrope
     private PreferenceKey[] getKeys() {
         return new PreferenceKey[] { LOG_ENABLE, LOG_FILE_NAME, ENGINE_NEEDS_DBGP_TRANSLATOR, ENGINE_SERVER_PORTS };
     }
+
 }

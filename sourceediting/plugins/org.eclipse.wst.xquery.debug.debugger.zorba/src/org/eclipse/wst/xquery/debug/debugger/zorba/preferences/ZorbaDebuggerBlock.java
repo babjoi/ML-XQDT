@@ -46,11 +46,6 @@ public class ZorbaDebuggerBlock extends TranslatableDebuggingEngineOptionsBlock 
     protected void createEngineBlock(Composite parent) {
     }
 
-    // @Override
-    // protected void createOtherBlock(Composite parent) {
-    // super.createOtherBlock(parent);
-    // }
-
     private Spinner addPortSpinner(String labelText, Composite parent) {
         Label label = new Label(parent, SWT.NONE);
         label.setText(labelText);
@@ -118,6 +113,6 @@ public class ZorbaDebuggerBlock extends TranslatableDebuggingEngineOptionsBlock 
         fCommandPortSpinner.setForeground(comp.getDisplay().getSystemColor(foreColor));
         fEventPortSpinner.setBackground(comp.getDisplay().getSystemColor(backColor));
         fEventPortSpinner.setForeground(comp.getDisplay().getSystemColor(foreColor));
-
     }
+
 }

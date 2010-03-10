@@ -36,16 +36,22 @@ public class Server implements IStreamListener {
     private int fPort;
     private boolean fIndentResults;
     private boolean fClearCollections;
+    private boolean fDebugMode;
 
     private Process fProcess;
 
     public Server(IProject project, String host, int port, boolean indent, boolean clear) {
+        this(project, host, port, indent, clear, false);
+    }
+
+    public Server(IProject project, String host, int port, boolean indent, boolean clear, boolean debugMode) {
         fProject = project;
 
         fHost = host;
         fPort = port;
         fIndentResults = indent;
         fClearCollections = clear;
+        fDebugMode = debugMode;
     }
 
     public String getHost() {
@@ -70,6 +76,10 @@ public class Server implements IStreamListener {
 
     public Process getProcess() {
         return fProcess;
+    }
+
+    public IProject getProject() {
+        return fProject;
     }
 
     public boolean isListening() throws ServerNotStartedException {
@@ -145,6 +155,10 @@ public class Server implements IStreamListener {
         // add the listening interface parameter
         commandLine.add("-s");
         commandLine.add(fHost + ":" + fPort);
+
+        if (fDebugMode) {
+            commandLine.add("-ds");
+        }
 
         if (fIndentResults) {
             commandLine.add("-i");

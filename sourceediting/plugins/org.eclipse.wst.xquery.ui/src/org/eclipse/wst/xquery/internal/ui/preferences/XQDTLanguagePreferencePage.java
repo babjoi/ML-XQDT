@@ -120,7 +120,6 @@ public class XQDTLanguagePreferencePage extends AbstractConfigurationBlockProper
     }
 
     protected void setPreferenceStore() {
-        //setPreferenceStore(new ScopedPreferenceStore(new InstanceScope(), XQDTCorePlugin.PLUGIN_ID));
         setPreferenceStore(XQDTUIPlugin.getDefault().getPreferenceStore());
     }
 

@@ -25,12 +25,13 @@ public class ZorbaInstall extends XQDTInterpreterInstall implements ISemanticVal
 
     @Override
     public IInterpreterRunner getInterpreterRunner(String mode) {
+        // the super class will handle the "debug" mode
         IInterpreterRunner runner = super.getInterpreterRunner(mode);
-
         if (runner != null) {
             return runner;
         }
 
+        // if "run" mode, we create the normal runner
         if (mode.equals(ILaunchManager.RUN_MODE)) {
             return new ZorbaRunner(this);
         }

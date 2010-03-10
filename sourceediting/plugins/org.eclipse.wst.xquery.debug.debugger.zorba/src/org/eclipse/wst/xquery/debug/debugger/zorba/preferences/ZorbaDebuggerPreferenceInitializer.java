@@ -11,18 +11,12 @@
 package org.eclipse.wst.xquery.debug.debugger.zorba.preferences;
 
 import org.eclipse.core.runtime.preferences.AbstractPreferenceInitializer;
-
 import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.wst.xquery.debug.debugger.zorba.ZorbaDebuggerConstants;
 import org.eclipse.wst.xquery.debug.debugger.zorba.ZorbaDebuggerPlugin;
 
 public class ZorbaDebuggerPreferenceInitializer extends AbstractPreferenceInitializer {
 
-    /*
-     * @see
-     * org.eclipse.core.runtime.preferences.AbstractPreferenceInitializer#initializeDefaultPreferences
-     * ()
-     */
     public void initializeDefaultPreferences() {
         IPreferenceStore store = ZorbaDebuggerPlugin.getDefault().getPreferenceStore();
 

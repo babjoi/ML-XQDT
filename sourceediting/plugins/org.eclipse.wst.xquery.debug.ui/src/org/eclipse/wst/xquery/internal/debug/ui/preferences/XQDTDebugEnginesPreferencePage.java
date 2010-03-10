@@ -11,7 +11,6 @@
 package org.eclipse.wst.xquery.internal.debug.ui.preferences;
 
 import org.eclipse.core.resources.IProject;
-import org.eclipse.core.runtime.preferences.InstanceScope;
 import org.eclipse.dltk.debug.core.DLTKDebugPreferenceConstants;
 import org.eclipse.dltk.debug.ui.preferences.AbstractDebuggingOptionsBlock;
 import org.eclipse.dltk.ui.preferences.AbstractConfigurationBlockPropertyAndPreferencePage;
@@ -19,9 +18,9 @@ import org.eclipse.dltk.ui.preferences.AbstractOptionsBlock;
 import org.eclipse.dltk.ui.preferences.PreferenceKey;
 import org.eclipse.dltk.ui.util.IStatusChangeListener;
 import org.eclipse.ui.preferences.IWorkbenchPreferenceContainer;
-import org.eclipse.ui.preferences.ScopedPreferenceStore;
 import org.eclipse.wst.xquery.core.XQDTNature;
 import org.eclipse.wst.xquery.debug.core.XQDTDebugCorePlugin;
+import org.eclipse.wst.xquery.ui.XQDTUIPlugin;
 
 public class XQDTDebugEnginesPreferencePage extends AbstractConfigurationBlockPropertyAndPreferencePage {
 
@@ -57,11 +56,11 @@ public class XQDTDebugEnginesPreferencePage extends AbstractConfigurationBlockPr
     }
 
     protected void setDescription() {
-        setDescription("General settings for XQuery Debugging");
+        setDescription("General settings for XQuery debugging");
     }
 
     protected void setPreferenceStore() {
-        setPreferenceStore(new ScopedPreferenceStore(new InstanceScope(), XQDTDebugCorePlugin.PLUGIN_ID));
+        setPreferenceStore(XQDTUIPlugin.getDefault().getPreferenceStore());
     }
 
     protected String getPreferencePageId() {

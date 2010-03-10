@@ -66,19 +66,23 @@ public class SETDebuggerRunner extends TranslatableDebuggingEngineRunner {
             ILaunch launch) throws CoreException {
         InterpreterConfig newConfig = (InterpreterConfig)config.clone();
 
+        newConfig.addInterpreterArg("test");
+        newConfig.addInterpreterArg("project");
+
+        String path = config.getWorkingDirectoryPath().toOSString();
+        newConfig.addInterpreterArg("-d");
+        newConfig.addInterpreterArg(path);
+
         newConfig.addInterpreterArg(DEBUG_SERVER_KEY);
-        newConfig.addInterpreterArg(PORTS_KEY);
         String ports = delegate.getString(getDebuggingEnginePreferenceQualifier(),
                 SETDebuggerConstants.DEBUGGING_ENGINE_SERVER_PORTS);
-        newConfig.addInterpreterArg(ports);
-
-        config.setProperty(SETDebuggerConstants.DEBUGGING_ENGINE_SERVER_PORTS, ports);
+        if (!ports.equals("")) {
+            newConfig.addInterpreterArg(PORTS_KEY);
+            newConfig.addInterpreterArg(ports);
+            config.setProperty(SETDebuggerConstants.DEBUGGING_ENGINE_SERVER_PORTS, ports);
+        }
 
         return newConfig;
     }
 
-    @Override
-    protected String[] renderCommandLine(InterpreterConfig config) {
-        return super.renderCommandLine(config);
-    }
 }

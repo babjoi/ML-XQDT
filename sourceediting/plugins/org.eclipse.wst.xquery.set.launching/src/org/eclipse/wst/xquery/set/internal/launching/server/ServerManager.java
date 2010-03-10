@@ -34,6 +34,7 @@ import org.eclipse.core.runtime.jobs.Job;
 import org.eclipse.debug.core.DebugException;
 import org.eclipse.debug.core.ILaunch;
 import org.eclipse.debug.core.ILaunchConfiguration;
+import org.eclipse.debug.core.ILaunchManager;
 import org.eclipse.wst.xquery.set.debug.core.ISETLaunchConfigurationConstants;
 import org.eclipse.wst.xquery.set.debug.core.SETDebugCorePlugin;
 import org.eclipse.wst.xquery.set.internal.launching.SETLaunchConfigurationDelegate;
@@ -93,7 +94,8 @@ public class ServerManager {
         // add synchronization code
         // !!!!!!!!!!!!!!!!!!!!!!!!
 
-        Server server = new Server(project, host, port, indent, clear);
+        boolean debugMode = launch.getLaunchMode().equals(ILaunchManager.DEBUG_MODE);
+        Server server = new Server(project, host, port, indent, clear, debugMode);
         ServerLaunchJob job = new ServerLaunchJob(launch, server);
 
         for (IServerLaunchListener listener : fServerLaunchListeners) {

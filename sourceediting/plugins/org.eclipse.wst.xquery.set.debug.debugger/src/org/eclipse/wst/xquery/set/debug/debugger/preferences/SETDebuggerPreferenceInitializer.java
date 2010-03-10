@@ -8,15 +8,18 @@
  * Contributors:
  *     Gabriel Petrovay (28msec) - initial API and implementation
  *******************************************************************************/
-package org.eclipse.wst.xquery.set.internal.ui;
+package org.eclipse.wst.xquery.set.debug.debugger.preferences;
 
 import org.eclipse.core.runtime.preferences.AbstractPreferenceInitializer;
-import org.eclipse.wst.xquery.set.internal.ui.preferences.PreferenceConstants;
+import org.eclipse.jface.preference.IPreferenceStore;
+import org.eclipse.wst.xquery.set.debug.debugger.SETDebuggerConstants;
+import org.eclipse.wst.xquery.set.debug.debugger.SETDebuggerPlugin;
 
-public class SETUIPreferenceInitializer extends AbstractPreferenceInitializer {
+public class SETDebuggerPreferenceInitializer extends AbstractPreferenceInitializer {
 
     public void initializeDefaultPreferences() {
-        PreferenceConstants.initializeDefaultValues();
-    }
+        IPreferenceStore store = SETDebuggerPlugin.getDefault().getPreferenceStore();
 
+        SETDebuggerConstants.initalizeDefaults(store);
+    }
 }

@@ -260,11 +260,19 @@ public class ZorbaDbgpTranslator extends DbgpWorkingThread implements IDbgpTrans
                 } else {
                     data.append("children='0' ");
                 }
-                if (variable.getValue() == null) {
+
+//                EvaluateMessage evalCmd = new EvaluateMessage(1, "name");
+//                reply = (ReplyMessage)fEngine.sendCommand(evalCmd);
+//                EvaluatedMessage payload = evalCmd.get(reply);
+
+                String value = " ";
+                //String value = variable.getValue();
+
+                if (value == null) {
                     data.append("size='0'>");
                 } else {
-                    data.append("size='" + variable.getValue().length() + "'>");
-                    data.append(variable.getValue());
+                    data.append("size='" + value.length() + "'>");
+                    data.append(value);
 
                 }
                 data.append("</property>");

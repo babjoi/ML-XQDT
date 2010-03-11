@@ -1,5 +1,8 @@
 package org.eclipse.wst.xquery.set.internal.ui.wizards;
 
+import java.net.MalformedURLException;
+import java.net.URL;
+
 import org.eclipse.dltk.core.IScriptProject;
 import org.eclipse.dltk.internal.ui.wizards.dialogfields.DialogField;
 import org.eclipse.dltk.internal.ui.wizards.dialogfields.IDialogFieldListener;
@@ -103,7 +106,7 @@ public class SETDeployProjectSecondWizardPage extends WizardPage {
     }
 
     private void createServerOptionsGroup(Composite composite) {
-        Group group = SWTFactory.createGroup(composite, "Deploy to", 3, 1, GridData.FILL_HORIZONTAL);
+        Group group = SWTFactory.createGroup(composite, "Deployment URL", 3, 1, GridData.FILL_HORIZONTAL);
 
         fDefaultServerRadioField = new SelectionButtonDialogField(SWT.RADIO);
         fDefaultServerRadioField.setLabelText("Default server: ");
@@ -126,20 +129,20 @@ public class SETDeployProjectSecondWizardPage extends WizardPage {
 
     private void isValid() {
         if (fCustomServerRadioField.isSelected()) {
-            String domain = fCustomServerText.getText();
-            if (!domain.matches("([\\p{Alnum}\\-]+\\.)+\\p{Alpha}{2,}")) {
-                setErrorMessage("The domain name is invalid.");
-                setPageComplete(false);
-                return;
-            }
+            String server = fCustomServerText.getText();
+            try {
+                URL url = new URL(server);
 
-            String[] segments = domain.split("\\.");
-            for (String segment : segments) {
-                if (segment.startsWith("-") || segment.endsWith("-") || segment.contains("--")) {
-                    setErrorMessage("For any segment in the domain name, the hyphen can not be used as first or last character, or more than once in a row.");
+                String authority = url.getAuthority();
+                if (authority == null || !authority.matches("([\\p{Alnum}]+\\.)+\\p{Alpha}{2,}")) {
+                    setErrorMessage("The URL authority must have at least two segments.");
                     setPageComplete(false);
                     return;
                 }
+            } catch (MalformedURLException mue) {
+                setErrorMessage("The deployment URL is invalid.");
+                setPageComplete(false);
+                return;
             }
         }
 

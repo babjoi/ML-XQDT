@@ -31,9 +31,13 @@ public class XQDTTypeFactory implements IScriptTypeFactory {
 //        if (type.endsWith("*") || type.endsWith("+")) {
 //            return new ArrayScriptType();
 //        }
-        int index = Arrays.binarySearch(simpleTypes, type);
-        if (index >= 0) {
-            return new AtomicScriptType(type);
+        String[] splits = type.split(":");
+        if (splits.length > 0) {
+            String simpleType = splits[0];
+            int index = Arrays.binarySearch(simpleTypes, simpleType);
+            if (index >= 0) {
+                return new AtomicScriptType(type);
+            }
         }
         return new ComplexScriptType(type);
     }

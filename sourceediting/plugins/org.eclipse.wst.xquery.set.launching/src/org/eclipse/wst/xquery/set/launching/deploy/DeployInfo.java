@@ -27,7 +27,7 @@ public class DeployInfo {
     private SETProjectConfig fConfig;
     private String fHost = DEFAULT_DEPLOYMENT_SERVER;
 
-    public static final String DEFAULT_DEPLOYMENT_SERVER = "http://28msec.dyndns.org:8080/28msec";
+    public static final String DEFAULT_DEPLOYMENT_SERVER = "http://portal.28msec.com/";
 
     public DeployInfo(IScriptProject project, SETProjectConfig config, String appName, String username,
             String password, DeployType type, String host) {

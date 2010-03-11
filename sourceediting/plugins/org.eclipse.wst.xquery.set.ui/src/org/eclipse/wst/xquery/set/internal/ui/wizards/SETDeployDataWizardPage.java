@@ -135,7 +135,7 @@ public class SETDeployDataWizardPage extends WizardPage {
         }
     }
 
-    private static final String PORTAL_URL = "http://28msec.dyndns.org:8080/";
+    private static final String PORTAL_URL = "http://portal.28msec.com/";
 
     private void createDescriptionLabels(Composite parent) {
         Composite composite = new Composite(parent, SWT.NONE);

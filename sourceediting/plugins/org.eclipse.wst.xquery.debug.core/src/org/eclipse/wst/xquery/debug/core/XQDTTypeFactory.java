@@ -8,7 +8,7 @@
  * Contributors:
  *     Gabriel Petrovay (28msec) - initial API and implementation
  *******************************************************************************/
-package org.eclipse.wst.xquery.debug.internal.core;
+package org.eclipse.wst.xquery.debug.core;
 
 import java.util.Arrays;
 

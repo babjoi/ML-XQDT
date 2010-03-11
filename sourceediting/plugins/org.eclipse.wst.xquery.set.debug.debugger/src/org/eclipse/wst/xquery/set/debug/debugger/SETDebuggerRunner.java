@@ -74,6 +74,7 @@ public class SETDebuggerRunner extends TranslatableDebuggingEngineRunner {
         newConfig.addInterpreterArg(path);
 
         newConfig.addInterpreterArg(DEBUG_SERVER_KEY);
+
         String ports = delegate.getString(getDebuggingEnginePreferenceQualifier(),
                 SETDebuggerConstants.DEBUGGING_ENGINE_SERVER_PORTS);
         if (!ports.equals("")) {

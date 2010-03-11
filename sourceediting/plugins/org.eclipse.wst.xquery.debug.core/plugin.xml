@@ -12,7 +12,7 @@
       <debugModel
             debugModelId="org.eclipse.wst.xquery.debug.core.xqdtModel"
             natureId="org.eclipse.wst.xquery.core.nature"
-            typeFactory="org.eclipse.wst.xquery.debug.internal.core.XQDTTypeFactory">
+            typeFactory="org.eclipse.wst.xquery.debug.core.XQDTTypeFactory">
       </debugModel>
    </extension>
 

@@ -178,6 +178,8 @@ public class ZorbaDebuggerEngine extends DbgpTermination implements IDebuggerEng
             } catch (IOException e) {
                 try {
                     if (--trials < 0) {
+                        fTerminated = true;
+                        terminate();
                         throw new IOException(
                                 "Failed to connect to the debug engine. Connection failed after 5 connection attempts.");
                     }

@@ -74,10 +74,10 @@ public class ZorbaDebuggerEngine extends DbgpTermination implements IDebuggerEng
         public void run() {
             try {
                 fEventConnection.connect();
+                fEventReader = new MessageReader(fEventConnection.getInput());
             } catch (IOException e) {
                 handleException(e);
             }
-            fEventReader = new MessageReader(fEventConnection.getInput());
 
             AbstractCommandMessage event;
             try {

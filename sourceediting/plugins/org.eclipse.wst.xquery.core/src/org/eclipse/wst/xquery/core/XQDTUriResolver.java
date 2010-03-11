@@ -62,7 +62,7 @@ public class XQDTUriResolver implements IXQDTUriResolver {
                 folder = project;
             } else {
                 try {
-                    folder = project.findScriptFolder(packageRelativePath.makeAbsolute());
+                    folder = project.findScriptFolder(project.getPath().append(packageRelativePath));
                 } catch (ModelException e) {
                     e.printStackTrace();
                 }

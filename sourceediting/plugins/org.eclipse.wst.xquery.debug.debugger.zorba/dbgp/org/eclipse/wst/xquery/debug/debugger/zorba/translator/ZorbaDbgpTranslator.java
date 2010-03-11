@@ -239,43 +239,8 @@ public class ZorbaDbgpTranslator extends DbgpWorkingThread implements IDbgpTrans
 
             StringBuffer data = new StringBuffer();
             for (Variable variable : variables) {
-                data.append("<property ");
-                String name = variable.getName();
-                if (name.equals("$$dot")) {
-                    name = ". (context item)";
-                } else {
-                    name = "$" + name;
-                }
-                String type = variable.getType();
-                if (type.length() == 0) {
-                    type = "xs:integer*";
-                }
-                data.append("name='" + name + "' ");
-                data.append("fullname='" + name + "' ");
-                data.append("type='" + type + "' ");
-                data.append("constant='0' ");
-                if (type.endsWith("*")) {
-                    data.append("children='1' ");
-                    //data.append("numchildren='2' ");
-                } else {
-                    data.append("children='0' ");
-                }
-
-//                EvaluateMessage evalCmd = new EvaluateMessage(1, "name");
-//                reply = (ReplyMessage)fEngine.sendCommand(evalCmd);
-//                EvaluatedMessage payload = evalCmd.get(reply);
-
-                String value = " ";
-                //String value = variable.getValue();
-
-                if (value == null) {
-                    data.append("size='0'>");
-                } else {
-                    data.append("size='" + value.length() + "'>");
-                    data.append(value);
-
-                }
-                data.append("</property>");
+                //String varProperty = evaluateVariable(variable);
+                //data.append(varProperty);
             }
             response.setData(data.toString());
         } else if (command.equals(IDbgpConstants.COMMAND_PROPERTY_SET)) {
@@ -353,6 +318,80 @@ public class ZorbaDbgpTranslator extends DbgpWorkingThread implements IDbgpTrans
             fEngine.evaluate(request.getData(), tID);
         }
         return response;
+    }
+
+    private String buildVarProperty(String name, String type, String value) {
+        StringBuffer data = new StringBuffer();
+
+        data.append("<property ");
+        data.append("name='" + name + "' ");
+        data.append("fullname='" + name + "' ");
+        data.append("type='" + type + "' ");
+        data.append("constant='0' ");
+
+        if (value == null) {
+            data.append("size='0'>");
+        } else {
+            data.append("size='" + value.length() + "'>");
+            data.append(value);
+        }
+        data.append("</property>");
+
+        return data.toString();
+    }
+
+    private class SynchronizingEvalListener implements IDebugEventListener {
+        private Object fBlockedObject;
+
+        private EvaluatedMessage fEvaluated;
+
+        public SynchronizingEvalListener(Object blockdObject) {
+            fBlockedObject = blockdObject;
+        }
+
+        public void handleDebugEvent(AbstractCommandMessage event) {
+            if (event instanceof EvaluatedMessage) {
+                fEngine.removeDebugEventListener(this);
+                fEvaluated = (EvaluatedMessage)event;
+
+                if (fBlockedObject != null) {
+                    fBlockedObject.notify();
+                }
+            }
+        }
+
+        public EvaluatedMessage getEvaluated() {
+            return fEvaluated;
+        }
+
+    }
+
+    private String evaluateVariable(Variable variable) {
+        // correct the variable name (to be a valid XQuery expression)
+        String name = variable.getName();
+        if (name.equals("$$dot")) {
+            name = ".";
+        } else {
+            name = "$" + name;
+        }
+
+        SynchronizingEvalListener listener = new SynchronizingEvalListener(this);
+        fEngine.addEvalEventListener(listener);
+        fEngine.evaluate(name, variable.hashCode());
+
+        try {
+            wait();
+        } catch (InterruptedException e) {
+            return "";
+        }
+        EvaluatedMessage result = listener.getEvaluated();
+        if (result == null) {
+            return "";
+        }
+        String type = result.getType();
+        String value = result.getResults();
+
+        return buildVarProperty(name, type, value);
     }
 
     private synchronized void processStackRequestAndSuspendedMesage() {

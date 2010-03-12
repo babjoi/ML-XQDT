@@ -29,7 +29,7 @@ import org.eclipse.core.runtime.IPath;
 
 public class SETImportDataJob extends SETCoreSDKCommandJob {
 
-    private static final String BULKLOAD_PATH = "test/data/bulkload";
+    private static final String BULKLOAD_PATH = "bulkload";
 
     public SETImportDataJob(IProject project, OutputStream output) {
         super("Importing project data", project, output);

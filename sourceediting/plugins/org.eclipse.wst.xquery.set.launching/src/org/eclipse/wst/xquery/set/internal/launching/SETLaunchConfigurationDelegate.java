@@ -61,12 +61,13 @@ public class SETLaunchConfigurationDelegate extends AbstractScriptLaunchConfigur
         final ServerLaunchJob serverJob = ServerManager.getInstance().createServerJob(launch);
         serverJob.addJobChangeListener(new JobChangeAdapter() {
 
-            @Override
             public void done(IJobChangeEvent event) {
+                System.out.println("done");
                 if (event.getResult() == Status.OK_STATUS) {
                     openBrowser(launch);
                 }
             }
+
         });
 
         // start Apache
@@ -101,7 +102,6 @@ public class SETLaunchConfigurationDelegate extends AbstractScriptLaunchConfigur
 
             public void run() {
                 try {
-
                     String urlStr = "http://" + server.getHost();
                     if (server.getPort() != 80) {
                         urlStr += ":" + server.getPort();

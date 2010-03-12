@@ -10,6 +10,7 @@
  *******************************************************************************/
 package org.eclipse.wst.xquery.set.launching;
 
+import org.eclipse.core.runtime.Platform;
 import org.eclipse.core.runtime.Plugin;
 import org.osgi.framework.BundleContext;
 
@@ -23,6 +24,9 @@ public class SETLaunchingPlugin extends Plugin {
 
     // The shared instance
     private static SETLaunchingPlugin plugin;
+
+    public static final boolean DEBUG_SERVER = Boolean.valueOf(Platform.getDebugOption(PLUGIN_ID + "/debug/server"))
+            .booleanValue();
 
     /**
      * The constructor

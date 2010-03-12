@@ -25,6 +25,7 @@ import org.eclipse.debug.core.DebugPlugin;
 import org.eclipse.debug.core.IStreamListener;
 import org.eclipse.debug.core.model.IStreamMonitor;
 import org.eclipse.wst.xquery.set.launching.CoreSdkUtil;
+import org.eclipse.wst.xquery.set.launching.SETLaunchingPlugin;
 
 public class Server implements IStreamListener {
 
@@ -96,13 +97,19 @@ public class Server implements IStreamListener {
                 throwSNSE();
             }
 
-            System.out.println("checking exit");
+            if (SETLaunchingPlugin.DEBUG_SERVER) {
+                System.out.println("checking exit");
+            }
             int error = fProcess.exitValue();
-            System.out.println("exited with error code: " + error);
+            if (SETLaunchingPlugin.DEBUG_SERVER) {
+                System.out.println("exited with error code: " + error);
+            }
             throwSNSE();
         } catch (IllegalThreadStateException itse) {
             // OK: this is what we want
-            System.out.println("did not exit");
+            if (SETLaunchingPlugin.DEBUG_SERVER) {
+                System.out.println("did not exit");
+            }
         } catch (InterruptedException e) {
             throwSNSE();
         }
@@ -110,11 +117,17 @@ public class Server implements IStreamListener {
         // check if apache created the pid file (someone
         // else might be listening on this server's port)
         try {
-            System.out.println("check pid");
+            if (SETLaunchingPlugin.DEBUG_SERVER) {
+                System.out.println("check pid");
+            }
             int pid = ServerManager.getServerPid(fProject);
-            System.out.println("pid found: " + pid);
+            if (SETLaunchingPlugin.DEBUG_SERVER) {
+                System.out.println("pid found: " + pid);
+            }
         } catch (DebugException de) {
-            System.out.println("pid error");
+            if (SETLaunchingPlugin.DEBUG_SERVER) {
+                System.out.println("pid error");
+            }
             return false;
         }
 

@@ -1,0 +1,3 @@
+org.eclipse.wst.xquery.debug.debugger.zorba/debug/debuggerEngine = false
+org.eclipse.wst.xquery.debug.debugger.zorba/debug/zorbaDebugProtocol = false
+org.eclipse.wst.xquery.debug.debugger.zorba/debug/dbgpTranslator = false

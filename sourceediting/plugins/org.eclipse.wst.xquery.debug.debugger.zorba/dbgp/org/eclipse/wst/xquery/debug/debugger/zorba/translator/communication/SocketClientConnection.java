@@ -15,6 +15,8 @@ import java.io.IOException;
 import java.net.Socket;
 import java.util.Arrays;
 
+import org.eclipse.wst.xquery.debug.debugger.zorba.ZorbaDebuggerPlugin;
+
 public final class SocketClientConnection extends SocketConnection {
 
     private static final byte[] handshakeBytes = "XQHandshake".getBytes();
@@ -58,12 +60,15 @@ public final class SocketClientConnection extends SocketConnection {
                     DataInputStream in = new DataInputStream(fInput);
                     byte[] handshakeInput = new byte[handshakeBytes.length];
                     in.readFully(handshakeInput);
-                    if (!Arrays.equals(handshakeInput, handshakeBytes))
+                    if (!Arrays.equals(handshakeInput, handshakeBytes)) {
                         throw new IOException("Received invalid handshake");
+                    }
                 } catch (IOException e) {
                     throw new ProtocolException("Protocol handshake error", e);
                 }
-                System.out.println("Handshake successful");
+                if (ZorbaDebuggerPlugin.DEBUG_DEBUGGER_ENGINE) {
+                    System.out.println("Handshake successful");
+                }
                 handshakeCompleted[0] = true;
             }
         });
@@ -75,8 +80,9 @@ public final class SocketClientConnection extends SocketConnection {
         } catch (InterruptedException e1) {
         }
 
-        if (handshakeCompleted[0])
+        if (handshakeCompleted[0]) {
             return;
+        }
 
         try {
             fInput.close();

@@ -34,7 +34,7 @@ public class XQDTCorePlugin extends Plugin {
     public static final boolean DEBUG_PARSER_RESULTS = Boolean.valueOf(
             Platform.getDebugOption(PLUGIN_ID + "/debug/parser/results")).booleanValue();
     public static final boolean DEBUG_DOCUMENT_PARTITIONER = Boolean.valueOf(
-            Platform.getDebugOption(PLUGIN_ID + "/debug/document_partitioner")).booleanValue();
+            Platform.getDebugOption(PLUGIN_ID + "/debug/documentPartitioner")).booleanValue();
 
     private static IXQDTUriResolver fUriResolver;
 

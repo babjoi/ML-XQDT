@@ -13,6 +13,7 @@ package org.eclipse.wst.xquery.debug.debugger.zorba.translator.messages;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 
+import org.eclipse.wst.xquery.debug.debugger.zorba.ZorbaDebuggerPlugin;
 import org.eclipse.wst.xquery.debug.debugger.zorba.translator.communication.MessageHeader;
 import org.eclipse.wst.xquery.debug.debugger.zorba.translator.communication.MessageReader;
 import org.eclipse.wst.xquery.debug.debugger.zorba.translator.communication.ProtocolException;
@@ -36,7 +37,9 @@ public class MessageFactory implements ICommandSets {
 
         Gson g = new Gson();
 
-        System.out.println("Building message with data: " + new String(data));
+        if (ZorbaDebuggerPlugin.DEBUG_ZORBA_DEBUG_PROTOCOL) {
+            System.out.println("Building message with data: " + new String(data));
+        }
         try {
             switch (commandSet) {
             case COMMAND_SET_EXECUTION:

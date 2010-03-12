@@ -143,7 +143,6 @@ public class ZorbaDebuggerEngine extends DbgpTermination implements IDebuggerEng
 
     public void addDebugEventListener(IDebugEventListener listener) {
         fEventListeners.add(listener);
-        // System.out.println("*************> LISTENERS: " + fEventListeners.size());
     }
 
     public void addEvalEventListener(IDebugEventListener listener) {
@@ -152,7 +151,6 @@ public class ZorbaDebuggerEngine extends DbgpTermination implements IDebuggerEng
 
     public void addEvalEventListener(IDebugEventListener listener, int exprId) {
         fEvalEventListenerMap.put(exprId, listener);
-        // System.out.println("*************> EVAL MAP: " + fEvalEventListenerMap.size());
     }
 
     public void removeDebugEventListener(IDebugEventListener listener) {
@@ -194,19 +192,29 @@ public class ZorbaDebuggerEngine extends DbgpTermination implements IDebuggerEng
         sendCommand(ICommandSets.COMMAND_TERMINATE);
         // handleReply(reply);
 
-        System.out.println("Terminating engine");
+        if (ZorbaDebuggerPlugin.DEBUG_DEBUGGER_ENGINE) {
+            System.out.println("Terminating engine");
+        }
         fTerminated = true;
         if (fRequestConnection != null) {
-            System.out.println("Terminating engine command connection");
+            if (ZorbaDebuggerPlugin.DEBUG_DEBUGGER_ENGINE) {
+                System.out.println("Terminating engine command connection");
+            }
             fRequestConnection.close();
-            System.out.println("connection open: " + fRequestConnection.isOpen());
+            if (ZorbaDebuggerPlugin.DEBUG_DEBUGGER_ENGINE) {
+                System.out.println("connection open: " + fRequestConnection.isOpen());
+            }
             fRequestConnection = null;
         }
 
         if (fEventConnection != null) {
-            System.out.println("Terminating engine event listener");
+            if (ZorbaDebuggerPlugin.DEBUG_DEBUGGER_ENGINE) {
+                System.out.println("Terminating engine event listener");
+            }
             fEventConnection.close();
-            System.out.println("connection open: " + fEventConnection.isOpen());
+            if (ZorbaDebuggerPlugin.DEBUG_DEBUGGER_ENGINE) {
+                System.out.println("connection open: " + fEventConnection.isOpen());
+            }
             fEventConnection = null;
         }
         fReplyReader = null;
@@ -220,15 +228,23 @@ public class ZorbaDebuggerEngine extends DbgpTermination implements IDebuggerEng
     }
 
     public AbstractReplyMessage sendCommand(AbstractCommandMessage message) {
-        System.out.println("Sending command: " + message.getClass().getSimpleName());
+        if (ZorbaDebuggerPlugin.DEBUG_ZORBA_DEBUG_PROTOCOL) {
+            System.out.println("Sending command: " + message.getClass().getSimpleName());
+        }
 
         AbstractReplyMessage reply = null;
         try {
-            System.out.println("Sending to engine:" + new String(message.toByteArray()));
+            if (ZorbaDebuggerPlugin.DEBUG_ZORBA_DEBUG_PROTOCOL) {
+                System.out.println("Sending to engine:" + new String(message.toByteArray()));
+            }
             fRequestConnection.writePacket(message.toByteArray());
-            System.out.println("Waiting fo reply...");
+            if (ZorbaDebuggerPlugin.DEBUG_DEBUGGER_ENGINE) {
+                System.out.println("Waiting fo reply...");
+            }
             reply = (AbstractReplyMessage)fReplyReader.readMessage();
-            System.out.println("Reply received");
+            if (ZorbaDebuggerPlugin.DEBUG_DEBUGGER_ENGINE) {
+                System.out.println("Reply received");
+            }
         } catch (IOException e) {
             //e.printStackTrace();
         }
@@ -393,7 +409,9 @@ public class ZorbaDebuggerEngine extends DbgpTermination implements IDebuggerEng
     }
 
     public void evaluate(String expression, int listenerId) {
-        System.out.println("Evaluating: " + expression);
+        if (ZorbaDebuggerPlugin.DEBUG_DEBUGGER_ENGINE) {
+            System.out.println("Evaluating: " + expression);
+        }
         EvaluateMessage command = new EvaluateMessage(listenerId, expression);
         AbstractReplyMessage reply = sendCommand(command);
         handleReply(reply);

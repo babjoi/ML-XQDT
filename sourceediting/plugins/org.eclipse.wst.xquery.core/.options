@@ -1,4 +1,4 @@
 org.eclipse.wst.xquery.core/debug = false
 org.eclipse.wst.xquery.core/debug/parser/actions = false
 org.eclipse.wst.xquery.core/debug/parser/results = false
-org.eclipse.wst.xquery.core/debug/document_partitioner = false
+org.eclipse.wst.xquery.core/debug/documentPartitioner = false

@@ -17,6 +17,7 @@ import java.util.concurrent.ConcurrentLinkedQueue;
 
 import org.eclipse.dltk.dbgp.internal.DbgpWorkingThread;
 import org.eclipse.dltk.dbgp.internal.IDbgpTerminationListener;
+import org.eclipse.wst.xquery.debug.core.XQDTDebugCorePlugin;
 import org.eclipse.wst.xquery.debug.dbgp.XmlElement;
 
 @SuppressWarnings("restriction")
@@ -43,8 +44,9 @@ public class DbgpProxyClientResponder extends DbgpWorkingThread implements IDbgp
             while (!hasTerminated() || !fResponseQueue.isEmpty()) {
                 while (fResponseQueue.isEmpty()) {
                     Thread.sleep(150);
-                    if (hasTerminated())
+                    if (hasTerminated()) {
                         return;
+                    }
                 }
                 XmlElement xe = fResponseQueue.remove();
                 String data = xe.toXml();
@@ -55,7 +57,9 @@ public class DbgpProxyClientResponder extends DbgpWorkingThread implements IDbgp
                 fOutputStream.write(data.getBytes());
                 fOutputStream.write(0);
                 fOutputStream.flush();
-                System.out.println("sent: " + data);
+                if (XQDTDebugCorePlugin.DEBUG_DBGP_PROTOCOL) {
+                    System.out.println("sent: " + data);
+                }
             }
         } catch (InterruptedException ie) {
             // ie.printStackTrace();
@@ -84,8 +88,9 @@ public class DbgpProxyClientResponder extends DbgpWorkingThread implements IDbgp
 
     public void objectTerminated(Object object, Exception e) {
         synchronized (fTerminatedLock) {
-            if (fTerminated)
+            if (fTerminated) {
                 return;
+            }
 
             try {
                 fOutputStream.close();

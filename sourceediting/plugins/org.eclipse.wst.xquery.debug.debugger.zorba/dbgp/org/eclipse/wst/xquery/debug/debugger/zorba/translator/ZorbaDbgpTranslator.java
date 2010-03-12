@@ -42,6 +42,7 @@ import org.eclipse.wst.xquery.debug.dbgp.client.DbgpProxyClientReceiver;
 import org.eclipse.wst.xquery.debug.dbgp.client.DbgpProxyClientResponder;
 import org.eclipse.wst.xquery.debug.dbgp.client.IDbgpConstants;
 import org.eclipse.wst.xquery.debug.dbgp.client.IDbgpTranslator;
+import org.eclipse.wst.xquery.debug.debugger.zorba.ZorbaDebuggerPlugin;
 import org.eclipse.wst.xquery.debug.debugger.zorba.translator.messages.AbstractCommandMessage;
 import org.eclipse.wst.xquery.debug.debugger.zorba.translator.messages.ClearMessage;
 import org.eclipse.wst.xquery.debug.debugger.zorba.translator.messages.EvaluatedMessage;
@@ -146,7 +147,9 @@ public class ZorbaDbgpTranslator extends DbgpWorkingThread implements IDbgpTrans
                     break;
                 }
             }
-            System.out.println("Exiting the command translator");
+            if (ZorbaDebuggerPlugin.DEBUG_DBGP_TRANSLATOR) {
+                System.out.println("Exiting the command translator");
+            }
         } catch (Exception e) {
             e.printStackTrace();
             fireObjectTerminated(e);
@@ -239,8 +242,8 @@ public class ZorbaDbgpTranslator extends DbgpWorkingThread implements IDbgpTrans
 
             StringBuffer data = new StringBuffer();
             for (Variable variable : variables) {
-                //String varProperty = evaluateVariable(variable);
-                //data.append(varProperty);
+                String varProperty = evaluateVariable(variable);
+                data.append(varProperty);
             }
             response.setData(data.toString());
         } else if (command.equals(IDbgpConstants.COMMAND_PROPERTY_SET)) {
@@ -328,13 +331,9 @@ public class ZorbaDbgpTranslator extends DbgpWorkingThread implements IDbgpTrans
         data.append("fullname='" + name + "' ");
         data.append("type='" + type + "' ");
         data.append("constant='0' ");
-
-        if (value == null) {
-            data.append("size='0'>");
-        } else {
-            data.append("size='" + value.length() + "'>");
-            data.append(value);
-        }
+        data.append("encoding='base64'>");
+        String encodedValue = Base64Helper.encodeString(value);
+        data.append(encodedValue);
         data.append("</property>");
 
         return data.toString();
@@ -351,11 +350,17 @@ public class ZorbaDbgpTranslator extends DbgpWorkingThread implements IDbgpTrans
 
         public void handleDebugEvent(AbstractCommandMessage event) {
             if (event instanceof EvaluatedMessage) {
-                fEngine.removeDebugEventListener(this);
+                fEngine.removeEvalEventListener(this);
                 fEvaluated = (EvaluatedMessage)event;
 
                 if (fBlockedObject != null) {
-                    fBlockedObject.notify();
+                    try {
+                        synchronized (fBlockedObject) {
+                            fBlockedObject.notify();
+                        }
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
                 }
             }
         }
@@ -369,28 +374,32 @@ public class ZorbaDbgpTranslator extends DbgpWorkingThread implements IDbgpTrans
     private String evaluateVariable(Variable variable) {
         // correct the variable name (to be a valid XQuery expression)
         String name = variable.getName();
+        String type = "";
+        String value = "";
         if (name.equals("$$dot")) {
             name = ".";
         } else {
             name = "$" + name;
-        }
 
-        SynchronizingEvalListener listener = new SynchronizingEvalListener(this);
-        fEngine.addEvalEventListener(listener);
-        fEngine.evaluate(name, variable.hashCode());
+            Object lock = new Object();
+            SynchronizingEvalListener listener = new SynchronizingEvalListener(lock);
+            fEngine.addEvalEventListener(listener);
+            fEngine.evaluate(name, listener.hashCode());
 
-        try {
-            wait();
-        } catch (InterruptedException e) {
-            return "";
-        }
-        EvaluatedMessage result = listener.getEvaluated();
-        if (result == null) {
-            return "";
-        }
-        String type = result.getType();
-        String value = result.getResults();
+            synchronized (lock) {
+                try {
+                    lock.wait();
+                } catch (InterruptedException e) {
+                    return "";
+                }
+            }
 
+            EvaluatedMessage result = listener.getEvaluated();
+            if (result != null) {
+                type = result.getType();
+                value = result.getResults();
+            }
+        }
         return buildVarProperty(name, type, value);
     }
 
@@ -410,7 +419,6 @@ public class ZorbaDbgpTranslator extends DbgpWorkingThread implements IDbgpTrans
         }
         filename = new File(filename).toURI().toString();
 
-        // System.out.println(filename);
         int lineno = ql.getLineBegin();
         String cmdbegin = ql.getLineBegin() + ":" + (ql.getColumnBegin() - 1);
         String cmdend = ql.getLineEnd() + ":" + (ql.getColumnEnd() - 2);
@@ -458,7 +466,9 @@ public class ZorbaDbgpTranslator extends DbgpWorkingThread implements IDbgpTrans
     }
 
     public void handleDebugEvent(AbstractCommandMessage event) {
-        System.out.println(event.toString());
+        if (ZorbaDebuggerPlugin.DEBUG_ZORBA_DEBUG_PROTOCOL) {
+            System.out.println("Received event: " + event.toString());
+        }
         DbgpResponse response = null;
         if (event instanceof TerminatedMessage) {
             response = new DbgpResponse(fLastContinuationCommand);
@@ -496,9 +506,13 @@ public class ZorbaDbgpTranslator extends DbgpWorkingThread implements IDbgpTrans
 
     public void objectTerminated(Object object, Exception e) {
         try {
-            System.out.println("waiting for engine");
+            if (ZorbaDebuggerPlugin.DEBUG_DBGP_TRANSLATOR) {
+                System.out.println("waiting for engine");
+            }
             fEngine.waitTerminated();
-            System.out.println("waited for engine");
+            if (ZorbaDebuggerPlugin.DEBUG_DBGP_TRANSLATOR) {
+                System.out.println("waited for engine");
+            }
         } catch (InterruptedException e1) {
             e1.printStackTrace();
         }

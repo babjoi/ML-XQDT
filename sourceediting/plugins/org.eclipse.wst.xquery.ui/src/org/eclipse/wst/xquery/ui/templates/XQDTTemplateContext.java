@@ -214,7 +214,9 @@ public class XQDTTemplateContext extends ScriptTemplateContext {
             project.accept(collector);
             for (ISourceModule module : collector.modules) {
                 XQueryLibraryModule library = (XQueryLibraryModule)SourceParserUtil.getModuleDeclaration(module);
-                namespaces.add(library.getNamespaceUri().getValue());
+                if (library != null) {
+                    namespaces.add(library.getNamespaceUri().getValue());
+                }
             }
         } catch (ModelException e) {
             if (XQDTCorePlugin.DEBUG) {

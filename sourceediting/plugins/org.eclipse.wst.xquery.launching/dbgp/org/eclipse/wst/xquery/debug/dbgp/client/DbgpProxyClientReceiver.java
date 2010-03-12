@@ -21,6 +21,7 @@ import org.eclipse.dltk.dbgp.DbgpRequest;
 import org.eclipse.dltk.dbgp.exceptions.DbgpException;
 import org.eclipse.dltk.dbgp.internal.DbgpWorkingThread;
 import org.eclipse.dltk.dbgp.internal.IDbgpTerminationListener;
+import org.eclipse.wst.xquery.debug.core.XQDTDebugCorePlugin;
 import org.eclipse.wst.xquery.debug.dbgp.DbgpRequestParser;
 
 @SuppressWarnings("restriction")
@@ -53,8 +54,9 @@ public class DbgpProxyClientReceiver extends DbgpWorkingThread implements IDbgpT
                     sb.append((char)c);
                     c = fInputStream.read();
                 }
-                if (c == 0)
+                if (c == 0) {
                     enqueueCommand(DbgpRequestParser.parse(sb.toString()));
+                }
             }
         } catch (IOException ioe) {
             // ioe.printStackTrace();
@@ -77,7 +79,9 @@ public class DbgpProxyClientReceiver extends DbgpWorkingThread implements IDbgpT
 
     private void enqueueCommand(DbgpRequest request) {
         fCommandQueue.offer(request);
-        System.out.println("enqueued: " + request.toString());
+        if (XQDTDebugCorePlugin.DEBUG_DBGP_PROTOCOL) {
+            System.out.println("enqueued: " + request.toString());
+        }
         notifyListeners();
     }
 
@@ -97,8 +101,9 @@ public class DbgpProxyClientReceiver extends DbgpWorkingThread implements IDbgpT
 
     public void objectTerminated(Object object, Exception e) {
         synchronized (fTerminatedLock) {
-            if (fTerminated)
+            if (fTerminated) {
                 return;
+            }
 
             try {
                 fInputStream.close();

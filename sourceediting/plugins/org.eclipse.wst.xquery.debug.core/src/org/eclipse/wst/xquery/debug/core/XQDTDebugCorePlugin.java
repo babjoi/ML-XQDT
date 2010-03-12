@@ -10,6 +10,7 @@
  *******************************************************************************/
 package org.eclipse.wst.xquery.debug.core;
 
+import org.eclipse.core.runtime.Platform;
 import org.eclipse.core.runtime.Plugin;
 import org.osgi.framework.BundleContext;
 
@@ -23,6 +24,9 @@ public class XQDTDebugCorePlugin extends Plugin {
 
     // The shared instance
     private static XQDTDebugCorePlugin plugin;
+
+    public static final boolean DEBUG_DBGP_PROTOCOL = Boolean.valueOf(
+            Platform.getDebugOption(PLUGIN_ID + "debug/dbgpProtocol")).booleanValue();
 
     /**
      * The constructor

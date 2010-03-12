@@ -133,9 +133,9 @@ public class SETDeployProjectSecondWizardPage extends WizardPage {
             try {
                 URL url = new URL(server);
 
-                String authority = url.getAuthority();
-                if (authority == null || !authority.matches("([\\p{Alnum}]+\\.)+\\p{Alpha}{2,}")) {
-                    setErrorMessage("The URL authority must have at least two segments.");
+                String host = url.getHost();
+                if (host == null || host.length() == 0) {
+                    setErrorMessage("The URL host cannot be empty.");
                     setPageComplete(false);
                     return;
                 }

@@ -10,6 +10,7 @@
  *******************************************************************************/
 package org.eclipse.wst.xquery.debug.debugger.zorba;
 
+import org.eclipse.core.runtime.Platform;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
 import org.osgi.framework.BundleContext;
 
@@ -23,6 +24,13 @@ public class ZorbaDebuggerPlugin extends AbstractUIPlugin {
 
     // The shared instance
     private static ZorbaDebuggerPlugin plugin;
+
+    public static final boolean DEBUG_DEBUGGER_ENGINE = Boolean.valueOf(
+            Platform.getDebugOption(PLUGIN_ID + "/debug/debuggerEngine")).booleanValue();
+    public static final boolean DEBUG_ZORBA_DEBUG_PROTOCOL = Boolean.valueOf(
+            Platform.getDebugOption(PLUGIN_ID + "/debug/zorbaDebugProtocol")).booleanValue();
+    public static final boolean DEBUG_DBGP_TRANSLATOR = Boolean.valueOf(
+            Platform.getDebugOption(PLUGIN_ID + "/debug/dbgpTranslator")).booleanValue();
 
     /**
      * The constructor

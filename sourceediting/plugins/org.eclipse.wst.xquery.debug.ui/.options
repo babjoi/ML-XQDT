@@ -1,1 +1,1 @@
-processors/automaticDetection/processors/automaticDetection = false
+org.eclipse.wst.xquery.debug.ui/processors/automaticDetection = false

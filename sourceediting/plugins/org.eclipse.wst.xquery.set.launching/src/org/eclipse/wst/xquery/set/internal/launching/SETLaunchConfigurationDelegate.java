@@ -62,7 +62,6 @@ public class SETLaunchConfigurationDelegate extends AbstractScriptLaunchConfigur
         serverJob.addJobChangeListener(new JobChangeAdapter() {
 
             public void done(IJobChangeEvent event) {
-                System.out.println("done");
                 if (event.getResult() == Status.OK_STATUS) {
                     openBrowser(launch);
                 }

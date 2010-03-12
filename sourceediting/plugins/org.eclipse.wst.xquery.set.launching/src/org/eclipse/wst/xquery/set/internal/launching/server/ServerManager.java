@@ -39,6 +39,7 @@ import org.eclipse.wst.xquery.set.debug.core.ISETLaunchConfigurationConstants;
 import org.eclipse.wst.xquery.set.debug.core.SETDebugCorePlugin;
 import org.eclipse.wst.xquery.set.internal.launching.SETLaunchConfigurationDelegate;
 import org.eclipse.wst.xquery.set.launching.CoreSdkUtil;
+import org.eclipse.wst.xquery.set.launching.SETLaunchingPlugin;
 
 public class ServerManager {
 
@@ -136,7 +137,9 @@ public class ServerManager {
                     if (!Platform.getOS().equals(Platform.OS_WIN32) && ec != 0) {
                         handleKillProcessError(p, commandList);
                     } else {
-                        System.out.println("Terminate command exited succesfully");
+                        if (SETLaunchingPlugin.DEBUG_SERVER) {
+                            System.out.println("Terminate command exited succesfully");
+                        }
                     }
 
                     while (server.isListening()) {

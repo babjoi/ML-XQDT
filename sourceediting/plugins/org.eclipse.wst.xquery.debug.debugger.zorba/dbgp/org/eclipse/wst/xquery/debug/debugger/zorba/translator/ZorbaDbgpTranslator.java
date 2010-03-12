@@ -380,26 +380,27 @@ public class ZorbaDbgpTranslator extends DbgpWorkingThread implements IDbgpTrans
             name = ".";
         } else {
             name = "$" + name;
+        }
 
-            Object lock = new Object();
-            SynchronizingEvalListener listener = new SynchronizingEvalListener(lock);
-            fEngine.addEvalEventListener(listener);
-            fEngine.evaluate(name, listener.hashCode());
+        Object lock = new Object();
+        SynchronizingEvalListener listener = new SynchronizingEvalListener(lock);
+        fEngine.addEvalEventListener(listener);
+        fEngine.evaluate(name, listener.hashCode());
 
-            synchronized (lock) {
-                try {
-                    lock.wait();
-                } catch (InterruptedException e) {
-                    return "";
-                }
-            }
-
-            EvaluatedMessage result = listener.getEvaluated();
-            if (result != null) {
-                type = result.getType();
-                value = result.getResults();
+        synchronized (lock) {
+            try {
+                lock.wait();
+            } catch (InterruptedException e) {
+                return "";
             }
         }
+
+        EvaluatedMessage result = listener.getEvaluated();
+        if (result != null) {
+            type = result.getType();
+            value = result.getResults();
+        }
+
         return buildVarProperty(name, type, value);
     }
 

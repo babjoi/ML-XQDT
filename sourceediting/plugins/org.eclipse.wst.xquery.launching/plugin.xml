@@ -42,7 +42,7 @@
    <extension
          point="org.eclipse.dltk.core.buildParticipant">
       <buildParticipant
-            class="org.eclipse.wst.xquery.internal.launching.XQDTSemanticBuilderFactory"
+            class="org.eclipse.wst.xquery.launching.XQDTSemanticBuilderFactory"
             id="org.eclipse.wst.xquery.core.semanticBuilder"
             name="XQDT Semantic Builder"
             nature="org.eclipse.wst.xquery.core.nature">

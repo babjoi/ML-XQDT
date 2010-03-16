@@ -58,6 +58,7 @@ public class SETDeployProjectSecondWizardPage extends WizardPage {
 
     private WidgetListener fListener = new WidgetListener();
 
+    @SuppressWarnings("unused")
     private IScriptProject fProject;
 
     private static final String DESCRIPTION = "Choose custom deployment options";

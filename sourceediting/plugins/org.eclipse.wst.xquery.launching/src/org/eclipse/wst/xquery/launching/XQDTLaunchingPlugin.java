@@ -10,11 +10,12 @@
  *******************************************************************************/
 package org.eclipse.wst.xquery.launching;
 
+import org.eclipse.core.runtime.Platform;
 import org.eclipse.core.runtime.Plugin;
 import org.eclipse.dltk.core.DLTKCore;
 import org.eclipse.dltk.core.ElementChangedEvent;
-import org.osgi.framework.BundleContext;
 import org.eclipse.wst.xquery.internal.launching.XQDTBuildPathChangedListener;
+import org.osgi.framework.BundleContext;
 
 /**
  * The activator class controls the plug-in life cycle
@@ -26,6 +27,10 @@ public class XQDTLaunchingPlugin extends Plugin {
 
     // The shared instance
     private static XQDTLaunchingPlugin plugin;
+
+    // Automatic XQuery processor detection trace flag
+    public static final boolean DEBUG_AUTOMATIC_PROCESSOR_DETECTION = Boolean.valueOf(
+            Platform.getDebugOption(PLUGIN_ID + "/debug/processors/automaticDetection")).booleanValue();
 
     private static XQDTBuildPathChangedListener fBuildPathListener = new XQDTBuildPathChangedListener();
 

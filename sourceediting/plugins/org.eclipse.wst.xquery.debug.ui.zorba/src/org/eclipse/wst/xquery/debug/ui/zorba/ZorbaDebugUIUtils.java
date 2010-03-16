@@ -20,8 +20,8 @@ import org.eclipse.dltk.launching.InterpreterStandin;
 import org.eclipse.dltk.launching.LibraryLocation;
 import org.eclipse.wst.xquery.core.IXQDTCorePreferences;
 import org.eclipse.wst.xquery.core.XQDTNature;
-import org.eclipse.wst.xquery.debug.ui.XQDTDebugUIPlugin;
 import org.eclipse.wst.xquery.internal.launching.zorba.ZorbaInstallType;
+import org.eclipse.wst.xquery.launching.XQDTLaunchingPlugin;
 import org.osgi.framework.Bundle;
 import org.osgi.service.prefs.BackingStoreException;
 
@@ -54,13 +54,13 @@ public class ZorbaDebugUIUtils {
 
                 Bundle[] bundles = Platform.getBundles(fragment, null);
                 if (bundles == null || bundles.length == 0) {
-                    if (XQDTDebugUIPlugin.TRACE_AUTOMATIC_PROCESSOR_DETECTION) {
+                    if (XQDTLaunchingPlugin.DEBUG_AUTOMATIC_PROCESSOR_DETECTION) {
                         error(IStatus.INFO, "Could not find plug-in fragment: " + fragment
                                 + ". No default Zorba XQuery processor will be configured.", null);
                     }
                     return;
                 }
-                if (XQDTDebugUIPlugin.TRACE_AUTOMATIC_PROCESSOR_DETECTION) {
+                if (XQDTLaunchingPlugin.DEBUG_AUTOMATIC_PROCESSOR_DETECTION) {
                     error(IStatus.INFO, "Found plug-in fragment: " + fragment, null);
                 }
 
@@ -71,7 +71,7 @@ public class ZorbaDebugUIUtils {
                 }
                 URL zorbaURL = bundle.getEntry(relativeZorbaExec);
                 if (zorbaURL == null) {
-                    if (XQDTDebugUIPlugin.TRACE_AUTOMATIC_PROCESSOR_DETECTION) {
+                    if (XQDTLaunchingPlugin.DEBUG_AUTOMATIC_PROCESSOR_DETECTION) {
                         error(IStatus.INFO, "Cound not find executable \"" + relativeZorbaExec
                                 + "\" in plug-in fragment: " + fragment, null);
                     }
@@ -80,14 +80,14 @@ public class ZorbaDebugUIUtils {
             } else if (os.equals(Platform.OS_LINUX)) {
                 absoluteZorbaExec = "/opt/saualito/bin/zorba";
             } else {
-                if (XQDTDebugUIPlugin.TRACE_AUTOMATIC_PROCESSOR_DETECTION) {
+                if (XQDTLaunchingPlugin.DEBUG_AUTOMATIC_PROCESSOR_DETECTION) {
                     error(IStatus.INFO, "Automatic Zorba XQuery processor detection is not enabled on \"" + os
                             + "\" pltforms.", null);
                 }
                 return;
             }
 
-            if (XQDTDebugUIPlugin.TRACE_AUTOMATIC_PROCESSOR_DETECTION) {
+            if (XQDTLaunchingPlugin.DEBUG_AUTOMATIC_PROCESSOR_DETECTION) {
                 error(IStatus.INFO, "Confiuguring Zorba XQuery processor from: " + absoluteZorbaExec, null);
             }
 
@@ -112,7 +112,7 @@ public class ZorbaDebugUIUtils {
                 String libDir = installLocation.getParent().getParent().getFullPath().append("lib").toOSString();
                 EnvironmentVariable libPathVar = new EnvironmentVariable(libraryPath, libDir);
 
-                if (XQDTDebugUIPlugin.TRACE_AUTOMATIC_PROCESSOR_DETECTION) {
+                if (XQDTLaunchingPlugin.DEBUG_AUTOMATIC_PROCESSOR_DETECTION) {
                     error(IStatus.INFO, "Setting the " + libPathVar.getName() + " variable to: "
                             + libPathVar.getValue(), null);
                 }

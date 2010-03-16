@@ -8,12 +8,13 @@
  * Contributors:
  *     Gabriel Petrovay (28msec) - initial API and implementation
  *******************************************************************************/
-package org.eclipse.wst.xquery.internal.launching;
+package org.eclipse.wst.xquery.launching;
 
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.dltk.core.IScriptProject;
 import org.eclipse.dltk.core.builder.AbstractBuildParticipantType;
 import org.eclipse.dltk.core.builder.IBuildParticipant;
+import org.eclipse.wst.xquery.internal.launching.XQDTSemanticBuilder;
 
 public class XQDTSemanticBuilderFactory extends AbstractBuildParticipantType {
 

@@ -10,7 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wst.xquery.debug.ui;
 
-import org.eclipse.core.runtime.Platform;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
 import org.osgi.framework.BundleContext;
 
@@ -24,10 +23,6 @@ public class XQDTDebugUIPlugin extends AbstractUIPlugin {
 
     // The shared instance
     private static XQDTDebugUIPlugin plugin;
-
-    // Automatic XQuery processor detection trace flag
-    public static final boolean TRACE_AUTOMATIC_PROCESSOR_DETECTION = Boolean.valueOf(
-            Platform.getDebugOption(PLUGIN_ID + "/processors/automaticDetection")).booleanValue();
 
     /**
      * The constructor

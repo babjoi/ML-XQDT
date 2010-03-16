@@ -16,48 +16,121 @@ import java.net.URL;
 
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.FileLocator;
+import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.Platform;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.core.variables.IDynamicVariable;
 import org.eclipse.core.variables.IDynamicVariableResolver;
-import org.osgi.framework.Bundle;
-import org.eclipse.wst.xquery.set.core.SETCorePlugin;
+import org.eclipse.wst.xquery.launching.XQDTLaunchingPlugin;
 import org.eclipse.wst.xquery.set.launching.SETLaunchingPlugin;
+import org.osgi.framework.Bundle;
 
 public class CoreSdkLocationResolver implements IDynamicVariableResolver {
 
     public String resolveValue(IDynamicVariable variable, String argument) throws CoreException {
-        String os = Platform.getOS();
-        if (os.equals(Platform.OS_WIN32)) {
-            Bundle[] bundles = Platform.getBundles(SETCorePlugin.PLUGIN_ID + "sdk.win32", null);
-            if (bundles == null || bundles.length == 0)
-                throwException("No CoreSDK plugin fragment was found");
+        String result = findStrategies();
 
-            Bundle bundle = bundles[0];
-            URL coreSdkURL = bundle.getEntry("/coresdk");
-            try {
-                String coreSdkHome = new Path(FileLocator.toFileURL(coreSdkURL).getFile()).toOSString();
-                return coreSdkHome;
-            } catch (IOException e) {
-                throwException("Error while resolving the Sausalito CoreSDK installation location in the bundle: "
-                        + SETCorePlugin.PLUGIN_ID + "sdk.win32");
-            }
-        } else if (os.equals(Platform.OS_MACOSX) || os.equals(Platform.OS_LINUX)) {
-            File dir = new File("/opt/sausalito");
-            if (dir.isDirectory()) {
-                return dir.toString();
-            }
-            throwException("Could not find a Sausalito CoreSDK installation at location: /opt/sausalito");
-        }
-
-        throwException("No default interpreters are supported on this platform: " + os);
-        return "";
+        return result;
     }
 
-    private void throwException(String message) throws CoreException {
-        throw new CoreException(new Status(IStatus.ERROR, SETLaunchingPlugin.PLUGIN_ID, message));
+    private String findStrategies() {
+        String result = null;
+
+        // I. first search for the shipped Sausalito CoreSDK
+        // this case happens in the 28msec distribution of the plugins
+        result = findShippedCoreSDK();
+        if (result != null) {
+            return result;
+        }
+
+        // II. if no CoreSDK is shippen (for some platforms)
+        // go and search in some predefined install locations
+        result = findInstalledCoreSDK();
+        if (result != null) {
+            return result;
+        }
+
+        return result;
+    }
+
+    private String findShippedCoreSDK() {
+        String os = Platform.getOS();
+
+        String osPart = "." + os;
+        String archPart = "";
+
+        // in case of non-Windows platforms we make have more versions of the CoreSDK
+        if (!os.equals(Platform.OS_WIN32)) {
+            archPart = "." + Platform.getOSArch();
+        }
+        String fragment = SETLaunchingPlugin.PLUGIN_ID + osPart + archPart;
+
+        Bundle[] bundles = Platform.getBundles(fragment, null);
+        if (bundles == null || bundles.length == 0) {
+            if (XQDTLaunchingPlugin.DEBUG_AUTOMATIC_PROCESSOR_DETECTION) {
+                log(IStatus.INFO, "Could not find plug-in fragment: " + fragment
+                        + ". No default Sausalito CoreSDK will be configured.", null);
+            }
+            return null;
+        }
+        if (XQDTLaunchingPlugin.DEBUG_AUTOMATIC_PROCESSOR_DETECTION) {
+            log(IStatus.INFO, "Found Sausalito CoreSDK plug-in fragment: " + fragment, null);
+        }
+
+        Bundle bundle = bundles[0];
+        URL coreSdkUrl = FileLocator.find(bundle, new Path("coresdk"), null);
+        try {
+            coreSdkUrl = FileLocator.toFileURL(coreSdkUrl);
+        } catch (IOException ioe) {
+            log(IStatus.ERROR, "Cound not retrieve the Eclipse bundle location: " + fragment, ioe);
+            return null;
+        }
+
+        IPath coreSdkPath = new Path(coreSdkUrl.getPath());
+
+        return locateScriptIn(coreSdkPath);
+    }
+
+    private String findInstalledCoreSDK() {
+        String os = Platform.getOS();
+        Path possiblePath = null;
+
+        if (os.equals(Platform.OS_WIN32)) {
+            possiblePath = new Path("C:\\Program Files\\Sausalito CoreSDK 1.0.0");
+        } else {
+            possiblePath = new Path("/opt/sausalito");
+        }
+
+        return locateScriptIn(possiblePath);
+    }
+
+    private String locateScriptIn(IPath coreSdkPath) {
+        if (coreSdkPath == null) {
+            NullPointerException npe = new NullPointerException();
+            log(IStatus.ERROR, "Could not locate the Sausalito script.", npe);
+            return null;
+        }
+
+        IPath scriptPath = coreSdkPath.append("bin").append("sausalito");
+        if (Platform.getOS().equals(Platform.OS_WIN32)) {
+            scriptPath = scriptPath.addFileExtension("bat");
+        }
+
+        File scrptFile = scriptPath.toFile();
+        if (!scrptFile.exists()) {
+            log(IStatus.ERROR, "Could not find the Sausalito script at location: " + coreSdkPath.toOSString(), null);
+            return null;
+        }
+
+        return scriptPath.toOSString();
+    }
+
+    public static IStatus log(int severity, String message, Throwable t) {
+        Status status = new Status(severity, SETLaunchingPlugin.PLUGIN_ID, message, t);
+        SETLaunchingPlugin.log(status);
+        return status;
     }
 
 }

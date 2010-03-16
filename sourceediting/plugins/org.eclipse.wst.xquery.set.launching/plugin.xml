@@ -11,9 +11,10 @@
    <extension
          point="org.eclipse.core.variables.dynamicVariables">
       <variable
-            description="This retrieves the Windows shipped CoreSDK location in this bundle"
+            description="This searches for the Sausalito CoreSDK (either in a platform specific plug-in fragment or in default locations like: &quot;C:\Program Files\Sausalito 1.0.0&quot; or &quot;/opt/sausalito&quot;"
             name="sdk_loc"
-            resolver="org.eclipse.wst.xquery.set.internal.launching.variables.CoreSdkLocationResolver">
+            resolver="org.eclipse.wst.xquery.set.internal.launching.variables.CoreSdkLocationResolver"
+            supportsArgument="false">
       </variable>
    </extension>
    <extension
@@ -28,7 +29,7 @@
    <extension
          point="org.eclipse.dltk.core.buildParticipant">
       <buildParticipant
-            class="org.eclipse.wst.xquery.internal.launching.XQDTSemanticBuilderFactory"
+            class="org.eclipse.wst.xquery.launching.XQDTSemanticBuilderFactory"
             id="org.eclipse.wst.xquery.set.core.sausalitoSemanticBuilder"
             name="Sausalito Semantic Builder"
             nature="org.eclipse.wst.xquery.set.core.nature">
@@ -41,6 +42,15 @@
             path="${interpreterContainer}/../modules"
             relative="false">
       </searchPath>
+   </extension>
+   <extension
+         point="org.eclipse.dltk.launching.interpreterInstalls">
+      <interpreterInstall
+            home="${sdk_loc}"
+            id="defaultSausalitoCoreSDK"
+            interpreterInstallType="org.eclipse.wst.xquery.set.launching.CoreSDKInstallType"
+            name="Sausalito CoreSDK 1.0.0">
+      </interpreterInstall>
    </extension>
 
 </plugin>

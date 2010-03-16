@@ -10,6 +10,7 @@
  *******************************************************************************/
 package org.eclipse.wst.xquery.set.launching;
 
+import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Platform;
 import org.eclipse.core.runtime.Plugin;
 import org.osgi.framework.BundleContext;
@@ -61,6 +62,10 @@ public class SETLaunchingPlugin extends Plugin {
      */
     public static SETLaunchingPlugin getDefault() {
         return plugin;
+    }
+
+    public static void log(IStatus status) {
+        getDefault().getLog().log(status);
     }
 
 }

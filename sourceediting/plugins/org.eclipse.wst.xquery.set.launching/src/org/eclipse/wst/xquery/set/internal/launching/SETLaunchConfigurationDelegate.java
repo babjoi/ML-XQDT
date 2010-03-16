@@ -59,6 +59,7 @@ public class SETLaunchConfigurationDelegate extends AbstractScriptLaunchConfigur
         }
 
         final ServerLaunchJob serverJob = ServerManager.getInstance().createServerJob(launch);
+        serverJob.setUser(true);
         serverJob.addJobChangeListener(new JobChangeAdapter() {
 
             public void done(IJobChangeEvent event) {

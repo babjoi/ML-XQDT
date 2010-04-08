@@ -25,7 +25,7 @@ public class XQDTTypeFactory implements IScriptTypeFactory {
             "float", "gDay", "gMonth", "gMonthDay", "gYear", "gYearMonth", "hexBinary", "int", "integer", "language",
             "long", "negativeInteger", "nonNegativeInteger", "nonPositiveInteger", "normalizedString",
             "positiveInteger", "short", "string", "time", "token", "unsignedByte", "unsignedInt", "unsignedShort",
-            "unsugnedLong", "untyped", "untypedAtomic", "yearMonthDuration" };
+            "unsignedLong", "untyped", "untypedAtomic", "yearMonthDuration" };
 
     public IScriptType buildType(String type) {
 //        if (type.endsWith("*") || type.endsWith("+")) {

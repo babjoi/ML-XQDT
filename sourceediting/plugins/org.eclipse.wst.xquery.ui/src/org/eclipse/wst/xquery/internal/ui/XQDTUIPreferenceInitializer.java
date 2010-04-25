@@ -36,13 +36,13 @@ public class XQDTUIPreferenceInitializer extends AbstractPreferenceInitializer {
         PreferenceConverter.setDefault(store, IXQDTColorConstants.XQDT_COMMENT, new RGB(0, 128, 255));
         PreferenceConverter.setDefault(store, IXQDTColorConstants.XQDT_XML_COMMENT, new RGB(100, 205, 64));
         PreferenceConverter.setDefault(store, IXQDTColorConstants.XQDT_XML_CDATA, new RGB(150, 150, 150));
-        PreferenceConverter.setDefault(store, IXQDTColorConstants.XQDT_STRING, new RGB(255, 0, 255));
+        PreferenceConverter.setDefault(store, IXQDTColorConstants.XQDT_STRING, new RGB(235, 0, 215));
         PreferenceConverter.setDefault(store, IXQDTColorConstants.XQDT_XML_ATTRIBUTE_VALUE, new RGB(255, 128, 100));
         PreferenceConverter.setDefault(store, IXQDTColorConstants.XQDT_XML_ELEMENT_CONTENT, new RGB(50, 180, 0));
 
         PreferenceConverter.setDefault(store, IXQDTColorConstants.XQDT_KEYWORD, new RGB(0, 0, 180));
         PreferenceConverter.setDefault(store, IXQDTColorConstants.XQDT_VARIABLE, new RGB(255, 0, 0));
-        PreferenceConverter.setDefault(store, IXQDTColorConstants.XQDT_FUNCTION, new RGB(128, 0, 255));
+        PreferenceConverter.setDefault(store, IXQDTColorConstants.XQDT_FUNCTION, new RGB(108, 0, 225));
         PreferenceConverter.setDefault(store, IXQDTColorConstants.XQDT_ITEM_TYPE, new RGB(255, 192, 0));
         PreferenceConverter.setDefault(store, IXQDTColorConstants.XQDT_XML_TAG, new RGB(0, 120, 0));
 

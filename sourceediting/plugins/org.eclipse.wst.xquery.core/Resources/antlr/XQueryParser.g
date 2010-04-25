@@ -737,7 +737,7 @@ p_NameTest
 
 //[103] /* ws: explicit */
 p_Wildcard @init{setWsExplicit(true);}
-        : STAR (COLON L_NCName)? | (L_NCName COLON STAR)
+        : STAR (COLON p_NCName)? | (p_NCName COLON STAR)
         ;
         finally {setWsExplicit(false);}
 

@@ -1,4 +1,4 @@
-// $ANTLR 3.1.2 XQueryParser.g 2010-02-06 00:09:38
+// $ANTLR 3.1.2 XQueryParser.g 2010-03-20 15:16:08
 
 /*******************************************************************************
  * Copyright (c) 2008, 2009 28msec Inc. and others.
@@ -697,7 +697,7 @@ public class XQueryParser extends XQDTParser {
 
 
             // AST REWRITE
-            // elements: enc, ver
+            // elements: ver, enc
             // token labels: 
             // rule labels: ver, retval, enc
             // token list labels: 
@@ -902,7 +902,7 @@ public class XQueryParser extends XQDTParser {
 
 
             // AST REWRITE
-            // elements: p_ModuleDecl, pm_Prolog
+            // elements: pm_Prolog, p_ModuleDecl
             // token labels: 
             // rule labels: retval
             // token list labels: 
@@ -1253,7 +1253,7 @@ public class XQueryParser extends XQDTParser {
 
 
             // AST REWRITE
-            // elements: s, i, dnd, od, nd
+            // elements: dnd, nd, i, s, od
             // token labels: 
             // rule labels: od, retval
             // token list labels: 
@@ -1884,7 +1884,7 @@ public class XQueryParser extends XQDTParser {
 
 
             // AST REWRITE
-            // elements: nn, us
+            // elements: us, nn
             // token labels: 
             // rule labels: us, nn, retval
             // token list labels: 
@@ -3591,7 +3591,7 @@ public class XQueryParser extends XQDTParser {
 
 
             // AST REWRITE
-            // elements: ah, sp, us
+            // elements: sp, ah, us
             // token labels: 
             // rule labels: sp, us, retval
             // token list labels: 
@@ -4005,7 +4005,7 @@ public class XQueryParser extends XQDTParser {
 
 
             // AST REWRITE
-            // elements: ah, nn, us
+            // elements: us, ah, nn
             // token labels: 
             // rule labels: us, nn, retval
             // token list labels: 
@@ -4279,7 +4279,7 @@ public class XQueryParser extends XQDTParser {
 
 
             // AST REWRITE
-            // elements: vdt, td, es, qn, des
+            // elements: es, vdt, des, td, qn
             // token labels: 
             // rule labels: td, qn, es, retval, vdt, des
             // token list labels: 
@@ -5270,16 +5270,16 @@ public class XQueryParser extends XQDTParser {
 
 
                     // AST REWRITE
-                    // elements: ee, qn, td, pl
+                    // elements: qn, pl, ee, td
                     // token labels: 
-                    // rule labels: pl, td, ee, qn, retval
+                    // rule labels: td, pl, ee, qn, retval
                     // token list labels: 
                     // rule list labels: 
                     // wildcard labels: 
                     if ( state.backtracking==0 ) {
                     retval.tree = root_0;
-                    RewriteRuleSubtreeStream stream_pl=new RewriteRuleSubtreeStream(adaptor,"rule pl",pl!=null?pl.tree:null);
                     RewriteRuleSubtreeStream stream_td=new RewriteRuleSubtreeStream(adaptor,"rule td",td!=null?td.tree:null);
+                    RewriteRuleSubtreeStream stream_pl=new RewriteRuleSubtreeStream(adaptor,"rule pl",pl!=null?pl.tree:null);
                     RewriteRuleSubtreeStream stream_ee=new RewriteRuleSubtreeStream(adaptor,"rule ee",ee!=null?ee.tree:null);
                     RewriteRuleSubtreeStream stream_qn=new RewriteRuleSubtreeStream(adaptor,"rule qn",qn!=null?qn.tree:null);
                     RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.tree:null);
@@ -5746,7 +5746,7 @@ public class XQueryParser extends XQDTParser {
 
 
             // AST REWRITE
-            // elements: qn, td
+            // elements: td, qn
             // token labels: 
             // rule labels: td, qn, retval
             // token list labels: 
@@ -6011,7 +6011,7 @@ public class XQueryParser extends XQDTParser {
             int alt46=2;
             int LA46_0 = input.LA(1);
 
-            if ( (LA46_0==SEMICOLON) && ((((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||(lc(MLS))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||(lc(XQS))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))))) {
+            if ( (LA46_0==SEMICOLON) && ((((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||(lc(MLS))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||(lc(XQS))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))))) {
                 int LA46_1 = input.LA(2);
 
                 if ( ((((lc(XQS))&&(lc(MLS)))||(lc(XQS)))) ) {
@@ -11311,7 +11311,7 @@ public class XQueryParser extends XQDTParser {
 
 
             // AST REWRITE
-            // elements: PLUS, p_ValueExpr
+            // elements: p_ValueExpr, PLUS
             // token labels: 
             // rule labels: retval
             // token list labels: 
@@ -13640,24 +13640,24 @@ public class XQueryParser extends XQDTParser {
         try {
             // XQueryParser.g:735:9: ( p_QName | p_Wildcard )
             int alt120=2;
-            switch ( input.LA(1) ) {
-            case L_NCName:
-                {
+            int LA120_0 = input.LA(1);
+
+            if ( ((LA120_0>=ANCESTOR && LA120_0<=EXIT)||(LA120_0>=SEQUENTIAL && LA120_0<=MAINTAINED)||(LA120_0>=MUTABLE && LA120_0<=QUOT_ER)||LA120_0==L_NCName||LA120_0==EXPLICITLY) ) {
                 int LA120_1 = input.LA(2);
 
                 if ( (LA120_1==COLON) ) {
-                    int LA120_4 = input.LA(3);
+                    int LA120_3 = input.LA(3);
 
-                    if ( (LA120_4==STAR) ) {
+                    if ( (LA120_3==STAR) ) {
                         alt120=2;
                     }
-                    else if ( ((LA120_4>=ANCESTOR && LA120_4<=EXIT)||(LA120_4>=SEQUENTIAL && LA120_4<=MAINTAINED)||(LA120_4>=MUTABLE && LA120_4<=QUOT_ER)||LA120_4==L_NCName||LA120_4==EXPLICITLY) ) {
+                    else if ( ((LA120_3>=ANCESTOR && LA120_3<=EXIT)||(LA120_3>=SEQUENTIAL && LA120_3<=MAINTAINED)||(LA120_3>=MUTABLE && LA120_3<=QUOT_ER)||LA120_3==L_NCName||LA120_3==EXPLICITLY) ) {
                         alt120=1;
                     }
                     else {
                         if (state.backtracking>0) {state.failed=true; return retval;}
                         NoViableAltException nvae =
-                            new NoViableAltException("", 120, 4, input);
+                            new NoViableAltException("", 120, 3, input);
 
                         throw nvae;
                     }
@@ -13672,201 +13672,17 @@ public class XQueryParser extends XQDTParser {
 
                     throw nvae;
                 }
-                }
-                break;
-            case STAR:
-                {
+            }
+            else if ( (LA120_0==STAR) ) {
                 alt120=2;
-                }
-                break;
-            case ANCESTOR:
-            case ANCESTOR_OR_SELF:
-            case AND:
-            case AS:
-            case ASCENDING:
-            case AT:
-            case ATTRIBUTE:
-            case BASE_URI:
-            case BOUNDARY_SPACE:
-            case BY:
-            case CASE:
-            case CAST:
-            case CASTABLE:
-            case CHILD:
-            case COLLATION:
-            case COMMENT:
-            case CONSTRUCTION:
-            case COPY_NAMESPACES:
-            case DECLARE:
-            case DEFAULT:
-            case DESCENDANT:
-            case DESCENDANT_OR_SELF:
-            case DESCENDING:
-            case DIV:
-            case DOCUMENT:
-            case DOCUMENT_NODE:
-            case ELEMENT:
-            case ELSE:
-            case EMPTY:
-            case EMPTY_SEQUENCE:
-            case ENCODING:
-            case EQ:
-            case EVERY:
-            case EXCEPT:
-            case EXTERNAL:
-            case FOLLOWING:
-            case FOLLOWING_SIBLING:
-            case FOR:
-            case FUNCTION:
-            case GE:
-            case GREATEST:
-            case GT:
-            case IDIV:
-            case IF:
-            case IMPORT:
-            case IN:
-            case INHERIT:
-            case INSTANCE:
-            case INTERSECT:
-            case IS:
-            case ITEM:
-            case LAX:
-            case LE:
-            case LEAST:
-            case LET:
-            case LT:
-            case MOD:
-            case MODULE:
-            case NAMESPACE:
-            case NE:
-            case NO_INHERIT:
-            case NO_PRESERVE:
-            case NODE:
-            case OF:
-            case OPTION:
-            case OR:
-            case ORDER:
-            case ORDERED:
-            case ORDERING:
-            case PARENT:
-            case PRECEDING:
-            case PRECEDING_SIBLING:
-            case PRESERVE:
-            case PROCESSING_INSTRUCTION:
-            case RETURN:
-            case SATISFIES:
-            case SCHEMA:
-            case SCHEMA_ATTRIBUTE:
-            case SCHEMA_ELEMENT:
-            case SELF:
-            case SOME:
-            case STABLE:
-            case STRICT:
-            case STRIP:
-            case TEXT:
-            case THEN:
-            case TO:
-            case TREAT:
-            case TYPESWITCH:
-            case UNION:
-            case UNORDERED:
-            case VALIDATE:
-            case VARIABLE:
-            case VERSION:
-            case WHERE:
-            case XQUERY:
-            case CATCH:
-            case CONTEXT:
-            case COUNT:
-            case DECIMAL_FORMAT:
-            case DECIMAL_SEPARATOR:
-            case DIGIT:
-            case END:
-            case GROUP:
-            case GROUPING_SEPARATOR:
-            case INFINITY:
-            case MINUS_SIGN:
-            case NAMESPACE_NODE:
-            case NAN:
-            case NEXT:
-            case ONLY:
-            case OUTER:
-            case PATTERN_SEPARATOR:
-            case PERCENT:
-            case PER_MILLE:
-            case PREVIOUS:
-            case SLIDING:
-            case START:
-            case TRY:
-            case TUMBLING:
-            case WHEN:
-            case WINDOW:
-            case ZERO_DIGIT:
-            case AFTER:
-            case BEFORE:
-            case COPY:
-            case DELETE:
-            case FIRST:
-            case INSERT:
-            case INTO:
-            case LAST:
-            case MODIFY:
-            case NODES:
-            case RENAME:
-            case REPLACE:
-            case REVALIDATION:
-            case SKIP:
-            case UPDATING:
-            case VALUE:
-            case WITH:
-            case BLOCK:
-            case CONSTANT:
-            case EXIT:
-            case SEQUENTIAL:
-            case SET:
-            case SIMPLE:
-            case WHILE:
-            case EVAL:
-            case USING:
-            case APPEND_ONLY:
-            case AUTOMATICALLY:
-            case CHECK:
-            case COLLECTION:
-            case CONSTRAINT:
-            case CONST:
-            case EQUALITY:
-            case FOREACH:
-            case FOREIGN:
-            case FROM:
-            case INDEX:
-            case INTEGRITY:
-            case KEY:
-            case MAINTAINED:
-            case MUTABLE:
-            case NON:
-            case ON:
-            case QUEUE:
-            case RANGE:
-            case READ_ONLY:
-            case UNIQUE:
-            case BINARY:
-            case PRIVATE:
-            case AMP_ER:
-            case APOS_ER:
-            case QUOT_ER:
-            case EXPLICITLY:
-                {
-                alt120=1;
-                }
-                break;
-            default:
+            }
+            else {
                 if (state.backtracking>0) {state.failed=true; return retval;}
                 NoViableAltException nvae =
                     new NoViableAltException("", 120, 0, input);
 
                 throw nvae;
             }
-
             switch (alt120) {
                 case 1 :
                     // XQueryParser.g:735:11: p_QName
@@ -13924,7 +13740,7 @@ public class XQueryParser extends XQDTParser {
     };
 
     // $ANTLR start "p_Wildcard"
-    // XQueryParser.g:739:1: p_Wildcard : ( STAR ( COLON L_NCName )? | ( L_NCName COLON STAR ) );
+    // XQueryParser.g:739:1: p_Wildcard : ( STAR ( COLON p_NCName )? | ( p_NCName COLON STAR ) );
     public final XQueryParser.p_Wildcard_return p_Wildcard() throws RecognitionException {
         XQueryParser.p_Wildcard_return retval = new XQueryParser.p_Wildcard_return();
         retval.start = input.LT(1);
@@ -13933,28 +13749,28 @@ public class XQueryParser extends XQDTParser {
 
         CommonToken STAR310=null;
         CommonToken COLON311=null;
-        CommonToken L_NCName312=null;
-        CommonToken L_NCName313=null;
         CommonToken COLON314=null;
         CommonToken STAR315=null;
+        XQueryParser.p_NCName_return p_NCName312 = null;
+
+        XQueryParser.p_NCName_return p_NCName313 = null;
+
 
         XQDTCommonTree STAR310_tree=null;
         XQDTCommonTree COLON311_tree=null;
-        XQDTCommonTree L_NCName312_tree=null;
-        XQDTCommonTree L_NCName313_tree=null;
         XQDTCommonTree COLON314_tree=null;
         XQDTCommonTree STAR315_tree=null;
 
         setWsExplicit(true);
         try {
-            // XQueryParser.g:740:9: ( STAR ( COLON L_NCName )? | ( L_NCName COLON STAR ) )
+            // XQueryParser.g:740:9: ( STAR ( COLON p_NCName )? | ( p_NCName COLON STAR ) )
             int alt122=2;
             int LA122_0 = input.LA(1);
 
             if ( (LA122_0==STAR) ) {
                 alt122=1;
             }
-            else if ( (LA122_0==L_NCName) ) {
+            else if ( ((LA122_0>=ANCESTOR && LA122_0<=EXIT)||(LA122_0>=SEQUENTIAL && LA122_0<=MAINTAINED)||(LA122_0>=MUTABLE && LA122_0<=QUOT_ER)||LA122_0==L_NCName||LA122_0==EXPLICITLY) ) {
                 alt122=2;
             }
             else {
@@ -13966,7 +13782,7 @@ public class XQueryParser extends XQDTParser {
             }
             switch (alt122) {
                 case 1 :
-                    // XQueryParser.g:740:11: STAR ( COLON L_NCName )?
+                    // XQueryParser.g:740:11: STAR ( COLON p_NCName )?
                     {
                     root_0 = (XQDTCommonTree)adaptor.nil();
 
@@ -13975,7 +13791,7 @@ public class XQueryParser extends XQDTParser {
                     STAR310_tree = (XQDTCommonTree)adaptor.create(STAR310);
                     adaptor.addChild(root_0, STAR310_tree);
                     }
-                    // XQueryParser.g:740:16: ( COLON L_NCName )?
+                    // XQueryParser.g:740:16: ( COLON p_NCName )?
                     int alt121=2;
                     int LA121_0 = input.LA(1);
 
@@ -13984,18 +13800,19 @@ public class XQueryParser extends XQDTParser {
                     }
                     switch (alt121) {
                         case 1 :
-                            // XQueryParser.g:740:17: COLON L_NCName
+                            // XQueryParser.g:740:17: COLON p_NCName
                             {
                             COLON311=(CommonToken)match(input,COLON,FOLLOW_COLON_in_p_Wildcard6545); if (state.failed) return retval;
                             if ( state.backtracking==0 ) {
                             COLON311_tree = (XQDTCommonTree)adaptor.create(COLON311);
                             adaptor.addChild(root_0, COLON311_tree);
                             }
-                            L_NCName312=(CommonToken)match(input,L_NCName,FOLLOW_L_NCName_in_p_Wildcard6547); if (state.failed) return retval;
-                            if ( state.backtracking==0 ) {
-                            L_NCName312_tree = (XQDTCommonTree)adaptor.create(L_NCName312);
-                            adaptor.addChild(root_0, L_NCName312_tree);
-                            }
+                            pushFollow(FOLLOW_p_NCName_in_p_Wildcard6547);
+                            p_NCName312=p_NCName();
+
+                            state._fsp--;
+                            if (state.failed) return retval;
+                            if ( state.backtracking==0 ) adaptor.addChild(root_0, p_NCName312.getTree());
 
                             }
                             break;
@@ -14006,18 +13823,19 @@ public class XQueryParser extends XQDTParser {
                     }
                     break;
                 case 2 :
-                    // XQueryParser.g:740:36: ( L_NCName COLON STAR )
+                    // XQueryParser.g:740:36: ( p_NCName COLON STAR )
                     {
                     root_0 = (XQDTCommonTree)adaptor.nil();
 
-                    // XQueryParser.g:740:36: ( L_NCName COLON STAR )
-                    // XQueryParser.g:740:37: L_NCName COLON STAR
+                    // XQueryParser.g:740:36: ( p_NCName COLON STAR )
+                    // XQueryParser.g:740:37: p_NCName COLON STAR
                     {
-                    L_NCName313=(CommonToken)match(input,L_NCName,FOLLOW_L_NCName_in_p_Wildcard6554); if (state.failed) return retval;
-                    if ( state.backtracking==0 ) {
-                    L_NCName313_tree = (XQDTCommonTree)adaptor.create(L_NCName313);
-                    adaptor.addChild(root_0, L_NCName313_tree);
-                    }
+                    pushFollow(FOLLOW_p_NCName_in_p_Wildcard6554);
+                    p_NCName313=p_NCName();
+
+                    state._fsp--;
+                    if (state.failed) return retval;
+                    if ( state.backtracking==0 ) adaptor.addChild(root_0, p_NCName313.getTree());
                     COLON314=(CommonToken)match(input,COLON,FOLLOW_COLON_in_p_Wildcard6556); if (state.failed) return retval;
                     if ( state.backtracking==0 ) {
                     COLON314_tree = (XQDTCommonTree)adaptor.create(COLON314);
@@ -18215,7 +18033,7 @@ public class XQueryParser extends XQDTParser {
 
 
                     // AST REWRITE
-                    // elements: k, l, r
+                    // elements: k, r, l
                     // token labels: k, r, l
                     // rule labels: retval
                     // token list labels: 
@@ -18508,7 +18326,7 @@ public class XQueryParser extends XQDTParser {
 
 
                     // AST REWRITE
-                    // elements: LPAREN, RPAREN, BINARY
+                    // elements: BINARY, RPAREN, LPAREN
                     // token labels: 
                     // rule labels: retval
                     // token list labels: 
@@ -18559,7 +18377,7 @@ public class XQueryParser extends XQDTParser {
 
 
                     // AST REWRITE
-                    // elements: RPAREN, LPAREN, ITEM
+                    // elements: RPAREN, ITEM, LPAREN
                     // token labels: 
                     // rule labels: retval
                     // token list labels: 
@@ -21228,7 +21046,7 @@ public class XQueryParser extends XQDTParser {
 
 
             // AST REWRITE
-            // elements: p_NCName, p_LocalNCName
+            // elements: p_LocalNCName, p_NCName
             // token labels: 
             // rule labels: retval
             // token list labels: 
@@ -23387,7 +23205,7 @@ public class XQueryParser extends XQDTParser {
 
 
             // AST REWRITE
-            // elements: es, td, qn
+            // elements: qn, es, td
             // token labels: 
             // rule labels: td, qn, es, retval
             // token list labels: 
@@ -26314,7 +26132,7 @@ public class XQueryParser extends XQDTParser {
             "\5\uffff\1\14\1\uffff\2\14\4\uffff\3\14\2\uffff\1\14\2\uffff"+
             "\2\14\1\11\1\uffff\1\14\5\uffff\1\14\12\uffff\1\11\11\uffff"+
             "\2\14\1\uffff\1\14\127\uffff\1\14\4\uffff\1\14\1\uffff\1\14"+
-            "\1\uffff\1\14\1\uffff\1\14\1\uffff\13\14\2\uffff\1\14\3\uffff"+
+            "\1\uffff\1\14\1\uffff\1\14\1\uffff\13\14\2\uffff\1\12\3\uffff"+
             "\2\14",
             "",
             "",
@@ -26411,7 +26229,7 @@ public class XQueryParser extends XQDTParser {
     static final String DFA7_maxS =
         "\1\u0136\1\uffff\1\u00e0\4\uffff\1\u00a2\4\uffff";
     static final String DFA7_acceptS =
-        "\1\uffff\1\10\1\uffff\1\2\1\3\1\4\1\7\1\uffff\1\1\1\6\1\5\1\3";
+        "\1\uffff\1\10\1\uffff\1\2\1\3\1\4\1\7\1\uffff\1\1\1\5\1\6\1\3";
     static final String DFA7_specialS =
         "\2\uffff\1\0\11\uffff}>";
     static final String[] DFA7_transitionS = {
@@ -26421,11 +26239,11 @@ public class XQueryParser extends XQDTParser {
             "",
             "\1\1\10\uffff\2\1\12\uffff\1\1\7\uffff\1\1\1\uffff\1\1\4\uffff"+
             "\1\13\1\1\1\uffff\2\1\4\uffff\3\1\2\uffff\1\1\2\uffff\2\1\2"+
-            "\uffff\1\1\4\uffff\1\5\1\1\1\uffff\1\12\22\uffff\2\1\1\uffff"+
-            "\1\1\1\12\1\uffff\1\10\4\uffff\1\3\47\uffff\1\13\1\11\2\uffff"+
-            "\1\10\2\uffff\1\4\1\uffff\1\13\3\uffff\1\12\1\11\1\uffff\1\12"+
-            "\1\uffff\1\12\4\uffff\1\11\1\6\2\uffff\1\11\1\12\1\11\1\uffff"+
-            "\1\12\2\uffff\1\11\1\uffff\1\7\3\uffff\1\1\4\uffff\1\1\1\uffff"+
+            "\uffff\1\1\4\uffff\1\5\1\1\1\uffff\1\11\22\uffff\2\1\1\uffff"+
+            "\1\1\1\11\1\uffff\1\10\4\uffff\1\3\47\uffff\1\13\1\12\2\uffff"+
+            "\1\10\2\uffff\1\4\1\uffff\1\13\3\uffff\1\11\1\12\1\uffff\1\11"+
+            "\1\uffff\1\11\4\uffff\1\12\1\6\2\uffff\1\12\1\11\1\12\1\uffff"+
+            "\1\11\2\uffff\1\12\1\uffff\1\7\3\uffff\1\1\4\uffff\1\1\1\uffff"+
             "\1\1\1\uffff\1\1\1\uffff\1\1\1\uffff\13\1\2\uffff\1\1\3\uffff"+
             "\2\1",
             "",
@@ -26494,13 +26312,13 @@ public class XQueryParser extends XQDTParser {
 
                         else if ( (LA7_2==VARIABLE||LA7_2==CONSTANT) ) {s = 8;}
 
-                        else if ( (LA7_2==VALUE||LA7_2==AUTOMATICALLY||LA7_2==INDEX||LA7_2==MANUALLY||LA7_2==NON||LA7_2==UNIQUE) && ((lc(ZORBA)))) {s = 9;}
+                        else if ( (LA7_2==EOF||LA7_2==AND||(LA7_2>=CAST && LA7_2<=CASTABLE)||LA7_2==DIV||LA7_2==EQ||LA7_2==EXCEPT||LA7_2==GE||(LA7_2>=GT && LA7_2<=IDIV)||(LA7_2>=INSTANCE && LA7_2<=IS)||LA7_2==LE||(LA7_2>=LT && LA7_2<=MOD)||LA7_2==NE||LA7_2==OR||(LA7_2>=TO && LA7_2<=TREAT)||LA7_2==UNION||LA7_2==LPAREN||LA7_2==LSQUARE||LA7_2==EQUAL||LA7_2==NOTEQUAL||LA7_2==COMMA||(LA7_2>=STAR && LA7_2<=SLASH_SLASH)||LA7_2==COLON||(LA7_2>=SEMICOLON && LA7_2<=VBAR)) ) {s = 1;}
 
-                        else if ( (LA7_2==ORDERED||LA7_2==UNORDERED||LA7_2==APPEND_ONLY||LA7_2==COLLECTION||LA7_2==CONST||LA7_2==MUTABLE||LA7_2==QUEUE) && ((lc(ZORBA)))) {s = 10;}
+                        else if ( (LA7_2==ORDERED||LA7_2==UNORDERED||LA7_2==APPEND_ONLY||LA7_2==COLLECTION||LA7_2==CONST||LA7_2==MUTABLE||LA7_2==QUEUE) && ((lc(ZORBA)))) {s = 9;}
+
+                        else if ( (LA7_2==VALUE||LA7_2==AUTOMATICALLY||LA7_2==INDEX||LA7_2==MANUALLY||LA7_2==NON||LA7_2==UNIQUE) && ((lc(ZORBA)))) {s = 10;}
 
                         else if ( (LA7_2==FUNCTION||LA7_2==UPDATING||LA7_2==SIMPLE) ) {s = 11;}
-
-                        else if ( (LA7_2==EOF||LA7_2==AND||(LA7_2>=CAST && LA7_2<=CASTABLE)||LA7_2==DIV||LA7_2==EQ||LA7_2==EXCEPT||LA7_2==GE||(LA7_2>=GT && LA7_2<=IDIV)||(LA7_2>=INSTANCE && LA7_2<=IS)||LA7_2==LE||(LA7_2>=LT && LA7_2<=MOD)||LA7_2==NE||LA7_2==OR||(LA7_2>=TO && LA7_2<=TREAT)||LA7_2==UNION||LA7_2==LPAREN||LA7_2==LSQUARE||LA7_2==EQUAL||LA7_2==NOTEQUAL||LA7_2==COMMA||(LA7_2>=STAR && LA7_2<=SLASH_SLASH)||LA7_2==COLON||(LA7_2>=SEMICOLON && LA7_2<=VBAR)) ) {s = 1;}
 
                          
                         input.seek(index7_2);
@@ -26622,7 +26440,7 @@ public class XQueryParser extends XQDTParser {
         "\23\uffff\1\20\1\1\1\2\1\3\1\4\1\5\1\6\1\7\1\10\1\11\1\12\1\13"+
         "\1\14\1\15\1\16\1\17";
     static final String DFA49_specialS =
-        "\10\uffff\1\0\1\5\1\11\1\7\1\3\1\1\1\4\1\2\1\10\1\6\1\12\20\uffff}>";
+        "\10\uffff\1\11\1\0\1\1\1\4\1\10\1\12\1\6\1\2\1\5\1\7\1\3\20\uffff}>";
     static final String[] DFA49_transitionS = {
             "\40\23\1\4\4\23\1\1\5\23\1\6\12\23\1\2\31\23\1\3\7\23\1\5\35"+
             "\23\1\7\6\23\1\16\1\13\1\23\1\12\4\23\1\14\1\15\5\23\1\17\1"+
@@ -26829,33 +26647,33 @@ public class XQueryParser extends XQDTParser {
         	int _s = s;
             switch ( s ) {
                     case 0 : 
-                        int LA49_8 = input.LA(1);
+                        int LA49_9 = input.LA(1);
 
                          
-                        int index49_8 = input.index();
+                        int index49_9 = input.index();
                         input.rewind();
                         s = -1;
-                        if ( (LA49_8==EOF||(LA49_8>=AND && LA49_8<=ASCENDING)||(LA49_8>=CASE && LA49_8<=CASTABLE)||LA49_8==COLLATION||LA49_8==DEFAULT||(LA49_8>=DESCENDING && LA49_8<=DIV)||(LA49_8>=ELSE && LA49_8<=EMPTY)||LA49_8==EQ||LA49_8==EXCEPT||LA49_8==FOR||LA49_8==GE||(LA49_8>=GT && LA49_8<=IDIV)||(LA49_8>=INSTANCE && LA49_8<=IS)||LA49_8==LE||(LA49_8>=LET && LA49_8<=MOD)||LA49_8==NE||(LA49_8>=OR && LA49_8<=ORDER)||(LA49_8>=RETURN && LA49_8<=SATISFIES)||LA49_8==STABLE||(LA49_8>=TO && LA49_8<=TREAT)||LA49_8==UNION||LA49_8==WHERE||LA49_8==COUNT||(LA49_8>=END && LA49_8<=GROUP)||LA49_8==ONLY||LA49_8==START||(LA49_8>=AFTER && LA49_8<=BEFORE)||LA49_8==INTO||LA49_8==MODIFY||LA49_8==WITH||(LA49_8>=LPAREN && LA49_8<=RPAREN)||(LA49_8>=RBRACKET && LA49_8<=EQUAL)||LA49_8==NOTEQUAL||LA49_8==COMMA||(LA49_8>=STAR && LA49_8<=SLASH_SLASH)||LA49_8==COLON||(LA49_8>=SEMICOLON && LA49_8<=VBAR)) ) {s = 19;}
+                        if ( (LA49_9==EOF||(LA49_9>=AND && LA49_9<=ASCENDING)||(LA49_9>=CASE && LA49_9<=CASTABLE)||LA49_9==COLLATION||LA49_9==DEFAULT||(LA49_9>=DESCENDING && LA49_9<=DIV)||(LA49_9>=ELSE && LA49_9<=EMPTY)||LA49_9==EQ||LA49_9==EXCEPT||LA49_9==FOR||LA49_9==GE||(LA49_9>=GT && LA49_9<=IDIV)||(LA49_9>=INSTANCE && LA49_9<=IS)||LA49_9==LE||(LA49_9>=LET && LA49_9<=MOD)||LA49_9==NE||(LA49_9>=OR && LA49_9<=ORDER)||(LA49_9>=RETURN && LA49_9<=SATISFIES)||LA49_9==STABLE||(LA49_9>=TO && LA49_9<=TREAT)||LA49_9==UNION||LA49_9==WHERE||LA49_9==COUNT||(LA49_9>=END && LA49_9<=GROUP)||LA49_9==ONLY||LA49_9==START||(LA49_9>=AFTER && LA49_9<=BEFORE)||LA49_9==INTO||LA49_9==MODIFY||LA49_9==WITH||(LA49_9>=LPAREN && LA49_9<=RPAREN)||(LA49_9>=RBRACKET && LA49_9<=EQUAL)||LA49_9==NOTEQUAL||LA49_9==COMMA||(LA49_9>=STAR && LA49_9<=SLASH_SLASH)||LA49_9==COLON||(LA49_9>=SEMICOLON && LA49_9<=VBAR)) ) {s = 19;}
 
-                        else if ( (LA49_8==DOLLAR) && ((lc(ZORBA)))) {s = 25;}
+                        else if ( (LA49_9==LBRACKET) && ((lc(ZORBA)))) {s = 25;}
 
                          
-                        input.seek(index49_8);
+                        input.seek(index49_9);
                         if ( s>=0 ) return s;
                         break;
                     case 1 : 
-                        int LA49_13 = input.LA(1);
+                        int LA49_10 = input.LA(1);
 
                          
-                        int index49_13 = input.index();
+                        int index49_10 = input.index();
                         input.rewind();
                         s = -1;
-                        if ( (LA49_13==NODE||LA49_13==VALUE) && ((lc(XQU)))) {s = 29;}
+                        if ( (LA49_10==EOF||(LA49_10>=AND && LA49_10<=ASCENDING)||(LA49_10>=CASE && LA49_10<=CASTABLE)||LA49_10==COLLATION||LA49_10==DEFAULT||(LA49_10>=DESCENDING && LA49_10<=DIV)||(LA49_10>=ELSE && LA49_10<=EMPTY)||LA49_10==EQ||LA49_10==EXCEPT||LA49_10==FOR||LA49_10==GE||(LA49_10>=GT && LA49_10<=IDIV)||(LA49_10>=INSTANCE && LA49_10<=IS)||LA49_10==LE||(LA49_10>=LET && LA49_10<=MOD)||LA49_10==NE||(LA49_10>=OR && LA49_10<=ORDER)||(LA49_10>=RETURN && LA49_10<=SATISFIES)||LA49_10==STABLE||(LA49_10>=TO && LA49_10<=TREAT)||LA49_10==UNION||LA49_10==WHERE||LA49_10==COUNT||(LA49_10>=END && LA49_10<=GROUP)||LA49_10==ONLY||LA49_10==START||(LA49_10>=AFTER && LA49_10<=BEFORE)||LA49_10==INTO||LA49_10==MODIFY||LA49_10==WITH||(LA49_10>=LPAREN && LA49_10<=RPAREN)||(LA49_10>=RBRACKET && LA49_10<=EQUAL)||LA49_10==NOTEQUAL||LA49_10==COMMA||(LA49_10>=STAR && LA49_10<=SLASH_SLASH)||LA49_10==COLON||(LA49_10>=SEMICOLON && LA49_10<=VBAR)) ) {s = 19;}
 
-                        else if ( (LA49_13==EOF||(LA49_13>=AND && LA49_13<=ASCENDING)||(LA49_13>=CASE && LA49_13<=CASTABLE)||LA49_13==COLLATION||LA49_13==DEFAULT||(LA49_13>=DESCENDING && LA49_13<=DIV)||(LA49_13>=ELSE && LA49_13<=EMPTY)||LA49_13==EQ||LA49_13==EXCEPT||LA49_13==FOR||LA49_13==GE||(LA49_13>=GT && LA49_13<=IDIV)||(LA49_13>=INSTANCE && LA49_13<=IS)||LA49_13==LE||(LA49_13>=LET && LA49_13<=MOD)||LA49_13==NE||(LA49_13>=OR && LA49_13<=ORDER)||(LA49_13>=RETURN && LA49_13<=SATISFIES)||LA49_13==STABLE||(LA49_13>=TO && LA49_13<=TREAT)||LA49_13==UNION||LA49_13==WHERE||LA49_13==COUNT||(LA49_13>=END && LA49_13<=GROUP)||LA49_13==ONLY||LA49_13==START||(LA49_13>=AFTER && LA49_13<=BEFORE)||LA49_13==INTO||LA49_13==MODIFY||LA49_13==WITH||(LA49_13>=LPAREN && LA49_13<=RPAREN)||(LA49_13>=RBRACKET && LA49_13<=EQUAL)||LA49_13==NOTEQUAL||LA49_13==COMMA||(LA49_13>=STAR && LA49_13<=SLASH_SLASH)||LA49_13==COLON||(LA49_13>=SEMICOLON && LA49_13<=VBAR)) ) {s = 19;}
+                        else if ( (LA49_10==NODE||LA49_10==NODES) && ((lc(XQU)))) {s = 26;}
 
                          
-                        input.seek(index49_13);
+                        input.seek(index49_10);
                         if ( s>=0 ) return s;
                         break;
                     case 2 : 
@@ -26874,21 +26692,51 @@ public class XQueryParser extends XQDTParser {
                         if ( s>=0 ) return s;
                         break;
                     case 3 : 
-                        int LA49_12 = input.LA(1);
+                        int LA49_18 = input.LA(1);
 
                          
-                        int index49_12 = input.index();
+                        int index49_18 = input.index();
                         input.rewind();
                         s = -1;
-                        if ( (LA49_12==NODE) && ((lc(XQU)))) {s = 28;}
+                        if ( (LA49_18==EOF||(LA49_18>=AND && LA49_18<=ASCENDING)||(LA49_18>=CASE && LA49_18<=CASTABLE)||LA49_18==COLLATION||LA49_18==DEFAULT||(LA49_18>=DESCENDING && LA49_18<=DIV)||(LA49_18>=ELSE && LA49_18<=EMPTY)||LA49_18==EQ||LA49_18==EXCEPT||LA49_18==FOR||LA49_18==GE||(LA49_18>=GT && LA49_18<=IDIV)||(LA49_18>=INSTANCE && LA49_18<=IS)||LA49_18==LE||(LA49_18>=LET && LA49_18<=MOD)||LA49_18==NE||(LA49_18>=OR && LA49_18<=ORDER)||(LA49_18>=RETURN && LA49_18<=SATISFIES)||LA49_18==STABLE||(LA49_18>=TO && LA49_18<=TREAT)||LA49_18==UNION||LA49_18==WHERE||LA49_18==COUNT||(LA49_18>=END && LA49_18<=GROUP)||LA49_18==ONLY||LA49_18==START||(LA49_18>=AFTER && LA49_18<=BEFORE)||LA49_18==INTO||LA49_18==MODIFY||LA49_18==WITH||LA49_18==RPAREN||(LA49_18>=RBRACKET && LA49_18<=EQUAL)||LA49_18==NOTEQUAL||LA49_18==COMMA||(LA49_18>=STAR && LA49_18<=SLASH_SLASH)||LA49_18==COLON||(LA49_18>=SEMICOLON && LA49_18<=VBAR)) ) {s = 19;}
 
-                        else if ( (LA49_12==EOF||(LA49_12>=AND && LA49_12<=ASCENDING)||(LA49_12>=CASE && LA49_12<=CASTABLE)||LA49_12==COLLATION||LA49_12==DEFAULT||(LA49_12>=DESCENDING && LA49_12<=DIV)||(LA49_12>=ELSE && LA49_12<=EMPTY)||LA49_12==EQ||LA49_12==EXCEPT||LA49_12==FOR||LA49_12==GE||(LA49_12>=GT && LA49_12<=IDIV)||(LA49_12>=INSTANCE && LA49_12<=IS)||LA49_12==LE||(LA49_12>=LET && LA49_12<=MOD)||LA49_12==NE||(LA49_12>=OR && LA49_12<=ORDER)||(LA49_12>=RETURN && LA49_12<=SATISFIES)||LA49_12==STABLE||(LA49_12>=TO && LA49_12<=TREAT)||LA49_12==UNION||LA49_12==WHERE||LA49_12==COUNT||(LA49_12>=END && LA49_12<=GROUP)||LA49_12==ONLY||LA49_12==START||(LA49_12>=AFTER && LA49_12<=BEFORE)||LA49_12==INTO||LA49_12==MODIFY||LA49_12==WITH||(LA49_12>=LPAREN && LA49_12<=RPAREN)||(LA49_12>=RBRACKET && LA49_12<=EQUAL)||LA49_12==NOTEQUAL||LA49_12==COMMA||(LA49_12>=STAR && LA49_12<=SLASH_SLASH)||LA49_12==COLON||(LA49_12>=SEMICOLON && LA49_12<=VBAR)) ) {s = 19;}
+                        else if ( (LA49_18==LPAREN) && ((lc(XQS)))) {s = 34;}
 
                          
-                        input.seek(index49_12);
+                        input.seek(index49_18);
                         if ( s>=0 ) return s;
                         break;
                     case 4 : 
+                        int LA49_11 = input.LA(1);
+
+                         
+                        int index49_11 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (LA49_11==EOF||(LA49_11>=AND && LA49_11<=ASCENDING)||(LA49_11>=CASE && LA49_11<=CASTABLE)||LA49_11==COLLATION||LA49_11==DEFAULT||(LA49_11>=DESCENDING && LA49_11<=DIV)||(LA49_11>=ELSE && LA49_11<=EMPTY)||LA49_11==EQ||LA49_11==EXCEPT||LA49_11==FOR||LA49_11==GE||(LA49_11>=GT && LA49_11<=IDIV)||(LA49_11>=INSTANCE && LA49_11<=IS)||LA49_11==LE||(LA49_11>=LET && LA49_11<=MOD)||LA49_11==NE||(LA49_11>=OR && LA49_11<=ORDER)||(LA49_11>=RETURN && LA49_11<=SATISFIES)||LA49_11==STABLE||(LA49_11>=TO && LA49_11<=TREAT)||LA49_11==UNION||LA49_11==WHERE||LA49_11==COUNT||(LA49_11>=END && LA49_11<=GROUP)||LA49_11==ONLY||LA49_11==START||(LA49_11>=AFTER && LA49_11<=BEFORE)||LA49_11==INTO||LA49_11==MODIFY||LA49_11==WITH||(LA49_11>=LPAREN && LA49_11<=RPAREN)||(LA49_11>=RBRACKET && LA49_11<=EQUAL)||LA49_11==NOTEQUAL||LA49_11==COMMA||(LA49_11>=STAR && LA49_11<=SLASH_SLASH)||LA49_11==COLON||(LA49_11>=SEMICOLON && LA49_11<=VBAR)) ) {s = 19;}
+
+                        else if ( (LA49_11==NODE||LA49_11==NODES) && ((lc(XQU)))) {s = 27;}
+
+                         
+                        input.seek(index49_11);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 5 : 
+                        int LA49_16 = input.LA(1);
+
+                         
+                        int index49_16 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (LA49_16==EOF||(LA49_16>=AND && LA49_16<=ASCENDING)||(LA49_16>=CASE && LA49_16<=CASTABLE)||LA49_16==COLLATION||LA49_16==DEFAULT||(LA49_16>=DESCENDING && LA49_16<=DIV)||(LA49_16>=ELSE && LA49_16<=EMPTY)||LA49_16==EQ||LA49_16==EXCEPT||LA49_16==FOR||LA49_16==GE||(LA49_16>=GT && LA49_16<=IDIV)||(LA49_16>=INSTANCE && LA49_16<=IS)||LA49_16==LE||(LA49_16>=LET && LA49_16<=MOD)||LA49_16==NE||(LA49_16>=OR && LA49_16<=ORDER)||(LA49_16>=RETURN && LA49_16<=SATISFIES)||LA49_16==STABLE||(LA49_16>=TO && LA49_16<=TREAT)||LA49_16==UNION||LA49_16==WHERE||LA49_16==COUNT||(LA49_16>=END && LA49_16<=GROUP)||LA49_16==ONLY||LA49_16==START||(LA49_16>=AFTER && LA49_16<=BEFORE)||LA49_16==INTO||LA49_16==MODIFY||LA49_16==WITH||(LA49_16>=LPAREN && LA49_16<=RPAREN)||(LA49_16>=RBRACKET && LA49_16<=EQUAL)||LA49_16==NOTEQUAL||LA49_16==COMMA||(LA49_16>=STAR && LA49_16<=SLASH_SLASH)||LA49_16==COLON||(LA49_16>=SEMICOLON && LA49_16<=VBAR)) ) {s = 19;}
+
+                        else if ( (LA49_16==DOLLAR) && ((lc(XQS)))) {s = 32;}
+
+                         
+                        input.seek(index49_16);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 6 : 
                         int LA49_14 = input.LA(1);
 
                          
@@ -26903,22 +26751,7 @@ public class XQueryParser extends XQDTParser {
                         input.seek(index49_14);
                         if ( s>=0 ) return s;
                         break;
-                    case 5 : 
-                        int LA49_9 = input.LA(1);
-
-                         
-                        int index49_9 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (LA49_9==LBRACKET) && ((lc(ZORBA)))) {s = 25;}
-
-                        else if ( (LA49_9==EOF||(LA49_9>=AND && LA49_9<=ASCENDING)||(LA49_9>=CASE && LA49_9<=CASTABLE)||LA49_9==COLLATION||LA49_9==DEFAULT||(LA49_9>=DESCENDING && LA49_9<=DIV)||(LA49_9>=ELSE && LA49_9<=EMPTY)||LA49_9==EQ||LA49_9==EXCEPT||LA49_9==FOR||LA49_9==GE||(LA49_9>=GT && LA49_9<=IDIV)||(LA49_9>=INSTANCE && LA49_9<=IS)||LA49_9==LE||(LA49_9>=LET && LA49_9<=MOD)||LA49_9==NE||(LA49_9>=OR && LA49_9<=ORDER)||(LA49_9>=RETURN && LA49_9<=SATISFIES)||LA49_9==STABLE||(LA49_9>=TO && LA49_9<=TREAT)||LA49_9==UNION||LA49_9==WHERE||LA49_9==COUNT||(LA49_9>=END && LA49_9<=GROUP)||LA49_9==ONLY||LA49_9==START||(LA49_9>=AFTER && LA49_9<=BEFORE)||LA49_9==INTO||LA49_9==MODIFY||LA49_9==WITH||(LA49_9>=LPAREN && LA49_9<=RPAREN)||(LA49_9>=RBRACKET && LA49_9<=EQUAL)||LA49_9==NOTEQUAL||LA49_9==COMMA||(LA49_9>=STAR && LA49_9<=SLASH_SLASH)||LA49_9==COLON||(LA49_9>=SEMICOLON && LA49_9<=VBAR)) ) {s = 19;}
-
-                         
-                        input.seek(index49_9);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 6 : 
+                    case 7 : 
                         int LA49_17 = input.LA(1);
 
                          
@@ -26933,64 +26766,49 @@ public class XQueryParser extends XQDTParser {
                         input.seek(index49_17);
                         if ( s>=0 ) return s;
                         break;
-                    case 7 : 
-                        int LA49_11 = input.LA(1);
-
-                         
-                        int index49_11 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (LA49_11==NODE||LA49_11==NODES) && ((lc(XQU)))) {s = 27;}
-
-                        else if ( (LA49_11==EOF||(LA49_11>=AND && LA49_11<=ASCENDING)||(LA49_11>=CASE && LA49_11<=CASTABLE)||LA49_11==COLLATION||LA49_11==DEFAULT||(LA49_11>=DESCENDING && LA49_11<=DIV)||(LA49_11>=ELSE && LA49_11<=EMPTY)||LA49_11==EQ||LA49_11==EXCEPT||LA49_11==FOR||LA49_11==GE||(LA49_11>=GT && LA49_11<=IDIV)||(LA49_11>=INSTANCE && LA49_11<=IS)||LA49_11==LE||(LA49_11>=LET && LA49_11<=MOD)||LA49_11==NE||(LA49_11>=OR && LA49_11<=ORDER)||(LA49_11>=RETURN && LA49_11<=SATISFIES)||LA49_11==STABLE||(LA49_11>=TO && LA49_11<=TREAT)||LA49_11==UNION||LA49_11==WHERE||LA49_11==COUNT||(LA49_11>=END && LA49_11<=GROUP)||LA49_11==ONLY||LA49_11==START||(LA49_11>=AFTER && LA49_11<=BEFORE)||LA49_11==INTO||LA49_11==MODIFY||LA49_11==WITH||(LA49_11>=LPAREN && LA49_11<=RPAREN)||(LA49_11>=RBRACKET && LA49_11<=EQUAL)||LA49_11==NOTEQUAL||LA49_11==COMMA||(LA49_11>=STAR && LA49_11<=SLASH_SLASH)||LA49_11==COLON||(LA49_11>=SEMICOLON && LA49_11<=VBAR)) ) {s = 19;}
-
-                         
-                        input.seek(index49_11);
-                        if ( s>=0 ) return s;
-                        break;
                     case 8 : 
-                        int LA49_16 = input.LA(1);
+                        int LA49_12 = input.LA(1);
 
                          
-                        int index49_16 = input.index();
+                        int index49_12 = input.index();
                         input.rewind();
                         s = -1;
-                        if ( (LA49_16==DOLLAR) && ((lc(XQS)))) {s = 32;}
+                        if ( (LA49_12==NODE) && ((lc(XQU)))) {s = 28;}
 
-                        else if ( (LA49_16==EOF||(LA49_16>=AND && LA49_16<=ASCENDING)||(LA49_16>=CASE && LA49_16<=CASTABLE)||LA49_16==COLLATION||LA49_16==DEFAULT||(LA49_16>=DESCENDING && LA49_16<=DIV)||(LA49_16>=ELSE && LA49_16<=EMPTY)||LA49_16==EQ||LA49_16==EXCEPT||LA49_16==FOR||LA49_16==GE||(LA49_16>=GT && LA49_16<=IDIV)||(LA49_16>=INSTANCE && LA49_16<=IS)||LA49_16==LE||(LA49_16>=LET && LA49_16<=MOD)||LA49_16==NE||(LA49_16>=OR && LA49_16<=ORDER)||(LA49_16>=RETURN && LA49_16<=SATISFIES)||LA49_16==STABLE||(LA49_16>=TO && LA49_16<=TREAT)||LA49_16==UNION||LA49_16==WHERE||LA49_16==COUNT||(LA49_16>=END && LA49_16<=GROUP)||LA49_16==ONLY||LA49_16==START||(LA49_16>=AFTER && LA49_16<=BEFORE)||LA49_16==INTO||LA49_16==MODIFY||LA49_16==WITH||(LA49_16>=LPAREN && LA49_16<=RPAREN)||(LA49_16>=RBRACKET && LA49_16<=EQUAL)||LA49_16==NOTEQUAL||LA49_16==COMMA||(LA49_16>=STAR && LA49_16<=SLASH_SLASH)||LA49_16==COLON||(LA49_16>=SEMICOLON && LA49_16<=VBAR)) ) {s = 19;}
+                        else if ( (LA49_12==EOF||(LA49_12>=AND && LA49_12<=ASCENDING)||(LA49_12>=CASE && LA49_12<=CASTABLE)||LA49_12==COLLATION||LA49_12==DEFAULT||(LA49_12>=DESCENDING && LA49_12<=DIV)||(LA49_12>=ELSE && LA49_12<=EMPTY)||LA49_12==EQ||LA49_12==EXCEPT||LA49_12==FOR||LA49_12==GE||(LA49_12>=GT && LA49_12<=IDIV)||(LA49_12>=INSTANCE && LA49_12<=IS)||LA49_12==LE||(LA49_12>=LET && LA49_12<=MOD)||LA49_12==NE||(LA49_12>=OR && LA49_12<=ORDER)||(LA49_12>=RETURN && LA49_12<=SATISFIES)||LA49_12==STABLE||(LA49_12>=TO && LA49_12<=TREAT)||LA49_12==UNION||LA49_12==WHERE||LA49_12==COUNT||(LA49_12>=END && LA49_12<=GROUP)||LA49_12==ONLY||LA49_12==START||(LA49_12>=AFTER && LA49_12<=BEFORE)||LA49_12==INTO||LA49_12==MODIFY||LA49_12==WITH||(LA49_12>=LPAREN && LA49_12<=RPAREN)||(LA49_12>=RBRACKET && LA49_12<=EQUAL)||LA49_12==NOTEQUAL||LA49_12==COMMA||(LA49_12>=STAR && LA49_12<=SLASH_SLASH)||LA49_12==COLON||(LA49_12>=SEMICOLON && LA49_12<=VBAR)) ) {s = 19;}
 
                          
-                        input.seek(index49_16);
+                        input.seek(index49_12);
                         if ( s>=0 ) return s;
                         break;
                     case 9 : 
-                        int LA49_10 = input.LA(1);
+                        int LA49_8 = input.LA(1);
 
                          
-                        int index49_10 = input.index();
+                        int index49_8 = input.index();
                         input.rewind();
                         s = -1;
-                        if ( (LA49_10==NODE||LA49_10==NODES) && ((lc(XQU)))) {s = 26;}
+                        if ( (LA49_8==EOF||(LA49_8>=AND && LA49_8<=ASCENDING)||(LA49_8>=CASE && LA49_8<=CASTABLE)||LA49_8==COLLATION||LA49_8==DEFAULT||(LA49_8>=DESCENDING && LA49_8<=DIV)||(LA49_8>=ELSE && LA49_8<=EMPTY)||LA49_8==EQ||LA49_8==EXCEPT||LA49_8==FOR||LA49_8==GE||(LA49_8>=GT && LA49_8<=IDIV)||(LA49_8>=INSTANCE && LA49_8<=IS)||LA49_8==LE||(LA49_8>=LET && LA49_8<=MOD)||LA49_8==NE||(LA49_8>=OR && LA49_8<=ORDER)||(LA49_8>=RETURN && LA49_8<=SATISFIES)||LA49_8==STABLE||(LA49_8>=TO && LA49_8<=TREAT)||LA49_8==UNION||LA49_8==WHERE||LA49_8==COUNT||(LA49_8>=END && LA49_8<=GROUP)||LA49_8==ONLY||LA49_8==START||(LA49_8>=AFTER && LA49_8<=BEFORE)||LA49_8==INTO||LA49_8==MODIFY||LA49_8==WITH||(LA49_8>=LPAREN && LA49_8<=RPAREN)||(LA49_8>=RBRACKET && LA49_8<=EQUAL)||LA49_8==NOTEQUAL||LA49_8==COMMA||(LA49_8>=STAR && LA49_8<=SLASH_SLASH)||LA49_8==COLON||(LA49_8>=SEMICOLON && LA49_8<=VBAR)) ) {s = 19;}
 
-                        else if ( (LA49_10==EOF||(LA49_10>=AND && LA49_10<=ASCENDING)||(LA49_10>=CASE && LA49_10<=CASTABLE)||LA49_10==COLLATION||LA49_10==DEFAULT||(LA49_10>=DESCENDING && LA49_10<=DIV)||(LA49_10>=ELSE && LA49_10<=EMPTY)||LA49_10==EQ||LA49_10==EXCEPT||LA49_10==FOR||LA49_10==GE||(LA49_10>=GT && LA49_10<=IDIV)||(LA49_10>=INSTANCE && LA49_10<=IS)||LA49_10==LE||(LA49_10>=LET && LA49_10<=MOD)||LA49_10==NE||(LA49_10>=OR && LA49_10<=ORDER)||(LA49_10>=RETURN && LA49_10<=SATISFIES)||LA49_10==STABLE||(LA49_10>=TO && LA49_10<=TREAT)||LA49_10==UNION||LA49_10==WHERE||LA49_10==COUNT||(LA49_10>=END && LA49_10<=GROUP)||LA49_10==ONLY||LA49_10==START||(LA49_10>=AFTER && LA49_10<=BEFORE)||LA49_10==INTO||LA49_10==MODIFY||LA49_10==WITH||(LA49_10>=LPAREN && LA49_10<=RPAREN)||(LA49_10>=RBRACKET && LA49_10<=EQUAL)||LA49_10==NOTEQUAL||LA49_10==COMMA||(LA49_10>=STAR && LA49_10<=SLASH_SLASH)||LA49_10==COLON||(LA49_10>=SEMICOLON && LA49_10<=VBAR)) ) {s = 19;}
+                        else if ( (LA49_8==DOLLAR) && ((lc(ZORBA)))) {s = 25;}
 
                          
-                        input.seek(index49_10);
+                        input.seek(index49_8);
                         if ( s>=0 ) return s;
                         break;
                     case 10 : 
-                        int LA49_18 = input.LA(1);
+                        int LA49_13 = input.LA(1);
 
                          
-                        int index49_18 = input.index();
+                        int index49_13 = input.index();
                         input.rewind();
                         s = -1;
-                        if ( (LA49_18==LPAREN) && ((lc(XQS)))) {s = 34;}
+                        if ( (LA49_13==EOF||(LA49_13>=AND && LA49_13<=ASCENDING)||(LA49_13>=CASE && LA49_13<=CASTABLE)||LA49_13==COLLATION||LA49_13==DEFAULT||(LA49_13>=DESCENDING && LA49_13<=DIV)||(LA49_13>=ELSE && LA49_13<=EMPTY)||LA49_13==EQ||LA49_13==EXCEPT||LA49_13==FOR||LA49_13==GE||(LA49_13>=GT && LA49_13<=IDIV)||(LA49_13>=INSTANCE && LA49_13<=IS)||LA49_13==LE||(LA49_13>=LET && LA49_13<=MOD)||LA49_13==NE||(LA49_13>=OR && LA49_13<=ORDER)||(LA49_13>=RETURN && LA49_13<=SATISFIES)||LA49_13==STABLE||(LA49_13>=TO && LA49_13<=TREAT)||LA49_13==UNION||LA49_13==WHERE||LA49_13==COUNT||(LA49_13>=END && LA49_13<=GROUP)||LA49_13==ONLY||LA49_13==START||(LA49_13>=AFTER && LA49_13<=BEFORE)||LA49_13==INTO||LA49_13==MODIFY||LA49_13==WITH||(LA49_13>=LPAREN && LA49_13<=RPAREN)||(LA49_13>=RBRACKET && LA49_13<=EQUAL)||LA49_13==NOTEQUAL||LA49_13==COMMA||(LA49_13>=STAR && LA49_13<=SLASH_SLASH)||LA49_13==COLON||(LA49_13>=SEMICOLON && LA49_13<=VBAR)) ) {s = 19;}
 
-                        else if ( (LA49_18==EOF||(LA49_18>=AND && LA49_18<=ASCENDING)||(LA49_18>=CASE && LA49_18<=CASTABLE)||LA49_18==COLLATION||LA49_18==DEFAULT||(LA49_18>=DESCENDING && LA49_18<=DIV)||(LA49_18>=ELSE && LA49_18<=EMPTY)||LA49_18==EQ||LA49_18==EXCEPT||LA49_18==FOR||LA49_18==GE||(LA49_18>=GT && LA49_18<=IDIV)||(LA49_18>=INSTANCE && LA49_18<=IS)||LA49_18==LE||(LA49_18>=LET && LA49_18<=MOD)||LA49_18==NE||(LA49_18>=OR && LA49_18<=ORDER)||(LA49_18>=RETURN && LA49_18<=SATISFIES)||LA49_18==STABLE||(LA49_18>=TO && LA49_18<=TREAT)||LA49_18==UNION||LA49_18==WHERE||LA49_18==COUNT||(LA49_18>=END && LA49_18<=GROUP)||LA49_18==ONLY||LA49_18==START||(LA49_18>=AFTER && LA49_18<=BEFORE)||LA49_18==INTO||LA49_18==MODIFY||LA49_18==WITH||LA49_18==RPAREN||(LA49_18>=RBRACKET && LA49_18<=EQUAL)||LA49_18==NOTEQUAL||LA49_18==COMMA||(LA49_18>=STAR && LA49_18<=SLASH_SLASH)||LA49_18==COLON||(LA49_18>=SEMICOLON && LA49_18<=VBAR)) ) {s = 19;}
+                        else if ( (LA49_13==NODE||LA49_13==VALUE) && ((lc(XQU)))) {s = 29;}
 
                          
-                        input.seek(index49_18);
+                        input.seek(index49_13);
                         if ( s>=0 ) return s;
                         break;
             }
@@ -27002,22 +26820,21 @@ public class XQueryParser extends XQDTParser {
         }
     }
     static final String DFA103_eotS =
-        "\56\uffff";
+        "\55\uffff";
     static final String DFA103_eofS =
-        "\56\uffff";
+        "\55\uffff";
     static final String DFA103_minS =
-        "\1\20\55\uffff";
+        "\1\20\54\uffff";
     static final String DFA103_maxS =
-        "\1\u0136\55\uffff";
+        "\1\u0136\54\uffff";
     static final String DFA103_acceptS =
-        "\1\uffff\1\1\1\2\52\uffff\1\3";
+        "\1\uffff\1\1\1\2\51\uffff\1\3";
     static final String DFA103_specialS =
-        "\56\uffff}>";
+        "\55\uffff}>";
     static final String[] DFA103_transitionS = {
             "\133\2\1\1\63\2\1\uffff\24\2\1\uffff\15\2\1\uffff\1\2\12\uffff"+
             "\1\2\2\uffff\1\2\5\uffff\4\2\14\uffff\1\2\2\uffff\2\2\2\uffff"+
-            "\1\2\6\uffff\1\55\5\2\73\uffff\1\2",
-            "",
+            "\1\2\6\uffff\1\54\5\2\73\uffff\1\2",
             "",
             "",
             "",
@@ -27098,23 +26915,22 @@ public class XQueryParser extends XQDTParser {
         }
     }
     static final String DFA110_eotS =
-        "\56\uffff";
+        "\55\uffff";
     static final String DFA110_eofS =
-        "\56\uffff";
+        "\55\uffff";
     static final String DFA110_minS =
-        "\1\20\1\0\54\uffff";
+        "\1\20\1\0\53\uffff";
     static final String DFA110_maxS =
-        "\1\u0136\1\0\54\uffff";
+        "\1\u0136\1\0\53\uffff";
     static final String DFA110_acceptS =
-        "\2\uffff\1\3\1\4\50\uffff\1\1\1\2";
+        "\2\uffff\1\3\1\4\47\uffff\1\1\1\2";
     static final String DFA110_specialS =
-        "\1\uffff\1\0\54\uffff}>";
+        "\1\uffff\1\0\53\uffff}>";
     static final String[] DFA110_transitionS = {
             "\u008f\3\1\uffff\24\3\1\uffff\15\3\1\uffff\1\3\12\uffff\1\3"+
             "\2\uffff\1\3\5\uffff\1\1\1\2\2\3\14\uffff\1\3\2\uffff\2\3\2"+
             "\uffff\1\3\7\uffff\5\3\73\uffff\1\3",
             "\1\uffff",
-            "",
             "",
             "",
             "",
@@ -27203,9 +27019,9 @@ public class XQueryParser extends XQDTParser {
                         int index110_1 = input.index();
                         input.rewind();
                         s = -1;
-                        if ( (synpred1_XQueryParser()) ) {s = 44;}
+                        if ( (synpred1_XQueryParser()) ) {s = 43;}
 
-                        else if ( (true) ) {s = 45;}
+                        else if ( (true) ) {s = 44;}
 
                          
                         input.seek(index110_1);
@@ -27220,79 +27036,79 @@ public class XQueryParser extends XQDTParser {
         }
     }
     static final String DFA112_eotS =
-        "\u00d7\uffff";
+        "\u00d5\uffff";
     static final String DFA112_eofS =
-        "\1\uffff\5\6\1\uffff\15\6\1\uffff\5\6\u00bc\uffff\1\6";
+        "\1\uffff\5\6\1\uffff\14\6\1\uffff\5\6\u00bb\uffff\1\6";
     static final String DFA112_minS =
-        "\1\20\5\22\1\uffff\2\22\1\20\4\22\2\20\4\22\1\uffff\2\22\1\20\2"+
+        "\1\20\5\22\1\uffff\2\22\1\20\4\22\2\20\3\22\1\uffff\2\22\1\20\2"+
         "\22\1\20\3\23\1\117\20\20\1\u0084\1\u00c3\1\20\2\31\1\122\1\u00c3"+
         "\1\20\1\25\1\166\1\25\2\36\1\70\1\u00c4\1\20\1\132\11\20\3\23\1"+
         "\117\20\20\1\u0084\1\u00c3\1\20\2\31\1\122\1\u00c3\1\20\1\25\1\166"+
         "\1\25\2\36\1\70\1\u00c4\1\20\1\132\11\20\3\23\1\117\20\20\1\u0084"+
         "\1\u00c3\1\20\2\31\1\122\1\u00c3\1\20\1\25\1\166\1\25\2\36\1\70"+
-        "\1\u00c4\1\20\1\132\12\20\3\23\1\117\20\20\1\u0084\1\u00c3\1\20"+
+        "\1\u00c4\1\20\1\132\11\20\3\23\1\117\20\20\1\u0084\1\u00c3\1\20"+
         "\2\31\1\122\1\u00c3\1\20\1\25\1\166\1\25\2\36\1\70\1\u00c4\1\20"+
         "\1\132\11\20\2\uffff\1\22";
     static final String DFA112_maxS =
-        "\1\u0136\5\u00e0\1\uffff\2\u00e0\1\u0136\4\u00e0\2\u0136\4\u00e0"+
+        "\1\u0136\5\u00e0\1\uffff\2\u00e0\1\u0136\4\u00e0\2\u0136\3\u00e0"+
         "\1\uffff\2\u00e0\1\u0136\2\u00e0\1\u0136\4\u00db\20\u0136\2\u00db"+
         "\1\u0136\4\u00db\1\u0136\6\u00db\1\u00eb\1\u0136\1\u00db\11\u0136"+
         "\4\u00db\20\u0136\2\u00db\1\u0136\4\u00db\1\u0136\6\u00db\1\u00eb"+
         "\1\u0136\1\u00db\11\u0136\4\u00c4\20\u0136\2\u00c4\1\u0136\4\u00c4"+
-        "\1\u0136\3\u00c4\2\u00cc\1\u00c4\1\u00eb\1\u0136\1\u00c4\12\u0136"+
+        "\1\u0136\3\u00c4\2\u00cc\1\u00c4\1\u00eb\1\u0136\1\u00c4\11\u0136"+
         "\4\u00c4\20\u0136\2\u00c4\1\u0136\4\u00c4\1\u0136\3\u00c4\2\u00cc"+
         "\1\u00c4\1\u00eb\1\u0136\1\u00c4\11\u0136\2\uffff\1\u00e0";
     static final String DFA112_acceptS =
-        "\6\uffff\1\1\15\uffff\1\2\u00bf\uffff\2\2\1\uffff";
+        "\6\uffff\1\1\14\uffff\1\2\u00be\uffff\2\2\1\uffff";
     static final String DFA112_specialS =
-        "\30\uffff\1\0\u00be\uffff}>";
+        "\27\uffff\1\0\u00bd\uffff}>";
     static final String[] DFA112_transitionS = {
-            "\1\2\1\5\4\31\1\11\6\31\1\7\1\31\1\20\4\31\1\10\1\13\2\31\1"+
-            "\26\1\6\1\16\2\31\1\6\5\31\1\15\1\14\6\31\1\6\6\31\1\6\7\31"+
-            "\1\27\3\31\1\6\4\31\1\23\1\31\1\1\1\4\1\3\1\31\1\17\3\31\2\6"+
-            "\1\12\4\31\1\21\3\31\1\6\1\31\1\25\20\31\1\6\43\31\1\uffff\3"+
-            "\31\1\6\20\31\1\uffff\7\31\1\30\4\31\1\24\1\uffff\1\24\12\uffff"+
-            "\1\6\2\uffff\1\24\7\uffff\1\24\1\6\14\uffff\1\6\2\uffff\2\24"+
-            "\2\uffff\1\22\7\uffff\5\24\73\uffff\1\31",
+            "\1\2\1\5\4\30\1\11\6\30\1\7\1\30\1\20\4\30\1\10\1\13\2\30\1"+
+            "\25\1\6\1\16\2\30\1\6\5\30\1\15\1\14\6\30\1\6\6\30\1\6\7\30"+
+            "\1\26\3\30\1\6\4\30\1\22\1\30\1\1\1\4\1\3\1\30\1\17\3\30\2\6"+
+            "\1\12\4\30\1\21\3\30\1\6\1\30\1\24\20\30\1\6\43\30\1\uffff\3"+
+            "\30\1\6\20\30\1\uffff\7\30\1\27\4\30\1\23\1\uffff\1\23\12\uffff"+
+            "\1\6\2\uffff\1\23\7\uffff\1\23\1\6\14\uffff\1\6\2\uffff\2\23"+
+            "\2\uffff\1\30\7\uffff\5\23\73\uffff\1\30",
             "\3\6\4\uffff\4\6\1\uffff\1\6\4\uffff\1\6\2\uffff\2\6\3\uffff"+
             "\2\6\2\uffff\1\6\1\uffff\1\6\3\uffff\1\6\1\uffff\1\6\1\uffff"+
             "\2\6\4\uffff\3\6\2\uffff\1\6\1\uffff\3\6\2\uffff\1\6\5\uffff"+
             "\2\6\7\uffff\2\6\5\uffff\1\6\4\uffff\2\6\1\uffff\1\6\4\uffff"+
             "\1\6\3\uffff\1\6\3\uffff\2\6\6\uffff\1\6\6\uffff\1\6\5\uffff"+
-            "\2\6\4\uffff\1\6\1\uffff\1\6\7\uffff\1\6\45\uffff\1\24\1\6\2"+
-            "\uffff\4\6\1\uffff\1\6\1\uffff\1\6\1\uffff\13\6\2\uffff\1\32"+
+            "\2\6\4\uffff\1\6\1\uffff\1\6\7\uffff\1\6\45\uffff\1\23\1\6\2"+
+            "\uffff\4\6\1\uffff\1\6\1\uffff\1\6\1\uffff\13\6\2\uffff\1\31"+
             "\1\6\2\uffff\2\6",
             "\3\6\4\uffff\4\6\1\uffff\1\6\4\uffff\1\6\2\uffff\2\6\3\uffff"+
             "\2\6\2\uffff\1\6\1\uffff\1\6\3\uffff\1\6\1\uffff\1\6\1\uffff"+
             "\2\6\4\uffff\3\6\2\uffff\1\6\1\uffff\3\6\2\uffff\1\6\5\uffff"+
             "\2\6\7\uffff\2\6\5\uffff\1\6\4\uffff\2\6\1\uffff\1\6\4\uffff"+
             "\1\6\3\uffff\1\6\3\uffff\2\6\6\uffff\1\6\6\uffff\1\6\5\uffff"+
-            "\2\6\4\uffff\1\6\1\uffff\1\6\7\uffff\1\6\45\uffff\1\24\1\6\2"+
-            "\uffff\4\6\1\uffff\1\6\1\uffff\1\6\1\uffff\13\6\2\uffff\1\32"+
+            "\2\6\4\uffff\1\6\1\uffff\1\6\7\uffff\1\6\45\uffff\1\23\1\6\2"+
+            "\uffff\4\6\1\uffff\1\6\1\uffff\1\6\1\uffff\13\6\2\uffff\1\31"+
             "\1\6\2\uffff\2\6",
             "\3\6\4\uffff\4\6\1\uffff\1\6\4\uffff\1\6\2\uffff\2\6\3\uffff"+
             "\2\6\2\uffff\1\6\1\uffff\1\6\3\uffff\1\6\1\uffff\1\6\1\uffff"+
             "\2\6\4\uffff\3\6\2\uffff\1\6\1\uffff\3\6\2\uffff\1\6\5\uffff"+
             "\2\6\7\uffff\2\6\5\uffff\1\6\4\uffff\2\6\1\uffff\1\6\4\uffff"+
             "\1\6\3\uffff\1\6\3\uffff\2\6\6\uffff\1\6\6\uffff\1\6\5\uffff"+
-            "\2\6\4\uffff\1\6\1\uffff\1\6\7\uffff\1\6\45\uffff\1\24\1\6\2"+
-            "\uffff\4\6\1\uffff\1\6\1\uffff\1\6\1\uffff\13\6\2\uffff\1\32"+
+            "\2\6\4\uffff\1\6\1\uffff\1\6\7\uffff\1\6\45\uffff\1\23\1\6\2"+
+            "\uffff\4\6\1\uffff\1\6\1\uffff\1\6\1\uffff\13\6\2\uffff\1\31"+
             "\1\6\2\uffff\2\6",
             "\3\6\4\uffff\4\6\1\uffff\1\6\4\uffff\1\6\2\uffff\2\6\3\uffff"+
             "\2\6\2\uffff\1\6\1\uffff\1\6\3\uffff\1\6\1\uffff\1\6\1\uffff"+
             "\2\6\4\uffff\3\6\2\uffff\1\6\1\uffff\3\6\2\uffff\1\6\5\uffff"+
             "\2\6\7\uffff\2\6\5\uffff\1\6\4\uffff\2\6\1\uffff\1\6\4\uffff"+
             "\1\6\3\uffff\1\6\3\uffff\2\6\6\uffff\1\6\6\uffff\1\6\5\uffff"+
-            "\2\6\4\uffff\1\6\1\uffff\1\6\7\uffff\1\6\45\uffff\1\24\1\6\2"+
-            "\uffff\4\6\1\uffff\1\6\1\uffff\1\6\1\uffff\13\6\2\uffff\1\32"+
+            "\2\6\4\uffff\1\6\1\uffff\1\6\7\uffff\1\6\45\uffff\1\23\1\6\2"+
+            "\uffff\4\6\1\uffff\1\6\1\uffff\1\6\1\uffff\13\6\2\uffff\1\31"+
             "\1\6\2\uffff\2\6",
             "\3\6\4\uffff\4\6\1\uffff\1\6\4\uffff\1\6\2\uffff\2\6\3\uffff"+
             "\2\6\2\uffff\1\6\1\uffff\1\6\3\uffff\1\6\1\uffff\1\6\1\uffff"+
             "\2\6\4\uffff\3\6\2\uffff\1\6\1\uffff\3\6\2\uffff\1\6\5\uffff"+
             "\2\6\7\uffff\2\6\5\uffff\1\6\4\uffff\2\6\1\uffff\1\6\4\uffff"+
             "\1\6\3\uffff\1\6\3\uffff\2\6\6\uffff\1\6\6\uffff\1\6\5\uffff"+
-            "\2\6\4\uffff\1\6\1\uffff\1\6\7\uffff\1\6\45\uffff\1\24\1\6\2"+
-            "\uffff\4\6\1\uffff\1\6\1\uffff\1\6\1\uffff\13\6\2\uffff\1\32"+
+            "\2\6\4\uffff\1\6\1\uffff\1\6\7\uffff\1\6\45\uffff\1\23\1\6\2"+
+            "\uffff\4\6\1\uffff\1\6\1\uffff\1\6\1\uffff\13\6\2\uffff\1\31"+
             "\1\6\2\uffff\2\6",
             "",
             "\3\6\4\uffff\4\6\1\uffff\1\6\4\uffff\1\6\2\uffff\2\6\3\uffff"+
@@ -27300,86 +27116,86 @@ public class XQueryParser extends XQDTParser {
             "\2\6\4\uffff\3\6\2\uffff\1\6\1\uffff\3\6\2\uffff\1\6\5\uffff"+
             "\2\6\7\uffff\2\6\5\uffff\1\6\4\uffff\2\6\1\uffff\1\6\4\uffff"+
             "\1\6\3\uffff\1\6\3\uffff\2\6\6\uffff\1\6\6\uffff\1\6\5\uffff"+
-            "\2\6\4\uffff\1\6\1\uffff\1\6\7\uffff\1\6\45\uffff\1\24\1\6\2"+
-            "\uffff\4\6\1\uffff\1\6\1\uffff\1\6\1\uffff\13\6\2\uffff\1\32"+
+            "\2\6\4\uffff\1\6\1\uffff\1\6\7\uffff\1\6\45\uffff\1\23\1\6\2"+
+            "\uffff\4\6\1\uffff\1\6\1\uffff\1\6\1\uffff\13\6\2\uffff\1\31"+
             "\1\6\2\uffff\2\6",
             "\3\6\4\uffff\4\6\1\uffff\1\6\4\uffff\1\6\2\uffff\2\6\3\uffff"+
             "\2\6\2\uffff\1\6\1\uffff\1\6\3\uffff\1\6\1\uffff\1\6\1\uffff"+
             "\2\6\4\uffff\3\6\2\uffff\1\6\1\uffff\3\6\2\uffff\1\6\5\uffff"+
             "\2\6\7\uffff\2\6\5\uffff\1\6\4\uffff\2\6\1\uffff\1\6\4\uffff"+
             "\1\6\3\uffff\1\6\3\uffff\2\6\6\uffff\1\6\6\uffff\1\6\5\uffff"+
-            "\2\6\4\uffff\1\6\1\uffff\1\6\7\uffff\1\6\45\uffff\1\24\1\6\2"+
-            "\uffff\4\6\1\uffff\1\6\1\uffff\1\6\1\uffff\13\6\2\uffff\1\32"+
+            "\2\6\4\uffff\1\6\1\uffff\1\6\7\uffff\1\6\45\uffff\1\23\1\6\2"+
+            "\uffff\4\6\1\uffff\1\6\1\uffff\1\6\1\uffff\13\6\2\uffff\1\31"+
             "\1\6\2\uffff\2\6",
-            "\2\24\1\55\1\103\1\72\4\24\1\110\1\100\1\33\1\34\1\24\1\75"+
-            "\4\24\1\77\2\24\1\73\1\42\3\24\1\101\1\74\2\24\1\46\1\24\1\40"+
-            "\3\24\1\57\1\24\1\53\1\24\1\52\1\43\4\24\1\36\1\37\1\54\2\24"+
-            "\1\51\1\24\1\60\1\50\1\44\2\24\1\47\5\24\1\56\1\63\7\24\1\66"+
-            "\1\76\5\24\1\64\4\24\1\45\1\35\1\24\1\41\4\24\1\61\3\24\1\65"+
-            "\3\24\1\71\1\62\6\24\1\70\6\24\1\67\5\24\1\105\1\106\4\24\1"+
-            "\104\1\24\1\107\7\24\1\102\3\24\1\uffff\24\24\1\uffff\14\24"+
-            "\2\6\1\uffff\1\24\4\6\1\uffff\1\6\1\uffff\1\6\1\uffff\13\6\2"+
-            "\uffff\2\6\2\uffff\2\6\15\uffff\1\24\107\uffff\1\24",
+            "\2\23\1\54\1\102\1\71\4\23\1\107\1\77\1\32\1\33\1\23\1\74"+
+            "\4\23\1\76\2\23\1\72\1\41\3\23\1\100\1\73\2\23\1\45\1\23\1\37"+
+            "\3\23\1\56\1\23\1\52\1\23\1\51\1\42\4\23\1\35\1\36\1\53\2\23"+
+            "\1\50\1\23\1\57\1\47\1\43\2\23\1\46\5\23\1\55\1\62\7\23\1\65"+
+            "\1\75\5\23\1\63\4\23\1\44\1\34\1\23\1\40\4\23\1\60\3\23\1\64"+
+            "\3\23\1\70\1\61\6\23\1\67\6\23\1\66\5\23\1\104\1\105\4\23\1"+
+            "\103\1\23\1\106\7\23\1\101\3\23\1\uffff\24\23\1\uffff\14\23"+
+            "\2\6\1\uffff\1\23\4\6\1\uffff\1\6\1\uffff\1\6\1\uffff\13\6\2"+
+            "\uffff\2\6\2\uffff\2\6\15\uffff\1\23\107\uffff\1\23",
             "\3\6\4\uffff\4\6\1\uffff\1\6\4\uffff\1\6\2\uffff\2\6\3\uffff"+
             "\2\6\2\uffff\1\6\1\uffff\1\6\3\uffff\1\6\1\uffff\1\6\1\uffff"+
             "\2\6\4\uffff\3\6\2\uffff\1\6\1\uffff\3\6\2\uffff\1\6\5\uffff"+
             "\2\6\7\uffff\2\6\5\uffff\1\6\4\uffff\2\6\1\uffff\1\6\4\uffff"+
             "\1\6\3\uffff\1\6\3\uffff\2\6\6\uffff\1\6\6\uffff\1\6\5\uffff"+
-            "\2\6\4\uffff\1\6\1\uffff\1\6\7\uffff\1\6\45\uffff\1\24\1\6\2"+
-            "\uffff\4\6\1\uffff\1\6\1\uffff\1\6\1\uffff\13\6\2\uffff\1\32"+
-            "\1\6\2\uffff\2\6",
-            "\3\6\4\uffff\4\6\1\uffff\1\6\4\uffff\1\6\2\uffff\2\6\3\uffff"+
-            "\2\6\2\uffff\1\6\1\uffff\1\6\3\uffff\1\6\1\uffff\1\6\1\uffff"+
-            "\2\6\4\uffff\3\6\2\uffff\1\6\1\uffff\3\6\2\uffff\1\6\5\uffff"+
-            "\2\6\7\uffff\2\6\5\uffff\1\6\4\uffff\2\6\1\uffff\1\6\4\uffff"+
-            "\1\6\3\uffff\1\6\3\uffff\2\6\6\uffff\1\6\6\uffff\1\6\5\uffff"+
-            "\2\6\4\uffff\1\6\1\uffff\1\6\7\uffff\1\6\45\uffff\1\24\1\6\2"+
-            "\uffff\4\6\1\uffff\1\6\1\uffff\1\6\1\uffff\13\6\2\uffff\1\32"+
+            "\2\6\4\uffff\1\6\1\uffff\1\6\7\uffff\1\6\45\uffff\1\23\1\6\2"+
+            "\uffff\4\6\1\uffff\1\6\1\uffff\1\6\1\uffff\13\6\2\uffff\1\31"+
             "\1\6\2\uffff\2\6",
             "\3\6\4\uffff\4\6\1\uffff\1\6\4\uffff\1\6\2\uffff\2\6\3\uffff"+
             "\2\6\2\uffff\1\6\1\uffff\1\6\3\uffff\1\6\1\uffff\1\6\1\uffff"+
             "\2\6\4\uffff\3\6\2\uffff\1\6\1\uffff\3\6\2\uffff\1\6\5\uffff"+
             "\2\6\7\uffff\2\6\5\uffff\1\6\4\uffff\2\6\1\uffff\1\6\4\uffff"+
             "\1\6\3\uffff\1\6\3\uffff\2\6\6\uffff\1\6\6\uffff\1\6\5\uffff"+
-            "\2\6\4\uffff\1\6\1\uffff\1\6\7\uffff\1\6\45\uffff\1\24\1\6\2"+
-            "\uffff\4\6\1\uffff\1\6\1\uffff\1\6\1\uffff\13\6\2\uffff\1\32"+
+            "\2\6\4\uffff\1\6\1\uffff\1\6\7\uffff\1\6\45\uffff\1\23\1\6\2"+
+            "\uffff\4\6\1\uffff\1\6\1\uffff\1\6\1\uffff\13\6\2\uffff\1\31"+
             "\1\6\2\uffff\2\6",
             "\3\6\4\uffff\4\6\1\uffff\1\6\4\uffff\1\6\2\uffff\2\6\3\uffff"+
             "\2\6\2\uffff\1\6\1\uffff\1\6\3\uffff\1\6\1\uffff\1\6\1\uffff"+
             "\2\6\4\uffff\3\6\2\uffff\1\6\1\uffff\3\6\2\uffff\1\6\5\uffff"+
             "\2\6\7\uffff\2\6\5\uffff\1\6\4\uffff\2\6\1\uffff\1\6\4\uffff"+
             "\1\6\3\uffff\1\6\3\uffff\2\6\6\uffff\1\6\6\uffff\1\6\5\uffff"+
-            "\2\6\4\uffff\1\6\1\uffff\1\6\7\uffff\1\6\45\uffff\1\24\1\6\2"+
-            "\uffff\4\6\1\uffff\1\6\1\uffff\1\6\1\uffff\13\6\2\uffff\1\32"+
+            "\2\6\4\uffff\1\6\1\uffff\1\6\7\uffff\1\6\45\uffff\1\23\1\6\2"+
+            "\uffff\4\6\1\uffff\1\6\1\uffff\1\6\1\uffff\13\6\2\uffff\1\31"+
             "\1\6\2\uffff\2\6",
-            "\2\24\1\133\1\161\1\150\4\24\1\166\1\156\1\111\1\112\1\24"+
-            "\1\153\4\24\1\155\2\24\1\151\1\120\3\24\1\157\1\152\2\24\1\124"+
-            "\1\24\1\116\3\24\1\135\1\24\1\131\1\24\1\130\1\121\4\24\1\114"+
-            "\1\115\1\132\2\24\1\127\1\24\1\136\1\126\1\122\2\24\1\125\5"+
-            "\24\1\134\1\141\7\24\1\144\1\154\5\24\1\142\4\24\1\123\1\113"+
-            "\1\24\1\117\4\24\1\137\3\24\1\143\3\24\1\147\1\140\6\24\1\146"+
-            "\6\24\1\145\5\24\1\163\1\164\4\24\1\162\1\24\1\165\7\24\1\160"+
-            "\3\24\1\uffff\24\24\1\uffff\14\24\2\6\1\uffff\1\24\4\6\1\uffff"+
+            "\3\6\4\uffff\4\6\1\uffff\1\6\4\uffff\1\6\2\uffff\2\6\3\uffff"+
+            "\2\6\2\uffff\1\6\1\uffff\1\6\3\uffff\1\6\1\uffff\1\6\1\uffff"+
+            "\2\6\4\uffff\3\6\2\uffff\1\6\1\uffff\3\6\2\uffff\1\6\5\uffff"+
+            "\2\6\7\uffff\2\6\5\uffff\1\6\4\uffff\2\6\1\uffff\1\6\4\uffff"+
+            "\1\6\3\uffff\1\6\3\uffff\2\6\6\uffff\1\6\6\uffff\1\6\5\uffff"+
+            "\2\6\4\uffff\1\6\1\uffff\1\6\7\uffff\1\6\45\uffff\1\23\1\6\2"+
+            "\uffff\4\6\1\uffff\1\6\1\uffff\1\6\1\uffff\13\6\2\uffff\1\31"+
+            "\1\6\2\uffff\2\6",
+            "\2\23\1\132\1\160\1\147\4\23\1\165\1\155\1\110\1\111\1\23"+
+            "\1\152\4\23\1\154\2\23\1\150\1\117\3\23\1\156\1\151\2\23\1\123"+
+            "\1\23\1\115\3\23\1\134\1\23\1\130\1\23\1\127\1\120\4\23\1\113"+
+            "\1\114\1\131\2\23\1\126\1\23\1\135\1\125\1\121\2\23\1\124\5"+
+            "\23\1\133\1\140\7\23\1\143\1\153\5\23\1\141\4\23\1\122\1\112"+
+            "\1\23\1\116\4\23\1\136\3\23\1\142\3\23\1\146\1\137\6\23\1\145"+
+            "\6\23\1\144\5\23\1\162\1\163\4\23\1\161\1\23\1\164\7\23\1\157"+
+            "\3\23\1\uffff\24\23\1\uffff\14\23\2\6\1\uffff\1\23\4\6\1\uffff"+
             "\1\6\1\uffff\1\6\1\uffff\13\6\2\uffff\1\6\3\uffff\2\6\15\uffff"+
-            "\1\24\107\uffff\1\24",
-            "\2\24\1\u0089\1\u009f\1\u0096\4\24\1\u00a4\1\u009c\1\167\1"+
-            "\170\1\24\1\u0099\4\24\1\u009b\2\24\1\u0097\1\176\3\24\1\u009d"+
-            "\1\u0098\2\24\1\u0082\1\24\1\174\3\24\1\u008b\1\24\1\u0087\1"+
-            "\24\1\u0086\1\177\4\24\1\172\1\173\1\u0088\2\24\1\u0085\1\24"+
-            "\1\u008c\1\u0084\1\u0080\2\24\1\u0083\5\24\1\u008a\1\u008f\7"+
-            "\24\1\u0092\1\u009a\5\24\1\u0090\4\24\1\u0081\1\171\1\24\1\175"+
-            "\4\24\1\u008d\3\24\1\u0091\3\24\1\u0095\1\u008e\6\24\1\u0094"+
-            "\6\24\1\u0093\5\24\1\u00a1\1\u00a2\4\24\1\u00a0\1\24\1\u00a3"+
-            "\7\24\1\u009e\3\24\1\uffff\24\24\1\uffff\14\24\2\6\1\uffff\1"+
-            "\24\4\6\1\uffff\1\6\1\uffff\1\6\1\uffff\13\6\2\uffff\1\6\3\uffff"+
-            "\2\6\15\uffff\1\24\107\uffff\1\24",
+            "\1\23\107\uffff\1\23",
+            "\2\23\1\u0088\1\u009e\1\u0095\4\23\1\u00a3\1\u009b\1\166\1"+
+            "\167\1\23\1\u0098\4\23\1\u009a\2\23\1\u0096\1\175\3\23\1\u009c"+
+            "\1\u0097\2\23\1\u0081\1\23\1\173\3\23\1\u008a\1\23\1\u0086\1"+
+            "\23\1\u0085\1\176\4\23\1\171\1\172\1\u0087\2\23\1\u0084\1\23"+
+            "\1\u008b\1\u0083\1\177\2\23\1\u0082\5\23\1\u0089\1\u008e\7\23"+
+            "\1\u0091\1\u0099\5\23\1\u008f\4\23\1\u0080\1\170\1\23\1\174"+
+            "\4\23\1\u008c\3\23\1\u0090\3\23\1\u0094\1\u008d\6\23\1\u0093"+
+            "\6\23\1\u0092\5\23\1\u00a0\1\u00a1\4\23\1\u009f\1\23\1\u00a2"+
+            "\7\23\1\u009d\3\23\1\uffff\24\23\1\uffff\14\23\2\6\1\uffff\1"+
+            "\23\4\6\1\uffff\1\6\1\uffff\1\6\1\uffff\13\6\2\uffff\1\6\3\uffff"+
+            "\2\6\15\uffff\1\23\107\uffff\1\23",
             "\3\6\4\uffff\4\6\1\uffff\1\6\4\uffff\1\6\2\uffff\2\6\3\uffff"+
             "\2\6\2\uffff\1\6\1\uffff\1\6\3\uffff\1\6\1\uffff\1\6\1\uffff"+
             "\2\6\4\uffff\3\6\2\uffff\1\6\1\uffff\3\6\2\uffff\1\6\5\uffff"+
             "\2\6\7\uffff\2\6\5\uffff\1\6\4\uffff\2\6\1\uffff\1\6\4\uffff"+
             "\1\6\3\uffff\1\6\3\uffff\2\6\6\uffff\1\6\6\uffff\1\6\5\uffff"+
             "\2\6\4\uffff\1\6\1\uffff\1\6\7\uffff\1\6\45\uffff\2\6\1\uffff"+
-            "\1\24\4\6\1\uffff\1\6\1\uffff\1\6\1\uffff\13\6\2\uffff\1\6\3"+
+            "\1\23\4\6\1\uffff\1\6\1\uffff\1\6\1\uffff\13\6\2\uffff\1\6\3"+
             "\uffff\2\6",
             "\3\6\4\uffff\4\6\1\uffff\1\6\4\uffff\1\6\2\uffff\2\6\3\uffff"+
             "\2\6\2\uffff\1\6\1\uffff\1\6\3\uffff\1\6\1\uffff\1\6\1\uffff"+
@@ -27387,498 +27203,488 @@ public class XQueryParser extends XQDTParser {
             "\2\6\7\uffff\2\6\5\uffff\1\6\4\uffff\2\6\1\uffff\1\6\4\uffff"+
             "\1\6\3\uffff\1\6\3\uffff\2\6\6\uffff\1\6\6\uffff\1\6\5\uffff"+
             "\2\6\4\uffff\1\6\1\uffff\1\6\7\uffff\1\6\45\uffff\2\6\1\uffff"+
-            "\1\24\4\6\1\uffff\1\6\1\uffff\1\6\1\uffff\13\6\2\uffff\1\6\3"+
+            "\1\23\4\6\1\uffff\1\6\1\uffff\1\6\1\uffff\13\6\2\uffff\1\6\3"+
             "\uffff\2\6",
             "\3\6\4\uffff\4\6\1\uffff\1\6\4\uffff\1\6\2\uffff\2\6\3\uffff"+
             "\2\6\2\uffff\1\6\1\uffff\1\6\3\uffff\1\6\1\uffff\1\6\1\uffff"+
             "\2\6\4\uffff\3\6\2\uffff\1\6\1\uffff\3\6\2\uffff\1\6\5\uffff"+
             "\2\6\7\uffff\2\6\5\uffff\1\6\4\uffff\2\6\1\uffff\1\6\4\uffff"+
             "\1\6\3\uffff\1\6\3\uffff\2\6\6\uffff\1\6\6\uffff\1\6\5\uffff"+
-            "\2\6\4\uffff\1\6\1\uffff\1\6\7\uffff\1\6\45\uffff\1\24\1\6\2"+
-            "\uffff\4\6\1\uffff\1\6\1\uffff\1\6\1\uffff\13\6\2\uffff\1\u00a5"+
-            "\3\uffff\2\6",
-            "\3\6\4\uffff\4\6\1\uffff\1\6\4\uffff\1\6\2\uffff\2\6\3\uffff"+
-            "\2\6\2\uffff\1\6\1\uffff\1\6\3\uffff\1\6\1\uffff\1\6\1\uffff"+
-            "\2\6\4\uffff\3\6\2\uffff\1\6\1\uffff\3\6\2\uffff\1\6\5\uffff"+
-            "\2\6\7\uffff\2\6\5\uffff\1\6\4\uffff\2\6\1\uffff\1\6\4\uffff"+
-            "\1\6\3\uffff\1\6\3\uffff\2\6\6\uffff\1\6\6\uffff\1\6\5\uffff"+
-            "\2\6\4\uffff\1\6\1\uffff\1\6\7\uffff\1\6\45\uffff\1\24\1\6\1"+
-            "\uffff\1\24\4\6\1\uffff\1\6\1\uffff\1\6\1\uffff\13\6\2\uffff"+
-            "\1\32\3\uffff\2\6",
+            "\2\6\4\uffff\1\6\1\uffff\1\6\7\uffff\1\6\45\uffff\1\23\1\6\1"+
+            "\uffff\1\23\4\6\1\uffff\1\6\1\uffff\1\6\1\uffff\13\6\2\uffff"+
+            "\1\31\3\uffff\2\6",
             "",
             "\3\6\4\uffff\4\6\1\uffff\1\6\4\uffff\1\6\2\uffff\2\6\3\uffff"+
             "\2\6\2\uffff\1\6\1\uffff\1\6\3\uffff\1\6\1\uffff\1\6\1\uffff"+
             "\2\6\4\uffff\3\6\2\uffff\1\6\1\uffff\3\6\2\uffff\1\6\5\uffff"+
             "\2\6\7\uffff\2\6\5\uffff\1\6\4\uffff\2\6\1\uffff\1\6\4\uffff"+
             "\1\6\3\uffff\1\6\3\uffff\2\6\6\uffff\1\6\6\uffff\1\6\5\uffff"+
-            "\2\6\4\uffff\1\6\1\uffff\1\6\7\uffff\1\6\45\uffff\1\24\1\6\1"+
-            "\uffff\1\24\4\6\1\uffff\1\6\1\uffff\1\6\1\uffff\13\6\2\uffff"+
-            "\1\32\3\uffff\2\6",
+            "\2\6\4\uffff\1\6\1\uffff\1\6\7\uffff\1\6\45\uffff\1\23\1\6\1"+
+            "\uffff\1\23\4\6\1\uffff\1\6\1\uffff\1\6\1\uffff\13\6\2\uffff"+
+            "\1\31\3\uffff\2\6",
             "\3\6\4\uffff\4\6\1\uffff\1\6\4\uffff\1\6\2\uffff\2\6\3\uffff"+
             "\2\6\2\uffff\1\6\1\uffff\1\6\3\uffff\1\6\1\uffff\1\6\1\uffff"+
             "\2\6\4\uffff\3\6\2\uffff\1\6\1\uffff\3\6\2\uffff\1\6\5\uffff"+
             "\2\6\7\uffff\2\6\5\uffff\1\6\4\uffff\2\6\1\uffff\1\6\4\uffff"+
             "\1\6\3\uffff\1\6\3\uffff\2\6\6\uffff\1\6\6\uffff\1\6\5\uffff"+
-            "\2\6\4\uffff\1\6\1\uffff\1\6\7\uffff\1\6\45\uffff\1\24\1\6\1"+
-            "\uffff\1\24\4\6\1\uffff\1\6\1\uffff\1\6\1\uffff\13\6\2\uffff"+
-            "\1\32\3\uffff\2\6",
-            "\2\24\1\u00b8\1\u00ce\1\u00c5\4\24\1\u00d3\1\u00cb\1\u00a6"+
-            "\1\u00a7\1\24\1\u00c8\4\24\1\u00ca\2\24\1\u00c6\1\u00ad\3\24"+
-            "\1\u00cc\1\u00c7\2\24\1\u00b1\1\24\1\u00ab\3\24\1\u00ba\1\24"+
-            "\1\u00b6\1\24\1\u00b5\1\u00ae\4\24\1\u00a9\1\u00aa\1\u00b7\2"+
-            "\24\1\u00b4\1\24\1\u00bb\1\u00b3\1\u00af\2\24\1\u00b2\5\24\1"+
-            "\u00b9\1\u00be\7\24\1\u00c1\1\u00c9\5\24\1\u00bf\4\24\1\u00b0"+
-            "\1\u00a8\1\24\1\u00ac\4\24\1\u00bc\3\24\1\u00c0\3\24\1\u00c4"+
-            "\1\u00bd\6\24\1\u00c3\6\24\1\u00c2\5\24\1\u00d0\1\u00d1\4\24"+
-            "\1\u00cf\1\24\1\u00d2\7\24\1\u00cd\3\24\1\uffff\24\24\1\uffff"+
-            "\15\24\1\6\1\uffff\1\24\4\6\1\uffff\1\6\1\uffff\1\6\1\uffff"+
-            "\13\6\2\uffff\1\32\3\uffff\2\6\15\uffff\1\24\107\uffff\1\24",
+            "\2\6\4\uffff\1\6\1\uffff\1\6\7\uffff\1\6\45\uffff\1\23\1\6\1"+
+            "\uffff\1\23\4\6\1\uffff\1\6\1\uffff\1\6\1\uffff\13\6\2\uffff"+
+            "\1\31\3\uffff\2\6",
+            "\2\23\1\u00b6\1\u00cc\1\u00c3\4\23\1\u00d1\1\u00c9\1\u00a4"+
+            "\1\u00a5\1\23\1\u00c6\4\23\1\u00c8\2\23\1\u00c4\1\u00ab\3\23"+
+            "\1\u00ca\1\u00c5\2\23\1\u00af\1\23\1\u00a9\3\23\1\u00b8\1\23"+
+            "\1\u00b4\1\23\1\u00b3\1\u00ac\4\23\1\u00a7\1\u00a8\1\u00b5\2"+
+            "\23\1\u00b2\1\23\1\u00b9\1\u00b1\1\u00ad\2\23\1\u00b0\5\23\1"+
+            "\u00b7\1\u00bc\7\23\1\u00bf\1\u00c7\5\23\1\u00bd\4\23\1\u00ae"+
+            "\1\u00a6\1\23\1\u00aa\4\23\1\u00ba\3\23\1\u00be\3\23\1\u00c2"+
+            "\1\u00bb\6\23\1\u00c1\6\23\1\u00c0\5\23\1\u00ce\1\u00cf\4\23"+
+            "\1\u00cd\1\23\1\u00d0\7\23\1\u00cb\3\23\1\uffff\24\23\1\uffff"+
+            "\15\23\1\6\1\uffff\1\23\4\6\1\uffff\1\6\1\uffff\1\6\1\uffff"+
+            "\13\6\2\uffff\1\31\3\uffff\2\6\15\uffff\1\23\107\uffff\1\23",
             "\3\6\4\uffff\4\6\1\uffff\1\6\4\uffff\1\6\2\uffff\2\6\3\uffff"+
             "\2\6\2\uffff\1\6\1\uffff\1\6\3\uffff\1\6\1\uffff\1\6\1\uffff"+
             "\2\6\4\uffff\3\6\2\uffff\1\6\1\uffff\3\6\2\uffff\1\6\5\uffff"+
             "\2\6\7\uffff\2\6\5\uffff\1\6\4\uffff\2\6\1\uffff\1\6\4\uffff"+
             "\1\6\3\uffff\1\6\3\uffff\2\6\6\uffff\1\6\6\uffff\1\6\5\uffff"+
-            "\2\6\4\uffff\1\6\1\uffff\1\6\7\uffff\1\6\45\uffff\1\24\1\6\1"+
-            "\uffff\1\u00d4\4\6\1\uffff\1\6\1\uffff\1\6\1\uffff\13\6\2\uffff"+
-            "\1\32\3\uffff\2\6",
+            "\2\6\4\uffff\1\6\1\uffff\1\6\7\uffff\1\6\45\uffff\1\u00d3\1"+
+            "\6\1\uffff\1\u00d2\4\6\1\uffff\1\6\1\uffff\1\6\1\uffff\13\6"+
+            "\2\uffff\1\31\3\uffff\2\6",
             "\3\6\4\uffff\4\6\1\uffff\1\6\4\uffff\1\6\2\uffff\2\6\3\uffff"+
             "\2\6\2\uffff\1\6\1\uffff\1\6\3\uffff\1\6\1\uffff\1\6\1\uffff"+
             "\2\6\4\uffff\3\6\2\uffff\1\6\1\uffff\3\6\2\uffff\1\6\5\uffff"+
             "\2\6\7\uffff\2\6\5\uffff\1\6\4\uffff\2\6\1\uffff\1\6\4\uffff"+
             "\1\6\3\uffff\1\6\3\uffff\2\6\6\uffff\1\6\6\uffff\1\6\5\uffff"+
-            "\2\6\4\uffff\1\6\1\uffff\1\6\7\uffff\1\6\45\uffff\1\u00d5\1"+
+            "\2\6\4\uffff\1\6\1\uffff\1\6\7\uffff\1\6\45\uffff\1\u00d3\1"+
             "\6\2\uffff\4\6\1\uffff\1\6\1\uffff\1\6\1\uffff\13\6\2\uffff"+
-            "\1\32\3\uffff\2\6",
-            "\u008f\u00d6\1\uffff\24\u00d6\1\uffff\14\u00d6\55\uffff\1"+
-            "\u00d6\107\uffff\1\u00d6",
-            "\1\6\u00b0\uffff\1\u00d5\26\uffff\1\u00d5",
-            "\1\6\u00b0\uffff\1\u00d5\26\uffff\1\u00d5",
-            "\1\6\u00b0\uffff\1\u00d5\26\uffff\1\u00d5",
-            "\1\6\164\uffff\1\u00d5\26\uffff\1\u00d5",
-            "\u008f\6\1\uffff\24\6\1\uffff\15\6\1\uffff\1\6\1\u00d5\11"+
-            "\uffff\4\6\5\uffff\4\6\1\u00d5\13\uffff\1\6\2\uffff\2\6\2\uffff"+
+            "\1\31\3\uffff\2\6",
+            "\u008f\u00d4\1\uffff\24\u00d4\1\uffff\14\u00d4\15\uffff\1"+
+            "\6\37\uffff\1\u00d4\107\uffff\1\u00d4",
+            "\1\6\u00b0\uffff\1\u00d3\26\uffff\1\u00d3",
+            "\1\6\u00b0\uffff\1\u00d3\26\uffff\1\u00d3",
+            "\1\6\u00b0\uffff\1\u00d3\26\uffff\1\u00d3",
+            "\1\6\164\uffff\1\u00d3\26\uffff\1\u00d3",
+            "\u008f\6\1\uffff\24\6\1\uffff\15\6\1\uffff\1\6\1\u00d3\11"+
+            "\uffff\4\6\5\uffff\4\6\1\u00d3\13\uffff\1\6\2\uffff\2\6\2\uffff"+
             "\1\6\6\uffff\6\6\73\uffff\1\6",
-            "\u008f\6\1\uffff\24\6\1\uffff\15\6\1\uffff\1\6\1\u00d5\11"+
-            "\uffff\4\6\5\uffff\4\6\1\u00d5\13\uffff\1\6\2\uffff\2\6\2\uffff"+
+            "\u008f\6\1\uffff\24\6\1\uffff\15\6\1\uffff\1\6\1\u00d3\11"+
+            "\uffff\4\6\5\uffff\4\6\1\u00d3\13\uffff\1\6\2\uffff\2\6\2\uffff"+
             "\1\6\6\uffff\6\6\73\uffff\1\6",
-            "\u008f\6\1\uffff\24\6\1\uffff\15\6\1\uffff\1\6\1\u00d5\11"+
-            "\uffff\4\6\5\uffff\4\6\1\u00d5\13\uffff\1\6\2\uffff\2\6\2\uffff"+
+            "\u008f\6\1\uffff\24\6\1\uffff\15\6\1\uffff\1\6\1\u00d3\11"+
+            "\uffff\4\6\5\uffff\4\6\1\u00d3\13\uffff\1\6\2\uffff\2\6\2\uffff"+
             "\1\6\6\uffff\6\6\73\uffff\1\6",
-            "\u008f\6\1\uffff\24\6\1\uffff\15\6\1\uffff\1\6\1\u00d5\11"+
-            "\uffff\4\6\5\uffff\4\6\1\u00d5\13\uffff\1\6\2\uffff\2\6\2\uffff"+
+            "\u008f\6\1\uffff\24\6\1\uffff\15\6\1\uffff\1\6\1\u00d3\11"+
+            "\uffff\4\6\5\uffff\4\6\1\u00d3\13\uffff\1\6\2\uffff\2\6\2\uffff"+
             "\1\6\6\uffff\6\6\73\uffff\1\6",
-            "\u008f\6\1\uffff\24\6\1\uffff\15\6\1\uffff\1\6\1\u00d5\11"+
-            "\uffff\4\6\5\uffff\4\6\1\u00d5\13\uffff\1\6\2\uffff\2\6\2\uffff"+
+            "\u008f\6\1\uffff\24\6\1\uffff\15\6\1\uffff\1\6\1\u00d3\11"+
+            "\uffff\4\6\5\uffff\4\6\1\u00d3\13\uffff\1\6\2\uffff\2\6\2\uffff"+
             "\1\6\6\uffff\6\6\73\uffff\1\6",
-            "\u008f\6\1\uffff\24\6\1\uffff\15\6\1\uffff\1\6\1\u00d5\11"+
-            "\uffff\4\6\5\uffff\4\6\1\u00d5\13\uffff\1\6\2\uffff\2\6\2\uffff"+
+            "\u008f\6\1\uffff\24\6\1\uffff\15\6\1\uffff\1\6\1\u00d3\11"+
+            "\uffff\4\6\5\uffff\4\6\1\u00d3\13\uffff\1\6\2\uffff\2\6\2\uffff"+
             "\1\6\6\uffff\6\6\73\uffff\1\6",
-            "\u008f\6\1\uffff\24\6\1\uffff\15\6\1\uffff\1\6\1\u00d5\11"+
-            "\uffff\4\6\5\uffff\4\6\1\u00d5\13\uffff\1\6\2\uffff\2\6\2\uffff"+
+            "\u008f\6\1\uffff\24\6\1\uffff\15\6\1\uffff\1\6\1\u00d3\11"+
+            "\uffff\4\6\5\uffff\4\6\1\u00d3\13\uffff\1\6\2\uffff\2\6\2\uffff"+
             "\1\6\6\uffff\6\6\73\uffff\1\6",
-            "\u008f\6\1\uffff\24\6\1\uffff\15\6\1\uffff\1\6\1\u00d5\11"+
-            "\uffff\4\6\5\uffff\4\6\1\u00d5\13\uffff\1\6\2\uffff\2\6\2\uffff"+
+            "\u008f\6\1\uffff\24\6\1\uffff\15\6\1\uffff\1\6\1\u00d3\11"+
+            "\uffff\4\6\5\uffff\4\6\1\u00d3\13\uffff\1\6\2\uffff\2\6\2\uffff"+
             "\1\6\6\uffff\6\6\73\uffff\1\6",
-            "\u008f\6\1\uffff\24\6\1\uffff\15\6\1\uffff\1\6\1\u00d5\11"+
-            "\uffff\4\6\5\uffff\4\6\1\u00d5\13\uffff\1\6\2\uffff\2\6\2\uffff"+
+            "\u008f\6\1\uffff\24\6\1\uffff\15\6\1\uffff\1\6\1\u00d3\11"+
+            "\uffff\4\6\5\uffff\4\6\1\u00d3\13\uffff\1\6\2\uffff\2\6\2\uffff"+
             "\1\6\6\uffff\6\6\73\uffff\1\6",
-            "\u008f\6\1\uffff\24\6\1\uffff\15\6\1\uffff\1\6\1\u00d5\11"+
-            "\uffff\4\6\5\uffff\4\6\1\u00d5\13\uffff\1\6\2\uffff\2\6\2\uffff"+
+            "\u008f\6\1\uffff\24\6\1\uffff\15\6\1\uffff\1\6\1\u00d3\11"+
+            "\uffff\4\6\5\uffff\4\6\1\u00d3\13\uffff\1\6\2\uffff\2\6\2\uffff"+
             "\1\6\6\uffff\6\6\73\uffff\1\6",
-            "\u008f\6\1\uffff\24\6\1\uffff\15\6\1\uffff\1\6\1\u00d5\11"+
-            "\uffff\4\6\5\uffff\4\6\1\u00d5\13\uffff\1\6\2\uffff\2\6\2\uffff"+
+            "\u008f\6\1\uffff\24\6\1\uffff\15\6\1\uffff\1\6\1\u00d3\11"+
+            "\uffff\4\6\5\uffff\4\6\1\u00d3\13\uffff\1\6\2\uffff\2\6\2\uffff"+
             "\1\6\6\uffff\6\6\73\uffff\1\6",
-            "\u008f\6\1\uffff\24\6\1\uffff\15\6\1\uffff\1\6\1\u00d5\11"+
-            "\uffff\4\6\5\uffff\4\6\1\u00d5\13\uffff\1\6\2\uffff\2\6\2\uffff"+
+            "\u008f\6\1\uffff\24\6\1\uffff\15\6\1\uffff\1\6\1\u00d3\11"+
+            "\uffff\4\6\5\uffff\4\6\1\u00d3\13\uffff\1\6\2\uffff\2\6\2\uffff"+
             "\1\6\6\uffff\6\6\73\uffff\1\6",
-            "\u008f\6\1\uffff\24\6\1\uffff\15\6\1\uffff\1\6\1\u00d5\11"+
-            "\uffff\4\6\5\uffff\4\6\1\u00d5\13\uffff\1\6\2\uffff\2\6\2\uffff"+
+            "\u008f\6\1\uffff\24\6\1\uffff\15\6\1\uffff\1\6\1\u00d3\11"+
+            "\uffff\4\6\5\uffff\4\6\1\u00d3\13\uffff\1\6\2\uffff\2\6\2\uffff"+
             "\1\6\6\uffff\6\6\73\uffff\1\6",
-            "\u008f\6\1\uffff\24\6\1\uffff\15\6\1\uffff\1\6\1\u00d5\11"+
-            "\uffff\4\6\5\uffff\4\6\1\u00d5\13\uffff\1\6\2\uffff\2\6\2\uffff"+
+            "\u008f\6\1\uffff\24\6\1\uffff\15\6\1\uffff\1\6\1\u00d3\11"+
+            "\uffff\4\6\5\uffff\4\6\1\u00d3\13\uffff\1\6\2\uffff\2\6\2\uffff"+
             "\1\6\6\uffff\6\6\73\uffff\1\6",
-            "\u008f\6\1\uffff\24\6\1\uffff\15\6\1\uffff\1\6\1\u00d5\11"+
-            "\uffff\4\6\5\uffff\4\6\1\u00d5\13\uffff\1\6\2\uffff\2\6\2\uffff"+
+            "\u008f\6\1\uffff\24\6\1\uffff\15\6\1\uffff\1\6\1\u00d3\11"+
+            "\uffff\4\6\5\uffff\4\6\1\u00d3\13\uffff\1\6\2\uffff\2\6\2\uffff"+
             "\1\6\6\uffff\6\6\73\uffff\1\6",
-            "\u008f\6\1\uffff\24\6\1\uffff\15\6\1\uffff\1\6\1\u00d5\11"+
-            "\uffff\4\6\5\uffff\4\6\1\u00d5\13\uffff\1\6\2\uffff\2\6\2\uffff"+
+            "\u008f\6\1\uffff\24\6\1\uffff\15\6\1\uffff\1\6\1\u00d3\11"+
+            "\uffff\4\6\5\uffff\4\6\1\u00d3\13\uffff\1\6\2\uffff\2\6\2\uffff"+
             "\1\6\6\uffff\6\6\73\uffff\1\6",
-            "\1\6\2\uffff\1\6\73\uffff\1\6\1\u00d5\26\uffff\1\u00d5",
-            "\1\6\1\u00d5\26\uffff\1\u00d5",
-            "\u008f\6\1\uffff\24\6\1\uffff\15\6\1\uffff\1\6\1\u00d5\11"+
-            "\uffff\4\6\5\uffff\4\6\1\u00d5\13\uffff\1\6\2\uffff\2\6\2\uffff"+
+            "\1\6\2\uffff\1\6\73\uffff\1\6\1\u00d3\26\uffff\1\u00d3",
+            "\1\6\1\u00d3\26\uffff\1\u00d3",
+            "\u008f\6\1\uffff\24\6\1\uffff\15\6\1\uffff\1\6\1\u00d3\11"+
+            "\uffff\4\6\5\uffff\4\6\1\u00d3\13\uffff\1\6\2\uffff\2\6\2\uffff"+
             "\1\6\6\uffff\6\6\73\uffff\1\6",
-            "\1\6\u00aa\uffff\1\u00d5\26\uffff\1\u00d5",
-            "\1\6\u00aa\uffff\1\u00d5\26\uffff\1\u00d5",
-            "\1\6\161\uffff\1\u00d5\26\uffff\1\u00d5",
-            "\1\6\1\u00d5\26\uffff\1\u00d5",
-            "\u008f\6\1\uffff\24\6\1\uffff\15\6\1\uffff\1\6\1\u00d5\11"+
-            "\uffff\4\6\5\uffff\4\6\1\u00d5\13\uffff\1\6\2\uffff\2\6\2\uffff"+
+            "\1\6\u00aa\uffff\1\u00d3\26\uffff\1\u00d3",
+            "\1\6\u00aa\uffff\1\u00d3\26\uffff\1\u00d3",
+            "\1\6\161\uffff\1\u00d3\26\uffff\1\u00d3",
+            "\1\6\1\u00d3\26\uffff\1\u00d3",
+            "\u008f\6\1\uffff\24\6\1\uffff\15\6\1\uffff\1\6\1\u00d3\11"+
+            "\uffff\4\6\5\uffff\4\6\1\u00d3\13\uffff\1\6\2\uffff\2\6\2\uffff"+
             "\1\6\6\uffff\6\6\73\uffff\1\6",
             "\1\6\147\uffff\1\6\5\uffff\1\6\4\uffff\1\6\72\uffff\1\6\1"+
-            "\u00d5\26\uffff\1\u00d5",
-            "\1\6\115\uffff\1\u00d5\26\uffff\1\u00d5",
+            "\u00d3\26\uffff\1\u00d3",
+            "\1\6\115\uffff\1\u00d3\26\uffff\1\u00d3",
             "\1\6\147\uffff\1\6\5\uffff\1\6\4\uffff\1\6\72\uffff\1\6\1"+
-            "\u00d5\26\uffff\1\u00d5",
+            "\u00d3\26\uffff\1\u00d3",
             "\1\6\15\uffff\1\6\10\uffff\1\6\20\uffff\1\6\13\uffff\1\6\7"+
             "\uffff\1\6\6\uffff\1\6\14\uffff\1\6\3\uffff\1\6\4\uffff\1\6"+
-            "\114\uffff\1\u00d5\7\uffff\1\6\16\uffff\1\u00d5",
+            "\114\uffff\1\u00d3\7\uffff\1\6\16\uffff\1\u00d3",
             "\1\6\15\uffff\1\6\10\uffff\1\6\20\uffff\1\6\13\uffff\1\6\7"+
             "\uffff\1\6\6\uffff\1\6\14\uffff\1\6\3\uffff\1\6\4\uffff\1\6"+
-            "\114\uffff\1\u00d5\7\uffff\1\6\16\uffff\1\u00d5",
-            "\1\6\14\uffff\1\6\176\uffff\1\u00d5\26\uffff\1\u00d5",
-            "\1\u00d5\26\uffff\1\u00d5\16\uffff\2\6",
-            "\u008f\6\1\uffff\24\6\1\uffff\15\6\1\uffff\1\6\1\u00d5\11"+
-            "\uffff\4\6\5\uffff\4\6\1\u00d5\13\uffff\1\6\2\uffff\2\6\2\uffff"+
+            "\114\uffff\1\u00d3\7\uffff\1\6\16\uffff\1\u00d3",
+            "\1\6\14\uffff\1\6\176\uffff\1\u00d3\26\uffff\1\u00d3",
+            "\1\u00d3\26\uffff\1\u00d3\16\uffff\2\6",
+            "\u008f\6\1\uffff\24\6\1\uffff\15\6\1\uffff\1\6\1\u00d3\11"+
+            "\uffff\4\6\5\uffff\4\6\1\u00d3\13\uffff\1\6\2\uffff\2\6\2\uffff"+
             "\1\6\6\uffff\6\6\73\uffff\1\6",
-            "\1\6\150\uffff\1\6\1\u00d5\26\uffff\1\u00d5",
-            "\u008f\6\1\uffff\24\6\1\uffff\14\6\2\uffff\1\6\1\u00d5\26"+
-            "\uffff\1\u00d5\22\uffff\1\6\107\uffff\1\6",
-            "\u008f\6\1\uffff\24\6\1\uffff\15\6\1\uffff\1\6\1\u00d5\11"+
-            "\uffff\4\6\5\uffff\4\6\1\u00d5\13\uffff\1\6\2\uffff\2\6\2\uffff"+
+            "\1\6\150\uffff\1\6\1\u00d3\26\uffff\1\u00d3",
+            "\u008f\6\1\uffff\24\6\1\uffff\14\6\2\uffff\1\6\1\u00d3\26"+
+            "\uffff\1\u00d3\22\uffff\1\6\107\uffff\1\6",
+            "\u008f\6\1\uffff\24\6\1\uffff\15\6\1\uffff\1\6\1\u00d3\11"+
+            "\uffff\4\6\5\uffff\4\6\1\u00d3\13\uffff\1\6\2\uffff\2\6\2\uffff"+
             "\1\6\6\uffff\6\6\73\uffff\1\6",
-            "\u008f\6\1\uffff\24\6\1\uffff\15\6\1\uffff\1\6\1\u00d5\11"+
-            "\uffff\4\6\5\uffff\4\6\1\u00d5\13\uffff\1\6\2\uffff\2\6\2\uffff"+
+            "\u008f\6\1\uffff\24\6\1\uffff\15\6\1\uffff\1\6\1\u00d3\11"+
+            "\uffff\4\6\5\uffff\4\6\1\u00d3\13\uffff\1\6\2\uffff\2\6\2\uffff"+
             "\1\6\6\uffff\6\6\73\uffff\1\6",
-            "\u008f\6\1\uffff\24\6\1\uffff\15\6\1\uffff\1\6\1\u00d5\11"+
-            "\uffff\4\6\5\uffff\4\6\1\u00d5\13\uffff\1\6\2\uffff\2\6\2\uffff"+
+            "\u008f\6\1\uffff\24\6\1\uffff\15\6\1\uffff\1\6\1\u00d3\11"+
+            "\uffff\4\6\5\uffff\4\6\1\u00d3\13\uffff\1\6\2\uffff\2\6\2\uffff"+
             "\1\6\6\uffff\6\6\73\uffff\1\6",
-            "\u008f\6\1\uffff\24\6\1\uffff\15\6\1\uffff\1\6\1\u00d5\11"+
-            "\uffff\4\6\5\uffff\4\6\1\u00d5\13\uffff\1\6\2\uffff\2\6\2\uffff"+
+            "\u008f\6\1\uffff\24\6\1\uffff\15\6\1\uffff\1\6\1\u00d3\11"+
+            "\uffff\4\6\5\uffff\4\6\1\u00d3\13\uffff\1\6\2\uffff\2\6\2\uffff"+
             "\1\6\6\uffff\6\6\73\uffff\1\6",
-            "\u008f\6\1\uffff\24\6\1\uffff\15\6\1\uffff\1\6\1\u00d5\11"+
-            "\uffff\4\6\5\uffff\4\6\1\u00d5\13\uffff\1\6\2\uffff\2\6\2\uffff"+
+            "\u008f\6\1\uffff\24\6\1\uffff\15\6\1\uffff\1\6\1\u00d3\11"+
+            "\uffff\4\6\5\uffff\4\6\1\u00d3\13\uffff\1\6\2\uffff\2\6\2\uffff"+
             "\1\6\6\uffff\6\6\73\uffff\1\6",
-            "\u008f\6\1\uffff\24\6\1\uffff\15\6\1\uffff\1\6\1\u00d5\11"+
-            "\uffff\4\6\5\uffff\4\6\1\u00d5\13\uffff\1\6\2\uffff\2\6\2\uffff"+
+            "\u008f\6\1\uffff\24\6\1\uffff\15\6\1\uffff\1\6\1\u00d3\11"+
+            "\uffff\4\6\5\uffff\4\6\1\u00d3\13\uffff\1\6\2\uffff\2\6\2\uffff"+
             "\1\6\6\uffff\6\6\73\uffff\1\6",
-            "\u008f\6\1\uffff\24\6\1\uffff\15\6\1\uffff\1\6\1\u00d5\11"+
-            "\uffff\4\6\5\uffff\4\6\1\u00d5\13\uffff\1\6\2\uffff\2\6\2\uffff"+
+            "\u008f\6\1\uffff\24\6\1\uffff\15\6\1\uffff\1\6\1\u00d3\11"+
+            "\uffff\4\6\5\uffff\4\6\1\u00d3\13\uffff\1\6\2\uffff\2\6\2\uffff"+
             "\1\6\6\uffff\6\6\73\uffff\1\6",
-            "\u008f\6\1\uffff\24\6\1\uffff\15\6\1\uffff\1\6\1\u00d5\11"+
-            "\uffff\1\6\2\uffff\1\6\5\uffff\4\6\1\u00d5\13\uffff\1\6\2\uffff"+
+            "\u008f\6\1\uffff\24\6\1\uffff\15\6\1\uffff\1\6\1\u00d3\11"+
+            "\uffff\1\6\2\uffff\1\6\5\uffff\4\6\1\u00d3\13\uffff\1\6\2\uffff"+
             "\2\6\2\uffff\1\6\7\uffff\5\6\73\uffff\1\6",
-            "\1\6\u00b0\uffff\1\u00d5\26\uffff\1\u00d5",
-            "\1\6\u00b0\uffff\1\u00d5\26\uffff\1\u00d5",
-            "\1\6\u00b0\uffff\1\u00d5\26\uffff\1\u00d5",
-            "\1\6\164\uffff\1\u00d5\26\uffff\1\u00d5",
-            "\u008f\6\1\uffff\24\6\1\uffff\15\6\1\uffff\1\6\1\u00d5\11"+
-            "\uffff\4\6\5\uffff\4\6\1\u00d5\13\uffff\1\6\2\uffff\2\6\2\uffff"+
+            "\1\6\u00b0\uffff\1\u00d3\26\uffff\1\u00d3",
+            "\1\6\u00b0\uffff\1\u00d3\26\uffff\1\u00d3",
+            "\1\6\u00b0\uffff\1\u00d3\26\uffff\1\u00d3",
+            "\1\6\164\uffff\1\u00d3\26\uffff\1\u00d3",
+            "\u008f\6\1\uffff\24\6\1\uffff\15\6\1\uffff\1\6\1\u00d3\11"+
+            "\uffff\4\6\5\uffff\4\6\1\u00d3\13\uffff\1\6\2\uffff\2\6\2\uffff"+
             "\1\6\6\uffff\6\6\73\uffff\1\6",
-            "\u008f\6\1\uffff\24\6\1\uffff\15\6\1\uffff\1\6\1\u00d5\11"+
-            "\uffff\4\6\5\uffff\4\6\1\u00d5\13\uffff\1\6\2\uffff\2\6\2\uffff"+
+            "\u008f\6\1\uffff\24\6\1\uffff\15\6\1\uffff\1\6\1\u00d3\11"+
+            "\uffff\4\6\5\uffff\4\6\1\u00d3\13\uffff\1\6\2\uffff\2\6\2\uffff"+
             "\1\6\6\uffff\6\6\73\uffff\1\6",
-            "\u008f\6\1\uffff\24\6\1\uffff\15\6\1\uffff\1\6\1\u00d5\11"+
-            "\uffff\4\6\5\uffff\4\6\1\u00d5\13\uffff\1\6\2\uffff\2\6\2\uffff"+
+            "\u008f\6\1\uffff\24\6\1\uffff\15\6\1\uffff\1\6\1\u00d3\11"+
+            "\uffff\4\6\5\uffff\4\6\1\u00d3\13\uffff\1\6\2\uffff\2\6\2\uffff"+
             "\1\6\6\uffff\6\6\73\uffff\1\6",
-            "\u008f\6\1\uffff\24\6\1\uffff\15\6\1\uffff\1\6\1\u00d5\11"+
-            "\uffff\4\6\5\uffff\4\6\1\u00d5\13\uffff\1\6\2\uffff\2\6\2\uffff"+
+            "\u008f\6\1\uffff\24\6\1\uffff\15\6\1\uffff\1\6\1\u00d3\11"+
+            "\uffff\4\6\5\uffff\4\6\1\u00d3\13\uffff\1\6\2\uffff\2\6\2\uffff"+
             "\1\6\6\uffff\6\6\73\uffff\1\6",
-            "\u008f\6\1\uffff\24\6\1\uffff\15\6\1\uffff\1\6\1\u00d5\11"+
-            "\uffff\4\6\5\uffff\4\6\1\u00d5\13\uffff\1\6\2\uffff\2\6\2\uffff"+
+            "\u008f\6\1\uffff\24\6\1\uffff\15\6\1\uffff\1\6\1\u00d3\11"+
+            "\uffff\4\6\5\uffff\4\6\1\u00d3\13\uffff\1\6\2\uffff\2\6\2\uffff"+
             "\1\6\6\uffff\6\6\73\uffff\1\6",
-            "\u008f\6\1\uffff\24\6\1\uffff\15\6\1\uffff\1\6\1\u00d5\11"+
-            "\uffff\4\6\5\uffff\4\6\1\u00d5\13\uffff\1\6\2\uffff\2\6\2\uffff"+
+            "\u008f\6\1\uffff\24\6\1\uffff\15\6\1\uffff\1\6\1\u00d3\11"+
+            "\uffff\4\6\5\uffff\4\6\1\u00d3\13\uffff\1\6\2\uffff\2\6\2\uffff"+
             "\1\6\6\uffff\6\6\73\uffff\1\6",
-            "\u008f\6\1\uffff\24\6\1\uffff\15\6\1\uffff\1\6\1\u00d5\11"+
-            "\uffff\4\6\5\uffff\4\6\1\u00d5\13\uffff\1\6\2\uffff\2\6\2\uffff"+
+            "\u008f\6\1\uffff\24\6\1\uffff\15\6\1\uffff\1\6\1\u00d3\11"+
+            "\uffff\4\6\5\uffff\4\6\1\u00d3\13\uffff\1\6\2\uffff\2\6\2\uffff"+
             "\1\6\6\uffff\6\6\73\uffff\1\6",
-            "\u008f\6\1\uffff\24\6\1\uffff\15\6\1\uffff\1\6\1\u00d5\11"+
-            "\uffff\4\6\5\uffff\4\6\1\u00d5\13\uffff\1\6\2\uffff\2\6\2\uffff"+
+            "\u008f\6\1\uffff\24\6\1\uffff\15\6\1\uffff\1\6\1\u00d3\11"+
+            "\uffff\4\6\5\uffff\4\6\1\u00d3\13\uffff\1\6\2\uffff\2\6\2\uffff"+
             "\1\6\6\uffff\6\6\73\uffff\1\6",
-            "\u008f\6\1\uffff\24\6\1\uffff\15\6\1\uffff\1\6\1\u00d5\11"+
-            "\uffff\4\6\5\uffff\4\6\1\u00d5\13\uffff\1\6\2\uffff\2\6\2\uffff"+
+            "\u008f\6\1\uffff\24\6\1\uffff\15\6\1\uffff\1\6\1\u00d3\11"+
+            "\uffff\4\6\5\uffff\4\6\1\u00d3\13\uffff\1\6\2\uffff\2\6\2\uffff"+
             "\1\6\6\uffff\6\6\73\uffff\1\6",
-            "\u008f\6\1\uffff\24\6\1\uffff\15\6\1\uffff\1\6\1\u00d5\11"+
-            "\uffff\4\6\5\uffff\4\6\1\u00d5\13\uffff\1\6\2\uffff\2\6\2\uffff"+
+            "\u008f\6\1\uffff\24\6\1\uffff\15\6\1\uffff\1\6\1\u00d3\11"+
+            "\uffff\4\6\5\uffff\4\6\1\u00d3\13\uffff\1\6\2\uffff\2\6\2\uffff"+
             "\1\6\6\uffff\6\6\73\uffff\1\6",
-            "\u008f\6\1\uffff\24\6\1\uffff\15\6\1\uffff\1\6\1\u00d5\11"+
-            "\uffff\4\6\5\uffff\4\6\1\u00d5\13\uffff\1\6\2\uffff\2\6\2\uffff"+
+            "\u008f\6\1\uffff\24\6\1\uffff\15\6\1\uffff\1\6\1\u00d3\11"+
+            "\uffff\4\6\5\uffff\4\6\1\u00d3\13\uffff\1\6\2\uffff\2\6\2\uffff"+
             "\1\6\6\uffff\6\6\73\uffff\1\6",
-            "\u008f\6\1\uffff\24\6\1\uffff\15\6\1\uffff\1\6\1\u00d5\11"+
-            "\uffff\4\6\5\uffff\4\6\1\u00d5\13\uffff\1\6\2\uffff\2\6\2\uffff"+
+            "\u008f\6\1\uffff\24\6\1\uffff\15\6\1\uffff\1\6\1\u00d3\11"+
+            "\uffff\4\6\5\uffff\4\6\1\u00d3\13\uffff\1\6\2\uffff\2\6\2\uffff"+
             "\1\6\6\uffff\6\6\73\uffff\1\6",
-            "\u008f\6\1\uffff\24\6\1\uffff\15\6\1\uffff\1\6\1\u00d5\11"+
-            "\uffff\4\6\5\uffff\4\6\1\u00d5\13\uffff\1\6\2\uffff\2\6\2\uffff"+
+            "\u008f\6\1\uffff\24\6\1\uffff\15\6\1\uffff\1\6\1\u00d3\11"+
+            "\uffff\4\6\5\uffff\4\6\1\u00d3\13\uffff\1\6\2\uffff\2\6\2\uffff"+
             "\1\6\6\uffff\6\6\73\uffff\1\6",
-            "\u008f\6\1\uffff\24\6\1\uffff\15\6\1\uffff\1\6\1\u00d5\11"+
-            "\uffff\4\6\5\uffff\4\6\1\u00d5\13\uffff\1\6\2\uffff\2\6\2\uffff"+
+            "\u008f\6\1\uffff\24\6\1\uffff\15\6\1\uffff\1\6\1\u00d3\11"+
+            "\uffff\4\6\5\uffff\4\6\1\u00d3\13\uffff\1\6\2\uffff\2\6\2\uffff"+
             "\1\6\6\uffff\6\6\73\uffff\1\6",
-            "\u008f\6\1\uffff\24\6\1\uffff\15\6\1\uffff\1\6\1\u00d5\11"+
-            "\uffff\4\6\5\uffff\4\6\1\u00d5\13\uffff\1\6\2\uffff\2\6\2\uffff"+
+            "\u008f\6\1\uffff\24\6\1\uffff\15\6\1\uffff\1\6\1\u00d3\11"+
+            "\uffff\4\6\5\uffff\4\6\1\u00d3\13\uffff\1\6\2\uffff\2\6\2\uffff"+
             "\1\6\6\uffff\6\6\73\uffff\1\6",
-            "\u008f\6\1\uffff\24\6\1\uffff\15\6\1\uffff\1\6\1\u00d5\11"+
-            "\uffff\4\6\5\uffff\4\6\1\u00d5\13\uffff\1\6\2\uffff\2\6\2\uffff"+
+            "\u008f\6\1\uffff\24\6\1\uffff\15\6\1\uffff\1\6\1\u00d3\11"+
+            "\uffff\4\6\5\uffff\4\6\1\u00d3\13\uffff\1\6\2\uffff\2\6\2\uffff"+
             "\1\6\6\uffff\6\6\73\uffff\1\6",
-            "\1\6\2\uffff\1\6\73\uffff\1\6\1\u00d5\26\uffff\1\u00d5",
-            "\1\6\1\u00d5\26\uffff\1\u00d5",
-            "\u008f\6\1\uffff\24\6\1\uffff\15\6\1\uffff\1\6\1\u00d5\11"+
-            "\uffff\4\6\5\uffff\4\6\1\u00d5\13\uffff\1\6\2\uffff\2\6\2\uffff"+
+            "\1\6\2\uffff\1\6\73\uffff\1\6\1\u00d3\26\uffff\1\u00d3",
+            "\1\6\1\u00d3\26\uffff\1\u00d3",
+            "\u008f\6\1\uffff\24\6\1\uffff\15\6\1\uffff\1\6\1\u00d3\11"+
+            "\uffff\4\6\5\uffff\4\6\1\u00d3\13\uffff\1\6\2\uffff\2\6\2\uffff"+
             "\1\6\6\uffff\6\6\73\uffff\1\6",
-            "\1\6\u00aa\uffff\1\u00d5\26\uffff\1\u00d5",
-            "\1\6\u00aa\uffff\1\u00d5\26\uffff\1\u00d5",
-            "\1\6\161\uffff\1\u00d5\26\uffff\1\u00d5",
-            "\1\6\1\u00d5\26\uffff\1\u00d5",
-            "\u008f\6\1\uffff\24\6\1\uffff\15\6\1\uffff\1\6\1\u00d5\11"+
-            "\uffff\4\6\5\uffff\4\6\1\u00d5\13\uffff\1\6\2\uffff\2\6\2\uffff"+
+            "\1\6\u00aa\uffff\1\u00d3\26\uffff\1\u00d3",
+            "\1\6\u00aa\uffff\1\u00d3\26\uffff\1\u00d3",
+            "\1\6\161\uffff\1\u00d3\26\uffff\1\u00d3",
+            "\1\6\1\u00d3\26\uffff\1\u00d3",
+            "\u008f\6\1\uffff\24\6\1\uffff\15\6\1\uffff\1\6\1\u00d3\11"+
+            "\uffff\4\6\5\uffff\4\6\1\u00d3\13\uffff\1\6\2\uffff\2\6\2\uffff"+
             "\1\6\6\uffff\6\6\73\uffff\1\6",
             "\1\6\147\uffff\1\6\5\uffff\1\6\4\uffff\1\6\72\uffff\1\6\1"+
-            "\u00d5\26\uffff\1\u00d5",
-            "\1\6\115\uffff\1\u00d5\26\uffff\1\u00d5",
+            "\u00d3\26\uffff\1\u00d3",
+            "\1\6\115\uffff\1\u00d3\26\uffff\1\u00d3",
             "\1\6\147\uffff\1\6\5\uffff\1\6\4\uffff\1\6\72\uffff\1\6\1"+
-            "\u00d5\26\uffff\1\u00d5",
+            "\u00d3\26\uffff\1\u00d3",
             "\1\6\15\uffff\1\6\10\uffff\1\6\20\uffff\1\6\13\uffff\1\6\7"+
             "\uffff\1\6\6\uffff\1\6\14\uffff\1\6\3\uffff\1\6\4\uffff\1\6"+
-            "\114\uffff\1\u00d5\7\uffff\1\6\16\uffff\1\u00d5",
+            "\114\uffff\1\u00d3\7\uffff\1\6\16\uffff\1\u00d3",
             "\1\6\15\uffff\1\6\10\uffff\1\6\20\uffff\1\6\13\uffff\1\6\7"+
             "\uffff\1\6\6\uffff\1\6\14\uffff\1\6\3\uffff\1\6\4\uffff\1\6"+
-            "\114\uffff\1\u00d5\7\uffff\1\6\16\uffff\1\u00d5",
-            "\1\6\14\uffff\1\6\176\uffff\1\u00d5\26\uffff\1\u00d5",
-            "\1\u00d5\26\uffff\1\u00d5\16\uffff\2\6",
-            "\u008f\6\1\uffff\24\6\1\uffff\15\6\1\uffff\1\6\1\u00d5\11"+
-            "\uffff\4\6\5\uffff\4\6\1\u00d5\13\uffff\1\6\2\uffff\2\6\2\uffff"+
+            "\114\uffff\1\u00d3\7\uffff\1\6\16\uffff\1\u00d3",
+            "\1\6\14\uffff\1\6\176\uffff\1\u00d3\26\uffff\1\u00d3",
+            "\1\u00d3\26\uffff\1\u00d3\16\uffff\2\6",
+            "\u008f\6\1\uffff\24\6\1\uffff\15\6\1\uffff\1\6\1\u00d3\11"+
+            "\uffff\4\6\5\uffff\4\6\1\u00d3\13\uffff\1\6\2\uffff\2\6\2\uffff"+
             "\1\6\6\uffff\6\6\73\uffff\1\6",
-            "\1\6\150\uffff\1\6\1\u00d5\26\uffff\1\u00d5",
-            "\u008f\6\1\uffff\24\6\1\uffff\14\6\2\uffff\1\6\1\u00d5\26"+
-            "\uffff\1\u00d5\22\uffff\1\6\107\uffff\1\6",
-            "\u008f\6\1\uffff\24\6\1\uffff\15\6\1\uffff\1\6\1\u00d5\11"+
-            "\uffff\4\6\5\uffff\4\6\1\u00d5\13\uffff\1\6\2\uffff\2\6\2\uffff"+
+            "\1\6\150\uffff\1\6\1\u00d3\26\uffff\1\u00d3",
+            "\u008f\6\1\uffff\24\6\1\uffff\14\6\2\uffff\1\6\1\u00d3\26"+
+            "\uffff\1\u00d3\22\uffff\1\6\107\uffff\1\6",
+            "\u008f\6\1\uffff\24\6\1\uffff\15\6\1\uffff\1\6\1\u00d3\11"+
+            "\uffff\4\6\5\uffff\4\6\1\u00d3\13\uffff\1\6\2\uffff\2\6\2\uffff"+
             "\1\6\6\uffff\6\6\73\uffff\1\6",
-            "\u008f\6\1\uffff\24\6\1\uffff\15\6\1\uffff\1\6\1\u00d5\11"+
-            "\uffff\4\6\5\uffff\4\6\1\u00d5\13\uffff\1\6\2\uffff\2\6\2\uffff"+
+            "\u008f\6\1\uffff\24\6\1\uffff\15\6\1\uffff\1\6\1\u00d3\11"+
+            "\uffff\4\6\5\uffff\4\6\1\u00d3\13\uffff\1\6\2\uffff\2\6\2\uffff"+
             "\1\6\6\uffff\6\6\73\uffff\1\6",
-            "\u008f\6\1\uffff\24\6\1\uffff\15\6\1\uffff\1\6\1\u00d5\11"+
-            "\uffff\4\6\5\uffff\4\6\1\u00d5\13\uffff\1\6\2\uffff\2\6\2\uffff"+
+            "\u008f\6\1\uffff\24\6\1\uffff\15\6\1\uffff\1\6\1\u00d3\11"+
+            "\uffff\4\6\5\uffff\4\6\1\u00d3\13\uffff\1\6\2\uffff\2\6\2\uffff"+
             "\1\6\6\uffff\6\6\73\uffff\1\6",
-            "\u008f\6\1\uffff\24\6\1\uffff\15\6\1\uffff\1\6\1\u00d5\11"+
-            "\uffff\4\6\5\uffff\4\6\1\u00d5\13\uffff\1\6\2\uffff\2\6\2\uffff"+
+            "\u008f\6\1\uffff\24\6\1\uffff\15\6\1\uffff\1\6\1\u00d3\11"+
+            "\uffff\4\6\5\uffff\4\6\1\u00d3\13\uffff\1\6\2\uffff\2\6\2\uffff"+
             "\1\6\6\uffff\6\6\73\uffff\1\6",
-            "\u008f\6\1\uffff\24\6\1\uffff\15\6\1\uffff\1\6\1\u00d5\11"+
-            "\uffff\4\6\5\uffff\4\6\1\u00d5\13\uffff\1\6\2\uffff\2\6\2\uffff"+
+            "\u008f\6\1\uffff\24\6\1\uffff\15\6\1\uffff\1\6\1\u00d3\11"+
+            "\uffff\4\6\5\uffff\4\6\1\u00d3\13\uffff\1\6\2\uffff\2\6\2\uffff"+
             "\1\6\6\uffff\6\6\73\uffff\1\6",
-            "\u008f\6\1\uffff\24\6\1\uffff\15\6\1\uffff\1\6\1\u00d5\11"+
-            "\uffff\4\6\5\uffff\4\6\1\u00d5\13\uffff\1\6\2\uffff\2\6\2\uffff"+
+            "\u008f\6\1\uffff\24\6\1\uffff\15\6\1\uffff\1\6\1\u00d3\11"+
+            "\uffff\4\6\5\uffff\4\6\1\u00d3\13\uffff\1\6\2\uffff\2\6\2\uffff"+
             "\1\6\6\uffff\6\6\73\uffff\1\6",
-            "\u008f\6\1\uffff\24\6\1\uffff\15\6\1\uffff\1\6\1\u00d5\11"+
-            "\uffff\4\6\5\uffff\4\6\1\u00d5\13\uffff\1\6\2\uffff\2\6\2\uffff"+
+            "\u008f\6\1\uffff\24\6\1\uffff\15\6\1\uffff\1\6\1\u00d3\11"+
+            "\uffff\4\6\5\uffff\4\6\1\u00d3\13\uffff\1\6\2\uffff\2\6\2\uffff"+
             "\1\6\6\uffff\6\6\73\uffff\1\6",
-            "\u008f\6\1\uffff\24\6\1\uffff\15\6\1\uffff\1\6\1\u00d5\11"+
-            "\uffff\1\6\2\uffff\1\6\5\uffff\4\6\1\u00d5\13\uffff\1\6\2\uffff"+
+            "\u008f\6\1\uffff\24\6\1\uffff\15\6\1\uffff\1\6\1\u00d3\11"+
+            "\uffff\1\6\2\uffff\1\6\5\uffff\4\6\1\u00d3\13\uffff\1\6\2\uffff"+
             "\2\6\2\uffff\1\6\7\uffff\5\6\73\uffff\1\6",
-            "\1\6\u00b0\uffff\1\u00d5",
-            "\1\6\u00b0\uffff\1\u00d5",
-            "\1\6\u00b0\uffff\1\u00d5",
-            "\1\6\164\uffff\1\u00d5",
-            "\u008f\6\1\uffff\24\6\1\uffff\15\6\1\uffff\1\6\1\u00d5\11"+
+            "\1\6\u00b0\uffff\1\u00d3",
+            "\1\6\u00b0\uffff\1\u00d3",
+            "\1\6\u00b0\uffff\1\u00d3",
+            "\1\6\164\uffff\1\u00d3",
+            "\u008f\6\1\uffff\24\6\1\uffff\15\6\1\uffff\1\6\1\u00d3\11"+
             "\uffff\4\6\5\uffff\4\6\14\uffff\1\6\2\uffff\2\6\2\uffff\1\6"+
             "\6\uffff\6\6\73\uffff\1\6",
-            "\u008f\6\1\uffff\24\6\1\uffff\15\6\1\uffff\1\6\1\u00d5\11"+
+            "\u008f\6\1\uffff\24\6\1\uffff\15\6\1\uffff\1\6\1\u00d3\11"+
             "\uffff\4\6\5\uffff\4\6\14\uffff\1\6\2\uffff\2\6\2\uffff\1\6"+
             "\6\uffff\6\6\73\uffff\1\6",
-            "\u008f\6\1\uffff\24\6\1\uffff\15\6\1\uffff\1\6\1\u00d5\11"+
+            "\u008f\6\1\uffff\24\6\1\uffff\15\6\1\uffff\1\6\1\u00d3\11"+
             "\uffff\4\6\5\uffff\4\6\14\uffff\1\6\2\uffff\2\6\2\uffff\1\6"+
             "\6\uffff\6\6\73\uffff\1\6",
-            "\u008f\6\1\uffff\24\6\1\uffff\15\6\1\uffff\1\6\1\u00d5\11"+
+            "\u008f\6\1\uffff\24\6\1\uffff\15\6\1\uffff\1\6\1\u00d3\11"+
             "\uffff\4\6\5\uffff\4\6\14\uffff\1\6\2\uffff\2\6\2\uffff\1\6"+
             "\6\uffff\6\6\73\uffff\1\6",
-            "\u008f\6\1\uffff\24\6\1\uffff\15\6\1\uffff\1\6\1\u00d5\11"+
+            "\u008f\6\1\uffff\24\6\1\uffff\15\6\1\uffff\1\6\1\u00d3\11"+
             "\uffff\4\6\5\uffff\4\6\14\uffff\1\6\2\uffff\2\6\2\uffff\1\6"+
             "\6\uffff\6\6\73\uffff\1\6",
-            "\u008f\6\1\uffff\24\6\1\uffff\15\6\1\uffff\1\6\1\u00d5\11"+
+            "\u008f\6\1\uffff\24\6\1\uffff\15\6\1\uffff\1\6\1\u00d3\11"+
             "\uffff\4\6\5\uffff\4\6\14\uffff\1\6\2\uffff\2\6\2\uffff\1\6"+
             "\6\uffff\6\6\73\uffff\1\6",
-            "\u008f\6\1\uffff\24\6\1\uffff\15\6\1\uffff\1\6\1\u00d5\11"+
+            "\u008f\6\1\uffff\24\6\1\uffff\15\6\1\uffff\1\6\1\u00d3\11"+
             "\uffff\4\6\5\uffff\4\6\14\uffff\1\6\2\uffff\2\6\2\uffff\1\6"+
             "\6\uffff\6\6\73\uffff\1\6",
-            "\u008f\6\1\uffff\24\6\1\uffff\15\6\1\uffff\1\6\1\u00d5\11"+
+            "\u008f\6\1\uffff\24\6\1\uffff\15\6\1\uffff\1\6\1\u00d3\11"+
             "\uffff\4\6\5\uffff\4\6\14\uffff\1\6\2\uffff\2\6\2\uffff\1\6"+
             "\6\uffff\6\6\73\uffff\1\6",
-            "\u008f\6\1\uffff\24\6\1\uffff\15\6\1\uffff\1\6\1\u00d5\11"+
+            "\u008f\6\1\uffff\24\6\1\uffff\15\6\1\uffff\1\6\1\u00d3\11"+
             "\uffff\4\6\5\uffff\4\6\14\uffff\1\6\2\uffff\2\6\2\uffff\1\6"+
             "\6\uffff\6\6\73\uffff\1\6",
-            "\u008f\6\1\uffff\24\6\1\uffff\15\6\1\uffff\1\6\1\u00d5\11"+
+            "\u008f\6\1\uffff\24\6\1\uffff\15\6\1\uffff\1\6\1\u00d3\11"+
             "\uffff\4\6\5\uffff\4\6\14\uffff\1\6\2\uffff\2\6\2\uffff\1\6"+
             "\6\uffff\6\6\73\uffff\1\6",
-            "\u008f\6\1\uffff\24\6\1\uffff\15\6\1\uffff\1\6\1\u00d5\11"+
+            "\u008f\6\1\uffff\24\6\1\uffff\15\6\1\uffff\1\6\1\u00d3\11"+
             "\uffff\4\6\5\uffff\4\6\14\uffff\1\6\2\uffff\2\6\2\uffff\1\6"+
             "\6\uffff\6\6\73\uffff\1\6",
-            "\u008f\6\1\uffff\24\6\1\uffff\15\6\1\uffff\1\6\1\u00d5\11"+
+            "\u008f\6\1\uffff\24\6\1\uffff\15\6\1\uffff\1\6\1\u00d3\11"+
             "\uffff\4\6\5\uffff\4\6\14\uffff\1\6\2\uffff\2\6\2\uffff\1\6"+
             "\6\uffff\6\6\73\uffff\1\6",
-            "\u008f\6\1\uffff\24\6\1\uffff\15\6\1\uffff\1\6\1\u00d5\11"+
+            "\u008f\6\1\uffff\24\6\1\uffff\15\6\1\uffff\1\6\1\u00d3\11"+
             "\uffff\4\6\5\uffff\4\6\14\uffff\1\6\2\uffff\2\6\2\uffff\1\6"+
             "\6\uffff\6\6\73\uffff\1\6",
-            "\u008f\6\1\uffff\24\6\1\uffff\15\6\1\uffff\1\6\1\u00d5\11"+
+            "\u008f\6\1\uffff\24\6\1\uffff\15\6\1\uffff\1\6\1\u00d3\11"+
             "\uffff\4\6\5\uffff\4\6\14\uffff\1\6\2\uffff\2\6\2\uffff\1\6"+
             "\6\uffff\6\6\73\uffff\1\6",
-            "\u008f\6\1\uffff\24\6\1\uffff\15\6\1\uffff\1\6\1\u00d5\11"+
+            "\u008f\6\1\uffff\24\6\1\uffff\15\6\1\uffff\1\6\1\u00d3\11"+
             "\uffff\4\6\5\uffff\4\6\14\uffff\1\6\2\uffff\2\6\2\uffff\1\6"+
             "\6\uffff\6\6\73\uffff\1\6",
-            "\u008f\6\1\uffff\24\6\1\uffff\15\6\1\uffff\1\6\1\u00d5\11"+
+            "\u008f\6\1\uffff\24\6\1\uffff\15\6\1\uffff\1\6\1\u00d3\11"+
             "\uffff\4\6\5\uffff\4\6\14\uffff\1\6\2\uffff\2\6\2\uffff\1\6"+
             "\6\uffff\6\6\73\uffff\1\6",
-            "\1\6\2\uffff\1\6\73\uffff\1\6\1\u00d5",
-            "\1\6\1\u00d5",
-            "\u008f\6\1\uffff\24\6\1\uffff\15\6\1\uffff\1\6\1\u00d5\11"+
+            "\1\6\2\uffff\1\6\73\uffff\1\6\1\u00d3",
+            "\1\6\1\u00d3",
+            "\u008f\6\1\uffff\24\6\1\uffff\15\6\1\uffff\1\6\1\u00d3\11"+
             "\uffff\4\6\5\uffff\4\6\14\uffff\1\6\2\uffff\2\6\2\uffff\1\6"+
             "\6\uffff\6\6\73\uffff\1\6",
-            "\1\6\u00aa\uffff\1\u00d5",
-            "\1\6\u00aa\uffff\1\u00d5",
-            "\1\6\161\uffff\1\u00d5",
-            "\1\6\1\u00d5",
-            "\u008f\6\1\uffff\24\6\1\uffff\15\6\1\uffff\1\6\1\u00d5\11"+
+            "\1\6\u00aa\uffff\1\u00d3",
+            "\1\6\u00aa\uffff\1\u00d3",
+            "\1\6\161\uffff\1\u00d3",
+            "\1\6\1\u00d3",
+            "\u008f\6\1\uffff\24\6\1\uffff\15\6\1\uffff\1\6\1\u00d3\11"+
             "\uffff\4\6\5\uffff\4\6\14\uffff\1\6\2\uffff\2\6\2\uffff\1\6"+
             "\6\uffff\6\6\73\uffff\1\6",
             "\1\6\147\uffff\1\6\5\uffff\1\6\4\uffff\1\6\72\uffff\1\6\1"+
-            "\u00d5",
-            "\1\6\115\uffff\1\u00d5",
+            "\u00d3",
+            "\1\6\115\uffff\1\u00d3",
             "\1\6\147\uffff\1\6\5\uffff\1\6\4\uffff\1\6\72\uffff\1\6\1"+
-            "\u00d5",
+            "\u00d3",
             "\1\6\15\uffff\1\6\10\uffff\1\6\20\uffff\1\6\13\uffff\1\6\7"+
             "\uffff\1\6\6\uffff\1\6\14\uffff\1\6\3\uffff\1\6\4\uffff\1\6"+
-            "\114\uffff\1\u00d5\7\uffff\1\6",
+            "\114\uffff\1\u00d3\7\uffff\1\6",
             "\1\6\15\uffff\1\6\10\uffff\1\6\20\uffff\1\6\13\uffff\1\6\7"+
             "\uffff\1\6\6\uffff\1\6\14\uffff\1\6\3\uffff\1\6\4\uffff\1\6"+
-            "\114\uffff\1\u00d5\7\uffff\1\6",
-            "\1\6\14\uffff\1\6\176\uffff\1\u00d5",
-            "\1\u00d5\45\uffff\2\6",
-            "\u008f\6\1\uffff\24\6\1\uffff\15\6\1\uffff\1\6\1\u00d5\11"+
+            "\114\uffff\1\u00d3\7\uffff\1\6",
+            "\1\6\14\uffff\1\6\176\uffff\1\u00d3",
+            "\1\u00d3\45\uffff\2\6",
+            "\u008f\6\1\uffff\24\6\1\uffff\15\6\1\uffff\1\6\1\u00d3\11"+
             "\uffff\4\6\5\uffff\4\6\14\uffff\1\6\2\uffff\2\6\2\uffff\1\6"+
             "\6\uffff\6\6\73\uffff\1\6",
-            "\1\6\150\uffff\1\6\1\u00d5",
-            "\u008f\6\1\uffff\24\6\1\uffff\14\6\2\uffff\1\6\1\u00d5\51"+
+            "\1\6\150\uffff\1\6\1\u00d3",
+            "\u008f\6\1\uffff\24\6\1\uffff\14\6\2\uffff\1\6\1\u00d3\51"+
             "\uffff\1\6\107\uffff\1\6",
-            "\u008f\6\1\uffff\24\6\1\uffff\15\6\1\uffff\1\6\1\u00d5\11"+
+            "\u008f\6\1\uffff\24\6\1\uffff\15\6\1\uffff\1\6\1\u00d3\11"+
             "\uffff\4\6\5\uffff\4\6\14\uffff\1\6\2\uffff\2\6\2\uffff\1\6"+
             "\6\uffff\6\6\73\uffff\1\6",
-            "\u008f\6\1\uffff\24\6\1\uffff\15\6\1\uffff\1\6\1\u00d5\11"+
+            "\u008f\6\1\uffff\24\6\1\uffff\15\6\1\uffff\1\6\1\u00d3\11"+
             "\uffff\4\6\5\uffff\4\6\14\uffff\1\6\2\uffff\2\6\2\uffff\1\6"+
             "\6\uffff\6\6\73\uffff\1\6",
-            "\u008f\6\1\uffff\24\6\1\uffff\15\6\1\uffff\1\6\1\u00d5\11"+
+            "\u008f\6\1\uffff\24\6\1\uffff\15\6\1\uffff\1\6\1\u00d3\11"+
             "\uffff\4\6\5\uffff\4\6\14\uffff\1\6\2\uffff\2\6\2\uffff\1\6"+
             "\6\uffff\6\6\73\uffff\1\6",
-            "\u008f\6\1\uffff\24\6\1\uffff\15\6\1\uffff\1\6\1\u00d5\11"+
+            "\u008f\6\1\uffff\24\6\1\uffff\15\6\1\uffff\1\6\1\u00d3\11"+
             "\uffff\4\6\5\uffff\4\6\14\uffff\1\6\2\uffff\2\6\2\uffff\1\6"+
             "\6\uffff\6\6\73\uffff\1\6",
-            "\u008f\6\1\uffff\24\6\1\uffff\15\6\1\uffff\1\6\1\u00d5\11"+
+            "\u008f\6\1\uffff\24\6\1\uffff\15\6\1\uffff\1\6\1\u00d3\11"+
             "\uffff\4\6\5\uffff\4\6\14\uffff\1\6\2\uffff\2\6\2\uffff\1\6"+
             "\6\uffff\6\6\73\uffff\1\6",
-            "\u008f\6\1\uffff\24\6\1\uffff\15\6\1\uffff\1\6\1\u00d5\11"+
+            "\u008f\6\1\uffff\24\6\1\uffff\15\6\1\uffff\1\6\1\u00d3\11"+
             "\uffff\4\6\5\uffff\4\6\14\uffff\1\6\2\uffff\2\6\2\uffff\1\6"+
             "\6\uffff\6\6\73\uffff\1\6",
-            "\u008f\6\1\uffff\24\6\1\uffff\15\6\1\uffff\1\6\1\u00d5\11"+
+            "\u008f\6\1\uffff\24\6\1\uffff\15\6\1\uffff\1\6\1\u00d3\11"+
             "\uffff\4\6\5\uffff\4\6\14\uffff\1\6\2\uffff\2\6\2\uffff\1\6"+
             "\6\uffff\6\6\73\uffff\1\6",
-            "\u008f\6\1\uffff\24\6\1\uffff\15\6\1\uffff\1\6\1\u00d5\11"+
+            "\u008f\6\1\uffff\24\6\1\uffff\15\6\1\uffff\1\6\1\u00d3\11"+
             "\uffff\1\6\2\uffff\1\6\5\uffff\4\6\14\uffff\1\6\2\uffff\2\6"+
             "\2\uffff\1\6\7\uffff\5\6\73\uffff\1\6",
-            "\u008f\u00d6\1\uffff\24\u00d6\1\uffff\14\u00d6\15\uffff\1"+
-            "\6\37\uffff\1\u00d6\107\uffff\1\u00d6",
-            "\1\6\u00b0\uffff\1\u00d5",
-            "\1\6\u00b0\uffff\1\u00d5",
-            "\1\6\u00b0\uffff\1\u00d5",
-            "\1\6\164\uffff\1\u00d5",
-            "\u008f\6\1\uffff\24\6\1\uffff\15\6\1\uffff\1\6\1\u00d5\11"+
+            "\1\6\u00b0\uffff\1\u00d3",
+            "\1\6\u00b0\uffff\1\u00d3",
+            "\1\6\u00b0\uffff\1\u00d3",
+            "\1\6\164\uffff\1\u00d3",
+            "\u008f\6\1\uffff\24\6\1\uffff\15\6\1\uffff\1\6\1\u00d3\11"+
             "\uffff\4\6\5\uffff\4\6\14\uffff\1\6\2\uffff\2\6\2\uffff\1\6"+
             "\6\uffff\6\6\73\uffff\1\6",
-            "\u008f\6\1\uffff\24\6\1\uffff\15\6\1\uffff\1\6\1\u00d5\11"+
+            "\u008f\6\1\uffff\24\6\1\uffff\15\6\1\uffff\1\6\1\u00d3\11"+
             "\uffff\4\6\5\uffff\4\6\14\uffff\1\6\2\uffff\2\6\2\uffff\1\6"+
             "\6\uffff\6\6\73\uffff\1\6",
-            "\u008f\6\1\uffff\24\6\1\uffff\15\6\1\uffff\1\6\1\u00d5\11"+
+            "\u008f\6\1\uffff\24\6\1\uffff\15\6\1\uffff\1\6\1\u00d3\11"+
             "\uffff\4\6\5\uffff\4\6\14\uffff\1\6\2\uffff\2\6\2\uffff\1\6"+
             "\6\uffff\6\6\73\uffff\1\6",
-            "\u008f\6\1\uffff\24\6\1\uffff\15\6\1\uffff\1\6\1\u00d5\11"+
+            "\u008f\6\1\uffff\24\6\1\uffff\15\6\1\uffff\1\6\1\u00d3\11"+
             "\uffff\4\6\5\uffff\4\6\14\uffff\1\6\2\uffff\2\6\2\uffff\1\6"+
             "\6\uffff\6\6\73\uffff\1\6",
-            "\u008f\6\1\uffff\24\6\1\uffff\15\6\1\uffff\1\6\1\u00d5\11"+
+            "\u008f\6\1\uffff\24\6\1\uffff\15\6\1\uffff\1\6\1\u00d3\11"+
             "\uffff\4\6\5\uffff\4\6\14\uffff\1\6\2\uffff\2\6\2\uffff\1\6"+
             "\6\uffff\6\6\73\uffff\1\6",
-            "\u008f\6\1\uffff\24\6\1\uffff\15\6\1\uffff\1\6\1\u00d5\11"+
+            "\u008f\6\1\uffff\24\6\1\uffff\15\6\1\uffff\1\6\1\u00d3\11"+
             "\uffff\4\6\5\uffff\4\6\14\uffff\1\6\2\uffff\2\6\2\uffff\1\6"+
             "\6\uffff\6\6\73\uffff\1\6",
-            "\u008f\6\1\uffff\24\6\1\uffff\15\6\1\uffff\1\6\1\u00d5\11"+
+            "\u008f\6\1\uffff\24\6\1\uffff\15\6\1\uffff\1\6\1\u00d3\11"+
             "\uffff\4\6\5\uffff\4\6\14\uffff\1\6\2\uffff\2\6\2\uffff\1\6"+
             "\6\uffff\6\6\73\uffff\1\6",
-            "\u008f\6\1\uffff\24\6\1\uffff\15\6\1\uffff\1\6\1\u00d5\11"+
+            "\u008f\6\1\uffff\24\6\1\uffff\15\6\1\uffff\1\6\1\u00d3\11"+
             "\uffff\4\6\5\uffff\4\6\14\uffff\1\6\2\uffff\2\6\2\uffff\1\6"+
             "\6\uffff\6\6\73\uffff\1\6",
-            "\u008f\6\1\uffff\24\6\1\uffff\15\6\1\uffff\1\6\1\u00d5\11"+
+            "\u008f\6\1\uffff\24\6\1\uffff\15\6\1\uffff\1\6\1\u00d3\11"+
             "\uffff\4\6\5\uffff\4\6\14\uffff\1\6\2\uffff\2\6\2\uffff\1\6"+
             "\6\uffff\6\6\73\uffff\1\6",
-            "\u008f\6\1\uffff\24\6\1\uffff\15\6\1\uffff\1\6\1\u00d5\11"+
+            "\u008f\6\1\uffff\24\6\1\uffff\15\6\1\uffff\1\6\1\u00d3\11"+
             "\uffff\4\6\5\uffff\4\6\14\uffff\1\6\2\uffff\2\6\2\uffff\1\6"+
             "\6\uffff\6\6\73\uffff\1\6",
-            "\u008f\6\1\uffff\24\6\1\uffff\15\6\1\uffff\1\6\1\u00d5\11"+
+            "\u008f\6\1\uffff\24\6\1\uffff\15\6\1\uffff\1\6\1\u00d3\11"+
             "\uffff\4\6\5\uffff\4\6\14\uffff\1\6\2\uffff\2\6\2\uffff\1\6"+
             "\6\uffff\6\6\73\uffff\1\6",
-            "\u008f\6\1\uffff\24\6\1\uffff\15\6\1\uffff\1\6\1\u00d5\11"+
+            "\u008f\6\1\uffff\24\6\1\uffff\15\6\1\uffff\1\6\1\u00d3\11"+
             "\uffff\4\6\5\uffff\4\6\14\uffff\1\6\2\uffff\2\6\2\uffff\1\6"+
             "\6\uffff\6\6\73\uffff\1\6",
-            "\u008f\6\1\uffff\24\6\1\uffff\15\6\1\uffff\1\6\1\u00d5\11"+
+            "\u008f\6\1\uffff\24\6\1\uffff\15\6\1\uffff\1\6\1\u00d3\11"+
             "\uffff\4\6\5\uffff\4\6\14\uffff\1\6\2\uffff\2\6\2\uffff\1\6"+
             "\6\uffff\6\6\73\uffff\1\6",
-            "\u008f\6\1\uffff\24\6\1\uffff\15\6\1\uffff\1\6\1\u00d5\11"+
+            "\u008f\6\1\uffff\24\6\1\uffff\15\6\1\uffff\1\6\1\u00d3\11"+
             "\uffff\4\6\5\uffff\4\6\14\uffff\1\6\2\uffff\2\6\2\uffff\1\6"+
             "\6\uffff\6\6\73\uffff\1\6",
-            "\u008f\6\1\uffff\24\6\1\uffff\15\6\1\uffff\1\6\1\u00d5\11"+
+            "\u008f\6\1\uffff\24\6\1\uffff\15\6\1\uffff\1\6\1\u00d3\11"+
             "\uffff\4\6\5\uffff\4\6\14\uffff\1\6\2\uffff\2\6\2\uffff\1\6"+
             "\6\uffff\6\6\73\uffff\1\6",
-            "\u008f\6\1\uffff\24\6\1\uffff\15\6\1\uffff\1\6\1\u00d5\11"+
+            "\u008f\6\1\uffff\24\6\1\uffff\15\6\1\uffff\1\6\1\u00d3\11"+
             "\uffff\4\6\5\uffff\4\6\14\uffff\1\6\2\uffff\2\6\2\uffff\1\6"+
             "\6\uffff\6\6\73\uffff\1\6",
-            "\1\6\2\uffff\1\6\73\uffff\1\6\1\u00d5",
-            "\1\6\1\u00d5",
-            "\u008f\6\1\uffff\24\6\1\uffff\15\6\1\uffff\1\6\1\u00d5\11"+
+            "\1\6\2\uffff\1\6\73\uffff\1\6\1\u00d3",
+            "\1\6\1\u00d3",
+            "\u008f\6\1\uffff\24\6\1\uffff\15\6\1\uffff\1\6\1\u00d3\11"+
             "\uffff\4\6\5\uffff\4\6\14\uffff\1\6\2\uffff\2\6\2\uffff\1\6"+
             "\6\uffff\6\6\73\uffff\1\6",
-            "\1\6\u00aa\uffff\1\u00d5",
-            "\1\6\u00aa\uffff\1\u00d5",
-            "\1\6\161\uffff\1\u00d5",
-            "\1\6\1\u00d5",
-            "\u008f\6\1\uffff\24\6\1\uffff\15\6\1\uffff\1\6\1\u00d5\11"+
+            "\1\6\u00aa\uffff\1\u00d3",
+            "\1\6\u00aa\uffff\1\u00d3",
+            "\1\6\161\uffff\1\u00d3",
+            "\1\6\1\u00d3",
+            "\u008f\6\1\uffff\24\6\1\uffff\15\6\1\uffff\1\6\1\u00d3\11"+
             "\uffff\4\6\5\uffff\4\6\14\uffff\1\6\2\uffff\2\6\2\uffff\1\6"+
             "\6\uffff\6\6\73\uffff\1\6",
             "\1\6\147\uffff\1\6\5\uffff\1\6\4\uffff\1\6\72\uffff\1\6\1"+
-            "\u00d5",
-            "\1\6\115\uffff\1\u00d5",
+            "\u00d3",
+            "\1\6\115\uffff\1\u00d3",
             "\1\6\147\uffff\1\6\5\uffff\1\6\4\uffff\1\6\72\uffff\1\6\1"+
-            "\u00d5",
+            "\u00d3",
             "\1\6\15\uffff\1\6\10\uffff\1\6\20\uffff\1\6\13\uffff\1\6\7"+
             "\uffff\1\6\6\uffff\1\6\14\uffff\1\6\3\uffff\1\6\4\uffff\1\6"+
-            "\114\uffff\1\u00d5\7\uffff\1\6",
+            "\114\uffff\1\u00d3\7\uffff\1\6",
             "\1\6\15\uffff\1\6\10\uffff\1\6\20\uffff\1\6\13\uffff\1\6\7"+
             "\uffff\1\6\6\uffff\1\6\14\uffff\1\6\3\uffff\1\6\4\uffff\1\6"+
-            "\114\uffff\1\u00d5\7\uffff\1\6",
-            "\1\6\14\uffff\1\6\176\uffff\1\u00d5",
-            "\1\u00d5\45\uffff\2\6",
-            "\u008f\6\1\uffff\24\6\1\uffff\15\6\1\uffff\1\6\1\u00d5\11"+
+            "\114\uffff\1\u00d3\7\uffff\1\6",
+            "\1\6\14\uffff\1\6\176\uffff\1\u00d3",
+            "\1\u00d3\45\uffff\2\6",
+            "\u008f\6\1\uffff\24\6\1\uffff\15\6\1\uffff\1\6\1\u00d3\11"+
             "\uffff\4\6\5\uffff\4\6\14\uffff\1\6\2\uffff\2\6\2\uffff\1\6"+
             "\6\uffff\6\6\73\uffff\1\6",
-            "\1\6\150\uffff\1\6\1\u00d5",
-            "\u008f\6\1\uffff\24\6\1\uffff\14\6\2\uffff\1\6\1\u00d5\51"+
+            "\1\6\150\uffff\1\6\1\u00d3",
+            "\u008f\6\1\uffff\24\6\1\uffff\14\6\2\uffff\1\6\1\u00d3\51"+
             "\uffff\1\6\107\uffff\1\6",
-            "\u008f\6\1\uffff\24\6\1\uffff\15\6\1\uffff\1\6\1\u00d5\11"+
+            "\u008f\6\1\uffff\24\6\1\uffff\15\6\1\uffff\1\6\1\u00d3\11"+
             "\uffff\4\6\5\uffff\4\6\14\uffff\1\6\2\uffff\2\6\2\uffff\1\6"+
             "\6\uffff\6\6\73\uffff\1\6",
-            "\u008f\6\1\uffff\24\6\1\uffff\15\6\1\uffff\1\6\1\u00d5\11"+
+            "\u008f\6\1\uffff\24\6\1\uffff\15\6\1\uffff\1\6\1\u00d3\11"+
             "\uffff\4\6\5\uffff\4\6\14\uffff\1\6\2\uffff\2\6\2\uffff\1\6"+
             "\6\uffff\6\6\73\uffff\1\6",
-            "\u008f\6\1\uffff\24\6\1\uffff\15\6\1\uffff\1\6\1\u00d5\11"+
+            "\u008f\6\1\uffff\24\6\1\uffff\15\6\1\uffff\1\6\1\u00d3\11"+
             "\uffff\4\6\5\uffff\4\6\14\uffff\1\6\2\uffff\2\6\2\uffff\1\6"+
             "\6\uffff\6\6\73\uffff\1\6",
-            "\u008f\6\1\uffff\24\6\1\uffff\15\6\1\uffff\1\6\1\u00d5\11"+
+            "\u008f\6\1\uffff\24\6\1\uffff\15\6\1\uffff\1\6\1\u00d3\11"+
             "\uffff\4\6\5\uffff\4\6\14\uffff\1\6\2\uffff\2\6\2\uffff\1\6"+
             "\6\uffff\6\6\73\uffff\1\6",
-            "\u008f\6\1\uffff\24\6\1\uffff\15\6\1\uffff\1\6\1\u00d5\11"+
+            "\u008f\6\1\uffff\24\6\1\uffff\15\6\1\uffff\1\6\1\u00d3\11"+
             "\uffff\4\6\5\uffff\4\6\14\uffff\1\6\2\uffff\2\6\2\uffff\1\6"+
             "\6\uffff\6\6\73\uffff\1\6",
-            "\u008f\6\1\uffff\24\6\1\uffff\15\6\1\uffff\1\6\1\u00d5\11"+
+            "\u008f\6\1\uffff\24\6\1\uffff\15\6\1\uffff\1\6\1\u00d3\11"+
             "\uffff\4\6\5\uffff\4\6\14\uffff\1\6\2\uffff\2\6\2\uffff\1\6"+
             "\6\uffff\6\6\73\uffff\1\6",
-            "\u008f\6\1\uffff\24\6\1\uffff\15\6\1\uffff\1\6\1\u00d5\11"+
+            "\u008f\6\1\uffff\24\6\1\uffff\15\6\1\uffff\1\6\1\u00d3\11"+
             "\uffff\4\6\5\uffff\4\6\14\uffff\1\6\2\uffff\2\6\2\uffff\1\6"+
             "\6\uffff\6\6\73\uffff\1\6",
-            "\u008f\6\1\uffff\24\6\1\uffff\15\6\1\uffff\1\6\1\u00d5\11"+
+            "\u008f\6\1\uffff\24\6\1\uffff\15\6\1\uffff\1\6\1\u00d3\11"+
             "\uffff\1\6\2\uffff\1\6\5\uffff\4\6\14\uffff\1\6\2\uffff\2\6"+
             "\2\uffff\1\6\7\uffff\5\6\73\uffff\1\6",
             "",
@@ -27888,7 +27694,7 @@ public class XQueryParser extends XQDTParser {
             "\2\6\4\uffff\3\6\2\uffff\1\6\1\uffff\3\6\2\uffff\1\6\5\uffff"+
             "\2\6\7\uffff\2\6\5\uffff\1\6\4\uffff\2\6\1\uffff\1\6\4\uffff"+
             "\1\6\3\uffff\1\6\3\uffff\2\6\6\uffff\1\6\6\uffff\1\6\5\uffff"+
-            "\2\6\4\uffff\1\6\1\uffff\1\6\7\uffff\1\6\45\uffff\1\u00d5\1"+
+            "\2\6\4\uffff\1\6\1\uffff\1\6\7\uffff\1\6\45\uffff\1\u00d3\1"+
             "\6\2\uffff\4\6\1\uffff\1\6\1\uffff\1\6\1\uffff\13\6\6\uffff"+
             "\2\6"
     };
@@ -27930,22 +27736,22 @@ public class XQueryParser extends XQDTParser {
         	int _s = s;
             switch ( s ) {
                     case 0 : 
-                        int LA112_24 = input.LA(1);
+                        int LA112_23 = input.LA(1);
 
                          
-                        int index112_24 = input.index();
+                        int index112_23 = input.index();
                         input.rewind();
                         s = -1;
-                        if ( (LA112_24==COLON) ) {s = 26;}
+                        if ( (LA112_23==LBRACKET) && ((lc(MLS)))) {s = 210;}
 
-                        else if ( (LA112_24==EOF||(LA112_24>=AND && LA112_24<=ASCENDING)||(LA112_24>=BY && LA112_24<=CASTABLE)||LA112_24==COLLATION||LA112_24==DEFAULT||(LA112_24>=DESCENDING && LA112_24<=DIV)||(LA112_24>=ELSE && LA112_24<=EMPTY)||LA112_24==EQ||LA112_24==EXCEPT||LA112_24==FOR||LA112_24==GE||(LA112_24>=GT && LA112_24<=IDIV)||(LA112_24>=INSTANCE && LA112_24<=IS)||LA112_24==LE||(LA112_24>=LET && LA112_24<=MOD)||LA112_24==NE||(LA112_24>=OR && LA112_24<=ORDER)||(LA112_24>=RETURN && LA112_24<=SATISFIES)||LA112_24==STABLE||(LA112_24>=TO && LA112_24<=TREAT)||LA112_24==UNION||LA112_24==WHERE||LA112_24==COUNT||(LA112_24>=END && LA112_24<=GROUP)||LA112_24==ONLY||LA112_24==START||(LA112_24>=AFTER && LA112_24<=BEFORE)||LA112_24==INTO||LA112_24==MODIFY||LA112_24==WITH||LA112_24==RPAREN||(LA112_24>=RBRACKET && LA112_24<=EQUAL)||LA112_24==NOTEQUAL||LA112_24==COMMA||(LA112_24>=STAR && LA112_24<=SLASH_SLASH)||(LA112_24>=SEMICOLON && LA112_24<=VBAR)) ) {s = 6;}
+                        else if ( (LA112_23==COLON) ) {s = 25;}
 
-                        else if ( (LA112_24==LPAREN) ) {s = 20;}
+                        else if ( (LA112_23==LPAREN) ) {s = 211;}
 
-                        else if ( (LA112_24==LBRACKET) && ((lc(MLS)))) {s = 212;}
+                        else if ( (LA112_23==EOF||(LA112_23>=AND && LA112_23<=ASCENDING)||(LA112_23>=BY && LA112_23<=CASTABLE)||LA112_23==COLLATION||LA112_23==DEFAULT||(LA112_23>=DESCENDING && LA112_23<=DIV)||(LA112_23>=ELSE && LA112_23<=EMPTY)||LA112_23==EQ||LA112_23==EXCEPT||LA112_23==FOR||LA112_23==GE||(LA112_23>=GT && LA112_23<=IDIV)||(LA112_23>=INSTANCE && LA112_23<=IS)||LA112_23==LE||(LA112_23>=LET && LA112_23<=MOD)||LA112_23==NE||(LA112_23>=OR && LA112_23<=ORDER)||(LA112_23>=RETURN && LA112_23<=SATISFIES)||LA112_23==STABLE||(LA112_23>=TO && LA112_23<=TREAT)||LA112_23==UNION||LA112_23==WHERE||LA112_23==COUNT||(LA112_23>=END && LA112_23<=GROUP)||LA112_23==ONLY||LA112_23==START||(LA112_23>=AFTER && LA112_23<=BEFORE)||LA112_23==INTO||LA112_23==MODIFY||LA112_23==WITH||LA112_23==RPAREN||(LA112_23>=RBRACKET && LA112_23<=EQUAL)||LA112_23==NOTEQUAL||LA112_23==COMMA||(LA112_23>=STAR && LA112_23<=SLASH_SLASH)||(LA112_23>=SEMICOLON && LA112_23<=VBAR)) ) {s = 6;}
 
                          
-                        input.seek(index112_24);
+                        input.seek(index112_23);
                         if ( s>=0 ) return s;
                         break;
             }
@@ -29160,9 +28966,9 @@ public class XQueryParser extends XQDTParser {
     public static final BitSet FOLLOW_p_QName_in_p_NameTest6508 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_p_Wildcard_in_p_NameTest6512 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_STAR_in_p_Wildcard6542 = new BitSet(new long[]{0x0000000000000002L,0x0000000000000000L,0x0000000000000000L,0x0000000008000000L});
-    public static final BitSet FOLLOW_COLON_in_p_Wildcard6545 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000000L,0x0000000000000000L,0x0000400000000000L});
-    public static final BitSet FOLLOW_L_NCName_in_p_Wildcard6547 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_L_NCName_in_p_Wildcard6554 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000000L,0x0000000000000000L,0x0000000008000000L});
+    public static final BitSet FOLLOW_COLON_in_p_Wildcard6545 = new BitSet(new long[]{0xFFFFFFFFFFFF0000L,0xFFFFFFFFFFFFFFFFL,0xFFEFFFFF7FFFFFFFL,0x0000400000000001L,0x0040000000000000L});
+    public static final BitSet FOLLOW_p_NCName_in_p_Wildcard6547 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_p_NCName_in_p_Wildcard6554 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000000L,0x0000000000000000L,0x0000000008000000L});
     public static final BitSet FOLLOW_COLON_in_p_Wildcard6556 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000000L,0x0000000000000000L,0x0000000000004000L});
     public static final BitSet FOLLOW_STAR_in_p_Wildcard6558 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_p_PrimaryExpr_in_p_FilterExpr6599 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000000L,0x0000000000000000L,0x0000000000000040L});

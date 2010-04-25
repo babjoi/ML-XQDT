@@ -80,8 +80,9 @@ public class XQDTCommonTreeVisitor implements NodeVisitor {
                 break;
             case XQueryParser.ModuleDecl:
                 XQueryModuleDecl modDecl = new XQueryModuleDecl(xct.getStart(), xct.getStop() + 1);
-                if (xct.getChild(0).getType() == XQueryParser.L_NCName) {
-                    modDecl.setNamespacePrefix(xct.getChild(0).getText());
+                str = xct.getChild(0).getText();
+                if (str != null && str.length() > 0) {
+                    modDecl.setNamespacePrefix(str);
                 }
                 push(xct, modDecl);
                 break;

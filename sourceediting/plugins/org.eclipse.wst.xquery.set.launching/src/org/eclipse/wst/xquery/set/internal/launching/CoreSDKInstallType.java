@@ -149,37 +149,43 @@ public class CoreSDKInstallType extends XQDTInterpreterInstallType {
         }
 
         if (Platform.getOS().equals(Platform.OS_WIN32)) {
-            status = validateInstall(installLocation);
+            //status = validateInstall(installLocation);
         }
 
         return status;
     }
 
-    private IStatus validateInstall(IFileHandle installLocation) {
-        boolean done = false;
-        IStatus status = null;
+    private IStatus validateInstall(final IFileHandle installLocation) {
+        final IStatus[] status = new IStatus[] { Status.OK_STATUS };
 
-        while (!done) {
-            SETInstallValidator validator = new SETInstallValidator(installLocation.getPath());
-            ProgressMonitorDialog dialog = new ProgressMonitorDialog(Display.getCurrent().getActiveShell());
-            try {
-                dialog.run(true, true, validator);
-                status = validator.getResult();
-                if (!status.isOK()) {
-                    InstallMSVCRPDialog installDialog = new InstallMSVCRPDialog(Display.getCurrent().getActiveShell());
-                    if (installDialog.open() == Dialog.OK) {
-                        continue;
+        Display.getDefault().asyncExec(new Runnable() {
+            public void run() {
+                boolean done = false;
+                while (!done) {
+                    SETInstallValidator validator = new SETInstallValidator(installLocation.getPath());
+                    ProgressMonitorDialog dialog = new ProgressMonitorDialog(Display.getDefault().getActiveShell());
+                    try {
+                        dialog.run(true, true, validator);
+                        status[0] = validator.getResult();
+                        if (!status[0].isOK()) {
+                            InstallMSVCRPDialog installDialog = new InstallMSVCRPDialog(Display.getCurrent()
+                                    .getActiveShell());
+                            if (installDialog.open() == Dialog.OK) {
+                                continue;
+                            }
+                        }
+                        break;
+                    } catch (InvocationTargetException ite) {
+                        ite.printStackTrace();
+                        status[0] = new Status(IStatus.ERROR, SETLaunchingPlugin.PLUGIN_ID, "ite");
+                    } catch (InterruptedException ie) {
+                        ie.printStackTrace();
+                        status[0] = new Status(IStatus.ERROR, SETLaunchingPlugin.PLUGIN_ID, "ie");
                     }
                 }
-                break;
-            } catch (InvocationTargetException ite) {
-                ite.printStackTrace();
-                return new Status(IStatus.ERROR, SETLaunchingPlugin.PLUGIN_ID, "ite");
-            } catch (InterruptedException ie) {
-                ie.printStackTrace();
-                return new Status(IStatus.ERROR, SETLaunchingPlugin.PLUGIN_ID, "ie");
             }
-        }
-        return status;
+        });
+
+        return status[0];
     }
 }

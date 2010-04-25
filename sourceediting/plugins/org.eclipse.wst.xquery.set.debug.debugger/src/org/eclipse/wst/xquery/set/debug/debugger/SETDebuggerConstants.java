@@ -11,6 +11,7 @@
 package org.eclipse.wst.xquery.set.debug.debugger;
 
 import org.eclipse.dltk.compiler.util.Util;
+import org.eclipse.dltk.debug.core.DLTKDebugPreferenceConstants;
 import org.eclipse.jface.preference.IPreferenceStore;
 
 public final class SETDebuggerConstants {
@@ -31,6 +32,11 @@ public final class SETDebuggerConstants {
         store.setDefault(LOG_FILE_NAME, Util.EMPTY_STRING);
         store.setDefault(DEBUGGING_ENGINE_NEEDS_DBGP_TRANSLATOR, true);
         store.setDefault(DEBUGGING_ENGINE_SERVER_PORTS, SERVER_COMMAND_PORT + ":" + SERVER_EVENT_PORT);
+
+        store.setDefault(DLTKDebugPreferenceConstants.PREF_DBGP_SHOW_SCOPE_GLOBAL, true);
+        store.setDefault(DLTKDebugPreferenceConstants.PREF_DBGP_SHOW_SCOPE_CLASS, false);
+        store.setDefault(DLTKDebugPreferenceConstants.PREF_DBGP_SHOW_SCOPE_LOCAL, true);
+
     }
 
     private SETDebuggerConstants() {

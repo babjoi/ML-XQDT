@@ -117,5 +117,20 @@
             nature="org.eclipse.wst.xquery.set.core.nature">
       </buildpathContainerPage>
    </extension>
+   <extension
+         point="org.eclipse.debug.ui.debugModelPresentations">
+      <debugModelPresentation
+            class="org.eclipse.wst.xquery.internal.debug.ui.XQDTDebugModelPresentation"
+            id="org.eclipse.wst.xquery.set.debug.core.setModel">
+      </debugModelPresentation>
+   </extension>
+   <extension
+         point="org.eclipse.dltk.debug.ui.language">
+      <language
+            class="org.eclipse.wst.xquery.debug.ui.XQDTDebugUILanguageToolkit"
+            nature="org.eclipse.wst.xquery.set.core.nature"
+            priority="0">
+      </language>
+   </extension>
 
 </plugin>

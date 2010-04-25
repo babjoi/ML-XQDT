@@ -31,6 +31,8 @@ public class SETInstallValidator implements IRunnableWithProgress {
 
         List<String> testCmd = new ArrayList<String>();
         testCmd.add(testPath.toOSString());
+        testCmd.add("-c");
+        testCmd.add("http://www.28msec.com/");
 
         ProcessBuilder pb = new ProcessBuilder(testCmd);
 
@@ -43,7 +45,7 @@ public class SETInstallValidator implements IRunnableWithProgress {
 
             monitor.worked(1);
 
-            if (error != 2) {
+            if (error != 0) {
                 fResult = log(IStatus.ERROR, "Sausalito CoreSDK not working properly.", null);
             }
 

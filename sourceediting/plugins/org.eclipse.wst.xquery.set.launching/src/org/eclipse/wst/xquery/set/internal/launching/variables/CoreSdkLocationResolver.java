@@ -65,7 +65,9 @@ public class CoreSdkLocationResolver implements IDynamicVariableResolver {
         if (!os.equals(Platform.OS_WIN32)) {
             archPart = "." + Platform.getOSArch();
         }
-        String fragment = SETLaunchingPlugin.PLUGIN_ID + osPart + archPart;
+
+        String pluginID = "com.28msec.sausalito";
+        String fragment = pluginID + osPart + archPart;
 
         Bundle[] bundles = Platform.getBundles(fragment, null);
         if (bundles == null || bundles.length == 0) {

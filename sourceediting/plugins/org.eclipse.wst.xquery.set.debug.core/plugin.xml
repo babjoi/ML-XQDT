@@ -9,5 +9,11 @@
             typeFactory="org.eclipse.wst.xquery.debug.core.XQDTTypeFactory">
       </debugModel>
    </extension>
+   <extension
+         point="org.eclipse.core.runtime.preferences">
+      <initializer
+            class="org.eclipse.wst.xquery.set.debug.core.SETDebugPreferenceInitializer">
+      </initializer>
+   </extension>
 
 </plugin>

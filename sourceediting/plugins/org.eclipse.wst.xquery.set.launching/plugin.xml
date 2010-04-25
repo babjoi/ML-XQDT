@@ -23,7 +23,8 @@
             delegate="org.eclipse.wst.xquery.set.internal.launching.SETLaunchConfigurationDelegate"
             id="org.eclipse.wst.xquery.set.launching.SETLaunchConfigurationType"
             modes="run,debug"
-            name="Sausalito Application">
+            name="Sausalito Application"
+            sourceLocatorId="xqdtSourceLocator">
       </launchConfigurationType>
    </extension>
    <extension
@@ -49,7 +50,7 @@
             home="${sdk_loc}"
             id="defaultSausalitoCoreSDK"
             interpreterInstallType="org.eclipse.wst.xquery.set.launching.CoreSDKInstallType"
-            name="Sausalito CoreSDK 1.0.0">
+            name="Sausalito CoreSDK 1.0.4">
       </interpreterInstall>
    </extension>
 

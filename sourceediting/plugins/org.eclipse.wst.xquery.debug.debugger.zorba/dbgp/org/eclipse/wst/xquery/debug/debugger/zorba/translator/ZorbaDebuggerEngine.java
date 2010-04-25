@@ -167,7 +167,7 @@ public class ZorbaDebuggerEngine extends DbgpTermination implements IDebuggerEng
         thread.setDaemon(true);
         thread.start();
 
-        int trials = 4;
+        int trials = 40;
         while (true) {
             try {
                 fRequestConnection.connect();

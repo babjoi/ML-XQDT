@@ -273,6 +273,9 @@ public class ZorbaDbgpTranslator extends DbgpWorkingThread implements IDbgpTrans
                 response = new DbgpResponse(request);
                 response.addAttribute("state", "0");
             } else {
+                if (line > 10) {
+                    namespace = "http://www.example.com/eclipsecon/default";
+                }
                 QueryLocation ql = new QueryLocation(namespace, line, 0, line, 0);
                 int id = set.hashCode();
                 String state = request.getOption("-s");

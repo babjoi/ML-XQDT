@@ -1,1 +1,2 @@
 org.eclipse.wst.xquery.launching/debug/processors/automaticDetection = false
+org.eclipse.wst.xquery.launching/debug/semanticCheck = false

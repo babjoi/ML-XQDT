@@ -10,6 +10,7 @@
  *******************************************************************************/
 package org.eclipse.wst.xquery.launching;
 
+import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Platform;
 import org.eclipse.core.runtime.Plugin;
 import org.eclipse.dltk.core.DLTKCore;
@@ -31,6 +32,9 @@ public class XQDTLaunchingPlugin extends Plugin {
     // Automatic XQuery processor detection trace flag
     public static final boolean DEBUG_AUTOMATIC_PROCESSOR_DETECTION = Boolean.valueOf(
             Platform.getDebugOption(PLUGIN_ID + "/debug/processors/automaticDetection")).booleanValue();
+    // XQuery semantic checker trace flag
+    public static final boolean DEBUG_SEMANTIC_CHECK = Boolean.valueOf(
+            Platform.getDebugOption(PLUGIN_ID + "/debug/debug/semanticCheck")).booleanValue();
 
     private static XQDTBuildPathChangedListener fBuildPathListener = new XQDTBuildPathChangedListener();
 
@@ -63,4 +67,7 @@ public class XQDTLaunchingPlugin extends Plugin {
         return plugin;
     }
 
+    public static void log(IStatus status) {
+        getDefault().getLog().log(status);
+    }
 }

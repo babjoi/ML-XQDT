@@ -52,6 +52,14 @@ public abstract class AbstractLocalInterpreterSemanticValidator implements ISema
             }
         }
 
+        if (XQDTLaunchingPlugin.DEBUG_SEMANTIC_CHECK) {
+            StringBuilder sb = new StringBuilder("Semantic checker command: ");
+            for (String par : cmdLine) {
+                sb.append("\"" + par + "\"");
+            }
+            log(IStatus.INFO, sb.toString(), null);
+        }
+
         final Process p = exeEnv.exec(cmdLine, null, vars);
         final StringBuffer[] buffer = new StringBuffer[2];
 
@@ -82,14 +90,40 @@ public abstract class AbstractLocalInterpreterSemanticValidator implements ISema
                     }
                 }
             });
+            if (XQDTLaunchingPlugin.DEBUG_SEMANTIC_CHECK) {
+                log(IStatus.INFO, "Starting reader thread", null);
+            }
             t.start();
 
+            if (XQDTLaunchingPlugin.DEBUG_SEMANTIC_CHECK) {
+                log(IStatus.INFO, "Waiting for termination", null);
+            }
             int errorCode = p.waitFor();
+            if (XQDTLaunchingPlugin.DEBUG_SEMANTIC_CHECK) {
+                log(IStatus.INFO, "Exited with error code: " + errorCode, null);
+            }
             if (errorCode == 0) {
+                if (XQDTLaunchingPlugin.DEBUG_SEMANTIC_CHECK) {
+                    log(IStatus.INFO, "No problem detected. Abort semantic checking.", null);
+                }
                 return null;
             }
 
             t.join();
+            if (XQDTLaunchingPlugin.DEBUG_SEMANTIC_CHECK) {
+                StringBuilder sb = new StringBuilder();
+                if (buffer[0] != null) {
+                    sb.append("Error: " + buffer[0]);
+                } else {
+                    sb.append("Error: null");
+                }
+                if (buffer[1] != null) {
+                    sb.append("Output: " + buffer[1]);
+                } else {
+                    sb.append("Output: null");
+                }
+                log(IStatus.INFO, sb.toString(), null);
+            }
             if (buffer[0] == null || buffer[0].toString().trim().length() == 0) {
                 if (buffer[1] == null || buffer[1].toString().trim().length() == 0) {
                     abort("An unknown error occured while executing the Semantic Validator command");
@@ -99,11 +133,23 @@ public abstract class AbstractLocalInterpreterSemanticValidator implements ISema
                 }
             }
 
+            if (XQDTLaunchingPlugin.DEBUG_SEMANTIC_CHECK) {
+                log(IStatus.INFO, "Building error document", null);
+            }
             SemanticCheckErrorReportReader builder = new SemanticCheckErrorReportReader(module, buffer[0].toString());
             List<SemanticCheckError> errors = builder.getErrors();
             if (errors == null || errors.size() == 0) {
                 abort("An error occured while executing the Semantic Validator command:\n"
                         + buffer[0].toString().trim());
+            }
+            if (XQDTLaunchingPlugin.DEBUG_SEMANTIC_CHECK) {
+                log(IStatus.INFO, "", null);
+                StringBuilder sb = new StringBuilder("Errors read. First error details:");
+                sb.append("Message: " + errors.get(0).getMessage());
+                sb.append("Start: " + errors.get(0).getSourceStart());
+                sb.append("End: " + errors.get(0).getSourceEnd());
+                sb.append("File: " + errors.get(0).getOriginatingFileName());
+                sb.append("Line: " + errors.get(0).getSourceLineNumber());
             }
             return errors;
 
@@ -117,6 +163,15 @@ public abstract class AbstractLocalInterpreterSemanticValidator implements ISema
     public abstract String[] buildCommandLine(ISourceModule module);
 
     private void abort(String message) throws CoreException {
-        throw new CoreException(new Status(IStatus.ERROR, XQDTCorePlugin.PLUGIN_ID, message));
+        CoreException exception = new CoreException(new Status(IStatus.ERROR, XQDTCorePlugin.PLUGIN_ID, message));
+        if (XQDTLaunchingPlugin.DEBUG_SEMANTIC_CHECK) {
+            log(IStatus.ERROR, message, exception);
+        }
+        throw exception;
     }
+
+    public static void log(int severity, String message, Throwable t) {
+        XQDTLaunchingPlugin.log(new Status(severity, XQDTLaunchingPlugin.PLUGIN_ID, message, t));
+    }
+
 }

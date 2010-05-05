@@ -100,8 +100,4 @@ public class SETImportDataJob extends SETCoreSDKCommandJob {
 
     }
 
-    protected boolean useConsole() {
-        return true;
-    }
-
 }

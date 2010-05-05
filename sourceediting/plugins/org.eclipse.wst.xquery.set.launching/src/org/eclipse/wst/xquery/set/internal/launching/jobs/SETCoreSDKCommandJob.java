@@ -107,12 +107,16 @@ abstract public class SETCoreSDKCommandJob extends Job {
     }
 
     protected void readCommandOutput(InputStream inputStream) throws IOException {
+        OutputStream output = getOutputStream();
+
         BufferedReader ir = new BufferedReader(new InputStreamReader(inputStream));
-        while (ir.readLine() != null) {
+        String line = null;
+        while ((line = ir.readLine()) != null) {
+            if (output != null) {
+                output.write((line + "\n").getBytes());
+            }
         }
     }
-
-    abstract protected boolean useConsole();
 
     abstract protected List<String> getCommandParameters();
 
@@ -150,5 +154,9 @@ abstract public class SETCoreSDKCommandJob extends Job {
 
     protected OutputStream getOutputStream() {
         return fOutputStream;
+    }
+
+    public IProject getProject() {
+        return fProject;
     }
 }

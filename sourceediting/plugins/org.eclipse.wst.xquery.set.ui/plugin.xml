@@ -74,6 +74,26 @@
             </objectState>
          </visibility>
       </objectContribution>
+      <objectContribution
+            adaptable="true"
+            id="org.eclipse.wst.xquery.set.ui.popup.deleteData"
+            objectClass="org.eclipse.core.resources.IProject">
+         <action
+               class="org.eclipse.wst.xquery.set.internal.ui.actions.SETDeleteDataAction"
+               enablesFor="1"
+               id="org.eclipse.wst.xquery.set.ui.popup.deleteData.action"
+               label="Delete Data"
+               menubarPath="additions"
+               style="push"
+               tooltip="Delete project data">
+         </action>
+         <visibility>
+            <objectState
+                  name="nature"
+                  value="org.eclipse.wst.xquery.set.core.nature">
+            </objectState>
+         </visibility>
+      </objectContribution>
 <!--      
       <objectContribution
             adaptable="true"

@@ -12,7 +12,6 @@ package org.eclipse.wst.xml.security.ui.encrypt;
 
 import org.eclipse.core.resources.IFile;
 import org.eclipse.jface.dialogs.IDialogSettings;
-import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.jface.text.ITextSelection;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.wizard.Wizard;
@@ -65,9 +64,8 @@ public class NewEncryptionWizard extends Wizard implements INewWizard {
         encryption = new Encryption();
         setWindowTitle(Messages.encryptionWizard);
         setDialogSettings(getEncryptionWizardSettings());
-        ImageDescriptor image = AbstractUIPlugin.imageDescriptorFromPlugin(XSTUIPlugin.getId(),
-                "icons/wiz_enc.gif");
-        setDefaultPageImageDescriptor(image);
+        setDefaultPageImageDescriptor(AbstractUIPlugin.imageDescriptorFromPlugin(XSTUIPlugin.getId(),
+            "icons/wiz_enc.gif"));
         setNeedsProgressMonitor(true);
     }
 
@@ -156,7 +154,6 @@ public class NewEncryptionWizard extends Wizard implements INewWizard {
      * @return Finishing status
      */
     public boolean performFinish() {
-
         return pageAlgorithms.performFinish();
     }
 

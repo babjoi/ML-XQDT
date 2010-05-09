@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2009 Dominik Schadow - http://www.xml-sicherheit.de
+ * Copyright (c) 2010 Dominik Schadow - http://www.xml-sicherheit.de
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -25,6 +25,7 @@ public interface IContextHelpIds {
     public static final String PREFERENCES_ENCRYPTION = PREFIX + "preferences_encryption";
     public static final String XPATH_DIALOG = PREFIX + "xpath_dialog";
     public static final String WIZARD_DECRYPTION_RESOURCE = PREFIX + "wizard_decryption_resource";
+    public static final String WIZARD_DECRYPTION_KEYSTORE = PREFIX + "wizard_decryption_keystore";
     public static final String WIZARD_ENCRYPTION_RESOURCE = PREFIX + "wizard_encryption_resource";
     public static final String WIZARD_ENCRYPTION_OPEN_KEY = PREFIX + "wizard_encryption_open_key";
     public static final String WIZARD_ENCRYPTION_CREATE_KEY = PREFIX + "wizard_encryption_create_key";

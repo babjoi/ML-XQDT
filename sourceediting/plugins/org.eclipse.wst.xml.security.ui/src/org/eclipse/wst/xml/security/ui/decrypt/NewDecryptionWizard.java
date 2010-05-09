@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2009 Dominik Schadow - http://www.xml-sicherheit.de
+ * Copyright (c) 2010 Dominik Schadow - http://www.xml-sicherheit.de
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -12,7 +12,6 @@ package org.eclipse.wst.xml.security.ui.decrypt;
 
 import org.eclipse.core.resources.IFile;
 import org.eclipse.jface.dialogs.IDialogSettings;
-import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.wizard.Wizard;
 import org.eclipse.ui.INewWizard;
@@ -31,6 +30,8 @@ import org.eclipse.wst.xml.security.ui.XSTUIPlugin;
 public class NewDecryptionWizard extends Wizard implements INewWizard {
     /** PageResource first wizard page. */
     private PageResource pageResource = null;
+    /** PageKeystore second wizard page. */
+    private PageKeystore pageKeystore = null;
     /** XML document to decrypt. */
     private IFile xmlDocument;
     /** The Decryption model. */
@@ -48,9 +49,8 @@ public class NewDecryptionWizard extends Wizard implements INewWizard {
         decryption = new Decryption();
         setWindowTitle(Messages.decryptionWizard);
         setDialogSettings(getDecryptionWizardSettings());
-        ImageDescriptor image = AbstractUIPlugin.imageDescriptorFromPlugin(XSTUIPlugin.getId(),
-                "icons/wiz_dec.gif");
-        setDefaultPageImageDescriptor(image);
+        setDefaultPageImageDescriptor(AbstractUIPlugin.imageDescriptorFromPlugin(XSTUIPlugin.getId(),
+            "icons/wiz_dec.gif"));
         setNeedsProgressMonitor(true);
     }
 
@@ -87,11 +87,14 @@ public class NewDecryptionWizard extends Wizard implements INewWizard {
     }
 
     /**
-     * Adds a single page (<code>PageResource</code>) to the wizard.
+     * Adds the two pages (<code>PageResource</code> and <code>PageKeystore</code>) to the wizard.
      */
     public void addPages() {
         pageResource = new PageResource(decryption, xmlDocument);
         addPage(pageResource);
+
+        pageKeystore = new PageKeystore(decryption, xmlDocument);
+        addPage(pageKeystore);
     }
 
     /**
@@ -101,7 +104,11 @@ public class NewDecryptionWizard extends Wizard implements INewWizard {
      * @return Wizard completion status
      */
     public boolean canFinish() {
-        return pageResource.isPageComplete();
+        if (this.getContainer().getCurrentPage() != pageKeystore) {
+            return false;
+        }
+
+        return pageKeystore.isPageComplete();
     }
 
     /**
@@ -110,7 +117,7 @@ public class NewDecryptionWizard extends Wizard implements INewWizard {
      * @return true
      */
     public boolean performFinish() {
-        return true;
+        return pageKeystore.performFinish();
     }
 
     /**

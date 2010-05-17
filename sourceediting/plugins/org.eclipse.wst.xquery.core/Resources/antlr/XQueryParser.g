@@ -426,7 +426,7 @@ p_IntermediateClause
 
 //[43]
 p_ForClause
-        : k+=FOR DOLLAR p_VarName p_TypeDeclaration? p_PositionalVar? k+=IN p_ExprSingle (COMMA p_QName p_TypeDeclaration? p_PositionalVar? k+=IN p_ExprSingle)* {ak($k);}
+        : k+=FOR DOLLAR p_VarName p_TypeDeclaration? p_PositionalVar? k+=IN p_ExprSingle (COMMA DOLLAR p_VarName p_TypeDeclaration? p_PositionalVar? k+=IN p_ExprSingle)* {ak($k);}
         ;
 
 //[44]

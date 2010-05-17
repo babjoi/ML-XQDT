@@ -1,4 +1,4 @@
-// $ANTLR 3.1.2 XMLLexer.g 2010-03-20 15:16:04
+// $ANTLR 3.1.2 XMLLexer.g 2010-05-17 12:55:23
 
 /*******************************************************************************
  * Copyright (c) 2008, 2009 28msec Inc. and others.
@@ -18,7 +18,7 @@ import java.util.Stack;
 import java.util.List;
 import java.util.ArrayList;
 
-@SuppressWarnings( {"unused" })
+@SuppressWarnings( { "unused" })
 public class XMLLexer extends XQDTLexer {
     public static final int L_CDataSection=7;
     public static final int INDEX=176;

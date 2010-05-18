@@ -67,17 +67,27 @@ public abstract class AbstractLocalInterpreterSemanticValidator implements ISema
             abort("Could not invoke the Semantic Validator");
         }
         try {
-            Thread t = new Thread(new Runnable() {
+            Thread outputReader = new Thread(new Runnable() {
 
                 public void run() {
                     try {
                         BufferedReader output = new BufferedReader(new InputStreamReader(p.getInputStream()));
                         StringBuffer outputReport = new StringBuffer();
+
                         for (String line; (line = output.readLine()) != null;) {
                             outputReport.append(line + "\n");
                         }
                         buffer[1] = outputReport;
+                    } catch (IOException e) {
+                        // abort("Exception while reading the the Semantic Validator output streams");
+                    }
+                }
+            });
 
+            Thread errorReader = new Thread(new Runnable() {
+
+                public void run() {
+                    try {
                         BufferedReader errstr = new BufferedReader(new InputStreamReader(p.getErrorStream()));
                         StringBuffer errorReport = new StringBuffer();
 
@@ -90,10 +100,12 @@ public abstract class AbstractLocalInterpreterSemanticValidator implements ISema
                     }
                 }
             });
+
             if (XQDTLaunchingPlugin.DEBUG_SEMANTIC_CHECK) {
-                log(IStatus.INFO, "Starting reader thread", null);
+                log(IStatus.INFO, "Starting reader threads", null);
             }
-            t.start();
+            outputReader.start();
+            errorReader.start();
 
             if (XQDTLaunchingPlugin.DEBUG_SEMANTIC_CHECK) {
                 log(IStatus.INFO, "Waiting for termination", null);
@@ -109,7 +121,8 @@ public abstract class AbstractLocalInterpreterSemanticValidator implements ISema
                 return null;
             }
 
-            t.join();
+            outputReader.join();
+            errorReader.join();
             if (XQDTLaunchingPlugin.DEBUG_SEMANTIC_CHECK) {
                 StringBuilder sb = new StringBuilder();
                 if (buffer[0] != null) {

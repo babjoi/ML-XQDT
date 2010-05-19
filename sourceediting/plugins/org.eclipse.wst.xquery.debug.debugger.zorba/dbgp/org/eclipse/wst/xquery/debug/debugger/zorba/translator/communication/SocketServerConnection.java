@@ -41,4 +41,8 @@ public final class SocketServerConnection extends SocketConnection {
         }
         fServerSocket = null;
     }
+
+    public boolean isListening() {
+        return fServerSocket != null && fServerSocket.isBound();
+    }
 }

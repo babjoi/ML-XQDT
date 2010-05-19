@@ -71,6 +71,10 @@ public class ZorbaDebuggerEngine extends DbgpTermination implements IDebuggerEng
 
     private class EventListener implements Runnable {
 
+        public boolean isListening() {
+            return fEventConnection.isListening();
+        }
+
         public void run() {
             try {
                 fEventConnection.connect();
@@ -162,13 +166,25 @@ public class ZorbaDebuggerEngine extends DbgpTermination implements IDebuggerEng
     }
 
     public void connect() throws IOException {
-        // start listening
+        // open the event port and start listening for events
         Thread eventThread = new Thread(fEventListener, "Debugging Engine Event Listener");
         eventThread.setDaemon(true);
         eventThread.start();
 
-        Thread commandThread = new Thread(new Runnable() {
+        // make sure the listening port is listening because the command thread will
+        // initiate a handshake which will cause an event to be sent back to this
+        // event listener  
+        while (!fEventListener.isListening()) {
+            System.out.println("not listening");
+            try {
+                Thread.sleep(150);
+            } catch (InterruptedException ie) {
+                ie.printStackTrace();
+            }
+        }
 
+        // connect as a client to the command port opened by zorba
+        Thread commandThread = new Thread(new Runnable() {
             public void run() {
                 int trials = 5;
                 while (true) {
@@ -179,10 +195,8 @@ public class ZorbaDebuggerEngine extends DbgpTermination implements IDebuggerEng
                     } catch (IOException e) {
                         try {
                             if (--trials < 0) {
-//                                fTerminated = true;
-//                                terminate();
-//                                throw new IOException(
-//                                        "Failed to connect to the debug engine. Connection failed after 5 connection attempts.");
+                                fTerminated = true;
+                                terminate();
                             }
                             Thread.sleep(1000);
                         } catch (InterruptedException e1) {
@@ -194,6 +208,16 @@ public class ZorbaDebuggerEngine extends DbgpTermination implements IDebuggerEng
         }, "Debugging Engine Command Client");
         commandThread.setDaemon(true);
         commandThread.start();
+
+        // wait until the handshake is complete
+        while (!fRequestConnection.isInitialized()) {
+            System.out.println("not initialized");
+            try {
+                Thread.sleep(150);
+            } catch (InterruptedException ie) {
+                ie.printStackTrace();
+            }
+        }
     }
 
     public void terminate() {
@@ -249,7 +273,11 @@ public class ZorbaDebuggerEngine extends DbgpTermination implements IDebuggerEng
             if (ZorbaDebuggerPlugin.DEBUG_DEBUGGER_ENGINE) {
                 System.out.println("Waiting fo reply...");
             }
-            reply = (AbstractReplyMessage)fReplyReader.readMessage();
+            try {
+                reply = (AbstractReplyMessage)fReplyReader.readMessage();
+            } catch (NullPointerException npe) {
+                System.out.println("cought you!");
+            }
             if (ZorbaDebuggerPlugin.DEBUG_DEBUGGER_ENGINE) {
                 System.out.println("Reply received");
             }

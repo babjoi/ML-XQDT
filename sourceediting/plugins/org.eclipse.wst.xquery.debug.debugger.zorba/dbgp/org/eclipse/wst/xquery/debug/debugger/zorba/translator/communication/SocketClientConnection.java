@@ -25,6 +25,8 @@ public final class SocketClientConnection extends SocketConnection {
     private int fHandshakeTimeout = 50000;
     private String fHost;
 
+    private boolean fInitialized;
+
     public SocketClientConnection(int port) {
         this("127.0.0.1", port);
     }
@@ -49,7 +51,6 @@ public final class SocketClientConnection extends SocketConnection {
     }
 
     public void performHandshake(int timeout) throws TransportTimeoutException {
-        final boolean[] handshakeCompleted = new boolean[1];
 
         Thread t = new Thread(new Runnable() {
 
@@ -69,7 +70,7 @@ public final class SocketClientConnection extends SocketConnection {
                 if (ZorbaDebuggerPlugin.DEBUG_DEBUGGER_ENGINE) {
                     System.out.println("Handshake successful");
                 }
-                handshakeCompleted[0] = true;
+                fInitialized = true;
             }
         });
         t.setDaemon(true);
@@ -80,7 +81,7 @@ public final class SocketClientConnection extends SocketConnection {
         } catch (InterruptedException e1) {
         }
 
-        if (handshakeCompleted[0]) {
+        if (fInitialized) {
             return;
         }
 
@@ -92,4 +93,9 @@ public final class SocketClientConnection extends SocketConnection {
 
         throw new TransportTimeoutException();
     }
+
+    public boolean isInitialized() {
+        return fInitialized;
+    }
+
 }

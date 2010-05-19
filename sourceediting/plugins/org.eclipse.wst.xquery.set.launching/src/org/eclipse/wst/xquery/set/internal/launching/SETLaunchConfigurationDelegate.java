@@ -23,6 +23,7 @@ import org.eclipse.debug.core.DebugPlugin;
 import org.eclipse.debug.core.IDebugEventSetListener;
 import org.eclipse.debug.core.ILaunch;
 import org.eclipse.debug.core.ILaunchConfiguration;
+import org.eclipse.debug.core.ILaunchManager;
 import org.eclipse.debug.core.model.IProcess;
 import org.eclipse.dltk.core.environment.IEnvironment;
 import org.eclipse.dltk.launching.AbstractScriptLaunchConfigurationDelegate;
@@ -41,6 +42,10 @@ public class SETLaunchConfigurationDelegate extends AbstractScriptLaunchConfigur
             IProgressMonitor monitor) throws CoreException {
 
         try {
+            if (mode.equals(ILaunchManager.DEBUG_MODE)) {
+                return;
+            }
+
             monitor.beginTask("Starting the Sausalito CoreSDK Server", 10);
             if (monitor.isCanceled()) {
                 return;

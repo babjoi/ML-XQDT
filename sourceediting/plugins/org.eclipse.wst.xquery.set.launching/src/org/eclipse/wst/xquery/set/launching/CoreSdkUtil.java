@@ -13,8 +13,10 @@ package org.eclipse.wst.xquery.set.launching;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
+import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.Platform;
+import org.eclipse.core.runtime.Status;
 import org.eclipse.dltk.core.DLTKCore;
 import org.eclipse.dltk.launching.IInterpreterInstall;
 import org.eclipse.dltk.launching.ScriptRuntime;
@@ -25,6 +27,10 @@ public class CoreSdkUtil {
 
     public static IPath getCoreSDKScriptPath(IProject project) throws CoreException {
         IInterpreterInstall install = ScriptRuntime.getInterpreterInstall(DLTKCore.create(project));
+        if (install == null) {
+            throw new CoreException(new Status(IStatus.ERROR, SETLaunchingPlugin.PLUGIN_ID,
+                    "Sausalito CoreSDK is not properly set up for project: " + project.getName()));
+        }
         return install.getInstallLocation().getPath();
     }
 
@@ -32,13 +38,9 @@ public class CoreSdkUtil {
         return getCoreSDKScriptPath(project).removeLastSegments(2);
     }
 
-    public static IPath getKillCommandPath(IProject project) {
+    public static IPath getKillCommandPath(IProject project) throws CoreException {
         if (Platform.getOS().equals(Platform.OS_WIN32)) {
-            try {
-                return getProjectCoreSDKInstallationPath(project).append("bin").append("term.exe");
-            } catch (CoreException e) {
-                return null;
-            }
+            return getProjectCoreSDKInstallationPath(project).append("bin").append("term.exe");
         }
         return new Path("kill");
     }

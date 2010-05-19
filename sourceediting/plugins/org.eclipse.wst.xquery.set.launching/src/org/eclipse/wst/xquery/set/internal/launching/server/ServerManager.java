@@ -33,11 +33,8 @@ import org.eclipse.core.runtime.jobs.IJobChangeListener;
 import org.eclipse.core.runtime.jobs.Job;
 import org.eclipse.debug.core.DebugException;
 import org.eclipse.debug.core.ILaunch;
-import org.eclipse.debug.core.ILaunchConfiguration;
-import org.eclipse.debug.core.ILaunchManager;
-import org.eclipse.wst.xquery.set.debug.core.ISETLaunchConfigurationConstants;
+import org.eclipse.debug.core.model.IProcess;
 import org.eclipse.wst.xquery.set.debug.core.SETDebugCorePlugin;
-import org.eclipse.wst.xquery.set.internal.launching.SETLaunchConfigurationDelegate;
 import org.eclipse.wst.xquery.set.launching.CoreSdkUtil;
 import org.eclipse.wst.xquery.set.launching.SETLaunchingPlugin;
 
@@ -45,6 +42,9 @@ public class ServerManager {
 
     private static ServerManager instance;
 
+    /**
+     * A socket to project mapping.
+     */
     private Map<String, IProject> fStartedProjects = new HashMap<String, IProject>();
     private Map<IProject, Server> fProjectServers = new HashMap<IProject, Server>();
 
@@ -71,7 +71,7 @@ public class ServerManager {
         fServerLaunchListeners.remove(listener);
     }
 
-    public synchronized void addStartedServer(String socket, IProject project) {
+    public synchronized void addStartedProject(String socket, IProject project) {
         fStartedProjects.put(socket, project);
     }
 
@@ -79,31 +79,8 @@ public class ServerManager {
         fStartedProjects.remove(socket);
     }
 
-    public ServerLaunchJob createServerJob(ILaunch launch) throws CoreException {
-        ILaunchConfiguration config = launch.getLaunchConfiguration();
-        IProject project = SETLaunchConfigurationDelegate.getLaunchProject(launch);
-
-        // get the socket where the application will be found
-        String host = config.getAttribute(ISETLaunchConfigurationConstants.ATTR_XQDT_SET_HOST, "127.0.0.1");
-        int port = config.getAttribute(ISETLaunchConfigurationConstants.ATTR_XQDT_SET_PORT, 8080);
-
-        // get the other Sausalito options
-        boolean indent = config.getAttribute(ISETLaunchConfigurationConstants.ATTR_XQDT_SET_INDENT, true);
-        boolean clear = config.getAttribute(ISETLaunchConfigurationConstants.ATTR_XQDT_SET_CLEAR_COLLECTIONS, false);
-
-        // !!!!!!!!!!!!!!!!!!!!!!!!
-        // add synchronization code
-        // !!!!!!!!!!!!!!!!!!!!!!!!
-
-        boolean debugMode = launch.getLaunchMode().equals(ILaunchManager.DEBUG_MODE);
-        Server server = new Server(project, host, port, indent, clear, debugMode);
-        ServerLaunchJob job = new ServerLaunchJob(launch, server);
-
-        for (IServerLaunchListener listener : fServerLaunchListeners) {
-            job.addServerLaunchListener(listener);
-        }
-
-        return job;
+    public synchronized Server createServer(ILaunch launch, IProject project) throws CoreException {
+        return new Server(launch, project);
     }
 
     public void stopServer(final IProject project) {
@@ -111,7 +88,6 @@ public class ServerManager {
         final String socket = server.getSocketString();
 
         Job job = new Job("Stopping server: " + socket) {
-
             @Override
             protected IStatus run(IProgressMonitor monitor) {
                 try {
@@ -132,30 +108,37 @@ public class ServerManager {
                             Thread.sleep(250);
                         }
                     }
-                    // TODO: must resolve the term.exe error code problem
-                    // such that the following applies also on Windows
-                    if (!Platform.getOS().equals(Platform.OS_WIN32) && ec != 0) {
-                        handleKillProcessError(p, commandList);
-                    } else {
-                        if (SETLaunchingPlugin.DEBUG_SERVER) {
-                            System.out.println("Terminate command exited succesfully");
+
+                    synchronized (project) {
+                        // TODO: must resolve the term.exe error code problem
+                        // such that the following applies also on Windows
+                        if (!Platform.getOS().equals(Platform.OS_WIN32) && ec != 0) {
+                            handleKillProcessError(p, commandList);
+                        } else {
+                            if (SETLaunchingPlugin.DEBUG_SERVER) {
+                                System.out.println("Terminate command exited succesfully");
+                            }
+                        }
+
+                        while (server.isListening()) {
+                            Thread.sleep(250);
                         }
                     }
 
-                    while (server.isListening()) {
-                        Thread.sleep(250);
-                    }
-
-                } catch (IOException e) {
-                    e.printStackTrace();
-                } catch (CoreException e) {
-                    e.printStackTrace();
-                    return new Status(IStatus.ERROR, SETDebugCorePlugin.PLUGIN_ID, "Error while stopping server "
-                            + socket + ": " + e.getMessage(), e);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                } catch (ServerNotStartedException snse) {
-                    // snse.printStackTrace();
+                } catch (IOException ioe) {
+                    return new Status(IStatus.ERROR, SETDebugCorePlugin.PLUGIN_ID,
+                            "Could not properly stop the server for project \"" + project.getName()
+                                    + "\" using socket \"" + socket + "\"", ioe);
+                } catch (CoreException ce) {
+                    ce.printStackTrace();
+                    return new Status(IStatus.ERROR, SETDebugCorePlugin.PLUGIN_ID,
+                            "Error while stopping server for project \"" + project.getName() + "\" using socket \""
+                                    + socket + "\"", ce);
+                } catch (InterruptedException ie) {
+                    ie.printStackTrace();
+                    return new Status(IStatus.ERROR, SETDebugCorePlugin.PLUGIN_ID,
+                            "Could not properly stop the server for project \"" + project.getName()
+                                    + "\" using socket \"" + socket + "\"", ie);
                 } finally {
                     removeStartedServer(server.getSocketString());
                 }
@@ -188,11 +171,12 @@ public class ServerManager {
     }
 
     public Server getServer(String socket) {
-        IProject p = fStartedProjects.get(socket);
-        if (p == null) {
-            return null;
-        }
-        return fProjectServers.get(p);
+        IProject p = getProject(socket);
+        return p == null ? null : fProjectServers.get(p);
+    }
+
+    public IProject getProject(String socket) {
+        return fStartedProjects.get(socket);
     }
 
     public boolean isSocketFree(String host, int port) {
@@ -228,7 +212,7 @@ public class ServerManager {
             return pid;
         } catch (Exception e) {
             throw new DebugException(new Status(IStatus.ERROR, SETDebugCorePlugin.PLUGIN_ID,
-                    "An exception occured while retrieving the web server process ID.", e));
+                    "An exception occurred while retrieving the web server process ID.", e));
         }
     }
 
@@ -245,14 +229,14 @@ public class ServerManager {
             return false;
         }
 
-        Process p = server.getProcess();
+        IProcess p = server.getProcess();
         if (p == null) {
             return false;
         }
 
         try {
-            p.exitValue();
-        } catch (IllegalThreadStateException e) {
+            p.getExitValue();
+        } catch (DebugException de) {
             // thrown when the process still runs
             // this means zombie process
             return true;

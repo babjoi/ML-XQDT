@@ -145,9 +145,9 @@ public class SETMainLaunchConfigurationTab extends MainLaunchConfigurationTab {
         String functionName = path.segment(1);
         XQueryLibraryModule libMod = (XQueryLibraryModule)modDecl;
         String prefix = libMod.getNamespacePrefix();
-        XQueryFunctionDecl method = libMod.getFunction(prefix + ":" + functionName);
+        XQueryFunctionDecl method = libMod.getFunction(prefix + ":" + functionName + 0);
         if (method == null) {
-            setErrorMessage("No function '" + functionName + "' is defined in the '" + handlerName
+            setErrorMessage("No function '" + functionName + "' with 0 arguments is defined in the '" + handlerName
                     + ".xq' handler module");
             return false;
         }
@@ -374,12 +374,16 @@ public class SETMainLaunchConfigurationTab extends MainLaunchConfigurationTab {
     protected void handleHandlerFunctionButtonSelected() {
         String startPage = SETEditProjectConfigDialog
                 .getHandlerFunctionStartPage(getProject().getProject(), getShell());
-        fScriptText.setText(startPage);
+        if (!startPage.equals("")) {
+            fScriptText.setText(startPage);
+        }
     }
 
     protected void handlePublicResourceButtonSelected() {
         String startPage = SETEditProjectConfigDialog.getPublicResourceStartPage(getProject().getProject(), getShell());
-        fScriptText.setText(startPage);
+        if (!startPage.equals("")) {
+            fScriptText.setText(startPage);
+        }
     }
 
     @Override

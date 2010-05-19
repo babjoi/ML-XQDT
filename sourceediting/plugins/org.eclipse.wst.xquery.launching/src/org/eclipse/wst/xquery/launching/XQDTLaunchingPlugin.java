@@ -34,7 +34,7 @@ public class XQDTLaunchingPlugin extends Plugin {
             Platform.getDebugOption(PLUGIN_ID + "/debug/processors/automaticDetection")).booleanValue();
     // XQuery semantic checker trace flag
     public static final boolean DEBUG_SEMANTIC_CHECK = Boolean.valueOf(
-            Platform.getDebugOption(PLUGIN_ID + "/debug/debug/semanticCheck")).booleanValue();
+            Platform.getDebugOption(PLUGIN_ID + "/debug/semanticCheck")).booleanValue();
 
     private static XQDTBuildPathChangedListener fBuildPathListener = new XQDTBuildPathChangedListener();
 

@@ -163,29 +163,37 @@ public class ZorbaDebuggerEngine extends DbgpTermination implements IDebuggerEng
 
     public void connect() throws IOException {
         // start listening
-        Thread thread = new Thread(fEventListener, "Engine Event Listener");
-        thread.setDaemon(true);
-        thread.start();
+        Thread eventThread = new Thread(fEventListener, "Debugging Engine Event Listener");
+        eventThread.setDaemon(true);
+        eventThread.start();
 
-        int trials = 40;
-        while (true) {
-            try {
-                fRequestConnection.connect();
-                fReplyReader = new MessageReader(fRequestConnection.getInput());
-                return;
-            } catch (IOException e) {
-                try {
-                    if (--trials < 0) {
-                        fTerminated = true;
-                        terminate();
-                        throw new IOException(
-                                "Failed to connect to the debug engine. Connection failed after 5 connection attempts.");
+        Thread commandThread = new Thread(new Runnable() {
+
+            public void run() {
+                int trials = 5;
+                while (true) {
+                    try {
+                        fRequestConnection.connect();
+                        fReplyReader = new MessageReader(fRequestConnection.getInput());
+                        return;
+                    } catch (IOException e) {
+                        try {
+                            if (--trials < 0) {
+//                                fTerminated = true;
+//                                terminate();
+//                                throw new IOException(
+//                                        "Failed to connect to the debug engine. Connection failed after 5 connection attempts.");
+                            }
+                            Thread.sleep(1000);
+                        } catch (InterruptedException e1) {
+                        }
                     }
-                    Thread.sleep(1000);
-                } catch (InterruptedException e1) {
                 }
             }
-        }
+
+        }, "Debugging Engine Command Client");
+        commandThread.setDaemon(true);
+        commandThread.start();
     }
 
     public void terminate() {

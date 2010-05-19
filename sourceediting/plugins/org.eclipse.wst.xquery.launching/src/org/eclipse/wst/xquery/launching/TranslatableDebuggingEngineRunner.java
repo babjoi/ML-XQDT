@@ -42,10 +42,13 @@ public abstract class TranslatableDebuggingEngineRunner extends DebuggingEngineR
             if (translator == null) {
                 abort("The DBGP Translator could not be started", null);
             }
+
+            translator.init();
             translator.start();
         }
         return process;
     }
 
     protected abstract IDbgpTranslator getDbgpTranslator(InterpreterConfig config, IScriptProject project);
+
 }

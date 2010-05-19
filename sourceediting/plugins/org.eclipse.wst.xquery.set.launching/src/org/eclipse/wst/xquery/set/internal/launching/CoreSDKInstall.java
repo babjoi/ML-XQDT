@@ -10,7 +10,9 @@
  *******************************************************************************/
 package org.eclipse.wst.xquery.set.internal.launching;
 
+import org.eclipse.debug.core.ILaunchManager;
 import org.eclipse.dltk.launching.IInterpreterInstallType;
+import org.eclipse.dltk.launching.IInterpreterRunner;
 import org.eclipse.wst.xquery.core.semantic.ISemanticValidator;
 import org.eclipse.wst.xquery.launching.ISemanticValidatingInterpreterInstall;
 import org.eclipse.wst.xquery.launching.XQDTInterpreterInstall;
@@ -35,4 +37,11 @@ public class CoreSDKInstall extends XQDTInterpreterInstall implements ISemanticV
         return null;
     }
 
+    @Override
+    public IInterpreterRunner getInterpreterRunner(String mode) {
+        if (mode.equals(ILaunchManager.DEBUG_MODE)) {
+            return super.getInterpreterRunner(mode);
+        }
+        return new CoreSdkRunner(this);
+    }
 }

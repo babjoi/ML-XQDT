@@ -96,18 +96,19 @@ public class ZorbaDbgpTranslator extends DbgpWorkingThread implements IDbgpTrans
 
         fProject = project;
 
-        Socket client = new Socket(ideAdress, port);
-        fReceiver = new DbgpProxyClientReceiver(this, new DataInputStream(client.getInputStream()));
-        fResponder = new DbgpProxyClientResponder(this, new DataOutputStream(client.getOutputStream()));
-
         String[] ports = debuggerPorts.split(":");
         fEngine = new ZorbaDebuggerEngine(Integer.parseInt(ports[0]), Integer.parseInt(ports[1]));
         fEngine.addTerminationListener(this);
 
         fEngine.addDebugEventListener(this);
-        fReceiver.addCommandListener(this);
 
         fEngine.connect();
+
+        Socket client = new Socket(ideAdress, port);
+        fReceiver = new DbgpProxyClientReceiver(this, new DataInputStream(client.getInputStream()));
+        fResponder = new DbgpProxyClientResponder(this, new DataOutputStream(client.getOutputStream()));
+
+        fReceiver.addCommandListener(this);
 
         fIdeKey = ideKey;
         fFileUri = fileUri;
@@ -117,14 +118,19 @@ public class ZorbaDbgpTranslator extends DbgpWorkingThread implements IDbgpTrans
         processNext();
     }
 
+    public void init() {
+        if (ZorbaDebuggerPlugin.DEBUG_DBGP_TRANSLATOR) {
+            System.out.println("Initializing DBGP translator.");
+        }
+        fReceiver.start();
+        fResponder.start();
+
+        InitPacket ip = new InitPacket(fIdeKey, Thread.currentThread().getId(), fFileUri);
+        fResponder.send(ip);
+    }
+
     protected synchronized void workingCycle() throws Exception {
         try {
-            fReceiver.start();
-            fResponder.start();
-
-            InitPacket ip = new InitPacket(fIdeKey, Thread.currentThread().getId(), fFileUri);
-            fResponder.send(ip);
-
             while (true) {
                 try {
                     if (!fReceiver.hasAvailableCommand()) {
@@ -274,7 +280,7 @@ public class ZorbaDbgpTranslator extends DbgpWorkingThread implements IDbgpTrans
                 response.addAttribute("state", "0");
             } else {
                 if (line > 10) {
-                    namespace = "http://www.example.com/eclipsecon/default";
+                    namespace = "http://www.example.com/def/default";
                 }
                 QueryLocation ql = new QueryLocation(namespace, line, 0, line, 0);
                 int id = set.hashCode();

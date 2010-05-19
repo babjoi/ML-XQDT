@@ -11,11 +11,11 @@ Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.ui.browser,
  org.eclipse.dltk.core;bundle-version="1.0.0",
  org.eclipse.dltk.launching;bundle-version="1.0.0",
- org.eclipse.wst.xquery.core,
- org.eclipse.wst.xquery.launching,
- org.eclipse.wst.xquery.set.core,
- org.eclipse.wst.xquery.set.debug.core,
- org.eclipse.wst.xquery.launching.zorba
+ org.eclipse.wst.xquery.core;bundle-version="0.7.0",
+ org.eclipse.wst.xquery.launching;bundle-version="0.7.0",
+ org.eclipse.wst.xquery.set.core;bundle-version="0.7.0",
+ org.eclipse.wst.xquery.set.debug.core;bundle-version="0.7.0",
+ org.eclipse.wst.xquery.launching.zorba;bundle-version="0.7.0"
 Bundle-RequiredExecutionEnvironment: J2SE-1.5
 Export-Package: org.eclipse.wst.xquery.set.internal.launching;x-internal:=true,
  org.eclipse.wst.xquery.set.internal.launching.jobs;x-internal:=true,

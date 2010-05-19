@@ -1073,7 +1073,7 @@ public class SETImportModuleWizardPage extends WizardPage implements IDialogFiel
 
         } catch (ModelException me) {
             throw new CoreException(new Status(IStatus.ERROR, SETUIPlugin.PLUGIN_ID,
-                    "An error occured while setting the project buildpath: " + me.getMessage()));
+                    "An error occurred while setting the project buildpath: " + me.getMessage()));
         } finally {
             monitor.done();
         }

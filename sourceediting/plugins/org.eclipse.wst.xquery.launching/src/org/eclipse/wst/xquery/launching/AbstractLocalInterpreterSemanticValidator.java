@@ -139,9 +139,9 @@ public abstract class AbstractLocalInterpreterSemanticValidator implements ISema
             }
             if (buffer[0] == null || buffer[0].toString().trim().length() == 0) {
                 if (buffer[1] == null || buffer[1].toString().trim().length() == 0) {
-                    abort("An unknown error occured while executing the Semantic Validator command");
+                    abort("An unknown error occurred while executing the Semantic Validator command");
                 } else {
-                    abort("An error occured while executing the Semantic Validator command:\n"
+                    abort("An error occurred while executing the Semantic Validator command:\n"
                             + buffer[1].toString().trim());
                 }
             }
@@ -152,7 +152,7 @@ public abstract class AbstractLocalInterpreterSemanticValidator implements ISema
             SemanticCheckErrorReportReader builder = new SemanticCheckErrorReportReader(module, buffer[0].toString());
             List<SemanticCheckError> errors = builder.getErrors();
             if (errors == null || errors.size() == 0) {
-                abort("An error occured while executing the Semantic Validator command:\n"
+                abort("An error occurred while executing the Semantic Validator command:\n"
                         + buffer[0].toString().trim());
             }
             if (XQDTLaunchingPlugin.DEBUG_SEMANTIC_CHECK) {

@@ -43,7 +43,7 @@ public abstract class SETCoreSDKCommandAction implements IObjectActionDelegate {
     public void run(IAction action) {
         if (fProject == null) {
             ErrorDialog.openError(fCurrentShell, action.getText() + " Error",
-                    "An error occured while performing action \"" + action.getText() + "\"", new Status(IStatus.ERROR,
+                    "An error occurred while performing action \"" + action.getText() + "\"", new Status(IStatus.ERROR,
                             SETUIPlugin.PLUGIN_ID, "The Sausalito project could not be determined"));
             return;
         }

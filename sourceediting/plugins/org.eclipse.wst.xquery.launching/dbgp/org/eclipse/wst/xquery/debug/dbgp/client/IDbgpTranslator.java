@@ -17,4 +17,10 @@ public interface IDbgpTranslator extends IDbgpCommandListener {
      */
     public void start();
 
+    /**
+     * This method should be used to perform any necessary initialisation before the start method is
+     * called.
+     */
+    public void init();
+
 }

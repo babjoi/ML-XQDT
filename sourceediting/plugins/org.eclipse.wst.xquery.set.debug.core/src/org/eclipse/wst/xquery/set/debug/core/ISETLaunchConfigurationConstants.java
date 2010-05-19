@@ -18,6 +18,6 @@ public interface ISETLaunchConfigurationConstants {
 
     public static final String ATTR_XQDT_SET_PORT = "xqdt_set_port"; //$NON-NLS-1$
 
-    public static final String ATTR_XQDT_SET_CLEAR_COLLECTIONS = "xqdt_set_cear_collections"; //$NON-NLS-1$
+    public static final String ATTR_XQDT_SET_CLEAR_COLLECTIONS = "xqdt_set_clear_collections"; //$NON-NLS-1$
 
 }

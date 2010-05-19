@@ -70,7 +70,17 @@ public class DbgpProxyClientReceiver extends DbgpWorkingThread implements IDbgpT
     }
 
     public DbgpRequest retrieveCommand() {
-        return fCommandQueue.poll();
+        DbgpRequest command = fCommandQueue.poll();
+
+        if (XQDTDebugCorePlugin.DEBUG_DBGP_PROTOCOL) {
+            if (command != null) {
+                System.out.println("Consuming DBGP Command: " + command.toString());
+            } else {
+                System.out.println("Consuming DBGP Command: null");
+            }
+        }
+
+        return command;
     }
 
     public boolean hasAvailableCommand() {
@@ -80,7 +90,7 @@ public class DbgpProxyClientReceiver extends DbgpWorkingThread implements IDbgpT
     private void enqueueCommand(DbgpRequest request) {
         fCommandQueue.offer(request);
         if (XQDTDebugCorePlugin.DEBUG_DBGP_PROTOCOL) {
-            System.out.println("enqueued: " + request.toString());
+            System.out.println("Enqueued DBGP Command: " + request.toString());
         }
         notifyListeners();
     }

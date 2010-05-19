@@ -7,7 +7,7 @@ import org.eclipse.dltk.launching.IInterpreterRunnerFactory;
 public class SETDebuggerRunnerFactory implements IInterpreterRunnerFactory {
 
     public IInterpreterRunner createRunner(IInterpreterInstall install) {
-        return new SETDebuggerRunner(install);
+        return new CoreSdkDebuggerRunner(install);
     }
 
 }

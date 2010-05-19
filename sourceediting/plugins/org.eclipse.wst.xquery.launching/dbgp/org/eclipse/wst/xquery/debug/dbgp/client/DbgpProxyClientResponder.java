@@ -58,7 +58,7 @@ public class DbgpProxyClientResponder extends DbgpWorkingThread implements IDbgp
                 fOutputStream.write(0);
                 fOutputStream.flush();
                 if (XQDTDebugCorePlugin.DEBUG_DBGP_PROTOCOL) {
-                    System.out.println("sent: " + data);
+                    System.out.println("Sent DBGP reponse: " + data);
                 }
             }
         } catch (InterruptedException ie) {
@@ -82,6 +82,9 @@ public class DbgpProxyClientResponder extends DbgpWorkingThread implements IDbgp
 
     public void send(XmlElement response) {
         if (!fTerminated) {
+            if (XQDTDebugCorePlugin.DEBUG_DBGP_PROTOCOL) {
+                System.out.println("Enqueued DBGP reponse: " + response.toString());
+            }
             fResponseQueue.add(response);
         }
     }

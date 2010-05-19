@@ -43,7 +43,7 @@ public class BusySocketDialog extends TrayDialog {
     private String fHost;
     private int fPort;
 
-    protected BusySocketDialog(Shell shell, Server server) {
+    public BusySocketDialog(Shell shell, Server server) {
         super(shell);
         fHost = server.getHost();
         fPort = server.getPort();

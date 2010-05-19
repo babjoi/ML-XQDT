@@ -12,29 +12,18 @@ package org.eclipse.wst.xquery.set.internal.launching.server;
 
 import java.io.File;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.List;
 
 import org.eclipse.core.resources.IProject;
-import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.core.runtime.jobs.Job;
-import org.eclipse.debug.core.DebugEvent;
 import org.eclipse.debug.core.DebugException;
-import org.eclipse.debug.core.DebugPlugin;
-import org.eclipse.debug.core.IDebugEventSetListener;
 import org.eclipse.debug.core.ILaunch;
-import org.eclipse.debug.core.ILaunchConfigurationWorkingCopy;
 import org.eclipse.debug.core.model.IDebugTarget;
 import org.eclipse.debug.core.model.IProcess;
-import org.eclipse.debug.core.model.IStreamsProxy;
-import org.eclipse.swt.custom.BusyIndicator;
-import org.eclipse.swt.widgets.Display;
-import org.eclipse.wst.xquery.set.debug.core.ISETLaunchConfigurationConstants;
 import org.eclipse.wst.xquery.set.debug.core.SETDebugCorePlugin;
-import org.eclipse.wst.xquery.set.debug.core.model.SETDebugTarget;
 
 public class ServerLaunchJob extends Job {
 
@@ -56,105 +45,105 @@ public class ServerLaunchJob extends Job {
 
         ServerManager sm = ServerManager.getInstance();
 
-        // do not launch started projects
-        if (sm.isProjectStarted(project)) {
-            // check if the process of this server is still running
-            if (sm.isServerRunning(fServer)) {
-                // this means we cannot launch one more time this project
-                DebugPlugin.getDefault().getLaunchManager().removeLaunch(fLaunch);
-                return new Status(IStatus.ERROR, SETDebugCorePlugin.PLUGIN_ID,
-                        "It is not allowed to simultaneously run more instances of the same project (Project: "
-                                + project.getName() + ")");
-            }
-            sm.removeStartedProject(project);
-        }
-
-        // check for zombie server processes
-        if (sm.isServerRunning(fServer)) {
-            return new Status(IStatus.ERROR, SETDebugCorePlugin.PLUGIN_ID,
-                    "An old server process is still running for this project (Project: " + project.getName() + ")");
-        }
-
-        // check only internally is the same socket is already in use by other project
-        if (!sm.isSocketFree(fServer.getHost(), fServer.getPort())) {
-            Server srv = sm.getServer(fServer.getSocketString());
-            if (sm.isServerRunning(srv)) {
-                notifyListeners();
-                return Status.CANCEL_STATUS;
-            }
-            sm.removeStartedServer(fServer.getHost() + ":" + fServer.getPort());
-        }
+//        // do not launch started projects
+//        if (sm.isProjectStarted(project)) {
+//            // check if the process of this server is still running
+//            if (sm.isServerRunning(fServer)) {
+//                // this means we cannot launch one more time this project
+//                DebugPlugin.getDefault().getLaunchManager().removeLaunch(fLaunch);
+//                return new Status(IStatus.ERROR, SETDebugCorePlugin.PLUGIN_ID,
+//                        "It is not allowed to simultaneously run more instances of the same project (Project: "
+//                                + project.getName() + ")");
+//            }
+//            sm.removeStartedProject(project);
+//        }
+//
+//        // check for zombie server processes
+//        if (sm.isServerRunning(fServer)) {
+//            return new Status(IStatus.ERROR, SETDebugCorePlugin.PLUGIN_ID,
+//                    "An old server process is still running for this project (Project: " + project.getName() + ")");
+//        }
+//
+//        // check only internally if the same socket is already used by other project
+//        if (!sm.isSocketFree(fServer.getHost(), fServer.getPort())) {
+//            Server srv = sm.getServer(fServer.getSocketString());
+//            if (sm.isServerRunning(srv)) {
+//                notifyListeners();
+//                return Status.CANCEL_STATUS;
+//            }
+//            sm.removeStartedServer(fServer.getHost() + ":" + fServer.getPort());
+//        }
 
         // everything is ok we can proceed
 
         // save the new port in the launch configuration
-        try {
-            ILaunchConfigurationWorkingCopy config = fLaunch.getLaunchConfiguration().getWorkingCopy();
-            config.setAttribute(ISETLaunchConfigurationConstants.ATTR_XQDT_SET_PORT, fServer.getPort());
-            config.doSave();
-        } catch (CoreException ce) {
-            return new Status(IStatus.ERROR, SETDebugCorePlugin.PLUGIN_ID,
-                    "An exception occured while updating the project launch configuration for project: "
-                            + project.getName(), ce);
-        }
+//        try {
+//            ILaunchConfigurationWorkingCopy config = fLaunch.getLaunchConfiguration().getWorkingCopy();
+//            config.setAttribute(ISETLaunchConfigurationConstants.ATTR_XQDT_SET_PORT, fServer.getPort());
+//            config.doSave();
+//        } catch (CoreException ce) {
+//            return new Status(IStatus.ERROR, SETDebugCorePlugin.PLUGIN_ID,
+//                    "An exception occurred while updating the project launch configuration for project: "
+//                            + project.getName(), ce);
+//        }
 
         // update the server for this project in the ServerManager
-        sm.addProjectServer(project, fServer);
-
-        deleteOldServerPidFile(project);
-        Process p;
-        try {
-            p = fServer.run();
-        } catch (CoreException ce) {
-            ce.printStackTrace();
-            return new Status(IStatus.ERROR, SETDebugCorePlugin.PLUGIN_ID,
-                    "An exception occured while starting the server: " + fServer.getSocketString(), ce);
-        }
-
-        ServerManager.getInstance().addStartedServer(fServer.getSocketString(), project);
-
-        final IProcess process = DebugPlugin.newProcess(fLaunch, p, "Sausalito Development Web Server");
-        IStreamsProxy proxy = process.getStreamsProxy();
-        proxy.getErrorStreamMonitor().addListener(fServer);
-
-        SETDebugTarget target = new SETDebugTarget(fLaunch, process, project);
-        fLaunch.addDebugTarget(target);
-
-        DebugPlugin.getDefault().addDebugEventListener(new IDebugEventSetListener() {
-
-            public void handleDebugEvents(DebugEvent[] events) {
-                if (events.length > 0 && events[0].getKind() == DebugEvent.TERMINATE
-                        && events[0].getSource() == process) {
-                    BusyIndicator.showWhile(Display.getCurrent(), new Runnable() {
-
-                        public void run() {
-                            ServerManager.getInstance().stopServer(project);
-                        }
-                    });
-                }
-            }
-        });
-
-        if (!DebugPlugin.getDefault().getLaunchManager().isRegistered(fLaunch)) {
-            DebugPlugin.getDefault().getLaunchManager().addLaunch(fLaunch);
-        }
-
-        long startTime = Calendar.getInstance().getTimeInMillis();
-        try {
-            Thread.sleep(250);
-            while (!fServer.isListening() && startTime + 10000 > Calendar.getInstance().getTimeInMillis()) {
-                Thread.sleep(250);
-            }
-            // in case we timed out and the server is still not listening
-            if (!fServer.isListening()) {
-                return cancelJob(target, process, false, null);
-            }
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        } catch (ServerNotStartedException snse) {
-            boolean notify = (snse.getErrorCode() == ServerNotStartedException.SERVER_ERROR_SOCKET_IN_USE);
-            return cancelJob(target, process, notify, snse);
-        }
+//        sm.addProjectServer(project, fServer);
+//
+//        deleteOldServerPidFile(project);
+//        Process p;
+//        try {
+//            p = fServer.run();
+//        } catch (CoreException ce) {
+//            ce.printStackTrace();
+//            return new Status(IStatus.ERROR, SETDebugCorePlugin.PLUGIN_ID,
+//                    "An exception occurred while starting the server: " + fServer.getSocketString(), ce);
+//        }
+//
+//        ServerManager.getInstance().addStartedServer(fServer.getSocketString(), project);
+//
+//        final IProcess process = DebugPlugin.newProcess(fLaunch, p, "Sausalito Development Web Server");
+//        IStreamsProxy proxy = process.getStreamsProxy();
+//        proxy.getErrorStreamMonitor().addListener(fServer);
+//
+//        SETDebugTarget target = new SETDebugTarget(fLaunch, process, project);
+//        fLaunch.addDebugTarget(target);
+//
+//        DebugPlugin.getDefault().addDebugEventListener(new IDebugEventSetListener() {
+//
+//            public void handleDebugEvents(DebugEvent[] events) {
+//                if (events.length > 0 && events[0].getKind() == DebugEvent.TERMINATE
+//                        && events[0].getSource() == process) {
+//                    BusyIndicator.showWhile(Display.getCurrent(), new Runnable() {
+//
+//                        public void run() {
+//                            ServerManager.getInstance().stopServer(project);
+//                        }
+//                    });
+//                }
+//            }
+//        });
+//
+//        if (!DebugPlugin.getDefault().getLaunchManager().isRegistered(fLaunch)) {
+//            DebugPlugin.getDefault().getLaunchManager().addLaunch(fLaunch);
+//        }
+//
+//        long startTime = Calendar.getInstance().getTimeInMillis();
+//        try {
+//            Thread.sleep(250);
+//            while (!fServer.isListening() && startTime + 10000 > Calendar.getInstance().getTimeInMillis()) {
+//                Thread.sleep(250);
+//            }
+//            // in case we timed out and the server is still not listening
+//            if (!fServer.isListening()) {
+//                return cancelJob(target, process, false, null);
+//            }
+//        } catch (InterruptedException e) {
+//            e.printStackTrace();
+//        } catch (ServerNotStartedException snse) {
+//            boolean notify = (snse.getErrorCode() == ServerNotStartedException.SERVER_ERROR_SOCKET_IN_USE);
+//            return cancelJob(target, process, notify, snse);
+//        }
 
         return Status.OK_STATUS;
     }

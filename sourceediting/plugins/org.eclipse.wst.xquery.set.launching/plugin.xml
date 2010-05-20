@@ -20,7 +20,7 @@
    <extension
          point="org.eclipse.debug.core.launchConfigurationTypes">
       <launchConfigurationType
-            delegate="org.eclipse.wst.xquery.set.internal.launching.SETLaunchConfigurationDelegate"
+            delegate="org.eclipse.wst.xquery.set.launching.SETLaunchConfigurationDelegate"
             id="org.eclipse.wst.xquery.set.launching.SETLaunchConfigurationType"
             modes="run,debug"
             name="Sausalito Application"
@@ -52,6 +52,13 @@
             interpreterInstallType="org.eclipse.wst.xquery.set.launching.CoreSDKInstallType"
             name="Sausalito CoreSDK 1.0.4">
       </interpreterInstall>
+   </extension>
+   <extension
+         point="org.eclipse.debug.core.processFactories">
+      <processFactory
+            class="org.eclipse.wst.xquery.set.launching.SETRuntimeProcessFactory"
+            id="org.eclipse.wst.xquery.set.launching.processFactory">
+      </processFactory>
    </extension>
 
 </plugin>

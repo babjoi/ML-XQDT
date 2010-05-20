@@ -18,6 +18,7 @@ import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.Path;
+import org.eclipse.debug.core.DebugPlugin;
 import org.eclipse.debug.core.ILaunchConfiguration;
 import org.eclipse.debug.core.ILaunchConfigurationWorkingCopy;
 import org.eclipse.dltk.ast.declarations.ModuleDeclaration;
@@ -62,6 +63,7 @@ import org.eclipse.wst.xquery.set.core.SETProjectConfigUtil;
 import org.eclipse.wst.xquery.set.debug.core.ISETLaunchConfigurationConstants;
 import org.eclipse.wst.xquery.set.internal.launching.server.ServerManager;
 import org.eclipse.wst.xquery.set.internal.ui.SETEditProjectConfigDialog;
+import org.eclipse.wst.xquery.set.launching.SETRuntimeProcessFactory;
 
 public class SETMainLaunchConfigurationTab extends MainLaunchConfigurationTab {
 
@@ -394,6 +396,7 @@ public class SETMainLaunchConfigurationTab extends MainLaunchConfigurationTab {
         config.setAttribute(ISETLaunchConfigurationConstants.ATTR_XQDT_SET_INDENT, fIndentCheckButton.getSelection());
         config.setAttribute(ISETLaunchConfigurationConstants.ATTR_XQDT_SET_CLEAR_COLLECTIONS,
                 fClearCollectionsCheckButton.getSelection());
+        config.setAttribute(DebugPlugin.ATTR_PROCESS_FACTORY_ID, SETRuntimeProcessFactory.PROCESS_FACTORY_ID);
 
         super.doPerformApply(config);
 

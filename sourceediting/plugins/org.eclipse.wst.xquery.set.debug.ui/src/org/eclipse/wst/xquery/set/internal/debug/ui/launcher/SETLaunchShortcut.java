@@ -39,6 +39,7 @@ import org.eclipse.wst.xquery.set.core.SETProjectConfig;
 import org.eclipse.wst.xquery.set.core.SETProjectConfigUtil;
 import org.eclipse.wst.xquery.set.debug.core.ISETLaunchConfigurationConstants;
 import org.eclipse.wst.xquery.set.internal.ui.SETEditProjectConfigDialog;
+import org.eclipse.wst.xquery.set.launching.SETRuntimeProcessFactory;
 
 public class SETLaunchShortcut extends AbstractScriptLaunchShortcut {
 
@@ -118,6 +119,7 @@ public class SETLaunchShortcut extends AbstractScriptLaunchShortcut {
             wc.setAttribute(ISETLaunchConfigurationConstants.ATTR_XQDT_SET_PORT, 8080);
             wc.setAttribute(ISETLaunchConfigurationConstants.ATTR_XQDT_SET_INDENT, true);
             wc.setAttribute(ISETLaunchConfigurationConstants.ATTR_XQDT_SET_CLEAR_COLLECTIONS, false);
+            wc.setAttribute(DebugPlugin.ATTR_PROCESS_FACTORY_ID, SETRuntimeProcessFactory.PROCESS_FACTORY_ID);
 
             wc.setMappedResources(new IResource[] { project });
 

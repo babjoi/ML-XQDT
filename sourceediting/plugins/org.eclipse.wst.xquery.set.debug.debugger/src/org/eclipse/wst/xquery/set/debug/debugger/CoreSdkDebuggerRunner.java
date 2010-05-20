@@ -4,13 +4,11 @@ import java.io.File;
 import java.net.InetAddress;
 
 import org.eclipse.core.runtime.CoreException;
-import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.debug.core.ILaunch;
 import org.eclipse.dltk.core.IScriptProject;
 import org.eclipse.dltk.core.PreferencesLookupDelegate;
-import org.eclipse.dltk.launching.DebugSessionAcceptor;
 import org.eclipse.dltk.launching.IInterpreterInstall;
 import org.eclipse.dltk.launching.InterpreterConfig;
 import org.eclipse.dltk.launching.debug.DbgpConnectionConfig;
@@ -42,12 +40,6 @@ public class CoreSdkDebuggerRunner extends TranslatableDebuggingEngineRunner {
 
     protected String getLogFileNamePreferenceKey() {
         return SETDebuggerConstants.LOG_FILE_NAME;
-    }
-
-    @Override
-    public void run(InterpreterConfig config, ILaunch launch, IProgressMonitor monitor) throws CoreException {
-        // TODO Auto-generated method stub
-        super.run(config, launch, monitor);
     }
 
     protected IDbgpTranslator getDbgpTranslator(InterpreterConfig config, IScriptProject project) {
@@ -94,15 +86,4 @@ public class CoreSdkDebuggerRunner extends TranslatableDebuggingEngineRunner {
         return newConfig;
     }
 
-    @Override
-    protected void waitDebuggerConnected(ILaunch launch, DebugSessionAcceptor acceptor) throws CoreException {
-        //SETLaunchUtil.openBrowser(launch);
-        super.waitDebuggerConnected(launch, acceptor);
-    }
-
-    @Override
-    protected String[] renderCommandLine(InterpreterConfig config) {
-        // TODO Auto-generated method stub
-        return super.renderCommandLine(config);
-    }
 }

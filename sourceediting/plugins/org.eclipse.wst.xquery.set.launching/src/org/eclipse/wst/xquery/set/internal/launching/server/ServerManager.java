@@ -84,7 +84,13 @@ public class ServerManager {
     }
 
     public void stopServer(final IProject project) {
+        if (project == null) {
+            return;
+        }
         final Server server = getProjectServer(project);
+        if (server == null) {
+            return;
+        }
         final String socket = server.getSocketString();
 
         Job job = new Job("Stopping server: " + socket) {

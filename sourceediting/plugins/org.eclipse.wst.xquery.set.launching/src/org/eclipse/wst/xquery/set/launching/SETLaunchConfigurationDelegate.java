@@ -8,7 +8,7 @@
  * Contributors:
  *     Gabriel Petrovay (28msec) - initial API and implementation
  *******************************************************************************/
-package org.eclipse.wst.xquery.set.internal.launching;
+package org.eclipse.wst.xquery.set.launching;
 
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.Assert;
@@ -32,8 +32,6 @@ import org.eclipse.swt.widgets.Display;
 import org.eclipse.wst.xquery.set.core.SETNature;
 import org.eclipse.wst.xquery.set.internal.launching.server.Server;
 import org.eclipse.wst.xquery.set.internal.launching.server.ServerManager;
-import org.eclipse.wst.xquery.set.launching.SETLaunchUtil;
-import org.eclipse.wst.xquery.set.launching.SETLaunchingPlugin;
 
 public class SETLaunchConfigurationDelegate extends AbstractScriptLaunchConfigurationDelegate {
 
@@ -67,11 +65,13 @@ public class SETLaunchConfigurationDelegate extends AbstractScriptLaunchConfigur
 //            Thread thread = new Thread(new Runnable() {
 //                public void run() {
 //                    // start the server
-//                    try {
-            SETLaunchConfigurationDelegate.super.launch(configuration, mode, launch, new NullProgressMonitor());
-//                    } catch (CoreException e) {
-//                        e.printStackTrace();
-//                    }
+            try {
+                SETLaunchConfigurationDelegate.super.launch(configuration, mode, launch, new NullProgressMonitor());
+            } catch (CoreException ce) {
+                abortLaunch(new Status(IStatus.ERROR, SETLaunchingPlugin.PLUGIN_ID,
+                        "An error occured while trying to start the Sausalito CoreSDK server.", ce),
+                        getProject(configuration), server);
+            }
 ////                            monitor, 3));
 ////                    if (monitor.isCanceled()) {
 ////                        return;

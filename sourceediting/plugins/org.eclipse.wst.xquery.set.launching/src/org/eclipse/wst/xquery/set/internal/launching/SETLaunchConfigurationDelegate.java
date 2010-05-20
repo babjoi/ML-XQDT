@@ -32,6 +32,7 @@ import org.eclipse.swt.widgets.Display;
 import org.eclipse.wst.xquery.set.core.SETNature;
 import org.eclipse.wst.xquery.set.internal.launching.server.Server;
 import org.eclipse.wst.xquery.set.internal.launching.server.ServerManager;
+import org.eclipse.wst.xquery.set.launching.SETLaunchUtil;
 import org.eclipse.wst.xquery.set.launching.SETLaunchingPlugin;
 
 public class SETLaunchConfigurationDelegate extends AbstractScriptLaunchConfigurationDelegate {
@@ -43,7 +44,8 @@ public class SETLaunchConfigurationDelegate extends AbstractScriptLaunchConfigur
 
         try {
             if (mode.equals(ILaunchManager.DEBUG_MODE)) {
-                return;
+                throw new CoreException(new Status(IStatus.ERROR, SETLaunchingPlugin.PLUGIN_ID,
+                        "The Sausalito Debugger is not available in this version of Sausalito Eclipse Tools."));
             }
 
             monitor.beginTask("Starting the Sausalito CoreSDK Server", 10);
@@ -86,7 +88,7 @@ public class SETLaunchConfigurationDelegate extends AbstractScriptLaunchConfigur
 
             // open the browser
             monitor.subTask("Opening the browser");
-//            SETLaunchUtil.openBrowser(launch);
+            SETLaunchUtil.openBrowser(launch);
             if (monitor.isCanceled()) {
                 return;
             }

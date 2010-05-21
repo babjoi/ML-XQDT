@@ -83,9 +83,9 @@ public class CoreSDKTemplateUtility {
             if (projectUri != null) {
                 fProperties.put(PreferenceConstants.TEMPLATES_CONFIG_VAR_PROJECT_URI, projectUri.toString());
                 fProperties.put(PreferenceConstants.TEMPLATES_MODULES_VAR_DEFAULT_NAMESPACE, projectUri.resolve(
-                        "default").toString());
+                        "/default").toString());
                 fProperties.put(PreferenceConstants.TEMPLATES_MODULES_VAR_ERROR_NAMESPACE, projectUri.resolve(
-                        "lib/error").toString());
+                        "/lib/error").toString());
 
             }
         }
@@ -384,9 +384,12 @@ public class CoreSDKTemplateUtility {
 
     /**
      * This function returns the list of project templates found in the location provided by the
-     * <code>org.eclipse.wst.xquery.set.internal.ui.preferences.PreferenceConstants.TEMPLATES_PROJECTS_DIR</code>.
+     * 
+     * <code>org.eclipse.wst.xquery.set.internal.ui.preferences.PreferenceConstants.TEMPLATES_PROJECTS_DIR</code>
+     * .
      * 
      * The list does not include the default template name which is provided by the
+     * 
      * <code>org.eclipse.wst.xquery.set.internal.ui.preferences.PreferenceConstants.TEMPLATES_DEFAULT_PROJECT_DIR</code>
      * .
      * 

@@ -50,7 +50,7 @@
             home="${sdk_loc}"
             id="defaultSausalitoCoreSDK"
             interpreterInstallType="org.eclipse.wst.xquery.set.launching.CoreSDKInstallType"
-            name="Sausalito CoreSDK 1.0.4">
+            name="Sausalito CoreSDK 1.0.8">
       </interpreterInstall>
    </extension>
    <extension

@@ -45,7 +45,7 @@ public class CoreSdkLocationResolver implements IDynamicVariableResolver {
             return result;
         }
 
-        // II. if no CoreSDK is shippen (for some platforms)
+        // II. if no CoreSDK is shipped (for some platforms)
         // go and search in some predefined install locations
         result = findInstalledCoreSDK();
         if (result != null) {
@@ -83,6 +83,9 @@ public class CoreSdkLocationResolver implements IDynamicVariableResolver {
 
         Bundle bundle = bundles[0];
         URL coreSdkUrl = FileLocator.find(bundle, new Path("coresdk"), null);
+        if (coreSdkUrl == null) {
+            return null;
+        }
         try {
             coreSdkUrl = FileLocator.toFileURL(coreSdkUrl);
         } catch (IOException ioe) {

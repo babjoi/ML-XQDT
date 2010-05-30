@@ -7,12 +7,12 @@
 		<maven>3.0</maven>
 	</prerequisites>
 
-	<groupId>org.eclipse.wst.xml.xpath2</groupId>
-	<artifactId>org.eclipse.wst.xml.xpath2-parent</artifactId>
-	<version>1.1.001-SNAPSHOT</version>
+	<groupId>org.eclipse.wst.xml.xquery</groupId>
+	<artifactId>org.eclipse.wst.xml.xquery-parent</artifactId>
+	<version>0.7.0-SNAPSHOT</version>
 	<packaging>pom</packaging>
 
-	<name>PsychoPath XPath 2.0 Processor: Parent</name>
+	<name>XQuery Development Tools: Parent</name>
 
 	<licenses>
 		<license>
@@ -36,7 +36,6 @@
 
 
 	<modules>
-		<module>org.eclipse.wst.xml.xquery</module>
 		<module>org.eclipse.wst.xml.xquery.core</module>
 		<module>org.eclipse.wst.xml.xquery.ui</module>
 		<module>org.eclipse.wst.xml.xquery.launching</module>

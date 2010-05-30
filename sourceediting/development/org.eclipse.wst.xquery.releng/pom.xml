@@ -9,8 +9,8 @@
 		<version>0.7.0-SNAPSHOT</version>
 	</parent>
 
-	<artifactId>org.eclipse.wst.xquery.core</artifactId>
+	<artifactId>org.eclipse.wst.xquery.releng</artifactId>
 	<version>0.7.0-SNAPSHOT</version>
 	<packaging>eclipse-plugin</packaging>
-	<name>XQDT Core Plug-in</name>
+	<name>XQDT Releng Plug-in</name>
 </project>

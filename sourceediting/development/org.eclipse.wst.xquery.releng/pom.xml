@@ -37,11 +37,12 @@
 
 	<modules>
 		<module>org.eclipse.wst.xml.xquery.core</module>
-		<module>org.eclipse.wst.xml.xquery.ui</module>
+<!-- 		<module>org.eclipse.wst.xml.xquery.ui</module>
 		<module>org.eclipse.wst.xml.xquery.launching</module>
 		<module>org.eclipse.wst.xml.xquery.debug.core</module>
 		<module>org.eclipse.wst.xml.xquery.debug.ui</module>
 		<module>org.eclipse.wst.xml.xquery.feature</module>
+-->
 		<!--
 		<module>org.eclipse.wst.xml.xpath2.processor_tests.feature</module>
 		-->

@@ -1,3 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <site>
+   <feature url="features/org.eclipse.wst.xquery.feature_0.7.0.qualifier.jar" id="org.eclipse.wst.xquery.feature" version="0.7.0.qualifier">
+      <category name="xquery_core_required"/>
+   </feature>
+   <category-def name="xquery_core_required" label="XQDT Core (Required)"/>
 </site>

@@ -48,7 +48,7 @@
 <!--		<module>../org.eclipse.wst.xquery.set.feature</module>-->
 		
 <!--		<module>../org.eclipse.wst.xquery_sdk.feature</module>-->
-<!--		<module>../org.eclipse.wst.xquery.repository</module>-->
+		<module>../org.eclipse.wst.xquery.repository</module>
 		
 	</modules>
 

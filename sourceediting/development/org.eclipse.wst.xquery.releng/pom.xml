@@ -1,16 +1,138 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"
+	xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 	<modelVersion>4.0.0</modelVersion>
-
-	<parent>
-		<groupId>org.eclipse.wst.xquery</groupId>
-		<artifactId>org.eclipse.wst.xquery-parent</artifactId>
-		<version>0.7.0-SNAPSHOT</version>
-	</parent>
-
-	<artifactId>org.eclipse.wst.xquery.releng</artifactId>
+	<groupId>org.eclipse.wst.xquery</groupId>
+	<artifactId>org.eclipse.wst.xquery_parent</artifactId>
 	<version>0.7.0-SNAPSHOT</version>
-	<packaging>eclipse-plugin</packaging>
-	<name>XQDT Releng Plug-in</name>
+	<packaging>pom</packaging>
+
+	<properties>
+		<tycho-version>0.8.0</tycho-version>
+	</properties>
+ 
+	<modules>
+	    <!-- XQuery Core functionality -->
+		<module>../../plugins/org.antlr.runtime_v31</module>
+		<module>../../plugins/org.eclipse.wst.xquery.core</module>
+		<module>../../plugins/org.eclipse.wst.xquery.ui</module>
+		<module>../../plugins/org.eclipse.wst.xquery.launching</module>
+		<module>../../plugins/org.eclipse.wst.xquery.debug.core</module>
+		<module>../../plugins/org.eclipse.wst.xquery.debug.ui</module>
+		<module>../../features/org.eclipse.wst.xquery.feature</module>
+		<module>../../tests/org.eclipse.wst.xquery.core.tests</module>
+		
+		<!-- Marklogic Support -->
+<!--		<module>../org.eclipse.wst.xquery.launching.marklogic.xcc</module>-->
+<!--		<module>../org.eclipse.wst.xquery.launching.marklogic</module>-->
+<!--		<module>../org.eclipse.wst.xquery.debug.debugger.marklogic</module>-->
+<!--		<module>../org.eclipse.wst.xquery.debug.ui.marklogic</module>-->
+<!--		<module>../org.eclipse.wst.xquery.marklogic.feature</module>-->
+		
+		<!-- Zorba Support -->
+<!--		<module>../com.google.gson</module>-->
+<!--		<module>../org.eclipse.wst.xquery.launching.zorba</module>-->
+<!--		<module>../org.eclipse.wst.xquery.debug.debugger.zorba</module>-->
+<!--		<module>../org.eclipse.wst.xquery.debug.ui.zorba</module>-->
+<!--		<module>../org.eclipse.wst.xquery.ui.zorba</module>-->
+<!--		<module>../org.eclipse.wst.xquery.zorba.feature</module>-->
+		
+		<!-- Set Support -->
+<!--		<module>../org.eclipse.wst.xquery.set.core</module>-->
+<!--		<module>../org.eclipse.wst.xquery.set.debug.core</module>-->
+<!--		<module>../org.eclipse.wst.xquery.set.debug.debugger</module>-->
+<!--		<module>../org.eclipse.wst.xquery.set.debug.ui</module>-->
+<!--		<module>../org.eclipse.wst.xquery.set.launching</module>-->
+<!--		<module>../org.eclipse.wst.xquery.set.ui</module>-->
+<!--		<module>../org.eclipse.wst.xquery.set.feature</module>-->
+		
+<!--		<module>../org.eclipse.wst.xquery_sdk.feature</module>-->
+<!--		<module>../org.eclipse.wst.xquery.repository</module>-->
+		
+	</modules>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.sonatype.tycho</groupId>
+				<artifactId>tycho-maven-plugin</artifactId>
+				<version>${tycho-version}</version>
+				<extensions>true</extensions>
+			</plugin>
+			<plugin>
+				<groupId>org.sonatype.tycho</groupId>
+				<artifactId>target-platform-configuration</artifactId>
+				<version>${tycho-version}</version>
+				<configuration>
+					<resolver>p2</resolver>
+				</configuration>
+			</plugin>
+		</plugins>
+		<pluginManagement>
+			<plugins>
+				<plugin>
+					<groupId>org.sonatype.tycho</groupId>
+					<artifactId>maven-osgi-compiler-plugin</artifactId>
+					<version>${tycho-version}</version>
+					<configuration>
+						<encoding>UTF-8</encoding>
+					</configuration>
+				</plugin>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-resources-plugin</artifactId>
+					<version>2.4.1</version>
+					<configuration>
+						<encoding>UTF-8</encoding>
+					</configuration>
+				</plugin>
+				<plugin>
+			        <groupId>org.apache.maven.plugins</groupId>
+			        <artifactId>maven-pmd-plugin</artifactId>
+			        <version>2.5</version>
+			        <configuration>
+			          <linkXref>false</linkXref>
+			          <sourceEncoding>UTF-8</sourceEncoding>
+			          <minimumTokens>100</minimumTokens>
+			          <targetJdk>1.5</targetJdk>
+			          <includes>
+			             <include>**/org/eclipse/wst/xquery/*.java</include>
+			          </includes>
+			          <excludes>
+			            <exclude>**/*Bean.java</exclude>
+			            <exclude>**/generated/*.java</exclude>
+			          </excludes>
+			          <excludeRoots>
+			            <excludeRoot>target/generated-sources/stubs</excludeRoot>
+			          </excludeRoots>
+			        </configuration>
+				</plugin>				
+			</plugins>
+			
+		</pluginManagement>
+	</build>
+	<repositories>
+		<repository>
+			<id>webtools-update</id>
+			<url>http://download.eclipse.org/webtools/updates</url>
+			<layout>p2</layout>
+		</repository>
+		<repository>
+			<id>dltk1.0</id>
+			<url>http://download.eclipse.org/technology/dltk/updates-dev/1.0</url>
+			<layout>p2</layout>
+		</repository>
+		<repository>
+			<id>galileo</id>
+			<url>http://download.eclipse.org/releases/galileo/</url>
+			<layout>p2</layout>
+		</repository>
+		<repository>
+			<id>orbit</id>
+			<url>http://download.eclipse.org/tools/orbit/downloads/drops/S20100519200754/repository</url>
+			<layout>p2</layout>
+		</repository>
+	</repositories>
 </project>
+

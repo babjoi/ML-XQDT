@@ -24,11 +24,11 @@
 		<module>../../tests/org.eclipse.wst.xquery.core.tests</module>
 		
 		<!-- Marklogic Support -->
-<!--		<module>../org.eclipse.wst.xquery.launching.marklogic.xcc</module>-->
-<!--		<module>../org.eclipse.wst.xquery.launching.marklogic</module>-->
-<!--		<module>../org.eclipse.wst.xquery.debug.debugger.marklogic</module>-->
-<!--		<module>../org.eclipse.wst.xquery.debug.ui.marklogic</module>-->
-<!--		<module>../org.eclipse.wst.xquery.marklogic.feature</module>-->
+		<module>../../plugins/org.eclipse.wst.xquery.launching.marklogic.xcc</module>
+		<module>../../plugins/org.eclipse.wst.xquery.launching.marklogic</module>
+		<module>../../plugins/org.eclipse.wst.xquery.debug.debugger.marklogic</module>
+		<module>../../plugins/org.eclipse.wst.xquery.debug.ui.marklogic</module>
+		<module>../../features/org.eclipse.wst.xquery.marklogic.feature</module>
 		
 		<!-- Zorba Support -->
 <!--		<module>../com.google.gson</module>-->

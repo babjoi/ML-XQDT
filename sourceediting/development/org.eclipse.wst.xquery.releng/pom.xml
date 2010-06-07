@@ -14,7 +14,7 @@
  
 	<modules>
 	    <!-- XQuery Core functionality -->
-<!--		<module>../../plugins/org.antlr.runtime_v31</module>-->
+		<module>../../plugins/org.antlr.runtime_v31</module>
 <!--		<module>../../plugins/org.eclipse.wst.xquery.core</module>-->
 <!--		<module>../../plugins/org.eclipse.wst.xquery.ui</module>-->
 <!--		<module>../../plugins/org.eclipse.wst.xquery.launching</module>-->

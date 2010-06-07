@@ -15,13 +15,13 @@
 	<modules>
 	    <!-- XQuery Core functionality -->
 		<module>../../plugins/org.antlr.runtime_v31</module>
-		<module>../../plugins/org.eclipse.wst.xquery.core</module>
-		<module>../../plugins/org.eclipse.wst.xquery.ui</module>
-		<module>../../plugins/org.eclipse.wst.xquery.launching</module>
-		<module>../../plugins/org.eclipse.wst.xquery.debug.core</module>
-		<module>../../plugins/org.eclipse.wst.xquery.debug.ui</module>
-		<module>../../features/org.eclipse.wst.xquery.feature</module>
-		<module>../../tests/org.eclipse.wst.xquery.core.tests</module>
+<!--		<module>../../plugins/org.eclipse.wst.xquery.core</module>-->
+<!--		<module>../../plugins/org.eclipse.wst.xquery.ui</module>-->
+<!--		<module>../../plugins/org.eclipse.wst.xquery.launching</module>-->
+<!--		<module>../../plugins/org.eclipse.wst.xquery.debug.core</module>-->
+<!--		<module>../../plugins/org.eclipse.wst.xquery.debug.ui</module>-->
+<!--		<module>../../features/org.eclipse.wst.xquery.feature</module>-->
+<!--		<module>../../tests/org.eclipse.wst.xquery.core.tests</module>-->
 		
 		<!-- Marklogic Support -->
 <!--		<module>../org.eclipse.wst.xquery.launching.marklogic.xcc</module>-->

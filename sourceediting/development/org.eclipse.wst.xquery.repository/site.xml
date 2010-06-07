@@ -9,6 +9,6 @@
    <feature url="features/org.eclipse.wst.xquery.zorba.feature_0.7.0.qualifier.jar" id="org.eclipse.wst.xquery.zorba.feature" version="0.7.0.qualifier">
       <category name="xquery_optional"/>
    </feature>
-   <category-def name="xquery_core_required" label="XQDT Core (Required)"/>
-   <category-def name="xquery_optional" label="XQuery Optional Features"/>
+   <category-def name="xquery_core_required" label="XQDT Core (Required) (Incbuator)"/>
+   <category-def name="xquery_optional" label="XQuery Optional Features (Incubator)"/>
 </site>

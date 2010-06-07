@@ -39,13 +39,13 @@
 		<module>../../features/org.eclipse.wst.xquery.zorba.feature</module>
 		
 		<!-- Set Support -->
-<!--		<module>../org.eclipse.wst.xquery.set.core</module>-->
-<!--		<module>../org.eclipse.wst.xquery.set.debug.core</module>-->
-<!--		<module>../org.eclipse.wst.xquery.set.debug.debugger</module>-->
-<!--		<module>../org.eclipse.wst.xquery.set.debug.ui</module>-->
-<!--		<module>../org.eclipse.wst.xquery.set.launching</module>-->
-<!--		<module>../org.eclipse.wst.xquery.set.ui</module>-->
-<!--		<module>../org.eclipse.wst.xquery.set.feature</module>-->
+		<module>../../plugins/org.eclipse.wst.xquery.set.core</module>
+		<module>../../plugins/org.eclipse.wst.xquery.set.debug.core</module>
+		<module>../../plugins/org.eclipse.wst.xquery.set.debug.debugger</module>
+		<module>../../plugins/org.eclipse.wst.xquery.set.debug.ui</module>
+		<module>../../plugins/org.eclipse.wst.xquery.set.launching</module>
+		<module>../../plugins/org.eclipse.wst.xquery.set.ui</module>
+		<module>../../feature/org.eclipse.wst.xquery.set.feature</module>
 		
 <!--		<module>../org.eclipse.wst.xquery_sdk.feature</module>-->
 		<module>../org.eclipse.wst.xquery.repository</module>

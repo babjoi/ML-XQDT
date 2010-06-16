@@ -41,6 +41,7 @@ import org.eclipse.dltk.launching.ScriptRuntime;
 import org.eclipse.dltk.ui.DLTKUIPlugin;
 import org.eclipse.dltk.ui.wizards.ProjectWizardFirstPage;
 import org.eclipse.jface.dialogs.Dialog;
+import org.eclipse.jface.dialogs.DialogPage;
 import org.eclipse.jface.dialogs.IDialogConstants;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.layout.GridData;
@@ -326,6 +327,12 @@ public class SETNewProjectWizardFirstPage extends ProjectWizardFirstPage {
                 if (!projectUri.isAbsolute()) {
                     setErrorMessage("The project URI must be an absolute one.");
                     setPageComplete(false);
+                    return;
+                }
+                if (!fSausalitoGroup.getProjectUriString().endsWith("/")) {
+                    setMessage(NewWizardMessages.ScriptProjectWizardFirstPage_Warning_uriWithoutTrailingSlash,
+                            DialogPage.WARNING);
+                    setPageComplete(true);
                     return;
                 }
             }

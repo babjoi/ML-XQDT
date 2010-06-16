@@ -111,7 +111,7 @@ public class SETNewProjectWizardSecondPage extends CapabilityConfigurationPage {
             if (entrys != null) {
                 cpEntries.addAll(Arrays.asList(entrys));
             }
-            entries = (IBuildpathEntry[])cpEntries.toArray(new IBuildpathEntry[cpEntries.size()]);
+            entries = cpEntries.toArray(new IBuildpathEntry[cpEntries.size()]);
 
             if (monitor.isCanceled()) {
                 throw new OperationCanceledException();
@@ -157,8 +157,9 @@ public class SETNewProjectWizardSecondPage extends CapabilityConfigurationPage {
             return new IBuildpathEntry[] { DLTKCore.newContainerEntry(newPath) };
         }
 
-        if (defaultPath != null)
+        if (defaultPath != null) {
             return new IBuildpathEntry[] { defaultPath };
+        }
 
         return null;
     }
@@ -188,9 +189,9 @@ public class SETNewProjectWizardSecondPage extends CapabilityConfigurationPage {
             IPreferenceStore store = getPreferenceStore();
             String templateName = null;
 
-            if (fFirstPage.isTemplate())
+            if (fFirstPage.isTemplate()) {
                 templateName = fFirstPage.getTemplateName();
-            else {
+            } else {
                 templateName = store.getString(PreferenceConstants.TEMPLATES_DEFAULT_PROJECT_DIR);
             }
             monitor.beginTask("Creating project directory structure", 50);

@@ -83,9 +83,9 @@ public class CoreSDKTemplateUtility {
             if (projectUri != null) {
                 fProperties.put(PreferenceConstants.TEMPLATES_CONFIG_VAR_PROJECT_URI, projectUri.toString());
                 fProperties.put(PreferenceConstants.TEMPLATES_MODULES_VAR_DEFAULT_NAMESPACE, projectUri.resolve(
-                        "/default").toString());
+                        "default").toString());
                 fProperties.put(PreferenceConstants.TEMPLATES_MODULES_VAR_ERROR_NAMESPACE, projectUri.resolve(
-                        "/lib/error").toString());
+                        "lib/error").toString());
 
             }
         }
@@ -460,6 +460,9 @@ public class CoreSDKTemplateUtility {
         URI projectURI = null;
         try {
             projectURI = new URI(projectUriString);
+            if (projectURI.getPath().equals("") && !projectUriString.endsWith("/")) {
+                projectURI = new URI(projectUriString + "/");
+            }
         } catch (URISyntaxException e) {
             e.printStackTrace();
         }

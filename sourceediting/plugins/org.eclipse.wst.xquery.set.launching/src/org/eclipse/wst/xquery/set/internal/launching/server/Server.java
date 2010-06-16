@@ -133,7 +133,7 @@ public class Server implements IStreamListener {
         // check if a HTTP connection to this server's port is possible
         URL testUrl;
         try {
-            testUrl = new URL("http", getHost(), getPort(), "/");
+            testUrl = new URL("http", getHost(), getPort(), "/index.html");
             HttpURLConnection conn = (HttpURLConnection)testUrl.openConnection();
             conn.setRequestMethod("HEAD");
             conn.getResponseCode();

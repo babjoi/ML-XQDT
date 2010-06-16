@@ -103,7 +103,7 @@ public class CoreSdkLocationResolver implements IDynamicVariableResolver {
         Path possiblePath = null;
 
         if (os.equals(Platform.OS_WIN32)) {
-            possiblePath = new Path("C:\\Program Files\\Sausalito CoreSDK 1.0.0");
+            possiblePath = new Path("C:\\Program Files\\Sausalito CoreSDK 1.0.12");
         } else {
             possiblePath = new Path("/opt/sausalito");
         }

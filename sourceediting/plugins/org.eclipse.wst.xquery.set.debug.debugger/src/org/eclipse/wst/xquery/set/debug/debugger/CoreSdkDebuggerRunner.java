@@ -13,9 +13,9 @@ import org.eclipse.dltk.launching.IInterpreterInstall;
 import org.eclipse.dltk.launching.InterpreterConfig;
 import org.eclipse.dltk.launching.debug.DbgpConnectionConfig;
 import org.eclipse.wst.xquery.debug.dbgp.client.IDbgpTranslator;
-import org.eclipse.wst.xquery.debug.debugger.zorba.translator.ZorbaDbgpTranslator;
 import org.eclipse.wst.xquery.launching.TranslatableDebuggingEngineRunner;
 import org.eclipse.wst.xquery.set.debug.core.SETDebugCorePlugin;
+import org.eclipse.wst.xquery.set.debug.debugger.translator.SETDbgpTranslator;
 
 public class CoreSdkDebuggerRunner extends TranslatableDebuggingEngineRunner {
 
@@ -48,7 +48,7 @@ public class CoreSdkDebuggerRunner extends TranslatableDebuggingEngineRunner {
         String ports = (String)config.getProperty(SETDebuggerConstants.DEBUGGING_ENGINE_SERVER_PORTS);
 
         try {
-            return new ZorbaDbgpTranslator(project, InetAddress.getByName(dbgpConfig.getHost()), dbgpConfig.getPort(),
+            return new SETDbgpTranslator(project, InetAddress.getByName(dbgpConfig.getHost()), dbgpConfig.getPort(),
                     dbgpConfig.getSessionId(), file.toURI(), ports);
         } catch (Exception e) {
             SETDebuggerPlugin.getDefault().getLog().log(

@@ -11,7 +11,7 @@
    <extension
          point="org.eclipse.core.variables.dynamicVariables">
       <variable
-            description="This searches for the Sausalito CoreSDK (either in a platform specific plug-in fragment or in default locations like: &quot;C:\Program Files\Sausalito 1.0.0&quot; or &quot;/opt/sausalito&quot;"
+            description="This searches for the Sausalito CoreSDK (either in a platform specific plug-in fragment or in default locations like: &quot;C:\Program Files\Sausalito 1.0.12&quot; or &quot;/opt/sausalito&quot;"
             name="sdk_loc"
             resolver="org.eclipse.wst.xquery.set.internal.launching.variables.CoreSdkLocationResolver"
             supportsArgument="false">
@@ -50,7 +50,7 @@
             home="${sdk_loc}"
             id="defaultSausalitoCoreSDK"
             interpreterInstallType="org.eclipse.wst.xquery.set.launching.CoreSDKInstallType"
-            name="Sausalito CoreSDK 1.1.0">
+            name="Sausalito CoreSDK 1.0.12">
       </interpreterInstall>
    </extension>
    <extension

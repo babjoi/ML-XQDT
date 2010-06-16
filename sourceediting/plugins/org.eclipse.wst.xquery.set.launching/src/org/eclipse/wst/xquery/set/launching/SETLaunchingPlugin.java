@@ -102,7 +102,7 @@ public class SETLaunchingPlugin extends Plugin implements IInterpreterInstallCha
                 if (newValue == null || newValue.equals("")) {
                     String envId = LocalEnvironment.ENVIRONMENT_ID;
                     xml = xml.replace("<interpreter environmentId=\"" + envId
-                            + "\" id=\"defaultSausalitoCoreSDK\" name=\"Sausalito CoreSDK 1.0.8\" path=\""
+                            + "\" id=\"defaultSausalitoCoreSDK\" name=\"Sausalito CoreSDK 1.0.12\" path=\""
                             + pathSB.toString() + "\"/>", "");
 
                     log(new Status(IStatus.WARNING, PLUGIN_ID, "Could not a valid Sausalito Core SDK installation."));

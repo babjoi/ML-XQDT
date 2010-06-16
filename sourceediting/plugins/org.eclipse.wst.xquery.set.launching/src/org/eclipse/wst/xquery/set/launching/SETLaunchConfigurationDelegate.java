@@ -23,7 +23,6 @@ import org.eclipse.debug.core.DebugPlugin;
 import org.eclipse.debug.core.IDebugEventSetListener;
 import org.eclipse.debug.core.ILaunch;
 import org.eclipse.debug.core.ILaunchConfiguration;
-import org.eclipse.debug.core.ILaunchManager;
 import org.eclipse.debug.core.model.IProcess;
 import org.eclipse.dltk.core.environment.IEnvironment;
 import org.eclipse.dltk.launching.AbstractScriptLaunchConfigurationDelegate;
@@ -41,10 +40,10 @@ public class SETLaunchConfigurationDelegate extends AbstractScriptLaunchConfigur
             IProgressMonitor monitor) throws CoreException {
 
         try {
-            if (mode.equals(ILaunchManager.DEBUG_MODE)) {
-                throw new CoreException(new Status(IStatus.ERROR, SETLaunchingPlugin.PLUGIN_ID,
-                        "The Sausalito Debugger is not available in this version of Sausalito Eclipse Tools."));
-            }
+//            if (mode.equals(ILaunchManager.DEBUG_MODE)) {
+//                throw new CoreException(new Status(IStatus.ERROR, SETLaunchingPlugin.PLUGIN_ID,
+//                        "The Sausalito Debugger is not available in this version of Sausalito Eclipse Tools."));
+//            }
 
             monitor.beginTask("Starting the Sausalito CoreSDK Server", 10);
             if (monitor.isCanceled()) {
@@ -62,9 +61,6 @@ public class SETLaunchConfigurationDelegate extends AbstractScriptLaunchConfigur
             // from now on cancelling monitors must also unregister the
             // socket, server and project from the server manager 
 
-//            Thread thread = new Thread(new Runnable() {
-//                public void run() {
-//                    // start the server
             try {
                 SETLaunchConfigurationDelegate.super.launch(configuration, mode, launch, new NullProgressMonitor());
             } catch (CoreException ce) {
@@ -72,15 +68,8 @@ public class SETLaunchConfigurationDelegate extends AbstractScriptLaunchConfigur
                         "An error occured while trying to start the Sausalito CoreSDK server.", ce),
                         getProject(configuration), server);
             }
-////                            monitor, 3));
-////                    if (monitor.isCanceled()) {
-////                        return;
-////                    }
-//                }
-//            }, "");
-//            thread.start();
 
-            // make sure we started the server (setver is listening)
+            // make sure we started the server (server is listening)
             checkLaunchPostconditions(launch, server, new SubProgressMonitor(monitor, 2));
             if (monitor.isCanceled()) {
                 return;

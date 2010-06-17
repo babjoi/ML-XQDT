@@ -89,6 +89,9 @@ public class SETDebuggerEngine extends DbgpTermination implements IDebuggerEngin
                         Thread.sleep(1000);
                     } catch (InterruptedException e1) {
                     }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    return;
                 }
             }
         }

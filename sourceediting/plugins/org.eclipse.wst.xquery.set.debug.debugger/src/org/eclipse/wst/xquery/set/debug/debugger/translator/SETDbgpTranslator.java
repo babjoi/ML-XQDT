@@ -52,7 +52,6 @@ import org.eclipse.wst.xquery.debug.debugger.zorba.translator.messages.ICommandS
 import org.eclipse.wst.xquery.debug.debugger.zorba.translator.messages.ReplyMessage;
 import org.eclipse.wst.xquery.debug.debugger.zorba.translator.messages.SetMessage;
 import org.eclipse.wst.xquery.debug.debugger.zorba.translator.messages.SuspendedMessage;
-import org.eclipse.wst.xquery.debug.debugger.zorba.translator.messages.TerminateMessage;
 import org.eclipse.wst.xquery.debug.debugger.zorba.translator.messages.TerminatedMessage;
 import org.eclipse.wst.xquery.debug.debugger.zorba.translator.messages.VariablesMessage;
 import org.eclipse.wst.xquery.debug.debugger.zorba.translator.messages.VariablesPayload;
@@ -483,13 +482,14 @@ public class SETDbgpTranslator extends DbgpWorkingThread implements IDbgpTransla
 //            response.addAttribute("reason", IDbgpConstants.REASON_OK);
 //            fResponder.send(response);
 //
+
             try {
                 // this is needed in case zorba finishes execution
                 // in order to terminate the process. Zorba blocks
                 // in a loop and does not check the internal termination
                 // status until smth else is received on the wire.
                 // so we send a Terminated command (anything can be sent)
-                fEngine.sendCommand(new TerminateMessage());
+//                fEngine.sendCommand(new TerminateMessage());
                 fEngine.reconnect();
                 while (!fEngine.isInitialized()) {
                     Thread.sleep(500);

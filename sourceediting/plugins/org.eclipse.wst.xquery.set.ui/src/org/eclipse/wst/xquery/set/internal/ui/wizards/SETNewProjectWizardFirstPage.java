@@ -330,7 +330,8 @@ public class SETNewProjectWizardFirstPage extends ProjectWizardFirstPage {
                     return;
                 }
                 if (!fSausalitoGroup.getProjectUriString().endsWith("/")) {
-                    setMessage(NewWizardMessages.ScriptProjectWizardFirstPage_Warning_uriWithoutTrailingSlash,
+                    setMessage(
+                            "URIs without a trailing slash have special resolving rules. Make sure your module namespaces are correct when manually creating XQuery modules.",
                             DialogPage.WARNING);
                     setPageComplete(true);
                     return;

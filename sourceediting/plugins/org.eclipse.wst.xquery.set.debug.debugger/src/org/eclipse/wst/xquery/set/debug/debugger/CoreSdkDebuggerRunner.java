@@ -71,6 +71,7 @@ public class CoreSdkDebuggerRunner extends TranslatableDebuggingEngineRunner {
         String ports = delegate.getString(getDebuggingEnginePreferenceQualifier(),
                 SETDebuggerConstants.DEBUGGING_ENGINE_SERVER_PORTS);
         if (!ports.equals("")) {
+            config.setProperty(SETDebuggerConstants.DEBUGGING_ENGINE_SERVER_PORTS, ports);
             newConfig.setProperty(SETDebuggerConstants.DEBUGGING_ENGINE_SERVER_PORTS, ports);
         }
 

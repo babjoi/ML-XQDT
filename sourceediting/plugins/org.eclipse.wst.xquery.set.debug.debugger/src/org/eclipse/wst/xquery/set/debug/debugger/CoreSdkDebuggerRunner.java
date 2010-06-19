@@ -2,6 +2,8 @@ package org.eclipse.wst.xquery.set.debug.debugger;
 
 import java.io.File;
 import java.net.InetAddress;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IStatus;
@@ -66,24 +68,32 @@ public class CoreSdkDebuggerRunner extends TranslatableDebuggingEngineRunner {
             ILaunch launch) throws CoreException {
         InterpreterConfig newConfig = (InterpreterConfig)config.clone();
 
-        newConfig.addInterpreterArg("test");
-        newConfig.addInterpreterArg("project");
-
-        String path = config.getWorkingDirectoryPath().toOSString();
-        newConfig.addInterpreterArg("-d");
-        newConfig.addInterpreterArg(path);
-
-        newConfig.addInterpreterArg(DEBUG_SERVER_KEY);
-
         String ports = delegate.getString(getDebuggingEnginePreferenceQualifier(),
                 SETDebuggerConstants.DEBUGGING_ENGINE_SERVER_PORTS);
         if (!ports.equals("")) {
-            newConfig.addInterpreterArg(PORTS_KEY);
-            newConfig.addInterpreterArg(ports);
-            config.setProperty(SETDebuggerConstants.DEBUGGING_ENGINE_SERVER_PORTS, ports);
+            newConfig.setProperty(SETDebuggerConstants.DEBUGGING_ENGINE_SERVER_PORTS, ports);
         }
 
         return newConfig;
+    }
+
+    @Override
+    protected String[] renderCommandLine(InterpreterConfig config) {
+        List<String> cmdLine = new ArrayList<String>(8);
+        cmdLine.add(getInstall().getInstallLocation().toOSString());
+        cmdLine.add("test");
+        cmdLine.add("project");
+
+        String path = config.getWorkingDirectoryPath().toOSString();
+        cmdLine.add("-d");
+        cmdLine.add(path);
+
+        cmdLine.add(DEBUG_SERVER_KEY);
+        String ports = (String)config.getProperty(SETDebuggerConstants.DEBUGGING_ENGINE_SERVER_PORTS);
+        cmdLine.add(PORTS_KEY);
+        cmdLine.add(ports);
+
+        return cmdLine.toArray(new String[cmdLine.size()]);
     }
 
 }

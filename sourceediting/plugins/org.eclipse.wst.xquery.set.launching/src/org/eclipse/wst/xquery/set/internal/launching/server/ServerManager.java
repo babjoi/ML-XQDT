@@ -48,6 +48,8 @@ public class ServerManager {
     private Map<String, IProject> fStartedProjects = new HashMap<String, IProject>();
     private Map<IProject, Server> fProjectServers = new HashMap<IProject, Server>();
 
+    private List<IProject> fStopRequests = new ArrayList<IProject>();
+
     private List<IServerLaunchListener> fServerLaunchListeners = new ArrayList<IServerLaunchListener>();
 
     private ServerManager() {
@@ -83,7 +85,7 @@ public class ServerManager {
         return new Server(launch, project);
     }
 
-    public void stopServer(final IProject project) {
+    public synchronized void stopServer(final IProject project) {
         if (project == null) {
             return;
         }
@@ -91,6 +93,15 @@ public class ServerManager {
         if (server == null) {
             return;
         }
+        if (!isProjectStarted(project)) {
+            return;
+        }
+
+        if (fStopRequests.contains(project)) {
+            return;
+        }
+        fStopRequests.add(project);
+
         final String socket = server.getSocketString();
 
         Job job = new Job("Stopping server: " + socket) {
@@ -147,6 +158,7 @@ public class ServerManager {
                                     + "\" using socket \"" + socket + "\"", ie);
                 } finally {
                     removeStartedServer(server.getSocketString());
+                    fStopRequests.remove(project);
                 }
                 return new Status(IStatus.OK, SETDebugCorePlugin.PLUGIN_ID, "Server " + server.getPort() + " stopped");
             }

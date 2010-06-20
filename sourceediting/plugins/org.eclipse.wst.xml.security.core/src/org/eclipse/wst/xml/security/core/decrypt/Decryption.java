@@ -31,6 +31,10 @@ public class Decryption {
 	private String keyName;
 	/** The key password. */
 	private char[] keyPassword;
+	/** The used encryption type (enveloping, detached). */
+    private String encryptionType;
+    /** The detached file, null with an enveloping encryption. */
+    private String detachedFile;
 
     /**
      * The XML document to decrypt.
@@ -66,6 +70,14 @@ public class Decryption {
      */
     public void setEncryptionId(final String encryptionId) {
         this.encryptionId = encryptionId;
+    }
+
+    public void setEncryptionType(final String encryptionType) {
+        this.encryptionType = encryptionType;
+    }
+
+    public void setDetachedFile(final String detachedFile) {
+        this.detachedFile = detachedFile;
     }
 
     /**
@@ -138,5 +150,13 @@ public class Decryption {
 	 */
 	public char[] getKeyPassword() {
 		return keyPassword;
+	}
+
+	public String getEncryptionType() {
+	    return encryptionType;
+	}
+
+	public String getDetachedFile() {
+	    return detachedFile;
 	}
 }

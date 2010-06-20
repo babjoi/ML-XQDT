@@ -1,19 +1,18 @@
 /*******************************************************************************
- * Copyright (c) 2009 Dominik Schadow - http://www.xml-sicherheit.de
- * All rights reserved. This program and the accompanying materials
- * are made available under the terms of the Eclipse Public License v1.0
- * which accompanies this distribution, and is available at
- * http://www.eclipse.org/legal/epl-v10.html
+ * Copyright (c) 2010 Dominik Schadow - http://www.xml-sicherheit.de All rights reserved. This program and the
+ * accompanying materials are made available under the terms of the Eclipse Public License v1.0 which accompanies this
+ * distribution, and is available at http://www.eclipse.org/legal/epl-v10.html
  *
- * Contributors:
- *     Dominik Schadow - initial API and implementation
+ * Contributors: Dominik Schadow - initial API and implementation
  *******************************************************************************/
 package org.eclipse.wst.xml.security.ui.decrypt;
 
 import org.eclipse.osgi.util.NLS;
 
 /**
- * <p>Externalized strings for the org.eclipse.wst.xml.security.ui.decrypt package.</p>
+ * <p>
+ * Externalized strings for the org.eclipse.wst.xml.security.ui.decrypt package.
+ * </p>
  *
  * @author Dominik Schadow
  * @version 0.5.0
@@ -36,8 +35,11 @@ public final class Messages extends NLS {
     /** Wizard launcher externalized strings. */
     public static String decryptionWizard;
     public static String PageKeystore_keystoreDescription;
-    /** Decrypt page externalized strings. */
-    public static String decryptionTitle, resourceDescription, keystore, selectButton, missingKeystore,
-            encryptionId, missingEncryptionId, keystoreNotFound, password, echoPassword, name, key, missingKeyName,
-            missingKeystorePassword, missingKeyPassword, verifyKeyName, verifyKeyPassword, verifyAll;
+    /** PageResource externalized strings. */
+    public static String decryptionTitle, resourceDescription, encryptionType, encryptionEnveloping,
+            encryptionDetached;
+    /** PageKeystore externalized strings. */
+    public static String keystore, selectButton, missingKeystore, encryptionId, missingEncryptionId, keystoreNotFound,
+            password, echoPassword, name, key, missingKeyName, missingKeystorePassword, missingKeyPassword,
+            verifyKeyName, verifyKeyPassword, verifyAll;
 }

@@ -1,12 +1,9 @@
 /*******************************************************************************
- * Copyright (c) 2010 Dominik Schadow - http://www.xml-sicherheit.de
- * All rights reserved. This program and the accompanying materials
- * are made available under the terms of the Eclipse Public License v1.0
- * which accompanies this distribution, and is available at
- * http://www.eclipse.org/legal/epl-v10.html
+ * Copyright (c) 2010 Dominik Schadow - http://www.xml-sicherheit.de All rights reserved. This program and the
+ * accompanying materials are made available under the terms of the Eclipse Public License v1.0 which accompanies this
+ * distribution, and is available at http://www.eclipse.org/legal/epl-v10.html
  *
- * Contributors:
- *     Dominik Schadow - initial API and implementation
+ * Contributors: Dominik Schadow - initial API and implementation
  *******************************************************************************/
 package org.eclipse.wst.xml.security.ui.decrypt;
 
@@ -19,6 +16,7 @@ import org.eclipse.swt.events.ModifyListener;
 import org.eclipse.swt.layout.FormAttachment;
 import org.eclipse.swt.layout.FormData;
 import org.eclipse.swt.layout.FormLayout;
+import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Combo;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Event;
@@ -31,8 +29,11 @@ import org.eclipse.wst.xml.security.core.utils.Utils;
 import org.eclipse.wst.xml.security.ui.utils.IContextHelpIds;
 
 /**
- * <p>First page of the <strong>XML Decryption Wizard</strong>. Lets the user
- * select the encryption id for the encrypted document part to decrypt.</p>
+ * <p>
+ * First page of the <strong>XML Decryption Wizard</strong>. Lets the user select the encryption id for the encrypted
+ * document part to decrypt and determine the used encryption type (enveloping or detached). A detached encryption
+ * requires the detached file to be identified.
+ * </p>
  *
  * @author Dominik Schadow
  * @version 0.5.0
@@ -42,6 +43,10 @@ public class PageResource extends WizardPage implements Listener {
     public static final String PAGE_NAME = "DecryptPageResource"; //$NON-NLS-1$
     /** Combo box <i>Encryption ID</i>. */
     private Combo cEncryptionId = null;
+    /** Radio to decrypt a detached encryption. */
+    private Button bDetached = null;
+    /** Radio to decrypt an enveloping encryption. */
+    private Button bEnveloping = null;
     /** The XML document. */
     private IFile file;
     /** Model for the XML Decryption Wizard. */
@@ -82,8 +87,8 @@ public class PageResource extends WizardPage implements Listener {
     }
 
     /**
-     * Fills this wizard page with content. Two groups (<i>Type</i> and
-     * <i>Encryption ID</i>) and all their widgets are inserted.
+     * Fills this wizard page with content. Two groups (<i>Type</i> and <i>Encryption ID</i>) and all their widgets are
+     * inserted.
      *
      * @param parent Parent composite
      */
@@ -105,6 +110,15 @@ public class PageResource extends WizardPage implements Listener {
         data.right = new FormAttachment(Globals.GROUP_NUMERATOR);
         gEncryptionId.setLayoutData(data);
 
+        Group gType = new Group(parent, SWT.SHADOW_ETCHED_IN);
+        gType.setLayout(layout);
+        gType.setText(Messages.encryptionType);
+        data = new FormData();
+        data.top = new FormAttachment(gEncryptionId, Globals.MARGIN, SWT.DEFAULT);
+        data.left = new FormAttachment(0, 0);
+        data.right = new FormAttachment(Globals.GROUP_NUMERATOR);
+        gType.setLayoutData(data);
+
         // Elements for group "Encryption ID"
         cEncryptionId = new Combo(gEncryptionId, SWT.READ_ONLY);
         data = new FormData();
@@ -112,12 +126,27 @@ public class PageResource extends WizardPage implements Listener {
         data.left = new FormAttachment(gEncryptionId);
         data.width = Globals.COMBO_LARGE_WIDTH;
         cEncryptionId.setLayoutData(data);
+
+        // Elements for group "Encryption Type"
+        bEnveloping = new Button(gType, SWT.RADIO);
+        bEnveloping.setText(Messages.encryptionEnveloping);
+        bEnveloping.setSelection(true);
+        data = new FormData();
+        data.top = new FormAttachment(gType);
+        data.left = new FormAttachment(gType);
+        bEnveloping.setLayoutData(data);
+
+        bDetached = new Button(gType, SWT.RADIO);
+        bDetached.setText(Messages.encryptionDetached);
+        data = new FormData();
+        data.top = new FormAttachment(bEnveloping, Globals.MARGIN);
+        data.left = new FormAttachment(gType);
+        bDetached.setLayoutData(data);
     }
 
     /**
      * Determines all available encryption IDs in the XML document.<br>
-     * The entry <i>Use first encryption ID</i> is always available and
-     * selected per default.
+     * The entry <i>Use first encryption ID</i> is always available and selected per default.
      */
     private void determineIds() {
         String[] ids = null;
@@ -163,7 +192,7 @@ public class PageResource extends WizardPage implements Listener {
      * Determines the (error) message for the missing field.
      */
     private void dialogChanged() {
-    	if ("".equals(cEncryptionId.getText())) {
+        if ("".equals(cEncryptionId.getText())) {
             updateStatus(Messages.missingEncryptionId, DialogPage.INFORMATION);
             return;
         }
@@ -177,11 +206,11 @@ public class PageResource extends WizardPage implements Listener {
      * @param e The triggered event
      */
     public void handleEvent(final Event e) {
+        // TODO changing ID requires a new search for the detached file
     }
 
     /**
-     * Sets the completed field on the wizard class when all the data is entered and
-     * the wizard can be finished.
+     * Sets the completed field on the wizard class when all the data is entered and the wizard can be finished.
      *
      * @return Page is completed or not
      */
@@ -198,6 +227,14 @@ public class PageResource extends WizardPage implements Listener {
      */
     private void saveDataToModel() {
         decryption.setEncryptionId(cEncryptionId.getText());
+
+        if (bEnveloping.getSelection()) {
+            decryption.setEncryptionType("enveloping"); //$NON-NLS-1$
+        } else if (bDetached.getSelection()) {
+            decryption.setEncryptionType("detached"); //$NON-NLS-1$
+            // TODO set file path and filename
+            decryption.setDetachedFile("");
+        }
 
         storeSettings();
     }

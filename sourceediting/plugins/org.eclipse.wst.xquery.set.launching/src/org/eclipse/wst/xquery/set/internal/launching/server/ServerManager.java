@@ -220,11 +220,7 @@ public class ServerManager {
 
     public static int getServerPid(IProject project) throws DebugException {
         try {
-            String toKill = "/test/log/httpd.pid";
-            if (!Platform.getOS().equals(Platform.OS_WIN32)) {
-                toKill = "/test/sausalito.pid";
-            }
-            File pidFile = new File(project.getLocation().toOSString(), toKill);
+            File pidFile = new File(project.getLocation().toOSString(), "/test/log/httpd.pid");
             if (!pidFile.exists()) {
                 throw new FileNotFoundException();
             }

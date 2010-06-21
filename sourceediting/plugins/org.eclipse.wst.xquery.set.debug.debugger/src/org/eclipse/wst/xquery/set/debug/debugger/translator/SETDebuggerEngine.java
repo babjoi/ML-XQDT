@@ -220,7 +220,7 @@ public class SETDebuggerEngine extends DbgpTermination implements IDebuggerEngin
             try {
                 Thread.sleep(150);
             } catch (InterruptedException ie) {
-                ie.printStackTrace();
+                //ie.printStackTrace();
             }
         }
 

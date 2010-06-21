@@ -11,15 +11,55 @@
 package org.eclipse.wst.xquery.set.internal.ui.actions;
 
 import java.io.OutputStream;
+import java.net.MalformedURLException;
+import java.net.URL;
 
+import org.eclipse.core.runtime.IStatus;
+import org.eclipse.core.runtime.jobs.IJobChangeEvent;
 import org.eclipse.core.runtime.jobs.Job;
+import org.eclipse.core.runtime.jobs.JobChangeAdapter;
+import org.eclipse.swt.widgets.Display;
 import org.eclipse.wst.xquery.set.internal.launching.jobs.SETImportDataJob;
+import org.eclipse.wst.xquery.set.internal.ui.dialogs.InfoLinkMessageDialog;
 
 public class SETImportDataAction extends SETCoreSDKCommandAction {
 
+    private static final String MESSAGE_NOTHING_TO_DO_URL = "http://www.28msec.com/support_sausalito_project_structure/index";
+    private static final String MESSAGE_NOTHING_TO_DO_DETAILS = "Find our more on how to use the bulkloader in the "
+            + "<a href=\"" + MESSAGE_NOTHING_TO_DO_URL + "\">Sausalito Documentation</a>.";
+
     @Override
     protected Job getActionJob(OutputStream output) {
-        return new SETImportDataJob(getProject(), output);
+        Job job = new SETImportDataJob(getProject(), output);
+        addJobListeners(job);
+        return job;
+    }
+
+    private void addJobListeners(Job job) {
+        job.addJobChangeListener(new JobChangeAdapter() {
+            @Override
+            public void done(IJobChangeEvent event) {
+                IStatus result = event.getResult();
+                if (result.getSeverity() == IStatus.INFO) {
+                    final String message = result.getMessage();
+
+                    Display.getDefault().syncExec(new Runnable() {
+                        public void run() {
+                            URL url = null;
+                            try {
+                                url = new URL(MESSAGE_NOTHING_TO_DO_URL);
+                            } catch (MalformedURLException e) {
+                            }
+                            InfoLinkMessageDialog md = new InfoLinkMessageDialog(Display.getDefault().getActiveShell(),
+                                    "Sausalito CoreSDK Bulkloader", message, MESSAGE_NOTHING_TO_DO_DETAILS, url);
+                            md.open();
+                        }
+                    });
+
+                }
+            }
+
+        });
     }
 
 }

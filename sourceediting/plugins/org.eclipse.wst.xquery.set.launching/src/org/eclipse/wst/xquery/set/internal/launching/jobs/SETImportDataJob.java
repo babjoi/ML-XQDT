@@ -26,8 +26,13 @@ import org.eclipse.core.resources.IResource;
 import org.eclipse.core.resources.IResourceVisitor;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
+import org.eclipse.core.runtime.IStatus;
+import org.eclipse.core.runtime.Status;
+import org.eclipse.wst.xquery.set.launching.SETLaunchingPlugin;
 
 public class SETImportDataJob extends SETCoreSDKCommandJob {
+
+    private static final String MESSAGE_NOTHING_TO_DO = "The bulkloader had nothing to do for project: %1$s";
 
     private static final String BULKLOAD_PATH = "bulkload";
 
@@ -100,4 +105,9 @@ public class SETImportDataJob extends SETCoreSDKCommandJob {
 
     }
 
+    @Override
+    protected IStatus handleNoTicks() {
+        final String message = String.format(MESSAGE_NOTHING_TO_DO, fProject.getName());
+        return new Status(IStatus.INFO, SETLaunchingPlugin.PLUGIN_ID, message);
+    }
 }

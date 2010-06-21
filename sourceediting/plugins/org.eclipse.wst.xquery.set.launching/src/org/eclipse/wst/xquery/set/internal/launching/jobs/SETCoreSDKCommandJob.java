@@ -54,7 +54,7 @@ abstract public class SETCoreSDKCommandJob extends Job {
         int ticks = getJobTaskSize();
         if (ticks == 0) {
             monitor.done();
-            return Status.OK_STATUS;
+            return handleNoTicks();
         }
 
         String name = getJobTaskName();
@@ -100,6 +100,10 @@ abstract public class SETCoreSDKCommandJob extends Job {
             monitor.done();
         }
 
+        return Status.OK_STATUS;
+    }
+
+    protected IStatus handleNoTicks() {
         return Status.OK_STATUS;
     }
 

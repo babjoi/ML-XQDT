@@ -32,9 +32,11 @@ import org.eclipse.wst.xquery.set.launching.SETLaunchingPlugin;
 
 public class SETImportDataJob extends SETCoreSDKCommandJob {
 
-    private static final String MESSAGE_NOTHING_TO_DO = "The bulkloader had nothing to do for project: %1$s";
-
+    public static final String MESSAGE_NOTHING_TO_DO = "The bulkloader had nothing to do";
+    private static final String MESSAGE_NOTHING_TO_DO_FORMAT = MESSAGE_NOTHING_TO_DO + " for project \"%1$s\". %2$s";
     private static final String BULKLOAD_PATH = "bulkload";
+
+    private String fProblemMessage = "";
 
     public SETImportDataJob(IProject project, OutputStream output) {
         super("Importing project data", project, output);
@@ -54,6 +56,7 @@ public class SETImportDataJob extends SETCoreSDKCommandJob {
     protected int getJobTaskSize() {
         final IFolder folder = fProject.getFolder(BULKLOAD_PATH);
         if (!folder.exists()) {
+            fProblemMessage = "No \"bulkload\" directory was found in the project root.";
             return 0;
         }
 
@@ -65,7 +68,7 @@ public class SETImportDataJob extends SETCoreSDKCommandJob {
                     if (resource.getType() == IResource.FILE) {
                         IPath path = resource.getFullPath();
                         String ext = path.getFileExtension();
-                        if (ext.equals("xq") || ext.equals("xml")) {
+                        if (ext.equals("xq")) {
                             names.add(path.removeFileExtension().removeFirstSegments(4).toPortableString());
                         }
                         return false;
@@ -78,7 +81,12 @@ public class SETImportDataJob extends SETCoreSDKCommandJob {
             e.printStackTrace();
         }
 
-        return names.size();
+        int count = names.size();
+        if (count == 0) {
+            fProblemMessage = "No *.xq query files were found in the \"bulkload\" directory.";
+        }
+
+        return count;
     }
 
     @Override
@@ -107,7 +115,7 @@ public class SETImportDataJob extends SETCoreSDKCommandJob {
 
     @Override
     protected IStatus handleNoTicks() {
-        final String message = String.format(MESSAGE_NOTHING_TO_DO, fProject.getName());
+        final String message = String.format(MESSAGE_NOTHING_TO_DO_FORMAT, fProject.getName(), fProblemMessage);
         return new Status(IStatus.INFO, SETLaunchingPlugin.PLUGIN_ID, message);
     }
 }

@@ -22,6 +22,7 @@ import org.eclipse.swt.widgets.Display;
 import org.eclipse.wst.xquery.set.internal.launching.jobs.SETImportDataJob;
 import org.eclipse.wst.xquery.set.internal.ui.dialogs.InfoLinkMessageDialog;
 
+@SuppressWarnings("restriction")
 public class SETImportDataAction extends SETCoreSDKCommandAction {
 
     private static final String MESSAGE_NOTHING_TO_DO_URL = "http://www.28msec.com/support_sausalito_project_structure/index";
@@ -36,13 +37,16 @@ public class SETImportDataAction extends SETCoreSDKCommandAction {
     }
 
     private void addJobListeners(Job job) {
-        job.addJobChangeListener(new JobChangeAdapter() {
-            @Override
-            public void done(IJobChangeEvent event) {
-                IStatus result = event.getResult();
-                if (result.getSeverity() == IStatus.INFO) {
-                    final String message = result.getMessage();
+        job.addJobChangeListener(fListener);
+    }
 
+    private JobChangeAdapter fListener = new JobChangeAdapter() {
+        @Override
+        public void done(IJobChangeEvent event) {
+            IStatus result = event.getResult();
+            if (result.getSeverity() == IStatus.INFO) {
+                final String message = result.getMessage();
+                if (message.startsWith(SETImportDataJob.MESSAGE_NOTHING_TO_DO)) {
                     Display.getDefault().syncExec(new Runnable() {
                         public void run() {
                             URL url = null;
@@ -55,11 +59,8 @@ public class SETImportDataAction extends SETCoreSDKCommandAction {
                             md.open();
                         }
                     });
-
                 }
             }
-
-        });
-    }
-
+        }
+    };
 }

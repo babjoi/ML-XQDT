@@ -40,6 +40,7 @@
 		<module>../../plugins/org.eclipse.wst.xml.security.core</module>
 		<module>../../plugins/org.eclipse.wst.xml.security.ui</module>
 		<module>../../tests/org.eclipse.wst.xml.security.core.tests</module>
+		<module>../../tests/org.eclipse.wst.xml.security.ui.tests</module>
 	</modules>
 
 	<repositories>

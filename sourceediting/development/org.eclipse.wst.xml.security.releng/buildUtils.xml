@@ -38,7 +38,7 @@
 
 		<mkdir dir="findbugs" />
 		<copy todir="findbugs">
-			<fileset dir="..">
+			<fileset dir="../../">
 				<include name="**/org.eclipse.*/**/*-SNAPSHOT.jar" />
 			</fileset>
 		</copy>

@@ -10,10 +10,10 @@
 		<relativePath>../../development/org.eclipse.wst.xml.security.releng</relativePath>
 	</parent>
 
-	<artifactId>org.eclipse.wst.xml.security.ui.tests</artifactId>
+	<artifactId>org.eclipse.wst.xml.security.core.tests</artifactId>
 	<version>0.5.0-SNAPSHOT</version>
 	<packaging>eclipse-test-plugin</packaging>
-	<name>XML Security: UI Tests</name>
+	<name>XML Security: Core Tests</name>
 
 	<build>
         	<plugins>

@@ -10,6 +10,8 @@
  *******************************************************************************/
 package org.eclipse.wst.xquery.set.internal.launching;
 
+import org.eclipse.core.runtime.CoreException;
+import org.eclipse.core.variables.VariablesPlugin;
 import org.eclipse.debug.core.ILaunchManager;
 import org.eclipse.dltk.launching.IInterpreterInstallType;
 import org.eclipse.dltk.launching.IInterpreterRunner;
@@ -43,5 +45,14 @@ public class CoreSDKInstall extends XQDTInterpreterInstall implements ISemanticV
             return super.getInterpreterRunner(mode);
         }
         return new CoreSdkRunner(this);
+    }
+
+    @Override
+    public void setName(String name) {
+        try {
+            name = VariablesPlugin.getDefault().getStringVariableManager().performStringSubstitution(name, false);
+        } catch (CoreException ce) {
+        }
+        super.setName(name);
     }
 }

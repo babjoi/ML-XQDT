@@ -29,6 +29,9 @@ import org.osgi.framework.Bundle;
 
 public class CoreSdkLocationResolver implements IDynamicVariableResolver {
 
+    public static final String VARIABLE = "${sdk_location}";
+    private static final String WIN_DIR_NAME_PREFIX = "Sausalito-CoreSDK";
+
     public String resolveValue(IDynamicVariable variable, String argument) throws CoreException {
         String result = findStrategies();
 
@@ -37,6 +40,9 @@ public class CoreSdkLocationResolver implements IDynamicVariableResolver {
 
     private String findStrategies() {
         String result = null;
+//        if (result == null) {
+//            return result;
+//        }
 
         // I. first search for the shipped Sausalito CoreSDK
         // this case happens in the 28msec distribution of the plugins
@@ -95,27 +101,38 @@ public class CoreSdkLocationResolver implements IDynamicVariableResolver {
 
         IPath coreSdkPath = new Path(coreSdkUrl.getPath());
 
-        return locateScriptIn(coreSdkPath);
+        if (isScriptIn(coreSdkPath)) {
+            return coreSdkPath.toOSString();
+        }
+
+        return null;
     }
 
     private String findInstalledCoreSDK() {
         String os = Platform.getOS();
-        Path possiblePath = null;
-
+        IPath possiblePath = null;
         if (os.equals(Platform.OS_WIN32)) {
-            possiblePath = new Path("C:\\Program Files\\Sausalito CoreSDK 1.0.12");
+            String programFiles = System.getenv("ProgramFiles");
+            if (programFiles == null) {
+                return null;
+            }
+            possiblePath = new Path(programFiles).append(WIN_DIR_NAME_PREFIX + " " + CoreSdkVersionResolver.VERSION);
         } else {
             possiblePath = new Path("/opt/sausalito");
         }
 
-        return locateScriptIn(possiblePath);
+        if (isScriptIn(possiblePath)) {
+            return possiblePath.toOSString();
+        }
+
+        return null;
     }
 
-    private String locateScriptIn(IPath coreSdkPath) {
+    private boolean isScriptIn(IPath coreSdkPath) {
         if (coreSdkPath == null) {
             NullPointerException npe = new NullPointerException();
             log(IStatus.ERROR, "Could not locate the Sausalito script.", npe);
-            return null;
+            return false;
         }
 
         IPath scriptPath = coreSdkPath.append("bin").append("sausalito");
@@ -126,10 +143,10 @@ public class CoreSdkLocationResolver implements IDynamicVariableResolver {
         File scrptFile = scriptPath.toFile();
         if (!scrptFile.exists()) {
             log(IStatus.ERROR, "Could not find the Sausalito script at location: " + coreSdkPath.toOSString(), null);
-            return null;
+            return false;
         }
 
-        return scriptPath.toOSString();
+        return true;
     }
 
     public static IStatus log(int severity, String message, Throwable t) {

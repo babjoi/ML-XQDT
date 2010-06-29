@@ -11,6 +11,7 @@
 package org.eclipse.wst.xquery.set.launching;
 
 import org.eclipse.core.runtime.CoreException;
+import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.Platform;
@@ -24,6 +25,8 @@ import org.eclipse.dltk.launching.IInterpreterInstallChangedListener;
 import org.eclipse.dltk.launching.PropertyChangeEvent;
 import org.eclipse.dltk.launching.ScriptRuntime;
 import org.eclipse.wst.xquery.set.internal.launching.CoreSDKInstall;
+import org.eclipse.wst.xquery.set.internal.launching.variables.CoreSdkLocationResolver;
+import org.eclipse.wst.xquery.set.internal.launching.variables.CoreSdkVersionResolver;
 import org.osgi.framework.BundleContext;
 
 /**
@@ -64,6 +67,8 @@ public class SETLaunchingPlugin extends Plugin implements IInterpreterInstallCha
      * @see org.eclipse.core.runtime.Plugin#stop(org.osgi.framework.BundleContext)
      */
     public void stop(BundleContext context) throws Exception {
+        ScriptRuntime.removeInterpreterInstallChangedListener(this);
+
         plugin = null;
         super.stop(context);
     }
@@ -93,23 +98,31 @@ public class SETLaunchingPlugin extends Plugin implements IInterpreterInstallCha
                 Path path = new Path(handle.toOSString());
                 StringBuffer pathSB = new StringBuffer(path.toPortableString());
                 String xml = ScriptRuntime.getPreferences().getString(ScriptRuntime.PREF_INTERPRETER_XML);
+
                 String newValue = "";
+                String version = "";
                 try {
                     newValue = VariablesPlugin.getDefault().getStringVariableManager().performStringSubstitution(
-                            "${sdk_loc}", false);
+                            CoreSdkLocationResolver.VARIABLE, false);
+                    version = VariablesPlugin.getDefault().getStringVariableManager().performStringSubstitution(
+                            CoreSdkVersionResolver.VARIABLE, false);
                 } catch (CoreException ce) {
                 }
                 if (newValue == null || newValue.equals("")) {
                     String envId = LocalEnvironment.ENVIRONMENT_ID;
                     xml = xml.replace("<interpreter environmentId=\"" + envId
-                            + "\" id=\"defaultSausalitoCoreSDK\" name=\"Sausalito CoreSDK 1.0.12\" path=\""
+                            + "\" id=\"defaultSausalitoCoreSDK\" name=\"Sausalito CoreSDK " + version + "\" path=\""
                             + pathSB.toString() + "\"/>", "");
 
-                    log(new Status(IStatus.WARNING, PLUGIN_ID, "Could not a valid Sausalito Core SDK installation."));
+                    log(new Status(IStatus.WARNING, PLUGIN_ID,
+                            "Could not find a valid Sausalito Core SDK installation."));
+                } else {
+                    IPath newPath = new Path(newValue);
+                    newPath = newPath.append("bin").append("sausalito.bat");
+                    xml = xml.replace(pathSB, newPath.toOSString());
                 }
-                xml = xml.replace(pathSB, newValue);
-                ScriptRuntime.getPreferences().setValue(ScriptRuntime.PREF_INTERPRETER_XML, xml);
 
+                ScriptRuntime.getPreferences().setValue(ScriptRuntime.PREF_INTERPRETER_XML, xml);
                 ScriptRuntime.savePreferences();
             }
         }

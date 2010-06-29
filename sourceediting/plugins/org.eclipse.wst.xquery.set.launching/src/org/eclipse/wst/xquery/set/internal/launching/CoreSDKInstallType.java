@@ -17,7 +17,6 @@ import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Path;
-import org.eclipse.core.runtime.Platform;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.dltk.core.environment.EnvironmentPathUtils;
 import org.eclipse.dltk.core.environment.IFileHandle;
@@ -143,14 +142,6 @@ public class CoreSDKInstallType extends XQDTInterpreterInstallType {
     @Override
     public IStatus validatePossiblyName(IFileHandle installLocation) {
         IStatus status = super.validatePossiblyName(installLocation);
-
-        if (!status.isOK()) {
-            return status;
-        }
-
-        if (Platform.getOS().equals(Platform.OS_WIN32)) {
-            //status = validateInstall(installLocation);
-        }
 
         return status;
     }

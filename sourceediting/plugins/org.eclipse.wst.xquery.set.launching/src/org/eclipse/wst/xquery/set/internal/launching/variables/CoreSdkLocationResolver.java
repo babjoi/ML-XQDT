@@ -29,7 +29,7 @@ import org.osgi.framework.Bundle;
 
 public class CoreSdkLocationResolver implements IDynamicVariableResolver {
 
-    public static final String VARIABLE = "${sdk_location}";
+    public static final String VARIABLE = "sdk_location";
     private static final String WIN_DIR_NAME_PREFIX = "Sausalito-CoreSDK";
 
     public String resolveValue(IDynamicVariable variable, String argument) throws CoreException {
@@ -40,9 +40,6 @@ public class CoreSdkLocationResolver implements IDynamicVariableResolver {
 
     private String findStrategies() {
         String result = null;
-//        if (result == null) {
-//            return result;
-//        }
 
         // I. first search for the shipped Sausalito CoreSDK
         // this case happens in the 28msec distribution of the plugins
@@ -50,12 +47,18 @@ public class CoreSdkLocationResolver implements IDynamicVariableResolver {
         if (result != null) {
             return result;
         }
+        if (XQDTLaunchingPlugin.DEBUG_AUTOMATIC_PROCESSOR_DETECTION) {
+            log(IStatus.INFO, "No shipped Sausalito CoreSDK was found.", null);
+        }
 
         // II. if no CoreSDK is shipped (for some platforms)
         // go and search in some predefined install locations
         result = findInstalledCoreSDK();
         if (result != null) {
             return result;
+        }
+        if (XQDTLaunchingPlugin.DEBUG_AUTOMATIC_PROCESSOR_DETECTION) {
+            log(IStatus.INFO, "No installed Sausalito CoreSDK was found.", null);
         }
 
         return result;
@@ -90,6 +93,10 @@ public class CoreSdkLocationResolver implements IDynamicVariableResolver {
         Bundle bundle = bundles[0];
         URL coreSdkUrl = FileLocator.find(bundle, new Path("coresdk"), null);
         if (coreSdkUrl == null) {
+            if (XQDTLaunchingPlugin.DEBUG_AUTOMATIC_PROCESSOR_DETECTION) {
+                log(IStatus.INFO, "Could not find the \"coresdk\" directory in plug-in fragment: " + fragment
+                        + ". No default Sausalito CoreSDK will be configured.", null);
+            }
             return null;
         }
         try {

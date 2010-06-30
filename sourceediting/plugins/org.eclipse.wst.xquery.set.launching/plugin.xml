@@ -22,6 +22,18 @@
             resolver="org.eclipse.wst.xquery.set.internal.launching.variables.CoreSdkVersionResolver"
             supportsArgument="false">
       </variable>
+      <variable
+            description="This will resolve the proper sausalito script name on each platform"
+            name="sausalito_script_exec"
+            resolver="org.eclipse.wst.xquery.set.internal.launching.variables.CoreSdkExecNameResolver"
+            supportsArgument="false">
+      </variable>
+      <variable
+            description="This will resolve the proper zorba executable name on each platform"
+            name="sausalito_zorba_exec"
+            resolver="org.eclipse.wst.xquery.set.internal.launching.variables.CoreSdkExecNameResolver"
+            supportsArgument="false">
+      </variable>
    </extension>
    <extension
          point="org.eclipse.debug.core.launchConfigurationTypes">
@@ -53,19 +65,16 @@
    <extension
          point="org.eclipse.dltk.launching.interpreterInstalls">
       <interpreterInstall
-            home="${sdk_location}/bin/sausalito.bat"
+            home="${sdk_location}/bin/${sausalito_script_exec}"
             id="defaultSausalitoCoreSDK"
             interpreterInstallType="org.eclipse.wst.xquery.set.launching.CoreSDKInstallType"
             name="Sausalito CoreSDK ${sdk_version}">
       </interpreterInstall>
       <interpreterInstall
-            home="${sdk_location}/bin/zorba_sausastore.exe"
+            home="${sdk_location}/bin/${sausalito_zorba_exec}"
             id="defaultZorbaInstall"
             interpreterInstallType="org.eclipse.wst.xquery.launching.ZorbaInstallType"
             name="Sausalito Zorba">
-         <environmentVariables>
-         	<environmentVariable variableName="SAUSALITO_HOME" variableValue="wewqeq"/>
-         </environmentVariables>
       </interpreterInstall>
    </extension>
    <extension

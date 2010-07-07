@@ -21,7 +21,7 @@ public class XQDTPreferenceInitializer extends AbstractPreferenceInitializer {
     public void initializeDefaultPreferences() {
         IEclipsePreferences store = new DefaultScope().getNode(XQDTCorePlugin.PLUGIN_ID);
 
-        store.put(IXQDTCorePreferences.LANGUAGE_LEVEL, IXQDTCorePreferences.LANGUAGE_NAME_XQUERY);
+        store.put(IXQDTCorePreferences.LANGUAGE_LEVEL, IXQDTCorePreferences.LANGUAGE_NAME_XQUERY_SCRIPTING);
     }
 
 }

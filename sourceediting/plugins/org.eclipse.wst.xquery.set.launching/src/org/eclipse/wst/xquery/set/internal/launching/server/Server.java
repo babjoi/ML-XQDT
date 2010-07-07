@@ -19,6 +19,7 @@ import org.eclipse.core.runtime.CoreException;
 import org.eclipse.debug.core.DebugException;
 import org.eclipse.debug.core.ILaunch;
 import org.eclipse.debug.core.ILaunchConfiguration;
+import org.eclipse.debug.core.ILaunchConfigurationWorkingCopy;
 import org.eclipse.debug.core.IStreamListener;
 import org.eclipse.debug.core.model.IProcess;
 import org.eclipse.debug.core.model.IStreamMonitor;
@@ -68,6 +69,17 @@ public class Server implements IStreamListener {
 
     public void setPort(int port) {
         fPort = port;
+    }
+
+    public void updateLaunchConfiguration() throws CoreException {
+        ILaunchConfiguration config = fLaunch.getLaunchConfiguration();
+        ILaunchConfigurationWorkingCopy copy = config.getWorkingCopy();
+
+        // write the socket back to the launch configuration
+        copy.setAttribute(ISETLaunchConfigurationConstants.ATTR_XQDT_SET_HOST, fHost);
+        copy.setAttribute(ISETLaunchConfigurationConstants.ATTR_XQDT_SET_PORT, fPort);
+
+        copy.doSave();
     }
 
     public IProcess getProcess() {

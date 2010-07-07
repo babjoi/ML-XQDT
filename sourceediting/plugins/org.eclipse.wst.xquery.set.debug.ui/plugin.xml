@@ -132,5 +132,10 @@
             priority="0">
       </language>
    </extension>
+   <extension
+         point="org.eclipse.wst.xquery.set.launching.retryHandler">
+      <retryHandler
+            class="org.eclipse.wst.xquery.set.internal.debug.ui.launcher.SETLaunchRetryHandler"></retryHandler>
+   </extension>
 
 </plugin>

@@ -53,7 +53,8 @@ public class BusySocketDialog extends TrayDialog {
     protected Control createDialogArea(Composite parent) {
         Composite composite = (Composite)super.createDialogArea(parent);
 
-        SWTFactory.createLabel(composite, "This socket is already in use. Choose another one:", 1);
+        SWTFactory.createLabel(composite, "Socket " + fHost + ":" + fPort + " is already in use. Choose another one:",
+                1);
 
         createSocketBlock(composite);
 

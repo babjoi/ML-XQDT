@@ -29,7 +29,6 @@ import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Platform;
 import org.eclipse.core.runtime.Status;
-import org.eclipse.core.runtime.jobs.IJobChangeListener;
 import org.eclipse.core.runtime.jobs.Job;
 import org.eclipse.debug.core.DebugException;
 import org.eclipse.debug.core.ILaunch;
@@ -50,8 +49,6 @@ public class ServerManager {
 
     private List<IProject> fStopRequests = new ArrayList<IProject>();
 
-    private List<IServerLaunchListener> fServerLaunchListeners = new ArrayList<IServerLaunchListener>();
-
     private ServerManager() {
     }
 
@@ -60,17 +57,6 @@ public class ServerManager {
             instance = new ServerManager();
         }
         return instance;
-    }
-
-    public void addServerLaunchListener(IServerLaunchListener listener) {
-        if (fServerLaunchListeners.contains(listener)) {
-            return;
-        }
-        fServerLaunchListeners.add(listener);
-    }
-
-    public void removeServerLaunchListener(IJobChangeListener listener) {
-        fServerLaunchListeners.remove(listener);
     }
 
     public synchronized void addStartedProject(String socket, IProject project) {

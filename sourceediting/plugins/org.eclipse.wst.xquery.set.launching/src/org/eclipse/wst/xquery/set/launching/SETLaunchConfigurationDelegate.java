@@ -13,9 +13,13 @@ package org.eclipse.wst.xquery.set.launching;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.Assert;
 import org.eclipse.core.runtime.CoreException;
+import org.eclipse.core.runtime.IConfigurationElement;
+import org.eclipse.core.runtime.IExtension;
+import org.eclipse.core.runtime.IExtensionPoint;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.NullProgressMonitor;
+import org.eclipse.core.runtime.Platform;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.core.runtime.SubProgressMonitor;
 import org.eclipse.debug.core.DebugEvent;
@@ -29,6 +33,7 @@ import org.eclipse.dltk.launching.AbstractScriptLaunchConfigurationDelegate;
 import org.eclipse.swt.custom.BusyIndicator;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.wst.xquery.set.core.SETNature;
+import org.eclipse.wst.xquery.set.internal.launching.ISETLaunchRetryHandler;
 import org.eclipse.wst.xquery.set.internal.launching.server.Server;
 import org.eclipse.wst.xquery.set.internal.launching.server.ServerManager;
 
@@ -52,12 +57,27 @@ public class SETLaunchConfigurationDelegate extends AbstractScriptLaunchConfigur
 
             Server server = ServerManager.getInstance().createServer(launch, getProject(configuration));
 
-            // make sure we can start the server
-            checkLaunchPreconditions(launch, server, new SubProgressMonitor(monitor, 2));
-            // after this point the socket, server and project are registered in the server manager
-            if (monitor.isCanceled()) {
-                return;
-            }
+            ISETLaunchRetryHandler handler = getRetryHandler();
+            boolean retry = false;
+
+            do {
+                // make sure we can start the server
+                IStatus status = checkLaunchPreconditions(launch, server, new SubProgressMonitor(monitor, 2));
+                // after this point the socket, server and project are registered in the server manager
+                if (monitor.isCanceled()) {
+                    return;
+                }
+
+                if (!status.isOK() && handler != null) {
+                    retry = handler.retry(status, server);
+                    if (!retry) {
+                        throw new CoreException(status);
+                    }
+                } else {
+                    retry = false;
+                }
+            } while (retry);
+
             // from now on cancelling monitors must also unregister the
             // socket, server and project from the server manager 
 
@@ -87,7 +107,31 @@ public class SETLaunchConfigurationDelegate extends AbstractScriptLaunchConfigur
         }
     }
 
-    private void checkLaunchPreconditions(ILaunch launch, Server server, IProgressMonitor monitor) throws CoreException {
+    private ISETLaunchRetryHandler getRetryHandler() {
+        IExtensionPoint extPoint = Platform.getExtensionRegistry().getExtensionPoint(
+                "org.eclipse.wst.xquery.set.launching.retryHandler");
+
+        if (extPoint != null) {
+            IExtension[] extensions = extPoint.getExtensions();
+            if (extensions.length > 0) {
+                IExtension extension = extensions[0];
+                IConfigurationElement[] handlerElements = extension.getConfigurationElements();
+                if (handlerElements.length > 0) {
+                    try {
+                        ISETLaunchRetryHandler handler = (ISETLaunchRetryHandler)handlerElements[0]
+                                .createExecutableExtension("class");
+                        return handler;
+                    } catch (CoreException e) {
+                        // TODO Auto-generated catch block
+                        e.printStackTrace();
+                    }
+                }
+            }
+        }
+        return null;
+    }
+
+    private IStatus checkLaunchPreconditions(ILaunch launch, Server server, IProgressMonitor monitor) {
         try {
             monitor.beginTask("Checking preconditions for the Sausalito CoreSDK server launch", 10);
 
@@ -126,17 +170,21 @@ public class SETLaunchConfigurationDelegate extends AbstractScriptLaunchConfigur
                             + " is already in use. Change the interface or the port and try again."));
                 }
                 if (monitor.isCanceled()) {
-                    return;
+                    return Status.OK_STATUS;
                 }
                 monitor.worked(10);
 
                 sm.addStartedProject(server.getSocketString(), project);
                 sm.addProjectServer(project, server);
             }
-
+        } catch (Exception e) {
+            return new Status(IStatus.ERROR, SETLaunchingPlugin.PLUGIN_ID,
+                    "Preconditions were not met for launching the Sausalito CoreSDK web server.", e);
         } finally {
             monitor.done();
         }
+
+        return Status.OK_STATUS;
     }
 
 //    private boolean tryOtherSocket(Server server) {

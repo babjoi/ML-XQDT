@@ -89,7 +89,7 @@ import org.eclipse.ui.wizards.newresource.BasicNewResourceWizard;
 import org.eclipse.wst.xquery.core.model.ast.XQueryLibraryModule;
 import org.eclipse.wst.xquery.internal.core.XQDTContentType;
 import org.eclipse.wst.xquery.internal.core.parser.XQDTSourceParser;
-import org.eclipse.wst.xquery.set.core.ISETPreferenceConstants;
+import org.eclipse.wst.xquery.set.core.ISETCoreConstants;
 import org.eclipse.wst.xquery.set.core.SETNature;
 import org.eclipse.wst.xquery.set.core.SETProjectConfig;
 import org.eclipse.wst.xquery.set.core.SETProjectConfigUtil;
@@ -233,7 +233,7 @@ public class SETImportModuleWizardPage extends WizardPage implements IDialogFiel
         fLibraryModulePathField.doFillIntoGrid(fLibraryModuleComposite, numCols);
         fLibraryModulePathField.getTextControl(null).setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
         fLibraryModulePathField.setEnabled(false);
-        fLibraryModulePathField.setText(ISETPreferenceConstants.DIR_NAME_LIBRARY);
+        fLibraryModulePathField.setText(ISETCoreConstants.PROJECT_DIRECTORY_LIBRARY);
 
         createVerticalSpacer(fModuleTypeGroup, numCols);
 
@@ -265,7 +265,7 @@ public class SETImportModuleWizardPage extends WizardPage implements IDialogFiel
         fExternalModulePathField.doFillIntoGrid(fExternalModuleComposite, numCols);
         fExternalModulePathField.getTextControl(null).setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
         fExternalModulePathField.setEnabled(false);
-        fExternalModulePathField.setText(ISETPreferenceConstants.DIR_NAME_EXTERNAL);
+        fExternalModulePathField.setText(ISETCoreConstants.PROJECT_DIRECTORY_EXTERNAL);
 
         createVerticalSpacer(fModuleTypeGroup, numCols);
 
@@ -324,10 +324,10 @@ public class SETImportModuleWizardPage extends WizardPage implements IDialogFiel
             fHandlerModuleSelectionField.setSelection(false);
             fLibraryModuleSelectionField.setSelection(false);
             fExternalModuleSelectionField.setSelection(false);
-            if (projectPath.append(ISETPreferenceConstants.DIR_NAME_LIBRARY).isPrefixOf(selectedPath)) {
+            if (projectPath.append(ISETCoreConstants.PROJECT_DIRECTORY_LIBRARY).isPrefixOf(selectedPath)) {
                 fLibraryModuleSelectionField.setSelection(true);
                 fLibraryModulePathField.setText(selectedPath.removeFirstSegments(1).toOSString());
-            } else if (projectPath.append(ISETPreferenceConstants.DIR_NAME_EXTERNAL).isPrefixOf(selectedPath)) {
+            } else if (projectPath.append(ISETCoreConstants.PROJECT_DIRECTORY_EXTERNAL).isPrefixOf(selectedPath)) {
                 fExternalModuleSelectionField.setSelection(true);
                 fExternalModulePathField.setText(selectedPath.removeFirstSegments(1).toOSString());
             } else {
@@ -366,13 +366,13 @@ public class SETImportModuleWizardPage extends WizardPage implements IDialogFiel
             boolean selection = fExternalModuleSelectionField.isSelected();
             fExternalModulePathField.setEnabled(selection);
             if (selection) {
-                checkDirectory(ISETPreferenceConstants.DIR_NAME_EXTERNAL);
+                checkDirectory(ISETCoreConstants.PROJECT_DIRECTORY_EXTERNAL);
             }
         } else if (field == fExternalModuleSelectionField) {
             boolean selection = fExternalModuleSelectionField.isSelected();
             fExternalModulePathField.setEnabled(selection);
             if (selection) {
-                checkDirectory(ISETPreferenceConstants.DIR_NAME_EXTERNAL);
+                checkDirectory(ISETCoreConstants.PROJECT_DIRECTORY_EXTERNAL);
             }
         }
 
@@ -438,12 +438,12 @@ public class SETImportModuleWizardPage extends WizardPage implements IDialogFiel
                 IPath path = getLibraryModulePath();
                 if (path == null || path.segmentCount() == 0) {
                     setErrorMessage("Select an existing destination in the \""
-                            + ISETPreferenceConstants.DIR_NAME_LIBRARY + "\" project directory");
+                            + ISETCoreConstants.PROJECT_DIRECTORY_LIBRARY + "\" project directory");
                     return false;
                 }
-                if (!path.segment(0).equals(ISETPreferenceConstants.DIR_NAME_LIBRARY)) {
+                if (!path.segment(0).equals(ISETCoreConstants.PROJECT_DIRECTORY_LIBRARY)) {
                     setErrorMessage("Library modules must be located in the \""
-                            + ISETPreferenceConstants.DIR_NAME_LIBRARY + "\" project directory");
+                            + ISETCoreConstants.PROJECT_DIRECTORY_LIBRARY + "\" project directory");
                     return false;
                 }
             }
@@ -456,12 +456,12 @@ public class SETImportModuleWizardPage extends WizardPage implements IDialogFiel
                 IPath path = getExternalModulePath();
                 if (path == null || path.segmentCount() == 0) {
                     setErrorMessage("Select an existing destination in the \""
-                            + ISETPreferenceConstants.DIR_NAME_EXTERNAL + "\" project directory");
+                            + ISETCoreConstants.PROJECT_DIRECTORY_EXTERNAL + "\" project directory");
                     return false;
                 }
-                if (!path.segment(0).equals(ISETPreferenceConstants.DIR_NAME_EXTERNAL)) {
+                if (!path.segment(0).equals(ISETCoreConstants.PROJECT_DIRECTORY_EXTERNAL)) {
                     setErrorMessage("External modules must be located in the \""
-                            + ISETPreferenceConstants.DIR_NAME_EXTERNAL + "\" project directory");
+                            + ISETCoreConstants.PROJECT_DIRECTORY_EXTERNAL + "\" project directory");
                     return false;
                 }
             }
@@ -522,7 +522,7 @@ public class SETImportModuleWizardPage extends WizardPage implements IDialogFiel
     private IPath getModuleDestinationFilePath() {
         IPath path = null;
         if (fHandlerModuleSelectionField.isSelected()) {
-            path = new Path(ISETPreferenceConstants.DIR_NAME_HANDLER);
+            path = new Path(ISETCoreConstants.PROJECT_DIRECTORY_HANDLER);
         } else if (fLibraryModuleSelectionField.isSelected()) {
             path = getLibraryModulePath();
         } else if (fExternalModuleSelectionField.isSelected()) {
@@ -562,11 +562,11 @@ public class SETImportModuleWizardPage extends WizardPage implements IDialogFiel
             importPath = source;
             destinationPath = destination;
             String dir = destination.segment(0);
-            if (dir.equals(ISETPreferenceConstants.DIR_NAME_HANDLER)) {
+            if (dir.equals(ISETCoreConstants.PROJECT_DIRECTORY_HANDLER)) {
                 type = TYPE_HANDLER;
-            } else if (dir.equals(ISETPreferenceConstants.DIR_NAME_LIBRARY)) {
+            } else if (dir.equals(ISETCoreConstants.PROJECT_DIRECTORY_LIBRARY)) {
                 type = TYPE_LIBRARY;
-            } else if (dir.equals(ISETPreferenceConstants.DIR_NAME_EXTERNAL)) {
+            } else if (dir.equals(ISETCoreConstants.PROJECT_DIRECTORY_EXTERNAL)) {
                 type = TYPE_EXTERNAL;
             }
         }
@@ -820,7 +820,7 @@ public class SETImportModuleWizardPage extends WizardPage implements IDialogFiel
     }
 
     protected void handleLibraryModulePathButtonSelected() {
-        if (!checkDirectory(ISETPreferenceConstants.DIR_NAME_LIBRARY)) {
+        if (!checkDirectory(ISETCoreConstants.PROJECT_DIRECTORY_LIBRARY)) {
             return;
         }
         IPath dir = chooseLibraryModulePath();
@@ -862,7 +862,7 @@ public class SETImportModuleWizardPage extends WizardPage implements IDialogFiel
     }
 
     protected void handleExternalModulePathButtonSelected() {
-        if (!checkDirectory(ISETPreferenceConstants.DIR_NAME_EXTERNAL)) {
+        if (!checkDirectory(ISETCoreConstants.PROJECT_DIRECTORY_EXTERNAL)) {
             return;
         }
 
@@ -903,7 +903,7 @@ public class SETImportModuleWizardPage extends WizardPage implements IDialogFiel
         FolderSelectionDialog dialog = new FolderSelectionDialog(getShell(), labelProvider,
                 new WorkbenchContentProvider());
 
-        IContainer libDir = getProject().getProject().getFolder(ISETPreferenceConstants.DIR_NAME_LIBRARY);
+        IContainer libDir = getProject().getProject().getFolder(ISETCoreConstants.PROJECT_DIRECTORY_LIBRARY);
         IContainer container = libDir;
         IPath path = getLibraryModulePath();
         if (path != null) {
@@ -911,7 +911,7 @@ public class SETImportModuleWizardPage extends WizardPage implements IDialogFiel
         }
 
         dialog.addFilter(new ViewerFilter() {
-            private IPath prefix = getProject().getPath().append(ISETPreferenceConstants.DIR_NAME_LIBRARY);
+            private IPath prefix = getProject().getPath().append(ISETCoreConstants.PROJECT_DIRECTORY_LIBRARY);
 
             public boolean select(Viewer viewer, Object parentElement, Object element) {
                 if (element instanceof IFolder) {
@@ -951,7 +951,7 @@ public class SETImportModuleWizardPage extends WizardPage implements IDialogFiel
         FolderSelectionDialog dialog = new FolderSelectionDialog(getShell(), labelProvider,
                 new WorkbenchContentProvider());
 
-        IContainer extDir = getProject().getProject().getFolder(ISETPreferenceConstants.DIR_NAME_EXTERNAL);
+        IContainer extDir = getProject().getProject().getFolder(ISETCoreConstants.PROJECT_DIRECTORY_EXTERNAL);
         IContainer container = extDir;
         IPath path = getExternalModulePath();
         if (path != null) {
@@ -959,7 +959,7 @@ public class SETImportModuleWizardPage extends WizardPage implements IDialogFiel
         }
 
         dialog.addFilter(new ViewerFilter() {
-            private IPath prefix = getProject().getPath().append(ISETPreferenceConstants.DIR_NAME_EXTERNAL);
+            private IPath prefix = getProject().getPath().append(ISETCoreConstants.PROJECT_DIRECTORY_EXTERNAL);
 
             public boolean select(Viewer viewer, Object parentElement, Object element) {
                 if (element instanceof IFolder) {

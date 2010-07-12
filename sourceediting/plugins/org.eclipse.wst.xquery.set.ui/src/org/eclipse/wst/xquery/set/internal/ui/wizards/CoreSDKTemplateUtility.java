@@ -43,6 +43,7 @@ import org.eclipse.core.runtime.Platform;
 import org.eclipse.core.runtime.SubProgressMonitor;
 import org.eclipse.dltk.launching.IInterpreterInstall;
 import org.eclipse.jface.preference.IPreferenceStore;
+import org.eclipse.wst.xquery.set.core.ISETCoreConstants;
 import org.eclipse.wst.xquery.set.internal.ui.preferences.PreferenceConstants;
 import org.eclipse.wst.xquery.set.launching.CoreSdkUtil;
 import org.eclipse.wst.xquery.set.ui.SETUIPlugin;
@@ -194,7 +195,9 @@ public class CoreSDKTemplateUtility {
 
             String[] srcFiles = new String[] { configFilePath, defaultModulePath, errorLibPath };
 
-            String[] dstFiles = new String[] { "/.config/sausalito.xml", "/handlers/default.xq", "/lib/error.xq" };
+            String[] dstFiles = new String[] { "/.config/sausalito.xml",
+                    "/" + ISETCoreConstants.PROJECT_DIRECTORY_HANDLER + "/default.xq",
+                    "/" + ISETCoreConstants.PROJECT_DIRECTORY_LIBRARY + "/error.xq" };
 
             IPath installPath = CoreSdkUtil.getProjectCoreSDKInstallationPath(fProject);
 

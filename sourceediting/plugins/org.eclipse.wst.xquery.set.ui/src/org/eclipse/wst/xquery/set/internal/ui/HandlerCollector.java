@@ -16,7 +16,7 @@ import java.util.List;
 import org.eclipse.dltk.core.IMethod;
 import org.eclipse.dltk.core.IModelElement;
 import org.eclipse.dltk.core.IModelElementVisitor;
-import org.eclipse.wst.xquery.set.core.ISETPreferenceConstants;
+import org.eclipse.wst.xquery.set.core.ISETCoreConstants;
 
 public class HandlerCollector implements IModelElementVisitor {
 
@@ -24,7 +24,7 @@ public class HandlerCollector implements IModelElementVisitor {
 
     public boolean visit(IModelElement element) {
         if (element.getElementType() == IModelElement.PROJECT_FRAGMENT
-                && !element.getElementName().equals(ISETPreferenceConstants.DIR_NAME_HANDLER)) {
+                && !element.getElementName().equals(ISETCoreConstants.PROJECT_DIRECTORY_HANDLER)) {
             return false;
         }
         if (element.getElementType() == IModelElement.METHOD) {

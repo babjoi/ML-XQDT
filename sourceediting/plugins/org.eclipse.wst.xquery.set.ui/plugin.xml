@@ -229,4 +229,14 @@
          </description>
       </wizard>
    </extension>
+   <extension
+         point="org.eclipse.dltk.ui.dltkElementFilters">
+      <filter
+            class="org.eclipse.wst.xquery.set.internal.ui.filters.SETHideTestFolderFilter"
+            description="Hides the test folder of a Sausalito project. This folder might contain a large number of internal resources needed for running a Sausalito project. Disabling this filter might introduce latencies in the Eclipse user experience or even block it for some time."
+            enabled="true"
+            id="org.eclipse.wst.xquery.set.internal.ui"
+            name="Sausalito test folder"
+            targetId="org.eclipse.dltk.ui.ScriptExplorer"></filter>
+   </extension>
 </plugin>

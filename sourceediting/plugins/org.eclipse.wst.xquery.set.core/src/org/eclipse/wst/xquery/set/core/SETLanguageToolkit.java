@@ -10,6 +10,8 @@
  *******************************************************************************/
 package org.eclipse.wst.xquery.set.core;
 
+import org.eclipse.core.resources.IFile;
+import org.eclipse.core.resources.IResource;
 import org.eclipse.dltk.core.IDLTKLanguageToolkit;
 import org.eclipse.wst.xquery.core.XQDTLanguageToolkit;
 import org.eclipse.wst.xquery.internal.core.XQDTContentType;
@@ -36,5 +38,16 @@ public class SETLanguageToolkit extends XQDTLanguageToolkit {
 
     public String getPreferenceQualifier() {
         return SETCorePlugin.PLUGIN_ID;
+    }
+
+    @Override
+    public boolean canValidateContent(IResource resource) {
+        if (resource instanceof IFile && isEmptyExtension(resource.getName())) {
+            IFile file = (IFile)resource;
+            return file.getProjectRelativePath().segment(0).equals(ISETCoreConstants.PROJECT_DIRECTORY_TEST);
+//            return false;
+        }
+
+        return super.canValidateContent(resource);
     }
 }

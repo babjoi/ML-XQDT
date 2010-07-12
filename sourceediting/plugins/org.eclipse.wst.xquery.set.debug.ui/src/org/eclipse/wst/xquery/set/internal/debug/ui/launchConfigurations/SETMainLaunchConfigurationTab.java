@@ -56,7 +56,7 @@ import org.eclipse.swt.widgets.Text;
 import org.eclipse.ui.dialogs.ElementListSelectionDialog;
 import org.eclipse.wst.xquery.core.model.ast.XQueryFunctionDecl;
 import org.eclipse.wst.xquery.core.model.ast.XQueryLibraryModule;
-import org.eclipse.wst.xquery.set.core.ISETPreferenceConstants;
+import org.eclipse.wst.xquery.set.core.ISETCoreConstants;
 import org.eclipse.wst.xquery.set.core.SETNature;
 import org.eclipse.wst.xquery.set.core.SETProjectConfig;
 import org.eclipse.wst.xquery.set.core.SETProjectConfigUtil;
@@ -114,7 +114,7 @@ public class SETMainLaunchConfigurationTab extends MainLaunchConfigurationTab {
     protected boolean validateScript() {
         String startPage = getScriptName();
         IProject project = getProject().getProject();
-        if (project.getFile(ISETPreferenceConstants.DIR_NAME_PUBLIC + "/" + startPage).exists()) {
+        if (project.getFile(ISETCoreConstants.PROJECT_DIRECTORY_PUBLIC + "/" + startPage).exists()) {
             setErrorMessage(null);
             return true;
         }
@@ -122,20 +122,20 @@ public class SETMainLaunchConfigurationTab extends MainLaunchConfigurationTab {
         Path path = new Path(startPage);
         if (path.segmentCount() != 2) {
             setErrorMessage("Invalid start page. Use either a resource in the \""
-                    + ISETPreferenceConstants.DIR_NAME_PUBLIC + "\" directory or the format: /handler_module/function");
+                    + ISETCoreConstants.PROJECT_DIRECTORY_PUBLIC + "\" directory or the format: /handler_module/function");
             return false;
         }
 
-        IFolder folder = project.getFolder(ISETPreferenceConstants.DIR_NAME_HANDLER);
+        IFolder folder = project.getFolder(ISETCoreConstants.PROJECT_DIRECTORY_HANDLER);
         if (!folder.isAccessible()) {
-            setErrorMessage("The \"" + ISETPreferenceConstants.DIR_NAME_HANDLER + "\" directory is not accessible");
+            setErrorMessage("The \"" + ISETCoreConstants.PROJECT_DIRECTORY_HANDLER + "\" directory is not accessible");
             return false;
         }
         String handlerName = path.segment(0);
         ISourceModule module = DLTKCore.createSourceModuleFrom(folder.getFile(handlerName + ".xq"));
         if (module == null || !module.exists()) {
             setErrorMessage("Could not find the '" + handlerName + ".xq' module in the \""
-                    + ISETPreferenceConstants.DIR_NAME_HANDLER + "\" directory folder");
+                    + ISETCoreConstants.PROJECT_DIRECTORY_HANDLER + "\" directory folder");
             return false;
         }
 
@@ -262,7 +262,7 @@ public class SETMainLaunchConfigurationTab extends MainLaunchConfigurationTab {
         layout.numColumns = 2;
         scriptGroup.setLayout(layout);
 
-        String labelText = "Select either an existing resource from the \"" + ISETPreferenceConstants.DIR_NAME_PUBLIC
+        String labelText = "Select either an existing resource from the \"" + ISETCoreConstants.PROJECT_DIRECTORY_PUBLIC
                 + "\" directory or handler function:";
         SWTFactory.createLabel(scriptGroup, labelText, 2);
 

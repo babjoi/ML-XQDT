@@ -10,12 +10,14 @@
  *******************************************************************************/
 package org.eclipse.wst.xquery.set.core;
 
-public interface ISETPreferenceConstants {
+public interface ISETCoreConstants {
 
     // build paths
-    public static final String DIR_NAME_HANDLER = "handlers";
-    public static final String DIR_NAME_LIBRARY = "lib";
-    public static final String DIR_NAME_EXTERNAL = "external";
-    public static final String DIR_NAME_PUBLIC = "public";
+    public static final String PROJECT_DIRECTORY_HANDLER = "handlers";
+    public static final String PROJECT_DIRECTORY_LIBRARY = "lib";
+    public static final String PROJECT_DIRECTORY_EXTERNAL = "external";
+    public static final String PROJECT_DIRECTORY_PUBLIC = "public";
+    public static final String PROJECT_DIRECTORY_TEST = "test";
+    public static final String PROJECT_DIRECTORY_BULKLOAD = "bulkload";
 
 }

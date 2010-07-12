@@ -33,7 +33,7 @@ import org.eclipse.jface.operation.IRunnableContext;
 import org.eclipse.ui.IEditorInput;
 import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.IFileEditorInput;
-import org.eclipse.wst.xquery.set.core.ISETPreferenceConstants;
+import org.eclipse.wst.xquery.set.core.ISETCoreConstants;
 import org.eclipse.wst.xquery.set.core.SETNature;
 import org.eclipse.wst.xquery.set.core.SETProjectConfig;
 import org.eclipse.wst.xquery.set.core.SETProjectConfigUtil;
@@ -93,7 +93,7 @@ public class SETLaunchShortcut extends AbstractScriptLaunchShortcut {
         }
 
         IProject p = r.getProject();
-        IResource hd = p.getFolder(ISETPreferenceConstants.DIR_NAME_HANDLER);
+        IResource hd = p.getFolder(ISETCoreConstants.PROJECT_DIRECTORY_HANDLER);
         if (!hd.exists()) {
             return new IResource[0];
         }

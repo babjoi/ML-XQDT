@@ -11,7 +11,7 @@
 package org.eclipse.wst.xquery.set.internal.ui.preferences;
 
 import org.eclipse.jface.preference.IPreferenceStore;
-import org.eclipse.wst.xquery.set.core.ISETPreferenceConstants;
+import org.eclipse.wst.xquery.set.core.ISETCoreConstants;
 import org.eclipse.wst.xquery.set.ui.SETUIPlugin;
 
 public class PreferenceConstants {
@@ -44,9 +44,9 @@ public class PreferenceConstants {
     // =================
 
     // build paths
-    public static final String DEF_VAL_BUILD_PATH_HANDLER_DIR = ISETPreferenceConstants.DIR_NAME_HANDLER;
-    public static final String DEF_VAL_BUILD_PATH_LIBRARY_DIR = ISETPreferenceConstants.DIR_NAME_LIBRARY;
-    public static final String DEF_VAL_BUILD_PATH_EXTERNAL_DIR = ISETPreferenceConstants.DIR_NAME_EXTERNAL;
+    public static final String DEF_VAL_BUILD_PATH_HANDLER_DIR = ISETCoreConstants.PROJECT_DIRECTORY_HANDLER;
+    public static final String DEF_VAL_BUILD_PATH_LIBRARY_DIR = ISETCoreConstants.PROJECT_DIRECTORY_LIBRARY;
+    public static final String DEF_VAL_BUILD_PATH_EXTERNAL_DIR = ISETCoreConstants.PROJECT_DIRECTORY_EXTERNAL;
 
     // template paths
     public static final String DEF_VAL_TEMPLATES_ROOT_DIR = "templates"; //$NON-NLS-1$

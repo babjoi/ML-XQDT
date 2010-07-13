@@ -46,9 +46,15 @@
 		<module>../../plugins/org.eclipse.wst.xquery.set.launching</module>
 		<module>../../plugins/org.eclipse.wst.xquery.set.ui</module>
 		<module>../../features/org.eclipse.wst.xquery.set.feature</module>
+
+ 		<!-- SSE Support -->
+		<module>../../plugins/org.eclipse.wst.xquery.sse.core</module>
+		<module>../../plugins/org.eclipse.wst.xquery.sse.ui</module>
 		
 <!--		<module>../org.eclipse.wst.xquery_sdk.feature</module>-->
 		<module>../org.eclipse.wst.xquery.repository</module>
+
+
 		
 	</modules>
 

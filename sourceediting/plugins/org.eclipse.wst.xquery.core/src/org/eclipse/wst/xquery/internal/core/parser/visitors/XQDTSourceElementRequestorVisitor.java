@@ -33,7 +33,7 @@ public class XQDTSourceElementRequestorVisitor extends SourceElementRequestVisit
         super(requesor);
     }
 
-    @SuppressWarnings("unchecked")
+    @SuppressWarnings("rawtypes")
     public boolean visit(MethodDeclaration method) throws Exception {
         XQueryFunctionDecl function = (XQueryFunctionDecl)method;
         List args = function.getArguments();
@@ -115,8 +115,8 @@ public class XQDTSourceElementRequestorVisitor extends SourceElementRequestVisit
 //    }
 
     public boolean visit(XQueryModuleDecl moduleDecl) throws Exception {
-        this.fRequestor.acceptPackage(moduleDecl.sourceStart(), moduleDecl.sourceEnd(), moduleDecl.getNamespacePrefix()
-                .toCharArray());
+        this.fRequestor
+                .acceptPackage(moduleDecl.sourceStart(), moduleDecl.sourceEnd(), moduleDecl.getNamespacePrefix());
 
         return true;
     }

@@ -78,9 +78,6 @@ public class RemoteEnvironment implements IEnvironment, IAdaptable {
                 e.printStackTrace();
             }
         } else {
-            if (path == null) {
-                return null;
-            }
             IFileStore store = fs.getStore(path);
             EFSFileHandle fileHandle = new EFSFileHandle(this, store);
             if (!fileHandle.exists()) {
@@ -121,7 +118,7 @@ public class RemoteEnvironment implements IEnvironment, IAdaptable {
         return EnvironmentPathUtils.getLocalPath(path).toOSString();
     }
 
-    @SuppressWarnings("unchecked")
+    @SuppressWarnings("rawtypes")
     public Object getAdapter(Class adapter) {
         return Platform.getAdapterManager().loadAdapter(this, adapter.getName());
     }

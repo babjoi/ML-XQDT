@@ -13,7 +13,7 @@ package org.eclipse.wst.xquery.internal.core.codeassist;
 import org.eclipse.dltk.ast.ASTNode;
 import org.eclipse.dltk.ast.declarations.ModuleDeclaration;
 import org.eclipse.dltk.codeassist.IAssistParser;
-import org.eclipse.dltk.compiler.env.ISourceModule;
+import org.eclipse.dltk.compiler.env.IModuleSource;
 import org.eclipse.dltk.core.DLTKLanguageManager;
 import org.eclipse.wst.xquery.core.XQDTNature;
 import org.eclipse.wst.xquery.internal.core.parser.XQDTSourceParser;
@@ -28,6 +28,13 @@ public class XQDTAssistParser implements IAssistParser {
         fParser = (XQDTSourceParser)DLTKLanguageManager.getSourceParser(XQDTNature.NATURE_ID);
     }
 
+    public ModuleDeclaration parse(IModuleSource sourceModule) {
+        fModule = (ModuleDeclaration)fParser.parse(sourceModule, null);
+        fModule.rebuild();
+
+        return fModule;
+    }
+
     public ASTNode getAssistNodeParent() {
         return fAssistNodeParent;
     }
@@ -39,13 +46,6 @@ public class XQDTAssistParser implements IAssistParser {
     public void handleNotInElement(ASTNode unit, int position) {
         // TODO Auto-generated method stub
 
-    }
-
-    public ModuleDeclaration parse(ISourceModule sourceModule) {
-        fModule = fParser.parse(sourceModule.getFileName(), sourceModule.getContentsAsCharArray(), null);
-        fModule.rebuild();
-
-        return fModule;
     }
 
     public void parseBlockStatements(ASTNode node, ASTNode unit, int position) {

@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2008 xored software, Inc.
+\ * Copyright (c) 2008 xored software, Inc.
  *
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -15,14 +15,14 @@ package org.eclipse.wst.xquery.internal.core.builder;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IConfigurationElement;
 import org.eclipse.core.runtime.IExecutableExtension;
-import org.eclipse.dltk.ast.declarations.ModuleDeclaration;
+import org.eclipse.dltk.ast.parser.IModuleDeclaration;
 import org.eclipse.dltk.ast.parser.ISourceParser;
-import org.eclipse.dltk.ast.parser.ISourceParserConstants;
+import org.eclipse.dltk.compiler.env.ModuleSource;
 import org.eclipse.dltk.compiler.problem.ProblemCollector;
 import org.eclipse.dltk.core.DLTKLanguageManager;
 import org.eclipse.dltk.core.IScriptProject;
-import org.eclipse.dltk.core.SourceParserUtil;
 import org.eclipse.dltk.core.ISourceModuleInfoCache.ISourceModuleInfo;
+import org.eclipse.dltk.core.SourceParserUtil;
 import org.eclipse.dltk.core.builder.AbstractBuildParticipantType;
 import org.eclipse.dltk.core.builder.IBuildContext;
 import org.eclipse.dltk.core.builder.IBuildParticipant;
@@ -41,19 +41,19 @@ public class XQDTParserBuildParticipantFactory extends AbstractBuildParticipantT
         }
 
         public void build(IBuildContext context) throws CoreException {
-            ModuleDeclaration moduleDeclaration = (ModuleDeclaration)context.get(IBuildContext.ATTR_MODULE_DECLARATION);
+            IModuleDeclaration moduleDeclaration = (IModuleDeclaration)context
+                    .get(IBuildContext.ATTR_MODULE_DECLARATION);
             if (moduleDeclaration != null) {
                 // do nothing if already have AST - optimization for reconcile
                 return;
             }
             // get cache entry
-            final ISourceModuleInfo cacheEntry = ModelManager.getModelManager().getSourceModuleInfoCache().get(
-                    context.getSourceModule());
+            final ISourceModuleInfo cacheEntry = ModelManager.getModelManager().getSourceModuleInfoCache()
+                    .get(context.getSourceModule());
 
             if (context.getBuildType() != IScriptBuilder.FULL_BUILD) {
                 // check if there is cached AST
-                moduleDeclaration = SourceParserUtil.getModuleFromCache(cacheEntry, ISourceParserConstants.DEFAULT,
-                        context.getProblemReporter());
+                moduleDeclaration = SourceParserUtil.getModuleFromCache(cacheEntry, context.getProblemReporter());
                 if (moduleDeclaration != null) {
                     // use AST from cache
                     context.set(IBuildContext.ATTR_MODULE_DECLARATION, moduleDeclaration);
@@ -64,11 +64,10 @@ public class XQDTParserBuildParticipantFactory extends AbstractBuildParticipantT
             // create problem collector
             final ProblemCollector problemCollector = new ProblemCollector();
             // parse
-            moduleDeclaration = parser.parse(context.getSourceModule().getPath().toString().toCharArray(), context
-                    .getContents(), context.getProblemReporter());
+            moduleDeclaration = parser.parse(new ModuleSource(context.getFileName(), context.getSourceContents()),
+                    context.getProblemReporter());
             // put result to the cache
-            SourceParserUtil.putModuleToCache(cacheEntry, moduleDeclaration, ISourceParserConstants.DEFAULT,
-                    problemCollector);
+            SourceParserUtil.putModuleToCache(cacheEntry, moduleDeclaration, problemCollector);
             // report errors to the build context
             problemCollector.copyTo(context.getProblemReporter());
         }

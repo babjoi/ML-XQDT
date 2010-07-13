@@ -20,11 +20,10 @@ import org.eclipse.core.runtime.Path;
 import org.eclipse.dltk.ast.declarations.Argument;
 import org.eclipse.dltk.ast.declarations.MethodDeclaration;
 import org.eclipse.dltk.ast.declarations.ModuleDeclaration;
-import org.eclipse.dltk.codeassist.IAssistParser;
 import org.eclipse.dltk.codeassist.ScriptCompletionEngine;
+import org.eclipse.dltk.compiler.env.IModuleSource;
 import org.eclipse.dltk.core.CompletionProposal;
 import org.eclipse.dltk.core.IExternalSourceModule;
-import org.eclipse.dltk.core.IField;
 import org.eclipse.dltk.core.IMethod;
 import org.eclipse.dltk.core.IModelElement;
 import org.eclipse.dltk.core.IScriptProject;
@@ -56,11 +55,6 @@ public class XQDTCompletionEngine extends ScriptCompletionEngine implements IXQD
         return 0;
     }
 
-    protected String processFieldName(IField field, String token) {
-        // TODO Auto-generated method stub
-        return null;
-    }
-
     protected String processMethodName(IMethod method, String token) {
         return method.getElementName();
     }
@@ -70,16 +64,9 @@ public class XQDTCompletionEngine extends ScriptCompletionEngine implements IXQD
         return null;
     }
 
-    public IAssistParser getParser() {
-        if (fParser == null) {
-            fParser = new XQDTAssistParser();
-        }
-        return fParser;
-    }
-
-    public void complete(org.eclipse.dltk.compiler.env.ISourceModule sourceModule, int completionPosition, int pos) {
-        fSourceModule = (ISourceModule)sourceModule.getModelElement();
-        fileName = sourceModule.getFileName();
+    public void complete(IModuleSource module, int completionPosition, int pos) {
+//    public void complete(org.eclipse.dltk.compiler.env.ISourceModule sourceModule, int completionPosition, int pos) {
+        fSourceModule = (ISourceModule)module.getModelElement();
         actualCompletionPosition = completionPosition;
         offset = pos;
         fLanguageLevel = getLanguageLevel(fSourceModule);
@@ -131,8 +118,8 @@ public class XQDTCompletionEngine extends ScriptCompletionEngine implements IXQD
             noProposal = false;
             CompletionProposal proposal = createProposal(CompletionProposal.KEYWORD, actualCompletionPosition);
 
-            proposal.setName(name.toCharArray());
-            proposal.setCompletion(name.toCharArray());
+            proposal.setName(name);
+            proposal.setCompletion(name);
             // proposal.setFlags(Flags.AccDefault);
             proposal.setReplaceRange(this.startPosition - this.offset, this.endPosition - this.offset);
             proposal.setRelevance(RELEVANCE_KEYWORD);
@@ -251,8 +238,8 @@ public class XQDTCompletionEngine extends ScriptCompletionEngine implements IXQD
         String completion = "&" + name + ";";
         String displayName = "&" + name + "; (" + character + ")";
 
-        proposal.setName(displayName.toCharArray());
-        proposal.setCompletion(completion.toCharArray());
+        proposal.setName(displayName);
+        proposal.setCompletion(completion);
         // proposal.setFlags(Flags.AccDefault);
         proposal.setReplaceRange(this.startPosition - this.offset - 1, this.endPosition - this.offset);
         proposal.setRelevance(RELEVANCE_KEYWORD);
@@ -312,7 +299,6 @@ public class XQDTCompletionEngine extends ScriptCompletionEngine implements IXQD
         return ResolverUtil.getProjectUriResolver(project);
     }
 
-    @SuppressWarnings("unchecked")
     private void buildFunctionCompletions(MethodDeclaration[] decls, String prefix) {
         if (decls == null) {
             return;
@@ -326,14 +312,15 @@ public class XQDTCompletionEngine extends ScriptCompletionEngine implements IXQD
             }
             if (name.startsWith(fPrefix) || name.substring(name.indexOf(':') + 1).startsWith(fPrefix)) {
                 CompletionProposal proposal = createProposal(CompletionProposal.METHOD_REF, actualCompletionPosition);
-                proposal.setName(name.toCharArray());
-                proposal.setCompletion(name.toCharArray());
+                proposal.setName(name);
+                proposal.setCompletion(name);
 
+                @SuppressWarnings("rawtypes")
                 List args = decl.getArguments();
-                char parameterNames[][] = new char[args.size()][];
+                String[] parameterNames = new String[args.size()];
                 for (int j = 0; j < args.size(); ++j) {
                     Argument arg = (Argument)args.get(j);
-                    parameterNames[j] = ("$" + arg.getName()).toCharArray();
+                    parameterNames[j] = "$" + arg.getName();
                 }
                 proposal.setParameterNames(parameterNames);
 

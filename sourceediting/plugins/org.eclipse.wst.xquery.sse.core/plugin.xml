@@ -60,16 +60,13 @@
       </super>
    </extension>
    <extension
-         point="org.eclipse.wst.sse.ui.sourcevalidation">
+         id="id1"
+         name="name"
+         point="org.eclipse.wst.validation.validatorV2">
       <validator
+            build="true"
             class="org.eclipse.wst.xquery.sse.core.internal.validation.XQuerySourceValidator"
-            id="org.eclipse.wst.xquery.sse.core.validation.validator"
-            scope="total">
-         <contentTypeIdentifier
-               id="org.eclipse.wst.xquery.sse.core.xquery">
-            <partitionType
-                  id="org.eclipse.wst.xquery.DEFAULT">
-            </partitionType></contentTypeIdentifier>
+            manual="false">
       </validator>
    </extension>
 

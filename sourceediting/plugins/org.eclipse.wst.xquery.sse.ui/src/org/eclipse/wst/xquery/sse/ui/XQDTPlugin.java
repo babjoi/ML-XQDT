@@ -27,6 +27,7 @@ import org.osgi.framework.BundleContext;
 /**
  * The activator class controls the plug-in life cycle
  */
+@SuppressWarnings("restriction")
 public class XQDTPlugin extends UIPlugin {
 
 	// The plug-in ID

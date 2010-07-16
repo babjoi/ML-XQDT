@@ -19,7 +19,7 @@ import org.eclipse.jface.text.contentassist.CompletionProposal;
 import org.eclipse.jface.text.contentassist.ICompletionProposal;
 import org.eclipse.wst.sse.core.internal.provisional.text.IStructuredDocument;
 import org.eclipse.wst.sse.core.internal.provisional.text.IStructuredDocumentRegion;
-import org.eclipse.wst.xquery.core.text.XQDTWhitespaceDetector;
+import org.eclipse.wst.xquery.sse.core.internal.model.ModelHelper;
 import org.eclipse.wst.xquery.sse.core.internal.model.XQueryStructuredModel;
 import org.eclipse.wst.xquery.sse.core.internal.model.ast.IASTNode;
 import org.eclipse.wst.xquery.sse.core.internal.regions.XQueryRegions;
@@ -36,6 +36,7 @@ import org.eclipse.wst.xquery.sse.core.internal.sdregions.XQueryStructuredDocume
  * 
  * @author <a href="villard@us.ibm.com">Lionel Villard</a>
  */
+@SuppressWarnings("restriction")
 public class XQDTVariableContentAssistProcessor extends AbstractContentAssistProcessor {
 
 	// Overrides
@@ -57,8 +58,7 @@ public class XQDTVariableContentAssistProcessor extends AbstractContentAssistPro
 	}
 
 	// Helpers
-
-	@SuppressWarnings("restriction")
+ 
 	private ICompletionProposal[] proposeInScopeVariables(int offset, IStructuredDocument document,
 			IStructuredDocumentRegion region, XQueryStructuredModel model, IASTNode node) {
 		// In the context of a variable?
@@ -76,7 +76,7 @@ public class XQDTVariableContentAssistProcessor extends AbstractContentAssistPro
 		}
 
 		if (varrefCtx && node != null) {
-			List<String> vars = model.getInScopeVariables(node);
+			List<String> vars = ModelHelper.getInScopeVariables(node);
 			if (vars != null) {
 				try {
 					final String prefix;

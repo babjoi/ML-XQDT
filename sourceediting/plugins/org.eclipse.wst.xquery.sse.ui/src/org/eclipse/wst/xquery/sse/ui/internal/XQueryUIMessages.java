@@ -319,8 +319,7 @@ public class XQueryUIMessages extends NLS {
 	public static String XMLTagDelimiter_UI_;
 	public static String Pragma_UI_;
 	public static String FunctionCall_UI_;
-
-
+ 
 	static {
 		// load message values from bundle file
 		NLS.initializeMessages(BUNDLE_NAME, XQueryUIMessages.class);

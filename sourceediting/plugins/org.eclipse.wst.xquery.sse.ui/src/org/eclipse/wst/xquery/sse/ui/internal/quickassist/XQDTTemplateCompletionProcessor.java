@@ -48,6 +48,7 @@ import org.eclipse.wst.xquery.sse.ui.internal.preferences.XQDTTemplatePreference
  * 
  * @author <a href="villard@us.ibm.com">Lionel Villard</a>
  */
+@SuppressWarnings("restriction")
 public class XQDTTemplateCompletionProcessor extends TemplateCompletionProcessor {
 
 	// State
@@ -134,7 +135,7 @@ public class XQDTTemplateCompletionProcessor extends TemplateCompletionProcessor
 
 		Template[] templates = getTemplates(context.getContextType().getId());
 
-		List matches = new ArrayList();
+		List<ICompletionProposal> matches = new ArrayList<ICompletionProposal>();
 		for (int i = 0; i < templates.length; i++) {
 			Template template = templates[i];
 
@@ -158,12 +159,12 @@ public class XQDTTemplateCompletionProcessor extends TemplateCompletionProcessor
 		return XQDTPlugin.getDefault().getTemplateStore();
 	}
 
-	private static final class ProposalComparator implements Comparator {
-		public int compare(Object o1, Object o2) {
+	private static final class ProposalComparator implements Comparator<ICompletionProposal> {
+		public int compare(ICompletionProposal o1, ICompletionProposal o2) {
 			return ((TemplateProposal) o2).getRelevance() - ((TemplateProposal) o1).getRelevance();
 		}
 	}
 
-	private static final Comparator fgProposalComparator = new ProposalComparator();
+	private static final Comparator<ICompletionProposal> fgProposalComparator = new ProposalComparator();
 
 }

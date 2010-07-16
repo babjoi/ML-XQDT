@@ -91,18 +91,28 @@ public class ASTHelper {
 			list.add(null);
 	}
 
-	/** 
-	 * Report error 
-	 * @param validator 
+	/**
+	 * Report error
+	 * 
+	 * @param validator
 	 */
 	public static void reportError(IStructuredDocumentRegion sdregion,
-			ITextRegion region, String text, IValidator validator, IReporter reporter) {
+			ITextRegion region, String text, IValidator validator,
+			IReporter reporter) {
 		IMessage message = new LocalizedMessage(IMessage.HIGH_SEVERITY, text);
 
-		message.setOffset(sdregion.getStartOffset() + region.getStart());
-		message.setLength(region.getTextLength());
-		message.setLineNo(sdregion.getParentDocument().getLineOfOffset(
-				sdregion.getStartOffset() + region.getStart()));
+		if (region != null) {
+			message.setOffset(sdregion.getStartOffset() + region.getStart());
+			message.setLength(region.getTextLength());
+			message.setLineNo(sdregion.getParentDocument().getLineOfOffset(
+					sdregion.getStartOffset() + region.getStart()));
+		} else {
+			message.setOffset(sdregion.getStartOffset());
+			message.setLength(sdregion.getTextLength());
+			message.setLineNo(sdregion.getParentDocument().getLineOfOffset(
+					sdregion.getStartOffset()));
+
+		}
 		reporter.addMessage(validator, message);
 	}
 

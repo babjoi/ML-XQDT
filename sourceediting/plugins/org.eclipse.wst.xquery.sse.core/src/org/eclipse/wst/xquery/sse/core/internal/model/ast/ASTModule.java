@@ -21,6 +21,8 @@ import org.eclipse.wst.sse.core.internal.text.rules.IStructuredRegion;
 import org.eclipse.wst.validation.internal.provisional.core.IMessage;
 import org.eclipse.wst.validation.internal.provisional.core.IReporter;
 import org.eclipse.wst.validation.internal.provisional.core.IValidator;
+import org.eclipse.wst.xquery.sse.core.XQDTPlugin;
+import org.eclipse.wst.xquery.sse.core.internal.XQueryMessages;
 import org.eclipse.wst.xquery.sse.core.internal.sdregions.ModuleDeclStructuredDocumentRegion;
 
 /**
@@ -72,7 +74,6 @@ public class ASTModule extends ASTParentNode {
 	public void setModuleDeclStructuredDocumentRegion(
 			ModuleDeclStructuredDocumentRegion region) {
 		moduleSDRegion = region;
-
 	}
 
 	public void setNamespacePrefixRegion(ITextRegion version) {
@@ -93,6 +94,21 @@ public class ASTModule extends ASTParentNode {
 			} catch (BadLocationException e) {
 				// Ignore..
 				return null;
+			}
+		}
+
+		return null;
+	}
+
+	/**
+	 * Gets the module prefix or null is none
+	 * @return
+	 */
+	public String getModulePrefix() {
+		if (moduleSDRegion != null) { 
+			ITextRegion region = moduleSDRegion.getNamespacePrefix();
+			if (region != null) {
+				return moduleSDRegion.getFullText(region).trim();
 			}
 		}
 
@@ -151,21 +167,29 @@ public class ASTModule extends ASTParentNode {
 	 */
 	public void setQueryBody(IASTNode expr) {
 		setChildASTNodeAt(0, expr);
-
 	}
 
 	// Overrides
 
 	@Override
-	public boolean staticCheck(IStructuredDocument document, IValidator validator, IReporter reporter) {
+	public boolean staticCheck(IStructuredDocument document,
+			IValidator validator, IReporter reporter) {
 		// ModuleDecl: The URILiteral must be of nonzero length [err:XQST0088]
 		String moduleNS = getModuleNamespace();
 
 		if (moduleNS != null && moduleNS.length() == 0) {
-			ASTHelper.reportError(moduleSDRegion, moduleSDRegion.getNamespace(),
-					"The URILiteral must be of nonzero length [err:XQST0088]",
-					validator, reporter);
+			ASTHelper.reportError(moduleSDRegion,
+					moduleSDRegion.getNamespace(),
+					XQueryMessages.errorXQST0088_UI_, validator, reporter);
 		}
+		
+		// ModuleDecl: The namespace prefix specified in a module declaration must not be xml or xmlns [err:XQST0070]
+		final String modulePrefix = getModulePrefix();
+		if (modulePrefix != null && (modulePrefix.equals("xml") || modulePrefix.equals("xmlns")))
+			 
+				ASTHelper.reportError(moduleSDRegion,
+						moduleSDRegion.getNamespacePrefix(),
+						XQueryMessages.errorXQST0070_MD_UI_, validator, reporter);
 
 		return super.staticCheck(document, validator, reporter);
 	}

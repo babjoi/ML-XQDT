@@ -10,9 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wst.xquery.sse.ui.internal.quickassist;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.eclipse.jface.text.ITextViewer;
 import org.eclipse.jface.text.contentassist.ICompletionProposal;
 import org.eclipse.jface.text.contentassist.IContentAssistProcessor;
@@ -29,6 +26,7 @@ import org.eclipse.wst.xquery.sse.core.internal.model.ast.IASTNode;
  * 
  * @author <a href="villard@us.ibm.com">Lionel Villard</a>
  */
+@SuppressWarnings("restriction")
 abstract class AbstractContentAssistProcessor implements IContentAssistProcessor {
 
 	// Methods

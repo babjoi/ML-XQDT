@@ -53,7 +53,9 @@ import org.eclipse.wst.xquery.sse.core.internal.sdregions.XQueryStructuredDocume
  * 
  * @author <a href="villard@us.ibm.com">Lionel Villard</a>
  */
-public class XQueryStructuredModel extends AbstractStructuredModel implements IStructuredDocumentListener {
+@SuppressWarnings("restriction")
+public class XQueryStructuredModel extends AbstractStructuredModel implements
+		IStructuredDocumentListener {
 
 	// State
 
@@ -61,7 +63,7 @@ public class XQueryStructuredModel extends AbstractStructuredModel implements IS
 	final protected ModelBuilder builder;
 
 	/** Root AST node (module) */
-	protected ASTModule module;
+	private ASTModule module;
 
 	// Constructors
 
@@ -70,6 +72,11 @@ public class XQueryStructuredModel extends AbstractStructuredModel implements IS
 	}
 
 	// Methods
+
+	/** Gets module managed by this model */
+	public ASTModule getModule() {
+		return module;
+	}
 
 	/** Gets list of in-scope variable region definition */
 	public List<String> getInScopeVariables(IASTNode node) {
@@ -98,48 +105,45 @@ public class XQueryStructuredModel extends AbstractStructuredModel implements IS
 				// Compute the last binding expression to include
 				int lastBinding = 0;
 				while (lastBinding < clauses.getBindingExprCount()) {
-					if (clauses.getBindingExpr(lastBinding) == node) {  
+					if (clauses.getBindingExpr(lastBinding) == node) {
 						break;
 					}
-					lastBinding ++;
+					lastBinding++;
 				}
 				lastBinding--;
 				while (lastBinding >= 0) {
-					IStructuredDocumentRegion var = clauses.getBindingVariable(lastBinding--);
+					IStructuredDocumentRegion var = clauses
+							.getBindingVariable(lastBinding--);
 					vars.add(var.getFullText().trim());
 				}
 				break;
 			case IASTNode.FUNCTIONDECL:
 				final ASTFunctionDecl decl = (ASTFunctionDecl) parent;
 				// Include parameters..
-				for (int i = decl.getParamCount() - 1; i >= 0; i --)
-				{
+				for (int i = decl.getParamCount() - 1; i >= 0; i--) {
 					vars.add(decl.getParamNameAt(i).getFullText().trim());
 				}
 				break;
 			case IASTNode.TYPESWITCH:
 				final ASTTypeswitch ts = (ASTTypeswitch) parent;
-				
+
 				// Identify which case
-				if (ts.getDefaultCaseExpr() == node)
-				{
+				if (ts.getDefaultCaseExpr() == node) {
 					IStructuredDocumentRegion var = ts.getDefaultCaseVarname();
 					if (var != null)
 						vars.add(var.getFullText().trim());
-				} else
-				{
-					for (int i = ts.getCaseCount() - 1; i >= 0; i --)
-					{
-						if (ts.getCaseExpr(i) == node)
-						{
-							IStructuredDocumentRegion var = ts.getCaseVarname(i);
+				} else {
+					for (int i = ts.getCaseCount() - 1; i >= 0; i--) {
+						if (ts.getCaseExpr(i) == node) {
+							IStructuredDocumentRegion var = ts
+									.getCaseVarname(i);
 							if (var != null)
 								vars.add(var.getFullText().trim());
 							break;
 						}
 					}
 				}
-				
+
 				break;
 			case IASTNode.VARDECL:
 				// Include variable declarations preceding this one...
@@ -181,7 +185,8 @@ public class XQueryStructuredModel extends AbstractStructuredModel implements IS
 
 			// Parse..
 			if (newStructuredDocument != null)
-				module = builder.reparseQuery(module, fStructuredDocument.getFirstStructuredDocumentRegion(), 0,
+				module = builder.reparseQuery(module, fStructuredDocument
+						.getFirstStructuredDocumentRegion(), 0,
 						fStructuredDocument.getLength());
 		}
 	}
@@ -189,16 +194,18 @@ public class XQueryStructuredModel extends AbstractStructuredModel implements IS
 	// Implements IStructuredDocumentListener
 
 	public void newModel(NewDocumentEvent event) {
-		module = builder.reparseQuery(module, event.getStructuredDocument().getFirstStructuredDocumentRegion(), 0,
-				event.getDocument().getLength());
+		module = builder.reparseQuery(module, event.getStructuredDocument()
+				.getFirstStructuredDocumentRegion(), 0, event.getDocument()
+				.getLength());
 	}
 
 	public void noChange(NoChangeEvent event) {
 	}
 
 	public void nodesReplaced(StructuredDocumentRegionsReplacedEvent event) {
-		module = builder.reparseQuery(module, event.getStructuredDocument().getFirstStructuredDocumentRegion(), event
-				.getOffset(), event.getLength());
+		module = builder.reparseQuery(module, event.getStructuredDocument()
+				.getFirstStructuredDocumentRegion(), event.getOffset(), event
+				.getLength());
 	}
 
 	public void regionChanged(RegionChangedEvent event) {
@@ -209,28 +216,33 @@ public class XQueryStructuredModel extends AbstractStructuredModel implements IS
 	public void regionsReplaced(RegionsReplacedEvent event) {
 		// TODO: see if we can do better here.
 
-		module = builder.reparseQuery(module, event.getStructuredDocument().getFirstStructuredDocumentRegion(), event
-				.getOffset(), event.getLength());
+		module = builder.reparseQuery(module, event.getStructuredDocument()
+				.getFirstStructuredDocumentRegion(), event.getOffset(), event
+				.getLength());
 	}
 
 	// ModelBuilder Extension point
-	
 
 	/**
-	 * Gets the XQuery model builder. Allow other plugins to provide an alternative
+	 * Gets the XQuery model builder. Allow other plugins to provide an
+	 * alternative
+	 * 
 	 * @return
 	 */
 	protected ModelBuilder getContributionModelBuilder() {
 		ModelBuilder modelBuilder = null;
 
 		IExtensionRegistry registry = Platform.getExtensionRegistry();
-		IExtensionPoint point = registry.getExtensionPoint("org.eclipse.wst.xquery.sse.core", "modelBuilder");
+		IExtensionPoint point = registry.getExtensionPoint(
+				"org.eclipse.wst.xquery.sse.core", "modelBuilder");
 		IExtension[] extensions = point.getExtensions();
 		if (extensions.length > 0) {
-			IConfigurationElement[] elements = extensions[0].getConfigurationElements();
+			IConfigurationElement[] elements = extensions[0]
+					.getConfigurationElements();
 			if (elements.length > 0) {
 				try {
-					modelBuilder = (ModelBuilder) elements[0].createExecutableExtension("class");
+					modelBuilder = (ModelBuilder) elements[0]
+							.createExecutableExtension("class");
 				} catch (CoreException e) {
 					// TODO
 				}
@@ -239,4 +251,5 @@ public class XQueryStructuredModel extends AbstractStructuredModel implements IS
 
 		return modelBuilder == null ? new ModelBuilder() : modelBuilder;
 	}
+
 }

@@ -10,7 +10,11 @@
  *******************************************************************************/
 package org.eclipse.wst.xquery.sse.core.internal.model;
 
+import java.util.LinkedList;
+import java.util.List;
+
 import org.eclipse.wst.sse.core.internal.provisional.text.IStructuredDocumentRegion;
+import org.eclipse.wst.validation.internal.provisional.core.IMessage;
 import org.eclipse.wst.xquery.sse.core.internal.model.ast.ASTFLWOR;
 import org.eclipse.wst.xquery.sse.core.internal.model.ast.ASTFunctionCall;
 import org.eclipse.wst.xquery.sse.core.internal.model.ast.ASTFunctionDecl;
@@ -35,11 +39,14 @@ import org.eclipse.wst.xquery.sse.core.internal.sdregions.XQueryStructuredDocume
 /**
  * Update the XQuery AST.
  * 
- * For now, the new structured document regions are fully traversed, along with
+ * <p>For now, the new structured document regions are fully traversed, along with
  * the existing AST (if any). The goal is to minimize AST nodes changes.
  * 
- * In the future, it is possible to skip reparsing subtrees based on changes
+ * <p>In the future, it is possible to skip reparsing subtrees based on changes
  * location.
+ * 
+ * <p>Checks the language syntax and provides appropriate messages for downstream validators. Note that it performs only
+ * minimal validation to speed up reparsing.
  * 
  * @author <a href="villard@us.ibm.com">Lionel Villard</a>
  */
@@ -65,6 +72,9 @@ public class ModelBuilder {
 	/** Length of the change */
 	protected int length;
 
+	/** Validation messages */
+	protected List<IMessage> messages;
+	
 	// Some filters...
 	final protected OperatorFilter sequenceFilter = new OperatorFilter(new int[] { ASTOperator.OP_COMMA },
 			new String[] { XQueryRegions.COMMA });
@@ -177,7 +187,8 @@ public class ModelBuilder {
 	 *            of the change
 	 */
 	public ASTModule reparseQuery(ASTModule module, IStructuredDocumentRegion region, int offset, int length) {
-
+		messages = new LinkedList<IMessage>();
+		
 		currentSDRegion = region;
 		currentRegionIdx = 0;
 		this.offset = offset;
@@ -239,9 +250,7 @@ public class ModelBuilder {
 		if (overlap()) {
 			final ModuleDeclStructuredDocumentRegion moduleDeclRegion = (ModuleDeclStructuredDocumentRegion) currentSDRegion;
 
-			module.setNamespacePrefixRegion(moduleDeclRegion.getNamespacePrefix());
-			module.setNamespaceRegion(moduleDeclRegion.getNamespace());
-
+			module.setModuleDeclStructuredDocumentRegion(moduleDeclRegion);
 		}
 		nextSDRegion();
 	}

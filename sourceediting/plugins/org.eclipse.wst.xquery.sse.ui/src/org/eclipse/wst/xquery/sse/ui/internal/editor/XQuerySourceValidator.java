@@ -36,6 +36,8 @@ import org.eclipse.wst.validation.internal.provisional.core.IMessage;
 import org.eclipse.wst.validation.internal.provisional.core.IReporter;
 import org.eclipse.wst.validation.internal.provisional.core.IValidationContext;
 import org.eclipse.wst.validation.internal.provisional.core.IValidator;
+import org.eclipse.wst.xquery.sse.core.internal.model.XQueryStructuredModel;
+import org.eclipse.wst.xquery.sse.core.internal.model.ast.IASTNode;
 import org.eclipse.wst.xquery.sse.core.internal.parser.XQueryTokenizer;
 import org.eclipse.wst.xquery.sse.core.internal.regions.XQueryRegion;
 import org.eclipse.wst.xquery.sse.core.internal.regions.XQueryRegions;
@@ -45,7 +47,9 @@ import org.eclipse.wst.xquery.sse.core.internal.regions.XQueryRegions;
  * 
  * @author <a href="villard@us.ibm.com">Lionel Villard</a>
  */
-public class XQuerySourceValidator extends AbstractValidator implements IValidator {
+@SuppressWarnings("restriction")
+public class XQuerySourceValidator extends AbstractValidator implements
+		IValidator {
 
 	// Constructors
 
@@ -55,16 +59,18 @@ public class XQuerySourceValidator extends AbstractValidator implements IValidat
 	// Implements IValidator
 
 	public void cleanup(IReporter reporter) {
-		// TODO Auto-generated method stub
+		reporter.removeAllMessages(this); 
 	}
 
-	public void validate(IValidationContext helper, IReporter reporter) throws ValidationException {
+	public void validate(IValidationContext helper, IReporter reporter)
+			throws ValidationException {
 		String[] uris = helper.getURIs();
 		IWorkspaceRoot wsRoot = ResourcesPlugin.getWorkspace().getRoot();
 		if (uris.length > 0) {
 			IFile currentFile = null;
 
 			for (int i = 0; i < uris.length && !reporter.isCancelled(); i++) {
+
 				// might be called with just project path?
 				IPath path = new Path(uris[i]);
 				if (path.segmentCount() > 1) {
@@ -83,27 +89,31 @@ public class XQuerySourceValidator extends AbstractValidator implements IValidat
 	// Helpers
 
 	private void validate(IFile currentFile, IReporter reporter) {
-		Message message = new LocalizedMessage(IMessage.LOW_SEVERITY, currentFile.getFullPath().toString().substring(1));
+		Message message = new LocalizedMessage(IMessage.LOW_SEVERITY,
+				currentFile.getFullPath().toString().substring(1));
 		reporter.displaySubtask(this, message);
 
-		IStructuredModel model = null;
+		XQueryStructuredModel model = null;
 		try {
-			model = StructuredModelManager.getModelManager().getModelForRead(currentFile);
+			model = (XQueryStructuredModel) StructuredModelManager
+					.getModelManager().getModelForRead(currentFile);
 
 			// Lexical-level validation
 			IStructuredDocument document = null;
 			if (model != null) {
 				document = model.getStructuredDocument();
 
-				IStructuredDocumentRegion validationRegion = document.getFirstStructuredDocumentRegion();
+				IStructuredDocumentRegion validationRegion = document
+						.getFirstStructuredDocumentRegion();
 				while (validationRegion != null) {
 					validate(validationRegion, reporter);
 					validationRegion = validationRegion.getNext();
 				}
 			}
 
-			// Syntactic-level validation
-			// Just create annotations from ModelBuilder messages.
+			// AST-level validation
+			// The model has been rebuilt before validators are called.
+			validate(document, model.getModule(), reporter);
 
 		} catch (Exception e) {
 			// Logger.logException(e);
@@ -139,9 +149,12 @@ public class XQuerySourceValidator extends AbstractValidator implements IValidat
 					text = "Syntax Error.";
 				}
 
-				IMessage message = new LocalizedMessage(IMessage.HIGH_SEVERITY, text);
+				IMessage message = new LocalizedMessage(IMessage.HIGH_SEVERITY,
+						text);
 
-				message.setOffset(sdregion.getStartOffset() + region.getStart());
+				message
+						.setOffset(sdregion.getStartOffset()
+								+ region.getStart());
 				message.setLength(region.getTextLength());
 				message.setLineNo(sdregion.getParentDocument().getLineOfOffset(
 						sdregion.getStartOffset() + region.getStart()));
@@ -154,7 +167,8 @@ public class XQuerySourceValidator extends AbstractValidator implements IValidat
 	 * @param helper
 	 * @param reporter
 	 */
-	private void validateV1Project(IValidationContext helper, final IReporter reporter) {
+	private void validateV1Project(IValidationContext helper,
+			final IReporter reporter) {
 		// if uris[] length 0 -> validate() gets called for each project
 		if (helper instanceof IWorkbenchContext) {
 			IProject project = ((IWorkbenchContext) helper).getProject();
@@ -193,10 +207,26 @@ public class XQuerySourceValidator extends AbstractValidator implements IValidat
 		// TODO: other extensions..
 		if (checkExtension) {
 			String extension = file.getFileExtension();
-			if (extension != null && "xq".endsWith(extension.toLowerCase(Locale.US)))
+			if (extension != null
+					&& "xq".endsWith(extension.toLowerCase(Locale.US)))
 				return true;
 		}
 		return false;
+	}
+
+	/**
+	 * Recursively validate the given model.
+	 * 
+	 * TODO: incremental validation
+	 * 
+	 * @param document
+	 * @param node
+	 */
+	protected void validate(IStructuredDocument document, IASTNode node, IReporter reporter) {
+		node.staticCheck(document, this, reporter);
+		
+		for (int i = node.getChildASTNodesCount() - 1; i >= 0; i --)
+			validate(document, node.getChildASTNodeAt(i), reporter);
 	}
 
 }

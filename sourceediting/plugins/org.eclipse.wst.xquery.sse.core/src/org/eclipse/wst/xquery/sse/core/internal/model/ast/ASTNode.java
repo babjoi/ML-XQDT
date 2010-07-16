@@ -10,6 +10,9 @@
  *******************************************************************************/
 package org.eclipse.wst.xquery.sse.core.internal.model.ast;
 
+import org.eclipse.wst.sse.core.internal.provisional.text.IStructuredDocument;
+import org.eclipse.wst.validation.internal.provisional.core.IReporter;
+import org.eclipse.wst.validation.internal.provisional.core.IValidator;
 
 /**
  * Represent an XQuery AST node.
@@ -34,25 +37,32 @@ public abstract class ASTNode implements IASTNode {
 	public void setASTParent(IASTNode parent) {
 		this.parent = parent;
 	}
- 
 
 	public void setChildASTNodeAt(int index, IASTNode newChild) {
-		throw new IllegalStateException("Illegal call to setChildNodeAt on a leaf node");
+		throw new IllegalStateException(
+				"Illegal call to setChildNodeAt on a leaf node");
 	}
 
 	public IASTNode getChildASTNodeAt(int i) {
-		throw new IllegalStateException("Illegal call to setChildNodeAt on a leaf node");
+		throw new IllegalStateException(
+				"Illegal call to setChildNodeAt on a leaf node");
 	}
 
 	public void removeChildASTNodesAfter(int index) {
-		throw new IllegalStateException("Illegal call to removeChildNodesAfter on a leaf node");
+		throw new IllegalStateException(
+				"Illegal call to removeChildNodesAfter on a leaf node");
 	}
 
 	public int getChildASTNodesCount() {
 		return 0;
 	}
+	
+	public boolean staticCheck(IStructuredDocument document, IValidator validator, IReporter reporter) {
+		return true;
+	}
 
 	// Debugging
+
 
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
@@ -68,7 +78,8 @@ public abstract class ASTNode implements IASTNode {
 		if (getChildASTNodesCount() > 0) {
 			for (int i = 0; i < getChildASTNodesCount(); i++) {
 				if (getChildASTNodeAt(i) != null) {
-					((ASTNode) getChildASTNodeAt(i)).toString(indent + 2, builder);
+					((ASTNode) getChildASTNodeAt(i)).toString(indent + 2,
+							builder);
 				}
 			}
 			builder.append("\n");

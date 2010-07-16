@@ -10,13 +10,16 @@
  *******************************************************************************/
 package org.eclipse.wst.xquery.sse.core.internal.model.ast;
 
-import java.util.List;
+import org.eclipse.wst.sse.core.internal.provisional.text.IStructuredDocument;
+import org.eclipse.wst.validation.internal.provisional.core.IReporter;
+import org.eclipse.wst.validation.internal.provisional.core.IValidator;
 
 /**
  * Represent an XQuery AST node.
  * 
  * @author <a href="villard@us.ibm.com">Lionel Villard</a>
  */
+@SuppressWarnings("restriction")
 public interface IASTNode {
 
 	// AST node types
@@ -70,4 +73,14 @@ public interface IASTNode {
 	 * Set the parent node
 	 */
 	public void setASTParent(IASTNode parent);
+	
+	/** 
+	 * Perform static checking of this node only (not recursive).
+	 * 
+	 * @param document  
+	 * @param validator  
+	 * @param reporter for errors
+	 * @return true if this node is valid, false otherwise.
+	 */ 
+	public boolean staticCheck(IStructuredDocument document, IValidator validator, IReporter reporter);
 }

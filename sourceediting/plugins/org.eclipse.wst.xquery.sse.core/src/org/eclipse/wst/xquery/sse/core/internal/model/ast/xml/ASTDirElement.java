@@ -10,6 +10,9 @@
  *******************************************************************************/
 package org.eclipse.wst.xquery.sse.core.internal.model.ast.xml;
 
+import org.eclipse.wst.sse.core.internal.provisional.text.IStructuredDocument;
+import org.eclipse.wst.validation.internal.provisional.core.IReporter;
+import org.eclipse.wst.validation.internal.provisional.core.IValidator;
 import org.eclipse.wst.xml.core.internal.document.ElementImpl;
 import org.eclipse.wst.xml.core.internal.document.TextImpl;
 import org.eclipse.wst.xquery.sse.core.internal.model.ast.IASTNode;
@@ -46,13 +49,12 @@ public class ASTDirElement extends ElementImpl implements IASTNode {
 	}
 
 	// Overrides
-	
 
 	@Override
-	public Attr setAttributeNode(Attr newAttr) throws DOMException { 
-		if (newAttr instanceof ASTDirAttribute) 
-			((ASTDirAttribute) newAttr).setASTParent(this); 
-		
+	public Attr setAttributeNode(Attr newAttr) throws DOMException {
+		if (newAttr instanceof ASTDirAttribute)
+			((ASTDirAttribute) newAttr).setASTParent(this);
+
 		return super.setAttributeNode(newAttr);
 	}
 
@@ -63,13 +65,12 @@ public class ASTDirElement extends ElementImpl implements IASTNode {
 
 	// Implements IASTNode
 
-
 	public IASTNode getChildASTNodeAt(int i) {
 		if (i < getChildNodes().getLength()) {
 			final Node node = getChildNodes().item(i);
 			if (node instanceof IASTNode)
 				return (IASTNode) node;
-			
+
 			// Wrapper
 			return ((ASTNodeText) node).node;
 		}
@@ -118,8 +119,12 @@ public class ASTDirElement extends ElementImpl implements IASTNode {
 			Node oldChild = getChildNodes().item(index);
 			replaceChild(node, oldChild);
 		}
-		
+
 		newChild.setASTParent(this);
+	}
+
+	public boolean staticCheck(IStructuredDocument document, IValidator validator, IReporter reporter) {
+		return true;
 	}
 
 	// Inner class

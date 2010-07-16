@@ -10,19 +10,25 @@
  *******************************************************************************/
 package org.eclipse.wst.xquery.sse.core.internal.model.ast;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
+import org.eclipse.jface.text.BadLocationException;
+import org.eclipse.wst.sse.core.internal.provisional.text.IStructuredDocument;
 import org.eclipse.wst.sse.core.internal.provisional.text.IStructuredDocumentRegion;
 import org.eclipse.wst.sse.core.internal.provisional.text.ITextRegion;
+import org.eclipse.wst.sse.core.internal.text.rules.IStructuredRegion;
+import org.eclipse.wst.validation.internal.provisional.core.IMessage;
+import org.eclipse.wst.validation.internal.provisional.core.IReporter;
+import org.eclipse.wst.validation.internal.provisional.core.IValidator;
+import org.eclipse.wst.xquery.sse.core.internal.sdregions.ModuleDeclStructuredDocumentRegion;
 
 /**
  * XQuery module declaration
  * 
  * @author <a href="villard@us.ibm.com">Lionel Villard</a>
  */
+@SuppressWarnings("restriction")
 public class ASTModule extends ASTParentNode {
 
 	// State
@@ -36,13 +42,13 @@ public class ASTModule extends ASTParentNode {
 	/** Module namespace prefix (library only) */
 	protected ITextRegion namespacePrefixTextRegion;
 
-	/** Module namespace (library only) */
-	protected ITextRegion namespaceTextRegion;
+	/** Module declaration (library only) */
+	protected ModuleDeclStructuredDocumentRegion moduleSDRegion;
 
 	/** List of function declaration, indexed by their name */
-	// TODO: namespaces.. 
+	// TODO: namespaces..
 	protected Map<String, ASTFunctionDecl> functionDecls;
-	
+
 	/** List of variable declarations, indexed by their name */
 	protected Map<String, ASTVarDecl> variableDecls;
 
@@ -63,12 +69,34 @@ public class ASTModule extends ASTParentNode {
 		this.encodingTextRegion = encoding;
 	}
 
+	public void setModuleDeclStructuredDocumentRegion(
+			ModuleDeclStructuredDocumentRegion region) {
+		moduleSDRegion = region;
+
+	}
+
 	public void setNamespacePrefixRegion(ITextRegion version) {
 		this.namespacePrefixTextRegion = version;
 	}
 
-	public void setNamespaceRegion(ITextRegion encoding) {
-		this.namespaceTextRegion = encoding;
+	public String getModuleNamespace() {
+		if (moduleSDRegion != null) {
+			try {
+				ITextRegion region = moduleSDRegion.getNamespace();
+				if (region != null) {
+					// Return namespace without surrounding ""
+
+					return moduleSDRegion.getParentDocument().get(
+							region.getStart() + region.getStart() + 1,
+							region.getLength() - 2);
+				}
+			} catch (BadLocationException e) {
+				// Ignore..
+				return null;
+			}
+		}
+
+		return null;
 	}
 
 	/**
@@ -91,16 +119,16 @@ public class ASTModule extends ASTParentNode {
 	public void addFunctionDecl(String name, ASTFunctionDecl decl) {
 		functionDecls.put(name, decl);
 	}
-	
+
 	/**
 	 * Add a new variable declaration
+	 * 
 	 * @param region
 	 */
-	public void addVariableDecl(String name, ASTVarDecl decl)
-	{
+	public void addVariableDecl(String name, ASTVarDecl decl) {
 		variableDecls.put(name, decl);
 	}
-	
+
 	/**
 	 * Get the variable of the given name, or null if none exist
 	 * 
@@ -127,6 +155,20 @@ public class ASTModule extends ASTParentNode {
 	}
 
 	// Overrides
+
+	@Override
+	public boolean staticCheck(IStructuredDocument document, IValidator validator, IReporter reporter) {
+		// ModuleDecl: The URILiteral must be of nonzero length [err:XQST0088]
+		String moduleNS = getModuleNamespace();
+
+		if (moduleNS != null && moduleNS.length() == 0) {
+			ASTHelper.reportError(moduleSDRegion, moduleSDRegion.getNamespace(),
+					"The URILiteral must be of nonzero length [err:XQST0088]",
+					validator, reporter);
+		}
+
+		return super.staticCheck(document, validator, reporter);
+	}
 
 	@Override
 	public int getType() {

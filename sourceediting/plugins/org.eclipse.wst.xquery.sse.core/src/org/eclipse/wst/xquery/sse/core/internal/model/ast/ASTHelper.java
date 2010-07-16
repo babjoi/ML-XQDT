@@ -12,11 +12,19 @@ package org.eclipse.wst.xquery.sse.core.internal.model.ast;
 
 import java.util.List;
 
+import org.eclipse.wst.sse.core.internal.provisional.text.IStructuredDocumentRegion;
+import org.eclipse.wst.sse.core.internal.provisional.text.ITextRegion;
+import org.eclipse.wst.validation.internal.operations.LocalizedMessage;
+import org.eclipse.wst.validation.internal.provisional.core.IMessage;
+import org.eclipse.wst.validation.internal.provisional.core.IReporter;
+import org.eclipse.wst.validation.internal.provisional.core.IValidator;
+
 /**
  * Collection of static utility methods
  * 
  * @author <a href="villard@us.ibm.com">Lionel Villard</a>
  */
+@SuppressWarnings("restriction")
 public class ASTHelper {
 
 	/**
@@ -40,7 +48,8 @@ public class ASTHelper {
 	 * @param index
 	 * @param newChild
 	 */
-	public static void setChildASTNodeAt(List<IASTNode> children, IASTNode parent, int index, IASTNode newChild) {
+	public static void setChildASTNodeAt(List<IASTNode> children,
+			IASTNode parent, int index, IASTNode newChild) {
 		if (newChild != null)
 			newChild.setASTParent(parent);
 
@@ -80,6 +89,21 @@ public class ASTHelper {
 	public static void ensureCapacity(int index, List<?> list) {
 		while (list.size() <= index)
 			list.add(null);
+	}
+
+	/** 
+	 * Report error 
+	 * @param validator 
+	 */
+	public static void reportError(IStructuredDocumentRegion sdregion,
+			ITextRegion region, String text, IValidator validator, IReporter reporter) {
+		IMessage message = new LocalizedMessage(IMessage.HIGH_SEVERITY, text);
+
+		message.setOffset(sdregion.getStartOffset() + region.getStart());
+		message.setLength(region.getTextLength());
+		message.setLineNo(sdregion.getParentDocument().getLineOfOffset(
+				sdregion.getStartOffset() + region.getStart()));
+		reporter.addMessage(validator, message);
 	}
 
 }

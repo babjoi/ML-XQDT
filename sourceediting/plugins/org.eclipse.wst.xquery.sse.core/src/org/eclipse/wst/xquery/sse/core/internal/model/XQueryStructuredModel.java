@@ -23,6 +23,12 @@ package org.eclipse.wst.xquery.sse.core.internal.model;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.eclipse.core.runtime.CoreException;
+import org.eclipse.core.runtime.IConfigurationElement;
+import org.eclipse.core.runtime.IExtension;
+import org.eclipse.core.runtime.IExtensionPoint;
+import org.eclipse.core.runtime.IExtensionRegistry;
+import org.eclipse.core.runtime.Platform;
 import org.eclipse.wst.sse.core.internal.model.AbstractStructuredModel;
 import org.eclipse.wst.sse.core.internal.provisional.IndexedRegion;
 import org.eclipse.wst.sse.core.internal.provisional.events.IStructuredDocumentListener;
@@ -34,7 +40,6 @@ import org.eclipse.wst.sse.core.internal.provisional.events.StructuredDocumentRe
 import org.eclipse.wst.sse.core.internal.provisional.text.IStructuredDocument;
 import org.eclipse.wst.sse.core.internal.provisional.text.IStructuredDocumentRegion;
 import org.eclipse.wst.xquery.sse.core.internal.model.ast.ASTClauses;
-import org.eclipse.wst.xquery.sse.core.internal.model.ast.ASTFLWOR;
 import org.eclipse.wst.xquery.sse.core.internal.model.ast.ASTFunctionDecl;
 import org.eclipse.wst.xquery.sse.core.internal.model.ast.ASTModule;
 import org.eclipse.wst.xquery.sse.core.internal.model.ast.ASTTypeswitch;
@@ -61,7 +66,7 @@ public class XQueryStructuredModel extends AbstractStructuredModel implements IS
 	// Constructors
 
 	public XQueryStructuredModel() {
-		builder = new ModelBuilder();
+		builder = getContributionModelBuilder();
 	}
 
 	// Methods
@@ -208,4 +213,30 @@ public class XQueryStructuredModel extends AbstractStructuredModel implements IS
 				.getOffset(), event.getLength());
 	}
 
+	// ModelBuilder Extension point
+	
+
+	/**
+	 * Gets the XQuery model builder. Allow other plugins to provide an alternative
+	 * @return
+	 */
+	protected ModelBuilder getContributionModelBuilder() {
+		ModelBuilder modelBuilder = null;
+
+		IExtensionRegistry registry = Platform.getExtensionRegistry();
+		IExtensionPoint point = registry.getExtensionPoint("org.eclipse.wst.xquery.sse.core", "modelBuilder");
+		IExtension[] extensions = point.getExtensions();
+		if (extensions.length > 0) {
+			IConfigurationElement[] elements = extensions[0].getConfigurationElements();
+			if (elements.length > 0) {
+				try {
+					modelBuilder = (ModelBuilder) elements[0].createExecutableExtension("class");
+				} catch (CoreException e) {
+					// TODO
+				}
+			}
+		}
+
+		return modelBuilder == null ? new ModelBuilder() : modelBuilder;
+	}
 }

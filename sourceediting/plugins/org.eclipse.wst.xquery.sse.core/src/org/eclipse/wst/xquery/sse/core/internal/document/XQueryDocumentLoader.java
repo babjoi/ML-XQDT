@@ -53,5 +53,9 @@ public class XQueryDocumentLoader extends AbstractDocumentLoader implements IDoc
 	public IDocumentCharsetDetector getDocumentEncodingDetector() {
 		return new XQueryEncodingDetector();
 	}
+	
+	// Extension point for Reparser
+	
+	
 
 }

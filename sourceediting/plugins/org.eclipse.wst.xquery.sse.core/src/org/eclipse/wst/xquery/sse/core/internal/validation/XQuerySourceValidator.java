@@ -41,7 +41,7 @@ import org.eclipse.wst.xquery.sse.core.internal.regions.XQueryRegion;
 import org.eclipse.wst.xquery.sse.core.internal.regions.XQueryRegions;
 
 /**
- * Source validation "as-we-type"
+ * Source validation "as-you-type"
  * 
  * @author <a href="villard@us.ibm.com">Lionel Villard</a>
  */

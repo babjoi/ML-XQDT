@@ -8,7 +8,7 @@
  * Contributors:
  *     IBM Corporation - initial API and implementation
  *******************************************************************************/
-package org.eclipse.wst.xquery.sse.core.internal.validation;
+package org.eclipse.wst.xquery.sse.ui.internal.editor;
 
 import java.util.Locale;
 

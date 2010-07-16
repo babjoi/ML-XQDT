@@ -40,19 +40,6 @@
             type="org.eclipse.core.resources.problemmarker">
       </super>
    </extension>
-   <extension
-         point="org.eclipse.wst.sse.ui.sourcevalidation">
-      <validator
-            class="org.eclipse.wst.xquery.sse.core.internal.validation.XQuerySourceValidator"
-            id="org.eclipse.wst.xquery.sse.ui.sourcevalidator"
-            scope="total">
-         <contentTypeIdentifier
-               id="org.eclipse.wst.xquery.sse.core.xquery">
-            <partitionType
-                  id="org.eclipse.wst.xquery.DEFAULT">
-            </partitionType>
-         </contentTypeIdentifier>
-      </validator>
-   </extension>
+  
 
 </plugin>

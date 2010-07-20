@@ -64,8 +64,8 @@ public class XQDTParserBuildParticipantFactory extends AbstractBuildParticipantT
             // create problem collector
             final ProblemCollector problemCollector = new ProblemCollector();
             // parse
-            moduleDeclaration = parser.parse(new ModuleSource(context.getFileName(), context.getSourceContents()),
-                    context.getProblemReporter());
+            moduleDeclaration = parser.parse(new ModuleSource(context.getFile().getFullPath().toPortableString(),
+                    context.getSourceContents()), context.getProblemReporter());
             // put result to the cache
             SourceParserUtil.putModuleToCache(cacheEntry, moduleDeclaration, problemCollector);
             // report errors to the build context

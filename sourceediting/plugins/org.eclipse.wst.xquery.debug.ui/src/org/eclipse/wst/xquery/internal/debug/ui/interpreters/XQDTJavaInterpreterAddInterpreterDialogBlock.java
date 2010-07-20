@@ -16,8 +16,8 @@ import org.eclipse.debug.ui.StringVariableSelectionDialog;
 import org.eclipse.dltk.compiler.util.Util;
 import org.eclipse.dltk.core.environment.IEnvironment;
 import org.eclipse.dltk.core.environment.IFileHandle;
+import org.eclipse.dltk.core.internal.environment.LazyFileHandle;
 import org.eclipse.dltk.internal.debug.ui.interpreters.InterpretersMessages;
-import org.eclipse.dltk.internal.launching.LazyFileHandle;
 import org.eclipse.dltk.internal.ui.wizards.dialogfields.DialogField;
 import org.eclipse.dltk.internal.ui.wizards.dialogfields.IDialogFieldListener;
 import org.eclipse.dltk.internal.ui.wizards.dialogfields.IStringButtonAdapter;
@@ -163,7 +163,8 @@ public class XQDTJavaInterpreterAddInterpreterDialogBlock extends AbstractAddInt
                 BusyIndicator.showWhile(getShell().getDisplay(), new Runnable() {
 
                     public void run() {
-                        temp[0] = fAddInterpreterDialog.getInterpreterType().validateInstallLocation(file);
+                        temp[0] = fAddInterpreterDialog.getInterpreterType().validateInstallLocation(file, null, null,
+                                null);
                     }
                 });
                 s = temp[0];
@@ -320,7 +321,7 @@ public class XQDTJavaInterpreterAddInterpreterDialogBlock extends AbstractAddInt
         String name = getInterpreterName();
         if (name == null || name.length() == 0) {
             status.setInfo(InterpretersMessages.addInterpreterDialog_enterName);
-        } else if (fRequestor.isDuplicateName(name)
+        } else if (fRequestor.isDuplicateName(name, fEditedInterpreter)
                 && (fEditedInterpreter == null || !name.equals(fEditedInterpreter.getName()))) {
             status.setError(InterpretersMessages.addInterpreterDialog_duplicateName);
         }

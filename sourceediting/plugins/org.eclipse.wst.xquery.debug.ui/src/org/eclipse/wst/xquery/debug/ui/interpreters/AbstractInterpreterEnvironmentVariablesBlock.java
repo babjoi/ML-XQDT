@@ -32,10 +32,10 @@ import org.eclipse.dltk.core.environment.IFileHandle;
 import org.eclipse.dltk.internal.debug.ui.interpreters.EnvironmentVariableContentProvider;
 import org.eclipse.dltk.internal.debug.ui.interpreters.EnvironmentVariablesFileUtils;
 import org.eclipse.dltk.internal.debug.ui.interpreters.InterpretersMessages;
-import org.eclipse.dltk.internal.debug.ui.interpreters.MultipleInputDialog;
 import org.eclipse.dltk.launching.EnvironmentVariable;
 import org.eclipse.dltk.launching.IInterpreterInstall;
 import org.eclipse.dltk.launching.IInterpreterInstallType;
+import org.eclipse.dltk.ui.dialogs.MultipleInputDialog;
 import org.eclipse.jface.dialogs.IDialogSettings;
 import org.eclipse.jface.viewers.IBaseLabelProvider;
 import org.eclipse.jface.viewers.ILabelProvider;
@@ -66,7 +66,7 @@ import org.eclipse.ui.dialogs.ListSelectionDialog;
 /**
  * Control used to edit the environment variables associated with a Interpreter install
  */
-@SuppressWarnings("restriction")
+@SuppressWarnings({ "rawtypes", "restriction" })
 public abstract class AbstractInterpreterEnvironmentVariablesBlock implements SelectionListener,
         ISelectionChangedListener {
 
@@ -313,8 +313,7 @@ public abstract class AbstractInterpreterEnvironmentVariablesBlock implements Se
         } catch (Exception e) {
             // ignore
         }
-        dialog
-                .setText(InterpretersMessages.AbstractInterpreterEnvironmentVariablesBlock_exportEnvironmentVariablesToFile);
+        dialog.setText(InterpretersMessages.AbstractInterpreterEnvironmentVariablesBlock_exportEnvironmentVariablesToFile);
         String file = dialog.open();
         if (file != null) {
             EnvironmentVariable[] variables = this.fEnvironmentVariablesContentProvider.getVariables();
@@ -322,8 +321,8 @@ public abstract class AbstractInterpreterEnvironmentVariablesBlock implements Se
                 EnvironmentVariablesFileUtils.save(variables, file);
             } catch (Exception e) {
                 // String text = "Failed to save environment variables";
-                showErrorMessage(InterpretersMessages.AbstractInterpreterEnvironmentVariablesBlock_environmentExport, e
-                        .getMessage());
+                showErrorMessage(InterpretersMessages.AbstractInterpreterEnvironmentVariablesBlock_environmentExport,
+                        e.getMessage());
             }
         }
     }
@@ -338,8 +337,7 @@ public abstract class AbstractInterpreterEnvironmentVariablesBlock implements Se
     @SuppressWarnings("unchecked")
     private void performImport() {
         FileDialog dialog = new FileDialog(this.fDialog.getShell(), SWT.OPEN);
-        dialog
-                .setText(InterpretersMessages.AbstractInterpreterEnvironmentVariablesBlock_importEnvironmentVariablesFromFile);
+        dialog.setText(InterpretersMessages.AbstractInterpreterEnvironmentVariablesBlock_importEnvironmentVariablesFromFile);
         String file = dialog.open();
         if (file != null) {
             File handle = new File(file);
@@ -353,8 +351,8 @@ public abstract class AbstractInterpreterEnvironmentVariablesBlock implements Se
             try {
                 vars = EnvironmentVariablesFileUtils.load(file);
             } catch (Exception e) {
-                showErrorMessage(InterpretersMessages.AbstractInterpreterEnvironmentVariablesBlock_environmentImport, e
-                        .getMessage());
+                showErrorMessage(InterpretersMessages.AbstractInterpreterEnvironmentVariablesBlock_environmentImport,
+                        e.getMessage());
             }
             if (vars != null) {
                 EnvironmentVariable[] variables = this.fEnvironmentVariablesContentProvider.getVariables();
@@ -456,15 +454,14 @@ public abstract class AbstractInterpreterEnvironmentVariablesBlock implements Se
     /**
      * Refresh the enable/disable state for the buttons.
      */
-    @SuppressWarnings( { "unused", "unchecked" })
     private void updateButtons() {
         IStructuredSelection selection = (IStructuredSelection)fVariablesViewer.getSelection();
         fRemoveButton.setEnabled(!selection.isEmpty());
-        boolean enableUp = true, enableDown = true;
+//        boolean enableUp = true, enableDown = true;
         Object[] libraries = fEnvironmentVariablesContentProvider.getElements(null);
         if (selection.isEmpty() || libraries.length == 0) {
-            enableUp = false;
-            enableDown = false;
+//            enableUp = false;
+//            enableDown = false;
         } else {
             Object first = libraries[0];
             Object last = libraries[libraries.length - 1];
@@ -473,10 +470,10 @@ public abstract class AbstractInterpreterEnvironmentVariablesBlock implements Se
                 Object lib;
                 lib = element;
                 if (lib == first) {
-                    enableUp = false;
+//                    enableUp = false;
                 }
                 if (lib == last) {
-                    enableDown = false;
+//                    enableDown = false;
                 }
             }
         }
@@ -515,18 +512,15 @@ public abstract class AbstractInterpreterEnvironmentVariablesBlock implements Se
 
     protected abstract IDialogSettings getDialogSettions();
 
-    @SuppressWarnings("unchecked")
     protected EnvironmentVariable[] addExisted() {
 
         // get Environment Variables from the Environment
         Map envVariables = getNativeEnvironment();
         if (envVariables.size() == 0) {
             MessageBox box = new MessageBox(fDialog.getShell(), SWT.ICON_ERROR);
-            box
-                    .setMessage(NLS
-                            .bind(
-                                    InterpretersMessages.AbstractInterpreterEnvironmentVariablesBlock_couldNotRetrieveEnvironmentVariablesFrom,
-                                    fDialog.getEnvironment().getName()));
+            box.setMessage(NLS
+                    .bind(InterpretersMessages.AbstractInterpreterEnvironmentVariablesBlock_couldNotRetrieveEnvironmentVariablesFrom,
+                            fDialog.getEnvironment().getName()));
             box.setText(InterpretersMessages.AbstractInterpreterEnvironmentVariablesBlock_failedToRetrieveEnvironment);
             box.open();
             return null;

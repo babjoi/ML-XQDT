@@ -6,9 +6,10 @@ import org.eclipse.jface.dialogs.TrayDialog;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.wst.xquery.set.internal.debug.ui.dialogs.BusySocketDialog;
-import org.eclipse.wst.xquery.set.internal.launching.ISETLaunchRetryHandler;
 import org.eclipse.wst.xquery.set.internal.launching.server.Server;
+import org.eclipse.wst.xquery.set.launching.ISETLaunchRetryHandler;
 
+@SuppressWarnings("restriction")
 public class SETLaunchRetryHandler implements ISETLaunchRetryHandler {
 
     public boolean retry(IStatus status, final Server server) {

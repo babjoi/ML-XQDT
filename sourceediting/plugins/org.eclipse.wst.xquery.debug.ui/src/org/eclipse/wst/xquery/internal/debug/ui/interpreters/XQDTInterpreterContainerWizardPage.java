@@ -10,13 +10,13 @@
  *******************************************************************************/
 package org.eclipse.wst.xquery.internal.debug.ui.interpreters;
 
-import org.eclipse.dltk.internal.debug.ui.interpreters.AbstractInterpreterComboBlock;
 import org.eclipse.dltk.internal.debug.ui.interpreters.AbstractInterpreterContainerWizardPage;
+import org.eclipse.wst.xquery.core.XQDTNature;
 
 public class XQDTInterpreterContainerWizardPage extends AbstractInterpreterContainerWizardPage {
 
-    protected AbstractInterpreterComboBlock getInterpreterBlock() {
-        return new XQDTInterpreterComboBlock(null);
+    public String getScriptNature() {
+        return XQDTNature.NATURE_ID;
     }
 
 }

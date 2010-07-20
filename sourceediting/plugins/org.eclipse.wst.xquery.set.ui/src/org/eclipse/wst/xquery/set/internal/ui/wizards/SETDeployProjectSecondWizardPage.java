@@ -23,6 +23,7 @@ import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.wst.xquery.set.launching.deploy.DeployInfo;
 
+@SuppressWarnings("restriction")
 public class SETDeployProjectSecondWizardPage extends WizardPage {
 
     private class WidgetListener extends SelectionAdapter implements ModifyListener, IDialogFieldListener {

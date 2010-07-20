@@ -131,7 +131,7 @@ public class MarkLogicRunner implements IInterpreterRunner {
             }
         }
 
-        @SuppressWarnings("unchecked")
+        @SuppressWarnings("rawtypes")
         public Object getAdapter(Class adapter) {
             // TODO Auto-generated method stub
             return null;

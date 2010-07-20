@@ -96,7 +96,7 @@ public class XQDTLanguagePreferencePage extends AbstractConfigurationBlockProper
             }
 
             @Override
-            @SuppressWarnings("unchecked")
+            @SuppressWarnings("rawtypes")
             protected IPreferenceChangeRebuildPrompt getPreferenceChangeRebuildPrompt(boolean workspaceSettings,
                     Collection changedOptions) {
                 return PreferenceChangeRebuildPrompt.create(workspaceSettings,

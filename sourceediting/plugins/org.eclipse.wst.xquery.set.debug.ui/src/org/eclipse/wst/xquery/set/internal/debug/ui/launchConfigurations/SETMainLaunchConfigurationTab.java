@@ -10,9 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wst.xquery.set.internal.debug.ui.launchConfigurations;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.ResourcesPlugin;
@@ -26,21 +23,14 @@ import org.eclipse.dltk.core.DLTKCore;
 import org.eclipse.dltk.core.IModelElement;
 import org.eclipse.dltk.core.IScriptProject;
 import org.eclipse.dltk.core.ISourceModule;
-import org.eclipse.dltk.core.ModelException;
-import org.eclipse.dltk.core.PreferencesLookupDelegate;
-import org.eclipse.dltk.core.ScriptModelHelper;
 import org.eclipse.dltk.core.SourceParserUtil;
 import org.eclipse.dltk.debug.ui.launchConfigurations.MainLaunchConfigurationTab;
-import org.eclipse.dltk.debug.ui.messages.DLTKLaunchConfigurationsMessages;
 import org.eclipse.dltk.internal.launching.DLTKLaunchingPlugin;
 import org.eclipse.dltk.internal.launching.LaunchConfigurationUtils;
 import org.eclipse.dltk.launching.ScriptLaunchConfigurationConstants;
 import org.eclipse.dltk.ui.DLTKPluginImages;
-import org.eclipse.dltk.ui.DLTKUILanguageManager;
 import org.eclipse.dltk.ui.util.SWTFactory;
 import org.eclipse.jface.dialogs.Dialog;
-import org.eclipse.jface.viewers.ILabelProvider;
-import org.eclipse.jface.window.Window;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.ModifyEvent;
 import org.eclipse.swt.events.ModifyListener;
@@ -53,7 +43,6 @@ import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Group;
 import org.eclipse.swt.widgets.Text;
-import org.eclipse.ui.dialogs.ElementListSelectionDialog;
 import org.eclipse.wst.xquery.core.model.ast.XQueryFunctionDecl;
 import org.eclipse.wst.xquery.core.model.ast.XQueryLibraryModule;
 import org.eclipse.wst.xquery.set.core.ISETCoreConstants;
@@ -65,6 +54,7 @@ import org.eclipse.wst.xquery.set.internal.launching.server.ServerManager;
 import org.eclipse.wst.xquery.set.internal.ui.SETEditProjectConfigDialog;
 import org.eclipse.wst.xquery.set.launching.SETRuntimeProcessFactory;
 
+@SuppressWarnings("restriction")
 public class SETMainLaunchConfigurationTab extends MainLaunchConfigurationTab {
 
     private SocketSelectionBlock fSocketBlock;
@@ -75,19 +65,13 @@ public class SETMainLaunchConfigurationTab extends MainLaunchConfigurationTab {
     private Button fHandlerFunctionButton;
     private Button fPublicResourceButton;
 
+    private SETProjectConfig fConfig;
+
     public SETMainLaunchConfigurationTab(String mode) {
         super(mode);
     }
 
-    protected boolean breakOnFirstLinePrefEnabled(PreferencesLookupDelegate delegate) {
-        return false;
-    }
-
-    protected boolean dbpgLoggingPrefEnabled(PreferencesLookupDelegate delegate) {
-        return false;
-    }
-
-    protected String getNatureID() {
+    public String getNatureID() {
         return SETNature.NATURE_ID;
     }
 
@@ -122,7 +106,8 @@ public class SETMainLaunchConfigurationTab extends MainLaunchConfigurationTab {
         Path path = new Path(startPage);
         if (path.segmentCount() != 2) {
             setErrorMessage("Invalid start page. Use either a resource in the \""
-                    + ISETCoreConstants.PROJECT_DIRECTORY_PUBLIC + "\" directory or the format: /handler_module/function");
+                    + ISETCoreConstants.PROJECT_DIRECTORY_PUBLIC
+                    + "\" directory or the format: /handler_module/function");
             return false;
         }
 
@@ -169,56 +154,6 @@ public class SETMainLaunchConfigurationTab extends MainLaunchConfigurationTab {
     }
 
     @Override
-    protected boolean validateProject(IScriptProject project) {
-        boolean result = true;
-        try {
-            result = project.getProject().hasNature(SETNature.NATURE_ID);
-        } catch (CoreException ce) {
-            result = false;
-        }
-        return result && super.validateProject(project);
-    }
-
-    @Override
-    protected IScriptProject chooseProject() {
-        final ILabelProvider labelProvider = DLTKUILanguageManager.createLabelProvider(getNatureID());
-        final ElementListSelectionDialog dialog = new ElementListSelectionDialog(getShell(), labelProvider);
-        dialog.setTitle(DLTKLaunchConfigurationsMessages.mainTab_chooseProject_title);
-        dialog.setMessage(DLTKLaunchConfigurationsMessages.mainTab_chooseProject_message);
-
-        try {
-            IScriptProject[] xqdtProjects = ScriptModelHelper.getOpenedScriptProjects(DLTKCore
-                    .create(getWorkspaceRoot()), getNatureID());
-            List<IScriptProject> sausaProjects = new ArrayList<IScriptProject>();
-
-            for (int i = 0; i < xqdtProjects.length; i++) {
-                try {
-                    if (xqdtProjects[i].getProject().hasNature(SETNature.NATURE_ID)) {
-                        sausaProjects.add(xqdtProjects[i]);
-                    }
-                } catch (CoreException ce) {
-                    continue;
-                }
-            }
-            final IScriptProject[] projects = sausaProjects.toArray(new IScriptProject[sausaProjects.size()]);
-            dialog.setElements(projects);
-        } catch (ModelException e) {
-            DLTKLaunchingPlugin.log(e);
-        }
-
-        final IScriptProject project = getProject();
-        if (project != null) {
-            dialog.setInitialSelections(new Object[] { project });
-        }
-
-        if (dialog.open() == Window.OK) {
-            return (IScriptProject)dialog.getFirstResult();
-        }
-
-        return null;
-    }
-
-    @Override
     public Image getImage() {
         return DLTKPluginImages.get(DLTKPluginImages.IMG_OBJS_MODULE);
     }
@@ -262,8 +197,8 @@ public class SETMainLaunchConfigurationTab extends MainLaunchConfigurationTab {
         layout.numColumns = 2;
         scriptGroup.setLayout(layout);
 
-        String labelText = "Select either an existing resource from the \"" + ISETCoreConstants.PROJECT_DIRECTORY_PUBLIC
-                + "\" directory or handler function:";
+        String labelText = "Select either an existing resource from the \""
+                + ISETCoreConstants.PROJECT_DIRECTORY_PUBLIC + "\" directory or handler function:";
         SWTFactory.createLabel(scriptGroup, labelText, 2);
 
         fScriptText = new Text(scriptGroup, SWT.SINGLE | SWT.BORDER);
@@ -367,12 +302,6 @@ public class SETMainLaunchConfigurationTab extends MainLaunchConfigurationTab {
                 EMPTY_STRING);
     }
 
-    @SuppressWarnings("unused")
-    private String getProjectName(ILaunchConfiguration config) {
-        return LaunchConfigurationUtils.getString(config, ScriptLaunchConfigurationConstants.ATTR_PROJECT_NAME,
-                EMPTY_STRING);
-    }
-
     protected void handleHandlerFunctionButtonSelected() {
         String startPage = SETEditProjectConfigDialog
                 .getHandlerFunctionStartPage(getProject().getProject(), getShell());
@@ -391,8 +320,8 @@ public class SETMainLaunchConfigurationTab extends MainLaunchConfigurationTab {
     @Override
     protected void doPerformApply(ILaunchConfigurationWorkingCopy config) {
         config.setAttribute(ISETLaunchConfigurationConstants.ATTR_XQDT_SET_HOST, fSocketBlock.fIpCombo.getText());
-        config.setAttribute(ISETLaunchConfigurationConstants.ATTR_XQDT_SET_PORT, Integer
-                .parseInt(fSocketBlock.fPortSpinner.getText()));
+        config.setAttribute(ISETLaunchConfigurationConstants.ATTR_XQDT_SET_PORT,
+                Integer.parseInt(fSocketBlock.fPortSpinner.getText()));
         config.setAttribute(ISETLaunchConfigurationConstants.ATTR_XQDT_SET_INDENT, fIndentCheckButton.getSelection());
         config.setAttribute(ISETLaunchConfigurationConstants.ATTR_XQDT_SET_CLEAR_COLLECTIONS,
                 fClearCollectionsCheckButton.getSelection());
@@ -481,8 +410,6 @@ public class SETMainLaunchConfigurationTab extends MainLaunchConfigurationTab {
             setScriptName(getProjectStartPage());
         }
     }
-
-    private SETProjectConfig fConfig;
 
     private String getProjectStartPage() {
         if (fConfig == null) {

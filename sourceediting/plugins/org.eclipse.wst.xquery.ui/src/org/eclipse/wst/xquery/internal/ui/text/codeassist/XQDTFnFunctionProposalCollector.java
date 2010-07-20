@@ -16,6 +16,7 @@ import org.eclipse.dltk.ui.text.completion.ScriptCompletionProposal;
 import org.eclipse.dltk.ui.text.completion.ScriptCompletionProposalCollector;
 import org.eclipse.dltk.ui.text.completion.ScriptOverrideCompletionProposal;
 import org.eclipse.swt.graphics.Image;
+import org.eclipse.wst.xquery.core.XQDTNature;
 
 public class XQDTFnFunctionProposalCollector extends ScriptCompletionProposalCollector {
 
@@ -42,6 +43,10 @@ public class XQDTFnFunctionProposalCollector extends ScriptCompletionProposalCol
 
     protected char[] getVarTrigger() {
         return null;
+    }
+
+    protected String getNatureId() {
+        return XQDTNature.NATURE_ID;
     }
 
 }

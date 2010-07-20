@@ -10,21 +10,13 @@
  *******************************************************************************/
 package org.eclipse.wst.xquery.internal.debug.ui.interpreters;
 
-import org.eclipse.dltk.debug.ui.launchConfigurations.IMainLaunchConfigurationTabListenerManager;
 import org.eclipse.dltk.internal.debug.ui.interpreters.AbstractInterpreterComboBlock;
-import org.eclipse.wst.xquery.core.XQDTNature;
+import org.eclipse.dltk.internal.debug.ui.interpreters.IInterpreterComboBlockContext;
 
 public class XQDTInterpreterComboBlock extends AbstractInterpreterComboBlock {
 
-    protected XQDTInterpreterComboBlock(IMainLaunchConfigurationTabListenerManager tab) {
-        super(tab);
+    public XQDTInterpreterComboBlock(IInterpreterComboBlockContext context) {
+        super(context);
     }
 
-    protected void showInterpreterPreferencePage() {
-        showPrefPage(XQDTInterpreterPreferencePage.PAGE_ID);
-    }
-
-    protected String getCurrentLanguageNature() {
-        return XQDTNature.NATURE_ID;
-    }
 }

@@ -109,8 +109,9 @@ public class XQDTPartitioner extends FastPartitioner implements IElementChangedL
                 if (partition.includes(reparseStart)) {
                     partitionStart = partition.getOffset();
                     contentType = partition.getType();
-                    if (e.getOffset() == partition.getOffset() + partition.getLength())
+                    if (e.getOffset() == partition.getOffset() + partition.getLength()) {
                         reparseStart = partitionStart;
+                    }
                     --first;
                 } else if (reparseStart == e.getOffset()
                         && reparseStart == partition.getOffset() + partition.getLength()) {
@@ -167,15 +168,17 @@ public class XQDTPartitioner extends FastPartitioner implements IElementChangedL
                         fDocument.removePosition(positionCategory, p);
                         ++first;
 
-                    } else
+                    } else {
                         break;
+                    }
                 }
 
                 // if position already exists and we have scanned at least the
                 // area covered by the event, we are done
                 if (fDocument.containsPosition(positionCategory, start, length)) {
-                    if (lastScannedPosition >= e.getOffset() + newLength)
+                    if (lastScannedPosition >= e.getOffset() + newLength) {
                         return createRegion();
+                    }
                     ++first;
                 } else {
                     // insert the new type position
@@ -290,24 +293,27 @@ public class XQDTPartitioner extends FastPartitioner implements IElementChangedL
                 }
             }
 
-            if (xqModule != null && ranges.size() > 0)
+            if (xqModule != null && ranges.size() > 0) {
                 updateSemanticPartitions(xqModule, ranges);
+            }
         }
     }
 
     private void rememberRegion(int offset, int length) {
         // remember start offset
-        if (fStartOffset == -1)
+        if (fStartOffset == -1) {
             fStartOffset = offset;
-        else if (offset < fStartOffset)
+        } else if (offset < fStartOffset) {
             fStartOffset = offset;
+        }
 
         // remember end offset
         int endOffset = offset + length;
-        if (fEndOffset == -1)
+        if (fEndOffset == -1) {
             fEndOffset = endOffset;
-        else if (endOffset > fEndOffset)
+        } else if (endOffset > fEndOffset) {
             fEndOffset = endOffset;
+        }
     }
 
     private void rememberDeletedOffset(int offset) {
@@ -316,8 +322,9 @@ public class XQDTPartitioner extends FastPartitioner implements IElementChangedL
 
     private IRegion createRegion() {
         if (fDeleteOffset == -1) {
-            if (fStartOffset == -1 || fEndOffset == -1)
+            if (fStartOffset == -1 || fEndOffset == -1) {
                 return null;
+            }
             return new Region(fStartOffset, fEndOffset - fStartOffset);
         } else if (fStartOffset == -1 || fEndOffset == -1) {
             return new Region(fDeleteOffset, 0);
@@ -330,14 +337,16 @@ public class XQDTPartitioner extends FastPartitioner implements IElementChangedL
 
     public void updateSemanticPartitions(XQueryModule module, List<ISourceRange> ranges) {
         String category = getContentTypeCategory();
-        if (category == null)
+        if (category == null) {
             return;
+        }
 
         List<Position> removedPositions = deleteSemanticPartitions(category, ranges);
 
         List<XQueryStringLiteral> strings = module.getStringLiterals();
-        List<Position> addedPositions = updatePartitions(strings.toArray(new IXQDTSemanticPositionProvider[strings
-                .size()]), category, IXQDTPartitions.XQDT_STRING, ranges);
+        List<Position> addedPositions = updatePartitions(
+                strings.toArray(new IXQDTSemanticPositionProvider[strings.size()]), category,
+                IXQDTPartitions.XQDT_STRING, ranges);
         List<XQueryXmlElementContentText> contents = module.getXmlElementContentText();
         addedPositions.addAll(updatePartitions(contents.toArray(new IXQDTSemanticPositionProvider[contents.size()]),
                 category, IXQDTPartitions.XQDT_XML_ELEMENT_CONTENT, ranges));
@@ -368,40 +377,41 @@ public class XQDTPartitioner extends FastPartitioner implements IElementChangedL
             return;
         }
 
-        if (fEditor == null)
+        if (fEditor == null) {
             return;
+        }
         IWorkbenchPartSite site = fEditor.getSite();
-        if (site == null)
+        if (site == null) {
             return;
+        }
         Shell shell = site.getShell();
-        if (shell == null || shell.isDisposed())
+        if (shell == null || shell.isDisposed()) {
             return;
+        }
         Display display = shell.getDisplay();
-        if (display == null || display.isDisposed())
+        if (display == null || display.isDisposed()) {
             return;
+        }
 
         display.asyncExec(new Runnable() {
 
             public void run() {
-                if (textPresentation != null) {
-                    System.out.println("changeTextPresentation2");
-                    fEditor.getScriptSourceViewer().changeTextPresentation(textPresentation, false);
-                } else {
-                    System.out.println("invalidateTextPresentation");
-                    fEditor.getScriptSourceViewer().invalidateTextPresentation();
-                }
+                System.out.println("changeTextPresentation2");
+                fEditor.getScriptSourceViewer().changeTextPresentation(textPresentation, false);
             }
         });
     }
 
     public TextPresentation createPresentation(List<Position> addedPositions, List<Position> removedPositions) {
         ISourceViewer sourceViewer = fEditor.getScriptSourceViewer();
-        if (sourceViewer == null)
+        if (sourceViewer == null) {
             return null;
+        }
 
         IDocument document = sourceViewer.getDocument();
-        if (document == null)
+        if (document == null) {
             return null;
+        }
 
         int minStart = Integer.MAX_VALUE;
         int maxEnd = Integer.MIN_VALUE;
@@ -418,17 +428,19 @@ public class XQDTPartitioner extends FastPartitioner implements IElementChangedL
             maxEnd = Math.max(maxEnd, offset + position.getLength());
         }
 
-        if (minStart < maxEnd && fPresentationReconciler instanceof ScriptPresentationReconciler)
+        if (minStart < maxEnd && fPresentationReconciler instanceof ScriptPresentationReconciler) {
             return ((ScriptPresentationReconciler)fPresentationReconciler).createRepairDescription(new Region(minStart,
                     maxEnd - minStart), document);
+        }
 
         return null;
     }
 
     private String getContentTypeCategory() {
         for (String category : fDocument.getPositionCategories()) {
-            if (category.startsWith(IXQDTPartitions.CONTENT_TYPES_CATEGORY))
+            if (category.startsWith(IXQDTPartitions.CONTENT_TYPES_CATEGORY)) {
                 return category;
+            }
         }
         return null;
     }
@@ -436,8 +448,9 @@ public class XQDTPartitioner extends FastPartitioner implements IElementChangedL
     private List<Position> deleteSemanticPartitions(String category, List<ISourceRange> ranges) {
         List<Position> positions = new ArrayList<Position>();
         int rangeIndex = 0;
-        if (ranges.size() == 0)
+        if (ranges.size() == 0) {
             return positions;
+        }
 
         ISourceRange range = ranges.get(rangeIndex);
         try {
@@ -448,8 +461,9 @@ public class XQDTPartitioner extends FastPartitioner implements IElementChangedL
                     while (++rangeIndex < ranges.size() && position.getOffset() > range.getOffset() + range.getLength()) {
                         range = ranges.get(rangeIndex);
                     }
-                    if (rangeIndex == ranges.size())
+                    if (rangeIndex == ranges.size()) {
                         return positions;
+                    }
                 }
 
                 if (XQDTPartitionScanner.isSemanticPartitionType(((TypedPosition)position).getType())) {
@@ -469,8 +483,9 @@ public class XQDTPartitioner extends FastPartitioner implements IElementChangedL
         List<Position> positions = new ArrayList<Position>();
 
         int rangeIndex = 0;
-        if (ranges.size() == 0)
+        if (ranges.size() == 0) {
             return positions;
+        }
 
         ISourceRange range = ranges.get(rangeIndex);
         for (IXQDTSemanticPositionProvider provider : providers) {
@@ -482,8 +497,9 @@ public class XQDTPartitioner extends FastPartitioner implements IElementChangedL
                 while (++rangeIndex < ranges.size() && position.getOffset() < range.getOffset()) {
                     range = ranges.get(rangeIndex);
                 }
-                if (rangeIndex == ranges.size())
+                if (rangeIndex == ranges.size()) {
                     return positions;
+                }
             }
 
             try {
@@ -503,8 +519,9 @@ public class XQDTPartitioner extends FastPartitioner implements IElementChangedL
             String positionCategory = getManagingPositionCategories()[0];
             Position[] category = fDocument.getPositions(positionCategory);
 
-            if (category == null || category.length == 0)
+            if (category == null || category.length == 0) {
                 return new TypedRegion(0, fDocument.getLength(), IDocument.DEFAULT_CONTENT_TYPE);
+            }
 
             int index = fDocument.computeIndexInCategory(positionCategory, offset);
 
@@ -512,23 +529,27 @@ public class XQDTPartitioner extends FastPartitioner implements IElementChangedL
 
                 TypedPosition next = (TypedPosition)category[index];
 
-                if (offset == next.offset)
+                if (offset == next.offset) {
                     return new TypedRegion(next.getOffset(), next.getLength(), next.getType());
+                }
 
-                if (index == 0)
+                if (index == 0) {
                     return new TypedRegion(0, next.offset, IDocument.DEFAULT_CONTENT_TYPE);
+                }
 
                 TypedPosition previous = (TypedPosition)category[index - 1];
-                if (previous.includes(offset))
+                if (previous.includes(offset)) {
                     return new TypedRegion(previous.getOffset(), previous.getLength(), previous.getType());
+                }
 
                 int endOffset = previous.getOffset() + previous.getLength();
                 return new TypedRegion(endOffset, next.getOffset() - endOffset, IDocument.DEFAULT_CONTENT_TYPE);
             }
 
             TypedPosition previous = (TypedPosition)category[category.length - 1];
-            if (previous.includes(offset))
+            if (previous.includes(offset)) {
                 return new TypedRegion(previous.getOffset(), previous.getLength(), previous.getType());
+            }
 
             int endOffset = previous.getOffset() + previous.getLength();
             return new TypedRegion(endOffset, fDocument.getLength() - endOffset, IDocument.DEFAULT_CONTENT_TYPE);

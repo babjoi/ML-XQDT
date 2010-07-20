@@ -14,10 +14,9 @@ import org.eclipse.wst.xquery.set.internal.launching.server.ServerManager;
 
 public class SETRuntimeProcess extends RuntimeProcess {
 
-    @SuppressWarnings("unchecked")
+    @SuppressWarnings("rawtypes")
     public SETRuntimeProcess(ILaunch launch, Process process, String name, Map attributes) {
         super(launch, process, name, attributes);
-
     }
 
     public void terminate() throws DebugException {

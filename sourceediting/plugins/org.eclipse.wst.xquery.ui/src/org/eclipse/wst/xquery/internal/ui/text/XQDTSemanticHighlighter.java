@@ -11,7 +11,7 @@
 package org.eclipse.wst.xquery.internal.ui.text;
 
 import org.eclipse.dltk.ast.declarations.ModuleDeclaration;
-import org.eclipse.dltk.compiler.env.ISourceModule;
+import org.eclipse.dltk.compiler.env.IModuleSource;
 import org.eclipse.dltk.core.IModelElement;
 import org.eclipse.dltk.core.SourceParserUtil;
 import org.eclipse.dltk.ui.editor.highlighting.AbstractSemanticHighlighter;
@@ -22,8 +22,7 @@ import org.eclipse.wst.xquery.core.model.ast.XQueryModule;
 
 public class XQDTSemanticHighlighter extends AbstractSemanticHighlighter {
 
-    @Override
-    protected boolean doHighlighting(ISourceModule code) throws Exception {
+    protected boolean doHighlighting(IModuleSource code) throws Exception {
         IModelElement modelElem = code.getModelElement();
         if (modelElem instanceof org.eclipse.dltk.core.ISourceModule) {
             ModuleDeclaration xqModule = SourceParserUtil

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+   <extension-point id="tokenizer" name="XQuery Tokenizer" schema="schema/org.eclipse.wst.xquery.sse.core.tokenizer.exsd"/>
+   <extension-point id="modelBuilder" name="XQuery Model Builder" schema="schema/modelBuilder.exsd"/>
+   <extension
+         id="org.eclipse.wst.xquery.sse.core"
+         point="org.eclipse.wst.sse.core.modelHandler">
+      <modelHandler
+            associatedContentTypeId="org.eclipse.wst.xquery.sse.core.xquery"
+            class="org.eclipse.wst.xquery.sse.core.internal.model.XQueryModelHandler"
+            id="org.eclipse.wst.xquery.sse.core.modelHandler">
+      </modelHandler>
+   </extension>
+   <extension
+         point="org.eclipse.core.contenttype.contentTypes">
+      <content-type
+            file-extensions="xq,xql,xqy,xquery"
+            id="org.eclipse.wst.xquery.sse.core.xquery"
+            name="XQuery Module"
+            priority="high">
+      </content-type>
+      <file-association
+            content-type="org.eclipse.wst.xquery.sse.core.file-association"
+            file-extensions="xq,xql,xqy,xquery">
+      </file-association>
+   </extension>
+   <extension
+         point="org.eclipse.core.filebuffers.documentCreation">
+      <factory
+            class="org.eclipse.wst.sse.core.internal.filebuffers.BasicStructuredDocumentFactory"
+            contentTypeId="org.eclipse.wst.xquery.sse.core.xquery">
+      </factory>
+   </extension>
+   <extension
+         id="XQueryValidationMarker"
+         name="XQuery Validation Marker"
+         point="org.eclipse.core.resources.markers">
+      <super
+            type="org.eclipse.core.resources.problemmarker">
+      </super>
+   </extension>
+  
+
+</plugin>

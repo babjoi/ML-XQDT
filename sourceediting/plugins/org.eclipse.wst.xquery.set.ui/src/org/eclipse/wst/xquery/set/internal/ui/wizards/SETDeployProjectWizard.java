@@ -27,6 +27,7 @@ import org.eclipse.wst.xquery.set.launching.deploy.DeployInfo;
 import org.eclipse.wst.xquery.set.launching.deploy.DeployManager;
 import org.eclipse.wst.xquery.set.launching.deploy.Deployer;
 
+@SuppressWarnings("restriction")
 public class SETDeployProjectWizard extends Wizard {
 
     private IScriptProject fProject;

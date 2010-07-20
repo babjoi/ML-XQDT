@@ -10,18 +10,17 @@
  *******************************************************************************/
 package org.eclipse.wst.xquery.internal.ui.text.codeassist;
 
-import org.eclipse.dltk.core.CompletionProposal;
 import org.eclipse.dltk.core.IScriptProject;
 import org.eclipse.dltk.core.ISourceModule;
-import org.eclipse.dltk.ui.text.completion.CompletionProposalLabelProvider;
-import org.eclipse.dltk.ui.text.completion.IScriptCompletionProposal;
-import org.eclipse.dltk.ui.text.completion.LazyScriptCompletionProposal;
 import org.eclipse.dltk.ui.text.completion.ScriptCompletionProposal;
 import org.eclipse.dltk.ui.text.completion.ScriptCompletionProposalCollector;
 import org.eclipse.dltk.ui.text.completion.ScriptOverrideCompletionProposal;
 import org.eclipse.swt.graphics.Image;
+import org.eclipse.wst.xquery.core.XQDTNature;
 
 public class XQDTCompletionProposalCollector extends ScriptCompletionProposalCollector {
+
+    private static final char[] VAR_TRIGGERS = { '$' };
 
     public XQDTCompletionProposalCollector(ISourceModule cu) {
         super(cu);
@@ -45,28 +44,11 @@ public class XQDTCompletionProposalCollector extends ScriptCompletionProposalCol
     }
 
     protected char[] getVarTrigger() {
-        // TODO Auto-generated method stub
-        return null;
+        return VAR_TRIGGERS;
     }
 
-    @Override
-    protected CompletionProposalLabelProvider createLabelProvider() {
-        return new XQDTCompletionProposalLabelProvider();
-    }
-
-    @Override
-    protected IScriptCompletionProposal createScriptCompletionProposal(CompletionProposal proposal) {
-        switch (proposal.getKind()) {
-        case CompletionProposal.METHOD_REF:
-            return createMethodReferenceProposal(proposal);
-        }
-        return super.createScriptCompletionProposal(proposal);
-    }
-
-    private IScriptCompletionProposal createMethodReferenceProposal(CompletionProposal methodProposal) {
-        LazyScriptCompletionProposal proposal = new XQDTFunctionCompletionProposal(methodProposal,
-                getInvocationContext());
-        return proposal;
+    protected String getNatureId() {
+        return XQDTNature.NATURE_ID;
     }
 
 }

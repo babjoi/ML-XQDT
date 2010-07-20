@@ -13,6 +13,8 @@ package org.eclipse.wst.xquery.set.internal.launching.variables;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.FileLocator;
@@ -123,7 +125,7 @@ public class CoreSdkLocationResolver implements IDynamicVariableResolver {
             if (programFiles == null) {
                 return null;
             }
-            possiblePath = new Path(programFiles).append(WIN_DIR_NAME_PREFIX + " " + CoreSdkVersionResolver.VERSION);
+            possiblePath = getLatestFromProgramFiles(new File(programFiles));
         } else {
             possiblePath = new Path("/opt/sausalito");
         }
@@ -133,6 +135,38 @@ public class CoreSdkLocationResolver implements IDynamicVariableResolver {
         }
 
         return null;
+    }
+
+    private IPath getLatestFromProgramFiles(File programFiles) {
+        IPath result = null;
+
+        try {
+            String[] programs = programFiles.list();
+
+            List<String> candidates = new ArrayList<String>();
+            for (String program : programs) {
+                if (program.startsWith(WIN_DIR_NAME_PREFIX)) {
+                    candidates.add(program);
+                }
+            }
+            if (candidates.size() == 0) {
+                result = null;
+            } else if (candidates.size() == 1) {
+                result = new Path(programFiles.getPath()).append(candidates.get(0));
+            } else {
+                String candidate = candidates.get(0);
+                for (String newCandidate : candidates) {
+                    if (candidate.compareTo(newCandidate) < 0) {
+                        candidate = newCandidate;
+                    }
+                }
+                result = new Path(programFiles.getAbsolutePath()).append(candidate);
+            }
+
+        } catch (Exception e) {
+        }
+
+        return result;
     }
 
     private boolean isScriptIn(IPath coreSdkPath) {

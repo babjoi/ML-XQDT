@@ -12,8 +12,8 @@ import org.eclipse.core.runtime.preferences.IEclipsePreferences;
 import org.eclipse.core.runtime.preferences.InstanceScope;
 import org.eclipse.dltk.core.environment.EnvironmentManager;
 import org.eclipse.dltk.core.environment.IFileHandle;
+import org.eclipse.dltk.core.internal.environment.LazyFileHandle;
 import org.eclipse.dltk.debug.ui.interpreters.InterpretersUpdater;
-import org.eclipse.dltk.internal.launching.LazyFileHandle;
 import org.eclipse.dltk.launching.EnvironmentVariable;
 import org.eclipse.dltk.launching.IInterpreterInstall;
 import org.eclipse.dltk.launching.InterpreterStandin;
@@ -100,8 +100,8 @@ public class ZorbaDebugUIUtils {
             zorbaInstall.setInstallLocation(installLocation);
             zorbaInstall.setName("Zorba 1.0.0");
             zorbaInstall.setInterpreterArgs(null);
-            LibraryLocation moduleLoc = new LibraryLocation(installLocation.getFullPath().removeLastSegments(2).append(
-                    "modules"));
+            LibraryLocation moduleLoc = new LibraryLocation(installLocation.getFullPath().removeLastSegments(2)
+                    .append("modules"));
             zorbaInstall.setLibraryLocations(new LibraryLocation[] { moduleLoc });
 
             if (os.equals(Platform.OS_MACOSX) || os.equals(Platform.OS_LINUX)) {
@@ -113,8 +113,8 @@ public class ZorbaDebugUIUtils {
                 EnvironmentVariable libPathVar = new EnvironmentVariable(libraryPath, libDir);
 
                 if (XQDTLaunchingPlugin.DEBUG_AUTOMATIC_PROCESSOR_DETECTION) {
-                    error(IStatus.INFO, "Setting the " + libPathVar.getName() + " variable to: "
-                            + libPathVar.getValue(), null);
+                    error(IStatus.INFO,
+                            "Setting the " + libPathVar.getName() + " variable to: " + libPathVar.getValue(), null);
                 }
 
                 zorbaInstall.setEnvironmentVariables(new EnvironmentVariable[] { libPathVar });

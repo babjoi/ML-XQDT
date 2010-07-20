@@ -120,7 +120,7 @@
    <extension
          point="org.eclipse.debug.ui.debugModelPresentations">
       <debugModelPresentation
-            class="org.eclipse.wst.xquery.internal.debug.ui.XQDTDebugModelPresentation"
+            class="org.eclipse.wst.xquery.debug.ui.XQDTDebugModelPresentation"
             id="org.eclipse.wst.xquery.set.debug.core.setModel">
       </debugModelPresentation>
    </extension>

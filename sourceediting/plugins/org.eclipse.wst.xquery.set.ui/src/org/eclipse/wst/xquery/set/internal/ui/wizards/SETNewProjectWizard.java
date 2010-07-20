@@ -13,28 +13,22 @@ package org.eclipse.wst.xquery.set.internal.ui.wizards;
 import java.io.IOException;
 
 import org.eclipse.core.resources.ProjectScope;
-import org.eclipse.core.runtime.CoreException;
-import org.eclipse.core.runtime.IConfigurationElement;
-import org.eclipse.core.runtime.IExecutableExtension;
-import org.eclipse.core.runtime.IProgressMonitor;
-import org.eclipse.dltk.core.IModelElement;
 import org.eclipse.dltk.ui.DLTKUIPlugin;
-import org.eclipse.dltk.ui.wizards.NewElementWizard;
+import org.eclipse.dltk.ui.wizards.ProjectCreator;
+import org.eclipse.dltk.ui.wizards.ProjectWizard;
 import org.eclipse.dltk.ui.wizards.ProjectWizardFirstPage;
-import org.eclipse.ui.INewWizard;
 import org.eclipse.ui.preferences.ScopedPreferenceStore;
-import org.eclipse.ui.wizards.newresource.BasicNewProjectResourceWizard;
 import org.eclipse.wst.xquery.core.IXQDTCorePreferences;
 import org.eclipse.wst.xquery.core.XQDTCorePlugin;
+import org.eclipse.wst.xquery.set.core.SETNature;
 import org.eclipse.wst.xquery.set.internal.ui.util.SETPluginImages;
 
-public class SETNewProjectWizard extends NewElementWizard implements INewWizard, IExecutableExtension {
+public class SETNewProjectWizard extends ProjectWizard {
 
     public static final String WIZARD_ID = "org.eclipse.wst.xquery.set.ui.wizards.newproject"; //$NON-NLS-1$
 
     private ProjectWizardFirstPage fFirstPage;
     private SETNewProjectWizardSecondPage fSecondPage;
-    private IConfigurationElement fConfigElement;
 
     public SETNewProjectWizard() {
         setDefaultPageImageDescriptor(SETPluginImages.DESC_WIZBAN_NEW_PROJECT);
@@ -51,21 +45,12 @@ public class SETNewProjectWizard extends NewElementWizard implements INewWizard,
         addPage(fFirstPage);
 
         // Second page
-        fSecondPage = new SETNewProjectWizardSecondPage((SETNewProjectWizardFirstPage)fFirstPage);
+        fSecondPage = new SETNewProjectWizardSecondPage(fFirstPage);
         addPage(fSecondPage);
-    }
-
-    @Override
-    protected void finishPage(IProgressMonitor monitor) throws InterruptedException, CoreException {
-        fSecondPage.performFinish(monitor); // use the full progress monitor
     }
 
     public boolean performFinish() {
         boolean res = super.performFinish();
-        if (res) {
-            BasicNewProjectResourceWizard.updatePerspective(fConfigElement);
-            selectAndReveal(fSecondPage.getScriptProject().getProject());
-        }
 
         ScopedPreferenceStore store = new ScopedPreferenceStore(new ProjectScope(fSecondPage.getScriptProject()
                 .getProject()), XQDTCorePlugin.PLUGIN_ID);
@@ -80,19 +65,12 @@ public class SETNewProjectWizard extends NewElementWizard implements INewWizard,
         return res;
     }
 
-    /*
-     * Stores the configuration element for the wizard. The config element will be used in
-     * <code>performFinish</code> to set the result perspective.
-     */
-    public void setInitializationData(IConfigurationElement cfig, String propertyName, Object data) {
-        fConfigElement = cfig;
+    public String getScriptNature() {
+        return SETNature.NATURE_ID;
     }
 
-    public boolean performCancel() {
-        return super.performCancel();
-    }
-
-    public IModelElement getCreatedElement() {
-        return null;
+    @Override
+    protected ProjectCreator createProjectCreator() {
+        return new SETProjectCreator(this, getFirstPage());
     }
 }

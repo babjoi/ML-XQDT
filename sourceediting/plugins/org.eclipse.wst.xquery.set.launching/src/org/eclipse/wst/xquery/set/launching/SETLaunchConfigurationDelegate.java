@@ -33,7 +33,6 @@ import org.eclipse.dltk.launching.AbstractScriptLaunchConfigurationDelegate;
 import org.eclipse.swt.custom.BusyIndicator;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.wst.xquery.set.core.SETNature;
-import org.eclipse.wst.xquery.set.internal.launching.ISETLaunchRetryHandler;
 import org.eclipse.wst.xquery.set.internal.launching.server.Server;
 import org.eclipse.wst.xquery.set.internal.launching.server.ServerManager;
 

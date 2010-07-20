@@ -10,13 +10,10 @@
  *******************************************************************************/
 package org.eclipse.wst.xquery.internal.ui.text;
 
-import org.eclipse.dltk.ui.text.completion.CompletionProposalLabelProvider;
 import org.eclipse.dltk.ui.text.completion.ScriptCompletionProcessor;
-import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.jface.text.contentassist.ContentAssistant;
 import org.eclipse.ui.IEditorPart;
 import org.eclipse.wst.xquery.core.XQDTNature;
-import org.eclipse.wst.xquery.ui.XQDTUIPlugin;
 
 public class XQDTCompletionProcessor extends ScriptCompletionProcessor {
 
@@ -29,14 +26,6 @@ public class XQDTCompletionProcessor extends ScriptCompletionProcessor {
 
     protected String getNatureId() {
         return XQDTNature.NATURE_ID;
-    }
-
-    protected CompletionProposalLabelProvider getProposalLabelProvider() {
-        return new CompletionProposalLabelProvider();
-    }
-
-    protected IPreferenceStore getPreferenceStore() {
-        return XQDTUIPlugin.getDefault().getPreferenceStore();
     }
 
 }

@@ -46,6 +46,7 @@ import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.wst.xquery.set.core.ISETCoreConstants;
 import org.eclipse.wst.xquery.set.internal.ui.preferences.PreferenceConstants;
 import org.eclipse.wst.xquery.set.launching.CoreSdkUtil;
+import org.eclipse.wst.xquery.set.ui.SETUILanguageToolkit;
 import org.eclipse.wst.xquery.set.ui.SETUIPlugin;
 
 public class CoreSDKTemplateUtility {
@@ -83,10 +84,10 @@ public class CoreSDKTemplateUtility {
             fProperties = new HashMap<String, String>();
             if (projectUri != null) {
                 fProperties.put(PreferenceConstants.TEMPLATES_CONFIG_VAR_PROJECT_URI, projectUri.toString());
-                fProperties.put(PreferenceConstants.TEMPLATES_MODULES_VAR_DEFAULT_NAMESPACE, projectUri.resolve(
-                        "default").toString());
-                fProperties.put(PreferenceConstants.TEMPLATES_MODULES_VAR_ERROR_NAMESPACE, projectUri.resolve(
-                        "lib/error").toString());
+                fProperties.put(PreferenceConstants.TEMPLATES_MODULES_VAR_DEFAULT_NAMESPACE,
+                        projectUri.resolve("default").toString());
+                fProperties.put(PreferenceConstants.TEMPLATES_MODULES_VAR_ERROR_NAMESPACE,
+                        projectUri.resolve("lib/error").toString());
 
             }
         }
@@ -296,7 +297,7 @@ public class CoreSDKTemplateUtility {
             }
         }
 
-        @SuppressWarnings( { "unchecked", "unused" })
+        @SuppressWarnings({ "unchecked", "unused" })
         private static void generateFiles(ZipFile zipFile, IPath path, IContainer dst, IProgressMonitor monitor)
                 throws CoreException {
             int pathLength = path.segmentCount();
@@ -497,7 +498,7 @@ public class CoreSDKTemplateUtility {
         }
     }
 
-    @SuppressWarnings( { "unchecked", "unused" })
+    @SuppressWarnings({ "unchecked", "unused" })
     private static Map<String, ZipEntry> getChildEntriesFromZip(IPath path, ZipFile zipFile) {
         int pathLength = path.segmentCount();
         Map<String, ZipEntry> childZipEntries = new HashMap<String, ZipEntry>();
@@ -530,7 +531,7 @@ public class CoreSDKTemplateUtility {
     // }
 
     private static IPath getProjectCoreSDKTemplatePath(IProject project) throws CoreException {
-        IPreferenceStore store = SETUIPlugin.getDefault().getPreferenceStore();
+        IPreferenceStore store = SETUILanguageToolkit.getInstance().getPreferenceStore();
 
         IPath coresdkPath = CoreSdkUtil.getProjectCoreSDKInstallationPath(project);
         IPath templatePath = coresdkPath.append(store.getString(PreferenceConstants.TEMPLATES_ROOT_DIR)).append(

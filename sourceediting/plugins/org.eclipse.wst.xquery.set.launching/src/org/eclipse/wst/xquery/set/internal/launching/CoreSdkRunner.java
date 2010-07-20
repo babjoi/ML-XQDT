@@ -20,7 +20,6 @@ public class CoreSdkRunner extends AbstractInterpreterRunner {
         super(install);
     }
 
-    @SuppressWarnings("unchecked")
     @Override
     protected String[] renderCommandLine(InterpreterConfig config) {
         List<String> args = new ArrayList<String>(8);

@@ -13,6 +13,7 @@ package org.eclipse.wst.xquery.ui;
 import java.util.List;
 
 import org.eclipse.dltk.core.IField;
+import org.eclipse.dltk.core.IImportDeclaration;
 import org.eclipse.dltk.core.IMethod;
 import org.eclipse.dltk.core.IModelElement;
 import org.eclipse.dltk.core.ISourceModule;
@@ -27,7 +28,6 @@ import org.eclipse.wst.xquery.core.model.ast.XQueryVarDecl;
 
 public class XQDTScriptElementLabels extends ScriptElementLabels {
 
-    @SuppressWarnings("unchecked")
     @Override
     protected void getMethodLabel(IMethod method, long flags, StringBuffer buf) {
         String name = method.getElementName();
@@ -51,6 +51,7 @@ public class XQDTScriptElementLabels extends ScriptElementLabels {
             buf.append("...)");
             return;
         }
+        @SuppressWarnings("rawtypes")
         List params = functionDecl.getArguments();
         for (int i = 0; i < params.size(); i++) {
             XQueryParam param = (XQueryParam)params.get(i);
@@ -73,19 +74,14 @@ public class XQDTScriptElementLabels extends ScriptElementLabels {
         }
     }
 
-//    @Override
-//    protected void getImportContainerLabel(IModelElement element, long flags, StringBuffer buf) {
-//        buf.append(((IImportContainer)element).getContainerName());
-//    }
-//
-//    @Override
-//    protected void getImportDeclarationLabel(IModelElement element, long flags, StringBuffer buf) {
-//        IImportDeclaration imp = (IImportDeclaration)element;
-//        buf.append(imp.getElementName());
-//        buf.append(" = '");
-//        buf.append(imp.getVersion());
-//        buf.append("'");
-//    }
+    @Override
+    protected void getImportDeclarationLabel(IModelElement element, long flags, StringBuffer buf) {
+        IImportDeclaration imp = (IImportDeclaration)element;
+        buf.append(imp.getElementName());
+        buf.append(" = '");
+        buf.append(imp.getVersion());
+        buf.append("'");
+    }
 
     @Override
     protected void getFieldLabel(IField field, long flags, StringBuffer buf) {

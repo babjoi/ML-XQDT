@@ -102,10 +102,10 @@ public class SETLaunchingPlugin extends Plugin implements IInterpreterInstallCha
                 String newValue = "";
                 String version = "";
                 try {
-                    newValue = VariablesPlugin.getDefault().getStringVariableManager().performStringSubstitution(
-                            "${" + CoreSdkLocationResolver.VARIABLE + "}", false);
-                    version = VariablesPlugin.getDefault().getStringVariableManager().performStringSubstitution(
-                            "${" + CoreSdkVersionResolver.VARIABLE + "}", false);
+                    newValue = VariablesPlugin.getDefault().getStringVariableManager()
+                            .performStringSubstitution("${" + CoreSdkLocationResolver.VARIABLE + "}", false);
+                    version = VariablesPlugin.getDefault().getStringVariableManager()
+                            .performStringSubstitution("${" + CoreSdkVersionResolver.VARIABLE + "}", false);
                 } catch (CoreException ce) {
                 }
                 if (newValue == null || newValue.equals("")) {

@@ -20,6 +20,7 @@ import org.eclipse.swt.widgets.Shell;
 import org.eclipse.wst.xquery.set.internal.debug.ui.launchConfigurations.SocketSelectionBlock;
 import org.eclipse.wst.xquery.set.internal.launching.server.Server;
 
+@SuppressWarnings("restriction")
 public class BusySocketDialog extends TrayDialog {
 
     private class WidgetListener implements SelectionListener {

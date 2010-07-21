@@ -33,6 +33,7 @@ import org.eclipse.wst.xquery.sse.core.internal.regions.XQueryRegions;
  * on 6/23/10 11:52 AM from the specification file
  * <tt>/Users/villardl/Projects/workspace-xqdt/org.eclipse.wst.xquery.sse.core/DevTimeSupport/XQueryTokenizer.jflex</tt>
  */
+@SuppressWarnings("restriction")
 public class XQueryTokenizer extends AbstractTokenizer implements XQueryRegions, StatementTypes {
 
   /** This character denotes the end of file */

@@ -22,6 +22,7 @@ import org.eclipse.wst.sse.core.internal.text.StructuredDocumentReParser;
  * 
  * @author <a href="villard@us.ibm.com">Lionel Villard</a>
  */
+@SuppressWarnings("restriction")
 public class XQueryReParser extends StructuredDocumentReParser {
 
 	// Overrides

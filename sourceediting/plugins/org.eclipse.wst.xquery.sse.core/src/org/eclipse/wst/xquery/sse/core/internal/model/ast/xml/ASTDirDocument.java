@@ -11,7 +11,6 @@
 package org.eclipse.wst.xquery.sse.core.internal.model.ast.xml;
 
 import org.eclipse.wst.xml.core.internal.document.DocumentImpl;
-import org.eclipse.wst.xml.core.internal.document.ElementImpl;
 import org.w3c.dom.DOMException;
 import org.w3c.dom.Element;
 
@@ -22,6 +21,7 @@ import org.w3c.dom.Element;
  *
  * @author <a href="villard@us.ibm.com">Lionel Villard</a> 
  */
+@SuppressWarnings("restriction")
 public class ASTDirDocument extends DocumentImpl {
 
 	@Override

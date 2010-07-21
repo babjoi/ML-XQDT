@@ -24,6 +24,7 @@ import org.eclipse.wst.xquery.sse.ui.internal.style.XQueryLineStyleProvider;
  * 
  * @author <a href="villard@us.ibm.com">Lionel Villard</a>
  */
+@SuppressWarnings("restriction")
 public class XQueryStructuredTextViewerConfiguration extends StructuredTextViewerConfiguration {
 
 	// State

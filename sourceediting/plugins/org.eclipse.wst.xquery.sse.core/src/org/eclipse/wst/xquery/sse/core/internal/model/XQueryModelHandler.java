@@ -22,6 +22,7 @@ import org.eclipse.wst.xquery.sse.core.internal.encoding.XQueryEncodingDetector;
  * 
  * @author <a href="villard@us.ibm.com">Lionel Villard</a>
  */
+@SuppressWarnings("restriction")
 public class XQueryModelHandler extends AbstractModelHandler {
 
 	// Constructors

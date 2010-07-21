@@ -843,6 +843,7 @@ SimpleName = ({Letter} | "_" ) ({SimpleNameChar})*
 %state TS_RENAMEEXPR
 %state TS_TRANSFORMEXPR
 %state TS_ENDCOPYVARREF
+ 
 
 %%
 

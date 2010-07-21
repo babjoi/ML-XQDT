@@ -26,7 +26,6 @@ import org.eclipse.core.runtime.IExtensionPoint;
 import org.eclipse.core.runtime.IExtensionRegistry;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Platform;
-import org.eclipse.wst.sse.core.internal.ltk.parser.BlockTokenizer;
 import org.eclipse.wst.sse.core.internal.ltk.parser.RegionParser;
 import org.eclipse.wst.sse.core.internal.ltk.parser.StructuredDocumentRegionHandler;
 import org.eclipse.wst.sse.core.internal.ltk.parser.StructuredDocumentRegionParser;
@@ -36,7 +35,6 @@ import org.eclipse.wst.sse.core.internal.provisional.text.ITextRegionList;
 import org.eclipse.wst.xquery.sse.core.XQDTPlugin;
 import org.eclipse.wst.xquery.sse.core.internal.regions.XQueryRegions;
 import org.eclipse.wst.xquery.sse.core.internal.sdregions.ModuleDeclStructuredDocumentRegion;
-import org.eclipse.wst.xquery.sse.core.internal.sdregions.SDRegionUtils;
 import org.eclipse.wst.xquery.sse.core.internal.sdregions.StructuredDocumentRegionFactory;
 import org.eclipse.wst.xquery.sse.core.internal.sdregions.VersionDeclStructuredDocumentRegion;
 import org.eclipse.wst.xquery.sse.core.internal.sdregions.XQueryStructuredDocumentRegion;
@@ -54,6 +52,7 @@ import org.eclipse.wst.xquery.sse.core.internal.sdregions.XQueryStructuredDocume
  * 
  * @author <a href="villard@us.ibm.com">Lionel Villard</a>
  */
+@SuppressWarnings("restriction")
 public class XQueryRegionParser implements StructuredDocumentRegionParser, StatementTypes {
 
 	// Constants
@@ -224,6 +223,7 @@ public class XQueryRegionParser implements StructuredDocumentRegionParser, State
 		return head;
 	}
 
+	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public List getRegions() {
 		IStructuredDocumentRegion currentNode = null;
 

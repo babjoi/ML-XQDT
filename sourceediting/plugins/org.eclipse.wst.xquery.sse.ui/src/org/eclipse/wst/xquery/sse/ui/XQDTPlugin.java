@@ -12,16 +12,12 @@ package org.eclipse.wst.xquery.sse.ui;
 
 import java.io.IOException;
 
-import org.eclipse.core.runtime.preferences.InstanceScope;
-import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.jface.text.templates.ContextTypeRegistry;
 import org.eclipse.jface.text.templates.persistence.TemplateStore;
 import org.eclipse.ui.editors.text.templates.ContributionContextTypeRegistry;
 import org.eclipse.ui.editors.text.templates.ContributionTemplateStore;
-import org.eclipse.ui.preferences.ScopedPreferenceStore;
 import org.eclipse.wst.common.ui.internal.UIPlugin;
 import org.eclipse.wst.sse.ui.internal.Logger;
-import org.eclipse.wst.xquery.sse.ui.internal.quickassist.XQDTTemplateContexTypeIDs;
 import org.osgi.framework.BundleContext;
 
 /**

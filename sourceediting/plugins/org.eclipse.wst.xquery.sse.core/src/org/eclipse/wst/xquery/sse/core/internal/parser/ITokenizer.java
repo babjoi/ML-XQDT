@@ -13,10 +13,7 @@ package org.eclipse.wst.xquery.sse.core.internal.parser;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.Reader;
-import java.util.List;
 
-import org.eclipse.wst.sse.core.internal.ltk.parser.BlockMarker;
-import org.eclipse.wst.sse.core.internal.ltk.parser.BlockTokenizer;
 import org.eclipse.wst.sse.core.internal.provisional.text.ITextRegion;
 
 /**
@@ -24,13 +21,14 @@ import org.eclipse.wst.sse.core.internal.provisional.text.ITextRegion;
  * 
  * @author <a href="villard@us.ibm.com">Lionel Villard</a>
  */
+@SuppressWarnings("restriction")
 public interface ITokenizer {
 
 	/**
 	 * Gets the next token
 	 * @return
 	 * @throws IOException
-	 */
+	 */ 
 	ITextRegion getNextToken() throws IOException;
 
 	/**

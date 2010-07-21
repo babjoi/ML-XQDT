@@ -29,6 +29,7 @@ import org.w3c.dom.Node;
  * 
  * @author <a href="villard@us.ibm.com">Lionel Villard</a>
  */
+@SuppressWarnings("restriction")
 public class ASTDirAttribute extends AttrImpl implements IASTNode {
 
 	// State

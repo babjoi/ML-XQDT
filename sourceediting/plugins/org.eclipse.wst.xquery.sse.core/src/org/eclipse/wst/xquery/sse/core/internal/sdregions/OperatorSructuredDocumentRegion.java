@@ -19,6 +19,7 @@ import org.eclipse.wst.xquery.sse.core.internal.regions.XQueryRegions;
  * 
  * @author <a href="villard@us.ibm.com">Lionel Villard</a>
  */
+@SuppressWarnings("restriction")
 public class OperatorSructuredDocumentRegion extends XQueryStructuredDocumentRegion {
 
 	// Static

@@ -74,7 +74,6 @@ import org.eclipse.wst.sse.ui.internal.preferences.OverlayPreferenceStore;
 import org.eclipse.wst.sse.ui.internal.preferences.OverlayPreferenceStore.OverlayKey;
 import org.eclipse.wst.sse.ui.internal.preferences.ui.ColorHelper;
 import org.eclipse.wst.sse.ui.internal.util.EditorUtility;
-import org.eclipse.wst.xquery.sse.core.internal.regions.XQueryRegions;
 import org.eclipse.wst.xquery.sse.ui.XQDTPlugin;
 import org.eclipse.wst.xquery.sse.ui.internal.XQueryUIMessages;
 import org.eclipse.wst.xquery.sse.ui.internal.style.XQueryLineStyleProvider;
@@ -85,12 +84,14 @@ import org.eclipse.wst.xquery.sse.ui.internal.style.XQueryLineStyleProvider;
  * The code is almost identical to the XML syntax coloring preference page
  * (which is almost identical to the JDT syntax coloring preference page)
  */
+@SuppressWarnings({ "restriction", "rawtypes", "unchecked"}) 
 public class SyntaxColoringPage extends PreferencePage implements IWorkbenchPreferencePage {
 
 	private Button fBold;
 	private Label fForegroundLabel;
 	private Label fBackgroundLabel;
 	private Button fClearStyle;
+	
 	private Map fContextToStyleMap;
 	private Color fDefaultForeground = null;
 	private Color fDefaultBackground = null;
@@ -518,7 +519,7 @@ public class SyntaxColoringPage extends PreferencePage implements IWorkbenchPref
 
 	/**
 	 * Set up all the style preference keys in the overlay store
-	 */
+	 */ 
 	private OverlayKey[] createOverlayStoreKeys() {
 		List overlayKeys = new ArrayList();
 
@@ -628,9 +629,9 @@ public class SyntaxColoringPage extends PreferencePage implements IWorkbenchPref
 		return ta;
 	}
 
-	private String getExampleText() {
-		return XQueryUIMessages.Sample_XML_doc;
-	}
+//	private String getExampleText() {
+//		return XQueryUIMessages.Sample_XML_doc;
+//	}
 
 	private String getNamedStyleAtOffset(int offset) {
 		// ensure the offset is clean
@@ -809,6 +810,7 @@ public class SyntaxColoringPage extends PreferencePage implements IWorkbenchPref
 		fText.redraw();
 	}
 
+	@SuppressWarnings("deprecation")
 	public boolean performOk() {
 		getOverlayStore().propagate();
 

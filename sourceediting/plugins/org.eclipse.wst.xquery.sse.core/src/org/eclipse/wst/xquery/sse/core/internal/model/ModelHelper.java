@@ -14,6 +14,7 @@ import org.eclipse.wst.xquery.sse.core.internal.model.ast.IASTNode;
  * 
  * @author villardl
  */
+@SuppressWarnings("restriction")
 public class ModelHelper {
 
 	/** Gets list of in-scope variable region definition */

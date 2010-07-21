@@ -19,7 +19,6 @@ import org.eclipse.wst.xquery.sse.core.internal.model.ast.IASTNode;
 import org.w3c.dom.Attr;
 import org.w3c.dom.DOMException;
 import org.w3c.dom.Node;
-import org.w3c.dom.NodeList;
 
 /**
  * Direct element constructor
@@ -27,6 +26,7 @@ import org.w3c.dom.NodeList;
  * 
  * @author <a href="villard@us.ibm.com">Lionel Villard</a>
  */
+@SuppressWarnings("restriction")
 public class ASTDirElement extends ElementImpl implements IASTNode {
 
 	// State
@@ -96,7 +96,6 @@ public class ASTDirElement extends ElementImpl implements IASTNode {
 	}
 
 	public void removeChildASTNodesAfter(int index) {
-		NodeList children = getChildNodes();
 		if (getChildNodes().getLength() > index) {
 			while (getChildNodes().getLength() != index)
 				removeChild(getLastChild());
@@ -123,7 +122,8 @@ public class ASTDirElement extends ElementImpl implements IASTNode {
 		newChild.setASTParent(this);
 	}
 
-	public boolean staticCheck(IStructuredDocument document, IValidator validator, IReporter reporter) {
+	public boolean staticCheck(IStructuredDocument document,
+			IValidator validator, IReporter reporter) {
 		return true;
 	}
 

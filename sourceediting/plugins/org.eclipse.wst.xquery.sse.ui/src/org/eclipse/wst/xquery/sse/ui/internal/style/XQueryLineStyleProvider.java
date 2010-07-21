@@ -29,6 +29,7 @@ import org.eclipse.wst.xquery.sse.ui.XQDTPlugin;
  * 
  * @author villardl
  */
+@SuppressWarnings("restriction")
 public class XQueryLineStyleProvider extends AbstractLineStyleProvider implements LineStyleProvider {
 
 	// Constants
@@ -211,6 +212,7 @@ public class XQueryLineStyleProvider extends AbstractLineStyleProvider implement
 		return XQDTPlugin.getDefault().getPreferenceStore();
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	protected void loadColors() {
 		addTextAttribute(CK_STRING_LITERAL);

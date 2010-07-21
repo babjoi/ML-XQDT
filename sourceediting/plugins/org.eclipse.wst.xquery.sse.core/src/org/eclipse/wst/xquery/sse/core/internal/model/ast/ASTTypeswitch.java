@@ -13,14 +13,13 @@ package org.eclipse.wst.xquery.sse.core.internal.model.ast;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.eclipse.wst.sse.core.internal.provisional.text.IStructuredDocumentRegion;
 import org.eclipse.wst.xquery.sse.core.internal.sdregions.XQueryStructuredDocumentRegion;
 
 /**
  * Typeswitch expression
  * 
  * @author <a href="villard@us.ibm.com">Lionel Villard</a>
- */
+ */ 
 public class ASTTypeswitch extends ASTParentNode {
 
 	// State

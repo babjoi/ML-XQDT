@@ -23,6 +23,7 @@ import org.eclipse.wst.sse.core.internal.encoding.util.UnicodeBOMEncodingDetecto
  * 
  * @author <a href="villard@us.ibm.com">Lionel Villard</a>
  */
+@SuppressWarnings("restriction")
 public class XQueryEncodingDetector extends UnicodeBOMEncodingDetector implements IDocumentCharsetDetector {
 
 	// State

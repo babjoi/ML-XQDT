@@ -17,6 +17,7 @@ import org.eclipse.wst.sse.core.internal.provisional.text.IStructuredDocumentReg
  * 
  * @author <a href="villard@us.ibm.com">Lionel Villard</a>
  */
+@SuppressWarnings("restriction")
 public interface StatementTypes {
 
 	final static public int STMT_UNDEFINED = -1;

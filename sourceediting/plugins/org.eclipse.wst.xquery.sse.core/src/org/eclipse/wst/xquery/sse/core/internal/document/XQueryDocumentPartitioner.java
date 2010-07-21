@@ -19,6 +19,7 @@ import org.eclipse.wst.sse.core.internal.text.rules.StructuredTextPartitioner;
  * 
  * @author <a href="mailto:villard@us.ibm.com">Lionel Villard</a>
  */
+@SuppressWarnings("restriction")
 public class XQueryDocumentPartitioner extends StructuredTextPartitioner {
 
 	// Partition types

@@ -33,6 +33,10 @@ public class XQueryParserRegionFactory {
 
 	/** XQuery Update Facility keywords */
 	final static public Set<String> XQUERYUPDATE10_KEYWORDS = new HashSet<String>();
+	
+	
+	/** XQuery Scripting Facility keywords */
+	final static public Set<String> XQUERYSCRIPTING10_KEYWORDS = new HashSet<String>();
 
 	
 	static {
@@ -114,6 +118,16 @@ public class XQueryParserRegionFactory {
 		XQUERYUPDATE10_KEYWORDS.add(XQueryRegions.KW_COPY);
 		XQUERYUPDATE10_KEYWORDS.add(XQueryRegions.KW_MODIFY);
 		XQUERYUPDATE10_KEYWORDS.add(XQueryRegions.KW_INTO);
+		
+
+		XQUERYSCRIPTING10_KEYWORDS.add(XQueryRegions.KW_ASSIGNABLE);
+		XQUERYSCRIPTING10_KEYWORDS.add(XQueryRegions.KW_UNASSIGNABLE);
+		XQUERYSCRIPTING10_KEYWORDS.add(XQueryRegions.KW_SIMPLE);
+		XQUERYSCRIPTING10_KEYWORDS.add(XQueryRegions.KW_SEQUENTIAL);
+		XQUERYSCRIPTING10_KEYWORDS.add(XQueryRegions.KW_BLOCK);
+		XQUERYSCRIPTING10_KEYWORDS.add(XQueryRegions.KW_EXIT);
+		XQUERYSCRIPTING10_KEYWORDS.add(XQueryRegions.KW_RETURNING);
+		XQUERYSCRIPTING10_KEYWORDS.add(XQueryRegions.KW_WHILE);
 	}
 
 	// Constructors
@@ -131,6 +145,6 @@ public class XQueryParserRegionFactory {
 	// Helpers
 
 	protected boolean isKeyword(String type) {
-		return XQUERY10_KEYWORDS.contains(type) || XQUERYUPDATE10_KEYWORDS.contains(type);
+		return XQUERY10_KEYWORDS.contains(type) || XQUERYUPDATE10_KEYWORDS.contains(type) || XQUERYSCRIPTING10_KEYWORDS.contains(type);
 	}
 }

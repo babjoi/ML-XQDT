@@ -222,4 +222,16 @@ public interface XQueryRegions extends DOMRegionContext {
 	public static final String KW_RENAME = "KW_RENAME"; //$NON-NLS-1$
 	public static final String KW_MODIFY = "KW_MODIFY"; //$NON-NLS-1$
 	public static final String KW_INTO = "KW_INTO"; //$NON-NLS-1$
+	
+
+	// XQuery Scripting Extension (W3C Working Draft 8 April 2010)
+	public static final String KW_ASSIGNABLE = "KW_ASSIGNABLE"; //$NON-NLS-1$
+	public static final String KW_UNASSIGNABLE = "KW_UNASSIGNABLE"; //$NON-NLS-1$
+	public static final String KW_SIMPLE = "KW_SIMPLE"; //$NON-NLS-1$
+	public static final String KW_SEQUENTIAL = "KW_SEQUENTIAL"; //$NON-NLS-1$
+	public static final String KW_BLOCK = "KW_BLOCK"; //$NON-NLS-1$
+	public static final String KW_EXIT = "KW_EXIT"; //$NON-NLS-1$
+	public static final String KW_RETURNING = "KW_RETURNING"; //$NON-NLS-1$
+	public static final String KW_WHILE = "KW_WHILE"; //$NON-NLS-1$
+	
 }

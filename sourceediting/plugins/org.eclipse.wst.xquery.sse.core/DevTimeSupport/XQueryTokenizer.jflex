@@ -12,13 +12,8 @@
 package org.eclipse.wst.xquery.sse.core.internal.parser;
 
 import java.io.CharArrayReader;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-
-import org.eclipse.wst.sse.core.internal.ltk.parser.BlockMarker;
-import org.eclipse.wst.sse.core.internal.ltk.parser.BlockTokenizer;
+import java.io.IOException; 
+ 
 import org.eclipse.wst.sse.core.internal.provisional.text.ITextRegion;
 import org.eclipse.wst.sse.core.internal.util.Debug;
 import org.eclipse.wst.sse.core.utils.StringUtils;  
@@ -42,10 +37,10 @@ import org.eclipse.wst.xquery.sse.core.internal.regions.XQueryRegions;
 %eof}
 
 %{
-	// Extended state constants 
+	// Expression context constants. Must be negative to avoid conflicting with lexical states
 	 
 	final private static int EXPR = -1;
-	final private static int OPERATOR = -2; 
+	final private static int MODULE = -2; // In a module (top-level) 
 	final private static int WHEREEXPR = -3; // In where ExprSingle
 	final private static int RETURNEXPR = -4; // In return ExprSingle 
 	final private static int ORDEREXPR = -5;  // In OrderSpec ExprSingle
@@ -62,21 +57,19 @@ import org.eclipse.wst.xquery.sse.core.internal.regions.XQueryRegions;
     // This state is always preceded by the following state when closing this expression  
     final private static int CURLYEXPR = -11; 
     
+    final private static int INVARDECLINIT = -12;
     
-	final private static int IF = -11;  
-	final private static int IFTHENEXPR = -12; // In the if then expr 
-	final private static int IFELSEEXPR = -13; // In the if else expr 
-	final private static int QUANTIFIED = -14;
-	final private static int QUANTIFIEDINEXPR = -14;
-	final private static int QUANTIFIEDSATIFIESEXPR = -15;
-	final private static int TYPESWITCH = -16;  
-	final private static int TYPESWITCHDEFAULT = -17; // in default typeswitch ExprSingle 
+	final private static int IF = -13;  
+	final private static int IFTHENEXPR = -14; // In the if then expr 
+	final private static int IFELSEEXPR = -15; // In the if else expr 
+	final private static int QUANTIFIED = -16;
+	final private static int QUANTIFIEDINEXPR = -17;
+	final private static int QUANTIFIEDSATIFIESEXPR = -18;
+	final private static int TYPESWITCH = -19;  
+	final private static int TYPESWITCHDEFAULT = -20; // in default typeswitch ExprSingle 
 	
 	// XQuery Update Facility 1.0
-	
-	final private static int XUINSERT = -18; 
-	final private static int XUSOURCE = -19;  
-	final private static int XUINSERTTARGET = -20;  
+	    
 	final private static int XUDELETE = -21;  
 	final private static int XUREPLACE = -22;
 	final private static int XURENAME = -23;
@@ -88,8 +81,21 @@ import org.eclipse.wst.xquery.sse.core.internal.regions.XQueryRegions;
 	final private static int XUREPLACETARGET = -29;
 	final private static int XUREPLACESRC = -30;
     final private static int XUNEWNAMEEXPR = -31;
-    // State
+	final private static int XUINSERTTARGET = -32;
+	final private static int XUINSERT = -33; 
+	final private static int XUSOURCE = -34;
     
+    
+    // XQuery Scripting Extension 1.0
+    final private static int SXBLOCK = -35;
+    final private static int INBLOCKVARDECLINIT = -36;
+    final private static int SXASSIGN = -37; // in an assign expression
+    final private static int SXASSIGNRHS = -38; // In the rhs of the assign expression
+    final private static int SXEXIT = -39;  
+    final private static int SXEXITEXPRSINGLE = -40; // In the exit expression single
+    final private static int SXWHILE = -41; 
+    
+    // State
     
     /** The owner parser */
      private XQueryRegionParser parser;
@@ -97,7 +103,7 @@ import org.eclipse.wst.xquery.sse.core.internal.regions.XQueryRegions;
     /** The cached next token */
     private String nextToken;
     
-    /** State stack */
+    /** Context stack. Lexical state can also be pushed on this stack (for instance, for continuation) */
     private IntStack states;
     
     /** XML Element depth */
@@ -127,7 +133,6 @@ import org.eclipse.wst.xquery.sse.core.internal.regions.XQueryRegions;
 	{
 	  this.parser = parser;
 	}
-
 
 	/** Print out string */
 	private final void dump(String s) {
@@ -181,74 +186,49 @@ import org.eclipse.wst.xquery.sse.core.internal.regions.XQueryRegions;
 	/** Start or continue FLWOR clause */
 	final private void flowr(int type)
 	{
-		// If start clause in the context of a FLWOR clause, then stack only one contextual clause state
+		// Start FLWOR clause only if not already in such clause
 		if (peekState() != FLWORFOR && peekState() != FLWORLET)
-		{
-		  startStmt(type == FLWORFOR ? STMT_FOR : STMT_LET);
+		{ 
 		  pushState(type);
 		}
 	}
 	
-	/** Received a token terminating ExprSingle. */
+	/** 
+	 * Received a token terminating ExprSingle.
+	 *
+	 * Depending on the context, either :
+	 * - recursively terminate outer ExprSingle (for instance when the terminating ExprSingle is within the context of a For Return expression)
+	 *   in this case the state stack will be reduced accordingly
+	 * - continue parsing the same outer expression single. Only the sub-expression type is popped from the state stack
+	 *
+	 * yybegin(TS_EXPRSINGLE) should always be called after pushing the context expression on the stack.
+	 */
 	final private int endExprSingle()
 	{
 		final int context = popState();
 		switch (context)
 		{
+		  // Cases where the outer expression must also be terminated.
+		
 		  case RETURNEXPR: 
-		    // also terminate the FLWOR expression
-		    checkTop(FLWORFOR, FLWORLET);
-		    popState();
-		    return endExprSingle();
-		    
-		  case IFELSEEXPR:
-		    // terminate if expression
-		    checkTop(IF);
-		    popState();
-		    return endExprSingle();
-		     
-		  case QUANTIFIEDSATIFIESEXPR:
-		    // terminate quantified expression
-		    checkTop(QUANTIFIED);
-		    popState();
-		    return endExprSingle();
-		    
-		  case TYPESWITCHDEFAULT:
-		    checkTop(TYPESWITCH);
-		    popState();
-		    return endExprSingle();
-		    
-		  
-		  case XUINSERTTARGET:
-		     // Terminate the insert expression
-		    checkTop(XUINSERT); 
-		    popState();
-		    return endExprSingle();   
-		    
-		  case XUDELETETARGET:
-		     // Terminate the delete expression
-		    checkTop(XUDELETE); 
-		    popState();
-		    return endExprSingle();  
-		  
-		  case XUREPLACESRC:
-		    // Terminate the replace expression
-		    checkTop(XUREPLACE); 
-		    popState();
-		    return endExprSingle();  
-		    
-		   case XUNEWNAMEEXPR:
-		    // Terminate the rename expression
-		    checkTop(XURENAME); 
-		    popState();
-		    return endExprSingle(); 
-		    
+		  case IFELSEEXPR: 
+		  case QUANTIFIEDSATIFIESEXPR: 
+		  case TYPESWITCHDEFAULT: 
+		  case XUINSERTTARGET: 
+		  case XUDELETETARGET: 
+		  case XUREPLACESRC: 
+		  case XUNEWNAMEEXPR: 
 		  case XURETURNEXPR: 
-		    // terminate the transform expression
-		    checkTop(XUTRANSFORM); 
+		  case SXASSIGNRHS: 
+		  case SXEXITEXPRSINGLE: 
 		    popState();
 		    return endExprSingle();
-		    
+	
+	      case MODULE:
+	        // Terminate parsing..
+	        yybegin(TS_SINK);
+	        return context;
+	
 		  case WHEREEXPR:
 		  case ORDEREXPR:
 		  case FLCLAUSEEXPR:
@@ -256,8 +236,11 @@ import org.eclipse.wst.xquery.sse.core.internal.regions.XQueryRegions;
 		  case IFTHENEXPR:
 		  case XUREPLACE:
 		  case XUREPLACETARGET:
+		  case INVARDECLINIT:
+		  case CURLYEXPR: 
+		  case SXWHILE:
 		  default:
-		    // We're good.
+		    // Continue analyzing the same expression. The caller will be responsible for moving to a new lexical state.
 		    return context; 
 		} 
 	} 
@@ -271,27 +254,59 @@ import org.eclipse.wst.xquery.sse.core.internal.regions.XQueryRegions;
 	    case FLCLAUSEEXPR: // Expecting a new variable declaration
 	      popState();
 	      yybegin(peekState() == FLWORFOR ? TS_FORCLAUSE : TS_LETCLAUSE); 
-	      return COMMA;
+	      break;
 	   
 	   case QUANTIFIEDINEXPR:     // Expecting a new variable declaration
 	      popState();
 	      yybegin(TS_QUANTIFIEDEXPR);
-	     return COMMA;
+	      break;
 	     
 	   case XUTRANSFORMASSIGN: 
 	     popState();
 	     yybegin(TS_TRANSFORMEXPR);
-	     return COMMA;
-	        
+	      break;
+	        	    
+	   case INBLOCKVARDECLINIT:
+	      // Expecting a new block variable declaration
+	      popState();
+	      yybegin(TS_BLOCKVARNAME);
+	      break;
+	         
 	    case EXPR:
 	    case CURLYEXPR:
 	    case YYINITIAL:
 	    default:
 	      // Just keep going..
 	      yybegin(TS_EXPRSINGLE);
-	      return COMMA;
+	      
 	  }
+	  
+	  return COMMA;
 	} 
+	
+	/** Received ";" */
+	final private String semicolon()
+	{
+	  final int context = peekState();
+	  switch (context)
+	  {
+	    case INVARDECLINIT:
+	      // Terminate global variable initialization
+	      popState();
+	      yybegin(TS_PROLOG2);
+	      break;
+	    case INBLOCKVARDECLINIT:
+	      // Terminate a block variable initialization
+	      popState();
+	      yybegin(TS_BLOCKVARDECLOPT);
+	      break;
+	    default:
+	      // Terminate apply expression.. Keep going..
+	      yybegin(TS_EXPROPT);
+	  }
+	    
+	  return SEPARATOR;
+	}
 	
 	/** Received "return" */
 	final private String returnkw()
@@ -462,7 +477,7 @@ import org.eclipse.wst.xquery.sse.core.internal.regions.XQueryRegions;
 	  startStatementType = -1;
 	  endStatement = false;
 	  
-	  pushState(YYINITIAL); // ExprOrProlog state.
+	  pushState(MODULE);  
 	  
 	  try
 	  {
@@ -765,7 +780,8 @@ SimpleName = ({Letter} | "_" ) ({SimpleNameChar})*
 %state TS_EXPRSINGLE  
 %state TS_ENDEXPR
 %state TS_ENDPRIMARY
-%state TS_ENDPAREXPR  
+%state TS_ENDPAREXPR 
+%state TS_ENDEXPRSINGLE 
 %state TS_OPERAND  
 %state TS_FORCLAUSE 
 %state TS_ENDFORVARREF
@@ -827,6 +843,8 @@ SimpleName = ({Letter} | "_" ) ({SimpleNameChar})*
 %state TS_XMLATTRVALUE
 %state TS_XMLQUOTATTRVALUE
 %state TS_XMLAPOSATTRVALUE
+%state TS_SINK
+%state TS_ENDVARREF
 
 // XQuery Update Facility 1.0 (Candidate Recommentation)
 
@@ -844,6 +862,16 @@ SimpleName = ({Letter} | "_" ) ({SimpleNameChar})*
 %state TS_TRANSFORMEXPR
 %state TS_ENDCOPYVARREF
  
+// XQuery Scripting (W3C Working Draft 8 April 2010)
+
+%state TS_DECLVARSX
+%state TS_BLOCK
+%state TS_BLOCKVARDECLOPT
+%state TS_BLOCKVARNAME
+%state TS_BLOCKVARTYPEDECL
+%state TS_BLOCKVARINIT
+%state TS_EXIT
+%state TS_WHILE
 
 %%
 
@@ -1018,30 +1046,49 @@ SimpleName = ({Letter} | "_" ) ({SimpleNameChar})*
 
 // Start second Prolog part
 
-// 	VarDecl	   ::=   	"declare" "variable" "$" QName TypeDeclaration? ((":=" ExprSingle) | "external") Separator
+
+//*********** Variable Declaration
+
+// VarDecl	   ::=   	"declare" "variable" "$" QName TypeDeclaration? ((":=" ExprSingle) | "external") Separator
+// 
+// XQuery Scripting: 
+// VarDecl	   ::=   	"declare" ("unassignable"? | "assignable") "variable" "$" QName TypeDeclaration? ((":=" ExprSingle) | "external")
 
 <YYINITIAL, TS_LIBRARYORMAIN, TS_PROLOG1, TS_PROLOG2> "declare" / {SymbolSep}+"variable" { yybegin(TS_DECLVAR); return KW_DECLARE; }
+<YYINITIAL, TS_LIBRARYORMAIN, TS_PROLOG1, TS_PROLOG2> "declare" / {SymbolSep}+("unassignable"|"assignable") { yybegin(TS_DECLVARSX); return KW_DECLARE; }
 
-<TS_DECLVAR> 		"variable"		{ yybegin(TS_VDVAR); return KW_VARIABLE; }
-<TS_VDVAR>			"$"	   			{ pushState(TS_VDTYPEDECL); yybegin(TS_EXPRVARREF); return DOLLAR; }
+<TS_DECLVAR> 		"variable"		 			{ yybegin(TS_VDVAR); return KW_VARIABLE; }
+<TS_DECLVARSX> {
+  "unassignable" { yybegin(TS_DECLVAR); return KW_UNASSIGNABLE; }
+  "assignable"   { yybegin(TS_DECLVAR); return KW_ASSIGNABLE; }
+}
+
+<TS_VDVAR>			"$"	   						{ pushState(TS_VDTYPEDECL); yybegin(TS_EXPRVARREF); return DOLLAR; }
 <TS_VDTYPEDECL> {
   "as"				{ pushState(TS_VDINIT); yybegin(TS_TYPEDECL); return KW_AS; }
 }
 <TS_VDINIT, TS_VDTYPEDECL> {
-  ":="				{ pushState(TS_PROLOG2); yybegin(TS_EXPRSINGLE); return ASSIGN; } 
+  ":="				{ pushState(INVARDECLINIT); yybegin(TS_EXPRSINGLE); return ASSIGN; } 
   "external"		{ pushState(TS_PROLOG2); yybegin(TS_SEPARATOR); return KW_EXTERNAL; }
 }
-
-// ExprSingle Delimiter 
-// TODO: this delimiter is only valid when in the scope of variable initialization
-<TS_ENDPRIMARY, TS_ENDAXISSTEP> ";"	{ restoreState();  return SEPARATOR; }  
+//*********** Function Declaration
 
 // FunctionDecl	   ::=   	"declare" "function" QName "(" ParamList? ")" ("as" SequenceType)? (EnclosedExpr | "external") Separator
 // EnclosedExpr	   ::=   	"{" Expr "}"
-<YYINITIAL, TS_LIBRARYORMAIN, TS_PROLOG1, TS_PROLOG2> "declare" / {SymbolSep}+("function" | "updating") {  yybegin(TS_DECLFUNCTION); return KW_DECLARE; }
+
+// XQuery Update
+// FunctionDecl	   ::=   	"declare" "updating"? "function" QName "(" ParamList? ")" ("as" SequenceType)? (EnclosedExpr | "external")
+
+// XQuery Scripting
+// FunctionDecl	   ::=   	("declare" ("simple"? | "updating") "function" QName "(" ParamList? ")" ("as" SequenceType)? (EnclosedExpr | "external"))
+//                        | ("declare" "sequential" "function" QName "(" ParamList? ")" ("as" SequenceType)? (Block | "external"))
+
+<YYINITIAL, TS_LIBRARYORMAIN, TS_PROLOG1, TS_PROLOG2> "declare" / {SymbolSep}+("function"|"updating"|"sequential"|"simple") {  yybegin(TS_DECLFUNCTION); return KW_DECLARE; }
 
 <TS_DECLFUNCTION> 	{
   "updating"				{ yybegin(TS_FUNCTIONKW); return KW_UPDATING; }
+  "simple"					{ yybegin(TS_FUNCTIONKW); return KW_SIMPLE; }
+  "sequential"				{ yybegin(TS_FUNCTIONKW); return KW_SEQUENTIAL; }
 }	
 
 <TS_DECLFUNCTION, TS_FUNCTIONKW> {
@@ -1057,6 +1104,9 @@ SimpleName = ({Letter} | "_" ) ({SimpleNameChar})*
 <TS_FDINIT, TS_FDENDPARAMS> {
   "external"	{ pushState(TS_PROLOG2); yybegin(TS_SEPARATOR); return KW_EXTERNAL; }
   "{"			{ pushState(TS_PROLOG2); pushState(TS_SEPARATOR); pushState(CURLYEXPR); yybegin(TS_EXPR); return LCURLY;}  
+  
+  // XQuery Scripting
+  "block"		{ pushState(SXBLOCK); yybegin(TS_BLOCK); return KW_BLOCK; }
 }
 
 // ParamList	   ::=   	Param ("," Param)*
@@ -1086,7 +1136,7 @@ SimpleName = ({Letter} | "_" ) ({SimpleNameChar})*
 // End Prolog
 
 // Initial state for ExprSingle 
-<YYINITIAL, TS_LIBRARYORMAIN, TS_PROLOG1, TS_PROLOG2, TS_EXPR, TS_EXPROPT, TS_EXPRSINGLE> {
+<YYINITIAL, TS_LIBRARYORMAIN, TS_PROLOG1, TS_PROLOG2, TS_EXPR, TS_EXPROPT, TS_EXPRSINGLE, TS_BLOCKVARDECLOPT> {
  
   // Non-operand expressions
 
@@ -1109,16 +1159,22 @@ SimpleName = ({Letter} | "_" ) ({SimpleNameChar})*
   "typeswitch" / {SymbolSep}*"("        { pushState(TYPESWITCH); yybegin(TS_TYPESWITCHEXPR); return KW_TYPESWITCH; }
   
   // XQuery Update Facility 1.0 expressions
+  
   "insert" / {SymbolSep}+("node"|"nodes")  { pushState(XUINSERT); yybegin(TS_INSERTEXPR); return KW_INSERT; }
   "delete" / {SymbolSep}+("node"|"nodes")  { pushState(XUDELETE); yybegin(TS_DELETEEXPR); return KW_DELETE; }
   "replace" / {SymbolSep}+("value"{SymbolSep}+"of"{SymbolSep}+)?"node" { pushState(XUREPLACE); yybegin(TS_REPLACEEXPR); return KW_REPLACE; }
   "rename" / {SymbolSep}+"node"			   { pushState(XURENAME); yybegin(TS_RENAMEEXPR); return KW_RENAME; }
   "copy" / {SymbolSep}*"$"			   	   { pushState(XUTRANSFORM); yybegin(TS_TRANSFORMEXPR); return KW_COPY; }
   
+  // XQuery Scripting Extension 1.0 expressions
+  
+  "block" / {SymbolSep}*"{"				{ pushState(TS_ENDEXPRSINGLE); pushState(SXBLOCK); yybegin(TS_BLOCK); return KW_BLOCK; }
+  "exit" /  {SymbolSep}+"returning"     { pushState(SXEXIT); yybegin(TS_EXIT); return KW_EXIT; }
+  "while" / {SymbolSep}*"("				{ pushState(TS_ENDEXPRSINGLE); pushState(SXWHILE); yybegin(TS_WHILE); return KW_WHILE; }
 }  
 
 // Operand (OrExpr)
-<YYINITIAL, TS_LIBRARYORMAIN, TS_PROLOG1, TS_PROLOG2, TS_OPERAND, TS_EXPR, TS_EXPROPT, TS_EXPRSINGLE> { 
+<YYINITIAL, TS_LIBRARYORMAIN, TS_PROLOG1, TS_PROLOG2, TS_OPERAND, TS_EXPR, TS_EXPROPT, TS_EXPRSINGLE, TS_BLOCKVARDECLOPT> { 
   // UnaryExpr
 
   "+"							{ return OP_PLUS; }
@@ -1132,7 +1188,7 @@ SimpleName = ({Letter} | "_" ) ({SimpleNameChar})*
 
 
 
-<YYINITIAL, TS_LIBRARYORMAIN, TS_PROLOG1, TS_PROLOG2, TS_OPERAND, TS_EXPR, TS_EXPROPT, TS_EXPRSINGLE, TS_STEPEXPR, TS_OPTSTEPEXPR> {
+<YYINITIAL, TS_LIBRARYORMAIN, TS_PROLOG1, TS_PROLOG2, TS_OPERAND, TS_EXPR, TS_EXPROPT, TS_EXPRSINGLE, TS_STEPEXPR, TS_OPTSTEPEXPR, TS_BLOCKVARDECLOPT> {
   
   // Axis Step
 
@@ -1162,7 +1218,8 @@ SimpleName = ({Letter} | "_" ) ({SimpleNameChar})*
   {StringLiteral} 				{ startStmt(STMT_PRIMARY_LITERAL); yybegin(TS_ENDPRIMARY); return STRINGLITERAL; } 
   {NumericLiteral}  			{ startStmt(STMT_PRIMARY_LITERAL); yybegin(TS_ENDPRIMARY); return NUMERICLITERAL; }
   
-  "$"							{ startStmt(STMT_VARREF); pushState(TS_ENDPRIMARY); yybegin(TS_EXPRVARREF); return DOLLAR; }
+  // Variable reference or assignment (XQSX)
+  "$"							{ pushState(TS_ENDVARREF); yybegin(TS_EXPRVARREF); return DOLLAR; }
  
   "("							{ startStmt(STMT_PRIMARY_PAR); pushState(TS_ENDPRIMARY); pushState(PAREXPR); yybegin(TS_EXPROPT); return LPAR; }
   
@@ -1170,8 +1227,8 @@ SimpleName = ({Letter} | "_" ) ({SimpleNameChar})*
   
   {QName} / {SymbolSep}*"("		{ startStmt(STMT_PRIMARY_FUNCTIONCALL); yybegin(TS_FUNCTIONCALLLPAR); return FUNCTIONNAME; }
  
-  "ordered" / {SymbolSep}*"{"   { startStmt(STMT_PRIMARY_ORDERED); pushState(TS_ENDPRIMARY); pushState(CURLYEXPR); yybegin(TS_ORDEREDLCURLY); return KW_ORDERED; }
-  "unordered" / {SymbolSep}*"{" { startStmt(STMT_PRIMARY_UNORDERED); pushState(TS_ENDPRIMARY); pushState(CURLYEXPR); yybegin(TS_ORDEREDLCURLY); return KW_UNORDERED; }
+  "ordered" / {SymbolSep}*"{"   { pushState(TS_ENDPRIMARY); pushState(CURLYEXPR); yybegin(TS_ORDEREDLCURLY); return KW_ORDERED; }
+  "unordered" / {SymbolSep}*"{" { pushState(TS_ENDPRIMARY); pushState(CURLYEXPR); yybegin(TS_ORDEREDLCURLY); return KW_UNORDERED; }
   
   
   "validate" / {SymbolSep}*("lax"|"strict"|"{") { startStmt(STMT_VALIDATE); pushState(TS_ENDPRIMARY); yybegin(TS_VALIDATEEXPR); return KW_VALIDATE; }
@@ -1200,24 +1257,48 @@ SimpleName = ({Letter} | "_" ) ({SimpleNameChar})*
 // Delimiters
 
 <TS_EXPROPT, TS_ENDPRIMARY, TS_ENDAXISSTEP, TS_OPTSTEPEXPR> {
-  "]"				{ endStmt(); check(endExprSingle(), PREDICATEEXPR); yybegin(TS_ENDPRIMARY); return RSQUARE; } // Terminate Expr in predicate
-  ")"				{ endStmt(); check(endExprSingle(), PAREXPR); restoreState(); return RPAR;} // Terminate Expr within Parentherize/Function call/Test condition/Typeswitch operand
-  "}"				{ endStmt(); check(endExprSingle(), CURLYEXPR); restoreState();return RCURLY; } 
-} 
-
-<TS_ENDPRIMARY, TS_ENDAXISSTEP, TS_OPTSTEPEXPR> {
-  "["							{ endStmt(); pushState(PREDICATEEXPR); yybegin(TS_EXPR); return LSQUARE; }  
-
-  ","							{ endStmt(); return comma();  }  
-  
-  "/" 							{ endStmt(); yybegin(TS_STEPEXPR); return PATH_SLASH; }
-  "//" 							{ endStmt(); yybegin(TS_STEPEXPR); return PATH_SLASHSLASH; }
+  "]"				{ 
+						check(endExprSingle(), PREDICATEEXPR); 
+						yybegin(TS_ENDPRIMARY); 
+						return RSQUARE; 
+					}
+					
+  ")"				{ 
+  						check(endExprSingle(), PAREXPR); 
+  						restoreState(); // Retrieve lexical state contination push on the stack  
+  						return RPAR;
+  					}  
+ 
 }
 
+<TS_EXPROPT, TS_ENDPRIMARY, TS_ENDAXISSTEP, TS_OPTSTEPEXPR, TS_ENDEXPRSINGLE> {
+  
+  "}"				{ 
+   						check(endExprSingle(), CURLYEXPR, SXBLOCK, SXWHILE); 
+   						restoreState();  // Retrieve lexical state contination push on the stack  
+   						return RCURLY; 
+   					} 
+} 
+
+<TS_ENDPRIMARY, TS_ENDAXISSTEP, TS_OPTSTEPEXPR, TS_ENDVARREF> {
+  "["							{ endStmt(); pushState(PREDICATEEXPR); yybegin(TS_EXPR); return LSQUARE; }  
+  
+  "/" 							{ yybegin(TS_STEPEXPR); return PATH_SLASH; }
+  "//" 							{ yybegin(TS_STEPEXPR); return PATH_SLASHSLASH; }
+}
+
+<TS_ENDPRIMARY, TS_ENDAXISSTEP, TS_OPTSTEPEXPR, TS_ENDEXPRSINGLE,TS_ENDVARREF> {
+  ","							{ return comma();  } 
+  ";"							{ return semicolon();  }    
+}
+
+<TS_ENDVARREF> {
+  ":="							{ pushState(SXASSIGN); pushState(SXASSIGNRHS); yybegin(TS_EXPRSINGLE); return ASSIGN; } // Assignement
+}
  
 // Operators  
 
-<TS_ENDPRIMARY, TS_ENDAXISSTEP, TS_OPTSTEPEXPR> { 
+<TS_ENDPRIMARY, TS_ENDAXISSTEP, TS_OPTSTEPEXPR, TS_ENDVARREF> { 
   "or"	 							{ endStmt(); yybegin(TS_OPERAND); return OP_OR; }
   "and"	 							{ endStmt(); yybegin(TS_OPERAND); return OP_AND; }
   "to"	 							{ endStmt(); yybegin(TS_OPERAND); return OP_TO; }
@@ -1301,12 +1382,12 @@ SimpleName = ({Letter} | "_" ) ({SimpleNameChar})*
 
 <TS_STABLEORDER> 	"order" 		{ yybegin(TS_BY); return KW_ORDER; }
 <TS_BY> 			"by" 			{ pushState(ORDEREXPR); yybegin(TS_EXPRSINGLE); return KW_BY; }  
-<TS_ENDPRIMARY, TS_ENDAXISSTEP, TS_OPTSTEPEXPR> {
+<TS_ENDPRIMARY, TS_ENDAXISSTEP, TS_OPTSTEPEXPR,TS_ENDVARREF> {
   "ascending"			{ checkTop(ORDEREXPR); yybegin(TS_ORDERMODIFIER); return KW_ASCENDING; } // The OrderExpr will be closed when finishing OrderSpec
   "descending"			{ checkTop(ORDEREXPR); yybegin(TS_ORDERMODIFIER); return KW_DESCENDING; }
 }
 
-<TS_ENDPRIMARY, TS_ENDAXISSTEP, TS_OPTSTEPEXPR, TS_ORDERMODIFIER> {
+<TS_ENDPRIMARY, TS_ENDAXISSTEP, TS_OPTSTEPEXPR, TS_ORDERMODIFIER,TS_ENDVARREF> {
   "empty"				{ checkTop(ORDEREXPR); yybegin(TS_OMEMPTY); return KW_EMPTY; }		
 }
 
@@ -1315,7 +1396,7 @@ SimpleName = ({Letter} | "_" ) ({SimpleNameChar})*
   "least"			{ yybegin(TS_ORDERMODIFIER2); return KW_LEAST; }
 }
 
-<TS_ENDPRIMARY, TS_ENDAXISSTEP, TS_OPTSTEPEXPR, TS_ORDERMODIFIER, TS_ORDERMODIFIER2>  "collation"	{ checkTop(ORDEREXPR); yybegin(TS_COLLATIONURI); return KW_COLLATION; }
+<TS_ENDPRIMARY, TS_ENDAXISSTEP, TS_OPTSTEPEXPR, TS_ORDERMODIFIER, TS_ORDERMODIFIER2,TS_ENDVARREF>  "collation"	{ checkTop(ORDEREXPR); yybegin(TS_COLLATIONURI); return KW_COLLATION; }
 <TS_COLLATIONURI> {StringLiteral} { yybegin(TS_ENDORDERSPEC); return URILITERAL; }
 
 <TS_ORDERMODIFIER, TS_ORDERMODIFIER2, TS_ENDORDERSPEC> {
@@ -1342,7 +1423,7 @@ SimpleName = ({Letter} | "_" ) ({SimpleNameChar})*
 <TS_ENDQUANTIFIEDVARREF, TS_ENDQUANTIFIEDTYPEDECL> "in" { pushState(QUANTIFIEDINEXPR); yybegin(TS_EXPRSINGLE); return KW_IN; } 
 
 // ExprSingle delimiters for quantified expression
-<TS_ENDPRIMARY, TS_ENDAXISSTEP, TS_OPTSTEPEXPR> "satisfies" { check(endExprSingle(), QUANTIFIEDINEXPR); pushState(QUANTIFIEDSATIFIESEXPR); yybegin(TS_EXPRSINGLE); return KW_SATIFIES; }
+<TS_ENDPRIMARY, TS_ENDAXISSTEP, TS_OPTSTEPEXPR, TS_ENDVARREF> "satisfies" { check(endExprSingle(), QUANTIFIEDINEXPR); pushState(QUANTIFIEDSATIFIESEXPR); yybegin(TS_EXPRSINGLE); return KW_SATIFIES; }
 
 // ===== If expression
 // "if" "(" Expr ")" "then" ExprSingle "else" ExprSingle
@@ -1351,7 +1432,7 @@ SimpleName = ({Letter} | "_" ) ({SimpleNameChar})*
 <TS_ENDIFTEST> "then" 	{ pushState(IFTHENEXPR); yybegin(TS_EXPRSINGLE); return KW_THEN; }
 
 // ExprSingle delimiters for if expression
-<TS_ENDPRIMARY, TS_ENDAXISSTEP, TS_OPTSTEPEXPR> "else" { check(endExprSingle(), IFTHENEXPR); pushState(IFELSEEXPR); yybegin(TS_EXPRSINGLE); return KW_ELSE; }
+<TS_ENDPRIMARY, TS_ENDAXISSTEP, TS_OPTSTEPEXPR, TS_ENDVARREF> "else" { check(endExprSingle(), IFTHENEXPR); pushState(IFELSEEXPR); yybegin(TS_EXPRSINGLE); return KW_ELSE; }
 
 // ===== typesswitch expression
 // "typeswitch" "(" Expr ")" CaseClause+ "default" ("$" VarName)? "return" ExprSingle
@@ -1367,7 +1448,7 @@ SimpleName = ({Letter} | "_" ) ({SimpleNameChar})*
 <TS_ENDTSSEQUENCETYPE> "return" { yybegin(TS_EXPRSINGLE); return KW_RETURN; }
 
 // ExprSingle delimiters for case expression
-<TS_ENDPRIMARY, TS_ENDAXISSTEP, TS_OPTSTEPEXPR> {
+<TS_ENDPRIMARY, TS_ENDAXISSTEP, TS_OPTSTEPEXPR, TS_ENDEXPRSINGLE,TS_ENDVARREF> {
   "case" 			{ pushState(TS_ENDTSSEQUENCETYPE); yybegin(TS_ENDCASEKW); return KW_CASE; }
   "default" 		{ yybegin(TS_ENDTSDEFAULTKW); return KW_DEFAULT; }
 }
@@ -1555,7 +1636,7 @@ SimpleName = ({Letter} | "_" ) ({SimpleNameChar})*
 }
 
 // ExprSingle delimiters for SourceExpr
-<TS_ENDPRIMARY, TS_ENDAXISSTEP, TS_OPTSTEPEXPR> {
+<TS_ENDPRIMARY, TS_ENDAXISSTEP, TS_OPTSTEPEXPR, TS_ENDEXPRSINGLE,TS_ENDVARREF> {
   "as" / {SymbolSep}+("first"|"last")	{ check(endExprSingle(), XUSOURCE); yybegin(TS_FIRSTORLAST); return KW_AS; }
   "before"      { check(endExprSingle(), XUSOURCE); pushState(XUINSERTTARGET); yybegin(TS_EXPRSINGLE); return KW_BEFORE; }
   "after"		{ check(endExprSingle(), XUSOURCE); pushState(XUINSERTTARGET); yybegin(TS_EXPRSINGLE); return KW_AFTER; }
@@ -1583,7 +1664,7 @@ SimpleName = ({Letter} | "_" ) ({SimpleNameChar})*
 <TS_REPLACEOF> 					  "of"		 	{ yybegin(TS_REPLACENODE); return KW_OF; }
 
 // ExprSingle delimiters for TargetExpr
-<TS_ENDPRIMARY, TS_ENDAXISSTEP, TS_OPTSTEPEXPR> {
+<TS_ENDPRIMARY, TS_ENDAXISSTEP, TS_OPTSTEPEXPR, TS_ENDEXPRSINGLE,TS_ENDVARREF> {
   "with"		{ check(endExprSingle(), XUREPLACETARGET); pushState(XUREPLACESRC); yybegin(TS_EXPRSINGLE); return KW_WITH;}
 }
 
@@ -1591,7 +1672,7 @@ SimpleName = ({Letter} | "_" ) ({SimpleNameChar})*
 <TS_RENAMEEXPR> "node" { yybegin(TS_EXPRSINGLE); return KW_NODE; }
 
 // ExprSingle delimiters for TargetExpr
-<TS_ENDPRIMARY, TS_ENDAXISSTEP, TS_OPTSTEPEXPR> {
+<TS_ENDPRIMARY, TS_ENDAXISSTEP, TS_OPTSTEPEXPR, TS_ENDEXPRSINGLE,TS_ENDVARREF> {
   "as"		{ check(endExprSingle(), XURENAME); pushState(XUNEWNAMEEXPR); yybegin(TS_EXPRSINGLE); return KW_AS;}
 }
 
@@ -1603,11 +1684,51 @@ SimpleName = ({Letter} | "_" ) ({SimpleNameChar})*
 <TS_ENDCOPYVARREF> ":=" { pushState(XUTRANSFORMASSIGN); yybegin(TS_EXPRSINGLE); return ASSIGN; }
 
 // ExprSingle delimiters
-<TS_ENDPRIMARY, TS_ENDAXISSTEP, TS_OPTSTEPEXPR> {
+<TS_ENDPRIMARY, TS_ENDAXISSTEP, TS_OPTSTEPEXPR, TS_ENDEXPRSINGLE,TS_ENDVARREF> {
   "modify"		{ check(endExprSingle(), XUTRANSFORMASSIGN); pushState(XUMODIFYEXPR); yybegin(TS_EXPRSINGLE); return KW_MODIFY;}
   
-  // "return" is handled in the for rule
+  // "return" is handled in the 'for' rule
 }
+
+
+// ********** XQuery Scripting Expression
+
+// Block
+// BlockExpr	   ::=   	"block" Block
+// Block	   	   ::=   	"{" BlockDecls BlockBody "}"
+// BlockDecls	   ::=   	(BlockVarDecl ";")*
+// BlockVarDecl	   ::=   	"declare" "$" VarName TypeDeclaration? (":=" ExprSingle)? ("," "$" VarName TypeDeclaration? (":=" ExprSingle)?)*
+
+<TS_BLOCK>	"{"  {  yybegin(TS_BLOCKVARDECLOPT); return LCURLY; }
+<TS_BLOCKVARDECLOPT> {
+  "declare" / {SymbolSep}*"$" { yybegin(TS_BLOCKVARNAME); return KW_DECLARE; }
+} 
+<TS_BLOCKVARNAME> "$"	{ pushState(TS_BLOCKVARTYPEDECL); yybegin(TS_EXPRVARREF); return DOLLAR; }
+<TS_BLOCKVARTYPEDECL> {
+  "as"				{ pushState(TS_BLOCKVARINIT); yybegin(TS_TYPEDECL); return KW_AS; }
+}
+<TS_BLOCKVARINIT, TS_BLOCKVARTYPEDECL> {
+  ":="				{ pushState(INBLOCKVARDECLINIT); yybegin(TS_EXPRSINGLE); return ASSIGN; }
+  ","				{ yybegin(TS_BLOCKVARNAME); return COMMA; }
+  
+  ";"				{ yybegin(TS_BLOCKVARDECLOPT); return SEPARATOR; }  
+}
+
+// Exit expression
+// ExitExpr	   ::=   	"exit" "returning" ExprSingle
+<TS_EXIT> "returning" { pushState(SXEXITEXPRSINGLE); yybegin(TS_EXPRSINGLE); return KW_RETURNING; }
+
+
+// While expression
+//	WhileExpr	   ::=   	"while" "(" ExprSingle ")" WhileBody
+<TS_WHILE> "(" { 
+					pushState(TS_BLOCK); // Push continuation state when closing ')'
+		    		pushState(PAREXPR); 
+		    		yybegin(TS_EXPRSINGLE);
+		    	    return LPAR; 
+		    }
+
+<TS_SINK> . { return UNDEFINED; }
 
 // Always available rules
 
@@ -1620,11 +1741,6 @@ SimpleName = ({Letter} | "_" ) ({SimpleNameChar})*
 
 	return WHITE_SPACE;
 }
-
-
-// recovery rules.
-
-//<TS_EXPROPT, TS_ENDPRIMARY, TS_ENDAXISSTEP, TS_OPTSTEPEXPR> . { recover(TS_EXPR); return UNDEFINED; }
  
 
 . {

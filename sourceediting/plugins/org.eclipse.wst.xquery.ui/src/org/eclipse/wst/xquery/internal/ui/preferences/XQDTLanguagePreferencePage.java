@@ -83,7 +83,7 @@ public class XQDTLanguagePreferencePage extends AbstractConfigurationBlockProper
                 layout = new GridLayout(3, false);
                 languageComplianceGroup.setLayout(layout);
 
-                fLanguageCombo = PropertyPageUtility.addComboBox(languageComplianceGroup, "XQuery laguage",
+                fLanguageCombo = PropertyPageUtility.addComboBox(languageComplianceGroup, "XQuery language",
                         languageTypes);
                 bindControl(fLanguageCombo, KEYS[0], languageTypes);
 

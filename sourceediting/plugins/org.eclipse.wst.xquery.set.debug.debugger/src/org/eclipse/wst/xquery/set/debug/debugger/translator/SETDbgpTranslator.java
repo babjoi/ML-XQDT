@@ -58,6 +58,7 @@ import org.eclipse.wst.xquery.debug.debugger.zorba.translator.messages.Variables
 import org.eclipse.wst.xquery.debug.debugger.zorba.translator.model.Breakpoint;
 import org.eclipse.wst.xquery.debug.debugger.zorba.translator.model.QueryLocation;
 import org.eclipse.wst.xquery.debug.debugger.zorba.translator.model.Variable;
+import org.eclipse.wst.xquery.set.launching.SETLaunchUtil;
 
 @SuppressWarnings("restriction")
 public class SETDbgpTranslator extends DbgpWorkingThread implements IDbgpTranslator, IDebugEventListener,
@@ -477,19 +478,9 @@ public class SETDbgpTranslator extends DbgpWorkingThread implements IDbgpTransla
         }
         DbgpResponse response = null;
         if (event instanceof TerminatedMessage) {
-//            response = new DbgpResponse(fLastContinuationCommand);
-//            response.addAttribute("status", IDbgpConstants.STATUS_RUNNING);
-//            response.addAttribute("reason", IDbgpConstants.REASON_OK);
-//            fResponder.send(response);
-//
-
             try {
-                // this is needed in case zorba finishes execution
-                // in order to terminate the process. Zorba blocks
-                // in a loop and does not check the internal termination
-                // status until smth else is received on the wire.
-                // so we send a Terminated command (anything can be sent)
-//                fEngine.sendCommand(new TerminateMessage());
+                System.out.println("Reconnecting the engine after request termination...");
+                SETLaunchUtil.bringBrowserOnTop();
                 fEngine.reconnect();
                 while (!fEngine.isInitialized()) {
                     Thread.sleep(500);

@@ -18,6 +18,9 @@ import org.eclipse.debug.core.ILaunch;
 import org.eclipse.debug.core.ILaunchConfiguration;
 import org.eclipse.dltk.launching.ScriptLaunchConfigurationConstants;
 import org.eclipse.swt.widgets.Display;
+import org.eclipse.ui.IEditorPart;
+import org.eclipse.ui.IEditorReference;
+import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.browser.IWebBrowser;
@@ -55,13 +58,13 @@ public class SETLaunchUtil {
                     IWorkbenchBrowserSupport browserSupport = PlatformUI.getWorkbench().getBrowserSupport();
                     IWebBrowser browser = null;
                     if (WebBrowserPreference.EXTERNAL == WebBrowserPreference.getBrowserChoice()) {
-                        browser = PlatformUI.getWorkbench().getBrowserSupport().getExternalBrowser();
+                        browser = browserSupport.getExternalBrowser();
                     } else {
-                        int browserStyle = IWorkbenchBrowserSupport.LOCATION_BAR
-                                | IWorkbenchBrowserSupport.NAVIGATION_BAR | IWorkbenchBrowserSupport.STATUS;
+
                         String browserTitle = "Sausalito: " + url.toString();
-                        browser = browserSupport.createBrowser(browserStyle, "SausalitoBrowser", browserTitle
-                                .toString(), browserTitle.toString());
+                        browser = browserSupport.createBrowser(IWorkbenchBrowserSupport.LOCATION_BAR
+                                | IWorkbenchBrowserSupport.NAVIGATION_BAR | IWorkbenchBrowserSupport.STATUS,
+                                "SausalitoBrowser", browserTitle.toString(), browserTitle.toString());
                     }
                     browser.openURL(url);
                 } catch (MalformedURLException e) {
@@ -73,4 +76,18 @@ public class SETLaunchUtil {
         });
     }
 
+    public static void bringBrowserOnTop() {
+        Display.getDefault().syncExec(new Runnable() {
+            public void run() {
+                IWorkbenchPage page = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage();
+                for (IEditorReference ref : page.getEditorReferences()) {
+                    if (ref.getId().equals("org.eclipse.ui.browser.editor")) {
+                        IEditorPart part = ref.getEditor(true);
+                        page.bringToTop(part);
+                        break;
+                    }
+                }
+            }
+        });
+    }
 }

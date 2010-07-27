@@ -15,6 +15,7 @@ import java.util.List;
 
 import org.eclipse.wst.sse.core.internal.provisional.text.IStructuredDocumentRegion;
 import org.eclipse.wst.validation.internal.provisional.core.IMessage;
+import org.eclipse.wst.xquery.core.IXQDTLanguageConstants;
 import org.eclipse.wst.xquery.sse.core.internal.model.ast.ASTFLWOR;
 import org.eclipse.wst.xquery.sse.core.internal.model.ast.ASTFunctionCall;
 import org.eclipse.wst.xquery.sse.core.internal.model.ast.ASTFunctionDecl;
@@ -32,6 +33,7 @@ import org.eclipse.wst.xquery.sse.core.internal.model.ast.IASTNode;
 import org.eclipse.wst.xquery.sse.core.internal.model.ast.xml.ASTDirAttribute;
 import org.eclipse.wst.xquery.sse.core.internal.model.ast.xml.ASTDirElement;
 import org.eclipse.wst.xquery.sse.core.internal.regions.XQueryRegions;
+import org.eclipse.wst.xquery.sse.core.internal.sdregions.FunctionDeclStructuredDocumentRegion;
 import org.eclipse.wst.xquery.sse.core.internal.sdregions.ModuleDeclStructuredDocumentRegion;
 import org.eclipse.wst.xquery.sse.core.internal.sdregions.VersionDeclStructuredDocumentRegion;
 import org.eclipse.wst.xquery.sse.core.internal.sdregions.XQueryStructuredDocumentRegion;
@@ -39,14 +41,18 @@ import org.eclipse.wst.xquery.sse.core.internal.sdregions.XQueryStructuredDocume
 /**
  * Update the XQuery AST.
  * 
- * <p>For now, the new structured document regions are fully traversed, along with
+ * <p>
+ * For now, the new structured document regions are fully traversed, along with
  * the existing AST (if any). The goal is to minimize AST nodes changes.
  * 
- * <p>In the future, it is possible to skip reparsing subtrees based on changes
+ * <p>
+ * In the future, it is possible to skip reparsing subtrees based on changes
  * location.
  * 
- * <p>Checks the language syntax and provides appropriate messages for downstream validators. Note that it performs only
- * minimal validation to speed up reparsing.
+ * <p>
+ * Checks the language syntax and provides appropriate messages for downstream
+ * validators. Note that it performs only minimal validation to speed up
+ * reparsing.
  * 
  * @author <a href="villard@us.ibm.com">Lionel Villard</a>
  */
@@ -62,7 +68,7 @@ public class ModelBuilder {
 	protected IStructuredDocumentRegion endSDRegion; // TODO: not used yet
 
 	/** Current structured document region */
-	protected IStructuredDocumentRegion currentSDRegion;
+	protected XQueryStructuredDocumentRegion currentSDRegion;
 
 	/** Current region index in the current structured document region */
 	protected int currentRegionIdx;
@@ -75,81 +81,116 @@ public class ModelBuilder {
 
 	/** Validation messages */
 	protected List<IMessage> messages;
-	
+
 	// Some filters...
-	final protected OperatorFilter sequenceFilter = new OperatorFilter(new int[] { ASTOperator.OP_COMMA },
+	final protected OperatorFilter sequenceFilter = new OperatorFilter(
+			new int[] { ASTOperator.OP_COMMA },
 			new String[] { XQueryRegions.COMMA });
 
-	final protected OperatorFilter orFilter = new OperatorFilter(new int[] { ASTOperator.OP_OR },
+	final protected OperatorFilter orFilter = new OperatorFilter(
+			new int[] { ASTOperator.OP_OR },
 			new String[] { XQueryRegions.OP_OR });
 
-	final protected OperatorFilter andFilter = new OperatorFilter(new int[] { ASTOperator.OP_AND },
+	final protected OperatorFilter andFilter = new OperatorFilter(
+			new int[] { ASTOperator.OP_AND },
 			new String[] { XQueryRegions.OP_AND });
 
-	final protected OperatorFilter comparisonFilter = new OperatorFilter(new int[] { ASTOperator.OP_EQ,
-			ASTOperator.OP_NEQ, ASTOperator.OP_LT, ASTOperator.OP_LTE, ASTOperator.OP_GT, ASTOperator.OP_GTE,
-			ASTOperator.OP_GEQ, ASTOperator.OP_GNEQ, ASTOperator.OP_GLT, ASTOperator.OP_GLTE, ASTOperator.OP_GGT,
-			ASTOperator.OP_GGTE, ASTOperator.OP_IS, ASTOperator.OP_AFTER, ASTOperator.OP_BEFORE }, new String[] {
-			XQueryRegions.OP_EQ, XQueryRegions.OP_NEQ, XQueryRegions.OP_LT, XQueryRegions.OP_LTE, XQueryRegions.OP_GT,
-			XQueryRegions.OP_GTE, XQueryRegions.OP_GEQ, XQueryRegions.OP_GNEQ, XQueryRegions.OP_GLT,
-			XQueryRegions.OP_GLTE, XQueryRegions.OP_GGT, XQueryRegions.OP_GGTE, XQueryRegions.OP_IS,
-			XQueryRegions.OP_AFTER, XQueryRegions.OP_BEFORE });
+	final protected OperatorFilter comparisonFilter = new OperatorFilter(
+			new int[] { ASTOperator.OP_EQ, ASTOperator.OP_NEQ,
+					ASTOperator.OP_LT, ASTOperator.OP_LTE, ASTOperator.OP_GT,
+					ASTOperator.OP_GTE, ASTOperator.OP_GEQ,
+					ASTOperator.OP_GNEQ, ASTOperator.OP_GLT,
+					ASTOperator.OP_GLTE, ASTOperator.OP_GGT,
+					ASTOperator.OP_GGTE, ASTOperator.OP_IS,
+					ASTOperator.OP_AFTER, ASTOperator.OP_BEFORE },
+			new String[] { XQueryRegions.OP_EQ, XQueryRegions.OP_NEQ,
+					XQueryRegions.OP_LT, XQueryRegions.OP_LTE,
+					XQueryRegions.OP_GT, XQueryRegions.OP_GTE,
+					XQueryRegions.OP_GEQ, XQueryRegions.OP_GNEQ,
+					XQueryRegions.OP_GLT, XQueryRegions.OP_GLTE,
+					XQueryRegions.OP_GGT, XQueryRegions.OP_GGTE,
+					XQueryRegions.OP_IS, XQueryRegions.OP_AFTER,
+					XQueryRegions.OP_BEFORE });
 
-	final protected OperatorFilter rangeFilter = new OperatorFilter(new int[] { ASTOperator.OP_TO },
+	final protected OperatorFilter rangeFilter = new OperatorFilter(
+			new int[] { ASTOperator.OP_TO },
 			new String[] { XQueryRegions.OP_TO });
 
-	final protected OperatorFilter additiveFilter = new OperatorFilter(new int[] { ASTOperator.OP_PLUS,
-			ASTOperator.OP_MINUS }, new String[] { XQueryRegions.OP_PLUS, XQueryRegions.OP_MINUS });
+	final protected OperatorFilter additiveFilter = new OperatorFilter(
+			new int[] { ASTOperator.OP_PLUS, ASTOperator.OP_MINUS },
+			new String[] { XQueryRegions.OP_PLUS, XQueryRegions.OP_MINUS });
 
-	final protected OperatorFilter multiplicativeFilter = new OperatorFilter(new int[] { ASTOperator.OP_MULTIPLY,
-			ASTOperator.OP_DIV, ASTOperator.OP_IDIV, ASTOperator.OP_MOD }, new String[] { XQueryRegions.OP_MULTIPLY,
-			XQueryRegions.OP_DIV, XQueryRegions.OP_IDIV, XQueryRegions.OP_MOD });
+	final protected OperatorFilter multiplicativeFilter = new OperatorFilter(
+			new int[] { ASTOperator.OP_MULTIPLY, ASTOperator.OP_DIV,
+					ASTOperator.OP_IDIV, ASTOperator.OP_MOD }, new String[] {
+					XQueryRegions.OP_MULTIPLY, XQueryRegions.OP_DIV,
+					XQueryRegions.OP_IDIV, XQueryRegions.OP_MOD });
 
-	final protected OperatorFilter unionFilter = new OperatorFilter(new int[] { ASTOperator.OP_UNION },
+	final protected OperatorFilter unionFilter = new OperatorFilter(
+			new int[] { ASTOperator.OP_UNION },
 			new String[] { XQueryRegions.OP_UNION });
 
-	final protected OperatorFilter intersectExceptFilter = new OperatorFilter(new int[] { ASTOperator.OP_INTERSECT,
-			ASTOperator.OP_EXCEPT }, new String[] { XQueryRegions.OP_INTERSECT, XQueryRegions.OP_EXCEPT });
+	final protected OperatorFilter intersectExceptFilter = new OperatorFilter(
+			new int[] { ASTOperator.OP_INTERSECT, ASTOperator.OP_EXCEPT },
+			new String[] { XQueryRegions.OP_INTERSECT, XQueryRegions.OP_EXCEPT });
 
-	final protected OperatorFilter instanceOfFilter = new OperatorFilter(new int[] { ASTOperator.OP_INSTANCEOF },
+	final protected OperatorFilter instanceOfFilter = new OperatorFilter(
+			new int[] { ASTOperator.OP_INSTANCEOF },
 			new String[] { XQueryRegions.OP_INSTANCEOF });
 
-	final protected OperatorFilter treatFilter = new OperatorFilter(new int[] { ASTOperator.OP_TREATAS },
+	final protected OperatorFilter treatFilter = new OperatorFilter(
+			new int[] { ASTOperator.OP_TREATAS },
 			new String[] { XQueryRegions.OP_TREATAS });
 
-	final protected OperatorFilter castFilter = new OperatorFilter(new int[] { ASTOperator.OP_CASTAS },
+	final protected OperatorFilter castFilter = new OperatorFilter(
+			new int[] { ASTOperator.OP_CASTAS },
 			new String[] { XQueryRegions.OP_CASTAS });
 
-	final protected OperatorFilter castableFilter = new OperatorFilter(new int[] { ASTOperator.OP_CASTABLEAS },
+	final protected OperatorFilter castableFilter = new OperatorFilter(
+			new int[] { ASTOperator.OP_CASTABLEAS },
 			new String[] { XQueryRegions.OP_CASTABLEAS });
 
-	final protected OperatorFilter relativePathFilter = new OperatorFilter(new int[] { ASTOperator.PATH_SLASH,
-			ASTOperator.PATH_SLASHSLASH, }, new String[] { XQueryRegions.PATH_SLASH, XQueryRegions.PATH_SLASHSLASH });
+	final protected OperatorFilter relativePathFilter = new OperatorFilter(
+			new int[] { ASTOperator.PATH_SLASH, ASTOperator.PATH_SLASHSLASH, },
+			new String[] { XQueryRegions.PATH_SLASH,
+					XQueryRegions.PATH_SLASHSLASH });
 
-	final protected RegionFilter stepFilter = new RegionFilter(new String[] { XQueryRegions.PATH_ABBREVATTRIBUTE,
-			XQueryRegions.PATH_ABBREVPARENT, XQueryRegions.PATH_ANCESTOR, XQueryRegions.PATH_ANCESTOR_OR_SELF,
-			XQueryRegions.PATH_ATTRIBUTE, XQueryRegions.PATH_CHILD, XQueryRegions.PATH_DESCENDANT,
-			XQueryRegions.PATH_DESCENDANT_OR_SELF, XQueryRegions.PATH_FOLLOWING, XQueryRegions.PATH_FOLLOWING_SIBLING,
-			XQueryRegions.PATH_PARENT, XQueryRegions.PATH_PRECEDING, XQueryRegions.PATH_PRECEDING_SIBLING,
-			XQueryRegions.PATH_SELF });
+	final protected RegionFilter stepFilter = new RegionFilter(new String[] {
+			XQueryRegions.PATH_ABBREVATTRIBUTE,
+			XQueryRegions.PATH_ABBREVPARENT, XQueryRegions.PATH_ANCESTOR,
+			XQueryRegions.PATH_ANCESTOR_OR_SELF, XQueryRegions.PATH_ATTRIBUTE,
+			XQueryRegions.PATH_CHILD, XQueryRegions.PATH_DESCENDANT,
+			XQueryRegions.PATH_DESCENDANT_OR_SELF,
+			XQueryRegions.PATH_FOLLOWING, XQueryRegions.PATH_FOLLOWING_SIBLING,
+			XQueryRegions.PATH_PARENT, XQueryRegions.PATH_PRECEDING,
+			XQueryRegions.PATH_PRECEDING_SIBLING, XQueryRegions.PATH_SELF });
 
-	final protected RegionFilter nodeTestFilter = new RegionFilter(new String[] { XQueryRegions.KT_ANYKINDTEST,
-			XQueryRegions.KT_ATTRIBUTETEST, XQueryRegions.KT_COMMENTTEST, XQueryRegions.KT_DOCUMENTTEST,
-			XQueryRegions.KT_ELEMENTTEST, XQueryRegions.KT_PITEST, XQueryRegions.KT_SCHEMAATTRIBUTETEST,
-			XQueryRegions.KT_SCHEMAELEMENTTEST, XQueryRegions.KT_TEXTTEST, XQueryRegions.QNAME });
+	final protected RegionFilter nodeTestFilter = new RegionFilter(
+			new String[] { XQueryRegions.KT_ANYKINDTEST,
+					XQueryRegions.KT_ATTRIBUTETEST,
+					XQueryRegions.KT_COMMENTTEST,
+					XQueryRegions.KT_DOCUMENTTEST,
+					XQueryRegions.KT_ELEMENTTEST, XQueryRegions.KT_PITEST,
+					XQueryRegions.KT_SCHEMAATTRIBUTETEST,
+					XQueryRegions.KT_SCHEMAELEMENTTEST,
+					XQueryRegions.KT_TEXTTEST, XQueryRegions.QNAME });
 
-	final protected RegionFilter directConstructorFilter = new RegionFilter(new String[] { XQueryRegions.XML_TAG_OPEN,
-			XQueryRegions.XML_COMMENT, XQueryRegions.XML_PI });
+	final protected RegionFilter directConstructorFilter = new RegionFilter(
+			new String[] { XQueryRegions.XML_TAG_OPEN,
+					XQueryRegions.XML_COMMENT, XQueryRegions.XML_PI });
 
-	final protected RegionFilter commonContentFilter = new RegionFilter(new String[] { XQueryRegions.XML_PE_REFERENCE,
-			XQueryRegions.XML_CHAR_REF, XQueryRegions.XML_ESCAPE_START_EXPR, XQueryRegions.XML_ESCAPE_CLOSE_EXPR,
-			XQueryRegions.XML_START_EXPR });
+	final protected RegionFilter commonContentFilter = new RegionFilter(
+			new String[] { XQueryRegions.XML_PE_REFERENCE,
+					XQueryRegions.XML_CHAR_REF,
+					XQueryRegions.XML_ESCAPE_START_EXPR,
+					XQueryRegions.XML_ESCAPE_CLOSE_EXPR,
+					XQueryRegions.XML_START_EXPR });
 
-	final protected RegionFilter flworFilter = new RegionFilter(new String[] { XQueryRegions.KW_FOR,
-			XQueryRegions.KW_LET });
+	final protected RegionFilter flworFilter = new RegionFilter(new String[] {
+			XQueryRegions.KW_FOR, XQueryRegions.KW_LET });
 
-	final protected RegionFilter quantifiedFilter = new RegionFilter(new String[] { XQueryRegions.KW_SOME,
-			XQueryRegions.KW_EVERY });
+	final protected RegionFilter quantifiedFilter = new RegionFilter(
+			new String[] { XQueryRegions.KW_SOME, XQueryRegions.KW_EVERY });
 
 	// And associated continuations....
 	final protected Continuation exprContinuation = new ExprContinuation();
@@ -178,19 +219,24 @@ public class ModelBuilder {
 	/**
 	 * Reparse the XQuery
 	 * 
-	 * @param node
-	 *            the top-level AST node. Might be null for new document
 	 * @param region
 	 *            first structured document region (after update)
 	 * @param offset
 	 *            of the change
 	 * @param length
 	 *            of the change
+	 * @param language
+	 *            target language
+	 * @param node
+	 *            the top-level AST node. Might be null for new document
+	 * @see {@link IXQDTLanguageConstants}
 	 */
-	public ASTModule reparseQuery(ASTModule module, IStructuredDocumentRegion region, int offset, int length) {
+	public ASTModule reparseQuery(ASTModule module,
+			IStructuredDocumentRegion region, int offset, int length,
+			int language) {
 		messages = new LinkedList<IMessage>();
-		
-		currentSDRegion = region;
+
+		currentSDRegion = (XQueryStructuredDocumentRegion) region;
 		currentRegionIdx = 0;
 		this.offset = offset;
 		this.length = length;
@@ -273,9 +319,12 @@ public class ModelBuilder {
 			if (sameRegionType(XQueryRegions.KW_DECLARE)) {
 				String type2 = currentSDRegion.getRegions().get(1).getType();
 
-				if (type2 == XQueryRegions.KW_NAMESPACE || type2 == XQueryRegions.KW_BOUNDARY_SPACE
-						|| type2 == XQueryRegions.KW_DEFAULT || type2 == XQueryRegions.KW_BASEURI
-						|| type2 == XQueryRegions.KW_CONSTRUCTION || type2 == XQueryRegions.KW_ORDERING
+				if (type2 == XQueryRegions.KW_NAMESPACE
+						|| type2 == XQueryRegions.KW_BOUNDARY_SPACE
+						|| type2 == XQueryRegions.KW_DEFAULT
+						|| type2 == XQueryRegions.KW_BASEURI
+						|| type2 == XQueryRegions.KW_CONSTRUCTION
+						|| type2 == XQueryRegions.KW_ORDERING
 						|| type2 == XQueryRegions.KW_COPYNAMESPACES)
 					nextSDRegion();
 				else {
@@ -337,11 +386,22 @@ public class ModelBuilder {
 	/**
 	 * Reparse
 	 * <tt>"declare" "function" QName "(" ParamList? ")" ("as" SequenceType)? (EnclosedExpr | "external")</tt>
+	 * 
+	 * XQuery Update:
+	 * <tt>declare" "updating"? "function" QName "(" ParamList? ")" ("as" SequenceType)? (EnclosedExpr | "external")
+	 * 
+	 * XQuery Scripting:
+	 * <tt>"declare" ("simple"? | "updating") "function" QName "(" ParamList? ")" ("as" SequenceType)? (EnclosedExpr | "external"))
+	 *      | ("declare" "sequential" "function" QName "(" ParamList? ")" ("as" SequenceType)? (Block | "external"))
 	 */
 	protected void reparseFunctionDecl(ASTModule node) {
-		nextSDRegion(); // "declare" "function"
+		final FunctionDeclStructuredDocumentRegion declareRegion = (FunctionDeclStructuredDocumentRegion) currentSDRegion;
+
+		nextSDRegion(); // "declare" .... "function"
+
 		if (sameRegionType(XQueryRegions.FUNCTIONNAME)) {
-			String functionName = currentSDRegion.getText(currentSDRegion.getFirstRegion());
+			String functionName = currentSDRegion.getText(currentSDRegion
+					.getFirstRegion());
 
 			ASTFunctionDecl decl = node.getFunctionDecl(functionName);
 			if (decl == null) {
@@ -359,14 +419,58 @@ public class ModelBuilder {
 
 			if (sameRegionType(XQueryRegions.KW_EXTERNAL)) {
 				nextSDRegion(); // 'external'
+			} else if (declareRegion.isSequential()) {
+				IASTNode newBody = reparseBlock();
 			} else {
+
 				IASTNode newBody = reparseEnclosedExpr(decl.getBody());
 				decl.setBody(newBody);
 			}
 
 		} else {
-			// Function name not there yet..
+			// Function name not typed yet.
 		}
+	}
+
+	/**
+	 * Reparse <tt>"{" BlockDecls BlockBody "}"</tt>
+	 * 
+	 * @return
+	 */
+	protected IASTNode reparseBlock() {
+		nextSDRegion(); // "{"
+		reparseBlockDecls();
+		reparseBlockBody();
+		nextSDRegion(); // "}"
+		return null;
+	}
+
+	/**
+	 * Reparse <tt>Expr</tt>
+	 */
+	protected void reparseBlockBody() {
+		reparseExpr(null);
+	}
+
+	/**
+	 * Reparse <tt>(BlockVarDecl ";")*</tt>
+	 */
+	protected void reparseBlockDecls() {
+		while (sameRegionType(XQueryRegions.KW_DECLARE))
+		{
+			reparseBlockVarDecl();
+			
+			nextSDRegion(); // ";"
+		}
+
+	}
+
+	/**
+	 * Reparse
+	 * <tt>"declare" "$" VarName TypeDeclaration? (":=" ExprSingle)? ("," "$" VarName TypeDeclaration? (":=" ExprSingle)?)*</tt>
+	 */
+	protected void reparseBlockVarDecl() {
+		nextSDRegion(); // Skip the whole thing...
 	}
 
 	/**
@@ -415,7 +519,8 @@ public class ModelBuilder {
 	protected void reparseVarDecl(ASTModule module) {
 		nextSDRegion(); // skip "declare" "variable"
 
-		String name = currentSDRegion.getFullText(currentSDRegion.getLastRegion());
+		String name = currentSDRegion.getFullText(currentSDRegion
+				.getLastRegion());
 
 		ASTVarDecl decl = module.getVariableDecl(name);
 		if (decl == null) {
@@ -512,7 +617,8 @@ public class ModelBuilder {
 		nextSDRegion(); // default
 
 		if (sameRegionType(XQueryRegions.DOLLAR)) {
-			typeswitch.setDefaultCaseVarname((XQueryStructuredDocumentRegion) currentSDRegion);
+			typeswitch
+					.setDefaultCaseVarname((XQueryStructuredDocumentRegion) currentSDRegion);
 			nextSDRegion(); // "$" Varname
 		}
 
@@ -534,7 +640,8 @@ public class ModelBuilder {
 			nextSDRegion(); // case
 
 			if (sameRegionType(XQueryRegions.DOLLAR)) {
-				typeswitch.setCaseVarname(index, (XQueryStructuredDocumentRegion) currentSDRegion);
+				typeswitch.setCaseVarname(index,
+						(XQueryStructuredDocumentRegion) currentSDRegion);
 				nextSDRegion(); // "$" Varname
 				nextSDRegion(); // as
 			}
@@ -568,29 +675,29 @@ public class ModelBuilder {
 		int index = 0;
 		do {
 			quantified.setBindingVariable(index, currentSDRegion);
-			
+
 			nextSDRegion(); // $ VarName
-			
+
 			reparseTypeDeclarationOpt(null);
-			
+
 			nextSDRegion(); // in
-			
+
 			IASTNode oldExpr = quantified.getBindingExpr(index);
 			quantified.setBindingExpr(index, reparseExprSingle(oldExpr));
-			
+
 			if (sameRegionType(XQueryRegions.KW_SATIFIES))
 				break;
-			
+
 			nextSDRegion(); // ","
-			
-			index ++;
+
+			index++;
 		} while (currentSDRegion != null);
 
 		nextSDRegion(); // satifies
-		
+
 		IASTNode oldExpr = quantified.getSatisfiesExpr();
 		quantified.setSatisfiesExpr(reparseExprSingle(oldExpr));
-		
+
 		return quantified;
 	}
 
@@ -601,7 +708,7 @@ public class ModelBuilder {
 	protected IASTNode reparseFLWORExpr(IASTNode expr) {
 		ASTFLWOR flwor = asFLWOR(expr);
 
-		//final String clauseType = currentSDRegion.getType();
+		// final String clauseType = currentSDRegion.getType();
 		nextSDRegion(); // for/let keyword
 
 		reparseFLWORClause(flwor);
@@ -614,7 +721,8 @@ public class ModelBuilder {
 			flwor.setWhereExpr(reparseExprSingle(oldWhere));
 		}
 
-		if (sameRegionType(XQueryRegions.KW_ORDER) || sameRegionType(XQueryRegions.KW_STABLE)) {
+		if (sameRegionType(XQueryRegions.KW_ORDER)
+				|| sameRegionType(XQueryRegions.KW_STABLE)) {
 			nextSDRegion(); // 'Order by' or 'stable order by'
 
 			reparseOrderSpecList(flwor);
@@ -659,10 +767,12 @@ public class ModelBuilder {
 	/**
 	 * Reparse
 	 * <tt>("ascending" | "descending")? ("empty" ("greatest" | "least"))? ("collation" URILiteral)?</tt>
-	 * @param index 
+	 * 
+	 * @param index
 	 */
 	protected void reparseOrderModifier(ASTFLWOR flwor, int index) {
-		if (sameRegionType(XQueryRegions.KW_ASCENDING) || sameRegionType(XQueryRegions.KW_DESCENDING))
+		if (sameRegionType(XQueryRegions.KW_ASCENDING)
+				|| sameRegionType(XQueryRegions.KW_DESCENDING))
 			nextSDRegion();
 
 		if (sameRegionType(XQueryRegions.KW_EMPTY))
@@ -781,7 +891,8 @@ public class ModelBuilder {
 	 * <tt> RangeExpr ( (ValueComp | GeneralComp | NodeComp) RangeExpr )?</tt>
 	 */
 	protected IASTNode reparseComparisonExpr(IASTNode expr) {
-		return reparseOperatorOptional(expr, comparisonFilter, comparisonContinuation);
+		return reparseOperatorOptional(expr, comparisonFilter,
+				comparisonContinuation);
 	}
 
 	/**
@@ -802,7 +913,8 @@ public class ModelBuilder {
 	 * Reparse <tt>UnionExpr ( ("*" | "div" | "idiv" | "mod") UnionExpr )*</tt>
 	 */
 	protected IASTNode reparseMultiplicativeExpr(IASTNode expr) {
-		return reparseOperatorStar(expr, multiplicativeFilter, multiplicativeContinuation);
+		return reparseOperatorStar(expr, multiplicativeFilter,
+				multiplicativeContinuation);
 	}
 
 	/**
@@ -818,14 +930,16 @@ public class ModelBuilder {
 	 * <tt>InstanceofExpr ( ("intersect" | "except") InstanceofExpr )*</tt>
 	 */
 	protected IASTNode reparseIntersectExceptExpr(IASTNode expr) {
-		return reparseOperatorStar(expr, intersectExceptFilter, intersectExceptContinuation);
+		return reparseOperatorStar(expr, intersectExceptFilter,
+				intersectExceptContinuation);
 	}
 
 	/**
 	 * Reparse <tt>TreatExpr ( "instance" "of" SequenceType )?</tt>
 	 */
 	protected IASTNode reparseInstanceOfExpr(IASTNode expr) {
-		return reparseOperatorOptional(expr, instanceOfFilter, instanceOfContinuation);
+		return reparseOperatorOptional(expr, instanceOfFilter,
+				instanceOfContinuation);
 	}
 
 	/**
@@ -839,7 +953,8 @@ public class ModelBuilder {
 	 * Reparse <tt>CastExpr ( "castable" "as" SingleType )?</tt>
 	 */
 	protected IASTNode reparseCastableExpr(IASTNode expr) {
-		return reparseOperatorOptional(expr, castableFilter, castableContinuation);
+		return reparseOperatorOptional(expr, castableFilter,
+				castableContinuation);
 	}
 
 	/**
@@ -903,7 +1018,8 @@ public class ModelBuilder {
 	 * Reparse <tt>("lax" | "strict")?</tt>
 	 */
 	protected void reparseValidationModeOpt(IASTNode expr) {
-		if (sameRegionType(XQueryRegions.KW_LAX) || sameRegionType(XQueryRegions.KW_STRICT))
+		if (sameRegionType(XQueryRegions.KW_LAX)
+				|| sameRegionType(XQueryRegions.KW_STRICT))
 			nextSDRegion();
 	}
 
@@ -944,7 +1060,8 @@ public class ModelBuilder {
 	 * Reparse <tt>StepExpr (("/" | "//") StepExpr)</tt>
 	 */
 	protected IASTNode reparseRelativePathExpr(IASTNode expr) {
-		return reparseOperatorStar(expr, relativePathFilter, relativePathContinuation);
+		return reparseOperatorStar(expr, relativePathFilter,
+				relativePathContinuation);
 	}
 
 	/**
@@ -967,7 +1084,8 @@ public class ModelBuilder {
 			stepExpr = reparseContextItemExpr(expr);
 		else if (sameRegionType(XQueryRegions.FUNCTIONNAME)) // Function call
 			stepExpr = reparseFunctionCall(expr);
-		else if (sameRegionType(XQueryRegions.KW_ORDERED) || sameRegionType(XQueryRegions.KW_UNORDERED)) // Ordered/Unordered
+		else if (sameRegionType(XQueryRegions.KW_ORDERED)
+				|| sameRegionType(XQueryRegions.KW_UNORDERED)) // Ordered/Unordered
 			stepExpr = reparseOrderedUnordered(expr);
 		else if (sameRegionType(XQueryRegions.XML_TAG_OPEN)) // '<'
 			stepExpr = reparseDirElemConstructor(expr);
@@ -1158,7 +1276,8 @@ public class ModelBuilder {
 	protected IASTNode reparseDirElemConstructor(IASTNode expr) {
 		ASTDirElement element = asDirElement(expr);
 
-		String tagName = currentSDRegion.getText(currentSDRegion.getLastRegion());
+		String tagName = currentSDRegion.getText(currentSDRegion
+				.getLastRegion());
 		element.setTagName(tagName);
 
 		nextSDRegion(); // "<" QName
@@ -1194,7 +1313,8 @@ public class ModelBuilder {
 
 			if (sameRegionType(XQueryRegions.XML_CDATA))
 				reparseCDataSection();
-			else if (sameRegionType(directConstructorFilter) || sameRegionType(commonContentFilter)) {
+			else if (sameRegionType(directConstructorFilter)
+					|| sameRegionType(commonContentFilter)) {
 				IASTNode oldChild = element.getChildASTNodeAt(index);
 				IASTNode newChild = sameRegionType(directConstructorFilter) ? reparseDirectConstructor(oldChild)
 						: reparseCommonContent(oldChild);
@@ -1263,7 +1383,8 @@ public class ModelBuilder {
 				break;
 
 			String attrName = currentSDRegion.getText().trim();
-			ASTDirAttribute attr = (ASTDirAttribute) element.getAttributeNode(attrName);
+			ASTDirAttribute attr = (ASTDirAttribute) element
+					.getAttributeNode(attrName);
 			if (attr == null) {
 				attr = nodeFactory.newDirAttribute();
 				attr.setName(attrName);
@@ -1306,7 +1427,8 @@ public class ModelBuilder {
 	 * Reparse <tt>(EscapeQuot | QuotAttrValueContent)*</tt> or
 	 * <tt>(EscapeApos | AposAttrValueContent)*</tt>
 	 */
-	protected void reparseDirAttributeValue(ASTDirAttribute attr, String escapeType) {
+	protected void reparseDirAttributeValue(ASTDirAttribute attr,
+			String escapeType) {
 		int index = 0;
 		while (currentSDRegion != null) {
 			if (sameRegionType(XQueryRegions.XML_END_ATTR_VALUE)) {
@@ -1444,7 +1566,8 @@ public class ModelBuilder {
 	// Reparse operator helpers
 
 	/** Reparse operator following this grammar (Expr (op Expr)*) */
-	protected IASTNode reparseOperatorStar(IASTNode expr, OperatorFilter operatorFilter, Continuation continuation) {
+	protected IASTNode reparseOperatorStar(IASTNode expr,
+			OperatorFilter operatorFilter, Continuation continuation) {
 		IASTNode oldChild = getFirstOperand(expr, operatorFilter);
 		IASTNode newChild = continuation.reparse(oldChild);
 
@@ -1477,7 +1600,8 @@ public class ModelBuilder {
 	}
 
 	/** Reparse operator following this grammar (Expr (op Expr)?) */
-	protected IASTNode reparseOperatorOptional(IASTNode expr, OperatorFilter operatorFilter, Continuation continuation) {
+	protected IASTNode reparseOperatorOptional(IASTNode expr,
+			OperatorFilter operatorFilter, Continuation continuation) {
 		IASTNode oldChild = getFirstOperand(expr, operatorFilter);
 		IASTNode newChild = continuation.reparse(oldChild);
 
@@ -1576,7 +1700,8 @@ public class ModelBuilder {
 	 */
 	protected boolean sameRegionType(OperatorFilter filter) {
 		skipWhitespace();
-		return currentSDRegion != null && filter.accept(currentSDRegion.getType());
+		return currentSDRegion != null
+				&& filter.accept(currentSDRegion.getType());
 	}
 
 	/**
@@ -1585,13 +1710,16 @@ public class ModelBuilder {
 	 */
 	protected boolean sameRegionType(RegionFilter filter) {
 		skipWhitespace();
-		return currentSDRegion != null && filter.accept(currentSDRegion.getType());
+		return currentSDRegion != null
+				&& filter.accept(currentSDRegion.getType());
 	}
 
 	/** Skip white spaces */
 	protected void skipWhitespace() {
-		while (currentSDRegion != null && isIgnorableWhitespace(currentSDRegion.getType())) {
-			currentSDRegion = currentSDRegion.getNext();
+		while (currentSDRegion != null
+				&& isIgnorableWhitespace(currentSDRegion.getType())) {
+			currentSDRegion = (XQueryStructuredDocumentRegion) currentSDRegion
+					.getNext();
 			currentRegionIdx = 0;
 		}
 	}
@@ -1601,7 +1729,8 @@ public class ModelBuilder {
 	 * and comments)
 	 */
 	protected boolean isIgnorableWhitespace(String type) {
-		return type == XQueryRegions.WHITE_SPACE || type == XQueryRegions.XQUERY_COMMENT;
+		return type == XQueryRegions.WHITE_SPACE
+				|| type == XQueryRegions.XQUERY_COMMENT;
 	}
 
 	/**
@@ -1610,13 +1739,15 @@ public class ModelBuilder {
 	 */
 	final protected boolean overlap() {
 		return currentSDRegion != null
-				&& !(currentSDRegion.getStart() > offset + length || currentSDRegion.getEnd() < offset);
+				&& !(currentSDRegion.getStart() > offset + length || currentSDRegion
+						.getEnd() < offset);
 	}
 
 	/** Move to the next structured document region. Ignore whitespaces */
 	protected void nextSDRegion() {
 		if (currentSDRegion != null) {
-			currentSDRegion = currentSDRegion.getNext();
+			currentSDRegion = (XQueryStructuredDocumentRegion) currentSDRegion
+					.getNext();
 			currentRegionIdx = 0;
 
 			skipWhitespace();
@@ -1678,7 +1809,8 @@ public class ModelBuilder {
 	protected IASTNode getFirstOperand(IASTNode expr, OperatorFilter filter) {
 		if (expr != null && expr.getType() == IASTNode.OPERATOR) {
 			final ASTOperator operator = (ASTOperator) expr;
-			if (filter.accept(operator.getType()) && operator.getChildASTNodesCount() >= 1)
+			if (filter.accept(operator.getType())
+					&& operator.getChildASTNodesCount() >= 1)
 				return operator.getChildASTNodeAt(0);
 		}
 		return null;

@@ -31,6 +31,15 @@ public interface ITokenizer {
 	 */ 
 	ITextRegion getNextToken() throws IOException;
 
+
+	/**
+	 * Gets the lookahead token type, if available.
+	 * @return
+	 * @throws IOException
+	 */ 
+	String getLookAheadToken();
+	
+	
 	/**
 	 * Whether or not the end-of-stream has been reached
 	 * @return

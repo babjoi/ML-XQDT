@@ -20,6 +20,7 @@
  *******************************************************************************/
 package org.eclipse.wst.xquery.sse.core.internal.model;
 
+import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IConfigurationElement;
 import org.eclipse.core.runtime.IExtension;
@@ -36,9 +37,15 @@ import org.eclipse.wst.sse.core.internal.provisional.events.RegionsReplacedEvent
 import org.eclipse.wst.sse.core.internal.provisional.events.StructuredDocumentRegionsReplacedEvent;
 import org.eclipse.wst.sse.core.internal.provisional.text.IStructuredDocument;
 import org.eclipse.wst.sse.core.internal.provisional.text.IStructuredDocumentRegion;
+import org.eclipse.wst.validation.IPerformanceMonitor;
+import org.eclipse.wst.xquery.core.IXQDTCorePreferences;
+import org.eclipse.wst.xquery.core.IXQDTLanguageConstants;
+import org.eclipse.wst.xquery.core.XQDTCorePlugin;
+import org.eclipse.wst.xquery.core.utils.LanguageUtil;
 import org.eclipse.wst.xquery.sse.core.internal.model.ast.ASTModule;
 import org.eclipse.wst.xquery.sse.core.internal.model.ast.IASTNode;
 import org.eclipse.wst.xquery.sse.core.internal.sdregions.XQueryStructuredDocumentRegion;
+import org.osgi.service.prefs.PreferencesService;
 
 /**
  * Structured model for XQuery document.
@@ -58,6 +65,9 @@ public class XQueryStructuredModel extends AbstractStructuredModel implements
 
 	/** Root AST node (module) */
 	private ASTModule module;
+
+	/** Current language */
+	protected int language;
 
 	// Constructors
 
@@ -79,6 +89,17 @@ public class XQueryStructuredModel extends AbstractStructuredModel implements
 			return xregion.getASTNode();
 		}
 		return null;
+	}
+
+	/** Get what is the target language for this model */
+	protected int getLanguage() {
+		String pref = Platform.getPreferencesService().getString(
+				XQDTCorePlugin.PLUGIN_ID, IXQDTCorePreferences.LANGUAGE_LEVEL,
+				"", null);
+		if (IXQDTCorePreferences.LANGUAGE_NAME_XQUERY.equals(pref))
+			return IXQDTLanguageConstants.LANGUAGE_XQUERY;
+
+		return IXQDTLanguageConstants.LANGUAGE_XQUERY;
 	}
 
 	// Overrides
@@ -103,9 +124,9 @@ public class XQueryStructuredModel extends AbstractStructuredModel implements
 
 			// Parse..
 			if (newStructuredDocument != null)
-				module = builder.reparseQuery(module, fStructuredDocument
-						.getFirstStructuredDocumentRegion(), 0,
-						fStructuredDocument.getLength());
+				module = builder.reparseQuery(module,
+						fStructuredDocument.getFirstStructuredDocumentRegion(),
+						0, fStructuredDocument.getLength(), 0);
 		}
 	}
 
@@ -114,7 +135,7 @@ public class XQueryStructuredModel extends AbstractStructuredModel implements
 	public void newModel(NewDocumentEvent event) {
 		module = builder.reparseQuery(module, event.getStructuredDocument()
 				.getFirstStructuredDocumentRegion(), 0, event.getDocument()
-				.getLength());
+				.getLength(), getLanguage());
 	}
 
 	public void noChange(NoChangeEvent event) {
@@ -123,7 +144,7 @@ public class XQueryStructuredModel extends AbstractStructuredModel implements
 	public void nodesReplaced(StructuredDocumentRegionsReplacedEvent event) {
 		module = builder.reparseQuery(module, event.getStructuredDocument()
 				.getFirstStructuredDocumentRegion(), event.getOffset(), event
-				.getLength());
+				.getLength(), getLanguage());
 	}
 
 	public void regionChanged(RegionChangedEvent event) {
@@ -136,7 +157,7 @@ public class XQueryStructuredModel extends AbstractStructuredModel implements
 
 		module = builder.reparseQuery(module, event.getStructuredDocument()
 				.getFirstStructuredDocumentRegion(), event.getOffset(), event
-				.getLength());
+				.getLength(), getLanguage());
 	}
 
 	// ModelBuilder Extension point

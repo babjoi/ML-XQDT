@@ -129,6 +129,7 @@ public class ASTModule extends ASTParentNode {
 	 * @param decl
 	 */
 	public void addFunctionDecl(String name, ASTFunctionDecl decl) {
+		appendChildASTNodeAt(decl);
 		functionDecls.put(name, decl);
 	}
 
@@ -138,6 +139,7 @@ public class ASTModule extends ASTParentNode {
 	 * @param region
 	 */
 	public void addVariableDecl(String name, ASTVarDecl decl) {
+		appendChildASTNodeAt(decl);
 		variableDecls.put(name, decl);
 	}
 
@@ -155,14 +157,14 @@ public class ASTModule extends ASTParentNode {
 	 * @return Query body
 	 */
 	public IASTNode getQueryBody() {
-		return getChildASTNodeAt(0);
+		return getChildASTNodeAt(getChildASTNodesCount());
 	}
 
 	/**
 	 * @param queryBody
 	 */
 	public void setQueryBody(IASTNode expr) {
-		setChildASTNodeAt(0, expr);
+		setChildASTNodeAt(getChildASTNodesCount(), expr);
 	}
 
 	// Overrides

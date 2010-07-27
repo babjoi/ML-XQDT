@@ -48,6 +48,10 @@ public abstract class ASTNode implements IASTNode {
 		throw new IllegalStateException(
 				"Illegal call to setChildNodeAt on a leaf node");
 	}
+	
+	public void appendChildASTNodeAt(IASTNode newChild) {
+		ASTHelper.appendChildASTNodeAt(this, newChild);
+	}
 
 	public void removeChildASTNodesAfter(int index) {
 		throw new IllegalStateException(
@@ -58,6 +62,15 @@ public abstract class ASTNode implements IASTNode {
 		return 0;
 	}
 	
+	
+	public IASTNode getPreviousASTNodeSibling() {
+		return ASTHelper.getPreviousASTNodeSibling(this);
+	}
+
+	public IASTNode getFollowingASTNodeSibling() {
+		return ASTHelper.getFollowingASTNodeSibling(this);
+	}
+
 	public boolean staticCheck(IStructuredDocument document, IValidator validator, IReporter reporter) {
 		return true;
 	}

@@ -24,7 +24,6 @@ import org.eclipse.jface.text.templates.Template;
 import org.eclipse.jface.text.templates.TemplateCompletionProcessor;
 import org.eclipse.jface.text.templates.TemplateContext;
 import org.eclipse.jface.text.templates.TemplateContextType;
-import org.eclipse.jface.text.templates.TemplateException;
 import org.eclipse.jface.text.templates.TemplateProposal;
 import org.eclipse.jface.text.templates.persistence.TemplateStore;
 import org.eclipse.swt.graphics.Image;
@@ -33,6 +32,8 @@ import org.eclipse.wst.sse.core.internal.provisional.text.IStructuredDocument;
 import org.eclipse.wst.sse.core.internal.provisional.text.IStructuredDocumentRegion;
 import org.eclipse.wst.xquery.sse.core.internal.model.XQueryStructuredModel;
 import org.eclipse.wst.xquery.sse.core.internal.model.ast.IASTNode;
+import org.eclipse.wst.xquery.sse.core.internal.regions.XQueryRegions;
+import org.eclipse.wst.xquery.sse.core.internal.sdregions.XQueryStructuredDocumentRegion;
 import org.eclipse.wst.xquery.sse.ui.XQDTPlugin;
 import org.eclipse.wst.xquery.sse.ui.internal.preferences.XQDTTemplatePreferencePage;
 
@@ -46,33 +47,63 @@ import org.eclipse.wst.xquery.sse.ui.internal.preferences.XQDTTemplatePreference
  * <li>TODO: XML character template
  * </ul>
  * 
+ * 
+ * 
  * @author <a href="villard@us.ibm.com">Lionel Villard</a>
  */
 @SuppressWarnings("restriction")
-public class XQDTTemplateCompletionProcessor extends TemplateCompletionProcessor {
+public class XQDTTemplateCompletionProcessor extends
+		TemplateCompletionProcessor {
 
 	// State
 
 	/** Context type ID */
 	protected String contextTypeID;
 
+	// Methods
+
+	/**
+	 * Gets the context the given node lives in
+	 */
+	protected TemplateContextType getContextType(IASTNode node) {
+		if (node != null) {
+			final IASTNode prev = node.getPreviousASTNodeSibling();
+			if (prev != null) {
+				switch (prev.getType()) {
+				case IASTNode.VARDECL:
+				case IASTNode.FUNCTIONDECL:
+					return XQDTTemplateContexTypeIDs.ALL_BUT_PROLOG1_TCT;
+				}
+			}
+		}
+		
+		// Coudn't figure out context => could be in any
+		return XQDTTemplateContexTypeIDs.ALL_TCT;
+	}
+
 	// Overrides
 
 	@Override
-	protected TemplateContextType getContextType(ITextViewer viewer, IRegion region) {
-		final IStructuredDocument document = (IStructuredDocument) viewer.getDocument();
-		final IStructuredDocumentRegion sdregion = document.getRegionAtCharacterOffset(region.getOffset());
+	protected TemplateContextType getContextType(ITextViewer viewer,
+			IRegion region) {
+		final IStructuredDocument document = (IStructuredDocument) viewer
+				.getDocument();
+		final XQueryStructuredDocumentRegion sdregion = (XQueryStructuredDocumentRegion) document
+				.getRegionAtCharacterOffset(region.getOffset());
 
-		if (region != null) {
-			final XQueryStructuredModel model = (XQueryStructuredModel) StructuredModelManager.getModelManager()
-					.getModelForRead(document);
+		if (sdregion != null) {
+
+			final XQueryStructuredModel model = (XQueryStructuredModel) StructuredModelManager
+					.getModelManager().getModelForRead(document);
+
 			final IASTNode node = model.getASTNode(sdregion);
+
+			
+			TemplateContextType tct = getContextType(node);
+
 			model.releaseFromRead();
 
-			if (node != null) {
-				// TODO: accurate completion
-			}
-
+			return tct;
 		}
 
 		// Coudn't figure out context => allow all
@@ -90,9 +121,14 @@ public class XQDTTemplateCompletionProcessor extends TemplateCompletionProcessor
 
 		// Is this a logical context type ID?
 		if (contextTypeId == XQDTTemplateContexTypeIDs.PROLOG12) {
-			ids = new String[] { XQDTTemplateContexTypeIDs.PROLOG1, XQDTTemplateContexTypeIDs.PROLOG2 };
+			ids = new String[] { XQDTTemplateContexTypeIDs.PROLOG1,
+					XQDTTemplateContexTypeIDs.PROLOG2 };
 		} else if (contextTypeId == XQDTTemplateContexTypeIDs.ALL) {
-			ids = new String[] { XQDTTemplateContexTypeIDs.PROLOG1, XQDTTemplateContexTypeIDs.PROLOG2,
+			ids = new String[] { XQDTTemplateContexTypeIDs.PROLOG1,
+					XQDTTemplateContexTypeIDs.PROLOG2,
+					XQDTTemplateContexTypeIDs.EXPR };
+		} else if (contextTypeId == XQDTTemplateContexTypeIDs.ALL_BUT_PROLOG1) {
+			ids = new String[] { XQDTTemplateContexTypeIDs.PROLOG2,
 					XQDTTemplateContexTypeIDs.EXPR };
 		} else {
 			ids = new String[] { contextTypeId };
@@ -118,8 +154,10 @@ public class XQDTTemplateCompletionProcessor extends TemplateCompletionProcessor
 	}
 
 	@Override
-	public ICompletionProposal[] computeCompletionProposals(ITextViewer viewer, int offset) {
-		ITextSelection selection = (ITextSelection) viewer.getSelectionProvider().getSelection();
+	public ICompletionProposal[] computeCompletionProposals(ITextViewer viewer,
+			int offset) {
+		ITextSelection selection = (ITextSelection) viewer
+				.getSelectionProvider().getSelection();
 
 		// adjust offset to end of normalized selection
 		if (selection.getOffset() == offset)
@@ -139,18 +177,16 @@ public class XQDTTemplateCompletionProcessor extends TemplateCompletionProcessor
 		for (int i = 0; i < templates.length; i++) {
 			Template template = templates[i];
 
-			try {
-				context.getContextType().validate(template.getPattern());
-			} catch (TemplateException e) {
-				continue;
-			}
-
-			matches.add(createProposal(template, context, (IRegion) region, getRelevance(template, prefix)));
+			final int relevance = getRelevance(template, prefix);
+			if (relevance > 0)
+				matches.add(createProposal(template, context, (IRegion) region,
+						relevance));
 		}
 
 		Collections.sort(matches, fgProposalComparator);
 
-		return (ICompletionProposal[]) matches.toArray(new ICompletionProposal[matches.size()]);
+		return (ICompletionProposal[]) matches
+				.toArray(new ICompletionProposal[matches.size()]);
 	}
 
 	// Helpers
@@ -159,9 +195,11 @@ public class XQDTTemplateCompletionProcessor extends TemplateCompletionProcessor
 		return XQDTPlugin.getDefault().getTemplateStore();
 	}
 
-	private static final class ProposalComparator implements Comparator<ICompletionProposal> {
+	private static final class ProposalComparator implements
+			Comparator<ICompletionProposal> {
 		public int compare(ICompletionProposal o1, ICompletionProposal o2) {
-			return ((TemplateProposal) o2).getRelevance() - ((TemplateProposal) o1).getRelevance();
+			return ((TemplateProposal) o2).getRelevance()
+					- ((TemplateProposal) o1).getRelevance();
 		}
 	}
 

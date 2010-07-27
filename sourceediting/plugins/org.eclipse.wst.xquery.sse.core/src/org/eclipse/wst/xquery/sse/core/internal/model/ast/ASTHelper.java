@@ -91,6 +91,41 @@ public class ASTHelper {
 			list.add(null);
 	}
 
+	/** Returns the previous sibling of the given node */
+	public static IASTNode getPreviousASTNodeSibling(IASTNode node) {
+		if (node.getASTParent() != null) {
+			final IASTNode parent = node.getASTParent();
+			int count = parent.getChildASTNodesCount();
+			for (int i = 0; i < count; i++) {
+				if (parent.getChildASTNodeAt(i) == node) {
+					return i > 0 ? parent.getChildASTNodeAt(i - 1) : null;
+				}
+			}
+		}
+
+		return null;
+	}
+
+	/** Returns the following sibling of the given node */
+	public static IASTNode getFollowingASTNodeSibling(IASTNode node) {
+		if (node.getASTParent() != null) {
+			final IASTNode parent = node.getASTParent();
+			int count = parent.getChildASTNodesCount();
+			for (int i = 0; i < count - 1; i++) {
+				if (parent.getChildASTNodeAt(i) == node)
+					return parent.getChildASTNodeAt(i + 1);
+			}
+		}
+
+		return null;
+	}
+	
+
+	/** Append child node to the given parent at the last position */
+	public static void appendChildASTNodeAt(IASTNode parent, IASTNode child) {
+		parent.setChildASTNodeAt(parent.getChildASTNodesCount(), child);
+	}
+
 	/**
 	 * Report error
 	 * 

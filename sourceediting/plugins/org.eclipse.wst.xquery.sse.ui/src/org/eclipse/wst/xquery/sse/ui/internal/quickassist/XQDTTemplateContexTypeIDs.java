@@ -25,9 +25,11 @@ public interface XQDTTemplateContexTypeIDs {
 	// Atomic context type IDs
 
 	String PROLOG1 = "org.eclipse.wst.xquery.sse.ui.contextType.prolog1";
+	int PROLOG1_ID = 0;
 	TemplateContextType PROLOG1_TCT = REGISTRY.getContextType(PROLOG1);
 
 	String PROLOG2 = "org.eclipse.wst.xquery.sse.ui.contextType.prolog2";
+	int PROLOG2_ID = 1;
 	TemplateContextType PROLOG2_TCT = REGISTRY.getContextType(PROLOG2);
 
 	String EXPR = "org.eclipse.wst.xquery.sse.ui.contextType.expr";
@@ -40,6 +42,9 @@ public interface XQDTTemplateContexTypeIDs {
 
 	String ALL = "org.eclipse.wst.xquery.sse.ui.contextType.all";
 	TemplateContextType ALL_TCT = new TemplateContextType(ALL);
+	
+	String ALL_BUT_PROLOG1 = "org.eclipse.wst.xquery.sse.ui.contextType.allbutprolog1";
+	TemplateContextType ALL_BUT_PROLOG1_TCT = new TemplateContextType(ALL_BUT_PROLOG1);
 
 
 	String VERSIONDEL = "org.eclipse.wst.xquery.sse.ui.contextType.versiondecl";

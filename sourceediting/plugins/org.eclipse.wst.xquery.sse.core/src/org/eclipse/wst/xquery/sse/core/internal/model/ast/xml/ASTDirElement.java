@@ -15,6 +15,7 @@ import org.eclipse.wst.validation.internal.provisional.core.IReporter;
 import org.eclipse.wst.validation.internal.provisional.core.IValidator;
 import org.eclipse.wst.xml.core.internal.document.ElementImpl;
 import org.eclipse.wst.xml.core.internal.document.TextImpl;
+import org.eclipse.wst.xquery.sse.core.internal.model.ast.ASTHelper;
 import org.eclipse.wst.xquery.sse.core.internal.model.ast.IASTNode;
 import org.w3c.dom.Attr;
 import org.w3c.dom.DOMException;
@@ -120,6 +121,18 @@ public class ASTDirElement extends ElementImpl implements IASTNode {
 		}
 
 		newChild.setASTParent(this);
+	}
+	
+	public void appendChildASTNodeAt(IASTNode newChild) {
+		ASTHelper.appendChildASTNodeAt(this, newChild);
+	}
+
+	public IASTNode getPreviousASTNodeSibling() {
+		return ASTHelper.getPreviousASTNodeSibling(this);
+	}
+
+	public IASTNode getFollowingASTNodeSibling() {
+		return ASTHelper.getFollowingASTNodeSibling(this);
 	}
 
 	public boolean staticCheck(IStructuredDocument document,

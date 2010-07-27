@@ -48,6 +48,13 @@ public interface IASTNode {
 	 * @return the parent AST node or null if this is the root node.
 	 */
 	public IASTNode getASTParent();
+	
+	/**
+	 * Append the given child node after the last child node
+	 * @param newChild
+	 */
+	public void appendChildASTNodeAt(IASTNode newChild);
+
 
 	/**
 	 * @param index
@@ -60,7 +67,7 @@ public interface IASTNode {
 	 * @return
 	 */
 	public IASTNode getChildASTNodeAt(int i);
-
+	
 	/**
 	 * @param index
 	 */
@@ -73,6 +80,18 @@ public interface IASTNode {
 	 * Set the parent node
 	 */
 	public void setASTParent(IASTNode parent);
+	
+	/**
+	 * Gets the previous sibling
+	 *
+	 */
+	public IASTNode getPreviousASTNodeSibling();
+	
+	/**
+	 * Gets the following sibling
+	 *
+	 */
+	public IASTNode getFollowingASTNodeSibling();
 	
 	/** 
 	 * Perform static checking of this node only (not recursive).

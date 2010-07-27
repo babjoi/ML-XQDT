@@ -380,6 +380,9 @@ public class SETNewProjectWizardFirstPage extends ProjectWizardFirstPage {
         fSausalitoGroup = new SETProjectSettingsGroup(composite);
         fSausalitoGroup.addObserver(fValidator);
         fNameGroup.addObserver(fSausalitoGroup);
+
+        // update the available templates when changing interpreters
+        getInterpreterGroupObservable().addObserver(fSausalitoGroup);
     }
 
     @Override

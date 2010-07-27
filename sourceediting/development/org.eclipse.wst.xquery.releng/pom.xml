@@ -15,6 +15,7 @@
 	<modules>
 	    <!-- XQuery Core functionality -->
 		<module>../../plugins/org.antlr.runtime_v31</module>
+		<module>../../plugins/org.eclipse.wst.xquery</module>
 		<module>../../plugins/org.eclipse.wst.xquery.core</module>
 		<module>../../plugins/org.eclipse.wst.xquery.ui</module>
 		<module>../../plugins/org.eclipse.wst.xquery.launching</module>
@@ -24,6 +25,7 @@
 		<module>../../tests/org.eclipse.wst.xquery.core.tests</module>
 		
 		<!-- Marklogic Support -->
+		<module>../../plugins/org.eclipse.wst.xquery.marklogic</module>
 		<module>../../plugins/org.eclipse.wst.xquery.launching.marklogic.xcc</module>
 		<module>../../plugins/org.eclipse.wst.xquery.launching.marklogic</module>
 		<module>../../plugins/org.eclipse.wst.xquery.debug.debugger.marklogic</module>
@@ -32,6 +34,7 @@
 		
 		<!-- Zorba Support -->
 		<module>../../plugins/com.google.gson</module>
+		<module>../../plugins/org.eclipse.wst.xquery.zorba</module>
 		<module>../../plugins/org.eclipse.wst.xquery.launching.zorba</module>
 		<module>../../plugins/org.eclipse.wst.xquery.debug.debugger.zorba</module>
 		<module>../../plugins/org.eclipse.wst.xquery.debug.ui.zorba</module>
@@ -39,6 +42,7 @@
 		<module>../../features/org.eclipse.wst.xquery.zorba.feature</module>
 		
 		<!-- Set Support -->
+		<module>../../plugins/org.eclipse.wst.xquery.set</module>
 		<module>../../plugins/org.eclipse.wst.xquery.set.core</module>
 		<module>../../plugins/org.eclipse.wst.xquery.set.debug.core</module>
 		<module>../../plugins/org.eclipse.wst.xquery.set.debug.debugger</module>
@@ -54,8 +58,6 @@
 <!--		<module>../org.eclipse.wst.xquery_sdk.feature</module>-->
 		<module>../org.eclipse.wst.xquery.repository</module>
 
-
-		
 	</modules>
 
 	<build>

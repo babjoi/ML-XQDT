@@ -1,8 +1,7 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Localization: plugin
-Bundle-Name: XQuery Branding Plugin
+Bundle-Name: %pluginName
 Bundle-SymbolicName: org.eclipse.wst.xquery
 Bundle-Version: 0.7.0.qualifier
-Bundle-Vendor: Eclipse.org
-Bundle-RequiredExecutionEnvironment: J2SE-1.5
+Bundle-Vendor: %providerName

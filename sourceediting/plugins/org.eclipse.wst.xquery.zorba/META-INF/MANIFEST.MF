@@ -1,0 +1,7 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Localization: plugin
+Bundle-Name: %pluginName
+Bundle-SymbolicName: org.eclipse.wst.xquery.zorba
+Bundle-Version: 0.7.0.qualifier
+Bundle-Vendor: %providerName

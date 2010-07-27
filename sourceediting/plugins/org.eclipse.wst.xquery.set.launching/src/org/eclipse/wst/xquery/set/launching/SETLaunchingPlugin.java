@@ -10,14 +10,12 @@
  *******************************************************************************/
 package org.eclipse.wst.xquery.set.launching;
 
-import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.Platform;
 import org.eclipse.core.runtime.Plugin;
 import org.eclipse.core.runtime.Status;
-import org.eclipse.core.variables.VariablesPlugin;
 import org.eclipse.dltk.core.environment.IFileHandle;
 import org.eclipse.dltk.core.internal.environment.LocalEnvironment;
 import org.eclipse.dltk.launching.IInterpreterInstall;
@@ -25,6 +23,7 @@ import org.eclipse.dltk.launching.IInterpreterInstallChangedListener;
 import org.eclipse.dltk.launching.PropertyChangeEvent;
 import org.eclipse.dltk.launching.ScriptRuntime;
 import org.eclipse.wst.xquery.set.internal.launching.CoreSDKInstall;
+import org.eclipse.wst.xquery.set.internal.launching.variables.CoreSdkExecNameResolver;
 import org.eclipse.wst.xquery.set.internal.launching.variables.CoreSdkLocationResolver;
 import org.eclipse.wst.xquery.set.internal.launching.variables.CoreSdkVersionResolver;
 import org.osgi.framework.BundleContext;
@@ -42,6 +41,8 @@ public class SETLaunchingPlugin extends Plugin implements IInterpreterInstallCha
 
     public static final boolean DEBUG_SERVER = Boolean.valueOf(Platform.getDebugOption(PLUGIN_ID + "/debug/server"))
             .booleanValue();
+    public static final boolean DEBUG_VARIABLE_RESOLVING = Boolean.valueOf(
+            Platform.getDebugOption(PLUGIN_ID + "/debug/variableResolving")).booleanValue();
 
     /**
      * The constructor
@@ -94,32 +95,38 @@ public class SETLaunchingPlugin extends Plugin implements IInterpreterInstallCha
     public void interpreterAdded(IInterpreterInstall interpreter) {
         if (interpreter instanceof CoreSDKInstall) {
             IFileHandle handle = interpreter.getInstallLocation();
+
+            // if an interpreter is added that doesn't exist anymore,
+            // delete the entry from the installed interpreter list
             if (!handle.exists()) {
                 Path path = new Path(handle.toOSString());
                 StringBuffer pathSB = new StringBuffer(path.toPortableString());
                 String xml = ScriptRuntime.getPreferences().getString(ScriptRuntime.PREF_INTERPRETER_XML);
 
-                String newValue = "";
-                String version = "";
-                try {
-                    newValue = VariablesPlugin.getDefault().getStringVariableManager()
-                            .performStringSubstitution("${" + CoreSdkLocationResolver.VARIABLE + "}", false);
-                    version = VariablesPlugin.getDefault().getStringVariableManager()
-                            .performStringSubstitution("${" + CoreSdkVersionResolver.VARIABLE + "}", false);
-                } catch (CoreException ce) {
-                }
+                // first try to find an installed CoreSDK and recover
+                // by replacing the old values with new resolves ones
+                String newValue = CoreSdkLocationResolver.resolve();
+                String version = CoreSdkVersionResolver.resolve();
+
+                // no installed CoreSDK was found, so we delete the false entry
                 if (newValue == null || newValue.equals("")) {
                     String envId = LocalEnvironment.ENVIRONMENT_ID;
                     xml = xml.replace("<interpreter environmentId=\"" + envId
                             + "\" id=\"defaultSausalitoCoreSDK\" name=\"Sausalito CoreSDK " + version + "\" path=\""
                             + pathSB.toString() + "\"/>", "");
 
-                    log(new Status(IStatus.WARNING, PLUGIN_ID,
-                            "Could not find a valid Sausalito Core SDK installation."));
+                    log(new Status(IStatus.WARNING, PLUGIN_ID, "Could not find a valid Sausalito CoreSDK installation."));
                 } else {
+                    // in this case we can recover and adjust the wrong CoreSDK entry 
                     IPath newPath = new Path(newValue);
-                    newPath = newPath.append("bin").append("sausalito.bat");
-                    xml = xml.replace(pathSB, newPath.toOSString());
+                    String executable = CoreSdkExecNameResolver
+                            .resolve(CoreSdkExecNameResolver.SAUSALITO_SCRIPT_VARIABLE_NAME);
+
+                    if (executable != null && executable != "") {
+                        newPath = newPath.append(ISETLaunchingConstants.SAUSALITO_EXECUTABLE_DIRECTORY).append(
+                                executable);
+                        xml = xml.replace(pathSB, newPath.toOSString());
+                    }
                 }
 
                 ScriptRuntime.getPreferences().setValue(ScriptRuntime.PREF_INTERPRETER_XML, xml);

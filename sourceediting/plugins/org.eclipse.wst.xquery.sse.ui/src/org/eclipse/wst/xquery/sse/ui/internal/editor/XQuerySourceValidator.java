@@ -10,6 +10,7 @@
  *******************************************************************************/
 package org.eclipse.wst.xquery.sse.ui.internal.editor;
 
+import java.util.List;
 import java.util.Locale;
 
 import org.eclipse.core.resources.IFile;
@@ -35,6 +36,7 @@ import org.eclipse.wst.validation.internal.provisional.core.IMessage;
 import org.eclipse.wst.validation.internal.provisional.core.IReporter;
 import org.eclipse.wst.validation.internal.provisional.core.IValidationContext;
 import org.eclipse.wst.validation.internal.provisional.core.IValidator;
+import org.eclipse.wst.xquery.sse.core.internal.ValidationHelper;
 import org.eclipse.wst.xquery.sse.core.internal.model.XQueryStructuredModel;
 import org.eclipse.wst.xquery.sse.core.internal.model.ast.IASTNode;
 import org.eclipse.wst.xquery.sse.core.internal.parser.XQueryTokenizer;
@@ -109,9 +111,19 @@ public class XQuerySourceValidator extends AbstractValidator implements
 					validationRegion = validationRegion.getNext();
 				}
 			}
+			
+			// Syntax validation
+			final List<IMessage> syntaxErrors = model.getErrorMessages();
+			if (syntaxErrors != null)
+			{
+				for (int i = syntaxErrors.size() -1; i >= 0; i --)
+				{
+					reporter.addMessage(this, syntaxErrors.get(i));
+				}
+			}
 
 			// AST-level validation
-			// The model has been rebuilt before validators are called.
+			// Models have been rebuilt before validators are called.
 			validate(document, model.getModule(), reporter);
 
 		} catch (Exception e) {
@@ -137,6 +149,10 @@ public class XQuerySourceValidator extends AbstractValidator implements
 				case XQueryTokenizer.TS_ENDPRIMARY:
 					text = "Syntax Error. Invalid character after a single expression (ExprSingle)";
 					break;
+					
+				case XQueryTokenizer.TS_XQUERYSTRLITERAL:
+					text = "Syntax Error. Insert a string literal.";
+					break;
 				case XQueryTokenizer.TS_NSDECLSEP:
 				case XQueryTokenizer.TS_XQUERYVERSIONSEPARATOR:
 				case XQueryTokenizer.TS_MODULESEP:
@@ -147,17 +163,8 @@ public class XQuerySourceValidator extends AbstractValidator implements
 				default:
 					text = "Syntax Error.";
 				}
-
-				IMessage message = new LocalizedMessage(IMessage.HIGH_SEVERITY,
-						text);
-
-				message
-						.setOffset(sdregion.getStartOffset()
-								+ region.getStart());
-				message.setLength(region.getTextLength());
-				message.setLineNo(sdregion.getParentDocument().getLineOfOffset(
-						sdregion.getStartOffset() + region.getStart()));
-				reporter.addMessage(this, message);
+ 
+				reporter.addMessage(this, ValidationHelper.createErrorMessage(sdregion, region, text));
 			}
 		}
 	}

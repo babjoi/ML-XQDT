@@ -49,6 +49,7 @@ public class XQueryStructuredDocumentRegion extends BasicStructuredDocumentRegio
 
 	// State
 
+	/** Corresponding AST node */
 	protected IASTNode astNode;
 
 	// Constructors

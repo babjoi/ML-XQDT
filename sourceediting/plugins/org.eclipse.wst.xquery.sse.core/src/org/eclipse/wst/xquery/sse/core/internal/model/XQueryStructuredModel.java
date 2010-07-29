@@ -20,7 +20,9 @@
  *******************************************************************************/
 package org.eclipse.wst.xquery.sse.core.internal.model;
 
-import org.eclipse.core.resources.IProject;
+import java.util.ArrayList;
+import java.util.List;
+
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IConfigurationElement;
 import org.eclipse.core.runtime.IExtension;
@@ -37,15 +39,14 @@ import org.eclipse.wst.sse.core.internal.provisional.events.RegionsReplacedEvent
 import org.eclipse.wst.sse.core.internal.provisional.events.StructuredDocumentRegionsReplacedEvent;
 import org.eclipse.wst.sse.core.internal.provisional.text.IStructuredDocument;
 import org.eclipse.wst.sse.core.internal.provisional.text.IStructuredDocumentRegion;
-import org.eclipse.wst.validation.IPerformanceMonitor;
+import org.eclipse.wst.validation.internal.provisional.core.IMessage;
 import org.eclipse.wst.xquery.core.IXQDTCorePreferences;
 import org.eclipse.wst.xquery.core.IXQDTLanguageConstants;
 import org.eclipse.wst.xquery.core.XQDTCorePlugin;
-import org.eclipse.wst.xquery.core.utils.LanguageUtil;
+import org.eclipse.wst.xquery.sse.core.internal.ValidationHelper;
 import org.eclipse.wst.xquery.sse.core.internal.model.ast.ASTModule;
 import org.eclipse.wst.xquery.sse.core.internal.model.ast.IASTNode;
 import org.eclipse.wst.xquery.sse.core.internal.sdregions.XQueryStructuredDocumentRegion;
-import org.osgi.service.prefs.PreferencesService;
 
 /**
  * Structured model for XQuery document.
@@ -69,13 +70,35 @@ public class XQueryStructuredModel extends AbstractStructuredModel implements
 	/** Current language */
 	protected int language;
 
+	/** List of error messages reported by the builder */
+	protected List<IMessage> messages;
+
 	// Constructors
 
 	public XQueryStructuredModel() {
 		builder = getContributionModelBuilder();
+		messages = new ArrayList<IMessage>();
 	}
 
 	// Methods
+
+	/**
+	 * Gets error messages issued by the model builder
+	 */
+	public List<IMessage> getErrorMessages() {
+		return messages;
+	}
+
+	/**
+	 * @param sdregion
+	 * @param text
+	 */
+	protected void reportError(XQueryStructuredDocumentRegion sdregion,
+			String text) {
+		messages.add(ValidationHelper.createErrorMessage(sdregion,
+				sdregion.getFirstRegion(), text));
+
+	}
 
 	/** Gets module managed by this model */
 	public ASTModule getModule() {
@@ -130,21 +153,32 @@ public class XQueryStructuredModel extends AbstractStructuredModel implements
 		}
 	}
 
+	/**
+	 * Incrementally rebuilt AST
+	 */
+	protected void rebuild(IStructuredDocumentRegion sdregion, int offset,
+			int length) {
+		messages.clear();
+		module = builder.reparseQuery(module, sdregion, offset, length,
+				getLanguage());
+
+	}
+
 	// Implements IStructuredDocumentListener
 
 	public void newModel(NewDocumentEvent event) {
-		module = builder.reparseQuery(module, event.getStructuredDocument()
+		rebuild(event.getStructuredDocument()
 				.getFirstStructuredDocumentRegion(), 0, event.getDocument()
-				.getLength(), getLanguage());
+				.getLength());
 	}
 
 	public void noChange(NoChangeEvent event) {
 	}
 
 	public void nodesReplaced(StructuredDocumentRegionsReplacedEvent event) {
-		module = builder.reparseQuery(module, event.getStructuredDocument()
-				.getFirstStructuredDocumentRegion(), event.getOffset(), event
-				.getLength(), getLanguage());
+		rebuild(event.getStructuredDocument()
+				.getFirstStructuredDocumentRegion(), event.getOffset(),
+				event.getLength());
 	}
 
 	public void regionChanged(RegionChangedEvent event) {
@@ -155,9 +189,9 @@ public class XQueryStructuredModel extends AbstractStructuredModel implements
 	public void regionsReplaced(RegionsReplacedEvent event) {
 		// TODO: see if we can do better here.
 
-		module = builder.reparseQuery(module, event.getStructuredDocument()
-				.getFirstStructuredDocumentRegion(), event.getOffset(), event
-				.getLength(), getLanguage());
+		rebuild(event.getStructuredDocument()
+				.getFirstStructuredDocumentRegion(), event.getOffset(),
+				event.getLength());
 	}
 
 	// ModelBuilder Extension point
@@ -188,7 +222,9 @@ public class XQueryStructuredModel extends AbstractStructuredModel implements
 			}
 		}
 
-		return modelBuilder == null ? new ModelBuilder() : modelBuilder;
+		modelBuilder = modelBuilder == null ? new ModelBuilder() : modelBuilder;
+		modelBuilder.setModel(this);
+		return modelBuilder;
 	}
 
 }

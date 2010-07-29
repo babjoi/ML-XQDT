@@ -14,10 +14,11 @@ Require-Bundle: org.eclipse.wst.xml.core,
 Bundle-RequiredExecutionEnvironment: J2SE-1.5
 Bundle-ActivationPolicy: lazy
 Export-Package: org.eclipse.wst.xquery.sse.core,
+ org.eclipse.wst.xquery.sse.core.internal,
  org.eclipse.wst.xquery.sse.core.internal.document,
  org.eclipse.wst.xquery.sse.core.internal.encoding,
  org.eclipse.wst.xquery.sse.core.internal.model,
  org.eclipse.wst.xquery.sse.core.internal.model.ast,
- org.eclipse.wst.xquery.sse.core.internal.parser, 
- org.eclipse.wst.xquery.sse.core.internal.regions, 
+ org.eclipse.wst.xquery.sse.core.internal.parser,
+ org.eclipse.wst.xquery.sse.core.internal.regions,
  org.eclipse.wst.xquery.sse.core.internal.sdregions

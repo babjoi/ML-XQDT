@@ -14,6 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.eclipse.wst.sse.core.internal.provisional.text.IStructuredDocument;
+import org.eclipse.wst.validation.internal.provisional.core.IMessage;
 import org.eclipse.wst.validation.internal.provisional.core.IReporter;
 import org.eclipse.wst.validation.internal.provisional.core.IValidator;
 import org.eclipse.wst.xml.core.internal.document.AttrImpl;
@@ -94,6 +95,14 @@ public class ASTDirAttribute extends AttrImpl implements IASTNode {
 	
 	public boolean staticCheck(IStructuredDocument document, IValidator validator, IReporter reporter) {
 		return true;
+	}
+
+	/* (non-Javadoc)
+	 * @see org.eclipse.wst.xquery.sse.core.internal.model.ast.IASTNode#getErrorMessages()
+	 */
+	public List<IMessage> getErrorMessages() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

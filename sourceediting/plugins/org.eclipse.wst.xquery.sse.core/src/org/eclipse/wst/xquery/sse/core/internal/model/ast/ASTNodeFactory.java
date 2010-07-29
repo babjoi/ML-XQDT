@@ -113,4 +113,11 @@ public class ASTNodeFactory {
 		return new ASTQuantified();
 	}
 
+	/**
+	 * @return
+	 */
+	public ASTNamespaceDecl newNamespaceDecl() {
+		return new ASTNamespaceDecl();
+	}
+
 }

@@ -106,6 +106,7 @@ public class XQueryRegionParser implements StructuredDocumentRegionParser,
 				XQueryStructuredDocumentRegion.Factory.INSTANCE);
 		STARTING_GROUP_FACTORIES.put(XQueryRegions.KW_MODULE,
 				ModuleDeclStructuredDocumentRegion.Factory.INSTANCE);
+		// Group xquery version "..." encoding ".." ;
 		STARTING_GROUP_FACTORIES.put(XQueryRegions.KW_XQUERY,
 				VersionDeclStructuredDocumentRegion.Factory.INSTANCE);
 		STARTING_GROUP_FACTORIES.put(XQueryRegions.KW_ORDER,

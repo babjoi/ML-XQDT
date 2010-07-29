@@ -10,11 +10,9 @@
  *******************************************************************************/
 package org.eclipse.wst.xquery.sse.core.internal.model;
 
-import java.util.LinkedList;
-import java.util.List;
+import java.util.Stack;
 
 import org.eclipse.wst.sse.core.internal.provisional.text.IStructuredDocumentRegion;
-import org.eclipse.wst.validation.internal.provisional.core.IMessage;
 import org.eclipse.wst.xquery.core.IXQDTLanguageConstants;
 import org.eclipse.wst.xquery.sse.core.internal.model.ast.ASTFLWOR;
 import org.eclipse.wst.xquery.sse.core.internal.model.ast.ASTFunctionCall;
@@ -22,6 +20,7 @@ import org.eclipse.wst.xquery.sse.core.internal.model.ast.ASTFunctionDecl;
 import org.eclipse.wst.xquery.sse.core.internal.model.ast.ASTIf;
 import org.eclipse.wst.xquery.sse.core.internal.model.ast.ASTLiteral;
 import org.eclipse.wst.xquery.sse.core.internal.model.ast.ASTModule;
+import org.eclipse.wst.xquery.sse.core.internal.model.ast.ASTNamespaceDecl;
 import org.eclipse.wst.xquery.sse.core.internal.model.ast.ASTNodeFactory;
 import org.eclipse.wst.xquery.sse.core.internal.model.ast.ASTOperator;
 import org.eclipse.wst.xquery.sse.core.internal.model.ast.ASTQuantified;
@@ -61,6 +60,9 @@ public class ModelBuilder {
 
 	// State
 
+	/** The model */
+	protected XQueryStructuredModel model;
+
 	/** AST node factory */
 	final protected ASTNodeFactory nodeFactory;
 
@@ -69,6 +71,9 @@ public class ModelBuilder {
 
 	/** Current structured document region */
 	protected XQueryStructuredDocumentRegion currentSDRegion;
+
+	/** Previous structured document region */
+	protected XQueryStructuredDocumentRegion previousSDRegion;
 
 	/** Current region index in the current structured document region */
 	protected int currentRegionIdx;
@@ -79,8 +84,14 @@ public class ModelBuilder {
 	/** Length of the change */
 	protected int length;
 
-	/** Validation messages */
-	protected List<IMessage> messages;
+	/** Language being parsed */
+	protected int language;
+
+	/**
+	 * Whether or not the current construct being parsed is not in the target
+	 * language
+	 */
+	protected Stack<Boolean> isValidLanguage;
 
 	// Some filters...
 	final protected OperatorFilter sequenceFilter = new OperatorFilter(
@@ -212,6 +223,13 @@ public class ModelBuilder {
 
 	protected ModelBuilder() {
 		nodeFactory = new ASTNodeFactory(); // TODO: extension point
+
+	}
+
+	// Methods
+
+	public void setModel(XQueryStructuredModel model) {
+		this.model = model;
 	}
 
 	// (Re)Parsing...
@@ -234,23 +252,30 @@ public class ModelBuilder {
 	public ASTModule reparseQuery(ASTModule module,
 			IStructuredDocumentRegion region, int offset, int length,
 			int language) {
-		messages = new LinkedList<IMessage>();
+		if (region != null) {
+			this.language = language;
+			this.isValidLanguage = new Stack<Boolean>();
 
-		currentSDRegion = (XQueryStructuredDocumentRegion) region;
-		currentRegionIdx = 0;
-		this.offset = offset;
-		this.length = length;
-		if (module == null) {
-			module = nodeFactory.newModule();
+			currentSDRegion = (XQueryStructuredDocumentRegion) region;
+			previousSDRegion = (XQueryStructuredDocumentRegion) currentSDRegion
+					.getPrevious();
+			currentRegionIdx = 0;
+			this.offset = offset;
+			this.length = length;
+			if (module == null) {
+				module = nodeFactory.newModule();
 
-			// Make sure that the change covers the entire document
-			this.offset = 0;
-			this.length = Integer.MAX_VALUE;
+				// Make sure that the change covers the entire document
+				this.offset = 0;
+				this.length = Integer.MAX_VALUE;
+			}
+
+			reparseVersionDecl(module);
+			reparseLibraryOrModule(module);
+			return module;
 		}
 
-		reparseVersionDecl(module);
-		reparseLibraryOrModule(module);
-		return module;
+		return null;
 	}
 
 	/** Reparse <tt>VersionDecl?</tt> */
@@ -260,7 +285,7 @@ public class ModelBuilder {
 			module.setVersionRegion(vdregion.getVersion());
 			module.setEncodingRegion(vdregion.getEncoding());
 
-			nextSDRegion();
+			nextSDRegion(); 
 		}
 	}
 
@@ -269,25 +294,29 @@ public class ModelBuilder {
 	 */
 	protected void reparseLibraryOrModule(ASTModule module) {
 		if (sameRegionType(XQueryRegions.KW_MODULE))
-			reparseLibrary(module);
-
-		reparseMainModule(module);
+			reparseLibraryModule(module);
+		else
+			reparseMainModule(module);
 	}
 
 	/**
 	 * Reparse <tt>Prolog QueryBody</tt>
 	 */
 	protected void reparseMainModule(ASTModule module) {
-		reparseProlog(module);
-		reparseQueryBody(module);
+		final int last = reparseProlog(module);
+		reparseQueryBody(module, last);
+
+		module.removeChildASTNodesAfter(last + 1);
 	}
 
 	/**
 	 * Reparse <tt>ModuleDecl Prolog</tt>
 	 */
-	protected void reparseLibrary(ASTModule module) {
+	protected void reparseLibraryModule(ASTModule module) {
 		reparseModuleDecl(module);
-		reparseProlog(module);
+
+		final int last = reparseProlog(module);
+		module.removeChildASTNodesAfter(last);
 	}
 
 	/**
@@ -303,44 +332,74 @@ public class ModelBuilder {
 	}
 
 	/**
-	 * Reparse prolog
+	 * Reparse prolog <tt>
+	 * Prolog	   ::=   	((DefaultNamespaceDecl | Setter | NamespaceDecl | Import) Separator)* ((VarDecl | FunctionDecl | OptionDecl) Separator)*
+	 * </tt>
+	 * 
+	 * @return the number of prolog declaration
 	 */
-	protected void reparseProlog(ASTModule node) {
-		reparseProlog1(node);
-		reparseProlog2(node);
+	protected int reparseProlog(ASTModule node) {
+		int from = reparseProlog1(node);
+		return reparseProlog2(node, from);
 	}
 
 	/**
 	 * Reparse prolog part 1:
 	 * <tt>((DefaultNamespaceDecl | Setter | NamespaceDecl | Import) Separator)* </tt>
+	 * 
+	 * @return the number of prolog 1 declarations
 	 */
-	protected void reparseProlog1(ASTModule node) {
+	protected int reparseProlog1(ASTModule module) {
+		int count = 0; // number of global declarations
+
 		while (currentSDRegion != null) {
 			if (sameRegionType(XQueryRegions.KW_DECLARE)) {
-				String type2 = currentSDRegion.getRegions().get(1).getType();
 
-				if (type2 == XQueryRegions.KW_NAMESPACE
-						|| type2 == XQueryRegions.KW_BOUNDARY_SPACE
+				// Tokenizer ensures that there is always a second region a
+				// 'declare' sdregion
+				final String type2 = currentSDRegion.getRegions().get(1)
+						.getType();
+
+				if (type2 == XQueryRegions.KW_NAMESPACE) {
+					IASTNode oldDecl = module.getChildASTNodeAt(count);
+					ASTNamespaceDecl newDecl = reparseNamespaceDecl(oldDecl);
+					module.setChildASTNodeAt(count++, newDecl);
+				} else if (type2 == XQueryRegions.KW_BOUNDARY_SPACE
 						|| type2 == XQueryRegions.KW_DEFAULT
 						|| type2 == XQueryRegions.KW_BASEURI
 						|| type2 == XQueryRegions.KW_CONSTRUCTION
 						|| type2 == XQueryRegions.KW_ORDERING
-						|| type2 == XQueryRegions.KW_COPYNAMESPACES)
+						|| type2 == XQueryRegions.KW_COPYNAMESPACES) {
+					// Just skip for now...
 					nextSDRegion();
-				else {
-					// Certainly a prolog2 declaration...
+				} else {
+					// Certainly a prolog2 declaration.. exit.
 					break;
 				}
 
 			} else if (sameRegionType(XQueryRegions.KW_IMPORT)) {
+				// Just skip for now...
 				nextSDRegion();
 			} else {
 				// Certainly a prolog2 declaration...
 				break;
 			}
 
-			nextSDRegion(); // ";"
+			if (checkAndReport(XQueryRegions.SEPARATOR, "Missing ';'"))
+				nextSDRegion(); // ";"
 		}
+
+		return count;
+	}
+
+	/**
+	 * Reparse
+	 * <tt>NamespaceDecl	   ::=   	"declare" "namespace" NCName "=" URILiteral</tt>
+	 */
+	protected ASTNamespaceDecl reparseNamespaceDecl(IASTNode decl) {
+		ASTNamespaceDecl nsdecl = asNamespaceDecl(decl);
+		nsdecl.setStructuredDocumentRegion(currentSDRegion);
+		return nsdecl;
 	}
 
 	/**
@@ -354,8 +413,12 @@ public class ModelBuilder {
 	/**
 	 * Reparse prolog part 2:
 	 * <tt>((VarDecl | FunctionDecl | OptionDecl) Separator)*</tt>
+	 * 
+	 * @param from
+	 *            last global declaration position.
+	 * @return
 	 */
-	protected void reparseProlog2(ASTModule node) {
+	protected int reparseProlog2(ASTModule node, int from) {
 		while (sameRegionType(XQueryRegions.KW_DECLARE)) {
 
 			String type2 = currentSDRegion.getRegions().get(1).getType();
@@ -374,6 +437,8 @@ public class ModelBuilder {
 
 			nextSDRegion(); // ';'
 		}
+
+		return from;
 	}
 
 	/**
@@ -420,7 +485,7 @@ public class ModelBuilder {
 			if (sameRegionType(XQueryRegions.KW_EXTERNAL)) {
 				nextSDRegion(); // 'external'
 			} else if (declareRegion.isSequential()) {
-				IASTNode newBody = reparseBlock();
+				reparseBlock();
 			} else {
 
 				IASTNode newBody = reparseEnclosedExpr(decl.getBody());
@@ -456,10 +521,9 @@ public class ModelBuilder {
 	 * Reparse <tt>(BlockVarDecl ";")*</tt>
 	 */
 	protected void reparseBlockDecls() {
-		while (sameRegionType(XQueryRegions.KW_DECLARE))
-		{
+		while (sameRegionType(XQueryRegions.KW_DECLARE)) {
 			reparseBlockVarDecl();
-			
+
 			nextSDRegion(); // ";"
 		}
 
@@ -543,16 +607,71 @@ public class ModelBuilder {
 
 	/**
 	 * Reparse <tt>QueryBody	   ::=   	Expr</tt>
+	 * 
+	 * @param count
+	 *            the number of global declaration
 	 */
-	protected void reparseQueryBody(ASTModule module) {
-		IASTNode queryBody = reparseExpr(module.getQueryBody());
-		module.setQueryBody(queryBody);
+	protected void reparseQueryBody(ASTModule module, int count) {
+		IASTNode oldBody = module.getQueryBody();
+		IASTNode newBody = reparseExpr(oldBody);
+		module.setChildASTNodeAt(count++, newBody);
 	}
 
 	/**
-	 * Reparse <tt>ExprSingle ("," ExprSingle)*</tt>
+	 * Reparse <tt>Expr	::=	ExprSingle ("," ExprSingle)*</tt>
+	 * <p>
+	 * XQuery Scripting: <tt>Expr	::= ApplyExpr</tt>
 	 */
 	protected IASTNode reparseExpr(IASTNode expr) {
+		// Parse as if the language is XQuery Scripting to report meaninful
+		// language-violation errors
+		return reparseApplyExpr(expr);
+
+		// return reparseOperatorStar(expr, sequenceFilter, exprContinuation);
+	}
+
+	/**
+	 * Reparse
+	 * <tt>ApplyExpr	   ::=   	ConcatExpr (";" (ConcatExpr ";")*)?</tt>
+	 * 
+	 * @param expr
+	 * @return
+	 */
+	protected IASTNode reparseApplyExpr(IASTNode expr) {
+		boolean isValid = true;
+		do {
+			reparseConcatExpr(expr);
+
+			// Check if it's belong to the proper language variation
+			if (!isValid && currentSDRegion != null
+					&& language == IXQDTLanguageConstants.LANGUAGE_XQUERY) {
+				isValid = false;
+				isValidLanguage.push(false);
+			}
+
+			if (!sameRegionType(XQueryRegions.SEPARATOR)) {
+				if (!isValid)
+					isValidLanguage.pop();
+				return null;
+			}
+
+			nextSDRegion(); // ';'
+		} while (currentSDRegion != null);
+
+		if (!isValid)
+			isValidLanguage.pop();
+
+		return null;
+	}
+
+	/**
+	 * Reparse
+	 * 
+	 * <tt>	ConcatExpr	   ::=   	ExprSingle ("," ExprSingle)*</tt>
+	 * 
+	 * @param expr
+	 */
+	protected IASTNode reparseConcatExpr(IASTNode expr) {
 		return reparseOperatorStar(expr, sequenceFilter, exprContinuation);
 	}
 
@@ -1459,8 +1578,9 @@ public class ModelBuilder {
 
 		IASTNode innerExpr = reparseExpr(expr);
 
-		checkAndReport(XQueryRegions.RCURLY);
-		nextSDRegion();
+		if (checkAndReport(XQueryRegions.RCURLY, "Missing '}'"))
+			nextSDRegion(); // '}'
+
 		return innerExpr;
 	}
 
@@ -1514,8 +1634,8 @@ public class ModelBuilder {
 			return null;
 
 		IASTNode innerExpr = reparseExpr(expr);
-		checkAndReport(XQueryRegions.RPAR);
-		nextSDRegion(); // ")"
+		if (checkAndReport(XQueryRegions.RPAR, "Missing ')'"))
+			nextSDRegion(); // ")"
 		return innerExpr;
 	}
 
@@ -1557,8 +1677,8 @@ public class ModelBuilder {
 
 		IASTNode predicate = reparseExpr(expr);
 
-		checkAndReport(XQueryRegions.RCURLY);
-		nextSDRegion();
+		if (checkAndReport(XQueryRegions.RSQUARE, "Missing ']'"))
+			nextSDRegion(); // ']'
 
 		return predicate;
 	}
@@ -1635,6 +1755,14 @@ public class ModelBuilder {
 			return (ASTIf) node;
 
 		return nodeFactory.newIf();
+	}
+
+	/** Gets AST node as {@link ASTNamespaceDecl} */
+	protected ASTNamespaceDecl asNamespaceDecl(IASTNode node) {
+		if (node != null && node.getType() == IASTNode.NAMESPACEDECL)
+			return (ASTNamespaceDecl) node;
+
+		return nodeFactory.newNamespaceDecl();
 	}
 
 	/** Gets AST node as {@link ASTQuantified} */
@@ -1746,6 +1874,7 @@ public class ModelBuilder {
 	/** Move to the next structured document region. Ignore whitespaces */
 	protected void nextSDRegion() {
 		if (currentSDRegion != null) {
+			previousSDRegion = currentSDRegion;
 			currentSDRegion = (XQueryStructuredDocumentRegion) currentSDRegion
 					.getNext();
 			currentRegionIdx = 0;
@@ -1763,12 +1892,22 @@ public class ModelBuilder {
 	/**
 	 * Check the current region (ignoring white spaces) is of a given type. If
 	 * not report problem
+	 * 
+	 * @return true if current region of the given type, otherwise false.
 	 */
-	protected void checkAndReport(String type) {
+	protected boolean checkAndReport(String type, String text) {
 		skipWhitespace();
 		if (!sameRegionType(type)) {
-			// TODO: report error
+			// Report error
+			final XQueryStructuredDocumentRegion sdregion = currentSDRegion == null ? previousSDRegion
+					: currentSDRegion;
+			if (sdregion != null)
+				model.reportError(sdregion, text);
+
+			return false;
 		}
+
+		return true;
 	}
 
 	/**

@@ -57,7 +57,8 @@ public class ASTFunctionDecl extends ASTNode {
 			this.body.setASTParent(null);
 
 		this.body = body;
-		this.body.setASTParent(this);
+		if (this.body != null)
+			this.body.setASTParent(this);
 	}
 
 	/**

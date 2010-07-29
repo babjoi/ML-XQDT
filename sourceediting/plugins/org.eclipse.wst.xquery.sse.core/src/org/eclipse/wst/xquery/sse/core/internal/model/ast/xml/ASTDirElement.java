@@ -10,7 +10,10 @@
  *******************************************************************************/
 package org.eclipse.wst.xquery.sse.core.internal.model.ast.xml;
 
+import java.util.List;
+
 import org.eclipse.wst.sse.core.internal.provisional.text.IStructuredDocument;
+import org.eclipse.wst.validation.internal.provisional.core.IMessage;
 import org.eclipse.wst.validation.internal.provisional.core.IReporter;
 import org.eclipse.wst.validation.internal.provisional.core.IValidator;
 import org.eclipse.wst.xml.core.internal.document.ElementImpl;
@@ -153,6 +156,14 @@ public class ASTDirElement extends ElementImpl implements IASTNode {
 		protected ASTNodeText(IASTNode node) {
 			this.node = node;
 		}
+	}
+
+	/* (non-Javadoc)
+	 * @see org.eclipse.wst.xquery.sse.core.internal.model.ast.IASTNode#getErrorMessages()
+	 */
+	public List<IMessage> getErrorMessages() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

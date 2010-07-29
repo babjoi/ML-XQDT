@@ -120,6 +120,11 @@ import org.eclipse.wst.xquery.sse.core.internal.regions.XQueryRegions;
     /** The cached ending statement flag */
     private boolean endStatement;
     
+    /** Whether to drop the parsed token */
+    private boolean drop;
+    
+    /** State when token has been dropped */
+    private int droppedState;
      
     // Constructors
     
@@ -384,16 +389,28 @@ import org.eclipse.wst.xquery.sse.core.internal.regions.XQueryRegions;
 		  yybegin(state);
 	}
 	 
-	/** Recover from an invalid token */
+	/** 
+	 * Try recovering from an invalid token by parsing again from another lexical state
+	 */
+	private void retry(int nextState)
+	{
+		if (nextState != zzLexicalState)
+		{
+		  drop = true;
+		  droppedState = zzLexicalState; 
+		  
+		  yypushback(yylength()); 
+		  yybegin(nextState);
+		}
+	    
+	}
+	
+	/** 
+	 * Recover from an invalid token
+	 */
 	private void recover(int nextState)
 	{
-	    recoveryState = zzLexicalState;
-	    
-	    if (nextState != recoveryState)
-	    {
-	        // Try parsing the token again from another state..
-			yypushback(yylength()); 
-		}
+		recoveryState = zzLexicalState;
 		yybegin(nextState);
 	}
 	 
@@ -540,18 +557,25 @@ import org.eclipse.wst.xquery.sse.core.internal.regions.XQueryRegions;
 	  final int start = yychar;
 	  final int textLength = yylength();
 	  int length = textLength;
-	  final int lstate = recoveryState;
+	  int lstate = recoveryState;
 	  
 	  recoveryState = -1;
+	  drop = false; 
 	   
 	  // Load next token 
 	  cacheNextToken();
 	  
-	  // Collapse white spaces
+	  // Collapse white spaces (can never be dropped)
 	  if (nextToken == WHITE_SPACE)
 	  {
 	    length += yylength();
-	    cacheNextToken();
+	   	cacheNextToken();
+	  }
+	  
+	   if (drop)
+	  {
+	     // Show error on previous token.
+	     lstate = droppedState;
 	  }
 	  
 	  return regionFactory.createToken(token, start, textLength, length, lstate);
@@ -560,9 +584,8 @@ import org.eclipse.wst.xquery.sse.core.internal.regions.XQueryRegions;
 	final private void cacheNextToken() throws IOException {
 	  do
 	  {
-	    nextToken = primGetNextToken();
-	    //System.out.println("token:" + nextToken + " state:" + yystate());
-	  } while (yylength() == 0 && !isEOF());
+	    nextToken = primGetNextToken(); 
+	  } while (yylength() == 0 && !isEOF()); // Keep going if nothing has been consumed due to a "retry"
 	}
 
 	
@@ -876,14 +899,29 @@ SimpleName = ({Letter} | "_" ) ({SimpleNameChar})*
 
 // "xquery" "version" StringLiteral ("encoding" StringLiteral)? Separator
 
-<YYINITIAL> "xquery" / {SymbolSep}+"version" { /*startStmt(STMT_VERSIONDECL);*/ yybegin(TS_XQUERYVERSION); return KW_XQUERY; }
+<YYINITIAL> "xquery" / {SymbolSep}+"version" { yybegin(TS_XQUERYVERSION); return KW_XQUERY; }
 
-<TS_XQUERYVERSION>  "version" { yybegin(TS_XQUERYVERSIONSTRLITERAL); return KW_VERSION; }
+<TS_XQUERYVERSION>  "version" { yybegin(TS_XQUERYVERSIONSTRLITERAL); return KW_VERSION; } 
 
-<TS_XQUERYVERSIONSTRLITERAL> 					{StringLiteral} 	{ yybegin(TS_XQUERYENCODING); return STRINGLITERAL; }
-<TS_XQUERYENCODING>  							"encoding" 			{ yybegin(TS_XQUERYSTRLITERAL); return KW_ENCODING; }
-<TS_XQUERYSTRLITERAL>  							{StringLiteral} 	{ yybegin(TS_XQUERYVERSIONSEPARATOR); return STRINGLITERAL; }
-<TS_XQUERYVERSIONSEPARATOR, TS_XQUERYENCODING> 	";" 				{ /**/ yybegin(TS_LIBRARYORMAIN); return SEPARATOR; }
+<TS_XQUERYVERSIONSTRLITERAL> {
+  {StringLiteral} 	{ yybegin(TS_XQUERYENCODING); return STRINGLITERAL; }
+  ";"				{ recover(TS_LIBRARYORMAIN); return SEPARATOR; }
+  
+}
+<TS_XQUERYENCODING>  "encoding" 	{ yybegin(TS_XQUERYSTRLITERAL); return KW_ENCODING; }
+
+<TS_XQUERYSTRLITERAL> {
+  {StringLiteral} 	{ yybegin(TS_XQUERYVERSIONSEPARATOR); return STRINGLITERAL; }
+  ";"				{ recover(TS_LIBRARYORMAIN); return SEPARATOR; }
+  {S}*				{ return WHITE_SPACE; }
+  .					{ retry(TS_XQUERYVERSIONSEPARATOR); return UNDEFINED; }
+}
+
+<TS_XQUERYVERSIONSEPARATOR, TS_XQUERYENCODING> {	
+  ";" 				{ yybegin(TS_LIBRARYORMAIN); return SEPARATOR; }
+  {S}*				{ return WHITE_SPACE; }
+  .					{ retry(TS_LIBRARYORMAIN); return UNDEFINED; }
+}
  
 // Handle separator (Restore stacked state)
 <TS_SEPARATOR> { 

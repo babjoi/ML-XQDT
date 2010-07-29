@@ -10,7 +10,10 @@
  *******************************************************************************/
 package org.eclipse.wst.xquery.sse.core.internal.model.ast;
 
+import java.util.List;
+
 import org.eclipse.wst.sse.core.internal.provisional.text.IStructuredDocument;
+import org.eclipse.wst.validation.internal.provisional.core.IMessage;
 import org.eclipse.wst.validation.internal.provisional.core.IReporter;
 import org.eclipse.wst.validation.internal.provisional.core.IValidator;
 
@@ -26,6 +29,9 @@ public abstract class ASTNode implements IASTNode {
 
 	/** Parent node */
 	protected IASTNode parent;
+	
+	/** List of error messages attached to this node */
+	protected List<IMessage> messages;
 
 	// Implements IASTNode
 
@@ -69,6 +75,10 @@ public abstract class ASTNode implements IASTNode {
 
 	public IASTNode getFollowingASTNodeSibling() {
 		return ASTHelper.getFollowingASTNodeSibling(this);
+	}
+ 
+	public List<IMessage> getErrorMessages() {
+		return messages;
 	}
 
 	public boolean staticCheck(IStructuredDocument document, IValidator validator, IReporter reporter) {

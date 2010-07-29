@@ -10,7 +10,10 @@
  *******************************************************************************/
 package org.eclipse.wst.xquery.sse.core.internal.model.ast;
 
+import java.util.List;
+
 import org.eclipse.wst.sse.core.internal.provisional.text.IStructuredDocument;
+import org.eclipse.wst.validation.internal.provisional.core.IMessage;
 import org.eclipse.wst.validation.internal.provisional.core.IReporter;
 import org.eclipse.wst.validation.internal.provisional.core.IValidator;
 
@@ -38,6 +41,7 @@ public interface IASTNode {
 	public static final int IF = 12;
 	public static final int TYPESWITCH = 13;
 	public static final int QUANTIFIED = 14;
+	public static final int NAMESPACEDECL = 15;
 
 	/** Gets the AST node type */
 	public int getType();
@@ -92,6 +96,11 @@ public interface IASTNode {
 	 *
 	 */
 	public IASTNode getFollowingASTNodeSibling();
+	
+	/**
+	 * Gets the list of error messages attached to this node
+	 */
+	public List<IMessage> getErrorMessages();
 	
 	/** 
 	 * Perform static checking of this node only (not recursive).

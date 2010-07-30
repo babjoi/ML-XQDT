@@ -118,13 +118,6 @@
       </buildpathContainerPage>
    </extension>
    <extension
-         point="org.eclipse.debug.ui.debugModelPresentations">
-      <debugModelPresentation
-            class="org.eclipse.wst.xquery.debug.ui.XQDTDebugModelPresentation"
-            id="org.eclipse.wst.xquery.set.debug.core.setModel">
-      </debugModelPresentation>
-   </extension>
-   <extension
          point="org.eclipse.dltk.debug.ui.language">
       <language
             class="org.eclipse.wst.xquery.debug.ui.XQDTDebugUILanguageToolkit"

@@ -40,7 +40,8 @@ public class CoreSdkUtil {
 
     public static IPath getKillCommandPath(IProject project) throws CoreException {
         if (Platform.getOS().equals(Platform.OS_WIN32)) {
-            return getProjectCoreSDKInstallationPath(project).append("bin").append("term.exe");
+            return getProjectCoreSDKInstallationPath(project).append(
+                    ISETLaunchingConstants.SAUSALITO_EXECUTABLE_DIRECTORY).append("term.exe");
         }
         return new Path("kill");
     }

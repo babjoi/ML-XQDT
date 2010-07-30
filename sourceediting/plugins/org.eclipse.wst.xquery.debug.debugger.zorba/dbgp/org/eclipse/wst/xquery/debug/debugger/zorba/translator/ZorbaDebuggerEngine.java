@@ -122,7 +122,7 @@ public class ZorbaDebuggerEngine extends DbgpTermination implements IDebuggerEng
         fEventListener = new EventListener();
     }
 
-    private void notifyListeners(AbstractCommandMessage event) {
+    protected void notifyListeners(AbstractCommandMessage event) {
         if (event instanceof EvaluatedMessage) {
             EvaluatedMessage evaled = (EvaluatedMessage)event;
             int key = evaled.getExprId();

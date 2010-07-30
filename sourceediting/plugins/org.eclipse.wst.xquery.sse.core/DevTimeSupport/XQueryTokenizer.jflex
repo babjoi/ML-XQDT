@@ -1387,7 +1387,7 @@ SimpleName = ({Letter} | "_" ) ({SimpleNameChar})*
  
 // ExprSingle Delimiters for let/for clause
 
-<TS_ENDPRIMARY, TS_ENDAXISSTEP, TS_OPTSTEPEXPR> {
+<TS_ENDPRIMARY, TS_ENDAXISSTEP, TS_OPTSTEPEXPR, TS_ENDVARREF> {
   "for" / {SymbolSep}*"$"			{ check(endExprSingle(), FLCLAUSEEXPR); checkTop(FLWORFOR, FLWORLET); popState(); pushState(FLWORFOR); yybegin(TS_FORCLAUSE); return KW_FOR; } 
   "let" / {SymbolSep}*"$" 			{ check(endExprSingle(), FLCLAUSEEXPR); checkTop(FLWORFOR, FLWORLET); popState(); pushState(FLWORLET); yybegin(TS_LETCLAUSE); return KW_LET; }
   "where" 							{ 

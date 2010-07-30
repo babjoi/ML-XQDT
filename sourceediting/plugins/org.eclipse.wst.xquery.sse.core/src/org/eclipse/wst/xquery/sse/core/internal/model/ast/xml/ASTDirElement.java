@@ -125,10 +125,6 @@ public class ASTDirElement extends ElementImpl implements IASTNode {
 
 		newChild.setASTParent(this);
 	}
-	
-	public void appendChildASTNodeAt(IASTNode newChild) {
-		ASTHelper.appendChildASTNodeAt(this, newChild);
-	}
 
 	public IASTNode getPreviousASTNodeSibling() {
 		return ASTHelper.getPreviousASTNodeSibling(this);
@@ -138,9 +134,23 @@ public class ASTDirElement extends ElementImpl implements IASTNode {
 		return ASTHelper.getFollowingASTNodeSibling(this);
 	}
 
-	public boolean staticCheck(IStructuredDocument document,
+	public void staticCheck(IStructuredDocument document,
 			IValidator validator, IReporter reporter) {
-		return true;
+		ASTHelper.staticCheck(this, document, validator, reporter);
+	}
+
+	public List<IMessage> getErrorMessages() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public List<String> getInScopeVariables() {
+		return getASTParent() == null ? null : getASTParent()
+				.getInScopeVariables();
+	}
+
+	public void toString(int indent, StringBuilder builder) {
+		builder.append(toString());
 	}
 
 	// Inner class
@@ -156,14 +166,6 @@ public class ASTDirElement extends ElementImpl implements IASTNode {
 		protected ASTNodeText(IASTNode node) {
 			this.node = node;
 		}
-	}
-
-	/* (non-Javadoc)
-	 * @see org.eclipse.wst.xquery.sse.core.internal.model.ast.IASTNode#getErrorMessages()
-	 */
-	public List<IMessage> getErrorMessages() {
-		// TODO Auto-generated method stub
-		return null;
 	}
 
 }

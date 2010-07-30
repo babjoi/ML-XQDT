@@ -34,10 +34,18 @@ public class ValidationHelper {
 			IStructuredDocumentRegion sdregion, ITextRegion region, String text) {
 		IMessage message = new LocalizedMessage(IMessage.HIGH_SEVERITY, text);
 
-		message.setOffset(sdregion.getStartOffset() + region.getStart());
-		message.setLength(region.getTextLength());
-		message.setLineNo(sdregion.getParentDocument().getLineOfOffset(
-				sdregion.getStartOffset() + region.getStart()));
+		if (region != null) {
+			message.setOffset(sdregion.getStartOffset() + region.getStart());
+			message.setLength(region.getTextLength());
+			message.setLineNo(sdregion.getParentDocument().getLineOfOffset(
+					sdregion.getStartOffset() + region.getStart()));
+		} else {
+			message.setOffset(sdregion.getStartOffset());
+			message.setLength(sdregion.getTextLength());
+			message.setLineNo(sdregion.getParentDocument().getLineOfOffset(
+					sdregion.getStartOffset()));
+
+		}
 		return message;
 	}
 }

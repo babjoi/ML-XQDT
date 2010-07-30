@@ -42,6 +42,13 @@ public interface IASTNode {
 	public static final int TYPESWITCH = 13;
 	public static final int QUANTIFIED = 14;
 	public static final int NAMESPACEDECL = 15;
+	public static final int APPLY = 16;
+	public static final int FORCLAUSE = 17;
+	public static final int LETCLAUSE = 18;
+	public static final int WHERECLAUSE = 19;
+	public static final int ORDERBYCLAUSE = 20;
+	public static final int QUANTIFIEDCLAUSE = 21;
+	
 
 	/** Gets the AST node type */
 	public int getType();
@@ -52,13 +59,6 @@ public interface IASTNode {
 	 * @return the parent AST node or null if this is the root node.
 	 */
 	public IASTNode getASTParent();
-	
-	/**
-	 * Append the given child node after the last child node
-	 * @param newChild
-	 */
-	public void appendChildASTNodeAt(IASTNode newChild);
-
 
 	/**
 	 * @param index
@@ -71,7 +71,7 @@ public interface IASTNode {
 	 * @return
 	 */
 	public IASTNode getChildASTNodeAt(int i);
-	
+
 	/**
 	 * @param index
 	 */
@@ -84,31 +84,44 @@ public interface IASTNode {
 	 * Set the parent node
 	 */
 	public void setASTParent(IASTNode parent);
-	
+
 	/**
 	 * Gets the previous sibling
-	 *
+	 * 
 	 */
 	public IASTNode getPreviousASTNodeSibling();
-	
+
 	/**
 	 * Gets the following sibling
-	 *
+	 * 
 	 */
 	public IASTNode getFollowingASTNodeSibling();
-	
+
 	/**
 	 * Gets the list of error messages attached to this node
 	 */
 	public List<IMessage> getErrorMessages();
-	
-	/** 
-	 * Perform static checking of this node only (not recursive).
+
+	/**
+	 * Recursively perform static checking 
 	 * 
-	 * @param document  
-	 * @param validator  
-	 * @param reporter for errors
-	 * @return true if this node is valid, false otherwise.
-	 */ 
-	public boolean staticCheck(IStructuredDocument document, IValidator validator, IReporter reporter);
+	 * @param document
+	 * @param validator
+	 * @param reporter
+	 *            for errors
+	 */
+	public void staticCheck(IStructuredDocument document,
+			IValidator validator, IReporter reporter);
+	
+	/**
+	 * Adds the list of in-scope variables
+	 * @return
+	 */
+	public List<String> getInScopeVariables();
+	
+	// Debugging support
+	
+	/** Print the AST node to the given string builder */
+	public void toString(int indent, StringBuilder builder);
+		
 }

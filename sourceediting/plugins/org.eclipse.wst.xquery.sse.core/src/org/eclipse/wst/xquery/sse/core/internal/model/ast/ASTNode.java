@@ -10,6 +10,7 @@
  *******************************************************************************/
 package org.eclipse.wst.xquery.sse.core.internal.model.ast;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.eclipse.wst.sse.core.internal.provisional.text.IStructuredDocument;
@@ -29,9 +30,21 @@ public abstract class ASTNode implements IASTNode {
 
 	/** Parent node */
 	protected IASTNode parent;
-	
+
 	/** List of error messages attached to this node */
 	protected List<IMessage> messages;
+
+	// Methods
+
+	/**
+	 * Recursively computed the list of in-scope variables
+	 */
+	protected void getInScopeVariables(List<String> vars, IASTNode child) {
+		if (parent instanceof ASTNode) {
+			((ASTNode) parent).getInScopeVariables(vars, this);
+		} else if (parent != null)
+			vars.addAll(parent.getInScopeVariables());
+	}
 
 	// Implements IASTNode
 
@@ -54,10 +67,6 @@ public abstract class ASTNode implements IASTNode {
 		throw new IllegalStateException(
 				"Illegal call to setChildNodeAt on a leaf node");
 	}
-	
-	public void appendChildASTNodeAt(IASTNode newChild) {
-		ASTHelper.appendChildASTNodeAt(this, newChild);
-	}
 
 	public void removeChildASTNodesAfter(int index) {
 		throw new IllegalStateException(
@@ -67,8 +76,7 @@ public abstract class ASTNode implements IASTNode {
 	public int getChildASTNodesCount() {
 		return 0;
 	}
-	
-	
+
 	public IASTNode getPreviousASTNodeSibling() {
 		return ASTHelper.getPreviousASTNodeSibling(this);
 	}
@@ -76,17 +84,24 @@ public abstract class ASTNode implements IASTNode {
 	public IASTNode getFollowingASTNodeSibling() {
 		return ASTHelper.getFollowingASTNodeSibling(this);
 	}
- 
+
 	public List<IMessage> getErrorMessages() {
 		return messages;
 	}
 
-	public boolean staticCheck(IStructuredDocument document, IValidator validator, IReporter reporter) {
-		return true;
+	public void staticCheck(IStructuredDocument document,
+			IValidator validator, IReporter reporter) {
+		ASTHelper.staticCheck(this, document, validator, reporter);
+	}
+
+	public List<String> getInScopeVariables() {
+		List<String> vars = new ArrayList<String>();
+		getInScopeVariables(vars, null);
+		return vars;
+
 	}
 
 	// Debugging
-
 
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
@@ -94,7 +109,7 @@ public abstract class ASTNode implements IASTNode {
 		return builder.toString();
 	}
 
-	protected void toString(int indent, StringBuilder builder) {
+	public void toString(int indent, StringBuilder builder) {
 		builder.append("\n");
 		for (int i = 0; i < indent; i++)
 			builder.append(' ');
@@ -102,8 +117,7 @@ public abstract class ASTNode implements IASTNode {
 		if (getChildASTNodesCount() > 0) {
 			for (int i = 0; i < getChildASTNodesCount(); i++) {
 				if (getChildASTNodeAt(i) != null) {
-					((ASTNode) getChildASTNodeAt(i)).toString(indent + 2,
-							builder);
+					getChildASTNodeAt(i).toString(indent + 2, builder);
 				}
 			}
 			builder.append("\n");

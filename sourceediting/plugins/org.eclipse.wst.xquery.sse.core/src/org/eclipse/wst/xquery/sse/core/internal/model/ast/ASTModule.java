@@ -128,8 +128,8 @@ public class ASTModule extends ASTParentNode {
 	 * @param name
 	 * @param decl
 	 */
-	public void addFunctionDecl(String name, ASTFunctionDecl decl) {
-		appendChildASTNodeAt(decl);
+	public void setFunctionDecl(int index, String name, ASTFunctionDecl decl) {
+		setChildASTNodeAt(index, decl);
 		functionDecls.put(name, decl);
 	}
 
@@ -138,8 +138,8 @@ public class ASTModule extends ASTParentNode {
 	 * 
 	 * @param region
 	 */
-	public void addVariableDecl(String name, ASTVarDecl decl) {
-		appendChildASTNodeAt(decl);
+	public void setVariableDecl(int index, String name, ASTVarDecl decl) {
+		setChildASTNodeAt(index, decl);
 		variableDecls.put(name, decl);
 	}
 
@@ -170,7 +170,7 @@ public class ASTModule extends ASTParentNode {
 	// Overrides
 
 	@Override
-	public boolean staticCheck(IStructuredDocument document,
+	public void staticCheck(IStructuredDocument document,
 			IValidator validator, IReporter reporter) {
 		// ModuleDecl: The URILiteral must be of nonzero length [err:XQST0088]
 		String moduleNS = getModuleNamespace();
@@ -183,13 +183,12 @@ public class ASTModule extends ASTParentNode {
 		
 		// ModuleDecl: The namespace prefix specified in a module declaration must not be xml or xmlns [err:XQST0070]
 		final String modulePrefix = getModulePrefix();
-		if (modulePrefix != null && (modulePrefix.equals("xml") || modulePrefix.equals("xmlns")))
-			 
+		if (modulePrefix != null && (modulePrefix.equals("xml") || modulePrefix.equals("xmlns")))		 
 				ASTHelper.reportError(moduleSDRegion,
 						moduleSDRegion.getNamespacePrefix(),
 						XQueryMessages.errorXQST0070_MD_UI_, validator, reporter);
 
-		return super.staticCheck(document, validator, reporter);
+		super.staticCheck(document, validator, reporter);
 	}
 
 	@Override

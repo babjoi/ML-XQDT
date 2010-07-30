@@ -25,6 +25,9 @@ public class ASTFunctionDecl extends ASTNode {
 
 	// State
 
+	/** Function raw name */
+	private String name;
+
 	/** Function Body */
 	private IASTNode body;
 
@@ -38,6 +41,22 @@ public class ASTFunctionDecl extends ASTNode {
 	}
 
 	// Methods
+
+	/**
+	 * Gets the function raw name
+	 */
+	public String getName() {
+		return name;
+	}
+
+	/**
+	 * Sets the function name
+	 * 
+	 * @param object
+	 */
+	public void setName(String name) {
+		this.name = name;
+	}
 
 	/**
 	 * Return the function body expression
@@ -101,6 +120,18 @@ public class ASTFunctionDecl extends ASTNode {
 	@Override
 	public int getType() {
 		return FUNCTIONDECL;
+	}
+
+	@Override
+	protected void getInScopeVariables(List<String> vars, IASTNode child) {
+		// Include parameters..
+		for (int i = getParamCount() - 1; i >= 0; i--) {
+			IStructuredDocumentRegion var = getParamNameAt(i);
+			if (var != null)
+				vars.add(var.getFullText().trim());
+		}
+		
+		super.getInScopeVariables(vars, child);
 	}
 
 }

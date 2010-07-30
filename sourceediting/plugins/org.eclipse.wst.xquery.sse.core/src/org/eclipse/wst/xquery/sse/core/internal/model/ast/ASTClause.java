@@ -10,68 +10,40 @@
  *******************************************************************************/
 package org.eclipse.wst.xquery.sse.core.internal.model.ast;
 
+
 /**
- * Global variable declaration
+ * Base class for clauses.
  * 
  * @author <a href="villard@us.ibm.com">Lionel Villard</a>
- */
-public class ASTVarDecl extends ASTNode {
+ */ 
+public abstract class ASTClause extends ASTParentNode {
 
 	// State
 
-	/** Variable expression (if any) */
-	private IASTNode expr;
+	/** Clause type */
+	protected int type;
 
-	/** Variable raw name */
-	private String name;
+	// Constructor
 
-	// Constructors
-
-	public ASTVarDecl() {
+	ASTClause() {
 	}
 
 	// Methods
 
 	/**
-	 * Return the variable initialization expression
+	 * Sets type of this clause
 	 * 
-	 * @return
+	 * @see IASTNode
 	 */
-	public IASTNode getExpr() {
-		return expr;
-	}
-
-	/**
-	 * @param expr
-	 */
-	public void setExpr(IASTNode expr) {
-		if (this.expr != null)
-			this.expr.setASTParent(null);
-
-		this.expr = expr;
-		if (this.expr != null)
-			this.expr.setASTParent(this);
-	}
-
-	/**
-	 * @return
-	 */
-	public void setName(String name) {
-		this.name = name;
-	}
-
-	/**
-	 * @return
-	 */
-	public String getName() {
-		return name;
+	public void setClauseType(int type) {
+		this.type = type;
 	}
 
 	// Overrides
 
 	@Override
 	public int getType() {
-		return VARDECL;
+		return type;
 	}
 
 }

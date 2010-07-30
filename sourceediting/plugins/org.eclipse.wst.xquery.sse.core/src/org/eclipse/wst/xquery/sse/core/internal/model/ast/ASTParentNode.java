@@ -18,6 +18,7 @@ import java.util.List;
  * 
  * @author <a href="villard@us.ibm.com">Lionel Villard</a>
  */
+@SuppressWarnings("restriction")
 public abstract class ASTParentNode extends ASTNode {
 
 	// State
@@ -51,6 +52,7 @@ public abstract class ASTParentNode extends ASTNode {
 	@Override
 	public int getChildASTNodesCount() {
 		return ASTHelper.getChildASTNodesCount(children);
-	}
+	} 
 
+	
 }

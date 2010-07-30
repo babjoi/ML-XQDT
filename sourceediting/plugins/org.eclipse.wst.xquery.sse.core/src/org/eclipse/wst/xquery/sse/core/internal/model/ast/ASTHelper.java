@@ -12,12 +12,12 @@ package org.eclipse.wst.xquery.sse.core.internal.model.ast;
 
 import java.util.List;
 
+import org.eclipse.wst.sse.core.internal.provisional.text.IStructuredDocument;
 import org.eclipse.wst.sse.core.internal.provisional.text.IStructuredDocumentRegion;
 import org.eclipse.wst.sse.core.internal.provisional.text.ITextRegion;
-import org.eclipse.wst.validation.internal.operations.LocalizedMessage;
-import org.eclipse.wst.validation.internal.provisional.core.IMessage;
 import org.eclipse.wst.validation.internal.provisional.core.IReporter;
 import org.eclipse.wst.validation.internal.provisional.core.IValidator;
+import org.eclipse.wst.xquery.sse.core.internal.ValidationHelper;
 
 /**
  * Collection of static utility methods
@@ -50,16 +50,17 @@ public class ASTHelper {
 	 */
 	public static void setChildASTNodeAt(List<IASTNode> children,
 			IASTNode parent, int index, IASTNode newChild) {
-		if (newChild != null)
-			newChild.setASTParent(parent);
-
 		ensureCapacity(index, children);
-
 		IASTNode oldChild = children.get(index);
-		if (oldChild != null)
-			oldChild.setASTParent(null);
+		if (oldChild != newChild) {
+			if (newChild != null)
+				newChild.setASTParent(parent);
 
-		children.set(index, newChild);
+			if (oldChild != null)
+				oldChild.setASTParent(null);
+
+			children.set(index, newChild);
+		}
 	}
 
 	/**
@@ -119,12 +120,6 @@ public class ASTHelper {
 
 		return null;
 	}
-	
-
-	/** Append child node to the given parent at the last position */
-	public static void appendChildASTNodeAt(IASTNode parent, IASTNode child) {
-		parent.setChildASTNodeAt(parent.getChildASTNodesCount(), child);
-	}
 
 	/**
 	 * Report error
@@ -134,21 +129,27 @@ public class ASTHelper {
 	public static void reportError(IStructuredDocumentRegion sdregion,
 			ITextRegion region, String text, IValidator validator,
 			IReporter reporter) {
-		IMessage message = new LocalizedMessage(IMessage.HIGH_SEVERITY, text);
+		reporter.addMessage(validator,
+				ValidationHelper.createErrorMessage(sdregion, region, text));
+	}
 
-		if (region != null) {
-			message.setOffset(sdregion.getStartOffset() + region.getStart());
-			message.setLength(region.getTextLength());
-			message.setLineNo(sdregion.getParentDocument().getLineOfOffset(
-					sdregion.getStartOffset() + region.getStart()));
-		} else {
-			message.setOffset(sdregion.getStartOffset());
-			message.setLength(sdregion.getTextLength());
-			message.setLineNo(sdregion.getParentDocument().getLineOfOffset(
-					sdregion.getStartOffset()));
-
+	/**
+	 * Perform static checking
+	 * 
+	 * @param astParentNode
+	 * @param document
+	 * @param validator
+	 * @param reporter
+	 * @return
+	 */
+	public static void staticCheck(IASTNode node,
+			IStructuredDocument document, IValidator validator,
+			IReporter reporter) {
+		for (int i = node.getChildASTNodesCount() - 1; i >= 0; i--) {
+			IASTNode child = node.getChildASTNodeAt(i);
+			if (child != null)
+				child.staticCheck(document, validator, reporter);
 		}
-		reporter.addMessage(validator, message);
 	}
 
 }

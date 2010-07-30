@@ -10,37 +10,76 @@
  *******************************************************************************/
 package org.eclipse.wst.xquery.sse.core.internal.model.ast;
 
+import java.util.List;
+
+import org.eclipse.wst.sse.core.internal.provisional.text.IStructuredDocumentRegion;
 
 /**
  * Quantified expression
- *
- * @author <a href="villard@us.ibm.com">Lionel Villard</a> 
+ * 
+ * @author <a href="villard@us.ibm.com">Lionel Villard</a>
  */
-public class ASTQuantified extends ASTClauses {
-
+@SuppressWarnings("restriction")
+public class ASTQuantified extends ASTParentNode {
 
 	// Methods
-	
-	
+
+	/**
+	 * Set binding clause
+	 * 
+	 * @param index
+	 * @param region
+	 */
+	public void setBindingClause(ASTBindingClause clause) {
+		setChildASTNodeAt(0, clause);
+	}
+
+	/**
+	 * Get binding clause
+	 * 
+	 * @param index
+	 */
+	public ASTBindingClause getBindingClause() {
+		return (ASTBindingClause) getChildASTNodeAt(0);
+	}
+
 	/**
 	 * @param expr
 	 */
 	public void setSatisfiesExpr(IASTNode expr) {
-		setChildASTNodeAt(0, expr);
+		setChildASTNodeAt(1, expr);
 	}
 
 	/**
-	 * @param returnExpr
+	 * @return satisfies expression
 	 */
 	public IASTNode getSatisfiesExpr() {
-		return getChildASTNodeAt(0);
+		return getChildASTNodeAt(1);
 	}
 
 	// Overrides
-	
+
 	@Override
 	public int getType() {
 		return QUANTIFIED;
+	}
+
+	@Override
+	protected void getInScopeVariables(List<String> vars, IASTNode child) {
+		if (child == getSatisfiesExpr()) {
+
+			ASTBindingClause bindings = getBindingClause();
+			if (bindings != null)
+				for (int i = bindings.getBindingExprCount() - 1; i >= 0; i--) {
+					
+					IStructuredDocumentRegion var = bindings
+							.getBindingVariable(i);
+					if (var != null)
+						vars.add(var.getFullText().trim());
+				}
+		}
+
+		super.getInScopeVariables(vars, child);
 	}
 
 }

@@ -10,60 +10,54 @@
  *******************************************************************************/
 package org.eclipse.wst.xquery.sse.core.internal.model.ast;
 
-import java.util.List;
-
 import org.eclipse.wst.sse.core.internal.provisional.text.IStructuredDocument;
 import org.eclipse.wst.validation.internal.provisional.core.IReporter;
 import org.eclipse.wst.validation.internal.provisional.core.IValidator;
-import org.eclipse.wst.xquery.sse.core.internal.XQueryMessages;
-import org.eclipse.wst.xquery.sse.core.internal.model.ModelHelper;
 
 /**
- * Variable reference
- * 
+ * Clause of the form <tt>'clauseName' ExprSingle</tt>
+ *
  * @author <a href="villard@us.ibm.com">Lionel Villard</a>
  */
 @SuppressWarnings("restriction")
-public class ASTVarRef extends ASTSDRNode {
+public class ASTExprSingleClause extends ASTClause {
 
+	// State
+	
+	/** Expression */
+	protected IASTNode expr;
+	
 	// Methods
-
-	/** Gets the variable reference name */
-	public String getName() {
-		if (region != null)
-			return region.getFullText().trim();
-
-		return null;
-	}
-
+	
 	/**
-	 * Check if variable definition is in scope
-	 * 
-	 * @return
+	 * Set clause expression
 	 */
-	protected boolean isVariableInScope() {
-		final String varName = getName();
-		final List<String> vars = ModelHelper.getInScopeVariables(this);
-		return vars != null && vars.contains(varName);
+	public void setExpr(IASTNode expr)
+	{
+		if (expr != null)
+			expr.setASTParent(this);
+		
+		this.expr = expr;
 	}
-
+	
+	/**
+	 * Get clause expression
+	 */
+	public IASTNode getExpr()
+	{
+		return this.expr;
+	}
+	
 	// Overrides
-
-	@Override
-	public int getType() {
-		return VARREF;
-	}
 
 	@Override
 	public void staticCheck(IStructuredDocument document, IValidator validator,
 			IReporter reporter) {
-		// It is a static error [err:XPST0008] to reference a variable that is
-		// not in scope.
-		if (!isVariableInScope())
-			ASTHelper.reportError(region, null,
-					XQueryMessages.errorXQST0088_VR_UI_, validator, reporter);
-
+		if (expr != null)
+			expr.staticCheck(document, validator, reporter);
+		
 		super.staticCheck(document, validator, reporter);
 	}
-
+	
+	
 }

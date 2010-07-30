@@ -120,4 +120,32 @@ public class ASTNodeFactory {
 		return new ASTNamespaceDecl();
 	}
 
+	/**
+	 * @return
+	 */
+	public ASTApply newApply() {
+		return new ASTApply();
+	}
+
+	/**
+	 * @return
+	 */
+	public ASTBindingClause newBindingClause() {
+		return new ASTBindingClause();
+	}
+
+	/**
+	 * @return
+	 */
+	public ASTExprSingleClause newExprSingleClause() {
+		return new ASTExprSingleClause();
+	}
+
+	/**
+	 * @return
+	 */
+	public ASTOrderByClause newOrderByClause() {
+		return new ASTOrderByClause();
+	}
+
 }

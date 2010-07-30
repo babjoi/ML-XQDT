@@ -10,86 +10,68 @@
  *******************************************************************************/
 package org.eclipse.wst.xquery.sse.core.internal.model.ast;
 
-import java.util.ArrayList;
 import java.util.List;
 
+import org.eclipse.wst.sse.core.internal.provisional.text.IStructuredDocument;
 import org.eclipse.wst.sse.core.internal.provisional.text.IStructuredDocumentRegion;
+import org.eclipse.wst.validation.internal.provisional.core.IReporter;
+import org.eclipse.wst.validation.internal.provisional.core.IValidator;
 
 /**
- * For/Let expression
+ * FLWOR expression
  * 
  * @author <a href="villard@us.ibm.com">Lionel Villard</a>
  */
 @SuppressWarnings("restriction")
-public class ASTFLWOR extends ASTClauses {
+public class ASTFLWOR extends ASTParentNode {
 
 	// State
 
-	/** Positional variables */
-	protected List<IStructuredDocumentRegion> posVars; 
+	/** Return expression */
+	protected IASTNode returnExpr;
 
 	// Constructors
 
 	public ASTFLWOR() {
-		posVars = new ArrayList<IStructuredDocumentRegion>(1);
 	}
 
 	// Methods
-	 
+
 	/**
+	 * Set clause at given index
+	 * 
 	 * @param index
 	 * @param region
 	 */
-	public void setPositionalVar(int index, IStructuredDocumentRegion region) {
-		ASTHelper.ensureCapacity(index, posVars);
-		posVars.set(index, region);
-	}
-  
-	/**
-	 * @param expr
-	 */
-	public void setReturnExpr(IASTNode expr) {
-		setChildASTNodeAt(1, expr);
+	public void setClause(int index, ASTClause clause) {
+		setChildASTNodeAt(index, clause);
 	}
 
 	/**
-	 * @return the return expression
+	 * Gets clause at given index
+	 * 
+	 * @param index
+	 */
+	public ASTClause getClause(int index) {
+		return (ASTClause) getChildASTNodeAt(index);
+	}
+
+	/**
+	 * Gets return expression
 	 */
 	public IASTNode getReturnExpr() {
-		return getChildASTNodeAt(1);
-	}
-	
-	/**
-	 * @return the where expression
-	 */ 
-	public IASTNode getWhereExpr() {
-		return getChildASTNodeAt(0);
+		return this.returnExpr;
 	}
 
 	/**
-	 * @param expr
+	 * @param returnExpr
 	 */
-	public void setWhereExpr(IASTNode expr) {
-		setChildASTNodeAt(0, expr);
-	}
-	
-	/**
-	 * @param index
-	 * @return
-	 */
-	public IASTNode getOrderSpecExpr(int index) {
-		return getChildASTNodeAt(index + 2);
+	public void setReturnExpr(IASTNode expr) {
+		if (expr != null)
+			expr.setASTParent(this);
+		this.returnExpr = expr;
 	}
 
-
-	/**
-	 * @param expr
-	 */
-	public void setOrderSpecExpr(int index, IASTNode expr) {
-		setChildASTNodeAt(2 + index, expr);
-	}
-	
- 
 	// Overrides
 
 	@Override
@@ -97,7 +79,50 @@ public class ASTFLWOR extends ASTClauses {
 		return FLWOR;
 	}
 
+	@Override
+	protected void getInScopeVariables(List<String> vars, IASTNode child) {
+		// Compute the last binding index to include
+		int lastBindingIndex = 0;
 
-	
+		if (child == this.returnExpr) {
+			lastBindingIndex = getChildASTNodesCount() - 1; // Includes all
+		} else {
+			// Includes only the previous binding
+
+			while (lastBindingIndex < getChildASTNodesCount()) {
+				if (getClause(lastBindingIndex) == child) {
+					break;
+				}
+				lastBindingIndex++;
+			}
+
+			lastBindingIndex--;
+		}
+
+		while (lastBindingIndex >= 0) {
+			ASTClause clause = getClause(lastBindingIndex);
+			if (clause instanceof ASTBindingClause) {
+				ASTBindingClause bindings = (ASTBindingClause) clause;
+				for (int i = bindings.getBindingExprCount() - 1; i >= 0; i--) {
+					IStructuredDocumentRegion var = bindings
+							.getBindingVariable(i);
+					if (var != null)
+						vars.add(var.getFullText().trim());
+				}
+			}
+			lastBindingIndex--;
+		}
+
+		super.getInScopeVariables(vars, child);
+	}
+
+	@Override
+	public void staticCheck(IStructuredDocument document, IValidator validator,
+			IReporter reporter) {
+		if (returnExpr != null)
+			returnExpr.staticCheck(document, validator, reporter);
+		
+		super.staticCheck(document, validator, reporter);
+	}
 
 }

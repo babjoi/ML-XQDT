@@ -230,9 +230,6 @@ public class XQuerySourceValidator extends AbstractValidator implements
 	 */
 	protected void validate(IStructuredDocument document, IASTNode node, IReporter reporter) {
 		node.staticCheck(document, this, reporter);
-		
-		for (int i = node.getChildASTNodesCount() - 1; i >= 0; i --)
-			validate(document, node.getChildASTNodeAt(i), reporter);
 	}
 
 }

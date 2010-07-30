@@ -14,6 +14,10 @@ import java.util.Stack;
 
 import org.eclipse.wst.sse.core.internal.provisional.text.IStructuredDocumentRegion;
 import org.eclipse.wst.xquery.core.IXQDTLanguageConstants;
+import org.eclipse.wst.xquery.sse.core.internal.model.ast.ASTApply;
+import org.eclipse.wst.xquery.sse.core.internal.model.ast.ASTBindingClause;
+import org.eclipse.wst.xquery.sse.core.internal.model.ast.ASTClause;
+import org.eclipse.wst.xquery.sse.core.internal.model.ast.ASTExprSingleClause;
 import org.eclipse.wst.xquery.sse.core.internal.model.ast.ASTFLWOR;
 import org.eclipse.wst.xquery.sse.core.internal.model.ast.ASTFunctionCall;
 import org.eclipse.wst.xquery.sse.core.internal.model.ast.ASTFunctionDecl;
@@ -23,6 +27,7 @@ import org.eclipse.wst.xquery.sse.core.internal.model.ast.ASTModule;
 import org.eclipse.wst.xquery.sse.core.internal.model.ast.ASTNamespaceDecl;
 import org.eclipse.wst.xquery.sse.core.internal.model.ast.ASTNodeFactory;
 import org.eclipse.wst.xquery.sse.core.internal.model.ast.ASTOperator;
+import org.eclipse.wst.xquery.sse.core.internal.model.ast.ASTOrderByClause;
 import org.eclipse.wst.xquery.sse.core.internal.model.ast.ASTQuantified;
 import org.eclipse.wst.xquery.sse.core.internal.model.ast.ASTSequenceType;
 import org.eclipse.wst.xquery.sse.core.internal.model.ast.ASTTypeswitch;
@@ -197,7 +202,7 @@ public class ModelBuilder {
 					XQueryRegions.XML_ESCAPE_CLOSE_EXPR,
 					XQueryRegions.XML_START_EXPR });
 
-	final protected RegionFilter flworFilter = new RegionFilter(new String[] {
+	final protected RegionFilter forLetFilter = new RegionFilter(new String[] {
 			XQueryRegions.KW_FOR, XQueryRegions.KW_LET });
 
 	final protected RegionFilter quantifiedFilter = new RegionFilter(
@@ -272,6 +277,11 @@ public class ModelBuilder {
 
 			reparseVersionDecl(module);
 			reparseLibraryOrModule(module);
+
+			if (currentSDRegion != null)
+				model.reportError(previousSDRegion,
+						"Syntax error: expected end of file.");
+
 			return module;
 		}
 
@@ -285,7 +295,7 @@ public class ModelBuilder {
 			module.setVersionRegion(vdregion.getVersion());
 			module.setEncodingRegion(vdregion.getEncoding());
 
-			nextSDRegion(); 
+			nextSDRegion();
 		}
 	}
 
@@ -399,6 +409,7 @@ public class ModelBuilder {
 	protected ASTNamespaceDecl reparseNamespaceDecl(IASTNode decl) {
 		ASTNamespaceDecl nsdecl = asNamespaceDecl(decl);
 		nsdecl.setStructuredDocumentRegion(currentSDRegion);
+		nextSDRegion();
 		return nsdecl;
 	}
 
@@ -418,20 +429,23 @@ public class ModelBuilder {
 	 *            last global declaration position.
 	 * @return
 	 */
-	protected int reparseProlog2(ASTModule node, int from) {
+	protected int reparseProlog2(ASTModule module, int from) {
 		while (sameRegionType(XQueryRegions.KW_DECLARE)) {
-
 			String type2 = currentSDRegion.getRegions().get(1).getType();
 
+			IASTNode oldDecl = module.getChildASTNodeAt(from);
+
 			if (type2 == XQueryRegions.KW_VARIABLE) {
-				reparseVarDecl(node);
+				ASTVarDecl newDecl = reparseVarDecl(oldDecl);
+				module.setVariableDecl(from++, newDecl.getName(), newDecl);
 			} else if (type2 == XQueryRegions.KW_FUNCTION) {
-				reparseFunctionDecl(node);
+				ASTFunctionDecl newDecl = reparseFunctionDecl(oldDecl);
+				module.setFunctionDecl(from++, newDecl.getName(), newDecl);
 			} else if (type2 == XQueryRegions.KW_OPTION) {
-				reparseOptionDecl(node);
+				reparseOptionDecl(module);
 			} else {
-				// Probably a Prolog1 declaration: for now just break the
-				// loop
+				// Probably a Prolog1 declaration in the wrong place
+				// TODO: report error
 				break;
 			}
 
@@ -459,20 +473,16 @@ public class ModelBuilder {
 	 * <tt>"declare" ("simple"? | "updating") "function" QName "(" ParamList? ")" ("as" SequenceType)? (EnclosedExpr | "external"))
 	 *      | ("declare" "sequential" "function" QName "(" ParamList? ")" ("as" SequenceType)? (Block | "external"))
 	 */
-	protected void reparseFunctionDecl(ASTModule node) {
+	protected ASTFunctionDecl reparseFunctionDecl(IASTNode node) {
 		final FunctionDeclStructuredDocumentRegion declareRegion = (FunctionDeclStructuredDocumentRegion) currentSDRegion;
+		ASTFunctionDecl decl = asFunctionDecl(node);
 
 		nextSDRegion(); // "declare" .... "function"
 
 		if (sameRegionType(XQueryRegions.FUNCTIONNAME)) {
 			String functionName = currentSDRegion.getText(currentSDRegion
 					.getFirstRegion());
-
-			ASTFunctionDecl decl = node.getFunctionDecl(functionName);
-			if (decl == null) {
-				decl = nodeFactory.newFunctionDecl();
-				node.addFunctionDecl(functionName, decl);
-			}
+			decl.setName(functionName);
 
 			nextSDRegion(); // QName (
 
@@ -494,7 +504,10 @@ public class ModelBuilder {
 
 		} else {
 			// Function name not typed yet.
+			decl.setName(null);
 		}
+
+		return decl;
 	}
 
 	/**
@@ -579,30 +592,47 @@ public class ModelBuilder {
 	/**
 	 * Reparse
 	 * <tt>"declare" "variable" "$" QName TypeDeclaration? ((":=" ExprSingle) | "external")</tt>
+	 * 
+	 * @param index
+	 *            of the variable declaration in the module
 	 */
-	protected void reparseVarDecl(ASTModule module) {
-		nextSDRegion(); // skip "declare" "variable"
+	protected ASTVarDecl reparseVarDecl(IASTNode node) {
+		nextSDRegion(); // "declare" ... "variable"
+		ASTVarDecl decl = asVarDecl(node);
 
-		String name = currentSDRegion.getFullText(currentSDRegion
-				.getLastRegion());
+		if (sameRegionType(XQueryRegions.DOLLAR)) {
+			// Set variable name.
 
-		ASTVarDecl decl = module.getVariableDecl(name);
-		if (decl == null) {
-			decl = nodeFactory.newVariableDecl();
-			module.addVariableDecl(name, decl);
-		}
-		decl.setName(currentSDRegion);
-		nextSDRegion(); // skip "$" QName
+			final String name;
+			if (currentSDRegion.getNumberOfRegions() == 1)
+				name = null; // Not available yet
+			else
+				name = currentSDRegion.getFullText(currentSDRegion
+						.getLastRegion());
 
-		reparseTypeDeclarationOpt(null);
-		if (sameRegionType(XQueryRegions.KW_EXTERNAL)) {
-			nextSDRegion(); // 'external'
-			decl.setExpr(null);
+			decl.setName(name);
+
+			nextSDRegion(); // "$" QName
+
+			reparseTypeDeclarationOpt(null);
+
+			if (sameRegionType(XQueryRegions.KW_EXTERNAL)) {
+				nextSDRegion(); // 'external'
+				decl.setExpr(null);
+			} else if (sameRegionType(XQueryRegions.ASSIGN)) {
+				nextSDRegion(); // ':='
+
+				decl.setExpr(reparseExprSingle(decl.getExpr()));
+			} else {
+				// TODO: report error
+
+			}
 		} else {
-			nextSDRegion(); // ':='
-
-			decl.setExpr(reparseExprSingle(decl.getExpr()));
+			// Variable name hasn't be typed yet
+			decl.setName(null);
 		}
+
+		return decl;
 	}
 
 	/**
@@ -623,11 +653,10 @@ public class ModelBuilder {
 	 * XQuery Scripting: <tt>Expr	::= ApplyExpr</tt>
 	 */
 	protected IASTNode reparseExpr(IASTNode expr) {
-		// Parse as if the language is XQuery Scripting to report meaninful
+		// Parse as if the language is XQuery Scripting to report meaningful
 		// language-violation errors
-		return reparseApplyExpr(expr);
 
-		// return reparseOperatorStar(expr, sequenceFilter, exprContinuation);
+		return reparseApplyExpr(expr);
 	}
 
 	/**
@@ -638,30 +667,21 @@ public class ModelBuilder {
 	 * @return
 	 */
 	protected IASTNode reparseApplyExpr(IASTNode expr) {
-		boolean isValid = true;
+		ASTApply apply = asApply(expr);
+		int index = 0;
 		do {
-			reparseConcatExpr(expr);
+			IASTNode oldExpr = apply.getChildASTNodeAt(index);
+			IASTNode concatExpr = reparseConcatExpr(oldExpr);
+			apply.setChildASTNodeAt(index++, concatExpr);
 
-			// Check if it's belong to the proper language variation
-			if (!isValid && currentSDRegion != null
-					&& language == IXQDTLanguageConstants.LANGUAGE_XQUERY) {
-				isValid = false;
-				isValidLanguage.push(false);
-			}
+			if (sameRegionType(XQueryRegions.SEPARATOR))
+				nextSDRegion(); // ';'
+			else
+				break;
 
-			if (!sameRegionType(XQueryRegions.SEPARATOR)) {
-				if (!isValid)
-					isValidLanguage.pop();
-				return null;
-			}
-
-			nextSDRegion(); // ';'
 		} while (currentSDRegion != null);
 
-		if (!isValid)
-			isValidLanguage.pop();
-
-		return null;
+		return apply;
 	}
 
 	/**
@@ -679,7 +699,7 @@ public class ModelBuilder {
 	 * Reparse <tt>ExprSingle</tt>
 	 */
 	protected IASTNode reparseExprSingle(IASTNode expr) {
-		if (sameRegionType(flworFilter))
+		if (sameRegionType(forLetFilter))
 			return reparseFLWORExpr(expr);
 		else if (sameRegionType(quantifiedFilter))
 			return reparseQuantifiedExpr(expr);
@@ -789,33 +809,18 @@ public class ModelBuilder {
 	protected IASTNode reparseQuantifiedExpr(IASTNode expr) {
 		ASTQuantified quantified = asQuantified(expr);
 
-		nextSDRegion(); // some or every
+		ASTClause oldClause = quantified.getBindingClause();
+		ASTBindingClause newClause = reparseForLetQuantifyClause(oldClause);
+		quantified.setBindingClause(newClause);
 
-		int index = 0;
-		do {
-			quantified.setBindingVariable(index, currentSDRegion);
+		if (sameRegionType(XQueryRegions.KW_SATIFIES)) {
+			nextSDRegion(); // satisfies
 
-			nextSDRegion(); // $ VarName
-
-			reparseTypeDeclarationOpt(null);
-
-			nextSDRegion(); // in
-
-			IASTNode oldExpr = quantified.getBindingExpr(index);
-			quantified.setBindingExpr(index, reparseExprSingle(oldExpr));
-
-			if (sameRegionType(XQueryRegions.KW_SATIFIES))
-				break;
-
-			nextSDRegion(); // ","
-
-			index++;
-		} while (currentSDRegion != null);
-
-		nextSDRegion(); // satifies
-
-		IASTNode oldExpr = quantified.getSatisfiesExpr();
-		quantified.setSatisfiesExpr(reparseExprSingle(oldExpr));
+			IASTNode oldExpr = quantified.getSatisfiesExpr();
+			quantified.setSatisfiesExpr(reparseExprSingle(oldExpr));
+		} else {
+			reportError("Syntax Error: expecting satisfies keyword.");
+		}
 
 		return quantified;
 	}
@@ -827,32 +832,38 @@ public class ModelBuilder {
 	protected IASTNode reparseFLWORExpr(IASTNode expr) {
 		ASTFLWOR flwor = asFLWOR(expr);
 
-		// final String clauseType = currentSDRegion.getType();
-		nextSDRegion(); // for/let keyword
+		int index = 0;
+		do {
+			ASTClause oldClause = flwor.getClause(index);
+			ASTClause newClause = reparseForLetQuantifyClause(oldClause);
+			flwor.setClause(index++, newClause);
 
-		reparseFLWORClause(flwor);
+			if (!sameRegionType(forLetFilter))
+				break;
+		} while (currentSDRegion != null);
 
 		// WhereClause
 		if (sameRegionType(XQueryRegions.KW_WHERE)) {
 			nextSDRegion(); // 'where'
 
-			IASTNode oldWhere = flwor.getWhereExpr();
-			flwor.setWhereExpr(reparseExprSingle(oldWhere));
+			IASTNode oldWhere = flwor.getClause(index);
+			flwor.setClause(index++, reparseWhereClause(oldWhere));
 		}
 
+		// Order by clause
 		if (sameRegionType(XQueryRegions.KW_ORDER)
 				|| sameRegionType(XQueryRegions.KW_STABLE)) {
 			nextSDRegion(); // 'Order by' or 'stable order by'
 
-			reparseOrderSpecList(flwor);
+			IASTNode oldClause = flwor.getClause(index);
+			flwor.setClause(index++, reparseOrderByClause(oldClause));
 		}
 
 		// Return
-
 		if (sameRegionType(XQueryRegions.KW_RETURN)) {
 			nextSDRegion(); // 'return'
 
-			IASTNode returnExpr = reparseExprSingle(null);
+			IASTNode returnExpr = reparseExprSingle(flwor.getReturnExpr());
 			flwor.setReturnExpr(returnExpr);
 		}
 
@@ -860,12 +871,36 @@ public class ModelBuilder {
 	}
 
 	/**
+	 * Reparse <tt>(("order" "by") | ("stable" "order" "by")) OrderSpecList</tt>
+	 */
+	protected ASTClause reparseOrderByClause(IASTNode node) {
+		ASTOrderByClause clause = asOrderByClause(node);
+		clause.setClauseType(IASTNode.ORDERBYCLAUSE);
+		reparseOrderSpecList(clause);
+		return clause;
+	}
+
+	/**
+	 * Reparse <tt>"where" ExprSingle</tt>
+	 */
+	protected ASTClause reparseWhereClause(IASTNode node) {
+		ASTExprSingleClause clause = asExprSingleClause(node);
+		clause.setClauseType(IASTNode.WHERECLAUSE);
+
+		IASTNode oldExpr = clause.getExpr();
+		IASTNode newExpr = reparseExprSingle(oldExpr);
+		clause.setExpr(newExpr);
+
+		return clause;
+	}
+
+	/**
 	 * Reparse <tt>OrderSpec ("," OrderSpec)*</tt>
 	 */
-	protected void reparseOrderSpecList(ASTFLWOR flwor) {
+	protected void reparseOrderSpecList(ASTOrderByClause clause) {
 		int index = 0;
 		while (currentSDRegion != null) {
-			reparseOrderSpec(flwor, index);
+			reparseOrderSpec(clause, index);
 
 			if (!sameRegionType(XQueryRegions.COMMA))
 				break;
@@ -877,10 +912,10 @@ public class ModelBuilder {
 	/**
 	 * Reparse <tt>ExprSingle OrderModifier</tt>
 	 */
-	protected void reparseOrderSpec(ASTFLWOR flwor, int index) {
-		IASTNode oldOrderExpr = flwor.getOrderSpecExpr(index);
-		flwor.setOrderSpecExpr(index, reparseExprSingle(oldOrderExpr));
-		reparseOrderModifier(flwor, index);
+	protected void reparseOrderSpec(ASTOrderByClause clause, int index) {
+		IASTNode oldOrderExpr = clause.getOrderSpecExpr(index);
+		clause.setOrderSpecExpr(index, reparseExprSingle(oldOrderExpr));
+		reparseOrderModifier(clause, index);
 	}
 
 	/**
@@ -889,7 +924,7 @@ public class ModelBuilder {
 	 * 
 	 * @param index
 	 */
-	protected void reparseOrderModifier(ASTFLWOR flwor, int index) {
+	protected void reparseOrderModifier(ASTOrderByClause clause, int index) {
 		if (sameRegionType(XQueryRegions.KW_ASCENDING)
 				|| sameRegionType(XQueryRegions.KW_DESCENDING))
 			nextSDRegion();
@@ -909,52 +944,78 @@ public class ModelBuilder {
 	 * <tt>"for" "$" VarName TypeDeclaration? PositionalVar? "in" ExprSingle ("," "$" VarName TypeDeclaration? PositionalVar? "in" ExprSingle)* </tt>
 	 * <tt>"let" "$" VarName TypeDeclaration? ":=" ExprSingle ("," "$" VarName TypeDeclaration? ":=" ExprSingle)*</tt>
 	 */
-	protected void reparseFLWORClause(ASTFLWOR flwor) {
-		boolean keepGoing;
-		int index = 0;
-		do {
-			flwor.setBindingVariable(index, currentSDRegion);
+	protected ASTBindingClause reparseForLetQuantifyClause(IASTNode node) {
+		ASTBindingClause clause = asBindingClause(node);
 
-			nextSDRegion(); // Skip $var. Always there (ensured by the
-			// tokenizer)
+		final String clauseType = currentSDRegion.getType();
+		if (clauseType == XQueryRegions.KW_LET)
+			clause.setClauseType(IASTNode.LETCLAUSE);
+		else if (clauseType == XQueryRegions.KW_FOR)
+			clause.setClauseType(IASTNode.FORCLAUSE);
+		else
+			clause.setClauseType(IASTNode.QUANTIFIEDCLAUSE);
 
-			IASTNode oldTypeDecl = flwor.getTypeDeclaration(index);
-			IASTNode newTypeDecl = reparseTypeDeclarationOpt(oldTypeDecl);
-			flwor.setTypeDeclaration(index, newTypeDecl);
+		if (nextSDRegion()) // 'for', 'let', 'some', 'quantified'
+		{
+			int index = 0;
+			do {
+				clause.setBindingVariable(index, currentSDRegion);
 
-			reparsePositionalVarOpt(flwor, index);
+				if (checkAndReport(XQueryRegions.DOLLAR,
+						"Syntax error: expecting variable name")) {
+					if (nextSDRegion()) {
+						IASTNode oldTypeDecl = clause.getTypeDeclaration(index);
+						IASTNode newTypeDecl = reparseTypeDeclarationOpt(oldTypeDecl);
+						clause.setTypeDeclaration(index, newTypeDecl);
 
-			nextSDRegion(); // Either := or in
+						if (clause.getType() == IASTNode.FORCLAUSE)
+							reparsePositionalVarOpt(clause, index);
 
-			IASTNode oldExpr = flwor.getBindingExpr(index);
-			IASTNode newExpr = reparseExprSingle(oldExpr);
-			flwor.setBindingExpr(index, newExpr);
+						if (nextSDRegion()) // Either := or in
+						{
+							IASTNode oldExpr = clause.getBindingExpr(index);
+							IASTNode newExpr = reparseExprSingle(oldExpr);
+							clause.setBindingExpr(index, newExpr);
 
-			keepGoing = sameRegionType(XQueryRegions.COMMA);
-			if (keepGoing) {
-				nextSDRegion();
-				index++;
-			}
+							if (sameRegionType(XQueryRegions.COMMA)) {
+								nextSDRegion(); // ','
+								index++;
+							} else {
+								break; // done parsing
+							}
+						} else
+							break; // missing := or in
+					} else
+						break; // missing token
+				} else
+					break; // wrong token (expected '$')
 
-		} while (keepGoing);
+			} while (currentSDRegion != null);
+		} else {
+			// missing varname
+			model.reportError(previousSDRegion,
+					"Syntax error: expecting variable name");
+		}
 
+		return clause;
 	}
 
 	/**
-	 * Reparse PositionalVar? <tt>"at" "$" VarName</tt>
+	 * Reparse
+	 * 
+	 * <tt>("at" "$" VarName)?</tt>
 	 * 
 	 * @param index
 	 */
-	protected void reparsePositionalVarOpt(ASTFLWOR node, int index) {
+	protected void reparsePositionalVarOpt(ASTBindingClause clause, int index) {
 		if (sameRegionType(XQueryRegions.KW_AT)) {
-			nextSDRegion();
+			nextSDRegion(); // 'at'
 
 			if (sameRegionType(XQueryRegions.DOLLAR)) {
-				node.setPositionalVar(index, currentSDRegion);
-				nextSDRegion();
+				clause.setPositionalVar(index, currentSDRegion);
+				nextSDRegion(); // '$' VarName
 			}
 		}
-
 	}
 
 	/**
@@ -1749,6 +1810,14 @@ public class ModelBuilder {
 
 	// Helpers
 
+	/** Gets AST node as {@link ASTApply} */
+	protected ASTApply asApply(IASTNode node) {
+		if (node != null && node.getType() == IASTNode.APPLY)
+			return (ASTApply) node;
+
+		return nodeFactory.newApply();
+	}
+
 	/** Gets AST node as {@link ASTIf} */
 	protected ASTIf asIf(IASTNode node) {
 		if (node != null && node.getType() == IASTNode.IF)
@@ -1805,12 +1874,52 @@ public class ModelBuilder {
 		return nodeFactory.newFLOWR();
 	}
 
+	/** Gets AST node as {@link ASTBindingClause} */
+	protected ASTBindingClause asBindingClause(IASTNode node) {
+		if (node instanceof ASTBindingClause)
+			return (ASTBindingClause) node;
+
+		return nodeFactory.newBindingClause();
+	}
+
+	/** Gets AST node as {@link ASTExprSingleClause} */
+	protected ASTExprSingleClause asExprSingleClause(IASTNode node) {
+		if (node instanceof ASTExprSingleClause)
+			return (ASTExprSingleClause) node;
+
+		return nodeFactory.newExprSingleClause();
+	}
+
+	/** Gets AST node as {@link ASTOrderByClause} */
+	protected ASTOrderByClause asOrderByClause(IASTNode node) {
+		if (node instanceof ASTOrderByClause)
+			return (ASTOrderByClause) node;
+
+		return nodeFactory.newOrderByClause();
+	}
+
 	/** Gets AST node as {@link ASTDirElement} */
 	protected ASTDirElement asDirElement(IASTNode node) {
 		if (node != null && node.getType() == IASTNode.DIRELEMENT)
 			return (ASTDirElement) node;
 
 		return nodeFactory.newDirElement();
+	}
+
+	/** Gets AST node as {@link ASTFunctionDecl} */
+	protected ASTFunctionDecl asFunctionDecl(IASTNode node) {
+		if (node != null && node.getType() == IASTNode.FUNCTIONDECL)
+			return (ASTFunctionDecl) node;
+
+		return nodeFactory.newFunctionDecl();
+	}
+
+	/** Gets AST node as {@link ASTVarDecl} */
+	protected ASTVarDecl asVarDecl(IASTNode node) {
+		if (node != null && node.getType() == IASTNode.VARDECL)
+			return (ASTVarDecl) node;
+
+		return nodeFactory.newVariableDecl();
 	}
 
 	/**
@@ -1871,8 +1980,12 @@ public class ModelBuilder {
 						.getEnd() < offset);
 	}
 
-	/** Move to the next structured document region. Ignore whitespaces */
-	protected void nextSDRegion() {
+	/**
+	 * Move to the next structured document region. Ignore whitespaces
+	 * 
+	 * @return true if move successfully to a non-null region.
+	 */
+	protected boolean nextSDRegion() {
 		if (currentSDRegion != null) {
 			previousSDRegion = currentSDRegion;
 			currentSDRegion = (XQueryStructuredDocumentRegion) currentSDRegion
@@ -1881,6 +1994,8 @@ public class ModelBuilder {
 
 			skipWhitespace();
 		}
+
+		return currentSDRegion != null;
 	}
 
 	/** Move to the structured document region of the given type */
@@ -1898,16 +2013,26 @@ public class ModelBuilder {
 	protected boolean checkAndReport(String type, String text) {
 		skipWhitespace();
 		if (!sameRegionType(type)) {
-			// Report error
-			final XQueryStructuredDocumentRegion sdregion = currentSDRegion == null ? previousSDRegion
-					: currentSDRegion;
-			if (sdregion != null)
-				model.reportError(sdregion, text);
+			reportError(text);
 
 			return false;
 		}
 
 		return true;
+	}
+
+	/**
+	 * Report problem. Attach problem to current sd region or previous one,
+	 * whichever is non-null
+	 * 
+	 * @return true if current region of the given type, otherwise false.
+	 */
+	protected void reportError(String text) {
+		// Report error
+		final XQueryStructuredDocumentRegion sdregion = currentSDRegion == null ? previousSDRegion
+				: currentSDRegion;
+		if (sdregion != null)
+			model.reportError(sdregion, text);
 	}
 
 	/**

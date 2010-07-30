@@ -97,6 +97,10 @@ import org.eclipse.wst.xquery.sse.core.internal.regions.XQueryRegions;
     final private static int SXEXITEXPRSINGLE = -40; // In the exit expression single
     final private static int SXWHILE = -41; 
     
+    // XQuery 1.1 
+    final private static int GROUPBY = -42;
+    
+    
     // State
     
     /** The owner parser */
@@ -228,6 +232,7 @@ import org.eclipse.wst.xquery.sse.core.internal.regions.XQueryRegions;
 		  case XURETURNEXPR: 
 		  case SXASSIGNRHS: 
 		  case SXEXITEXPRSINGLE: 
+		  case GROUPBY: // treated as an expression single 
 		    popState();
 		    return endExprSingle();
 	
@@ -278,7 +283,11 @@ import org.eclipse.wst.xquery.sse.core.internal.regions.XQueryRegions;
 	      popState();
 	      yybegin(TS_BLOCKVARNAME);
 	      break;
-	         
+	      
+	    case GROUPBY: // Expecting a new grouping spec
+	      yybegin(TS_GCVARNAME);
+	      break;
+	    
 	    case EXPR:
 	    case CURLYEXPR:
 	    case YYINITIAL:
@@ -893,6 +902,14 @@ SimpleName = ({Letter} | "_" ) ({SimpleNameChar})*
 %state TS_EXIT
 %state TS_WHILE
 
+
+// XQuery 1.1 (W3C Working Draft 13 July 2010)
+%state TS_GROUPBY
+%state TS_GCAFTERVARNAME
+%state TS_GCVARNAME
+%state TS_GCCOLLATIONURI
+%state TS_GCENDGROUPINGSPEC
+
 %%
 
 // Prolog
@@ -1322,7 +1339,7 @@ SimpleName = ({Letter} | "_" ) ({SimpleNameChar})*
   "//" 							{ yybegin(TS_STEPEXPR); return PATH_SLASHSLASH; }
 }
 
-<TS_ENDPRIMARY, TS_ENDAXISSTEP, TS_OPTSTEPEXPR, TS_ENDEXPRSINGLE,TS_ENDVARREF> {
+<TS_ENDPRIMARY, TS_ENDAXISSTEP, TS_OPTSTEPEXPR, TS_ENDEXPRSINGLE,TS_ENDVARREF,TS_GCAFTERVARNAME,TS_GCENDGROUPINGSPEC> {
   ","							{ return comma();  } 
   ";"							{ return semicolon();  }    
 }
@@ -1387,7 +1404,7 @@ SimpleName = ({Letter} | "_" ) ({SimpleNameChar})*
  
 // ExprSingle Delimiters for let/for clause
 
-<TS_ENDPRIMARY, TS_ENDAXISSTEP, TS_OPTSTEPEXPR, TS_ENDVARREF> {
+<TS_ENDPRIMARY, TS_ENDAXISSTEP, TS_OPTSTEPEXPR, TS_ENDVARREF,TS_GCAFTERVARNAME, TS_GCENDGROUPINGSPEC> {
   "for" / {SymbolSep}*"$"			{ check(endExprSingle(), FLCLAUSEEXPR); checkTop(FLWORFOR, FLWORLET); popState(); pushState(FLWORFOR); yybegin(TS_FORCLAUSE); return KW_FOR; } 
   "let" / {SymbolSep}*"$" 			{ check(endExprSingle(), FLCLAUSEEXPR); checkTop(FLWORFOR, FLWORLET); popState(); pushState(FLWORLET); yybegin(TS_LETCLAUSE); return KW_LET; }
   "where" 							{ 
@@ -1410,10 +1427,19 @@ SimpleName = ({Letter} | "_" ) ({SimpleNameChar})*
   										yybegin(TS_STABLEORDER); 
   										return KW_STABLE; 
   									}
+  									
+  "group" / {SymbolSep}+"by"		{
+  										endExprSingle();
+  										pushState(GROUPBY);
+  										yybegin(TS_GROUPBY); 
+  										return KW_GROUP; 
+  									}					
   "return" 							{ 
   										return returnkw();
   									}  
 } 
+
+// stable by clause
 
 <TS_STABLEORDER> 	"order" 		{ yybegin(TS_BY); return KW_ORDER; }
 <TS_BY> 			"by" 			{ pushState(ORDEREXPR); yybegin(TS_EXPRSINGLE); return KW_BY; }  
@@ -1449,6 +1475,22 @@ SimpleName = ({Letter} | "_" ) ({SimpleNameChar})*
 <TS_LETCLAUSE>  	"$"			{ startStmt(STMT_VARREF); pushState(TS_ENDLETVARREF); yybegin(TS_EXPRVARREF); return DOLLAR; }
 <TS_ENDLETVARREF>   "as"		{  pushState(TS_ENDLETTYPEDECL); yybegin(TS_TYPEDECL); return KW_AS; }
 <TS_ENDLETVARREF, TS_ENDLETTYPEDECL>  ":="	{ pushState(FLCLAUSEEXPR); yybegin(TS_EXPRSINGLE); yybegin(TS_EXPRSINGLE); return KW_LETASSIGN; } 
+ 
+ 
+// group by clause (XQuery 1.1)
+<TS_GROUPBY> "by" 	{ yybegin(TS_GCVARNAME); return KW_BY; }
+ 
+<TS_GCVARNAME> {
+  "$"				{ pushState(TS_GCAFTERVARNAME); yybegin(TS_EXPRVARREF); return DOLLAR; }  
+}
+ 
+<TS_GCAFTERVARNAME> {
+  "collation" 		{ yybegin(TS_GCCOLLATIONURI); return KW_COLLATION; }
+} 
+ 
+<TS_GCCOLLATIONURI> {
+ {StringLiteral}	{ yybegin(TS_GCENDGROUPINGSPEC); return STRINGLITERAL; }
+} 
  
 // ===== Quantified expression
 // ("some" | "every") "$" VarName TypeDeclaration? "in" ExprSingle ("," "$" VarName TypeDeclaration? "in" ExprSingle)* "satisfies" ExprSingle

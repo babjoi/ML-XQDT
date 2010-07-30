@@ -234,4 +234,9 @@ public interface XQueryRegions extends DOMRegionContext {
 	public static final String KW_RETURNING = "KW_RETURNING"; //$NON-NLS-1$
 	public static final String KW_WHILE = "KW_WHILE"; //$NON-NLS-1$
 	
+	// XQuery 1.1
+
+	public static final String KW_GROUP = "KW_GROUP"; //$NON-NLS-1$
+    
+	
 }

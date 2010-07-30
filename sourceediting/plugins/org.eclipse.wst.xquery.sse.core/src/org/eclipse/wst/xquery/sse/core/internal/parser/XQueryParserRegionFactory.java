@@ -31,14 +31,15 @@ public class XQueryParserRegionFactory {
 	/** XQuery 1.0 keywords */
 	final static public Set<String> XQUERY10_KEYWORDS = new HashSet<String>();
 
+	/** XQuery 1.1 keywords */
+	final static public Set<String> XQUERY11_KEYWORDS = new HashSet<String>();
+
 	/** XQuery Update Facility keywords */
 	final static public Set<String> XQUERYUPDATE10_KEYWORDS = new HashSet<String>();
-	
-	
+
 	/** XQuery Scripting Facility keywords */
 	final static public Set<String> XQUERYSCRIPTING10_KEYWORDS = new HashSet<String>();
 
-	
 	static {
 		XQUERY10_KEYWORDS.add(XQueryRegions.KW_BOUNDARY_SPACE);
 		XQUERY10_KEYWORDS.add(XQueryRegions.KW_DECLARE);
@@ -118,7 +119,6 @@ public class XQueryParserRegionFactory {
 		XQUERYUPDATE10_KEYWORDS.add(XQueryRegions.KW_COPY);
 		XQUERYUPDATE10_KEYWORDS.add(XQueryRegions.KW_MODIFY);
 		XQUERYUPDATE10_KEYWORDS.add(XQueryRegions.KW_INTO);
-		
 
 		XQUERYSCRIPTING10_KEYWORDS.add(XQueryRegions.KW_ASSIGNABLE);
 		XQUERYSCRIPTING10_KEYWORDS.add(XQueryRegions.KW_UNASSIGNABLE);
@@ -128,6 +128,8 @@ public class XQueryParserRegionFactory {
 		XQUERYSCRIPTING10_KEYWORDS.add(XQueryRegions.KW_EXIT);
 		XQUERYSCRIPTING10_KEYWORDS.add(XQueryRegions.KW_RETURNING);
 		XQUERYSCRIPTING10_KEYWORDS.add(XQueryRegions.KW_WHILE);
+
+		XQUERY11_KEYWORDS.add(XQueryRegions.KW_GROUP);
 	}
 
 	// Constructors
@@ -138,13 +140,18 @@ public class XQueryParserRegionFactory {
 
 	// Methods
 
-	public ITextRegion createToken(String type, int start, int textLength, int length, int lexicalState) {
-		return new XQueryRegion(type, start, textLength, length, lexicalState, isKeyword(type));
+	public ITextRegion createToken(String type, int start, int textLength,
+			int length, int lexicalState) {
+		return new XQueryRegion(type, start, textLength, length, lexicalState,
+				isKeyword(type));
 	}
 
 	// Helpers
 
 	protected boolean isKeyword(String type) {
-		return XQUERY10_KEYWORDS.contains(type) || XQUERYUPDATE10_KEYWORDS.contains(type) || XQUERYSCRIPTING10_KEYWORDS.contains(type);
+		return XQUERY10_KEYWORDS.contains(type)
+				|| XQUERYUPDATE10_KEYWORDS.contains(type)
+				|| XQUERYSCRIPTING10_KEYWORDS.contains(type)
+				|| XQUERY11_KEYWORDS.contains(type);
 	}
 }

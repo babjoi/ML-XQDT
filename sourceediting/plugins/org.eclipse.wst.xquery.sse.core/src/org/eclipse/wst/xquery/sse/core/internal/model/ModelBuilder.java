@@ -34,6 +34,7 @@ import org.eclipse.wst.xquery.sse.core.internal.model.ast.ASTTypeswitch;
 import org.eclipse.wst.xquery.sse.core.internal.model.ast.ASTVarDecl;
 import org.eclipse.wst.xquery.sse.core.internal.model.ast.ASTVarRef;
 import org.eclipse.wst.xquery.sse.core.internal.model.ast.IASTNode;
+import org.eclipse.wst.xquery.sse.core.internal.model.ast.update.ASTInsert;
 import org.eclipse.wst.xquery.sse.core.internal.model.ast.xml.ASTDirAttribute;
 import org.eclipse.wst.xquery.sse.core.internal.model.ast.xml.ASTDirElement;
 import org.eclipse.wst.xquery.sse.core.internal.regions.XQueryRegions;
@@ -696,7 +697,9 @@ public class ModelBuilder {
 	}
 
 	/**
-	 * Reparse <tt>ExprSingle</tt>
+	 * Reparse 
+	 * 
+	 * <tt>ExprSingle</tt>
 	 */
 	protected IASTNode reparseExprSingle(IASTNode expr) {
 		if (sameRegionType(forLetFilter))
@@ -707,8 +710,39 @@ public class ModelBuilder {
 			return reparseTypeSwitch(expr);
 		else if (sameRegionType(XQueryRegions.KW_IF))
 			return reparseIfExpr(expr);
+		else if (sameRegionType(XQueryRegions.KW_INSERT))
+			return reparseInsertExpr(expr);
 		return reparseOrExpr(expr);
 	}
+
+	/**
+	 * Reparse 
+	 * 		<tt>"insert" ("node" | "nodes") SourceExpr InsertExprTargetChoice TargetExpr</tt>
+	 */
+	protected IASTNode reparseInsertExpr(IASTNode node) {
+		final IStructuredDocumentRegion first = currentSDRegion;
+		
+		ASTInsert insertExpr = asInsertExpr(node);
+		
+		nextSDRegion(); // "insert" ("node" | "nodes")
+		
+		IASTNode oldSourceExpr = insertExpr.getSourceExpr();
+		IASTNode newSourceExpr = reparseExprSingle(oldSourceExpr);
+		insertExpr.setSourceExpr(newSourceExpr);
+		
+		nextSDRegion(); // (("as" ("first" | "last"))? "into") | "after" | "before"
+		
+		IASTNode oldTargetExpr = insertExpr.getTargetExpr();
+		IASTNode newTargetExpr = reparseExprSingle(oldTargetExpr);
+		insertExpr.setTargetExpr(newTargetExpr);
+		
+		final IStructuredDocumentRegion last = currentSDRegion == null ? previousSDRegion : currentSDRegion;
+		checkAndReportLanguage(IXQDTLanguageConstants.LANGUAGE_XQUERY_UPDATE, first, last, "Syntax Error: XQuery Update Facility expression. Either change the target language or delete this expression.");
+		
+		return insertExpr;
+	}
+
+	
 
 	/**
 	 * Reparse <tt>"if" "(" Expr ")" "then" ExprSingle "else" ExprSingle</tt>
@@ -1825,6 +1859,14 @@ public class ModelBuilder {
 
 		return nodeFactory.newIf();
 	}
+	
+	/** Gets AST node as {@link ASTInsert} */
+	protected ASTInsert asInsertExpr(IASTNode node) {
+		if (node != null && node.getType() == IASTNode.XUINSERT)
+			return (ASTInsert) node;
+
+		return nodeFactory.newInsertExpr();
+	}
 
 	/** Gets AST node as {@link ASTNamespaceDecl} */
 	protected ASTNamespaceDecl asNamespaceDecl(IASTNode node) {
@@ -2021,6 +2063,20 @@ public class ModelBuilder {
 		return true;
 	}
 
+	/**
+	 * @param languageXqueryUpdate
+	 * @param first
+	 * @param last
+	 */
+	final protected void checkAndReportLanguage(int language,
+			IStructuredDocumentRegion first, IStructuredDocumentRegion last, String text) {
+		if ((language & this.language) == 0)
+		{
+			this.model.reportError(first, last, text);
+		}
+		
+	}
+	
 	/**
 	 * Report problem. Attach problem to current sd region or previous one,
 	 * whichever is non-null

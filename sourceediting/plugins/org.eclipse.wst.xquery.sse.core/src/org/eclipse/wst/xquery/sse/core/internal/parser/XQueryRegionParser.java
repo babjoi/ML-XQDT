@@ -24,16 +24,13 @@ import org.eclipse.core.runtime.IConfigurationElement;
 import org.eclipse.core.runtime.IExtension;
 import org.eclipse.core.runtime.IExtensionPoint;
 import org.eclipse.core.runtime.IExtensionRegistry;
-import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Platform;
-import org.eclipse.osgi.framework.internal.core.Tokenizer;
 import org.eclipse.wst.sse.core.internal.ltk.parser.RegionParser;
 import org.eclipse.wst.sse.core.internal.ltk.parser.StructuredDocumentRegionHandler;
 import org.eclipse.wst.sse.core.internal.ltk.parser.StructuredDocumentRegionParser;
 import org.eclipse.wst.sse.core.internal.provisional.text.IStructuredDocumentRegion;
 import org.eclipse.wst.sse.core.internal.provisional.text.ITextRegion;
 import org.eclipse.wst.sse.core.internal.provisional.text.ITextRegionList;
-import org.eclipse.wst.xquery.sse.core.XQDTPlugin;
 import org.eclipse.wst.xquery.sse.core.internal.regions.XQueryRegions;
 import org.eclipse.wst.xquery.sse.core.internal.sdregions.FunctionDeclStructuredDocumentRegion;
 import org.eclipse.wst.xquery.sse.core.internal.sdregions.ModuleDeclStructuredDocumentRegion;
@@ -116,6 +113,14 @@ public class XQueryRegionParser implements StructuredDocumentRegionParser,
 		STARTING_GROUP_FACTORIES.put(XQueryRegions.KW_EMPTY,
 				XQueryStructuredDocumentRegion.Factory.INSTANCE);
 
+		// Group "insert (node|nodes)"
+		STARTING_GROUP_FACTORIES.put(XQueryRegions.KW_INSERT,
+				XQueryStructuredDocumentRegion.Factory.INSTANCE);
+
+		// Group (("as" ("first" | "last"))? "into") | "after" | "before"
+		STARTING_GROUP_FACTORIES.put(XQueryRegions.KW_AS,
+				XQueryStructuredDocumentRegion.Factory.INSTANCE);
+
 	}
 
 	/** Regions belonging to an existing group */
@@ -175,6 +180,15 @@ public class XQueryRegionParser implements StructuredDocumentRegionParser,
 				XQueryRegions.KW_BY, XQueryRegions.KW_ORDER });
 		IN_GROUP.put(XQueryRegions.KW_EMPTY, new String[] {
 				XQueryRegions.KW_GREATEST, XQueryRegions.KW_LEAST });
+
+		// Group "insert (node|nodes)"
+		IN_GROUP.put(XQueryRegions.KW_INSERT, new String[] {
+				XQueryRegions.KW_NODE, XQueryRegions.KW_NODES });
+
+		// Group (("as" ("first" | "last"))? "into") | "after" | "before"
+		IN_GROUP.put(XQueryRegions.KW_AS, new String[] {
+				XQueryRegions.KW_FIRST, XQueryRegions.KW_LAST,
+				XQueryRegions.KW_INTO });
 
 	}
 	// State
@@ -353,21 +367,19 @@ public class XQueryRegionParser implements StructuredDocumentRegionParser,
 		if (region.getType() == XQueryRegions.KW_DECLARE
 				|| region.getType() == XQueryRegions.KW_IMPORT) {
 			String lookahead = getTokenizer().getLookAheadToken();
-			
-			if (lookahead != null)
-			{
-				if (KW_FUNCTION.equals(lookahead) || KW_SIMPLE.equals(lookahead) ||KW_UPDATING.equals(lookahead) ||KW_SEQUENTIAL.equals(lookahead))
-				{
-					fCurrentStructuredDocumentRegion =  new FunctionDeclStructuredDocumentRegion();
-				}
-				else
-				{
+
+			if (lookahead != null) {
+				if (KW_FUNCTION.equals(lookahead)
+						|| KW_SIMPLE.equals(lookahead)
+						|| KW_UPDATING.equals(lookahead)
+						|| KW_SEQUENTIAL.equals(lookahead)) {
+					fCurrentStructuredDocumentRegion = new FunctionDeclStructuredDocumentRegion();
+				} else {
 					fCurrentStructuredDocumentRegion = new XQueryStructuredDocumentRegion();
 				}
-			}
-			else
-			fCurrentStructuredDocumentRegion = new XQueryStructuredDocumentRegion();
-			
+			} else
+				fCurrentStructuredDocumentRegion = new XQueryStructuredDocumentRegion();
+
 			interruptGroup = false;
 			return true;
 		}
@@ -403,15 +415,16 @@ public class XQueryRegionParser implements StructuredDocumentRegionParser,
 				if (region.getType() == XQueryRegions.KW_VARIABLE)
 					interruptGroup = true; // Interrupt for the next token
 				else if (region.getType() == XQueryRegions.KW_FUNCTION) {
-//					// Use specialized SDRegion
-//					XQueryStructuredDocumentRegion functionDeclRegion = FunctionDeclStructuredDocumentRegion.Factory.INSTANCE
-//							.create();
-//					for (int i = 0; i < fCurrentStructuredDocumentRegion
-//							.getNumberOfRegions(); i++)
-//						functionDeclRegion
-//								.addRegion(fCurrentStructuredDocumentRegion
-//										.getRegions().get(i));
-//					fCurrentStructuredDocumentRegion = functionDeclRegion;
+					// // Use specialized SDRegion
+					// XQueryStructuredDocumentRegion functionDeclRegion =
+					// FunctionDeclStructuredDocumentRegion.Factory.INSTANCE
+					// .create();
+					// for (int i = 0; i < fCurrentStructuredDocumentRegion
+					// .getNumberOfRegions(); i++)
+					// functionDeclRegion
+					// .addRegion(fCurrentStructuredDocumentRegion
+					// .getRegions().get(i));
+					// fCurrentStructuredDocumentRegion = functionDeclRegion;
 					interruptGroup = true;
 				}
 

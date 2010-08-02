@@ -25,6 +25,7 @@ public class ValidationHelper {
 
 	/**
 	 * Create an error message from the given parameters.
+	 * 
 	 * @param sdregion
 	 * @param region
 	 * @param text
@@ -46,6 +47,26 @@ public class ValidationHelper {
 					sdregion.getStartOffset()));
 
 		}
+		return message;
+	}
+
+	/**
+	 * Create an error message from the given parameters.
+	 * 
+	 * @param first
+	 * @param last
+	 * @param text
+	 * @return
+	 */
+	public static IMessage createErrorMessage(IStructuredDocumentRegion first,
+			IStructuredDocumentRegion last, String text) {
+		IMessage message = new LocalizedMessage(IMessage.HIGH_SEVERITY, text);
+
+		message.setOffset(first.getStartOffset());
+		message.setLength(last.getEndOffset() - first.getStartOffset());
+		message.setLineNo(first.getParentDocument().getLineOfOffset(
+				first.getStartOffset()));
+
 		return message;
 	}
 }

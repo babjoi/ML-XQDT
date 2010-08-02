@@ -100,6 +100,16 @@ public class XQueryStructuredModel extends AbstractStructuredModel implements
 
 	}
 
+	/**
+	 * @param sdregion
+	 * @param text
+	 */
+	protected void reportError(IStructuredDocumentRegion first,
+			IStructuredDocumentRegion last, String text) {
+		messages.add(ValidationHelper.createErrorMessage(first, last, text));
+
+	}
+
 	/** Gets module managed by this model */
 	public ASTModule getModule() {
 		return module;
@@ -121,6 +131,15 @@ public class XQueryStructuredModel extends AbstractStructuredModel implements
 				"", null);
 		if (IXQDTCorePreferences.LANGUAGE_NAME_XQUERY.equals(pref))
 			return IXQDTLanguageConstants.LANGUAGE_XQUERY;
+
+		if (IXQDTCorePreferences.LANGUAGE_NAME_XQUERY_UPDATE.equals(pref))
+			return IXQDTLanguageConstants.LANGUAGE_XQUERY
+					| IXQDTLanguageConstants.LANGUAGE_XQUERY_UPDATE;
+
+		if (IXQDTCorePreferences.LANGUAGE_NAME_XQUERY_SCRIPTING.equals(pref))
+			return IXQDTLanguageConstants.LANGUAGE_XQUERY
+					| IXQDTLanguageConstants.LANGUAGE_XQUERY_UPDATE
+					| IXQDTLanguageConstants.LANGUAGE_XQUERY_SCRIPTING;
 
 		return IXQDTLanguageConstants.LANGUAGE_XQUERY;
 	}
@@ -147,9 +166,8 @@ public class XQueryStructuredModel extends AbstractStructuredModel implements
 
 			// Parse..
 			if (newStructuredDocument != null)
-				module = builder.reparseQuery(module,
-						fStructuredDocument.getFirstStructuredDocumentRegion(),
-						0, fStructuredDocument.getLength(), 0);
+				rebuild(fStructuredDocument.getFirstStructuredDocumentRegion(),
+						0, fStructuredDocument.getLength());
 		}
 	}
 

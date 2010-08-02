@@ -10,6 +10,7 @@
  *******************************************************************************/
 package org.eclipse.wst.xquery.sse.core.internal.model.ast;
 
+import org.eclipse.wst.xquery.sse.core.internal.model.ast.update.ASTInsert;
 import org.eclipse.wst.xquery.sse.core.internal.model.ast.xml.ASTDirAttribute;
 import org.eclipse.wst.xquery.sse.core.internal.model.ast.xml.ASTDirElement;
 
@@ -146,6 +147,13 @@ public class ASTNodeFactory {
 	 */
 	public ASTOrderByClause newOrderByClause() {
 		return new ASTOrderByClause();
+	}
+
+	/**
+	 * @return
+	 */
+	public ASTInsert newInsertExpr() {
+		return new ASTInsert();
 	}
 
 }

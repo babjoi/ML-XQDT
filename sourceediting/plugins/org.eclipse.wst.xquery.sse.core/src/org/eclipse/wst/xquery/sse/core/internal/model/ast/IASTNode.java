@@ -48,6 +48,11 @@ public interface IASTNode {
 	public static final int WHERECLAUSE = 19;
 	public static final int ORDERBYCLAUSE = 20;
 	public static final int QUANTIFIEDCLAUSE = 21;
+	public static final int XUINSERT = 22;
+	public static final int XUDELETE = 23;
+	public static final int XUREPLACE = 24;
+	public static final int XUTRANSFORM = 25;
+	public static final int XURENAME = 26;
 	
 
 	/** Gets the AST node type */

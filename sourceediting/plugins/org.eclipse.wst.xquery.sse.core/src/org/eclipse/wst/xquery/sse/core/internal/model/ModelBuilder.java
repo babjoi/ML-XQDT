@@ -34,7 +34,11 @@ import org.eclipse.wst.xquery.sse.core.internal.model.ast.ASTTypeswitch;
 import org.eclipse.wst.xquery.sse.core.internal.model.ast.ASTVarDecl;
 import org.eclipse.wst.xquery.sse.core.internal.model.ast.ASTVarRef;
 import org.eclipse.wst.xquery.sse.core.internal.model.ast.IASTNode;
+import org.eclipse.wst.xquery.sse.core.internal.model.ast.update.ASTDelete;
 import org.eclipse.wst.xquery.sse.core.internal.model.ast.update.ASTInsert;
+import org.eclipse.wst.xquery.sse.core.internal.model.ast.update.ASTRename;
+import org.eclipse.wst.xquery.sse.core.internal.model.ast.update.ASTReplace;
+import org.eclipse.wst.xquery.sse.core.internal.model.ast.update.ASTTransform;
 import org.eclipse.wst.xquery.sse.core.internal.model.ast.xml.ASTDirAttribute;
 import org.eclipse.wst.xquery.sse.core.internal.model.ast.xml.ASTDirElement;
 import org.eclipse.wst.xquery.sse.core.internal.regions.XQueryRegions;
@@ -697,52 +701,241 @@ public class ModelBuilder {
 	}
 
 	/**
-	 * Reparse 
+	 * Reparse
 	 * 
 	 * <tt>ExprSingle</tt>
 	 */
 	protected IASTNode reparseExprSingle(IASTNode expr) {
 		if (sameRegionType(forLetFilter))
 			return reparseFLWORExpr(expr);
-		else if (sameRegionType(quantifiedFilter))
+		if (sameRegionType(quantifiedFilter))
 			return reparseQuantifiedExpr(expr);
-		else if (sameRegionType(XQueryRegions.KW_TYPESWITCH))
+		if (sameRegionType(XQueryRegions.KW_TYPESWITCH))
 			return reparseTypeSwitch(expr);
-		else if (sameRegionType(XQueryRegions.KW_IF))
+		if (sameRegionType(XQueryRegions.KW_IF))
 			return reparseIfExpr(expr);
-		else if (sameRegionType(XQueryRegions.KW_INSERT))
+		if (sameRegionType(XQueryRegions.KW_INSERT))
 			return reparseInsertExpr(expr);
+		if (sameRegionType(XQueryRegions.KW_DELETE))
+			return reparseDeleteExpr(expr);
+		if (sameRegionType(XQueryRegions.KW_REPLACE))
+			return reparseReplaceExpr(expr);
+		if (sameRegionType(XQueryRegions.KW_RENAME))
+			return reparseRenameExpr(expr);
+		if (sameRegionType(XQueryRegions.KW_COPY))
+			return reparseTransformExpr(expr);
 		return reparseOrExpr(expr);
 	}
 
 	/**
-	 * Reparse 
-	 * 		<tt>"insert" ("node" | "nodes") SourceExpr InsertExprTargetChoice TargetExpr</tt>
+	 * Reparse
+	 * <tt>"copy" "$" VarName ":=" ExprSingle ("," "$" VarName ":=" ExprSingle)* "modify" ExprSingle "return" ExprSingle</tt>
+	 */
+	protected IASTNode reparseTransformExpr(IASTNode node) {
+		final IStructuredDocumentRegion first = currentSDRegion;
+		
+		ASTTransform transform = asTransformExpr(node);
+		
+		nextSDRegion(); // 'copy'
+		
+		int index = 0;
+		do
+		{
+			if (checkAndReport(XQueryRegions.DOLLAR, "Syntax Error: expecting variable name."))
+			{
+				transform.setBindingVariable(index, currentSDRegion.getFullText().trim());
+				nextSDRegion(); // '$' VarName
+				
+				if (checkAndReport(XQueryRegions.ASSIGN, "Syntax Error: expecting ':='."))
+				{
+					nextSDRegion(); // ":="
+					
+					IASTNode oldExpr = transform.getBindingExpr(index);
+					IASTNode newExpr = reparseExprSingle(oldExpr);
+					transform.setBindingExpr(index, newExpr);
+					
+				}
+				else
+					 break;
+			}
+			else 
+				break; 
+			
+			if (!sameRegionType(XQueryRegions.COMMA))
+				break;
+			
+			nextSDRegion(); // ','
+			index ++;
+		} while (currentSDRegion != null);
+		
+		
+		if (checkAndReport(XQueryRegions.KW_MODIFY, "Syntax error: expecting 'modify'"))
+		{
+			nextSDRegion(); // 'modify'
+			
+			IASTNode oldModifyExpr = transform.getModifyExpr();
+			IASTNode newModifyExpr = reparseExprSingle(oldModifyExpr);
+			transform.setModifyExpr(newModifyExpr);
+			
+			if (checkAndReport(XQueryRegions.KW_RETURN, "Syntax error: expecting 'return'"))
+			{
+				nextSDRegion(); // 'return'
+				
+				IASTNode oldReturnExpr = transform.getReturnExpr();
+				IASTNode newReturnExpr = reparseExprSingle(oldReturnExpr);
+				transform.setReturnExpr(newReturnExpr);
+			}
+		}
+		
+		
+		final IStructuredDocumentRegion last = currentSDRegion == null ? previousSDRegion
+				: currentSDRegion;
+
+		checkAndReportLanguage(
+				IXQDTLanguageConstants.LANGUAGE_XQUERY_UPDATE,
+				first,
+				last,
+				"Syntax Error: XQuery Update Facility expression. Either change the target language or delete this expression.");
+
+		return transform;
+	}
+
+	/**
+	 * Reparse <tt>"rename" "node" TargetExpr "as" NewNameExpr</tt>
+	 */
+	protected IASTNode reparseRenameExpr(IASTNode node) {
+		final IStructuredDocumentRegion first = currentSDRegion;
+
+		ASTRename renameExpr = asRenameExpr(node);
+
+		nextSDRegion(); // "rename" "node"
+
+		IASTNode oldTargetExpr = renameExpr.getTargetExpr();
+		IASTNode newTargetExpr = reparseExprSingle(oldTargetExpr);
+		renameExpr.setTargetExpr(newTargetExpr);
+
+		if (sameRegionType(XQueryRegions.KW_AS)) {
+			nextSDRegion(); // 'as'
+
+			IASTNode oldExpr = renameExpr.getNewNameExpr();
+			IASTNode newExpr = reparseExprSingle(oldExpr);
+			renameExpr.setNewNameExpr(newExpr);
+		} else {
+			reportError("Syntax Error: expecting 'as' keyword");
+		}
+
+		final IStructuredDocumentRegion last = currentSDRegion == null ? previousSDRegion
+				: currentSDRegion;
+
+		checkAndReportLanguage(
+				IXQDTLanguageConstants.LANGUAGE_XQUERY_UPDATE,
+				first,
+				last,
+				"Syntax Error: XQuery Update Facility expression. Either change the target language or delete this expression.");
+
+		return renameExpr;
+	}
+
+	/**
+	 * Reparse
+	 * <tt>"replace" ("value" "of")? "node" TargetExpr "with" ExprSingle</tt>
+	 */
+	protected IASTNode reparseReplaceExpr(IASTNode node) {
+		final IStructuredDocumentRegion first = currentSDRegion;
+
+		ASTReplace replaceExpr = asReplaceExpr(node);
+
+		nextSDRegion(); // "replace" ("value" "of")? "node"
+
+		IASTNode oldTargetExpr = replaceExpr.getTargetExpr();
+		IASTNode newTargetExpr = reparseExprSingle(oldTargetExpr);
+		replaceExpr.setTargetExpr(newTargetExpr);
+
+		if (sameRegionType(XQueryRegions.KW_WITH)) {
+			nextSDRegion(); // 'with'
+
+			IASTNode oldExpr = replaceExpr.getExprSingle();
+			IASTNode newExpr = reparseExprSingle(oldExpr);
+			replaceExpr.setExprSingle(newExpr);
+		} else {
+			reportError("Syntax Error: expecting 'with' keyword");
+		}
+
+		final IStructuredDocumentRegion last = currentSDRegion == null ? previousSDRegion
+				: currentSDRegion;
+		checkAndReportLanguage(
+				IXQDTLanguageConstants.LANGUAGE_XQUERY_UPDATE,
+				first,
+				last,
+				"Syntax Error: XQuery Update Facility expression. Either change the target language or delete this expression.");
+
+		return replaceExpr;
+	}
+
+	/**
+	 * Reparse <tt>"delete" ("node" | "nodes") TargetExpr</tt>
+	 */
+	protected IASTNode reparseDeleteExpr(IASTNode node) {
+		final IStructuredDocumentRegion first = currentSDRegion;
+
+		ASTDelete deleteExpr = asDeleteExpr(node);
+
+		nextSDRegion(); // "delete" ("node" | "nodes")
+
+		IASTNode oldTargetExpr = deleteExpr.getTargetExpr();
+		IASTNode newTargetExpr = reparseExprSingle(oldTargetExpr);
+		deleteExpr.setTargetExpr(newTargetExpr);
+
+		final IStructuredDocumentRegion last = currentSDRegion == null ? previousSDRegion
+				: currentSDRegion;
+
+		checkAndReportLanguage(
+				IXQDTLanguageConstants.LANGUAGE_XQUERY_UPDATE,
+				first,
+				last,
+				"Syntax Error: XQuery Update Facility expression. Either change the target language or delete this expression.");
+
+		return deleteExpr;
+	}
+
+	/**
+	 * Reparse
+	 * <tt>"insert" ("node" | "nodes") SourceExpr InsertExprTargetChoice TargetExpr</tt>
 	 */
 	protected IASTNode reparseInsertExpr(IASTNode node) {
 		final IStructuredDocumentRegion first = currentSDRegion;
-		
+
 		ASTInsert insertExpr = asInsertExpr(node);
-		
+
 		nextSDRegion(); // "insert" ("node" | "nodes")
-		
+
 		IASTNode oldSourceExpr = insertExpr.getSourceExpr();
 		IASTNode newSourceExpr = reparseExprSingle(oldSourceExpr);
 		insertExpr.setSourceExpr(newSourceExpr);
-		
-		nextSDRegion(); // (("as" ("first" | "last"))? "into") | "after" | "before"
-		
-		IASTNode oldTargetExpr = insertExpr.getTargetExpr();
-		IASTNode newTargetExpr = reparseExprSingle(oldTargetExpr);
-		insertExpr.setTargetExpr(newTargetExpr);
-		
-		final IStructuredDocumentRegion last = currentSDRegion == null ? previousSDRegion : currentSDRegion;
-		checkAndReportLanguage(IXQDTLanguageConstants.LANGUAGE_XQUERY_UPDATE, first, last, "Syntax Error: XQuery Update Facility expression. Either change the target language or delete this expression.");
-		
+
+		if (sameRegionType(XQueryRegions.KW_AS)
+				|| sameRegionType(XQueryRegions.KW_BEFORE)
+				|| sameRegionType(XQueryRegions.KW_AFTER)) {
+			nextSDRegion(); // (("as" ("first" | "last"))? "into") | "after" |
+							// "before"
+
+			IASTNode oldTargetExpr = insertExpr.getTargetExpr();
+			IASTNode newTargetExpr = reparseExprSingle(oldTargetExpr);
+			insertExpr.setTargetExpr(newTargetExpr);
+		} else {
+			reportError("Syntax error: expecting ((as (first | last))? into) | after | before");
+		}
+
+		final IStructuredDocumentRegion last = currentSDRegion == null ? previousSDRegion
+				: currentSDRegion;
+		checkAndReportLanguage(
+				IXQDTLanguageConstants.LANGUAGE_XQUERY_UPDATE,
+				first,
+				last,
+				"Syntax Error: XQuery Update Facility expression. Either change the target language or delete this expression.");
+
 		return insertExpr;
 	}
-
-	
 
 	/**
 	 * Reparse <tt>"if" "(" Expr ")" "then" ExprSingle "else" ExprSingle</tt>
@@ -1859,13 +2052,45 @@ public class ModelBuilder {
 
 		return nodeFactory.newIf();
 	}
-	
+
 	/** Gets AST node as {@link ASTInsert} */
 	protected ASTInsert asInsertExpr(IASTNode node) {
 		if (node != null && node.getType() == IASTNode.XUINSERT)
 			return (ASTInsert) node;
 
 		return nodeFactory.newInsertExpr();
+	}
+
+	/** Gets AST node as {@link ASTDelete} */
+	protected ASTDelete asDeleteExpr(IASTNode node) {
+		if (node != null && node.getType() == IASTNode.XUDELETE)
+			return (ASTDelete) node;
+
+		return nodeFactory.newDeleteExpr();
+	}
+
+	/** Gets AST node as {@link ASTReplace} */
+	protected ASTReplace asReplaceExpr(IASTNode node) {
+		if (node != null && node.getType() == IASTNode.XUREPLACE)
+			return (ASTReplace) node;
+
+		return nodeFactory.newReplaceExpr();
+	}
+
+	/** Gets AST node as {@link ASTRename} */
+	protected ASTRename asRenameExpr(IASTNode node) {
+		if (node != null && node.getType() == IASTNode.XURENAME)
+			return (ASTRename) node;
+
+		return nodeFactory.newRenameExpr();
+	}
+
+	/** Gets AST node as {@link ASTTransform} */
+	protected ASTTransform asTransformExpr(IASTNode node) {
+		if (node != null && node.getType() == IASTNode.XUTRANSFORM)
+			return (ASTTransform) node;
+
+		return nodeFactory.newTransformExpr();
 	}
 
 	/** Gets AST node as {@link ASTNamespaceDecl} */
@@ -2069,14 +2294,12 @@ public class ModelBuilder {
 	 * @param last
 	 */
 	final protected void checkAndReportLanguage(int language,
-			IStructuredDocumentRegion first, IStructuredDocumentRegion last, String text) {
+			IStructuredDocumentRegion first, IStructuredDocumentRegion last,
+			String text) {
 		if ((language & this.language) == 0)
-		{
 			this.model.reportError(first, last, text);
-		}
-		
 	}
-	
+
 	/**
 	 * Report problem. Attach problem to current sd region or previous one,
 	 * whichever is non-null

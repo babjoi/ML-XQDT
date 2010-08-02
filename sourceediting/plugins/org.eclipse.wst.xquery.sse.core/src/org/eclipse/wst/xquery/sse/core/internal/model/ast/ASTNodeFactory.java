@@ -10,7 +10,11 @@
  *******************************************************************************/
 package org.eclipse.wst.xquery.sse.core.internal.model.ast;
 
+import org.eclipse.wst.xquery.sse.core.internal.model.ast.update.ASTDelete;
 import org.eclipse.wst.xquery.sse.core.internal.model.ast.update.ASTInsert;
+import org.eclipse.wst.xquery.sse.core.internal.model.ast.update.ASTRename;
+import org.eclipse.wst.xquery.sse.core.internal.model.ast.update.ASTReplace;
+import org.eclipse.wst.xquery.sse.core.internal.model.ast.update.ASTTransform;
 import org.eclipse.wst.xquery.sse.core.internal.model.ast.xml.ASTDirAttribute;
 import org.eclipse.wst.xquery.sse.core.internal.model.ast.xml.ASTDirElement;
 
@@ -154,6 +158,34 @@ public class ASTNodeFactory {
 	 */
 	public ASTInsert newInsertExpr() {
 		return new ASTInsert();
+	}
+
+	/**
+	 * @return
+	 */
+	public ASTDelete newDeleteExpr() {
+		return new ASTDelete();
+	}
+
+	/**
+	 * @return
+	 */
+	public ASTReplace newReplaceExpr() {
+		return new ASTReplace();
+	}
+
+	/**
+	 * @return
+	 */
+	public ASTRename newRenameExpr() {
+		return new ASTRename();
+	}
+
+	/**
+	 * @return
+	 */
+	public ASTTransform newTransformExpr() {
+		return new ASTTransform();
 	}
 
 }

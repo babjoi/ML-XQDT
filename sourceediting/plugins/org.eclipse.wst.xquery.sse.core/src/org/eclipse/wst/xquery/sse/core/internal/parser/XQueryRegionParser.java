@@ -121,6 +121,18 @@ public class XQueryRegionParser implements StructuredDocumentRegionParser,
 		STARTING_GROUP_FACTORIES.put(XQueryRegions.KW_AS,
 				XQueryStructuredDocumentRegion.Factory.INSTANCE);
 
+		// Group "delete (node|nodes)"
+		STARTING_GROUP_FACTORIES.put(XQueryRegions.KW_DELETE,
+				XQueryStructuredDocumentRegion.Factory.INSTANCE);
+
+		// Group "replace" ("value" "of")? "node"
+		STARTING_GROUP_FACTORIES.put(XQueryRegions.KW_REPLACE,
+				XQueryStructuredDocumentRegion.Factory.INSTANCE);
+
+		// Group "rename" "node"
+		STARTING_GROUP_FACTORIES.put(XQueryRegions.KW_RENAME,
+				XQueryStructuredDocumentRegion.Factory.INSTANCE);
+
 	}
 
 	/** Regions belonging to an existing group */
@@ -189,6 +201,15 @@ public class XQueryRegionParser implements StructuredDocumentRegionParser,
 		IN_GROUP.put(XQueryRegions.KW_AS, new String[] {
 				XQueryRegions.KW_FIRST, XQueryRegions.KW_LAST,
 				XQueryRegions.KW_INTO });
+
+		// Group "replace" ("value" "of")? "node"
+		IN_GROUP.put(XQueryRegions.KW_REPLACE, new String[] {
+				XQueryRegions.KW_VALUE, XQueryRegions.KW_OF,
+				XQueryRegions.KW_NODE });
+		
+		// Group "rename" "node"
+		IN_GROUP.put(XQueryRegions.KW_RENAME, new String[] {
+				XQueryRegions.KW_NODE });
 
 	}
 	// State

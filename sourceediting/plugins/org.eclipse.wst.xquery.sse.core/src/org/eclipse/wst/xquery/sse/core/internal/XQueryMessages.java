@@ -27,11 +27,29 @@ public class XQueryMessages extends NLS {
 
 	private static ResourceBundle fResourceBundle;
 
+	
+	// Static Errors
 	public static String errorXQST0070_MD_UI_;
 	public static String errorXQST0088_UI_;
 	public static String errorXQST0088_VR_UI_;
 
 
+	// Syntactic Errors
+	public static String errorXQSE_MissingSemicolon_UI_;
+	public static String errorXQSE_MissingVarName_UI_;
+	public static String errorXQSE_MissingAssign_UI_;
+	public static String errorXQSE_MissingModify_UI_;
+	public static String errorXQSE_MissingReturn_UI_;
+	public static String errorXQSE_XULanguageNotAllowed_UI_;
+	public static String errorXQSE_MissingAs_UI_;
+	public static String errorXQSE_MissingWith_UI_;
+	public static String errorXQSE_MissingTargetChoice_UI_;
+	public static String errorXQSE_MissingSatisfies_UI_;
+	public static String errorXQSE_MissingRCurly_UI_;
+	public static String errorXQSE_MissingRSquare_UI_;
+	public static String errorXQSE_MissingRPar_UI_;
+	
+	
 	static {
 		// load message values from bundle file
 		NLS.initializeMessages(BUNDLE_NAME, XQueryMessages.class);

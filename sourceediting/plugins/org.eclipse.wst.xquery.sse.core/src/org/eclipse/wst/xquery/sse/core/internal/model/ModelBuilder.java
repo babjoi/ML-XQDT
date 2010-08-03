@@ -14,6 +14,7 @@ import java.util.Stack;
 
 import org.eclipse.wst.sse.core.internal.provisional.text.IStructuredDocumentRegion;
 import org.eclipse.wst.xquery.core.IXQDTLanguageConstants;
+import org.eclipse.wst.xquery.sse.core.internal.XQueryMessages;
 import org.eclipse.wst.xquery.sse.core.internal.model.ast.ASTApply;
 import org.eclipse.wst.xquery.sse.core.internal.model.ast.ASTBindingClause;
 import org.eclipse.wst.xquery.sse.core.internal.model.ast.ASTClause;
@@ -400,7 +401,8 @@ public class ModelBuilder {
 				break;
 			}
 
-			if (checkAndReport(XQueryRegions.SEPARATOR, "Missing ';'"))
+			if (checkAndReport(XQueryRegions.SEPARATOR,
+					XQueryMessages.errorXQSE_MissingSemicolon_UI_))
 				nextSDRegion(); // ";"
 		}
 
@@ -748,13 +750,13 @@ public class ModelBuilder {
 		int index = 0;
 		do {
 			if (checkAndReport(XQueryRegions.DOLLAR,
-					"Syntax Error: expecting variable name.")) {
+					XQueryMessages.errorXQSE_MissingVarName_UI_)) {
 				transform.setBindingVariable(index, currentSDRegion
 						.getFullText().trim());
 				nextSDRegion(); // '$' VarName
 
 				if (checkAndReport(XQueryRegions.ASSIGN,
-						"Syntax Error: expecting ':='.")) {
+						XQueryMessages.errorXQSE_MissingAssign_UI_)) {
 					nextSDRegion(); // ":="
 
 					IASTNode oldExpr = transform.getBindingExpr(index);
@@ -774,7 +776,7 @@ public class ModelBuilder {
 		} while (currentSDRegion != null);
 
 		if (checkAndReport(XQueryRegions.KW_MODIFY,
-				"Syntax error: expecting 'modify'")) {
+				XQueryMessages.errorXQSE_MissingModify_UI_)) {
 			nextSDRegion(); // 'modify'
 
 			IASTNode oldModifyExpr = transform.getModifyExpr();
@@ -782,7 +784,7 @@ public class ModelBuilder {
 			transform.setModifyExpr(newModifyExpr);
 
 			if (checkAndReport(XQueryRegions.KW_RETURN,
-					"Syntax error: expecting 'return'")) {
+					XQueryMessages.errorXQSE_MissingReturn_UI_)) {
 				nextSDRegion(); // 'return'
 
 				IASTNode oldReturnExpr = transform.getReturnExpr();
@@ -794,11 +796,8 @@ public class ModelBuilder {
 		final IStructuredDocumentRegion last = currentSDRegion == null ? previousSDRegion
 				: currentSDRegion;
 
-		checkAndReportLanguage(
-				IXQDTLanguageConstants.LANGUAGE_XQUERY_UPDATE,
-				first,
-				last,
-				"Syntax Error: XQuery Update Facility expression. Either change the target language or delete this expression.");
+		checkAndReportLanguage(IXQDTLanguageConstants.LANGUAGE_XQUERY_UPDATE,
+				first, last, XQueryMessages.errorXQSE_XULanguageNotAllowed_UI_);
 
 		return transform;
 	}
@@ -824,17 +823,14 @@ public class ModelBuilder {
 			IASTNode newExpr = reparseExprSingle(oldExpr);
 			renameExpr.setNewNameExpr(newExpr);
 		} else {
-			reportError("Syntax Error: expecting 'as' keyword");
+			reportError(XQueryMessages.errorXQSE_MissingAs_UI_);
 		}
 
 		final IStructuredDocumentRegion last = currentSDRegion == null ? previousSDRegion
 				: currentSDRegion;
 
-		checkAndReportLanguage(
-				IXQDTLanguageConstants.LANGUAGE_XQUERY_UPDATE,
-				first,
-				last,
-				"Syntax Error: XQuery Update Facility expression. Either change the target language or delete this expression.");
+		checkAndReportLanguage(IXQDTLanguageConstants.LANGUAGE_XQUERY_UPDATE,
+				first, last, XQueryMessages.errorXQSE_XULanguageNotAllowed_UI_);
 
 		return renameExpr;
 	}
@@ -861,16 +857,13 @@ public class ModelBuilder {
 			IASTNode newExpr = reparseExprSingle(oldExpr);
 			replaceExpr.setExprSingle(newExpr);
 		} else {
-			reportError("Syntax Error: expecting 'with' keyword");
+			reportError(XQueryMessages.errorXQSE_MissingWith_UI_);
 		}
 
 		final IStructuredDocumentRegion last = currentSDRegion == null ? previousSDRegion
 				: currentSDRegion;
-		checkAndReportLanguage(
-				IXQDTLanguageConstants.LANGUAGE_XQUERY_UPDATE,
-				first,
-				last,
-				"Syntax Error: XQuery Update Facility expression. Either change the target language or delete this expression.");
+		checkAndReportLanguage(IXQDTLanguageConstants.LANGUAGE_XQUERY_UPDATE,
+				first, last, XQueryMessages.errorXQSE_XULanguageNotAllowed_UI_);
 
 		return replaceExpr;
 	}
@@ -892,11 +885,8 @@ public class ModelBuilder {
 		final IStructuredDocumentRegion last = currentSDRegion == null ? previousSDRegion
 				: currentSDRegion;
 
-		checkAndReportLanguage(
-				IXQDTLanguageConstants.LANGUAGE_XQUERY_UPDATE,
-				first,
-				last,
-				"Syntax Error: XQuery Update Facility expression. Either change the target language or delete this expression.");
+		checkAndReportLanguage(IXQDTLanguageConstants.LANGUAGE_XQUERY_UPDATE,
+				first, last, XQueryMessages.errorXQSE_XULanguageNotAllowed_UI_);
 
 		return deleteExpr;
 	}
@@ -926,16 +916,13 @@ public class ModelBuilder {
 			IASTNode newTargetExpr = reparseExprSingle(oldTargetExpr);
 			insertExpr.setTargetExpr(newTargetExpr);
 		} else {
-			reportError("Syntax error: expecting ((as (first | last))? into) | after | before");
+			reportError(XQueryMessages.errorXQSE_MissingTargetChoice_UI_);
 		}
 
 		final IStructuredDocumentRegion last = currentSDRegion == null ? previousSDRegion
 				: currentSDRegion;
-		checkAndReportLanguage(
-				IXQDTLanguageConstants.LANGUAGE_XQUERY_UPDATE,
-				first,
-				last,
-				"Syntax Error: XQuery Update Facility expression. Either change the target language or delete this expression.");
+		checkAndReportLanguage(IXQDTLanguageConstants.LANGUAGE_XQUERY_UPDATE,
+				first, last, XQueryMessages.errorXQSE_XULanguageNotAllowed_UI_);
 
 		return insertExpr;
 	}
@@ -1049,7 +1036,7 @@ public class ModelBuilder {
 			IASTNode oldExpr = quantified.getSatisfiesExpr();
 			quantified.setSatisfiesExpr(reparseExprSingle(oldExpr));
 		} else {
-			reportError("Syntax Error: expecting satisfies keyword.");
+			reportError(XQueryMessages.errorXQSE_MissingSatisfies_UI_);
 		}
 
 		return quantified;
@@ -1092,7 +1079,7 @@ public class ModelBuilder {
 
 		// Return
 		if (checkAndReport(XQueryRegions.KW_RETURN,
-				"Syntax error: 'return' expected.")) {
+				XQueryMessages.errorXQSE_MissingReturn_UI_)) {
 			nextSDRegion(); // 'return'
 
 			IASTNode returnExpr = reparseExprSingle(flwor.getReturnExpr());
@@ -1195,7 +1182,7 @@ public class ModelBuilder {
 		do {
 
 			if (checkAndReport(XQueryRegions.DOLLAR,
-					"Syntax error: expecting variable name")) {
+					XQueryMessages.errorXQSE_MissingVarName_UI_)) {
 
 				clause.setBindingVariable(index, currentSDRegion);
 
@@ -1221,13 +1208,13 @@ public class ModelBuilder {
 						}
 					} else
 						break; // missing := or in
+
 				} else {
 					reportError("Syntax error: missing token");
 					break; // missing token
 				}
 
 			} else {
-				reportError("Syntax error: variable name expected.");
 				break; // wrong token (expected '$')
 			}
 
@@ -1248,7 +1235,7 @@ public class ModelBuilder {
 			nextSDRegion(); // 'at'
 
 			if (checkAndReport(XQueryRegions.DOLLAR,
-					"Syntax error: variable name expected.")) {
+					XQueryMessages.errorXQSE_MissingVarName_UI_)) {
 				clause.setPositionalVar(index, currentSDRegion);
 				nextSDRegion(); // '$' VarName
 			}
@@ -1876,7 +1863,7 @@ public class ModelBuilder {
 
 		IASTNode innerExpr = reparseExpr(expr);
 
-		if (checkAndReport(XQueryRegions.RCURLY, "Missing '}'"))
+		if (checkAndReport(XQueryRegions.RCURLY, XQueryMessages.errorXQSE_MissingRCurly_UI_))
 			nextSDRegion(); // '}'
 
 		return innerExpr;
@@ -1932,7 +1919,7 @@ public class ModelBuilder {
 			return null;
 
 		IASTNode innerExpr = reparseExpr(expr);
-		if (checkAndReport(XQueryRegions.RPAR, "Missing ')'"))
+		if (checkAndReport(XQueryRegions.RPAR, XQueryMessages.errorXQSE_MissingRPar_UI_))
 			nextSDRegion(); // ")"
 		return innerExpr;
 	}
@@ -1975,7 +1962,7 @@ public class ModelBuilder {
 
 		IASTNode predicate = reparseExpr(expr);
 
-		if (checkAndReport(XQueryRegions.RSQUARE, "Missing ']'"))
+		if (checkAndReport(XQueryRegions.RSQUARE, XQueryMessages.errorXQSE_MissingRSquare_UI_))
 			nextSDRegion(); // ']'
 
 		return predicate;

@@ -29,6 +29,13 @@ public abstract class ASTSDRNode extends ASTNode {
 	// Methods
 
 	/**
+	 * Get the region matching this node
+	 */
+	public IStructuredDocumentRegion getStructuredDocumentRegion() {
+		return region;
+	}
+
+	/**
 	 * @param region
 	 */
 	public void setStructuredDocumentRegion(IStructuredDocumentRegion region) {

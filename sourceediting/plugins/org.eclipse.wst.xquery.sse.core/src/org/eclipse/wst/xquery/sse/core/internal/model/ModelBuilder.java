@@ -706,25 +706,32 @@ public class ModelBuilder {
 	 * <tt>ExprSingle</tt>
 	 */
 	protected IASTNode reparseExprSingle(IASTNode expr) {
+		IASTNode newExpr = null;
 		if (sameRegionType(forLetFilter))
-			return reparseFLWORExpr(expr);
-		if (sameRegionType(quantifiedFilter))
-			return reparseQuantifiedExpr(expr);
-		if (sameRegionType(XQueryRegions.KW_TYPESWITCH))
-			return reparseTypeSwitch(expr);
-		if (sameRegionType(XQueryRegions.KW_IF))
-			return reparseIfExpr(expr);
-		if (sameRegionType(XQueryRegions.KW_INSERT))
-			return reparseInsertExpr(expr);
-		if (sameRegionType(XQueryRegions.KW_DELETE))
-			return reparseDeleteExpr(expr);
-		if (sameRegionType(XQueryRegions.KW_REPLACE))
-			return reparseReplaceExpr(expr);
-		if (sameRegionType(XQueryRegions.KW_RENAME))
-			return reparseRenameExpr(expr);
-		if (sameRegionType(XQueryRegions.KW_COPY))
-			return reparseTransformExpr(expr);
-		return reparseOrExpr(expr);
+			newExpr = reparseFLWORExpr(expr);
+		else if (sameRegionType(quantifiedFilter))
+			newExpr = reparseQuantifiedExpr(expr);
+		else if (sameRegionType(XQueryRegions.KW_TYPESWITCH))
+			newExpr = reparseTypeSwitch(expr);
+		else if (sameRegionType(XQueryRegions.KW_IF))
+			newExpr = reparseIfExpr(expr);
+		else if (sameRegionType(XQueryRegions.KW_INSERT))
+			newExpr = reparseInsertExpr(expr);
+		else if (sameRegionType(XQueryRegions.KW_DELETE))
+			newExpr = reparseDeleteExpr(expr);
+		else if (sameRegionType(XQueryRegions.KW_REPLACE))
+			newExpr = reparseReplaceExpr(expr);
+		else if (sameRegionType(XQueryRegions.KW_RENAME))
+			newExpr = reparseRenameExpr(expr);
+		else if (sameRegionType(XQueryRegions.KW_COPY))
+			newExpr = reparseTransformExpr(expr);
+		else
+			newExpr = reparseOrExpr(expr);
+
+		if (newExpr == null)
+			reportError("Syntax error: Single expression expected.");
+
+		return newExpr;
 	}
 
 	/**
@@ -733,61 +740,57 @@ public class ModelBuilder {
 	 */
 	protected IASTNode reparseTransformExpr(IASTNode node) {
 		final IStructuredDocumentRegion first = currentSDRegion;
-		
+
 		ASTTransform transform = asTransformExpr(node);
-		
+
 		nextSDRegion(); // 'copy'
-		
+
 		int index = 0;
-		do
-		{
-			if (checkAndReport(XQueryRegions.DOLLAR, "Syntax Error: expecting variable name."))
-			{
-				transform.setBindingVariable(index, currentSDRegion.getFullText().trim());
+		do {
+			if (checkAndReport(XQueryRegions.DOLLAR,
+					"Syntax Error: expecting variable name.")) {
+				transform.setBindingVariable(index, currentSDRegion
+						.getFullText().trim());
 				nextSDRegion(); // '$' VarName
-				
-				if (checkAndReport(XQueryRegions.ASSIGN, "Syntax Error: expecting ':='."))
-				{
+
+				if (checkAndReport(XQueryRegions.ASSIGN,
+						"Syntax Error: expecting ':='.")) {
 					nextSDRegion(); // ":="
-					
+
 					IASTNode oldExpr = transform.getBindingExpr(index);
 					IASTNode newExpr = reparseExprSingle(oldExpr);
 					transform.setBindingExpr(index, newExpr);
-					
-				}
-				else
-					 break;
-			}
-			else 
-				break; 
-			
+
+				} else
+					break;
+			} else
+				break;
+
 			if (!sameRegionType(XQueryRegions.COMMA))
 				break;
-			
+
 			nextSDRegion(); // ','
-			index ++;
+			index++;
 		} while (currentSDRegion != null);
-		
-		
-		if (checkAndReport(XQueryRegions.KW_MODIFY, "Syntax error: expecting 'modify'"))
-		{
+
+		if (checkAndReport(XQueryRegions.KW_MODIFY,
+				"Syntax error: expecting 'modify'")) {
 			nextSDRegion(); // 'modify'
-			
+
 			IASTNode oldModifyExpr = transform.getModifyExpr();
 			IASTNode newModifyExpr = reparseExprSingle(oldModifyExpr);
 			transform.setModifyExpr(newModifyExpr);
-			
-			if (checkAndReport(XQueryRegions.KW_RETURN, "Syntax error: expecting 'return'"))
-			{
+
+			if (checkAndReport(XQueryRegions.KW_RETURN,
+					"Syntax error: expecting 'return'")) {
 				nextSDRegion(); // 'return'
-				
+
 				IASTNode oldReturnExpr = transform.getReturnExpr();
 				IASTNode newReturnExpr = reparseExprSingle(oldReturnExpr);
 				transform.setReturnExpr(newReturnExpr);
 			}
 		}
-		
-		
+
 		final IStructuredDocumentRegion last = currentSDRegion == null ? previousSDRegion
 				: currentSDRegion;
 
@@ -1074,7 +1077,8 @@ public class ModelBuilder {
 			nextSDRegion(); // 'where'
 
 			IASTNode oldWhere = flwor.getClause(index);
-			flwor.setClause(index++, reparseWhereClause(oldWhere));
+			ASTClause newWhere = reparseWhereClause(oldWhere);
+			flwor.setClause(index++, newWhere);
 		}
 
 		// Order by clause
@@ -1087,7 +1091,8 @@ public class ModelBuilder {
 		}
 
 		// Return
-		if (sameRegionType(XQueryRegions.KW_RETURN)) {
+		if (checkAndReport(XQueryRegions.KW_RETURN,
+				"Syntax error: 'return' expected.")) {
 			nextSDRegion(); // 'return'
 
 			IASTNode returnExpr = reparseExprSingle(flwor.getReturnExpr());
@@ -1170,6 +1175,7 @@ public class ModelBuilder {
 	 * Reparse
 	 * <tt>"for" "$" VarName TypeDeclaration? PositionalVar? "in" ExprSingle ("," "$" VarName TypeDeclaration? PositionalVar? "in" ExprSingle)* </tt>
 	 * <tt>"let" "$" VarName TypeDeclaration? ":=" ExprSingle ("," "$" VarName TypeDeclaration? ":=" ExprSingle)*</tt>
+	 * <tt>("some" | "every") "$" VarName TypeDeclaration? "in" ExprSingle ("," "$" VarName TypeDeclaration? "in" ExprSingle)*</tt>
 	 */
 	protected ASTBindingClause reparseForLetQuantifyClause(IASTNode node) {
 		ASTBindingClause clause = asBindingClause(node);
@@ -1182,47 +1188,50 @@ public class ModelBuilder {
 		else
 			clause.setClauseType(IASTNode.QUANTIFIEDCLAUSE);
 
-		if (nextSDRegion()) // 'for', 'let', 'some', 'quantified'
-		{
-			int index = 0;
-			do {
+		nextSDRegion(); // 'for', 'let', 'some', 'quantified'
+		// The first '$' is always there
+
+		int index = 0;
+		do {
+
+			if (checkAndReport(XQueryRegions.DOLLAR,
+					"Syntax error: expecting variable name")) {
+
 				clause.setBindingVariable(index, currentSDRegion);
 
-				if (checkAndReport(XQueryRegions.DOLLAR,
-						"Syntax error: expecting variable name")) {
-					if (nextSDRegion()) {
-						IASTNode oldTypeDecl = clause.getTypeDeclaration(index);
-						IASTNode newTypeDecl = reparseTypeDeclarationOpt(oldTypeDecl);
-						clause.setTypeDeclaration(index, newTypeDecl);
+				if (nextSDRegion()) {
+					IASTNode oldTypeDecl = clause.getTypeDeclaration(index);
+					IASTNode newTypeDecl = reparseTypeDeclarationOpt(oldTypeDecl);
+					clause.setTypeDeclaration(index, newTypeDecl);
 
-						if (clause.getType() == IASTNode.FORCLAUSE)
-							reparsePositionalVarOpt(clause, index);
+					if (clause.getType() == IASTNode.FORCLAUSE)
+						reparsePositionalVarOpt(clause, index);
 
-						if (nextSDRegion()) // Either := or in
-						{
-							IASTNode oldExpr = clause.getBindingExpr(index);
-							IASTNode newExpr = reparseExprSingle(oldExpr);
-							clause.setBindingExpr(index, newExpr);
+					if (nextSDRegion()) // Either := or in
+					{
+						IASTNode oldExpr = clause.getBindingExpr(index);
+						IASTNode newExpr = reparseExprSingle(oldExpr);
+						clause.setBindingExpr(index, newExpr);
 
-							if (sameRegionType(XQueryRegions.COMMA)) {
-								nextSDRegion(); // ','
-								index++;
-							} else {
-								break; // done parsing
-							}
-						} else
-							break; // missing := or in
+						if (sameRegionType(XQueryRegions.COMMA)) {
+							nextSDRegion(); // ','
+							index++;
+						} else {
+							break; // done parsing
+						}
 					} else
-						break; // missing token
-				} else
-					break; // wrong token (expected '$')
+						break; // missing := or in
+				} else {
+					reportError("Syntax error: missing token");
+					break; // missing token
+				}
 
-			} while (currentSDRegion != null);
-		} else {
-			// missing varname
-			model.reportError(previousSDRegion,
-					"Syntax error: expecting variable name");
-		}
+			} else {
+				reportError("Syntax error: variable name expected.");
+				break; // wrong token (expected '$')
+			}
+
+		} while (currentSDRegion != null);
 
 		return clause;
 	}
@@ -1238,7 +1247,8 @@ public class ModelBuilder {
 		if (sameRegionType(XQueryRegions.KW_AT)) {
 			nextSDRegion(); // 'at'
 
-			if (sameRegionType(XQueryRegions.DOLLAR)) {
+			if (checkAndReport(XQueryRegions.DOLLAR,
+					"Syntax error: variable name expected.")) {
 				clause.setPositionalVar(index, currentSDRegion);
 				nextSDRegion(); // '$' VarName
 			}

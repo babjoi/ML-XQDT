@@ -26,11 +26,6 @@
             type="spellingregions"
             value="XML_CONTENT">
       </provisionalDefinition>
-      <provisionalConfiguration
-            class="org.eclipse.wst.xquery.sse.ui.internal.editor.XQueryFormatter"
-            target="org.eclipse.wst.xquery.sse.ui.xqueryeditor"
-            type="slaveformattingstrategy">
-      </provisionalConfiguration>
    </extension>
    <extension
          point="org.eclipse.ui.contexts">

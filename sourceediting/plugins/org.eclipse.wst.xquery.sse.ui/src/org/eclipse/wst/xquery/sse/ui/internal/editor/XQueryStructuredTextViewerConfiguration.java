@@ -11,8 +11,11 @@
 package org.eclipse.wst.xquery.sse.ui.internal.editor;
 
 import org.eclipse.jface.text.contentassist.IContentAssistProcessor;
+import org.eclipse.jface.text.formatter.IContentFormatter;
+import org.eclipse.jface.text.formatter.MultiPassContentFormatter;
 import org.eclipse.jface.text.source.ISourceViewer;
 import org.eclipse.wst.sse.ui.StructuredTextViewerConfiguration;
+import org.eclipse.wst.sse.ui.internal.format.StructuredFormattingStrategy;
 import org.eclipse.wst.sse.ui.internal.provisional.style.LineStyleProvider;
 import org.eclipse.wst.xquery.sse.core.internal.document.XQueryDocumentPartitioner;
 import org.eclipse.wst.xquery.sse.ui.internal.quickassist.XQDTTemplateCompletionProcessor;
@@ -25,7 +28,8 @@ import org.eclipse.wst.xquery.sse.ui.internal.style.XQueryLineStyleProvider;
  * @author <a href="villard@us.ibm.com">Lionel Villard</a>
  */
 @SuppressWarnings("restriction")
-public class XQueryStructuredTextViewerConfiguration extends StructuredTextViewerConfiguration {
+public class XQueryStructuredTextViewerConfiguration extends
+		StructuredTextViewerConfiguration {
 
 	// State
 
@@ -55,7 +59,8 @@ public class XQueryStructuredTextViewerConfiguration extends StructuredTextViewe
 	// Overrides
 
 	@Override
-	public LineStyleProvider[] getLineStyleProviders(ISourceViewer sourceViewer, String partitionType) {
+	public LineStyleProvider[] getLineStyleProviders(
+			ISourceViewer sourceViewer, String partitionType) {
 		return lineStyleProvider;
 	}
 
@@ -65,8 +70,22 @@ public class XQueryStructuredTextViewerConfiguration extends StructuredTextViewe
 	}
 
 	@Override
-	protected IContentAssistProcessor[] getContentAssistProcessors(ISourceViewer sourceViewer, String partitionType) {
+	protected IContentAssistProcessor[] getContentAssistProcessors(
+			ISourceViewer sourceViewer, String partitionType) {
 		return contentAssistProcessor;
+	}
+
+	@Override
+	public IContentFormatter getContentFormatter(ISourceViewer sourceViewer) {
+		IContentFormatter formatter = super.getContentFormatter(sourceViewer);
+
+		if (formatter instanceof MultiPassContentFormatter) {
+			((MultiPassContentFormatter) formatter)
+					.setMasterStrategy(new StructuredFormattingStrategy(
+							new XQueryFormatter()));
+		}
+
+		return formatter;
 	}
 
 }

@@ -216,4 +216,18 @@ public class ASTNodeFactory {
 		return new ASTKindTest();
 	}
 
+	/**
+	 * @return
+	 */
+	public ASTParentherized newParentherized() {
+		return new ASTParentherized();
+	}
+
+	/**
+	 * @return
+	 */
+	public ASTContextItem newContextItem() {
+		return new ASTContextItem();
+	}
+
 }

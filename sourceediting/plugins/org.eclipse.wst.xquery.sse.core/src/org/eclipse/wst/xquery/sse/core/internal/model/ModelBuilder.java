@@ -18,6 +18,7 @@ import org.eclipse.wst.xquery.sse.core.internal.XQueryMessages;
 import org.eclipse.wst.xquery.sse.core.internal.model.ast.ASTApply;
 import org.eclipse.wst.xquery.sse.core.internal.model.ast.ASTBindingClause;
 import org.eclipse.wst.xquery.sse.core.internal.model.ast.ASTClause;
+import org.eclipse.wst.xquery.sse.core.internal.model.ast.ASTContextItem;
 import org.eclipse.wst.xquery.sse.core.internal.model.ast.ASTExprSingleClause;
 import org.eclipse.wst.xquery.sse.core.internal.model.ast.ASTFLWOR;
 import org.eclipse.wst.xquery.sse.core.internal.model.ast.ASTFunctionCall;
@@ -31,6 +32,7 @@ import org.eclipse.wst.xquery.sse.core.internal.model.ast.ASTNamespaceDecl;
 import org.eclipse.wst.xquery.sse.core.internal.model.ast.ASTNodeFactory;
 import org.eclipse.wst.xquery.sse.core.internal.model.ast.ASTOperator;
 import org.eclipse.wst.xquery.sse.core.internal.model.ast.ASTOrderByClause;
+import org.eclipse.wst.xquery.sse.core.internal.model.ast.ASTParentherized;
 import org.eclipse.wst.xquery.sse.core.internal.model.ast.ASTPath;
 import org.eclipse.wst.xquery.sse.core.internal.model.ast.ASTQuantified;
 import org.eclipse.wst.xquery.sse.core.internal.model.ast.ASTSequenceType;
@@ -1608,7 +1610,7 @@ public class ModelBuilder {
 			nextSDRegion(); // the kind test
 			return test;
 		}
-		
+
 		// Not a kind test...
 		return null;
 
@@ -1983,25 +1985,35 @@ public class ModelBuilder {
 	/**
 	 * Reparse <tt>"."</tt>
 	 */
-	protected IASTNode reparseContextItemExpr(IASTNode expr) {
-		nextSDRegion();
-		return null;
+	protected IASTNode reparseContextItemExpr(IASTNode node) {
+
+		ASTContextItem item = asContextItem(node);
+		item.setStructuredDocumentRegion(currentSDRegion);
+
+		nextSDRegion(); // .
+
+		return item;
 	}
 
 	/**
 	 * Reparse <tt>"(" Expr? ")"</tt>
 	 */
-	protected IASTNode reparseParentherizeExpr(IASTNode expr) {
+	protected IASTNode reparseParentherizeExpr(IASTNode node) {
+		ASTParentherized expr = asParentherized(node);
+
 		nextSDRegion(); // "("
 
-		if (sameRegionType(XQueryRegions.RPAR))
-			return null;
+		if (!sameRegionType(XQueryRegions.RPAR)) {
+			IASTNode oldExpr = expr.getExpr();
+			IASTNode newExpr = reparseExpr(oldExpr);
+			expr.setExpr(newExpr);
+		}
 
-		IASTNode innerExpr = reparseExpr(expr);
 		if (checkAndReport(XQueryRegions.RPAR,
 				XQueryMessages.errorXQSE_MissingRPar_UI_))
 			nextSDRegion(); // ")"
-		return innerExpr;
+
+		return expr;
 	}
 
 	/**
@@ -2144,6 +2156,22 @@ public class ModelBuilder {
 			return (ASTIf) node;
 
 		return nodeFactory.newIf();
+	}
+
+	/** Gets AST node as {@link ASTIf} */
+	protected ASTContextItem asContextItem(IASTNode node) {
+		if (node != null && node.getType() == IASTNode.CONTEXTITEM)
+			return (ASTContextItem) node;
+
+		return nodeFactory.newContextItem();
+	}
+
+	/** Gets AST node as {@link ASTIf} */
+	protected ASTParentherized asParentherized(IASTNode node) {
+		if (node != null && node.getType() == IASTNode.PARENTHERIZED)
+			return (ASTParentherized) node;
+
+		return nodeFactory.newParentherized();
 	}
 
 	/** Gets AST node as {@link ASTNameTest} */

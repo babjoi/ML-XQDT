@@ -57,6 +57,8 @@ public interface IASTNode {
 	public static final int PATH = 28;
 	public static final int STEP = 29;
 	public static final int KINDTEST = 30;
+	public static final int PARENTHERIZED = 31;
+	public static final int CONTEXTITEM = 32;
 	
 
 	/** Gets the AST node type */

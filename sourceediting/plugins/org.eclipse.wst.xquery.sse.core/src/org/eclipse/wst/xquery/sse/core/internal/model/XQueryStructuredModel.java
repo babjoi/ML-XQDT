@@ -39,6 +39,7 @@ import org.eclipse.wst.sse.core.internal.provisional.events.RegionsReplacedEvent
 import org.eclipse.wst.sse.core.internal.provisional.events.StructuredDocumentRegionsReplacedEvent;
 import org.eclipse.wst.sse.core.internal.provisional.text.IStructuredDocument;
 import org.eclipse.wst.sse.core.internal.provisional.text.IStructuredDocumentRegion;
+import org.eclipse.wst.sse.core.internal.provisional.text.ITextRegion;
 import org.eclipse.wst.validation.internal.provisional.core.IMessage;
 import org.eclipse.wst.xquery.core.IXQDTCorePreferences;
 import org.eclipse.wst.xquery.core.IXQDTLanguageConstants;
@@ -92,11 +93,23 @@ public class XQueryStructuredModel extends AbstractStructuredModel implements
 	/**
 	 * @param sdregion
 	 * @param text
+	 * @param tip
+	 *            whether or not to only highlight the tip of the given sdregion
 	 */
 	protected void reportError(XQueryStructuredDocumentRegion sdregion,
+			String text, boolean tip) {
+		messages.add(ValidationHelper.createErrorMessage(sdregion, text, tip));
+
+	}
+	
+	/**
+	 * @param sdregion
+	 * @param text
+	 
+	 */
+	protected void reportError(XQueryStructuredDocumentRegion sdregion, ITextRegion region,
 			String text) {
-		messages.add(ValidationHelper.createErrorMessage(sdregion,
-				sdregion.getFirstRegion(), text));
+		messages.add(ValidationHelper.createErrorMessage(sdregion, region, text));
 
 	}
 
@@ -108,6 +121,13 @@ public class XQueryStructuredModel extends AbstractStructuredModel implements
 			IStructuredDocumentRegion last, String text) {
 		messages.add(ValidationHelper.createErrorMessage(first, last, text));
 
+	}
+
+	/**
+	 * @param text
+	 */
+	public void reportError(String text) {
+		messages.add(ValidationHelper.createErrorMessage(text));
 	}
 
 	/** Gets module managed by this model */

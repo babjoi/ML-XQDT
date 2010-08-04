@@ -53,6 +53,9 @@ public interface IASTNode {
 	public static final int XUREPLACE = 24;
 	public static final int XUTRANSFORM = 25;
 	public static final int XURENAME = 26;
+	public static final int NAMETEST = 27;
+	public static final int PATH = 28;
+	public static final int STEP = 29;
 	
 
 	/** Gets the AST node type */
@@ -128,5 +131,7 @@ public interface IASTNode {
 	
 	/** Print the AST node to the given string builder */
 	public void toString(int indent, StringBuilder builder);
+
+	
 		
 }

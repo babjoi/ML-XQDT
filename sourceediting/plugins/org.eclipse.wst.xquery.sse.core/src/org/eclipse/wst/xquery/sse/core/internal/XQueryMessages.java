@@ -48,6 +48,10 @@ public class XQueryMessages extends NLS {
 	public static String errorXQSE_MissingRCurly_UI_;
 	public static String errorXQSE_MissingRSquare_UI_;
 	public static String errorXQSE_MissingRPar_UI_;
+	public static String errorXQSE_MissingExprSingle_UI_;
+	public static String errorXQSE_MissingRelPath_UI_; 
+	public static String errorXQSE_MissingExpr_UI_;
+	public static String errorXQSE_MissingNodeTest_UI_;
 	
 	
 	static {

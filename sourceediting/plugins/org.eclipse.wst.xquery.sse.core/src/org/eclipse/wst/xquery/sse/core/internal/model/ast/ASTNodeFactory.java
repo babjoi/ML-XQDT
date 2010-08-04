@@ -188,4 +188,25 @@ public class ASTNodeFactory {
 		return new ASTTransform();
 	}
 
+	/**
+	 * @return
+	 */
+	public ASTNameTest newNameTest() {
+		return new ASTNameTest();
+	}
+
+	/**
+	 * @return
+	 */
+	public ASTPath newPath() {
+		return new ASTPath();
+	}
+
+	/**
+	 * @return
+	 */
+	public ASTStep newStep() {
+		return new ASTStep();
+	}
+
 }

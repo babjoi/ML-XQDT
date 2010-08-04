@@ -25,12 +25,15 @@ import org.eclipse.wst.xquery.sse.core.internal.model.ast.ASTFunctionDecl;
 import org.eclipse.wst.xquery.sse.core.internal.model.ast.ASTIf;
 import org.eclipse.wst.xquery.sse.core.internal.model.ast.ASTLiteral;
 import org.eclipse.wst.xquery.sse.core.internal.model.ast.ASTModule;
+import org.eclipse.wst.xquery.sse.core.internal.model.ast.ASTNameTest;
 import org.eclipse.wst.xquery.sse.core.internal.model.ast.ASTNamespaceDecl;
 import org.eclipse.wst.xquery.sse.core.internal.model.ast.ASTNodeFactory;
 import org.eclipse.wst.xquery.sse.core.internal.model.ast.ASTOperator;
 import org.eclipse.wst.xquery.sse.core.internal.model.ast.ASTOrderByClause;
+import org.eclipse.wst.xquery.sse.core.internal.model.ast.ASTPath;
 import org.eclipse.wst.xquery.sse.core.internal.model.ast.ASTQuantified;
 import org.eclipse.wst.xquery.sse.core.internal.model.ast.ASTSequenceType;
+import org.eclipse.wst.xquery.sse.core.internal.model.ast.ASTStep;
 import org.eclipse.wst.xquery.sse.core.internal.model.ast.ASTTypeswitch;
 import org.eclipse.wst.xquery.sse.core.internal.model.ast.ASTVarDecl;
 import org.eclipse.wst.xquery.sse.core.internal.model.ast.ASTVarRef;
@@ -197,6 +200,9 @@ public class ModelBuilder {
 					XQueryRegions.KT_SCHEMAELEMENTTEST,
 					XQueryRegions.KT_TEXTTEST, XQueryRegions.QNAME });
 
+	final protected RegionFilter nameTestFilter = new RegionFilter(
+			new String[] { XQueryRegions.PATH_NAMETEST });
+
 	final protected RegionFilter directConstructorFilter = new RegionFilter(
 			new String[] { XQueryRegions.XML_TAG_OPEN,
 					XQueryRegions.XML_COMMENT, XQueryRegions.XML_PI });
@@ -263,11 +269,13 @@ public class ModelBuilder {
 	public ASTModule reparseQuery(ASTModule module,
 			IStructuredDocumentRegion region, int offset, int length,
 			int language) {
+		currentSDRegion = (XQueryStructuredDocumentRegion) region;
+		previousSDRegion = null;
+
 		if (region != null) {
 			this.language = language;
 			this.isValidLanguage = new Stack<Boolean>();
 
-			currentSDRegion = (XQueryStructuredDocumentRegion) region;
 			previousSDRegion = (XQueryStructuredDocumentRegion) currentSDRegion
 					.getPrevious();
 			currentRegionIdx = 0;
@@ -286,10 +294,12 @@ public class ModelBuilder {
 
 			if (currentSDRegion != null)
 				model.reportError(previousSDRegion,
-						"Syntax error: expected end of file.");
+						"Syntax error: expected end of file.", false);
 
 			return module;
 		}
+
+		reportError(XQueryMessages.errorXQSE_MissingExpr_UI_);
 
 		return null;
 	}
@@ -675,17 +685,22 @@ public class ModelBuilder {
 	 */
 	protected IASTNode reparseApplyExpr(IASTNode expr) {
 		ASTApply apply = asApply(expr);
+
 		int index = 0;
 		do {
 			IASTNode oldExpr = apply.getChildASTNodeAt(index);
 			IASTNode concatExpr = reparseConcatExpr(oldExpr);
-			apply.setChildASTNodeAt(index++, concatExpr);
+			apply.setChildASTNodeAt(index, concatExpr);
 
-			if (sameRegionType(XQueryRegions.SEPARATOR))
+			if (sameRegionType(XQueryRegions.SEPARATOR)) {
 				nextSDRegion(); // ';'
-			else
+			} else {
+				if (index >= 1)
+					reportError(XQueryMessages.errorXQSE_MissingSemicolon_UI_);
 				break;
+			}
 
+			index++;
 		} while (currentSDRegion != null);
 
 		return apply;
@@ -706,6 +721,8 @@ public class ModelBuilder {
 	 * Reparse
 	 * 
 	 * <tt>ExprSingle</tt>
+	 * 
+	 * @return an AST node or null if no expression single have been parsed.
 	 */
 	protected IASTNode reparseExprSingle(IASTNode expr) {
 		IASTNode newExpr = null;
@@ -729,9 +746,6 @@ public class ModelBuilder {
 			newExpr = reparseTransformExpr(expr);
 		else
 			newExpr = reparseOrExpr(expr);
-
-		if (newExpr == null)
-			reportError("Syntax error: Single expression expected.");
 
 		return newExpr;
 	}
@@ -1380,6 +1394,8 @@ public class ModelBuilder {
 
 	/**
 	 * Reparse <tt>ValidateExpr | PathExpr | ExtensionExpr</tt>
+	 * 
+	 * @return an AST node or null if no matching expression has been parsed.
 	 */
 	protected IASTNode reparseValueExpr(IASTNode expr) {
 		if (sameRegionType(XQueryRegions.KW_VALIDATE))
@@ -1440,28 +1456,42 @@ public class ModelBuilder {
 	 * Reparse
 	 * <tt>("/" RelativePathExpr?) | ("//" RelativePathExpr) | RelativePathExpr</tt>
 	 */
-	protected IASTNode reparsePathExpr(IASTNode expr) {
+	protected IASTNode reparsePathExpr(IASTNode node) {
+		ASTPath path = asPath(node);
+
 		if (sameRegionType(XQueryRegions.PATH_SLASH)) {
-			nextSDRegion();
-			return reparseRelativePathExprOpt(expr);
+			nextSDRegion(); // '/'
+
+			IASTNode oldRelPath = path.getRelativePath();
+			IASTNode newRelPath = reparseRelativePathExpr(oldRelPath);
+			path.setRelativePath(newRelPath);
+		} else {
+			boolean slashslash = sameRegionType(XQueryRegions.PATH_SLASHSLASH);
+			if (slashslash)
+				nextSDRegion(); // '//'
+
+			IASTNode oldRelPath = path.getRelativePath();
+			IASTNode newRelPath = reparseRelativePathExpr(oldRelPath);
+			path.setRelativePath(newRelPath);
+
+			if (newRelPath == null) {
+				if (slashslash)
+					reportError(XQueryMessages.errorXQSE_MissingRelPath_UI_);
+				else
+					return null; // Error will be notified by the containing
+									// expression
+			}
+
 		}
 
-		if (sameRegionType(XQueryRegions.PATH_SLASHSLASH))
-			nextSDRegion();
-
-		return reparseRelativePathExpr(expr);
-
+		return path;
 	}
 
 	/**
-	 * Reparse <tt>RelativePathExpr?<tt>
-	 */
-	protected IASTNode reparseRelativePathExprOpt(IASTNode expr) {
-		return reparseStepExpr(expr, true);
-	}
-
-	/**
-	 * Reparse <tt>StepExpr (("/" | "//") StepExpr)</tt>
+	 * Reparse <tt>StepExpr (("/" | "//") StepExpr)*</tt>
+	 * 
+	 * @return a {@link ASTOperator} or null when failing parsing a relative
+	 *         path
 	 */
 	protected IASTNode reparseRelativePathExpr(IASTNode expr) {
 		return reparseOperatorStar(expr, relativePathFilter,
@@ -1469,83 +1499,124 @@ public class ModelBuilder {
 	}
 
 	/**
-	 * Reparse <tt>(FilterExpr | AxisStep) PredicateList</tt>
-	 * 
-	 * @param optional
-	 *            TODO
+	 * Reparse <tt>(PrimaryExpr | AxisStep) PredicateList</tt>
 	 */
-	protected IASTNode reparseStepExpr(IASTNode expr, boolean optional) {
-		IASTNode stepExpr = null;
+	protected IASTNode reparseStepExpr(IASTNode node) {
+		ASTStep step = asStep(node);
+		IASTNode primary = null;
 
 		if (sameRegionType(XQueryRegions.NUMERICLITERAL) // Literal
 				|| sameRegionType(XQueryRegions.STRINGLITERAL))
-			stepExpr = reparseLiteral(expr);
+			primary = reparseLiteral(step.getPrimaryExpr());
 		else if (sameRegionType(XQueryRegions.DOLLAR)) // VarRef
-			stepExpr = reparseVarRef(expr);
+			primary = reparseVarRef(step.getPrimaryExpr());
 		else if (sameRegionType(XQueryRegions.LPAR)) // Parentherize
-			stepExpr = reparseParentherizeExpr(expr);
+			primary = reparseParentherizeExpr(step.getPrimaryExpr());
 		else if (sameRegionType(XQueryRegions.PATH_CONTEXTITEM)) // ContextITem
-			stepExpr = reparseContextItemExpr(expr);
+			primary = reparseContextItemExpr(step.getPrimaryExpr());
 		else if (sameRegionType(XQueryRegions.FUNCTIONNAME)) // Function call
-			stepExpr = reparseFunctionCall(expr);
+			primary = reparseFunctionCall(step.getPrimaryExpr());
 		else if (sameRegionType(XQueryRegions.KW_ORDERED)
 				|| sameRegionType(XQueryRegions.KW_UNORDERED)) // Ordered/Unordered
-			stepExpr = reparseOrderedUnordered(expr);
+			primary = reparseOrderedUnordered(step.getPrimaryExpr());
 		else if (sameRegionType(XQueryRegions.XML_TAG_OPEN)) // '<'
-			stepExpr = reparseDirElemConstructor(expr);
+			primary = reparseDirElemConstructor(step.getPrimaryExpr());
 		else if (sameRegionType(XQueryRegions.XML_COMMENT))
-			stepExpr = reparseDirCommentConstructor(expr);
+			primary = reparseDirCommentConstructor(step.getPrimaryExpr());
 		else if (sameRegionType(XQueryRegions.XML_PI))
-			stepExpr = reparseDirPIConstructor(expr);
+			primary = reparseDirPIConstructor(step.getPrimaryExpr());
 		else if (sameRegionType(XQueryRegions.KW_DOCUMENT))
-			stepExpr = reparseCompDocConstructor(expr);
+			primary = reparseCompDocConstructor(step.getPrimaryExpr());
 		else if (sameRegionType(XQueryRegions.KW_ELEMENT))
-			stepExpr = reparseCompElementConstructor(expr);
+			primary = reparseCompElementConstructor(step.getPrimaryExpr());
 		else if (sameRegionType(XQueryRegions.KW_ATTRIBUTE))
-			stepExpr = reparseCompAttrConstructor(expr);
+			primary = reparseCompAttrConstructor(step.getPrimaryExpr());
 		else if (sameRegionType(XQueryRegions.KW_TEXT))
-			stepExpr = reparseCompTextConstructor(expr);
+			primary = reparseCompTextConstructor(step.getPrimaryExpr());
 		else if (sameRegionType(XQueryRegions.KW_COMMENT))
-			stepExpr = reparseCompCommentConstructor(expr);
+			primary = reparseCompCommentConstructor(step.getPrimaryExpr());
 		else if (sameRegionType(XQueryRegions.KW_PI))
-			stepExpr = reparseCompPIConstructor(expr);
-		else
-			stepExpr = reparseAxisStep(expr, optional);
+			primary = reparseCompPIConstructor(step.getPrimaryExpr());
+		else {
+			if (!reparseAxisStep(step))
+				return null;
+		}
+
+		if (primary != null)
+			step.setPrimaryExpr(primary);
 
 		// PredicateList
 
 		if (sameRegionType(XQueryRegions.LSQUARE)) {
-			reparsePredicateList(expr);
+			reparsePredicateList(step);
 		}
 
-		return stepExpr;
+		return step;
 
 	}
 
 	/**
-	 * Reparse <tt>ReverseStep | ForwardStep)</tt>
+	 * Reparse <tt>ReverseStep | ForwardStep</tt>
 	 * 
-	 * @param optional
+	 * @return true when an axis step has been parsed (even partially)
 	 */
-	protected IASTNode reparseAxisStep(IASTNode expr, boolean optional) {
-		if (sameRegionType(stepFilter))
-			nextSDRegion(); // Axis name
+	protected boolean reparseAxisStep(ASTStep step) {
+		boolean nonvoid = false;
 
-		return reparseNodeTest(expr, optional);
+		if (sameRegionType(stepFilter)) {
+			nextSDRegion(); // Axis name
+			nonvoid = true;
+		}
+
+		IASTNode oldNodeTest = step.getNodeTest();
+		IASTNode newNodeTest = reparseNodeTest(oldNodeTest);
+
+		if (newNodeTest == null && nonvoid)
+			reportError(XQueryMessages.errorXQSE_MissingNodeTest_UI_);
+		
+		nonvoid |= newNodeTest != null;
+
+		step.setNodeTest(newNodeTest);
+		
+		
+
+		return nonvoid;
 	}
 
 	/**
 	 * Reparse <tt>KindTest | NameTest</tt>
-	 * 
-	 * @param optional
 	 */
-	protected IASTNode reparseNodeTest(IASTNode expr, boolean optional) {
-		if (optional) {
-			if (sameRegionType(nodeTestFilter))
-				nextSDRegion();
-		} else
-			nextSDRegion();
+	protected IASTNode reparseNodeTest(IASTNode expr) {
+		if (sameRegionType(nameTestFilter))
+			return reparseNameTest(expr);
+
+		// Must be a kindtest
+		return reparseKindTest(expr);
+	}
+
+	/**
+	 * Reparse
+	 * <tt>DocumentTest | ElementTest | AttributeTest | SchemaElementTest | SchemaAttributeTest 
+	 *                  | PITest | CommentTest | TextTest | AnyKindTest</tt>
+	 * 
+	 * @return a kind test AST node or null if the current sdregion is not a
+	 *         kind test.
+	 */
+	protected IASTNode reparseKindTest(IASTNode node) {
+		// TODO Auto-generated method stub
 		return null;
+	}
+
+	/**
+	 * Reparse <tt>QName | Wildcard</tt>
+	 */
+	protected IASTNode reparseNameTest(IASTNode node) {
+		ASTNameTest test = asNameTest(node);
+
+		test.setStructuredDocumentRegion(currentSDRegion);
+		nextSDRegion();
+
+		return test;
 	}
 
 	/**
@@ -1863,7 +1934,8 @@ public class ModelBuilder {
 
 		IASTNode innerExpr = reparseExpr(expr);
 
-		if (checkAndReport(XQueryRegions.RCURLY, XQueryMessages.errorXQSE_MissingRCurly_UI_))
+		if (checkAndReport(XQueryRegions.RCURLY,
+				XQueryMessages.errorXQSE_MissingRCurly_UI_))
 			nextSDRegion(); // '}'
 
 		return innerExpr;
@@ -1919,7 +1991,8 @@ public class ModelBuilder {
 			return null;
 
 		IASTNode innerExpr = reparseExpr(expr);
-		if (checkAndReport(XQueryRegions.RPAR, XQueryMessages.errorXQSE_MissingRPar_UI_))
+		if (checkAndReport(XQueryRegions.RPAR,
+				XQueryMessages.errorXQSE_MissingRPar_UI_))
 			nextSDRegion(); // ")"
 		return innerExpr;
 	}
@@ -1928,14 +2001,10 @@ public class ModelBuilder {
 	 * reparse <tt>NumericLiteral | StringLiteral</tt>
 	 */
 	protected IASTNode reparseLiteral(IASTNode expr) {
-		ASTLiteral literal;
-		if (expr == null || expr.getType() != IASTNode.LITERAL)
-			literal = nodeFactory.newLiteral();
-		else
-			literal = (ASTLiteral) expr;
+		ASTLiteral literal = asLiteral(expr);
 
 		literal.setStructuredDocumentRegion(currentSDRegion);
-		nextSDRegion();
+		nextSDRegion(); // Literal
 		return literal;
 	}
 
@@ -1962,7 +2031,8 @@ public class ModelBuilder {
 
 		IASTNode predicate = reparseExpr(expr);
 
-		if (checkAndReport(XQueryRegions.RSQUARE, XQueryMessages.errorXQSE_MissingRSquare_UI_))
+		if (checkAndReport(XQueryRegions.RSQUARE,
+				XQueryMessages.errorXQSE_MissingRSquare_UI_))
 			nextSDRegion(); // ']'
 
 		return predicate;
@@ -1970,38 +2040,46 @@ public class ModelBuilder {
 
 	// Reparse operator helpers
 
-	/** Reparse operator following this grammar (Expr (op Expr)*) */
+	/**
+	 * Reparse operator following this grammar (Expr (op Expr)*)
+	 */
 	protected IASTNode reparseOperatorStar(IASTNode expr,
 			OperatorFilter operatorFilter, Continuation continuation) {
+
 		IASTNode oldChild = getFirstOperand(expr, operatorFilter);
 		IASTNode newChild = continuation.reparse(oldChild);
 
-		skipWhitespace();
-		if (currentSDRegion == null || !sameRegionType(operatorFilter))
+		if (newChild == null) {
+			return null;
+		}
+
+		if (!sameRegionType(operatorFilter)) {
+			// No operator=>just return the expression.
 			return newChild;
+		}
 
 		int operatorType = getOperatorType();
 		nextSDRegion(); // skip operator
 
-		ASTOperator operator = getOperator(expr, operatorType);
-		if (oldChild != newChild)
-			operator.setChildASTNodeAt(0, newChild);
+		ASTOperator operator = asOperator(expr, operatorType);
+		operator.setChildASTNodeAt(0, newChild);
 
 		int index = 1;
-		while (true) {
+		do {
 			oldChild = operator.getChildASTNodeAt(index);
 			newChild = continuation.reparse(oldChild);
-			if (oldChild != newChild)
-				operator.setChildASTNodeAt(index, newChild);
+			operator.setChildASTNodeAt(index, newChild);
 
-			skipWhitespace();
-			if (currentSDRegion == null || !sameRegionType(operatorFilter)) {
+			if (!sameRegionType(operatorFilter)) {
 				operator.removeChildASTNodesAfter(index);
-				return operator;
+				break;
 			}
+
 			nextSDRegion(); // skip operator
 			index++;
-		}
+		} while (currentSDRegion != null);
+
+		return operator;
 	}
 
 	/** Reparse operator following this grammar (Expr (op Expr)?) */
@@ -2010,23 +2088,18 @@ public class ModelBuilder {
 		IASTNode oldChild = getFirstOperand(expr, operatorFilter);
 		IASTNode newChild = continuation.reparse(oldChild);
 
-		skipWhitespace();
-		if (currentSDRegion == null || !sameRegionType(operatorFilter))
+		if (!sameRegionType(operatorFilter))
 			return newChild;
 
 		int operatorType = getOperatorType();
 		nextSDRegion(); // skip operator
 
-		ASTOperator operator = getOperator(expr, operatorType);
-		if (oldChild != newChild)
-			operator.setChildASTNodeAt(0, newChild);
+		ASTOperator operator = asOperator(expr, operatorType);
+		operator.setChildASTNodeAt(0, newChild);
 
 		oldChild = operator.getChildASTNodeAt(1);
 		newChild = continuation.reparse(oldChild);
-		if (oldChild != newChild)
-			operator.setChildASTNodeAt(1, newChild);
-
-		skipWhitespace();
+		operator.setChildASTNodeAt(1, newChild);
 
 		operator.removeChildASTNodesAfter(1);
 		return operator;
@@ -2042,12 +2115,44 @@ public class ModelBuilder {
 		return nodeFactory.newApply();
 	}
 
+	/** Gets AST node as {@link ASTLiteral} */
+	protected ASTLiteral asLiteral(IASTNode node) {
+		if (node != null && node.getType() == IASTNode.LITERAL)
+			return (ASTLiteral) node;
+
+		return nodeFactory.newLiteral();
+	}
+
+	/** Gets AST node as {@link ASTIf} */
+	protected ASTStep asStep(IASTNode node) {
+		if (node != null && node.getType() == IASTNode.STEP)
+			return (ASTStep) node;
+
+		return nodeFactory.newStep();
+	}
+
 	/** Gets AST node as {@link ASTIf} */
 	protected ASTIf asIf(IASTNode node) {
 		if (node != null && node.getType() == IASTNode.IF)
 			return (ASTIf) node;
 
 		return nodeFactory.newIf();
+	}
+
+	/** Gets AST node as {@link ASTNameTest} */
+	protected ASTNameTest asNameTest(IASTNode node) {
+		if (node != null && node.getType() == IASTNode.NAMETEST)
+			return (ASTNameTest) node;
+
+		return nodeFactory.newNameTest();
+	}
+
+	/** Gets AST node as {@link ASTPath} */
+	protected ASTPath asPath(IASTNode node) {
+		if (node != null && node.getType() == IASTNode.PATH)
+			return (ASTPath) node;
+
+		return nodeFactory.newPath();
 	}
 
 	/** Gets AST node as {@link ASTInsert} */
@@ -2305,10 +2410,15 @@ public class ModelBuilder {
 	 */
 	protected void reportError(String text) {
 		// Report error
-		final XQueryStructuredDocumentRegion sdregion = currentSDRegion == null ? previousSDRegion
-				: currentSDRegion;
-		if (sdregion != null)
-			model.reportError(sdregion, text);
+		if (currentSDRegion == null)
+		{
+			if (previousSDRegion == null)
+				model.reportError(text);
+			else
+				model.reportError(previousSDRegion, text, true);
+		}
+		else
+			model.reportError(currentSDRegion, text, false);
 	}
 
 	/**
@@ -2317,7 +2427,7 @@ public class ModelBuilder {
 	 * @param expr
 	 * @return
 	 */
-	protected ASTOperator getOperator(IASTNode expr) {
+	protected ASTOperator asOperator(IASTNode expr) {
 		if (expr != null && expr.getType() == IASTNode.OPERATOR)
 			return (ASTOperator) expr;
 
@@ -2331,8 +2441,8 @@ public class ModelBuilder {
 	 * @param expr
 	 * @return
 	 */
-	protected ASTOperator getOperator(IASTNode expr, int operatorType) {
-		ASTOperator operator = getOperator(expr);
+	protected ASTOperator asOperator(IASTNode expr, int operatorType) {
+		ASTOperator operator = asOperator(expr);
 		if (operator.getOperatorType() == operatorType)
 			return operator;
 		return new ASTOperator(operatorType);
@@ -2553,7 +2663,7 @@ public class ModelBuilder {
 	/** Reparse continuation for RelativePathExpr */
 	protected class RelativePathContinuation extends Continuation {
 		IASTNode reparse(IASTNode expr) {
-			return reparseStepExpr(expr, false);
+			return reparseStepExpr(expr);
 		}
 	}
 }

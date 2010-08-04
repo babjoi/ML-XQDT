@@ -27,6 +27,33 @@ public class ValidationHelper {
 	 * Create an error message from the given parameters.
 	 * 
 	 * @param sdregion
+	 * @param text
+	 * @param tip
+	 *            whether or not to only highlight the tip of the given sdregion
+	 * @return
+	 */
+	public static IMessage createErrorMessage(
+			IStructuredDocumentRegion sdregion, String text, boolean tip) {
+		IMessage message = new LocalizedMessage(IMessage.HIGH_SEVERITY, text);
+
+		if (tip) {
+			message.setOffset(sdregion.getStartOffset()
+					+ sdregion.getTextLength() - 1);
+			message.setLength(1);
+		} else {
+			message.setOffset(sdregion.getStartOffset());
+			message.setLength(sdregion.getTextLength());
+		}
+		message.setLineNo(sdregion.getParentDocument().getLineOfOffset(
+				sdregion.getStartOffset()));
+
+		return message;
+	}
+
+	/**
+	 * Create an error message from the given parameters.
+	 * 
+	 * @param sdregion
 	 * @param region
 	 * @param text
 	 * @return
@@ -35,18 +62,11 @@ public class ValidationHelper {
 			IStructuredDocumentRegion sdregion, ITextRegion region, String text) {
 		IMessage message = new LocalizedMessage(IMessage.HIGH_SEVERITY, text);
 
-		if (region != null) {
-			message.setOffset(sdregion.getStartOffset() + region.getStart());
-			message.setLength(region.getTextLength());
-			message.setLineNo(sdregion.getParentDocument().getLineOfOffset(
-					sdregion.getStartOffset() + region.getStart()));
-		} else {
-			message.setOffset(sdregion.getStartOffset());
-			message.setLength(sdregion.getTextLength());
-			message.setLineNo(sdregion.getParentDocument().getLineOfOffset(
-					sdregion.getStartOffset()));
+		message.setOffset(sdregion.getStartOffset() + region.getStart());
+		message.setLength(region.getLength());
+		message.setLineNo(sdregion.getParentDocument().getLineOfOffset(
+				sdregion.getStartOffset() + region.getStart()));
 
-		}
 		return message;
 	}
 
@@ -69,4 +89,23 @@ public class ValidationHelper {
 
 		return message;
 	}
+
+	/**
+	 * Create an error message from the given parameters.
+	 * 
+	 * @param first
+	 * @param last
+	 * @param text
+	 * @return
+	 */
+	public static IMessage createErrorMessage(String text) {
+		IMessage message = new LocalizedMessage(IMessage.HIGH_SEVERITY, text);
+
+		message.setOffset(0);
+		message.setLength(0);
+		message.setLineNo(0);
+
+		return message;
+	}
+
 }

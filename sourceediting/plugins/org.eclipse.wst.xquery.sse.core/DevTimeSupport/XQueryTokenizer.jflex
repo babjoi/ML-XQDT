@@ -391,7 +391,7 @@ import org.eclipse.wst.xquery.sse.core.internal.regions.XQueryRegions;
 		if (state <= -1)
 		{
 		 	// The query is not valid... recover by going by to the initial state (for now)
-		 	recoveryState = state; // An error message will be shown
+		 	//recoveryState = state; // An error message will be shown
 		 	yybegin(YYINITIAL); // TODO: can we do better than that?
 		}
 		else
@@ -1264,6 +1264,18 @@ SimpleName = ({Letter} | "_" ) ({SimpleNameChar})*
   ".."							{ yybegin(TS_ENDAXISSTEP); return PATH_ABBREVPARENT; }
   
   "@"							{ pushState(TS_ENDAXISSTEP); yybegin(TS_NODETEST); return PATH_ABBREVATTRIBUTE; }
+  
+  // KindTest
+  {DocumentTest}{OccurrenceIndicator}?			{ yybegin(TS_ENDAXISSTEP); return KT_DOCUMENTTEST;}
+  {ElementTest}{OccurrenceIndicator}?			{ yybegin(TS_ENDAXISSTEP); return KT_ELEMENTTEST;}
+  {AttributeTest}{OccurrenceIndicator}?			{ yybegin(TS_ENDAXISSTEP); return KT_ATTRIBUTETEST;}
+  {SchemaElementTest}{OccurrenceIndicator}?		{ yybegin(TS_ENDAXISSTEP); return KT_SCHEMAELEMENTTEST;}
+  {SchemaAttributeTest}{OccurrenceIndicator}?	{ yybegin(TS_ENDAXISSTEP); return KT_SCHEMAATTRIBUTETEST;}
+  {PITest}{OccurrenceIndicator}?				{ yybegin(TS_ENDAXISSTEP); return KT_PITEST;}
+  {CommentTest}{OccurrenceIndicator}?			{ yybegin(TS_ENDAXISSTEP); return KT_COMMENTTEST;}
+  {TextTest}{OccurrenceIndicator}?				{ yybegin(TS_ENDAXISSTEP); return KT_TEXTTEST;}
+  {AnyKindTest}{OccurrenceIndicator}?			{ yybegin(TS_ENDAXISSTEP); return KT_ANYKINDTEST;}
+  {QName}{OccurrenceIndicator}?					{ yybegin(TS_ENDAXISSTEP); return ST_ATOMICTYPE;}
  
   // Primary Expr
 
@@ -1577,7 +1589,7 @@ SimpleName = ({Letter} | "_" ) ({SimpleNameChar})*
 // OccurrenceIndicator	  	::=  "?" | "*" | "+"
 // ItemType	   	  	 		::=  KindTest | ("item" "(" ")") | AtomicType
 
-<YYINITIAL, TS_TYPEDECL, TS_ENDCASEKW> {
+<TS_TYPEDECL, TS_ENDCASEKW> {
   {EmptySequence} 					{ restoreState(); return ST_EMPTY; }
   {ItemType}{OccurrenceIndicator}?	{ restoreState(); return ST_ITEM; } 
 }
@@ -1585,7 +1597,7 @@ SimpleName = ({Letter} | "_" ) ({SimpleNameChar})*
 // KindTest	   ::=   	DocumentTest | ElementTest | AttributeTest | SchemaElementTest | SchemaAttributeTest 
 //                     | PITest | CommentTest | TextTest | AnyKindTest
 
-<YYINITIAL, TS_NODETEST, TS_TYPEDECL, TS_ENDCASEKW> {
+<TS_NODETEST, TS_TYPEDECL, TS_ENDCASEKW> {
   {DocumentTest}{OccurrenceIndicator}?			{ restoreState(); return KT_DOCUMENTTEST;}
   {ElementTest}{OccurrenceIndicator}?			{ restoreState(); return KT_ELEMENTTEST;}
   {AttributeTest}{OccurrenceIndicator}?			{ restoreState(); return KT_ATTRIBUTETEST;}

@@ -69,6 +69,7 @@ public class XQueryRegionParser implements StructuredDocumentRegionParser,
 		// Group item ( )
 		STARTING_GROUP_FACTORIES.put(XQueryRegions.ST_ITEM,
 				XQueryStructuredDocumentRegion.Factory.INSTANCE);
+		// Group functionName (
 		STARTING_GROUP_FACTORIES.put(XQueryRegions.FUNCTIONNAME,
 				XQueryStructuredDocumentRegion.Factory.INSTANCE);
 		STARTING_GROUP_FACTORIES.put(XQueryRegions.KW_ORDERED,
@@ -103,6 +104,7 @@ public class XQueryRegionParser implements StructuredDocumentRegionParser,
 				XQueryStructuredDocumentRegion.Factory.INSTANCE);
 		STARTING_GROUP_FACTORIES.put(XQueryRegions.KW_MODULE,
 				ModuleDeclStructuredDocumentRegion.Factory.INSTANCE);
+ 
 		// Group xquery version "..." encoding ".." ;
 		STARTING_GROUP_FACTORIES.put(XQueryRegions.KW_XQUERY,
 				VersionDeclStructuredDocumentRegion.Factory.INSTANCE);
@@ -206,10 +208,10 @@ public class XQueryRegionParser implements StructuredDocumentRegionParser,
 		IN_GROUP.put(XQueryRegions.KW_REPLACE, new String[] {
 				XQueryRegions.KW_VALUE, XQueryRegions.KW_OF,
 				XQueryRegions.KW_NODE });
-		
+
 		// Group "rename" "node"
-		IN_GROUP.put(XQueryRegions.KW_RENAME, new String[] {
-				XQueryRegions.KW_NODE });
+		IN_GROUP.put(XQueryRegions.KW_RENAME,
+				new String[] { XQueryRegions.KW_NODE });
 
 	}
 	// State

@@ -23,6 +23,7 @@ import org.eclipse.wst.xquery.sse.core.internal.model.ast.ASTFLWOR;
 import org.eclipse.wst.xquery.sse.core.internal.model.ast.ASTFunctionCall;
 import org.eclipse.wst.xquery.sse.core.internal.model.ast.ASTFunctionDecl;
 import org.eclipse.wst.xquery.sse.core.internal.model.ast.ASTIf;
+import org.eclipse.wst.xquery.sse.core.internal.model.ast.ASTKindTest;
 import org.eclipse.wst.xquery.sse.core.internal.model.ast.ASTLiteral;
 import org.eclipse.wst.xquery.sse.core.internal.model.ast.ASTModule;
 import org.eclipse.wst.xquery.sse.core.internal.model.ast.ASTNameTest;
@@ -190,7 +191,7 @@ public class ModelBuilder {
 			XQueryRegions.PATH_PARENT, XQueryRegions.PATH_PRECEDING,
 			XQueryRegions.PATH_PRECEDING_SIBLING, XQueryRegions.PATH_SELF });
 
-	final protected RegionFilter nodeTestFilter = new RegionFilter(
+	final protected RegionFilter kindTestFilter = new RegionFilter(
 			new String[] { XQueryRegions.KT_ANYKINDTEST,
 					XQueryRegions.KT_ATTRIBUTETEST,
 					XQueryRegions.KT_COMMENTTEST,
@@ -198,7 +199,7 @@ public class ModelBuilder {
 					XQueryRegions.KT_ELEMENTTEST, XQueryRegions.KT_PITEST,
 					XQueryRegions.KT_SCHEMAATTRIBUTETEST,
 					XQueryRegions.KT_SCHEMAELEMENTTEST,
-					XQueryRegions.KT_TEXTTEST, XQueryRegions.QNAME });
+					XQueryRegions.KT_TEXTTEST });
 
 	final protected RegionFilter nameTestFilter = new RegionFilter(
 			new String[] { XQueryRegions.PATH_NAMETEST });
@@ -293,7 +294,7 @@ public class ModelBuilder {
 			reparseLibraryOrModule(module);
 
 			if (currentSDRegion != null)
-				model.reportError(previousSDRegion,
+				model.reportError(currentSDRegion,
 						"Syntax error: expected end of file.", false);
 
 			return module;
@@ -1573,12 +1574,10 @@ public class ModelBuilder {
 
 		if (newNodeTest == null && nonvoid)
 			reportError(XQueryMessages.errorXQSE_MissingNodeTest_UI_);
-		
+
 		nonvoid |= newNodeTest != null;
 
 		step.setNodeTest(newNodeTest);
-		
-		
 
 		return nonvoid;
 	}
@@ -1603,8 +1602,16 @@ public class ModelBuilder {
 	 *         kind test.
 	 */
 	protected IASTNode reparseKindTest(IASTNode node) {
-		// TODO Auto-generated method stub
+		if (sameRegionType(kindTestFilter)) {
+			ASTKindTest test = asKindTest(node);
+			test.setStructuredDocumentRegion(currentSDRegion);
+			nextSDRegion(); // the kind test
+			return test;
+		}
+		
+		// Not a kind test...
 		return null;
+
 	}
 
 	/**
@@ -2147,6 +2154,14 @@ public class ModelBuilder {
 		return nodeFactory.newNameTest();
 	}
 
+	/** Gets AST node as {@link ASTKindTest} */
+	protected ASTKindTest asKindTest(IASTNode node) {
+		if (node != null && node.getType() == IASTNode.KINDTEST)
+			return (ASTKindTest) node;
+
+		return nodeFactory.newKindTest();
+	}
+
 	/** Gets AST node as {@link ASTPath} */
 	protected ASTPath asPath(IASTNode node) {
 		if (node != null && node.getType() == IASTNode.PATH)
@@ -2410,14 +2425,12 @@ public class ModelBuilder {
 	 */
 	protected void reportError(String text) {
 		// Report error
-		if (currentSDRegion == null)
-		{
+		if (currentSDRegion == null) {
 			if (previousSDRegion == null)
 				model.reportError(text);
 			else
 				model.reportError(previousSDRegion, text, true);
-		}
-		else
+		} else
 			model.reportError(currentSDRegion, text, false);
 	}
 

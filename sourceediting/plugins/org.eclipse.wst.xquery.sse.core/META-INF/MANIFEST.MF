@@ -3,7 +3,7 @@ Bundle-ManifestVersion: 2
 Bundle-Name: %pluginName
 Bundle-SymbolicName: org.eclipse.wst.xquery.sse.core;singleton:=true
 Bundle-Version: 0.7.0.qualifier
-Bundle-Activator: org.eclipse.wst.xquery.sse.core.XQDTPlugin
+Bundle-Activator: org.eclipse.wst.xquery.sse.core.XQDTSSECorePlugin
 Bundle-Vendor: %providerName
 Require-Bundle: org.eclipse.wst.xml.core,
  org.eclipse.core.runtime,

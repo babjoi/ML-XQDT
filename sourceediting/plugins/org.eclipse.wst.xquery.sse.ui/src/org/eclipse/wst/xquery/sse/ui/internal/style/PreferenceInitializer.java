@@ -3,7 +3,7 @@ package org.eclipse.wst.xquery.sse.ui.internal.style;
 import org.eclipse.core.runtime.preferences.AbstractPreferenceInitializer;
 import org.eclipse.core.runtime.preferences.DefaultScope;
 import org.eclipse.core.runtime.preferences.IEclipsePreferences;
-import org.eclipse.wst.xquery.sse.ui.XQDTPlugin;
+import org.eclipse.wst.xquery.sse.ui.XQDTSSEUIPlugin;
 
 /**
  * Preference initializer for Syntax coloring
@@ -21,7 +21,7 @@ public class PreferenceInitializer extends AbstractPreferenceInitializer {
 
 	@Override
 	public void initializeDefaultPreferences() {
-		IEclipsePreferences node = new DefaultScope().getNode(XQDTPlugin.getDefault().getBundle().getSymbolicName());
+		IEclipsePreferences node = new DefaultScope().getNode(XQDTSSEUIPlugin.getDefault().getBundle().getSymbolicName());
 
 		// Style value should be in the form of Foreground RGB String |
 		// Background

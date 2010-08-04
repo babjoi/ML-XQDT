@@ -12,7 +12,7 @@ package org.eclipse.wst.xquery.sse.ui.internal.quickassist;
 
 import org.eclipse.jface.text.templates.ContextTypeRegistry;
 import org.eclipse.jface.text.templates.TemplateContextType;
-import org.eclipse.wst.xquery.sse.ui.XQDTPlugin;
+import org.eclipse.wst.xquery.sse.ui.XQDTSSEUIPlugin;
 
 /**
  * 
@@ -20,7 +20,7 @@ import org.eclipse.wst.xquery.sse.ui.XQDTPlugin;
  */
 public interface XQDTTemplateContexTypeIDs {
 
-	ContextTypeRegistry REGISTRY = XQDTPlugin.getDefault().getTemplateContextRegistry();
+	ContextTypeRegistry REGISTRY = XQDTSSEUIPlugin.getDefault().getTemplateContextRegistry();
 
 	// Atomic context type IDs
 

@@ -17,18 +17,18 @@ import org.osgi.framework.BundleContext;
 /**
  * The activator class controls the plug-in life cycle
  */
-public class XQDTPlugin extends Plugin {
+public class XQDTSSECorePlugin extends Plugin {
 
 	// The plug-in ID
 	public static final String PLUGIN_ID = "org.eclipse.wst.xquery.core.sse";
 
 	// The shared instance
-	private static XQDTPlugin plugin;
+	private static XQDTSSECorePlugin plugin;
 
 	/**
 	 * The constructor
 	 */
-	public XQDTPlugin() {
+	public XQDTSSECorePlugin() {
 	}
 
 	/*
@@ -58,7 +58,7 @@ public class XQDTPlugin extends Plugin {
 	 * 
 	 * @return the shared instance
 	 */
-	public static XQDTPlugin getDefault() {
+	public static XQDTSSECorePlugin getDefault() {
 		return plugin;
 	}
 

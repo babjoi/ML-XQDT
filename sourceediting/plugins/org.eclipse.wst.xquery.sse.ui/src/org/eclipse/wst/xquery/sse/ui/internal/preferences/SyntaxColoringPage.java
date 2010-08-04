@@ -74,7 +74,7 @@ import org.eclipse.wst.sse.ui.internal.preferences.OverlayPreferenceStore;
 import org.eclipse.wst.sse.ui.internal.preferences.OverlayPreferenceStore.OverlayKey;
 import org.eclipse.wst.sse.ui.internal.preferences.ui.ColorHelper;
 import org.eclipse.wst.sse.ui.internal.util.EditorUtility;
-import org.eclipse.wst.xquery.sse.ui.XQDTPlugin;
+import org.eclipse.wst.xquery.sse.ui.XQDTSSEUIPlugin;
 import org.eclipse.wst.xquery.sse.ui.internal.XQueryUIMessages;
 import org.eclipse.wst.xquery.sse.ui.internal.style.XQueryLineStyleProvider;
 
@@ -585,7 +585,7 @@ public class SyntaxColoringPage extends PreferencePage implements IWorkbenchPref
 	}
 
 	protected IPreferenceStore doGetPreferenceStore() {
-		return XQDTPlugin.getDefault().getPreferenceStore();
+		return XQDTSSEUIPlugin.getDefault().getPreferenceStore();
 	}
 
 	private TextAttribute getAttributeFor(String namedStyle) {
@@ -814,7 +814,7 @@ public class SyntaxColoringPage extends PreferencePage implements IWorkbenchPref
 	public boolean performOk() {
 		getOverlayStore().propagate();
 
-		XQDTPlugin.getDefault().savePluginPreferences();
+		XQDTSSEUIPlugin.getDefault().savePluginPreferences();
 		SSEUIPlugin.getDefault().savePluginPreferences();
 		return true;
 	}

@@ -22,7 +22,7 @@ import org.eclipse.wst.sse.ui.internal.provisional.style.AbstractLineStyleProvid
 import org.eclipse.wst.sse.ui.internal.provisional.style.LineStyleProvider;
 import org.eclipse.wst.xquery.sse.core.internal.regions.XQueryRegion;
 import org.eclipse.wst.xquery.sse.core.internal.regions.XQueryRegions;
-import org.eclipse.wst.xquery.sse.ui.XQDTPlugin;
+import org.eclipse.wst.xquery.sse.ui.XQDTSSEUIPlugin;
 
 /**
  * Provides style for XQuery regions
@@ -209,7 +209,7 @@ public class XQueryLineStyleProvider extends AbstractLineStyleProvider implement
 
 	@Override
 	protected IPreferenceStore getColorPreferences() {
-		return XQDTPlugin.getDefault().getPreferenceStore();
+		return XQDTSSEUIPlugin.getDefault().getPreferenceStore();
 	}
 
 	@SuppressWarnings("unchecked")

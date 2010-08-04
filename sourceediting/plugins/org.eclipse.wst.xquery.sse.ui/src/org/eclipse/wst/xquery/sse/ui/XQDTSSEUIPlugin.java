@@ -24,13 +24,13 @@ import org.osgi.framework.BundleContext;
  * The activator class controls the plug-in life cycle
  */
 @SuppressWarnings("restriction")
-public class XQDTPlugin extends UIPlugin {
+public class XQDTSSEUIPlugin extends UIPlugin {
 
 	// The plug-in ID
 	public static final String PLUGIN_ID = "org.eclipse.wst.xquery.ui.sse";
 
 	// The shared instance
-	private static XQDTPlugin plugin;
+	private static XQDTSSEUIPlugin plugin;
 
 	// Template store
 	private TemplateStore templateStore;
@@ -41,7 +41,7 @@ public class XQDTPlugin extends UIPlugin {
 	/**
 	 * The constructor
 	 */
-	public XQDTPlugin() {
+	public XQDTSSEUIPlugin() {
 	}
 
 	/*
@@ -71,7 +71,7 @@ public class XQDTPlugin extends UIPlugin {
 	 * 
 	 * @return the shared instance
 	 */
-	public static XQDTPlugin getDefault() {
+	public static XQDTSSEUIPlugin getDefault() {
 		return plugin;
 	}
 

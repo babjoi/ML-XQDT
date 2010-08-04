@@ -3,7 +3,7 @@ Bundle-ManifestVersion: 2
 Bundle-Name: %pluginName
 Bundle-SymbolicName: org.eclipse.wst.xquery.sse.ui;singleton:=true
 Bundle-Version: 0.7.0.qualifier
-Bundle-Activator: org.eclipse.wst.xquery.sse.ui.XQDTPlugin
+Bundle-Activator: org.eclipse.wst.xquery.sse.ui.XQDTSSEUIPlugin
 Bundle-Vendor: %providerName
 Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.ui,

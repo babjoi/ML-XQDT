@@ -34,7 +34,7 @@ import org.eclipse.wst.xquery.sse.core.internal.model.XQueryStructuredModel;
 import org.eclipse.wst.xquery.sse.core.internal.model.ast.IASTNode;
 import org.eclipse.wst.xquery.sse.core.internal.regions.XQueryRegions;
 import org.eclipse.wst.xquery.sse.core.internal.sdregions.XQueryStructuredDocumentRegion;
-import org.eclipse.wst.xquery.sse.ui.XQDTPlugin;
+import org.eclipse.wst.xquery.sse.ui.XQDTSSEUIPlugin;
 import org.eclipse.wst.xquery.sse.ui.internal.preferences.XQDTTemplatePreferencePage;
 
 /**
@@ -192,7 +192,7 @@ public class XQDTTemplateCompletionProcessor extends
 	// Helpers
 
 	private TemplateStore getTemplateStore() {
-		return XQDTPlugin.getDefault().getTemplateStore();
+		return XQDTSSEUIPlugin.getDefault().getTemplateStore();
 	}
 
 	private static final class ProposalComparator implements

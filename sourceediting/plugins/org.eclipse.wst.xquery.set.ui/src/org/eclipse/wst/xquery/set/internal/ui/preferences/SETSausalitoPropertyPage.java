@@ -24,7 +24,6 @@ import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Label;
-import org.eclipse.swt.widgets.Link;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.dialogs.PropertyPage;
 import org.eclipse.wst.xquery.set.core.SETProjectConfig;
@@ -38,7 +37,8 @@ public class SETSausalitoPropertyPage extends PropertyPage {
 
     private Label fUriLabel;
     private Label fVersionLabel;
-    private Link fStartPageLink;
+    private Label fStartPageLabel;
+    private Label fApiVersionLabel;
 
     protected Control createContents(Composite parent) {
         final Composite composite = new Composite(parent, SWT.NONE);
@@ -89,16 +89,22 @@ public class SETSausalitoPropertyPage extends PropertyPage {
         label = new Label(configBlock, SWT.NONE);
         label.setText("Start page:");
 
-        fStartPageLink = new Link(configBlock, SWT.NONE);
-        fStartPageLink.setLayoutData(new GridData(GridData.HORIZONTAL_ALIGN_FILL));
-        fStartPageLink.addSelectionListener(new SelectionAdapter() {
-            @Override
-            public void widgetSelected(SelectionEvent e) {
-                String startPage = SETEditProjectConfigDialog.getHandlerFunctionStartPage(fProject, getShell());
-                fStartPageLink.setText(startPage);
-                fConfig.setStartPage(startPage);
-            }
-        });
+        fStartPageLabel = new Label(configBlock, SWT.NONE);
+        fStartPageLabel.setLayoutData(new GridData(GridData.HORIZONTAL_ALIGN_FILL));
+//        fStartPageLink.addSelectionListener(new SelectionAdapter() {
+//            @Override
+//            public void widgetSelected(SelectionEvent e) {
+//                String startPage = SETEditProjectConfigDialog.getHandlerFunctionStartPage(fProject, getShell());
+//                fStartPageLink.setText(startPage);
+//                fConfig.setStartPage(startPage);
+//            }
+//        });
+
+        label = new Label(configBlock, SWT.NONE);
+        label.setText("API Version:");
+
+        fApiVersionLabel = new Label(configBlock, SWT.NONE);
+        fApiVersionLabel.setLayoutData(new GridData(GridData.HORIZONTAL_ALIGN_FILL));
 
         updateConfigControls();
 
@@ -139,13 +145,18 @@ public class SETSausalitoPropertyPage extends PropertyPage {
         fVersionLabel.setText(fConfig.getVersion());
 
         String startPage = fConfig.getStartPage();
-        boolean linkVisible = (startPage == null);
-        if (!linkVisible) {
-            fStartPageLink.setText(startPage);
+        if (startPage != null) {
+            fStartPageLabel.setText(startPage);
         } else {
-            fStartPageLink.setText("<A HREF=\"\">not set</A>");
+            fStartPageLabel.setText("not set");
         }
 
+        String apiVersion = fConfig.getApiVersion();
+        if (apiVersion.equals("")) {
+            fApiVersionLabel.setText("will be set after the first run");
+        } else {
+            fApiVersionLabel.setText(apiVersion);
+        }
     }
 
     private void createSeparator(Composite composite) {

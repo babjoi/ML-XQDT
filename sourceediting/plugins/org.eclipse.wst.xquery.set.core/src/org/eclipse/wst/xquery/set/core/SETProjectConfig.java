@@ -17,14 +17,16 @@ public class SETProjectConfig {
     private URI fLogicalUri;
     private String fStartPage;
     private String fVersion;
+    private String fApiVersion;
 
     public SETProjectConfig() {
     }
 
-    public SETProjectConfig(URI logicalUri, String startPage, String version) {
+    public SETProjectConfig(URI logicalUri, String startPage, String version, String apiVersion) {
         fLogicalUri = logicalUri;
         fStartPage = startPage;
         fVersion = version;
+        fApiVersion = apiVersion;
     }
 
     public URI getLogicalUri() {
@@ -49,6 +51,14 @@ public class SETProjectConfig {
 
     public void setVersion(String version) {
         fVersion = version;
+    }
+
+    public String getApiVersion() {
+        return fApiVersion;
+    }
+
+    public void setApiVersion(String apiVersion) {
+        fApiVersion = apiVersion;
     }
 
 }

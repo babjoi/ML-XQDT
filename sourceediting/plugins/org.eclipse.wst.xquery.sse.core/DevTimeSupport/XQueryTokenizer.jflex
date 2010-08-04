@@ -450,6 +450,59 @@ import org.eclipse.wst.xquery.sse.core.internal.regions.XQueryRegions;
 	  
 	}
 	
+	/** Parse XQuery comment */
+	final private void parseXQueryComment() throws IOException {
+		// The current char must be '('
+		// Search for :), ignoring nesting comments
+
+		yyadvance(); // skip '('
+		yyadvance(); // skip ':'
+		
+		int c;
+		int nesting = 0;
+		while (!isEOF()) {
+			c = yyadvance();
+
+			if (isEOF())
+			{
+				zzMarkedPos = zzCurrentPos;
+				return;
+			}
+
+			if (c == ':') {
+				c = yyadvance();
+				if (isEOF())
+				{
+					zzMarkedPos = zzCurrentPos;
+					return;
+				}
+
+				if (c == ')') {
+					if (nesting == 0)
+					{
+						// Found the end
+						zzMarkedPos = zzCurrentPos;
+						return;
+					}
+
+					nesting--;
+				}
+			} else if (c == '(') {
+				c = yyadvance();
+				if (isEOF())
+				{
+					zzMarkedPos = zzCurrentPos;
+					return;
+				}
+
+				if (c == ':')
+					nesting++;
+			}
+		}
+		
+		zzMarkedPos = zzCurrentPos;
+	}
+	
 	final private void startStmt(int type)
 	{
 	  startStatementType = type;
@@ -1821,7 +1874,8 @@ SimpleName = ({Letter} | "_" ) ({SimpleNameChar})*
 
 // Always available rules
 
-{XQueryComment} { 
+"(:" {
+    parseXQueryComment(); 
 	return XQUERY_COMMENT;
 }
 

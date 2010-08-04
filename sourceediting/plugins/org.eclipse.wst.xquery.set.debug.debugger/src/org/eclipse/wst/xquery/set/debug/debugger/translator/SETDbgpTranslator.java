@@ -173,6 +173,7 @@ public class SETDbgpTranslator extends DbgpWorkingThread implements IDbgpTransla
     private DbgpRequest fLastContinuationCommand;
     private DbgpRequest fLastStackGetCommand;
     private SuspendedMessage fLastSuspendedEvent;
+    private boolean fGlobalTerminate;
 
     private List<SetMessage> fPendingBreakpoint = new ArrayList<SetMessage>();
 
@@ -227,6 +228,7 @@ public class SETDbgpTranslator extends DbgpWorkingThread implements IDbgpTransla
             fLastContinuationCommand = request;
             fEngine.step(ZorbaDebuggerEngine.STEP_OVER);
         } else if (command.equals(IDbgpConstants.COMMAND_STOP)) {
+            fGlobalTerminate = true;
             fLastContinuationCommand = request;
             fEngine.terminate();
             response = new DbgpResponse(request);
@@ -478,22 +480,25 @@ public class SETDbgpTranslator extends DbgpWorkingThread implements IDbgpTransla
         }
         DbgpResponse response = null;
         if (event instanceof TerminatedMessage) {
-            try {
-                System.out.println("Reconnecting the engine after request termination...");
-                SETLaunchUtil.bringBrowserOnTop();
-                fEngine.reconnect();
-                while (!fEngine.isInitialized()) {
-                    Thread.sleep(500);
+            if (!fGlobalTerminate) {
+                try {
+                    System.out.println("Reconnecting the engine after request termination...");
+                    SETLaunchUtil.bringBrowserOnTop();
+                    fEngine.reconnect();
+                    while (!fEngine.isInitialized()) {
+                        Thread.sleep(500);
+                    }
+                    for (SetMessage setMessage : fPendingBreakpoint) {
+                        fEngine.sendCommand(setMessage);
+                    }
+                    fEngine.run();
+                    Thread.sleep(10000);
+                } catch (Exception e) {
+                    e.printStackTrace();
                 }
-                for (SetMessage setMessage : fPendingBreakpoint) {
-                    fEngine.sendCommand(setMessage);
-                }
-                fEngine.run();
-                Thread.sleep(10000);
-            } catch (Exception e) {
-                e.printStackTrace();
+            } else {
+                fireObjectTerminated(null);
             }
-
         } else if (event instanceof SuspendedMessage) {
             SuspendedMessage sm = (SuspendedMessage)event;
             fLastSuspendedEvent = sm;

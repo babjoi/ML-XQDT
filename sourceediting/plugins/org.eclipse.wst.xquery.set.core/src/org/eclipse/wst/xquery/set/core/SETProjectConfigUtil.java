@@ -50,6 +50,7 @@ public class SETProjectConfigUtil {
 
             String uriStr = null;
             String version = null;
+            String apiVersion = null;
             String startPage = null;
 
             Node child = rootElement.getFirstChild();
@@ -64,6 +65,8 @@ public class SETProjectConfigUtil {
                     startPage = child.getTextContent();
                 } else if (child.getNodeName().equals("version")) {
                     version = child.getTextContent();
+                } else if (child.getNodeName().equals("api_version")) {
+                    apiVersion = child.getTextContent();
                 }
 
             } while ((child = child.getNextSibling()) != null);
@@ -74,8 +77,11 @@ public class SETProjectConfigUtil {
             if (version == null || version.trim().length() == 0) {
                 version = "1.0";
             }
+            if (apiVersion == null || apiVersion.trim().length() == 0) {
+                apiVersion = "";
+            }
 
-            return new SETProjectConfig(new URI(uriStr), startPage, version);
+            return new SETProjectConfig(new URI(uriStr), startPage, version, apiVersion);
 
         } catch (URISyntaxException e) {
             e.printStackTrace();
@@ -107,6 +113,11 @@ public class SETProjectConfigUtil {
         uri.setTextContent(config.getLogicalUri().toString());
         Element version = document.createElement("version");
         version.setTextContent(config.getVersion());
+        String apiVersionStr = config.getApiVersion();
+        if (apiVersionStr != null && apiVersionStr.equals("")) {
+            Element apiVersion = document.createElement("api_version");
+            apiVersion.setTextContent(apiVersionStr);
+        }
 
         root.appendChild(uri);
         root.appendChild(version);
@@ -141,4 +152,5 @@ public class SETProjectConfigUtil {
             e.printStackTrace();
         }
     }
+
 }

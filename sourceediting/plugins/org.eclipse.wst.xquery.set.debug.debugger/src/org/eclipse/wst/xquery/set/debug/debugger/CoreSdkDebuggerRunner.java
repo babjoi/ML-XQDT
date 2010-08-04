@@ -4,11 +4,19 @@ import java.io.File;
 import java.net.InetAddress;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import org.eclipse.core.runtime.CoreException;
+import org.eclipse.core.runtime.ILog;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
+import org.eclipse.debug.core.DebugEvent;
+import org.eclipse.debug.core.DebugException;
+import org.eclipse.debug.core.DebugPlugin;
+import org.eclipse.debug.core.IDebugEventSetListener;
 import org.eclipse.debug.core.ILaunch;
+import org.eclipse.debug.core.model.IDebugTarget;
+import org.eclipse.debug.core.model.IProcess;
 import org.eclipse.dltk.core.IScriptProject;
 import org.eclipse.dltk.core.PreferencesLookupDelegate;
 import org.eclipse.dltk.launching.IInterpreterInstall;
@@ -53,8 +61,8 @@ public class CoreSdkDebuggerRunner extends TranslatableDebuggingEngineRunner {
             return new SETDbgpTranslator(project, InetAddress.getByName(dbgpConfig.getHost()), dbgpConfig.getPort(),
                     dbgpConfig.getSessionId(), file.toURI(), ports);
         } catch (Exception e) {
-            SETDebuggerPlugin.getDefault().getLog().log(
-                    new Status(IStatus.ERROR, SETDebuggerPlugin.PLUGIN_ID, e.getMessage(), e));
+            SETDebuggerPlugin.getDefault().getLog()
+                    .log(new Status(IStatus.ERROR, SETDebuggerPlugin.PLUGIN_ID, e.getMessage(), e));
             return null;
         }
     }
@@ -97,4 +105,30 @@ public class CoreSdkDebuggerRunner extends TranslatableDebuggingEngineRunner {
         return cmdLine.toArray(new String[cmdLine.size()]);
     }
 
+    @Override
+    protected IProcess newProcess(final ILaunch launch, Process p, String label, Map<String, String> attributes)
+            throws CoreException {
+        final IProcess process = super.newProcess(launch, p, label, attributes);
+        DebugPlugin.getDefault().addDebugEventListener(new IDebugEventSetListener() {
+            public void handleDebugEvents(DebugEvent[] events) {
+                if (events.length == 1 && events[0].getKind() == DebugEvent.TERMINATE) {
+                    DebugEvent event = events[0];
+                    IDebugTarget target = launch.getDebugTarget();
+                    try {
+                        if (event.getSource().equals(target)) {
+                            process.terminate();
+                        } else if (event.getSource().equals(process)) {
+                            target.terminate();
+                        }
+                    } catch (DebugException de) {
+                        ILog log = SETDebuggerPlugin.getDefault().getLog();
+                        log.log(new Status(IStatus.ERROR, SETDebuggerPlugin.PLUGIN_ID,
+                                "An error occured while stopping the Sausalito CoreSDK debugger.", de));
+                    }
+                }
+            }
+        });
+
+        return process;
+    }
 }

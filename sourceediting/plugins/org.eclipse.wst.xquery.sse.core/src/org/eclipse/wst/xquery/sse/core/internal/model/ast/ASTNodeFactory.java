@@ -209,4 +209,11 @@ public class ASTNodeFactory {
 		return new ASTStep();
 	}
 
+	/**
+	 * @return
+	 */
+	public ASTKindTest newKindTest() {
+		return new ASTKindTest();
+	}
+
 }

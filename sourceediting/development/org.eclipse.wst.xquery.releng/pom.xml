@@ -9,7 +9,7 @@
 	<packaging>pom</packaging>
 
 	<properties>
-		<tycho-version>0.10.0-SNAPSHOT</tycho-version>
+		<tycho-version>0.8.0</tycho-version>
 	</properties>
  
 	<modules>
@@ -60,12 +60,12 @@
 
 	</modules>
 
-	<pluginRepositories>
-	    <pluginRepository>
-			<id>tycho-snapshots</id>
-			<url>https://repository.sonatype.org/content/repositories/snapshots</url>
-	    </pluginRepository>
-    </pluginRepositories>
+<!--	<pluginRepositories>-->
+<!--	    <pluginRepository>-->
+<!--			<id>tycho-snapshots</id>-->
+<!--			<url>https://repository.sonatype.org/content/repositories/snapshots</url>-->
+<!--	    </pluginRepository>-->
+<!--    </pluginRepositories>-->
 
 	<build>
 		<plugins>

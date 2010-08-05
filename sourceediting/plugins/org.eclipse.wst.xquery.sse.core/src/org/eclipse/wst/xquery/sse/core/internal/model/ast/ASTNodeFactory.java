@@ -237,4 +237,46 @@ public class ASTNodeFactory {
 		return new ASTSingleType();
 	}
 
+	/**
+	 * @return
+	 */
+	public ASTCompPIConstructor newCompPIConstructor() {
+		return new ASTCompPIConstructor();
+	}
+
+	/**
+	 * @return
+	 */
+	public ASTCompDocConstructor newCompDocConstructor() {
+		return new ASTCompDocConstructor();
+	}
+
+	/**
+	 * @return
+	 */
+	public ASTCompElemConstructor newCompElemConstructor() {
+		return new ASTCompElemConstructor();
+	}
+
+	/**
+	 * @return
+	 */
+	public ASTCompTextConstructor newCompTextConstructor() {
+		return new ASTCompTextConstructor();
+	}
+
+	/**
+	 * @return
+	 */
+	public ASTCompCommentConstructor newCompCommentConstructor() {
+		return new ASTCompCommentConstructor();
+	}
+
+	/**
+	 * @return
+	 */
+	public ASTCompAttrConstructor newCompAttrConstructor() {
+		return new ASTCompAttrConstructor();
+	}
+
 }

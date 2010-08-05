@@ -60,6 +60,12 @@ public interface IASTNode {
 	public static final int PARENTHERIZED = 31;
 	public static final int CONTEXTITEM = 32;
 	public static final int SINGLETYPE = 33;
+	public static final int COMPDOCCONSTRUCTOR = 34;
+	public static final int COMPELEMCONSTRUCTOR = 35;
+	public static final int COMPATTRCONSTRUCTOR = 36;
+	public static final int COMPTEXTCONSTRUCTOR = 37;
+	public static final int COMPCOMMENTCONSTRUCTOR = 38;
+	public static final int COMPPICONSTRUCTOR = 39;
 	
 
 	/** Gets the AST node type */

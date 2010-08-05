@@ -1691,7 +1691,7 @@ SimpleName = ({Letter} | "_" ) ({SimpleNameChar})*
 <TS_COMPELEMENTORATTRLCURLY> "{" { pushState(CURLYEXPR); yybegin(TS_EXPROPT); return LCURLY; }
 
 <TS_COMPPI> {
-  {NCName}       { yybegin(TS_COMPELEMENTORATTRLCURLY); return QNAME; }
+  {NCName}       { yybegin(TS_COMPELEMENTORATTRLCURLY); return NCNAME; }
   "{"			 { pushState(TS_COMPELEMENTORATTRLCURLY); pushState(CURLYEXPR); yybegin(TS_EXPR); return LCURLY; }
 }
 

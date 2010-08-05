@@ -18,6 +18,12 @@ import org.eclipse.wst.xquery.sse.core.internal.XQueryMessages;
 import org.eclipse.wst.xquery.sse.core.internal.model.ast.ASTApply;
 import org.eclipse.wst.xquery.sse.core.internal.model.ast.ASTBindingClause;
 import org.eclipse.wst.xquery.sse.core.internal.model.ast.ASTClause;
+import org.eclipse.wst.xquery.sse.core.internal.model.ast.ASTCompAttrConstructor;
+import org.eclipse.wst.xquery.sse.core.internal.model.ast.ASTCompCommentConstructor;
+import org.eclipse.wst.xquery.sse.core.internal.model.ast.ASTCompDocConstructor;
+import org.eclipse.wst.xquery.sse.core.internal.model.ast.ASTCompElemConstructor;
+import org.eclipse.wst.xquery.sse.core.internal.model.ast.ASTCompPIConstructor;
+import org.eclipse.wst.xquery.sse.core.internal.model.ast.ASTCompTextConstructor;
 import org.eclipse.wst.xquery.sse.core.internal.model.ast.ASTContextItem;
 import org.eclipse.wst.xquery.sse.core.internal.model.ast.ASTExprSingleClause;
 import org.eclipse.wst.xquery.sse.core.internal.model.ast.ASTFLWOR;
@@ -567,8 +573,12 @@ public class ModelBuilder {
 	 */
 	protected IASTNode reparseEnclosedExpr(IASTNode node) {
 		nextSDRegion(); // "{"
+
 		IASTNode enclosed = reparseExpr(node);
-		nextSDRegion(); // "}"
+
+		if (checkAndReport(XQueryRegions.RCURLY,
+				XQueryMessages.errorXQSE_MissingRCurly_UI_))
+			nextSDRegion(); // "}"
 		return enclosed;
 	}
 
@@ -1699,112 +1709,104 @@ public class ModelBuilder {
 	}
 
 	/**
-	 * Reparse
-	 * <tt>"processing-instruction" (NCName | ("{" Expr "}")) "{" Expr? "}"</tt>
+	 * Reparse <tt>"document" "{" Expr "}"</tt>
 	 */
-	protected IASTNode reparseCompPIConstructor(IASTNode expr) {
-		nextSDRegion(); // "processing-instruction"
-		if (sameRegionType(XQueryRegions.NCNAME))
-			nextSDRegion();
-		else
-			reparseEnclosedExpr(null);
-
-		nextSDRegion(); // {
-		if (sameRegionType(XQueryRegions.RCURLY)) {
-			nextSDRegion(); // }
-			return null;
-		}
-
-		reparseExpr(null);
-		nextSDRegion(); // }
-		return null;
+	protected IASTNode reparseCompDocConstructor(IASTNode node) {
+		ASTCompDocConstructor constructor = asCompDocConstructor(node);
+		return reparseCompTextDocComment(constructor);
 	}
 
 	/**
 	 * Reparse <tt>"comment" "{" Expr "}"</tt>
 	 */
-	protected IASTNode reparseCompCommentConstructor(IASTNode expr) {
-		nextSDRegion();
-
-		nextSDRegion(); // {
-		if (sameRegionType(XQueryRegions.RCURLY)) {
-			nextSDRegion(); // }
-			return null;
-		}
-
-		reparseExpr(null);
-		nextSDRegion(); // }
-		return null;
+	protected IASTNode reparseCompCommentConstructor(IASTNode node) {
+		ASTCompCommentConstructor constructor = asCompCommentConstructor(node);
+		return reparseCompTextDocComment(constructor);
 	}
 
 	/**
 	 * Reparse <tt>"text" "{" Expr "}"</tt>
 	 */
-	protected IASTNode reparseCompTextConstructor(IASTNode expr) {
-		nextSDRegion();
+	protected IASTNode reparseCompTextConstructor(IASTNode node) {
+		ASTCompTextConstructor constructor = asCompTextConstructor(node);
+		return reparseCompTextDocComment(constructor);
+	}
 
-		nextSDRegion(); // {
-		if (sameRegionType(XQueryRegions.RCURLY)) {
-			nextSDRegion(); // }
-			return null;
-		}
+	/** Helper method reparsing text, doc or comment constructor */
+	protected IASTNode reparseCompTextDocComment(IASTNode node) {
+		nextSDRegion(); // 'text'/'comment'/'doc'
 
-		reparseExpr(null);
-		nextSDRegion(); // }
-		return null;
+		IASTNode oldExpr = node.getChildASTNodeAt(0);
+		IASTNode newExpr = reparseEnclosedExpr(oldExpr);
+		node.setChildASTNodeAt(0, newExpr);
+
+		if (newExpr == null)
+			reportError(XQueryMessages.errorXQSE_MissingExpr_UI_);
+
+		return node;
 	}
 
 	/**
 	 * Reparse <tt>"attribute" (QName | ("{" Expr "}")) "{" Expr? "}"</tt>
 	 */
-	protected IASTNode reparseCompAttrConstructor(IASTNode expr) {
-		nextSDRegion();
-
-		if (sameRegionType(XQueryRegions.QNAME))
-			nextSDRegion();
-		else
-			reparseEnclosedExpr(null);
-
-		nextSDRegion(); // {
-		if (sameRegionType(XQueryRegions.RCURLY)) {
-			nextSDRegion(); // }
-			return null;
-		}
-
-		reparseExpr(null);
-		nextSDRegion(); // }
-		return null;
+	protected IASTNode reparseCompAttrConstructor(IASTNode node) {
+		ASTCompAttrConstructor constructor = asCompAttrConstructor(node);
+		return reparseCompElemAttrPI(constructor, XQueryRegions.QNAME);
 	}
 
 	/**
 	 * Reparse <tt>element" (QName | ("{" Expr "}")) "{" ContentExpr? "}"</tt>
 	 */
-	protected IASTNode reparseCompElementConstructor(IASTNode expr) {
-		nextSDRegion();
-
-		if (sameRegionType(XQueryRegions.QNAME))
-			nextSDRegion();
-		else
-			reparseEnclosedExpr(null);
-
-		nextSDRegion(); // {
-		if (sameRegionType(XQueryRegions.RCURLY)) {
-			nextSDRegion(); // }
-			return null;
-		}
-
-		reparseExpr(null);
-		nextSDRegion(); // }
-		return null;
+	protected IASTNode reparseCompElementConstructor(IASTNode node) {
+		ASTCompElemConstructor constructor = asCompElemConstructor(node);
+		return reparseCompElemAttrPI(constructor, XQueryRegions.QNAME);
 	}
 
 	/**
-	 * Reparse <tt>"document" "{" Expr "}"</tt>
+	 * Reparse
+	 * <tt>"processing-instruction" (NCName | ("{" Expr "}")) "{" Expr? "}"</tt>
 	 */
-	protected IASTNode reparseCompDocConstructor(IASTNode expr) {
-		nextSDRegion();
-		reparseEnclosedExpr(null);
-		return null;
+	protected IASTNode reparseCompPIConstructor(IASTNode node) {
+		ASTCompPIConstructor constructor = asCompPIConstructor(node); 
+		return reparseCompElemAttrPI(constructor, XQueryRegions.NCNAME);
+	}
+
+	/** Helper method reparsing elem/attr/pi expression */
+	protected IASTNode reparseCompElemAttrPI(IASTNode node,
+			String nameRegionType) {
+		nextSDRegion(); // "processing-instruction"
+
+		if (sameRegionType(nameRegionType))
+			nextSDRegion(); // NCName
+		else if (sameRegionType(XQueryRegions.LCURLY)) {
+			IASTNode oldExpr = node.getChildASTNodeAt(0);
+			IASTNode newExpr = reparseEnclosedExpr(oldExpr);
+			node.setChildASTNodeAt(0, newExpr);
+		} else {
+			reportError(XQueryMessages.errorXQSE_MissingPIName_UI_);
+		}
+
+		if (checkAndReport(XQueryRegions.LCURLY,
+				XQueryMessages.errorXQSE_MissingLCurly_UI_)) {
+
+			nextSDRegion(); // '{'
+
+			if (!sameRegionType(XQueryRegions.RCURLY)) {
+				// There is an expression
+
+				IASTNode oldContentExpr = node.getChildASTNodeAt(0);
+				IASTNode newContentExpr = reparseExpr(oldContentExpr);
+				node.setChildASTNodeAt(0, newContentExpr);
+
+				if (!sameRegionType(XQueryRegions.RCURLY))
+					reportError(XQueryMessages.errorXQSE_MissingRCurly_UI_);
+				else
+					nextSDRegion(); // '}'
+			} else {
+				nextSDRegion(); // '}'
+			}
+		}
+		return node;
 	}
 
 	/**
@@ -2226,6 +2228,55 @@ public class ModelBuilder {
 			return (ASTIf) node;
 
 		return nodeFactory.newIf();
+	}
+
+	/** Gets AST node as {@link ASTCompPIConstructor} */
+	protected ASTCompPIConstructor asCompPIConstructor(IASTNode node) {
+		if (node != null && node.getType() == IASTNode.COMPPICONSTRUCTOR)
+			return (ASTCompPIConstructor) node;
+
+		return nodeFactory.newCompPIConstructor();
+	}
+
+	/** Gets AST node as {@link ASTCompDocConstructor} */
+	protected ASTCompDocConstructor asCompDocConstructor(IASTNode node) {
+
+		if (node != null && node.getType() == IASTNode.COMPDOCCONSTRUCTOR)
+			return (ASTCompDocConstructor) node;
+
+		return nodeFactory.newCompDocConstructor();
+	}
+
+	/** Gets AST node as {@link ASTCompElemConstructor} */
+	protected ASTCompElemConstructor asCompElemConstructor(IASTNode node) {
+		if (node != null && node.getType() == IASTNode.COMPPICONSTRUCTOR)
+			return (ASTCompElemConstructor) node;
+
+		return nodeFactory.newCompElemConstructor();
+	}
+
+	/** Gets AST node as {@link ASTCompTextConstructor} */
+	protected ASTCompTextConstructor asCompTextConstructor(IASTNode node) {
+		if (node != null && node.getType() == IASTNode.COMPTEXTCONSTRUCTOR)
+			return (ASTCompTextConstructor) node;
+
+		return nodeFactory.newCompTextConstructor();
+	}
+
+	/** Gets AST node as {@link ASTCompCommentConstructor} */
+	protected ASTCompCommentConstructor asCompCommentConstructor(IASTNode node) {
+		if (node != null && node.getType() == IASTNode.COMPTEXTCONSTRUCTOR)
+			return (ASTCompCommentConstructor) node;
+
+		return nodeFactory.newCompCommentConstructor();
+	}
+
+	/** Gets AST node as {@link ASTCompAttrConstructor} */
+	protected ASTCompAttrConstructor asCompAttrConstructor(IASTNode node) {
+		if (node != null && node.getType() == IASTNode.COMPATTRCONSTRUCTOR)
+			return (ASTCompAttrConstructor) node;
+
+		return nodeFactory.newCompAttrConstructor();
 	}
 
 	/** Gets AST node as {@link ASTSingleType} */

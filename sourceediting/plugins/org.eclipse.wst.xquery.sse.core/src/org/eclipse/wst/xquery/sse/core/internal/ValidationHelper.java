@@ -40,12 +40,14 @@ public class ValidationHelper {
 			message.setOffset(sdregion.getStartOffset()
 					+ sdregion.getTextLength() - 1);
 			message.setLength(1);
+			message.setLineNo(sdregion.getParentDocument().getLineOfOffset(
+					sdregion.getStartOffset() + sdregion.getTextLength() - 1));
 		} else {
 			message.setOffset(sdregion.getStartOffset());
 			message.setLength(sdregion.getTextLength());
+			message.setLineNo(sdregion.getParentDocument().getLineOfOffset(
+					sdregion.getStartOffset()));
 		}
-		message.setLineNo(sdregion.getParentDocument().getLineOfOffset(
-				sdregion.getStartOffset()));
 
 		return message;
 	}

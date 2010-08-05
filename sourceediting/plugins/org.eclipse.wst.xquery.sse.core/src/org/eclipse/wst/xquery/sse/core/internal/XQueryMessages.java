@@ -46,6 +46,7 @@ public class XQueryMessages extends NLS {
 	public static String errorXQSE_MissingTargetChoice_UI_;
 	public static String errorXQSE_MissingSatisfies_UI_;
 	public static String errorXQSE_MissingRCurly_UI_;
+	public static String errorXQSE_MissingLCurly_UI_;
 	public static String errorXQSE_MissingRSquare_UI_;
 	public static String errorXQSE_MissingRPar_UI_;
 	public static String errorXQSE_MissingExprSingle_UI_;
@@ -54,6 +55,7 @@ public class XQueryMessages extends NLS {
 	public static String errorXQSE_MissingNodeTest_UI_;
 	public static String errorXQSE_MissingSequenceType_UI_;
 	public static String errorXQSE_MissingSingleType_UI_;
+	public static String errorXQSE_MissingPIName_UI_;
 	
 	
 	static {

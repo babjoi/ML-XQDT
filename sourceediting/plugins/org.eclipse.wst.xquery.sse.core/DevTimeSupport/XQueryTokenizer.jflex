@@ -927,6 +927,8 @@ SimpleName = ({Letter} | "_" ) ({SimpleNameChar})*
 %state TS_XMLAPOSATTRVALUE
 %state TS_SINK
 %state TS_ENDVARREF
+%state TS_SINGLETYPE
+%state TS_SINGLETYPEQMOREND
 
 // XQuery Update Facility 1.0 (Candidate Recommentation)
 
@@ -1373,7 +1375,7 @@ SimpleName = ({Letter} | "_" ) ({SimpleNameChar})*
  
 // Delimiters
 
-<TS_EXPROPT, TS_ENDPRIMARY, TS_ENDAXISSTEP, TS_OPTSTEPEXPR, TS_ENDVARREF> {
+<TS_EXPROPT, TS_ENDPRIMARY, TS_SINGLETYPEQMOREND, TS_ENDAXISSTEP, TS_OPTSTEPEXPR, TS_ENDVARREF> {
   "]"				{ 
 						check(endExprSingle(), PREDICATEEXPR); 
 						yybegin(TS_ENDPRIMARY); 
@@ -1388,7 +1390,7 @@ SimpleName = ({Letter} | "_" ) ({SimpleNameChar})*
  
 }
 
-<TS_EXPROPT, TS_ENDPRIMARY, TS_ENDAXISSTEP, TS_OPTSTEPEXPR, TS_ENDEXPRSINGLE, TS_ENDVARREF> {
+<TS_EXPROPT, TS_ENDPRIMARY, TS_SINGLETYPEQMOREND, TS_ENDAXISSTEP, TS_OPTSTEPEXPR, TS_ENDEXPRSINGLE, TS_ENDVARREF> {
   
   "}"				{ 
    						check(endExprSingle(), CURLYEXPR, SXBLOCK, SXWHILE); 
@@ -1397,14 +1399,14 @@ SimpleName = ({Letter} | "_" ) ({SimpleNameChar})*
    					} 
 } 
 
-<TS_ENDPRIMARY, TS_ENDAXISSTEP, TS_OPTSTEPEXPR, TS_ENDVARREF> {
+<TS_ENDPRIMARY, TS_SINGLETYPEQMOREND, TS_ENDAXISSTEP, TS_OPTSTEPEXPR, TS_ENDVARREF> {
   "["							{ pushState(PREDICATEEXPR); yybegin(TS_EXPR); return LSQUARE; }  
   
   "/" 							{ yybegin(TS_STEPEXPR); return PATH_SLASH; }
   "//" 							{ yybegin(TS_STEPEXPR); return PATH_SLASHSLASH; }
 }
 
-<TS_ENDPRIMARY, TS_ENDAXISSTEP, TS_OPTSTEPEXPR, TS_ENDEXPRSINGLE,TS_ENDVARREF,TS_GCAFTERVARNAME,TS_GCENDGROUPINGSPEC> {
+<TS_ENDPRIMARY, TS_SINGLETYPEQMOREND, TS_ENDAXISSTEP, TS_OPTSTEPEXPR, TS_ENDEXPRSINGLE,TS_ENDVARREF,TS_GCAFTERVARNAME,TS_GCENDGROUPINGSPEC> {
   ","							{ return comma();  } 
   ";"							{ return semicolon();  }    
 }
@@ -1415,7 +1417,7 @@ SimpleName = ({Letter} | "_" ) ({SimpleNameChar})*
  
 // Operators  
 
-<TS_ENDPRIMARY, TS_ENDAXISSTEP, TS_OPTSTEPEXPR, TS_ENDVARREF> { 
+<TS_ENDPRIMARY, TS_SINGLETYPEQMOREND, TS_ENDAXISSTEP, TS_OPTSTEPEXPR, TS_ENDVARREF> { 
   "or"	 							{  yybegin(TS_OPERAND); return OP_OR; }
   "and"	 							{  yybegin(TS_OPERAND); return OP_AND; }
   "to"	 							{  yybegin(TS_OPERAND); return OP_TO; }
@@ -1469,7 +1471,7 @@ SimpleName = ({Letter} | "_" ) ({SimpleNameChar})*
  
 // ExprSingle Delimiters for let/for clause
 
-<TS_ENDPRIMARY, TS_ENDAXISSTEP, TS_OPTSTEPEXPR, TS_ENDVARREF,TS_GCAFTERVARNAME, TS_GCENDGROUPINGSPEC> {
+<TS_ENDPRIMARY, TS_SINGLETYPEQMOREND, TS_ENDAXISSTEP, TS_OPTSTEPEXPR, TS_ENDVARREF,TS_GCAFTERVARNAME, TS_GCENDGROUPINGSPEC> {
   "for" / {SymbolSep}*"$"			{ check(endExprSingle(), FLCLAUSEEXPR); checkTop(FLWORFOR, FLWORLET); popState(); pushState(FLWORFOR); yybegin(TS_FORCLAUSE); return KW_FOR; } 
   "let" / {SymbolSep}*"$" 			{ check(endExprSingle(), FLCLAUSEEXPR); checkTop(FLWORFOR, FLWORLET); popState(); pushState(FLWORLET); yybegin(TS_LETCLAUSE); return KW_LET; }
   "where" 							{ 
@@ -1508,12 +1510,12 @@ SimpleName = ({Letter} | "_" ) ({SimpleNameChar})*
 
 <TS_STABLEORDER> 	"order" 		{ yybegin(TS_BY); return KW_ORDER; }
 <TS_BY> 			"by" 			{ pushState(ORDEREXPR); yybegin(TS_EXPRSINGLE); return KW_BY; }  
-<TS_ENDPRIMARY, TS_ENDAXISSTEP, TS_OPTSTEPEXPR,TS_ENDVARREF> {
+<TS_ENDPRIMARY, TS_SINGLETYPEQMOREND, TS_ENDAXISSTEP, TS_OPTSTEPEXPR,TS_ENDVARREF> {
   "ascending"			{ checkTop(ORDEREXPR); yybegin(TS_ORDERMODIFIER); return KW_ASCENDING; } // The OrderExpr will be closed when finishing OrderSpec
   "descending"			{ checkTop(ORDEREXPR); yybegin(TS_ORDERMODIFIER); return KW_DESCENDING; }
 }
 
-<TS_ENDPRIMARY, TS_ENDAXISSTEP, TS_OPTSTEPEXPR, TS_ORDERMODIFIER,TS_ENDVARREF> {
+<TS_ENDPRIMARY, TS_SINGLETYPEQMOREND, TS_ENDAXISSTEP, TS_OPTSTEPEXPR, TS_ORDERMODIFIER,TS_ENDVARREF> {
   "empty"				{ checkTop(ORDEREXPR); yybegin(TS_OMEMPTY); return KW_EMPTY; }		
 }
 
@@ -1522,7 +1524,7 @@ SimpleName = ({Letter} | "_" ) ({SimpleNameChar})*
   "least"			{ yybegin(TS_ORDERMODIFIER2); return KW_LEAST; }
 }
 
-<TS_ENDPRIMARY, TS_ENDAXISSTEP, TS_OPTSTEPEXPR, TS_ORDERMODIFIER, TS_ORDERMODIFIER2,TS_ENDVARREF>  "collation"	{ checkTop(ORDEREXPR); yybegin(TS_COLLATIONURI); return KW_COLLATION; }
+<TS_ENDPRIMARY, TS_SINGLETYPEQMOREND, TS_ENDAXISSTEP, TS_OPTSTEPEXPR, TS_ORDERMODIFIER, TS_ORDERMODIFIER2,TS_ENDVARREF>  "collation"	{ checkTop(ORDEREXPR); yybegin(TS_COLLATIONURI); return KW_COLLATION; }
 <TS_COLLATIONURI> {StringLiteral} { yybegin(TS_ENDORDERSPEC); return URILITERAL; }
 
 <TS_ORDERMODIFIER, TS_ORDERMODIFIER2, TS_ENDORDERSPEC> {
@@ -1532,7 +1534,14 @@ SimpleName = ({Letter} | "_" ) ({SimpleNameChar})*
 
 <TS_IOTYPEDECL> "of" { pushState(TS_ENDPRIMARY); yybegin(TS_TYPEDECL); return OP_OF; }
 <TS_TATYPEDECL> "as" { pushState(TS_ENDPRIMARY); yybegin(TS_TYPEDECL); return OP_AS; }
-<TS_CATYPEDECL> "as" { pushState(TS_ENDPRIMARY); yybegin(TS_TYPEDECL); return OP_AS; }
+
+<TS_CATYPEDECL> "as" {  
+						yybegin(TS_SINGLETYPE);// Expect a SingleType
+					    return OP_AS;
+					 }
+					 
+<TS_SINGLETYPE> {QName} { yybegin(TS_SINGLETYPEQMOREND); return ST_ATOMICTYPE; }
+<TS_SINGLETYPEQMOREND> "?" { yybegin(TS_ENDPRIMARY); return OCC_OPTIONAL; }
 
 // Let clause
 // LetClause	   ::=   	"let" "$" VarName TypeDeclaration? ":=" ExprSingle ("," "$" VarName TypeDeclaration? ":=" ExprSingle)*
@@ -1565,7 +1574,7 @@ SimpleName = ({Letter} | "_" ) ({SimpleNameChar})*
 <TS_ENDQUANTIFIEDVARREF, TS_ENDQUANTIFIEDTYPEDECL> "in" { pushState(QUANTIFIEDINEXPR); yybegin(TS_EXPRSINGLE); return KW_IN; } 
 
 // ExprSingle delimiters for quantified expression
-<TS_ENDPRIMARY, TS_ENDAXISSTEP, TS_OPTSTEPEXPR, TS_ENDVARREF> "satisfies" { check(endExprSingle(), QUANTIFIEDINEXPR); pushState(QUANTIFIEDSATIFIESEXPR); yybegin(TS_EXPRSINGLE); return KW_SATIFIES; }
+<TS_ENDPRIMARY, TS_SINGLETYPEQMOREND, TS_ENDAXISSTEP, TS_OPTSTEPEXPR, TS_ENDVARREF> "satisfies" { check(endExprSingle(), QUANTIFIEDINEXPR); pushState(QUANTIFIEDSATIFIESEXPR); yybegin(TS_EXPRSINGLE); return KW_SATIFIES; }
 
 // ===== If expression
 // "if" "(" Expr ")" "then" ExprSingle "else" ExprSingle
@@ -1574,7 +1583,7 @@ SimpleName = ({Letter} | "_" ) ({SimpleNameChar})*
 <TS_ENDIFTEST> "then" 	{ pushState(IFTHENEXPR); yybegin(TS_EXPRSINGLE); return KW_THEN; }
 
 // ExprSingle delimiters for if expression
-<TS_ENDPRIMARY, TS_ENDAXISSTEP, TS_OPTSTEPEXPR, TS_ENDVARREF> "else" { check(endExprSingle(), IFTHENEXPR); pushState(IFELSEEXPR); yybegin(TS_EXPRSINGLE); return KW_ELSE; }
+<TS_ENDPRIMARY, TS_SINGLETYPEQMOREND, TS_ENDAXISSTEP, TS_OPTSTEPEXPR, TS_ENDVARREF> "else" { check(endExprSingle(), IFTHENEXPR); pushState(IFELSEEXPR); yybegin(TS_EXPRSINGLE); return KW_ELSE; }
 
 // ===== typesswitch expression
 // "typeswitch" "(" Expr ")" CaseClause+ "default" ("$" VarName)? "return" ExprSingle
@@ -1590,7 +1599,7 @@ SimpleName = ({Letter} | "_" ) ({SimpleNameChar})*
 <TS_ENDTSSEQUENCETYPE> "return" { yybegin(TS_EXPRSINGLE); return KW_RETURN; }
 
 // ExprSingle delimiters for case expression
-<TS_ENDPRIMARY, TS_ENDAXISSTEP, TS_OPTSTEPEXPR, TS_ENDEXPRSINGLE,TS_ENDVARREF> {
+<TS_ENDPRIMARY, TS_SINGLETYPEQMOREND, TS_ENDAXISSTEP, TS_OPTSTEPEXPR, TS_ENDEXPRSINGLE,TS_ENDVARREF> {
   "case" 			{ pushState(TS_ENDTSSEQUENCETYPE); yybegin(TS_ENDCASEKW); return KW_CASE; }
   "default" 		{ yybegin(TS_ENDTSDEFAULTKW); return KW_DEFAULT; }
 }
@@ -1778,7 +1787,7 @@ SimpleName = ({Letter} | "_" ) ({SimpleNameChar})*
 }
 
 // ExprSingle delimiters for SourceExpr
-<TS_ENDPRIMARY, TS_ENDAXISSTEP, TS_OPTSTEPEXPR, TS_ENDEXPRSINGLE,TS_ENDVARREF> {
+<TS_ENDPRIMARY, TS_SINGLETYPEQMOREND, TS_ENDAXISSTEP, TS_OPTSTEPEXPR, TS_ENDEXPRSINGLE,TS_ENDVARREF> {
   "as" / {SymbolSep}+("first"|"last")	{ check(endExprSingle(), XUSOURCE); yybegin(TS_FIRSTORLAST); return KW_AS; }
   "before"      { check(endExprSingle(), XUSOURCE); pushState(XUINSERTTARGET); yybegin(TS_EXPRSINGLE); return KW_BEFORE; }
   "after"		{ check(endExprSingle(), XUSOURCE); pushState(XUINSERTTARGET); yybegin(TS_EXPRSINGLE); return KW_AFTER; }
@@ -1806,7 +1815,7 @@ SimpleName = ({Letter} | "_" ) ({SimpleNameChar})*
 <TS_REPLACEOF> 					  "of"		 	{ yybegin(TS_REPLACENODE); return KW_OF; }
 
 // ExprSingle delimiters for TargetExpr
-<TS_ENDPRIMARY, TS_ENDAXISSTEP, TS_OPTSTEPEXPR, TS_ENDEXPRSINGLE,TS_ENDVARREF> {
+<TS_ENDPRIMARY, TS_SINGLETYPEQMOREND, TS_ENDAXISSTEP, TS_OPTSTEPEXPR, TS_ENDEXPRSINGLE,TS_ENDVARREF> {
   "with"		{ check(endExprSingle(), XUREPLACETARGET); pushState(XUREPLACESRC); yybegin(TS_EXPRSINGLE); return KW_WITH;}
 }
 
@@ -1814,7 +1823,7 @@ SimpleName = ({Letter} | "_" ) ({SimpleNameChar})*
 <TS_RENAMEEXPR> "node" { yybegin(TS_EXPRSINGLE); return KW_NODE; }
 
 // ExprSingle delimiters for TargetExpr
-<TS_ENDPRIMARY, TS_ENDAXISSTEP, TS_OPTSTEPEXPR, TS_ENDEXPRSINGLE,TS_ENDVARREF> {
+<TS_ENDPRIMARY, TS_SINGLETYPEQMOREND, TS_ENDAXISSTEP, TS_OPTSTEPEXPR, TS_ENDEXPRSINGLE,TS_ENDVARREF> {
   "as"		{ check(endExprSingle(), XURENAME); pushState(XUNEWNAMEEXPR); yybegin(TS_EXPRSINGLE); return KW_AS;}
 }
 
@@ -1826,7 +1835,7 @@ SimpleName = ({Letter} | "_" ) ({SimpleNameChar})*
 <TS_ENDCOPYVARREF> ":=" { pushState(XUTRANSFORMASSIGN); yybegin(TS_EXPRSINGLE); return ASSIGN; }
 
 // ExprSingle delimiters
-<TS_ENDPRIMARY, TS_ENDAXISSTEP, TS_OPTSTEPEXPR, TS_ENDEXPRSINGLE,TS_ENDVARREF> {
+<TS_ENDPRIMARY, TS_SINGLETYPEQMOREND, TS_ENDAXISSTEP, TS_OPTSTEPEXPR, TS_ENDEXPRSINGLE,TS_ENDVARREF> {
   "modify"		{ check(endExprSingle(), XUTRANSFORMASSIGN); pushState(XUMODIFYEXPR); yybegin(TS_EXPRSINGLE); return KW_MODIFY;}
   
   // "return" is handled in the 'for' rule

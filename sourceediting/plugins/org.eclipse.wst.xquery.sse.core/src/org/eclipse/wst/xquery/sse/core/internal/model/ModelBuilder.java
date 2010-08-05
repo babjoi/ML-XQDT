@@ -36,6 +36,7 @@ import org.eclipse.wst.xquery.sse.core.internal.model.ast.ASTParentherized;
 import org.eclipse.wst.xquery.sse.core.internal.model.ast.ASTPath;
 import org.eclipse.wst.xquery.sse.core.internal.model.ast.ASTQuantified;
 import org.eclipse.wst.xquery.sse.core.internal.model.ast.ASTSequenceType;
+import org.eclipse.wst.xquery.sse.core.internal.model.ast.ASTSingleType;
 import org.eclipse.wst.xquery.sse.core.internal.model.ast.ASTStep;
 import org.eclipse.wst.xquery.sse.core.internal.model.ast.ASTTypeswitch;
 import org.eclipse.wst.xquery.sse.core.internal.model.ast.ASTVarDecl;
@@ -162,22 +163,6 @@ public class ModelBuilder {
 			new int[] { ASTOperator.OP_INTERSECT, ASTOperator.OP_EXCEPT },
 			new String[] { XQueryRegions.OP_INTERSECT, XQueryRegions.OP_EXCEPT });
 
-	final protected OperatorFilter instanceOfFilter = new OperatorFilter(
-			new int[] { ASTOperator.OP_INSTANCEOF },
-			new String[] { XQueryRegions.OP_INSTANCEOF });
-
-	final protected OperatorFilter treatFilter = new OperatorFilter(
-			new int[] { ASTOperator.OP_TREATAS },
-			new String[] { XQueryRegions.OP_TREATAS });
-
-	final protected OperatorFilter castFilter = new OperatorFilter(
-			new int[] { ASTOperator.OP_CASTAS },
-			new String[] { XQueryRegions.OP_CASTAS });
-
-	final protected OperatorFilter castableFilter = new OperatorFilter(
-			new int[] { ASTOperator.OP_CASTABLEAS },
-			new String[] { XQueryRegions.OP_CASTABLEAS });
-
 	final protected OperatorFilter relativePathFilter = new OperatorFilter(
 			new int[] { ASTOperator.PATH_SLASH, ASTOperator.PATH_SLASHSLASH, },
 			new String[] { XQueryRegions.PATH_SLASH,
@@ -195,6 +180,17 @@ public class ModelBuilder {
 
 	final protected RegionFilter kindTestFilter = new RegionFilter(
 			new String[] { XQueryRegions.KT_ANYKINDTEST,
+					XQueryRegions.KT_ATTRIBUTETEST,
+					XQueryRegions.KT_COMMENTTEST,
+					XQueryRegions.KT_DOCUMENTTEST,
+					XQueryRegions.KT_ELEMENTTEST, XQueryRegions.KT_PITEST,
+					XQueryRegions.KT_SCHEMAATTRIBUTETEST,
+					XQueryRegions.KT_SCHEMAELEMENTTEST,
+					XQueryRegions.KT_TEXTTEST });
+
+	final protected RegionFilter sequenceTypeFilter = new RegionFilter(
+			new String[] { XQueryRegions.ST_ATOMICTYPE, XQueryRegions.ST_EMPTY,
+					XQueryRegions.ST_ITEM, XQueryRegions.KT_ANYKINDTEST,
 					XQueryRegions.KT_ATTRIBUTETEST,
 					XQueryRegions.KT_COMMENTTEST,
 					XQueryRegions.KT_DOCUMENTTEST,
@@ -233,10 +229,6 @@ public class ModelBuilder {
 	final protected Continuation multiplicativeContinuation = new MultiplicativeContinuation();
 	final protected Continuation unionContinuation = new UnionContinuation();
 	final protected Continuation intersectExceptContinuation = new IntersectExceptContinuation();
-	final protected Continuation instanceOfContinuation = new InstanceofContinuation();
-	final protected Continuation treatContinuation = new TreatContinuation();
-	final protected Continuation castableContinuation = new CastableContinuation();
-	final protected Continuation castContinuation = new CastContinuation();
 	final protected Continuation relativePathContinuation = new RelativePathContinuation();
 
 	// Constructor
@@ -1260,7 +1252,7 @@ public class ModelBuilder {
 	}
 
 	/**
-	 * Reparse TypeDeclaration?
+	 * Reparse <tt>TypeDeclaration?</tt>
 	 */
 	protected IASTNode reparseTypeDeclarationOpt(IASTNode node) {
 		if (sameRegionType(XQueryRegions.KW_AS)) {
@@ -1272,24 +1264,36 @@ public class ModelBuilder {
 	}
 
 	/**
+	 * Reparse <tt>AtomicType "?"?</tt>
+	 */
+	public IASTNode reparseSingleType(IASTNode node) {
+		if (sameRegionType(XQueryRegions.ST_ATOMICTYPE)) {
+			ASTSingleType type = asSingleType(node);
+
+			type.setStructuredDocumentRegion(currentSDRegion);
+			nextSDRegion(); // AtomicType
+
+			if (sameRegionType(XQueryRegions.OCC_OPTIONAL)) {
+				nextSDRegion(); // '?'
+			}
+			return type;
+		}
+
+		return null;
+	}
+
+	/**
 	 * Reparse <tt>SequenceType</tt>
 	 */
 	protected IASTNode reparseSequenceType(IASTNode node) {
-		ASTSequenceType typeNode = asSequenceType(node);
+		if (sameRegionType(sequenceTypeFilter)) {
+			ASTSequenceType type = asSequenceType(node);
 
-		if (sameRegionType(XQueryRegions.ST_EMPTY)) {
-			nextSDRegion(); // empty-sequence ( )
-
-		} else {
-			// (ItemType OccurrenceIndicator?)
-
-			// The tokenizer generates only one region for both constructions.
-			// For now, just skip region
+			type.setStructuredDocumentRegion(currentSDRegion);
 			nextSDRegion();
-			// reparseItemType(typeNode);
-			// reparseOccurrenceIndicator(typeNode);
+			return type;
 		}
-		return typeNode;
+		return null;
 	}
 
 	/**
@@ -1358,31 +1362,97 @@ public class ModelBuilder {
 	/**
 	 * Reparse <tt>TreatExpr ( "instance" "of" SequenceType )?</tt>
 	 */
-	protected IASTNode reparseInstanceOfExpr(IASTNode expr) {
-		return reparseOperatorOptional(expr, instanceOfFilter,
-				instanceOfContinuation);
+	protected IASTNode reparseInstanceOfExpr(IASTNode node) {
+		ASTOperator operator = asOperator(node, ASTOperator.OP_INSTANCEOF);
+
+		IASTNode oldOperand = operator.getChildASTNodeAt(0);
+		IASTNode newOperand = reparseTreatExpr(oldOperand);
+		operator.setChildASTNodeAt(0, newOperand);
+
+		if (sameRegionType(XQueryRegions.OP_INSTANCEOF)) {
+			nextSDRegion(); // 'instance of'
+			IASTNode oldType = operator.getChildASTNodeAt(1);
+			IASTNode newType = reparseSequenceType(oldType);
+			operator.setChildASTNodeAt(1, newType);
+
+			if (newType == null)
+				reportError(XQueryMessages.errorXQSE_MissingSequenceType_UI_);
+			return operator;
+		}
+
+		return newOperand;
 	}
 
 	/**
 	 * Reparse <tt>CastableExpr ( "treat" "as" SequenceType )?</tt>
 	 */
-	protected IASTNode reparseTreatExpr(IASTNode expr) {
-		return reparseOperatorOptional(expr, treatFilter, treatContinuation);
+	protected IASTNode reparseTreatExpr(IASTNode node) {
+		ASTOperator operator = asOperator(node, ASTOperator.OP_TREATAS);
+
+		IASTNode oldOperand = operator.getChildASTNodeAt(0);
+		IASTNode newOperand = reparseCastableExpr(oldOperand);
+		operator.setChildASTNodeAt(0, newOperand);
+
+		if (sameRegionType(XQueryRegions.OP_TREATAS)) {
+			nextSDRegion(); // 'treat as'
+			IASTNode oldType = operator.getChildASTNodeAt(1);
+			IASTNode newType = reparseSequenceType(oldType);
+			operator.setChildASTNodeAt(1, newType);
+
+			if (newType == null)
+				reportError(XQueryMessages.errorXQSE_MissingSequenceType_UI_);
+			return operator;
+		}
+
+		return newOperand;
 	}
 
 	/**
 	 * Reparse <tt>CastExpr ( "castable" "as" SingleType )?</tt>
 	 */
-	protected IASTNode reparseCastableExpr(IASTNode expr) {
-		return reparseOperatorOptional(expr, castableFilter,
-				castableContinuation);
+	protected IASTNode reparseCastableExpr(IASTNode node) {
+		ASTOperator operator = asOperator(node, ASTOperator.OP_CASTABLEAS);
+
+		IASTNode oldOperand = operator.getChildASTNodeAt(0);
+		IASTNode newOperand = reparseCastAsExpr(oldOperand);
+		operator.setChildASTNodeAt(0, newOperand);
+
+		if (sameRegionType(XQueryRegions.OP_CASTABLEAS)) {
+			nextSDRegion(); // 'castable as'
+			IASTNode oldType = operator.getChildASTNodeAt(1);
+			IASTNode newType = reparseSingleType(oldType);
+			operator.setChildASTNodeAt(1, newType);
+
+			if (newType == null)
+				reportError(XQueryMessages.errorXQSE_MissingSingleType_UI_);
+			return operator;
+		}
+
+		return newOperand;
 	}
 
 	/**
 	 * Reparse <tt>UnaryExpr ( "cast" "as" SingleType )?</tt>
 	 */
-	protected IASTNode reparseCastAsExpr(IASTNode expr) {
-		return reparseOperatorOptional(expr, castFilter, castContinuation);
+	protected IASTNode reparseCastAsExpr(IASTNode node) {
+		ASTOperator operator = asOperator(node, ASTOperator.OP_CASTAS);
+
+		IASTNode oldOperand = operator.getChildASTNodeAt(0);
+		IASTNode newOperand = reparseUnaryExpr(oldOperand);
+		operator.setChildASTNodeAt(0, newOperand);
+
+		if (sameRegionType(XQueryRegions.OP_CASTAS)) {
+			nextSDRegion(); // 'cast as'
+			IASTNode oldType = operator.getChildASTNodeAt(1);
+			IASTNode newType = reparseSingleType(oldType);
+			operator.setChildASTNodeAt(1, newType);
+
+			if (newType == null)
+				reportError(XQueryMessages.errorXQSE_MissingSingleType_UI_);
+			return operator;
+		}
+
+		return newOperand;
 	}
 
 	/**
@@ -2158,6 +2228,14 @@ public class ModelBuilder {
 		return nodeFactory.newIf();
 	}
 
+	/** Gets AST node as {@link ASTSingleType} */
+	protected ASTSingleType asSingleType(IASTNode node) {
+		if (node != null && node.getType() == IASTNode.SINGLETYPE)
+			return (ASTSingleType) node;
+
+		return nodeFactory.newSingleType();
+	}
+
 	/** Gets AST node as {@link ASTIf} */
 	protected ASTContextItem asContextItem(IASTNode node) {
 		if (node != null && node.getType() == IASTNode.CONTEXTITEM)
@@ -2673,38 +2751,11 @@ public class ModelBuilder {
 		}
 	}
 
-	/** Reparse continuation for InstanceofExpr */
-	protected class InstanceofContinuation extends Continuation {
-		IASTNode reparse(IASTNode expr) {
-			return reparseTreatExpr(expr);
-		}
-	}
-
-	/** Reparse continuation for TreatExpr */
-	protected class TreatContinuation extends Continuation {
-		IASTNode reparse(IASTNode expr) {
-			return reparseCastableExpr(expr);
-		}
-	}
-
-	/** Reparse continuation for CastableExpr */
-	protected class CastableContinuation extends Continuation {
-		IASTNode reparse(IASTNode expr) {
-			return reparseCastAsExpr(expr);
-		}
-	}
-
-	/** Reparse continuation for CastExpr */
-	protected class CastContinuation extends Continuation {
-		IASTNode reparse(IASTNode expr) {
-			return reparseUnaryExpr(expr);
-		}
-	}
-
 	/** Reparse continuation for RelativePathExpr */
 	protected class RelativePathContinuation extends Continuation {
 		IASTNode reparse(IASTNode expr) {
 			return reparseStepExpr(expr);
 		}
 	}
+
 }

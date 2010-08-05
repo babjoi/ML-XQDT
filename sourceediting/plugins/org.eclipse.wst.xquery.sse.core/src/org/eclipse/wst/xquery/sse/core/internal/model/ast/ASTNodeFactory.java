@@ -230,4 +230,11 @@ public class ASTNodeFactory {
 		return new ASTContextItem();
 	}
 
+	/**
+	 * @return
+	 */
+	public ASTSingleType newSingleType() {
+		return new ASTSingleType();
+	}
+
 }

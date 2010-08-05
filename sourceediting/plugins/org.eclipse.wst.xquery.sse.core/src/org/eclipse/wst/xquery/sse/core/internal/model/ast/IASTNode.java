@@ -59,6 +59,7 @@ public interface IASTNode {
 	public static final int KINDTEST = 30;
 	public static final int PARENTHERIZED = 31;
 	public static final int CONTEXTITEM = 32;
+	public static final int SINGLETYPE = 33;
 	
 
 	/** Gets the AST node type */

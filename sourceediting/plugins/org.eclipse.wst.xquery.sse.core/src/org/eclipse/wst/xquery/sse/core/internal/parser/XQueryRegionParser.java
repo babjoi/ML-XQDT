@@ -102,9 +102,23 @@ public class XQueryRegionParser implements StructuredDocumentRegionParser,
 				XQueryStructuredDocumentRegion.Factory.INSTANCE);
 		STARTING_GROUP_FACTORIES.put(XQueryRegions.XML_TAG_OPEN,
 				XQueryStructuredDocumentRegion.Factory.INSTANCE);
+
+		// Group cast as
+		STARTING_GROUP_FACTORIES.put(XQueryRegions.OP_CASTAS,
+				XQueryStructuredDocumentRegion.Factory.INSTANCE);
+		// Group treat as
+		STARTING_GROUP_FACTORIES.put(XQueryRegions.OP_TREATAS,
+				XQueryStructuredDocumentRegion.Factory.INSTANCE);
+		// Group instance of
+		STARTING_GROUP_FACTORIES.put(XQueryRegions.OP_INSTANCEOF,
+				XQueryStructuredDocumentRegion.Factory.INSTANCE);
+		// Group castable as
+		STARTING_GROUP_FACTORIES.put(XQueryRegions.OP_CASTABLEAS,
+				XQueryStructuredDocumentRegion.Factory.INSTANCE);
+
 		STARTING_GROUP_FACTORIES.put(XQueryRegions.KW_MODULE,
 				ModuleDeclStructuredDocumentRegion.Factory.INSTANCE);
- 
+
 		// Group xquery version "..." encoding ".." ;
 		STARTING_GROUP_FACTORIES.put(XQueryRegions.KW_XQUERY,
 				VersionDeclStructuredDocumentRegion.Factory.INSTANCE);
@@ -178,6 +192,20 @@ public class XQueryRegionParser implements StructuredDocumentRegionParser,
 				new String[] { XQueryRegions.COLONCOLON });
 		IN_GROUP.put(XQueryRegions.XML_TAG_OPEN,
 				new String[] { XQueryRegions.XML_TAG_NAME });
+
+		// Group cast as
+		IN_GROUP.put(XQueryRegions.OP_CASTAS,
+				new String[] { XQueryRegions.OP_AS });
+
+		// Group treat as
+		IN_GROUP.put(XQueryRegions.OP_TREATAS,
+				new String[] { XQueryRegions.OP_AS });
+		// Group instance of
+		IN_GROUP.put(XQueryRegions.OP_INSTANCEOF,
+				new String[] { XQueryRegions.OP_OF });
+		// Group castable as
+		IN_GROUP.put(XQueryRegions.OP_CASTABLEAS,
+				new String[] { XQueryRegions.OP_AS });
 
 		IN_GROUP.put(XQueryRegions.KW_MODULE, new String[] {
 				XQueryRegions.EQUALS, XQueryRegions.KW_NAMESPACE,

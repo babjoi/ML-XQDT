@@ -43,6 +43,7 @@ public interface XQueryRegions extends DOMRegionContext {
 	public static final String RPRAGMA = "RPRAGMA"; //$NON-NLS-1$
 	public static final String PRAGMACONTENT = "PRAGMACONTENT"; //$NON-NLS-1$
 	public static final String PRAGMAQNAME = "PRAGMAQNAME"; //$NON-NLS-1$
+	public static final String OCC_OPTIONAL = "OCC_OPTIONAL"; //$NON-NLS-1$
 
 	public static final String FUNCTIONNAME = "FUNCTIONNAME"; //$NON-NLS-1$ 
 	public static final String NUMERICLITERAL = "NUMERICLITERAL"; //$NON-NLS-1$ 
@@ -156,7 +157,7 @@ public interface XQueryRegions extends DOMRegionContext {
 	public static final String KT_PITEST = "KT_PITEST"; //$NON-NLS-1$
 	public static final String KT_COMMENTTEST = "KT_COMMENTTEST"; //$NON-NLS-1$
 	public static final String KT_ANYKINDTEST = "KT_ANYKINDTEST"; //$NON-NLS-1$
-
+	
 	public static final String PATH_SLASH = "PATH_SLASH"; //$NON-NLS-1$
 	public static final String PATH_SLASHSLASH = "PATH_SLASHSLASH"; //$NON-NLS-1$
 	public static final String PATH_CONTEXTITEM = "PATH_CONTEXTITEM"; //$NON-NLS-1$

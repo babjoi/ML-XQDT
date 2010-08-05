@@ -38,7 +38,7 @@
          point="org.eclipse.ui.preferencePages">
       <page
             category="org.eclipse.wst.xquery.preferences.editor"
-            class="org.eclipse.wst.xquery.sse.ui.internal.preferences.SyntaxColoringPage"
+            class="org.eclipse.wst.xquery.sse.ui.internal.preferences.XQDTSyntaxColoringPage"
             id="org.eclipse.wst.xquery.sse.ui.syntaxcoloring"
             name="Syntax Coloring">
       </page>

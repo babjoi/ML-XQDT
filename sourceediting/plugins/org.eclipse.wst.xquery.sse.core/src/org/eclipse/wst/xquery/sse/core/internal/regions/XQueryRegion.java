@@ -40,7 +40,7 @@ public class XQueryRegion implements ITextRegion {
 	protected String fType;
 
 	/** Whether or not this region represent a keyword */
-	protected boolean fIsKeyword;
+	protected boolean fIsKeyword; // TODO: not here.
 	
 	// Constructors
 

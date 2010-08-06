@@ -1411,7 +1411,7 @@ SimpleName = ({Letter} | "_" ) ({SimpleNameChar})*
   "idiv"  							{  yybegin(TS_OPERAND); return OP_IDIV; }
   "mod"	 							{  yybegin(TS_OPERAND); return OP_MOD; }
   "union" 							{  yybegin(TS_OPERAND); return OP_UNION; }
-  "|"								{  yybegin(TS_OPERAND); return OP_UNION; }
+  "|"								{  yybegin(TS_OPERAND); return OP_PIPE; }
   "intersect"  						{  yybegin(TS_OPERAND); return OP_INTERSECT; }
   "except"  						{  yybegin(TS_OPERAND); return OP_EXCEPT; }
   "instance" / {SymbolSep}+"of"		{  yybegin(TS_IOTYPEDECL); return OP_INSTANCEOF; }

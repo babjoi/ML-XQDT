@@ -99,7 +99,33 @@ public class XQueryParserRegionFactory {
 		XQUERY10_KEYWORDS.add(XQueryRegions.KW_ATTRIBUTE);
 		XQUERY10_KEYWORDS.add(XQueryRegions.KW_COMMENT);
 		XQUERY10_KEYWORDS.add(XQueryRegions.KW_TEXT);
-		XQUERY10_KEYWORDS.add(XQueryRegions.KW_DOCUMENT); 
+		XQUERY10_KEYWORDS.add(XQueryRegions.KW_DOCUMENT);
+		
+		// Include operators which are not symbols
+		XQUERY10_KEYWORDS.add(XQueryRegions.OP_TO);
+		XQUERY10_KEYWORDS.add(XQueryRegions.OP_TREATAS);
+		XQUERY10_KEYWORDS.add(XQueryRegions.OP_AS);
+		XQUERY10_KEYWORDS.add(XQueryRegions.OP_OF);
+		XQUERY10_KEYWORDS.add(XQueryRegions.OP_INSTANCEOF);
+		XQUERY10_KEYWORDS.add(XQueryRegions.OP_CASTABLEAS);
+		XQUERY10_KEYWORDS.add(XQueryRegions.OP_CASTAS);
+		XQUERY10_KEYWORDS.add(XQueryRegions.OP_UNION);
+		XQUERY10_KEYWORDS.add(XQueryRegions.OP_NEQ);
+		XQUERY10_KEYWORDS.add(XQueryRegions.OP_EQ);
+		XQUERY10_KEYWORDS.add(XQueryRegions.OP_LT);
+		XQUERY10_KEYWORDS.add(XQueryRegions.OP_LTE);
+		XQUERY10_KEYWORDS.add(XQueryRegions.OP_GT);
+		XQUERY10_KEYWORDS.add(XQueryRegions.OP_GTE);
+		XQUERY10_KEYWORDS.add(XQueryRegions.OP_IS);
+		XQUERY10_KEYWORDS.add(XQueryRegions.OP_OR);
+		XQUERY10_KEYWORDS.add(XQueryRegions.OP_AND);
+		XQUERY10_KEYWORDS.add(XQueryRegions.OP_DIV);
+		XQUERY10_KEYWORDS.add(XQueryRegions.OP_IDIV);
+		XQUERY10_KEYWORDS.add(XQueryRegions.OP_MOD);
+		XQUERY10_KEYWORDS.add(XQueryRegions.OP_INTERSECT);
+		XQUERY10_KEYWORDS.add(XQueryRegions.OP_EXCEPT);
+		
+		
 
 		XQUERYUPDATE10_KEYWORDS.add(XQueryRegions.KW_REVALIDATION);
 		XQUERYUPDATE10_KEYWORDS.add(XQueryRegions.KW_UPDATING);

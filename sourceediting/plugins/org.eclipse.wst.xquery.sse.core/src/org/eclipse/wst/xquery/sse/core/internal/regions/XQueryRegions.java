@@ -134,6 +134,7 @@ public interface XQueryRegions extends DOMRegionContext {
 	public static final String OP_TO = "OP_TO"; //$NON-NLS-1$
 	public static final String OP_EXCEPT = "OP_EXCEPT"; //$NON-NLS-1$
 	public static final String OP_UNION = "OP_UNION"; //$NON-NLS-1$
+	public static final String OP_PIPE = "OP_PIPE"; //$NON-NLS-1$
 	public static final String OP_AS = "OP_AS"; //$NON-NLS-1$
 	public static final String OP_OF = "OP_OF"; //$NON-NLS-1$
 	public static final String OP_MOD = "OP_MOD"; //$NON-NLS-1$

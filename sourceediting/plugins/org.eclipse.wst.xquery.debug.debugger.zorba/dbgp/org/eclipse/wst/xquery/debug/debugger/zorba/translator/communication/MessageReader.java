@@ -26,60 +26,68 @@ public class MessageReader {
         fInputStream = new DataInputStream(inputStream);
     }
 
-    public AbstractMessage readMessage() throws ProtocolException, IOException {
+    public synchronized AbstractMessage readMessage() throws ProtocolException, IOException {
         MessageHeader header = readMessageHeader();
-        if (header.getMessageLength() == 1481721953 && header.getId() == 1852076904 && header.getFlags() == 97)
+        if (header.getMessageLength() == 1481721953 && header.getId() == 1852076904 && header.getFlags() == 97) {
             return MessageFactory.buildHandshake();
+        }
         byte[] data = readMessageData(header);
         AbstractMessage message = MessageFactory.buildMessage(header, data);
         return message;
     }
 
     private MessageHeader readMessageHeader() throws ProtocolException, IOException {
-
         int length = fInputStream.readInt();
-        if (length < 11)
+        if (length < 11) {
             throw new MessageFormatException();
+        }
 
         int id = fInputStream.readInt();
-        if (id < 0)
+        if (id < 0) {
             throw new MessageFormatException();
+        }
 
         int oneByte = fInputStream.read() & 0xFF;
-        if (oneByte == -1)
+        if (oneByte == -1) {
             throw new MessageFormatException();
+        }
         int flags = oneByte;
         boolean isReply = (flags & 0x80) != 0;
 
         if (isReply) {
             int errorCode = fInputStream.readShort() & 0xFFFF;
-            if (errorCode < 0)
+            if (errorCode < 0) {
                 throw new MessageFormatException();
+            }
 
             return new ReplyMessageHeader(length, id, flags, errorCode);
         }
 
         int commandSet = fInputStream.readByte() & 0xFF;
-        if (commandSet < 0)
+        if (commandSet < 0) {
             throw new MessageFormatException();
+        }
 
         int command = fInputStream.readByte() & 0xFF;
-        if (command < 0)
+        if (command < 0) {
             throw new MessageFormatException();
+        }
 
         return new RequestMessageHeader(length, id, flags, commandSet, command);
 
     }
 
     private byte[] readMessageData(MessageHeader header) throws ProtocolException, IOException {
-        if (header.getMessageLength() == 11)
+        if (header.getMessageLength() == 11) {
             return null;
+        }
 
         byte[] ba = new byte[header.getMessageLength() - 11];
 
         int bytesRead = fInputStream.read(ba);
-        if (bytesRead != header.getMessageLength() - 11)
+        if (bytesRead != header.getMessageLength() - 11) {
             throw new MessageFormatException();
+        }
 
         return ba;
     }

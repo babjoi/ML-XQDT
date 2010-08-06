@@ -6,8 +6,9 @@
  * http://www.eclipse.org/legal/epl-v10.html
  * 
  * Contributors:
- *     Lionel Vilard (IBM) - initial API and implementation
- *     Gabriel Petrovay (28msec) - ignoring background color
+ *     IBM Corporation - initial API and implementation
+ *     Lionel Vilard (IBM) - adoption in XQDT
+ *     Gabriel Petrovay (28msec) - change to ignore background colors
  *     
  *******************************************************************************/
 

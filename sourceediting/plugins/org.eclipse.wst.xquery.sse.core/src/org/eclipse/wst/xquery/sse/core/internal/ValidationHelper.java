@@ -64,6 +64,9 @@ public class ValidationHelper {
 	 */
 	public static IMessage createErrorMessage(
 			IStructuredDocumentRegion sdregion, ITextRegion region, String text) {
+		if (region == null)
+			return createErrorMessage(sdregion, text, false);
+		
 		IMessage message = new LocalizedMessage(IMessage.HIGH_SEVERITY, text);
 
 		message.setOffset(sdregion.getStartOffset() + region.getStart());

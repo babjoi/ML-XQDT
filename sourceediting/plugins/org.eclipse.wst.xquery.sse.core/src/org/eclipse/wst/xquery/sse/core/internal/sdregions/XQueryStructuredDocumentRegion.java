@@ -15,7 +15,6 @@ import org.eclipse.wst.sse.core.internal.provisional.text.ITextRegion;
 import org.eclipse.wst.sse.core.internal.provisional.text.ITextRegionList;
 import org.eclipse.wst.sse.core.internal.text.BasicStructuredDocumentRegion;
 import org.eclipse.wst.xquery.sse.core.internal.model.ast.IASTNode;
-import org.eclipse.wst.xquery.sse.core.internal.parser.StatementTypes;
 import org.eclipse.wst.xquery.sse.core.internal.regions.XQueryRegion;
 
 /**
@@ -58,15 +57,6 @@ public class XQueryStructuredDocumentRegion extends BasicStructuredDocumentRegio
 	}
 
 	// Methods
-
-	/**
-	 * Gets the statement type corresponding to this region.
-	 * 
-	 * @see {@link StatementTypes}
-	 */
-	public int getStatementType() {
-		return StatementTypes.STMT_UNDEFINED;
-	}
 
 	/** The wrapping AST node (if any) */
 	public IASTNode getASTNode() {

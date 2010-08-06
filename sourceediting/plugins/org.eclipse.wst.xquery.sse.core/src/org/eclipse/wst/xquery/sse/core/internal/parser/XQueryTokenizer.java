@@ -30,7 +30,7 @@ import org.eclipse.wst.xquery.sse.core.internal.regions.XQueryRegions;
  * on 8/6/10 3:12 PM from the specification file
  * <tt>/Users/villardl/Projects/xqdt-git/org.eclipse.webtools.incubator/sourceediting/plugins/org.eclipse.wst.xquery.sse.core/DevTimeSupport/XQueryTokenizer.jflex</tt>
  */
-public class XQueryTokenizer extends AbstractTokenizer implements XQueryRegions, StatementTypes {
+public class XQueryTokenizer extends AbstractTokenizer implements XQueryRegions {
 
   /** This character denotes the end of file */
   public static final int YYEOF = -1;

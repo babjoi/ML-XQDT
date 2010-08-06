@@ -11,7 +11,6 @@
 package org.eclipse.wst.xquery.sse.core.internal.sdregions;
 
 import org.eclipse.wst.sse.core.internal.provisional.text.ITextRegion;
-import org.eclipse.wst.xquery.sse.core.internal.parser.StatementTypes;
 import org.eclipse.wst.xquery.sse.core.internal.regions.XQueryRegions;
 
 /**
@@ -70,13 +69,5 @@ public class ModuleDeclStructuredDocumentRegion extends XQueryStructuredDocument
 			return index == -1 ? null : getRegions().get(index);
 		}
 		return null;
-	}
-
-	// Overrides
-
-	@Override
-	public int getStatementType() {
-		return StatementTypes.STMT_MODULEDECL;
-	}
-
+	} 
 }

@@ -53,7 +53,7 @@ import org.eclipse.wst.xquery.sse.core.internal.sdregions.XQueryStructuredDocume
  */
 @SuppressWarnings("restriction")
 public class XQueryRegionParser implements StructuredDocumentRegionParser,
-		StatementTypes, XQueryRegions {
+		XQueryRegions {
 
 	// Constants
 

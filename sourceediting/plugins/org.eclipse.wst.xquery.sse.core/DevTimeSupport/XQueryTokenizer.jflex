@@ -25,7 +25,7 @@ import org.eclipse.wst.xquery.sse.core.internal.regions.XQueryRegions;
 
 %public
 %class XQueryTokenizer
-%implements XQueryRegions, StatementTypes
+%implements XQueryRegions
 %extends AbstractTokenizer
 %function primGetNextToken
 %type String

@@ -37,16 +37,18 @@ public class ValidationHelper {
 		IMessage message = new LocalizedMessage(IMessage.HIGH_SEVERITY, text);
 
 		if (tip) {
-			message.setOffset(sdregion.getStartOffset()
-					+ sdregion.getTextLength() - 1);
+			int offset = sdregion.getStartOffset()
+					+ sdregion.getFullText().trim().length() - 1;
+			message.setOffset(offset);
 			message.setLength(1);
 			message.setLineNo(sdregion.getParentDocument().getLineOfOffset(
-					sdregion.getStartOffset() + sdregion.getTextLength() - 1));
+					offset));
 		} else {
-			message.setOffset(sdregion.getStartOffset());
+			int offset = sdregion.getStartOffset();
+			message.setOffset(offset);
 			message.setLength(sdregion.getTextLength());
 			message.setLineNo(sdregion.getParentDocument().getLineOfOffset(
-					sdregion.getStartOffset()));
+					offset));
 		}
 
 		return message;

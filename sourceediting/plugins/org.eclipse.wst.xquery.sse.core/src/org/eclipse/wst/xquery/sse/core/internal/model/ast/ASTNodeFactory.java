@@ -279,4 +279,18 @@ public class ASTNodeFactory {
 		return new ASTCompAttrConstructor();
 	}
 
+	/**
+	 * @return
+	 */
+	public ASTExtension newExtension() {
+		return new ASTExtension();
+	}
+
+	/**
+	 * @return
+	 */
+	public ASTValidate newValidate() {
+		return new ASTValidate();
+	}
+
 }

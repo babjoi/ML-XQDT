@@ -117,13 +117,7 @@ import org.eclipse.wst.xquery.sse.core.internal.regions.XQueryRegions;
     
     /** Lexical state before recovery */
     private int recoveryState;
-     
-    /** The cached starting statement type */
-    private int startStatementType;
-   
-    /** The cached ending statement flag */
-    private boolean endStatement;
-    
+      
     /** Whether to drop the parsed token */
     private boolean drop;
     
@@ -502,17 +496,7 @@ import org.eclipse.wst.xquery.sse.core.internal.regions.XQueryRegions;
 		
 		zzMarkedPos = zzCurrentPos;
 	}
-	
-	final private void startStmt(int type)
-	{
-	  startStatementType = type;
-	}
-	
-	final private void endStmt()
-	{
-	  endStatement = true;
-	}
-	
+	 
 	 
 	// Overrides 
 	
@@ -554,9 +538,7 @@ import org.eclipse.wst.xquery.sse.core.internal.regions.XQueryRegions;
 	  states.reset(); 
 	  elementDepths.reset();
 	  zzStartRead = newOffset; 
-	  recoveryState = -1;
-	  startStatementType = -1;
-	  endStatement = false; 
+	  recoveryState = -1;  
 	  pushState(MODULE);  
 	  
 	  try
@@ -1018,13 +1000,13 @@ SimpleName = ({Letter} | "_" ) ({SimpleNameChar})*
 // "declare" "default" ("element" | "function") "namespace" URILiteral Separator
  
 <YYINITIAL, TS_LIBRARYORMAIN, TS_PROLOG1> "declare" / {SymbolSep}+"default"{SymbolSep}+("element"|"function") {
-  startStmt(STMT_DEFAULTNSDECL); yybegin(TS_NSDECLDEFAULT); return KW_DECLARE; }
+  yybegin(TS_NSDECLDEFAULT); return KW_DECLARE; }
 <TS_NSDECLDEFAULT> 		"default" 		{ yybegin(TS_NSDECLELEMFUNCTION); return KW_DEFAULT; } 
 <TS_NSDECLELEMFUNCTION> "element" 		{ yybegin(TS_NSDECLNS); return KW_ELEMENT; }
 <TS_NSDECLELEMFUNCTION> "function" 		{ yybegin(TS_NSDECLNS); return KW_FUNCTION; }
 <TS_NSDECLNS>			"namespace" 	{ yybegin(TS_EFNSURILITERAL); return KW_NAMESPACE; }
 <TS_EFNSURILITERAL>		{StringLiteral}	{ yybegin(TS_NSDECLSEP); return URILITERAL; }
-<TS_NSDECLSEP>			";" 			{  yybegin(TS_PROLOG1); return SEPARATOR; }
+<TS_NSDECLSEP>			";" 			{ yybegin(TS_PROLOG1); return SEPARATOR; }
 
 
 // "declare" "boundary-space" ("preserve" | "strip") Separator
@@ -1299,18 +1281,18 @@ SimpleName = ({Letter} | "_" ) ({SimpleNameChar})*
   
   // Axis Step
 
-  "child" / {SymbolSep}*"::"					{ startStmt(STMT_AXISSTEP); yybegin(TS_COLONCOLON); return PATH_CHILD; }
-  "descendant" / {SymbolSep}*"::"				{ startStmt(STMT_AXISSTEP); yybegin(TS_COLONCOLON); return PATH_DESCENDANT; }
-  "attribute" / {SymbolSep}*"::"				{ startStmt(STMT_AXISSTEP); yybegin(TS_COLONCOLON); return PATH_ATTRIBUTE; }
-  "self" / {SymbolSep}*"::"						{ startStmt(STMT_AXISSTEP); yybegin(TS_COLONCOLON); return PATH_SELF; }
-  "descendant-or-self" / {SymbolSep}*"::"		{ startStmt(STMT_AXISSTEP); yybegin(TS_COLONCOLON); return PATH_DESCENDANT_OR_SELF; }
-  "following-sibling" / {SymbolSep}*"::"		{ startStmt(STMT_AXISSTEP); yybegin(TS_COLONCOLON); return PATH_FOLLOWING_SIBLING; }
-  "following" / {SymbolSep}*"::"				{ startStmt(STMT_AXISSTEP); yybegin(TS_COLONCOLON); return PATH_FOLLOWING; }
-  "parent" / {SymbolSep}*"::"					{ startStmt(STMT_AXISSTEP); yybegin(TS_COLONCOLON); return PATH_PARENT; }
-  "ancestor" / {SymbolSep}*"::"					{ startStmt(STMT_AXISSTEP); yybegin(TS_COLONCOLON); return PATH_ANCESTOR; }
-  "preceding-sibling" / {SymbolSep}*"::"		{ startStmt(STMT_AXISSTEP); yybegin(TS_COLONCOLON); return PATH_PRECEDING_SIBLING; }
-  "preceding" / {SymbolSep}*"::"				{ startStmt(STMT_AXISSTEP); yybegin(TS_COLONCOLON); return PATH_PRECEDING; }
-  "ancestor-or-self" / {SymbolSep}*"::"			{ startStmt(STMT_AXISSTEP); yybegin(TS_COLONCOLON); return PATH_ANCESTOR_OR_SELF; }
+  "child" / {SymbolSep}*"::"					{ yybegin(TS_COLONCOLON); return PATH_CHILD; }
+  "descendant" / {SymbolSep}*"::"				{ yybegin(TS_COLONCOLON); return PATH_DESCENDANT; }
+  "attribute" / {SymbolSep}*"::"				{ yybegin(TS_COLONCOLON); return PATH_ATTRIBUTE; }
+  "self" / {SymbolSep}*"::"						{ yybegin(TS_COLONCOLON); return PATH_SELF; }
+  "descendant-or-self" / {SymbolSep}*"::"		{ yybegin(TS_COLONCOLON); return PATH_DESCENDANT_OR_SELF; }
+  "following-sibling" / {SymbolSep}*"::"		{ yybegin(TS_COLONCOLON); return PATH_FOLLOWING_SIBLING; }
+  "following" / {SymbolSep}*"::"				{ yybegin(TS_COLONCOLON); return PATH_FOLLOWING; }
+  "parent" / {SymbolSep}*"::"					{ yybegin(TS_COLONCOLON); return PATH_PARENT; }
+  "ancestor" / {SymbolSep}*"::"					{ yybegin(TS_COLONCOLON); return PATH_ANCESTOR; }
+  "preceding-sibling" / {SymbolSep}*"::"		{ yybegin(TS_COLONCOLON); return PATH_PRECEDING_SIBLING; }
+  "preceding" / {SymbolSep}*"::"				{ yybegin(TS_COLONCOLON); return PATH_PRECEDING; }
+  "ancestor-or-self" / {SymbolSep}*"::"			{ yybegin(TS_COLONCOLON); return PATH_ANCESTOR_OR_SELF; }
 
   {NCName}":""*"				{ yybegin(TS_ENDAXISSTEP); return PATH_NAMETEST; } /* ws: explicit */
   "*"":"{NCName}                { yybegin(TS_ENDAXISSTEP); return PATH_NAMETEST; } /* ws: explicit */
@@ -1350,24 +1332,24 @@ SimpleName = ({Letter} | "_" ) ({SimpleNameChar})*
   "unordered" / {SymbolSep}*"{" { pushState(TS_ENDPRIMARY); pushState(CURLYEXPR); yybegin(TS_ORDEREDLCURLY); return KW_UNORDERED; }
   
   
-  "validate" / {SymbolSep}*("lax"|"strict"|"{") { startStmt(STMT_VALIDATE); pushState(TS_ENDPRIMARY); yybegin(TS_VALIDATEEXPR); return KW_VALIDATE; }
+  "validate" / {SymbolSep}*("lax"|"strict"|"{") { pushState(TS_ENDPRIMARY); yybegin(TS_VALIDATEEXPR); return KW_VALIDATE; }
  
-  "(#"							{ startStmt(STMT_EXTENSION); pushState(TS_ENDPRIMARY); yybegin(TS_PRAGMA); return LPRAGMA; }
+  "(#"							{ pushState(TS_ENDPRIMARY); yybegin(TS_PRAGMA); return LPRAGMA; }
  
   // Computed constructors
   
-  "document" / {SymbolSep}*"{"								{ startStmt(STMT_PRIMARY_COMPCONSTRUCTOR); pushState(TS_ENDPRIMARY); yybegin(TS_COMPDOCUMENT); return KW_DOCUMENT; }
-  "element" / {SymbolSep}*({QName}|"{")						{ startStmt(STMT_PRIMARY_COMPCONSTRUCTOR); pushState(TS_ENDPRIMARY); yybegin(TS_COMPELEMENTORATTR); return KW_ELEMENT; }
-  "attribute" / {SymbolSep}*({QName}|"{")					{ startStmt(STMT_PRIMARY_COMPCONSTRUCTOR); pushState(TS_ENDPRIMARY); yybegin(TS_COMPELEMENTORATTR); return KW_ATTRIBUTE; }
-  "text" / {SymbolSep}*"{"									{ startStmt(STMT_PRIMARY_COMPCONSTRUCTOR); pushState(TS_ENDPRIMARY); yybegin(TS_COMPTEXT); return KW_TEXT; }
-  "comment" / {SymbolSep}*"{"								{ startStmt(STMT_PRIMARY_COMPCONSTRUCTOR); pushState(TS_ENDPRIMARY); yybegin(TS_COMPCOMMENT); return KW_COMMENT; }
-  "processing-instruction" / {SymbolSep}*("{"|{NCName})     { startStmt(STMT_PRIMARY_COMPCONSTRUCTOR);  pushState(TS_ENDPRIMARY); yybegin(TS_COMPPI); return KW_PI; }
+  "document" / {SymbolSep}*"{"								{ pushState(TS_ENDPRIMARY); yybegin(TS_COMPDOCUMENT); return KW_DOCUMENT; }
+  "element" / {SymbolSep}*({QName}|"{")						{ pushState(TS_ENDPRIMARY); yybegin(TS_COMPELEMENTORATTR); return KW_ELEMENT; }
+  "attribute" / {SymbolSep}*({QName}|"{")					{ pushState(TS_ENDPRIMARY); yybegin(TS_COMPELEMENTORATTR); return KW_ATTRIBUTE; }
+  "text" / {SymbolSep}*"{"									{ pushState(TS_ENDPRIMARY); yybegin(TS_COMPTEXT); return KW_TEXT; }
+  "comment" / {SymbolSep}*"{"								{ pushState(TS_ENDPRIMARY); yybegin(TS_COMPCOMMENT); return KW_COMMENT; }
+  "processing-instruction" / {SymbolSep}*("{"|{NCName})     {  pushState(TS_ENDPRIMARY); yybegin(TS_COMPPI); return KW_PI; }
   
   // Direct contructors
   
-  "<"							{ startStmt(STMT_PRIMARY_DIRCONSTRUCTOR); startXML(); pushState(TS_ENDPRIMARY); yybegin(TS_XMLTAGNAME); return XML_TAG_OPEN; }
-  {XMLComment}				    { startStmt(STMT_PRIMARY_DIRCONSTRUCTOR); yybegin(TS_ENDPRIMARY); return XML_COMMENT; }
-  {XMLPI}						{ startStmt(STMT_PRIMARY_DIRCONSTRUCTOR); yybegin(TS_ENDPRIMARY); return XML_PI; }
+  "<"							{ startXML(); pushState(TS_ENDPRIMARY); yybegin(TS_XMLTAGNAME); return XML_TAG_OPEN; }
+  {XMLComment}				    { yybegin(TS_ENDPRIMARY); return XML_COMMENT; }
+  {XMLPI}						{ yybegin(TS_ENDPRIMARY); return XML_PI; }
 }
 
 <TS_COLONCOLON> "::"			{ pushState(TS_ENDAXISSTEP); yybegin(TS_NODETEST); return COLONCOLON; }
@@ -1461,9 +1443,9 @@ SimpleName = ({Letter} | "_" ) ({SimpleNameChar})*
 // ForClause		::= "for" "$" VarName TypeDeclaration? PositionalVar? "in" ExprSingle  ("," "$" VarName TypeDeclaration? PositionalVar? "in" ExprSingle)*
 // PositionalVar	::=  "at" "$" VarName
 
-<TS_FORCLAUSE> 							"$"  	{ startStmt(STMT_VARREF); pushState(TS_ENDFORVARREF); yybegin(TS_EXPRVARREF); return DOLLAR; }
-<TS_ENDFORVARREF> 						"as"	{  pushState(TS_ENDFORTYPEDECL); yybegin(TS_TYPEDECL); return KW_AS; }
-<TS_ENDFORVARREF, TS_ENDFORTYPEDECL>  	"at" 	{  yybegin(TS_FORPOSVAR); return KW_AT; }  
+<TS_FORCLAUSE> 							"$"  	{ pushState(TS_ENDFORVARREF); yybegin(TS_EXPRVARREF); return DOLLAR; }
+<TS_ENDFORVARREF> 						"as"	{ pushState(TS_ENDFORTYPEDECL); yybegin(TS_TYPEDECL); return KW_AS; }
+<TS_ENDFORVARREF, TS_ENDFORTYPEDECL>  	"at" 	{ yybegin(TS_FORPOSVAR); return KW_AT; }  
 <TS_FORPOSVAR>  					 	"$"		{ pushState(TS_FORIN); yybegin(TS_EXPRVARREF); return DOLLAR; }
 <TS_ENDFORVARREF, TS_ENDFORTYPEDECL, TS_FORIN> {
   "in"			{   pushState(FLCLAUSEEXPR); yybegin(TS_EXPRSINGLE); return KW_IN;  } 
@@ -1546,8 +1528,8 @@ SimpleName = ({Letter} | "_" ) ({SimpleNameChar})*
 // Let clause
 // LetClause	   ::=   	"let" "$" VarName TypeDeclaration? ":=" ExprSingle ("," "$" VarName TypeDeclaration? ":=" ExprSingle)*
 
-<TS_LETCLAUSE>  	"$"			{ startStmt(STMT_VARREF); pushState(TS_ENDLETVARREF); yybegin(TS_EXPRVARREF); return DOLLAR; }
-<TS_ENDLETVARREF>   "as"		{  pushState(TS_ENDLETTYPEDECL); yybegin(TS_TYPEDECL); return KW_AS; }
+<TS_LETCLAUSE>  	"$"			{ pushState(TS_ENDLETVARREF); yybegin(TS_EXPRVARREF); return DOLLAR; }
+<TS_ENDLETVARREF>   "as"		{ pushState(TS_ENDLETTYPEDECL); yybegin(TS_TYPEDECL); return KW_AS; }
 <TS_ENDLETVARREF, TS_ENDLETTYPEDECL>  ":="	{ pushState(FLCLAUSEEXPR); yybegin(TS_EXPRSINGLE); yybegin(TS_EXPRSINGLE); return KW_LETASSIGN; } 
  
  
@@ -1621,7 +1603,7 @@ SimpleName = ({Letter} | "_" ) ({SimpleNameChar})*
   "strict"      { yybegin(TS_VALIDATERCURLY); return KW_STRICT; }
 }
 
-<TS_VALIDATEEXPR, TS_VALIDATERCURLY>  "{"  { pushState(TS_ENDPRIMARY); pushState(CURLYEXPR); yybegin(TS_EXPR); return RCURLY; }
+<TS_VALIDATEEXPR, TS_VALIDATERCURLY>  "{"  { pushState(TS_ENDPRIMARY); pushState(CURLYEXPR); yybegin(TS_EXPR); return LCURLY; }
 
 
 // ===== Pragma
@@ -1749,7 +1731,7 @@ SimpleName = ({Letter} | "_" ) ({SimpleNameChar})*
   "{{"						{ return XML_ESCAPE_START_EXPR; }
   "}}"						{ return XML_ESCAPE_CLOSE_EXPR; }
   
-  "{"						{ pushState(yystate()); pushState(CURLYEXPR); yybegin(TS_EXPR); return XML_START_EXPR; }
+  "{"						{ pushState(yystate()); pushState(CURLYEXPR); yybegin(TS_EXPR); return LCURLY; }
 }
 
 // DirElemContent    ::=	DirectConstructor | CDataSection | CommonContent | ElementContentChar

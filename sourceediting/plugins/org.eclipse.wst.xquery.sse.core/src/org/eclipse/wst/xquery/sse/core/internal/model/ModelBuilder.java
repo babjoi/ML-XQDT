@@ -26,6 +26,7 @@ import org.eclipse.wst.xquery.sse.core.internal.model.ast.ASTCompPIConstructor;
 import org.eclipse.wst.xquery.sse.core.internal.model.ast.ASTCompTextConstructor;
 import org.eclipse.wst.xquery.sse.core.internal.model.ast.ASTContextItem;
 import org.eclipse.wst.xquery.sse.core.internal.model.ast.ASTExprSingleClause;
+import org.eclipse.wst.xquery.sse.core.internal.model.ast.ASTExtension;
 import org.eclipse.wst.xquery.sse.core.internal.model.ast.ASTFLWOR;
 import org.eclipse.wst.xquery.sse.core.internal.model.ast.ASTFunctionCall;
 import org.eclipse.wst.xquery.sse.core.internal.model.ast.ASTFunctionDecl;
@@ -45,6 +46,7 @@ import org.eclipse.wst.xquery.sse.core.internal.model.ast.ASTSequenceType;
 import org.eclipse.wst.xquery.sse.core.internal.model.ast.ASTSingleType;
 import org.eclipse.wst.xquery.sse.core.internal.model.ast.ASTStep;
 import org.eclipse.wst.xquery.sse.core.internal.model.ast.ASTTypeswitch;
+import org.eclipse.wst.xquery.sse.core.internal.model.ast.ASTValidate;
 import org.eclipse.wst.xquery.sse.core.internal.model.ast.ASTVarDecl;
 import org.eclipse.wst.xquery.sse.core.internal.model.ast.ASTVarRef;
 import org.eclipse.wst.xquery.sse.core.internal.model.ast.IASTNode;
@@ -54,7 +56,9 @@ import org.eclipse.wst.xquery.sse.core.internal.model.ast.update.ASTRename;
 import org.eclipse.wst.xquery.sse.core.internal.model.ast.update.ASTReplace;
 import org.eclipse.wst.xquery.sse.core.internal.model.ast.update.ASTTransform;
 import org.eclipse.wst.xquery.sse.core.internal.model.ast.xml.ASTDirAttribute;
+import org.eclipse.wst.xquery.sse.core.internal.model.ast.xml.ASTDirComment;
 import org.eclipse.wst.xquery.sse.core.internal.model.ast.xml.ASTDirElement;
+import org.eclipse.wst.xquery.sse.core.internal.model.ast.xml.ASTDirPI;
 import org.eclipse.wst.xquery.sse.core.internal.regions.XQueryRegions;
 import org.eclipse.wst.xquery.sse.core.internal.sdregions.FunctionDeclStructuredDocumentRegion;
 import org.eclipse.wst.xquery.sse.core.internal.sdregions.ModuleDeclStructuredDocumentRegion;
@@ -382,8 +386,7 @@ public class ModelBuilder {
 		while (currentSDRegion != null) {
 			if (sameRegionType(XQueryRegions.KW_DECLARE)) {
 
-				// Tokenizer ensures that there is always a second region a
-				// 'declare' sdregion
+				// Tokenizer ensures there is always a second region
 				final String type2 = currentSDRegion.getRegions().get(1)
 						.getType();
 
@@ -467,7 +470,10 @@ public class ModelBuilder {
 				break;
 			}
 
-			nextSDRegion(); // ';'
+			if (sameRegionType(XQueryRegions.SEPARATOR))
+				nextSDRegion(); // ';'
+			else
+				reportError(XQueryMessages.errorXQSE_MissingSemicolon_UI_);
 		}
 
 		return from;
@@ -502,27 +508,37 @@ public class ModelBuilder {
 					.getFirstRegion());
 			decl.setName(functionName);
 
-			nextSDRegion(); // QName (
+			if (currentSDRegion.getNumberOfRegions() == 2) {
+				nextSDRegion(); // QName (
 
-			reparseParamListOpt(decl);
+				if (reparseParamListOpt(decl)) {
+					if (sameRegionType(XQueryRegions.RPAR)) {
+						reparseTypeDeclarationOpt(null);
 
-			nextSDRegion(); // ")"
+						if (sameRegionType(XQueryRegions.KW_EXTERNAL)) {
+							nextSDRegion(); // 'external'
+						} else if (declareRegion.isSequential()) {
+							reparseBlock();
+						} else {
 
-			reparseTypeDeclarationOpt(null);
+							IASTNode newBody = reparseEnclosedExpr(decl
+									.getBody());
+							decl.setBody(newBody);
 
-			if (sameRegionType(XQueryRegions.KW_EXTERNAL)) {
-				nextSDRegion(); // 'external'
-			} else if (declareRegion.isSequential()) {
-				reparseBlock();
+						}
+					} else {
+						reportError(XQueryMessages.errorXQSE_MissingRPar_UI_);
+					}
+				}
 			} else {
-
-				IASTNode newBody = reparseEnclosedExpr(decl.getBody());
-				decl.setBody(newBody);
+				// Missing (
+				reportError(XQueryMessages.errorXQSE_MissingLPar_UI_);
 			}
 
 		} else {
 			// Function name not typed yet.
 			decl.setName(null);
+			reportError(XQueryMessages.errorXQSE_MissingFunctionName_UI_);
 		}
 
 		return decl;
@@ -572,51 +588,78 @@ public class ModelBuilder {
 	 * Reparse <tt>"{" Expr "}"</tt>
 	 */
 	protected IASTNode reparseEnclosedExpr(IASTNode node) {
-		nextSDRegion(); // "{"
+		if (sameRegionType(XQueryRegions.LCURLY)) {
+			nextSDRegion(); // "{"
 
-		IASTNode enclosed = reparseExpr(node);
+			IASTNode enclosed = reparseExpr(node);
 
-		if (enclosed == null)
-			reportError(XQueryMessages.errorXQSE_MissingExpr_UI_);
+			if (enclosed == null)
+				reportError(XQueryMessages.errorXQSE_MissingExpr_UI_);
 
-		if (sameRegionType(XQueryRegions.RCURLY)) {
-			nextSDRegion(); // "}"
-		} else {
-			// Report error only if there wasn't an error before
-			if (enclosed != null)
-				reportError(XQueryMessages.errorXQSE_MissingRCurly_UI_);
+			if (sameRegionType(XQueryRegions.RCURLY)) {
+				nextSDRegion(); // "}"
+			} else {
+				// Report error only if there wasn't an error before
+				if (enclosed != null)
+					reportError(XQueryMessages.errorXQSE_MissingRCurly_UI_);
+			}
+
+			return enclosed;
 		}
 
-		return enclosed;
+		reportError(XQueryMessages.errorXQSE_MissingLCurly_UI_);
+		return null;
 	}
 
 	/**
 	 * Reparse <tt>(Param ("," Param)*)?</tt>
+	 * 
+	 * @return true is no syntax error have been raised.
 	 */
-	protected void reparseParamListOpt(ASTFunctionDecl decl) {
+	protected boolean reparseParamListOpt(ASTFunctionDecl decl) {
 		if (sameRegionType(XQueryRegions.RPAR))
-			return;
+			return true;
 
 		int index = 0;
-		while (currentSDRegion != null) {
-			reparseParam(decl, index++);
+		do {
+			if (sameRegionType(XQueryRegions.DOLLAR)) {
+				if (reparseParam(decl, index)) {
 
-			if (!sameRegionType(XQueryRegions.COMMA)) {
-				decl.removeParamNamesAfter(index - 1);
-				break;
+					if (!sameRegionType(XQueryRegions.COMMA)) {
+						decl.removeParamNamesAfter(index);
+						break;
+					}
+					nextSDRegion(); // ","
+				}
+			} else {
+				if (index == 0)
+					reportError(XQueryMessages.errorXQSE_MissingVarNameOrRPar_UI_);
+				else
+					reportError(XQueryMessages.errorXQSE_MissingVarName_UI_);
+				return false;
 			}
-			nextSDRegion(); // ","
-		}
+			index++;
+
+		} while (currentSDRegion != null);
+
+		return true;
 	}
 
 	/**
 	 * Reparse <tt>"$" QName TypeDeclaration?</tt>
 	 */
-	protected void reparseParam(ASTFunctionDecl decl, int index) {
+	protected boolean reparseParam(ASTFunctionDecl decl, int index) {
 		decl.setParamName(index, currentSDRegion);
-		nextSDRegion(); // "$" QName
 
+		if (currentSDRegion.getNumberOfRegions() == 1) {
+			nextSDRegion(); // "$" QName
+			reportError(XQueryMessages.errorXQSE_MissingVarName_UI_);
+			return false;
+		}
+
+		nextSDRegion(); // "$" QName
 		reparseTypeDeclarationOpt(null);
+		return true;
 	}
 
 	/**
@@ -631,20 +674,12 @@ public class ModelBuilder {
 		ASTVarDecl decl = asVarDecl(node);
 
 		if (sameRegionType(XQueryRegions.DOLLAR)) {
-			// Set variable name.
-
-			final String name;
-			if (currentSDRegion.getNumberOfRegions() == 1)
-				name = null; // Not available yet
-			else
-				name = currentSDRegion.getFullText(currentSDRegion
-						.getLastRegion());
-
+			final String name = currentSDRegion.getFullText();
 			decl.setName(name);
 
 			nextSDRegion(); // "$" QName
 
-			reparseTypeDeclarationOpt(null);
+			IASTNode type = reparseTypeDeclarationOpt(null);
 
 			if (sameRegionType(XQueryRegions.KW_EXTERNAL)) {
 				nextSDRegion(); // 'external'
@@ -652,14 +687,22 @@ public class ModelBuilder {
 			} else if (sameRegionType(XQueryRegions.ASSIGN)) {
 				nextSDRegion(); // ':='
 
-				decl.setExpr(reparseExprSingle(decl.getExpr()));
-			} else {
-				// TODO: report error
+				IASTNode oldExpr = decl.getExpr();
+				IASTNode newExpr = reparseExprSingle(oldExpr);
+				decl.setExpr(newExpr);
 
+				if (newExpr == null)
+					reportError(XQueryMessages.errorXQSE_MissingExprSingle_UI_);
+			} else {
+				if (type == null)
+					reportError(XQueryMessages.errorXQSE_MissingTypeOrAssignOrExternal_UI_);
+				else
+					reportError(XQueryMessages.errorXQSE_MissingAssignOrExternal_UI_);
 			}
 		} else {
 			// Variable name hasn't be typed yet
 			decl.setName(null);
+			reportError(XQueryMessages.errorXQSE_MissingVarName_UI_);
 		}
 
 		return decl;
@@ -1207,7 +1250,7 @@ public class ModelBuilder {
 		IASTNode oldExpr = clause.getExpr();
 		IASTNode newExpr = reparseExprSingle(oldExpr);
 		clause.setExpr(newExpr);
-		
+
 		if (newExpr == null)
 			reportError(XQueryMessages.errorXQSE_MissingExprSingle_UI_);
 
@@ -1576,51 +1619,94 @@ public class ModelBuilder {
 	/**
 	 * Reparse <tt>Pragma+ "{" Expr? "}"</tt>
 	 */
-	protected IASTNode reparseExtensionExpr(IASTNode expr) {
-		// TODO
+	protected IASTNode reparseExtensionExpr(IASTNode node) {
+		// TODO: handle white spaces properly.
 		
-		while (currentSDRegion != null) {
+		ASTExtension extension = asExtension(node);
+
+		int index = 0;
+		while (sameRegionType(XQueryRegions.LPRAGMA)) {
 			nextSDRegion(); // (#
-			nextSDRegion(); // QName
-			if (sameRegionType(XQueryRegions.PRAGMACONTENT))
-				nextSDRegion();
-			nextSDRegion(); // #)
 
-			if (sameRegionType(XQueryRegions.LCURLY))
-				break;
+			if (sameRegionType(XQueryRegions.PRAGMAQNAME)) {
+				nextSDRegion(); // QName
+
+				if (sameRegionType(XQueryRegions.PRAGMACONTENT)) {
+					nextSDRegion(); // Pragma content
+
+					if (sameRegionType(XQueryRegions.RPRAGMA)) {
+
+						nextSDRegion(); // #)
+
+						if (sameRegionType(XQueryRegions.LCURLY))
+							break;
+					} else {
+						reportError(XQueryMessages.errorXQSE_MissingRPragma_UI_);
+						return extension; // interrupt parsing
+					}
+
+				} else {
+					reportError(XQueryMessages.errorXQSE_MissingPragmaContent_UI_);
+					return extension; // interrupt parsing
+				}
+
+			} else {
+				reportError(XQueryMessages.errorXQSE_MissingPragmaName_UI_);
+				return extension; // interrupt parsing
+			}
+
+			index++;
 		}
 
-		nextSDRegion(); // {
-		if (sameRegionType(XQueryRegions.RCURLY)) {
-			nextSDRegion(); // }
-			return null;
+		if (sameRegionType(XQueryRegions.LCURLY)) {
+			nextSDRegion(); // {
+			if (sameRegionType(XQueryRegions.RCURLY)) {
+				nextSDRegion(); // }
+				return extension;
+			}
+
+			IASTNode oldExpr = extension.getChildASTNodeAt(0);
+			IASTNode newExpr = reparseExpr(oldExpr);
+			extension.setChildASTNodeAt(0, newExpr);
+
+			if (sameRegionType(XQueryRegions.RCURLY)) {
+				nextSDRegion(); // }
+				return extension;
+			}
+
+			reportError(XQueryMessages.errorXQSE_MissingRCurly_UI_);
 		}
-
-		IASTNode pragmaExpr = reparseExpr(expr);
-		nextSDRegion(); // }
-		return pragmaExpr;
-	}
-
-	/**
-	 * Reparse <tt>("lax" | "strict")?</tt>
-	 */
-	protected void reparseValidationModeOpt(IASTNode expr) {
-		// TODO
-		
-		if (sameRegionType(XQueryRegions.KW_LAX)
-				|| sameRegionType(XQueryRegions.KW_STRICT))
-			nextSDRegion();
+		else
+		{
+			reportError(XQueryMessages.errorXQSE_MissingLCurly_UI_);
+		}
+		return extension;
 	}
 
 	/**
 	 * Reparse <tt>"validate" ValidationMode? "{" Expr "}"</tt>
 	 */
-	protected IASTNode reparseValidateExpr(IASTNode expr) {
-		// TODO
-		
+	protected IASTNode reparseValidateExpr(IASTNode node) {
+		ASTValidate validate = asValidate(node);
+
 		nextSDRegion(); // validate
-		reparseValidationModeOpt(expr);
-		return reparseEnclosedExpr(expr);
+
+		reparseValidationModeOpt(validate);
+
+		IASTNode oldExpr = validate.getChildASTNodeAt(0);
+		IASTNode newExpr = reparseEnclosedExpr(oldExpr);
+		validate.setChildASTNodeAt(0, newExpr);
+
+		return validate;
+	}
+
+	/**
+	 * Reparse <tt>("lax" | "strict")?</tt>
+	 */
+	protected void reparseValidationModeOpt(ASTValidate node) {
+		if (sameRegionType(XQueryRegions.KW_LAX)
+				|| sameRegionType(XQueryRegions.KW_STRICT))
+			nextSDRegion();
 	}
 
 	/**
@@ -1898,9 +1984,10 @@ public class ModelBuilder {
 	 * Reparse <tt>"<?" PITarget (S DirPIContents)? "?>"</tt>
 	 */
 	protected IASTNode reparseDirPIConstructor(IASTNode expr) {
-		// TODO
+		// TODO: 
+		
 		nextSDRegion(); // only one region for the PI
-		return null;
+		return new ASTDirPI();
 	}
 
 	/**
@@ -1909,7 +1996,7 @@ public class ModelBuilder {
 	protected IASTNode reparseDirCommentConstructor(IASTNode expr) {
 		// TODO
 		nextSDRegion(); // only one region for the comment
-		return null;
+		return new ASTDirComment();
 	}
 
 	/**
@@ -1989,8 +2076,8 @@ public class ModelBuilder {
 	 */
 	protected IASTNode reparseCommonContent(IASTNode node) {
 		// TODO
-		if (sameRegionType(XQueryRegions.XML_START_EXPR)) {
-			return reparseEnclosedExpr(node);
+		if (sameRegionType(XQueryRegions.LCURLY)) {
+			reparseEnclosedExpr(node);
 		}
 
 		nextSDRegion();
@@ -2324,6 +2411,22 @@ public class ModelBuilder {
 			return (ASTIf) node;
 
 		return nodeFactory.newIf();
+	}
+
+	/** Gets AST node as {@link ASTValidate} */
+	protected ASTValidate asValidate(IASTNode node) {
+		if (node != null && node.getType() == IASTNode.VALIDATE)
+			return (ASTValidate) node;
+
+		return nodeFactory.newValidate();
+	}
+
+	/** Gets AST node as {@link ASTExtension} */
+	protected ASTExtension asExtension(IASTNode node) {
+		if (node != null && node.getType() == IASTNode.EXTENSION)
+			return (ASTExtension) node;
+
+		return nodeFactory.newExtension();
 	}
 
 	/** Gets AST node as {@link ASTCompPIConstructor} */

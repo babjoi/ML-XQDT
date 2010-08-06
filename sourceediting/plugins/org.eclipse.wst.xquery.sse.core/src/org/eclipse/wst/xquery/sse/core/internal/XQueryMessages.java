@@ -61,6 +61,14 @@ public class XQueryMessages extends NLS {
 	public static String errorXQSE_MissingDefault_UI_;
 	public static String errorXQSE_MissingFirstTSCase_UI_;
 	public static String errorXQSE_MissingVarOrSequenceType_UI_;
+	public static String errorXQSE_MissingTypeOrAssignOrExternal_UI_;
+	public static String errorXQSE_MissingAssignOrExternal_UI_;
+	public static String errorXQSE_MissingFunctionName_UI_;
+	public static String errorXQSE_MissingLPar_UI_;
+	public static String errorXQSE_MissingVarNameOrRPar_UI_; 
+	public static String errorXQSE_MissingPragmaName_UI_;
+	public static String errorXQSE_MissingPragmaContent_UI_;
+	public static String errorXQSE_MissingRPragma_UI_;
 	
 	
 	static {

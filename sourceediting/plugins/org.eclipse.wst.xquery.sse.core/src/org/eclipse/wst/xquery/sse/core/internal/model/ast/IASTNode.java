@@ -66,6 +66,10 @@ public interface IASTNode {
 	public static final int COMPTEXTCONSTRUCTOR = 37;
 	public static final int COMPCOMMENTCONSTRUCTOR = 38;
 	public static final int COMPPICONSTRUCTOR = 39;
+	public static final int EXTENSION = 40;
+	public static final int VALIDATE = 41;
+	public static final int DIRPI = 42;
+	public static final int DIRCOMMENT = 43;
 	
 
 	/** Gets the AST node type */

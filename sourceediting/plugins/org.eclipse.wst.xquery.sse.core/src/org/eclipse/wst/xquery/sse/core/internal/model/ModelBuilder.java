@@ -576,9 +576,17 @@ public class ModelBuilder {
 
 		IASTNode enclosed = reparseExpr(node);
 
-		if (checkAndReport(XQueryRegions.RCURLY,
-				XQueryMessages.errorXQSE_MissingRCurly_UI_))
+		if (enclosed == null)
+			reportError(XQueryMessages.errorXQSE_MissingExpr_UI_);
+
+		if (sameRegionType(XQueryRegions.RCURLY)) {
 			nextSDRegion(); // "}"
+		} else {
+			// Report error only if there wasn't an error before
+			if (enclosed != null)
+				reportError(XQueryMessages.errorXQSE_MissingRCurly_UI_);
+		}
+
 		return enclosed;
 	}
 
@@ -702,6 +710,11 @@ public class ModelBuilder {
 			} else {
 				if (index >= 1)
 					reportError(XQueryMessages.errorXQSE_MissingSemicolon_UI_);
+				else {
+					// Unwrap
+					return concatExpr;
+				}
+
 				break;
 			}
 
@@ -953,22 +966,43 @@ public class ModelBuilder {
 		ASTIf ifexpr = asIf(expr);
 
 		nextSDRegion(); // "if"
-		nextSDRegion(); // (
+		nextSDRegion(); // ( (always there)
 
-		IASTNode newCondition = reparseExpr(ifexpr.getConditionExpr());
+		IASTNode oldCondition = ifexpr.getConditionExpr();
+		IASTNode newCondition = reparseExpr(oldCondition);
 		ifexpr.setConditionExpr(newCondition);
 
-		nextSDRegion(); // )
-		nextSDRegion(); // then
+		if (newCondition == null)
+			reportError(XQueryMessages.errorXQSE_MissingExpr_UI_);
+		else {
+			if (checkAndReport(XQueryRegions.RPAR,
+					XQueryMessages.errorXQSE_MissingRPar_UI_)) {
+				nextSDRegion(); // )
 
-		IASTNode newThen = reparseExprSingle(ifexpr.getThenExpr());
-		ifexpr.setThenExpr(newThen);
+				if (checkAndReport(XQueryRegions.KW_THEN,
+						XQueryMessages.errorXQSE_MissingThen_UI_)) {
+					nextSDRegion(); // then
 
-		nextSDRegion(); // else
+					IASTNode newThen = reparseExprSingle(ifexpr.getThenExpr());
+					ifexpr.setThenExpr(newThen);
+					if (newThen == null)
+						reportError(XQueryMessages.errorXQSE_MissingExprSingle_UI_);
+					else {
+						if (checkAndReport(XQueryRegions.KW_ELSE,
+								XQueryMessages.errorXQSE_MissingElse_UI_)) {
+							nextSDRegion(); // else
 
-		IASTNode newElse = reparseExprSingle(ifexpr.getElseExpr());
-		ifexpr.setElseExpr(newElse);
+							IASTNode newElse = reparseExprSingle(ifexpr
+									.getElseExpr());
+							ifexpr.setElseExpr(newElse);
 
+							if (newElse == null)
+								reportError(XQueryMessages.errorXQSE_MissingExprSingle_UI_);
+						}
+					}
+				}
+			}
+		}
 		return ifexpr;
 	}
 
@@ -980,28 +1014,46 @@ public class ModelBuilder {
 		ASTTypeswitch typeswitch = asTypeswitch(expr);
 
 		nextSDRegion(); // typeswitch
-		nextSDRegion(); // (
+		nextSDRegion(); // ( (always there)
 
 		IASTNode oldOperand = typeswitch.getOperandExpr();
-		typeswitch.setOperandExpr(reparseExpr(oldOperand));
+		IASTNode newOperand = reparseExpr(oldOperand);
+		typeswitch.setOperandExpr(newOperand);
 
-		nextSDRegion(); // )
+		if (newOperand == null)
+			reportError(XQueryMessages.errorXQSE_MissingExpr_UI_);
+		else {
+			if (checkAndReport(XQueryRegions.RPAR,
+					XQueryMessages.errorXQSE_MissingRPar_UI_)) {
+				nextSDRegion(); // )
 
-		reparseCaseClauses(typeswitch);
+				if (reparseCaseClauses(typeswitch)) {
 
-		nextSDRegion(); // default
+					if (checkAndReport(XQueryRegions.KW_DEFAULT,
+							XQueryMessages.errorXQSE_MissingDefault_UI_)) {
+						nextSDRegion(); // default
 
-		if (sameRegionType(XQueryRegions.DOLLAR)) {
-			typeswitch
-					.setDefaultCaseVarname((XQueryStructuredDocumentRegion) currentSDRegion);
-			nextSDRegion(); // "$" Varname
+						if (sameRegionType(XQueryRegions.DOLLAR)) {
+							typeswitch.setDefaultCaseVarname(currentSDRegion);
+							nextSDRegion(); // "$" Varname
+						}
+
+						if (checkAndReport(XQueryRegions.KW_RETURN,
+								XQueryMessages.errorXQSE_MissingReturn_UI_)) {
+							nextSDRegion(); // return
+
+							IASTNode oldDefaultReturn = typeswitch
+									.getDefaultCaseExpr();
+							IASTNode newDefaultReturn = reparseExprSingle(oldDefaultReturn);
+							typeswitch.setDefaultCaseExpr(newDefaultReturn);
+
+							if (newDefaultReturn == null)
+								reportError(XQueryMessages.errorXQSE_MissingExprSingle_UI_);
+						}
+					}
+				}
+			}
 		}
-
-		nextSDRegion(); // return
-
-		IASTNode oldDefaultReturn = typeswitch.getDefaultCaseExpr();
-		typeswitch.setDefaultCaseExpr(reparseExprSingle(oldDefaultReturn));
-
 		return typeswitch;
 	}
 
@@ -1009,32 +1061,59 @@ public class ModelBuilder {
 	 * Reparse
 	 * <tt>("case" ("$" VarName "as")? SequenceType "return" ExprSingle)+</tt>
 	 */
-	protected void reparseCaseClauses(ASTTypeswitch typeswitch) {
+	protected boolean reparseCaseClauses(ASTTypeswitch typeswitch) {
 		int index = 0;
-		do {
+		while (sameRegionType(XQueryRegions.KW_CASE)) {
 			nextSDRegion(); // case
 
-			if (sameRegionType(XQueryRegions.DOLLAR)) {
-				typeswitch.setCaseVarname(index,
-						(XQueryStructuredDocumentRegion) currentSDRegion);
+			boolean varspecified = sameRegionType(XQueryRegions.DOLLAR);
+			if (varspecified) {
+				typeswitch.setCaseVarname(index, currentSDRegion);
 				nextSDRegion(); // "$" Varname
-				nextSDRegion(); // as
+
+				if (checkAndReport(XQueryRegions.KW_AS,
+						XQueryMessages.errorXQSE_MissingAs_UI_))
+					nextSDRegion(); // as
+				else
+					return false;
 			}
 
-			reparseSequenceType(null);
+			IASTNode type = reparseSequenceType(null);
+			if (type == null) {
+				if (varspecified)
+					reportError(XQueryMessages.errorXQSE_MissingSequenceType_UI_);
+				else {
+					reportError(XQueryMessages.errorXQSE_MissingVarOrSequenceType_UI_);
+				}
 
-			nextSDRegion(); // return
+				return false;
+			}
 
-			IASTNode oldExpr = typeswitch.getCaseExpr(index);
-			typeswitch.setCaseExpr(index, reparseExprSingle(oldExpr));
+			if (checkAndReport(XQueryRegions.KW_RETURN,
+					XQueryMessages.errorXQSE_MissingReturn_UI_)) {
+				nextSDRegion(); // return
+
+				IASTNode oldExpr = typeswitch.getCaseExpr(index);
+				IASTNode newExpr = reparseExprSingle(oldExpr);
+				typeswitch.setCaseExpr(index, newExpr);
+
+				if (newExpr == null) {
+					reportError(XQueryMessages.errorXQSE_MissingExprSingle_UI_);
+					return false;
+				}
+			} else
+				return false;
 
 			index++;
 
-		} while (currentSDRegion != null);
+		}
 
 		if (index == 0) {
-			// TODO: Bad..
+			reportError(XQueryMessages.errorXQSE_MissingFirstTSCase_UI_);
+			return false;
 		}
+
+		return true;
 	}
 
 	/**
@@ -1128,6 +1207,9 @@ public class ModelBuilder {
 		IASTNode oldExpr = clause.getExpr();
 		IASTNode newExpr = reparseExprSingle(oldExpr);
 		clause.setExpr(newExpr);
+		
+		if (newExpr == null)
+			reportError(XQueryMessages.errorXQSE_MissingExprSingle_UI_);
 
 		return clause;
 	}
@@ -1495,6 +1577,8 @@ public class ModelBuilder {
 	 * Reparse <tt>Pragma+ "{" Expr? "}"</tt>
 	 */
 	protected IASTNode reparseExtensionExpr(IASTNode expr) {
+		// TODO
+		
 		while (currentSDRegion != null) {
 			nextSDRegion(); // (#
 			nextSDRegion(); // QName
@@ -1521,6 +1605,8 @@ public class ModelBuilder {
 	 * Reparse <tt>("lax" | "strict")?</tt>
 	 */
 	protected void reparseValidationModeOpt(IASTNode expr) {
+		// TODO
+		
 		if (sameRegionType(XQueryRegions.KW_LAX)
 				|| sameRegionType(XQueryRegions.KW_STRICT))
 			nextSDRegion();
@@ -1530,6 +1616,8 @@ public class ModelBuilder {
 	 * Reparse <tt>"validate" ValidationMode? "{" Expr "}"</tt>
 	 */
 	protected IASTNode reparseValidateExpr(IASTNode expr) {
+		// TODO
+		
 		nextSDRegion(); // validate
 		reparseValidationModeOpt(expr);
 		return reparseEnclosedExpr(expr);
@@ -1740,9 +1828,6 @@ public class ModelBuilder {
 		IASTNode newExpr = reparseEnclosedExpr(oldExpr);
 		node.setChildASTNodeAt(0, newExpr);
 
-		if (newExpr == null)
-			reportError(XQueryMessages.errorXQSE_MissingExpr_UI_);
-
 		return node;
 	}
 
@@ -1767,7 +1852,7 @@ public class ModelBuilder {
 	 * <tt>"processing-instruction" (NCName | ("{" Expr "}")) "{" Expr? "}"</tt>
 	 */
 	protected IASTNode reparseCompPIConstructor(IASTNode node) {
-		ASTCompPIConstructor constructor = asCompPIConstructor(node); 
+		ASTCompPIConstructor constructor = asCompPIConstructor(node);
 		return reparseCompElemAttrPI(constructor, XQueryRegions.NCNAME);
 	}
 
@@ -1813,6 +1898,7 @@ public class ModelBuilder {
 	 * Reparse <tt>"<?" PITarget (S DirPIContents)? "?>"</tt>
 	 */
 	protected IASTNode reparseDirPIConstructor(IASTNode expr) {
+		// TODO
 		nextSDRegion(); // only one region for the PI
 		return null;
 	}
@@ -1821,6 +1907,7 @@ public class ModelBuilder {
 	 * Reparse <tt>"<!--" DirCommentContents "-->"</tt>
 	 */
 	protected IASTNode reparseDirCommentConstructor(IASTNode expr) {
+		// TODO
 		nextSDRegion(); // only one region for the comment
 		return null;
 	}
@@ -1830,6 +1917,7 @@ public class ModelBuilder {
 	 * <tt>"<" QName DirAttributeList ("/>" | (">" DirElemContent* "</" QName S? ">"))</tt>
 	 */
 	protected IASTNode reparseDirElemConstructor(IASTNode expr) {
+		// TODO
 		ASTDirElement element = asDirElement(expr);
 
 		String tagName = currentSDRegion.getText(currentSDRegion
@@ -1860,6 +1948,7 @@ public class ModelBuilder {
 	 * <tt>(DirectConstructor | CDataSection | CommonContent | ElementContentChar )*</tt>
 	 */
 	protected void reparseDirElemContentStar(ASTDirElement element) {
+		// TODO
 		int index = 0;
 		while (currentSDRegion != null) {
 			if (sameRegionType(XQueryRegions.XML_END_TAG_OPEN)) {
@@ -1890,6 +1979,7 @@ public class ModelBuilder {
 	 * Reparse <tt>Char - [{}<&]</tt>
 	 */
 	protected void reparseElementContentChar() {
+		// TODO
 		nextSDRegion(); // Checked by the tokenizer
 	}
 
@@ -1898,6 +1988,7 @@ public class ModelBuilder {
 	 * <tt>PredefinedEntityRef | CharRef | "{{" | "}}" | EnclosedExpr</tt>
 	 */
 	protected IASTNode reparseCommonContent(IASTNode node) {
+		// TODO
 		if (sameRegionType(XQueryRegions.XML_START_EXPR)) {
 			return reparseEnclosedExpr(node);
 		}
@@ -1927,6 +2018,7 @@ public class ModelBuilder {
 	 * Reparse <tt>"<![CDATA[" CDataSectionContents "]]>"</tt>
 	 */
 	protected void reparseCDataSection() {
+		// TODO
 		nextSDRegion();
 	}
 
@@ -1934,6 +2026,7 @@ public class ModelBuilder {
 	 * Reparse <tt>(S (QName S? "=" S? DirAttributeValue)?)*</tt>
 	 */
 	protected void reparseDirAttributeList(ASTDirElement element) {
+		// TODO
 		while (currentSDRegion != null) {
 			if (!sameRegionType(XQueryRegions.XML_TAG_ATTRIBUTE_NAME))
 				break;
@@ -1959,6 +2052,7 @@ public class ModelBuilder {
 	 * <tt>('"' (EscapeQuot | QuotAttrValueContent)* '"') | ("'" (EscapeApos | AposAttrValueContent)* "'")</tt>
 	 */
 	protected void reparseDirAttributeValue(ASTDirAttribute attr) {
+		// TODO
 		final String escapeType = sameRegionType(XQueryRegions.XML_ATTR_QUOT) ? XQueryRegions.XML_ESCAPE_QUOT
 				: XQueryRegions.XML_ESCAPE_APOS;
 
@@ -1972,6 +2066,7 @@ public class ModelBuilder {
 	 * Reparse <tt>{Apos/Quot}AttrContentChar | CommonContent</tt>
 	 */
 	protected IASTNode reparseAttrValueContent(IASTNode node) {
+		// TODO
 		if (sameRegionType(commonContentFilter))
 			return reparseCommonContent(node);
 
@@ -1985,6 +2080,7 @@ public class ModelBuilder {
 	 */
 	protected void reparseDirAttributeValue(ASTDirAttribute attr,
 			String escapeType) {
+		// TODO
 		int index = 0;
 		while (currentSDRegion != null) {
 			if (sameRegionType(XQueryRegions.XML_END_ATTR_VALUE)) {
@@ -2026,6 +2122,7 @@ public class ModelBuilder {
 	 * Reparse <tt>QName "(" (ExprSingle ("," ExprSingle)*)? ")"</tt>
 	 */
 	protected IASTNode reparseFunctionCall(IASTNode expr) {
+		// TODO
 		nextSDRegion(); // QName "("
 
 		ASTFunctionCall fc = asFunctionCall(expr);
@@ -2058,7 +2155,6 @@ public class ModelBuilder {
 	 * Reparse <tt>"."</tt>
 	 */
 	protected IASTNode reparseContextItemExpr(IASTNode node) {
-
 		ASTContextItem item = asContextItem(node);
 		item.setStructuredDocumentRegion(currentSDRegion);
 

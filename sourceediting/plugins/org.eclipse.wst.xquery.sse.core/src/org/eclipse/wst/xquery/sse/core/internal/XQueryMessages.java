@@ -56,6 +56,11 @@ public class XQueryMessages extends NLS {
 	public static String errorXQSE_MissingSequenceType_UI_;
 	public static String errorXQSE_MissingSingleType_UI_;
 	public static String errorXQSE_MissingPIName_UI_;
+	public static String errorXQSE_MissingThen_UI_; 
+	public static String errorXQSE_MissingElse_UI_; 
+	public static String errorXQSE_MissingDefault_UI_;
+	public static String errorXQSE_MissingFirstTSCase_UI_;
+	public static String errorXQSE_MissingVarOrSequenceType_UI_;
 	
 	
 	static {

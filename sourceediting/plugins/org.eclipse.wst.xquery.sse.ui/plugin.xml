@@ -28,13 +28,6 @@
       </provisionalDefinition>
    </extension>
    <extension
-         point="org.eclipse.ui.contexts">
-      <context
-            id="org.eclipse.wst.xquery.sse.ui.context1"
-            name="name">
-      </context>
-   </extension>
-   <extension
          point="org.eclipse.ui.preferencePages">
       <page
             category="org.eclipse.wst.xquery.preferences.editor"

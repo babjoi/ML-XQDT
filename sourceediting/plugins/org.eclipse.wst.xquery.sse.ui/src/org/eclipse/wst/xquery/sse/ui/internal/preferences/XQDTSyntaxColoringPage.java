@@ -45,6 +45,7 @@ import org.eclipse.swt.accessibility.ACC;
 import org.eclipse.swt.accessibility.AccessibleAdapter;
 import org.eclipse.swt.accessibility.AccessibleEvent;
 import org.eclipse.swt.custom.SashForm;
+import org.eclipse.swt.custom.StyleRange;
 import org.eclipse.swt.custom.StyledText;
 import org.eclipse.swt.events.KeyEvent;
 import org.eclipse.swt.events.KeyListener;
@@ -67,15 +68,19 @@ import org.eclipse.swt.widgets.Link;
 import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.IWorkbenchPreferencePage;
 import org.eclipse.ui.dialogs.PreferencesUtil;
+import org.eclipse.wst.sse.core.StructuredModelManager;
 import org.eclipse.wst.sse.core.internal.provisional.text.IStructuredDocument;
 import org.eclipse.wst.sse.core.internal.provisional.text.IStructuredDocumentRegion;
 import org.eclipse.wst.sse.core.internal.provisional.text.ITextRegion;
+import org.eclipse.wst.sse.core.internal.provisional.text.ITextRegionList;
 import org.eclipse.wst.sse.ui.internal.SSEUIMessages;
 import org.eclipse.wst.sse.ui.internal.SSEUIPlugin;
 import org.eclipse.wst.sse.ui.internal.preferences.OverlayPreferenceStore;
 import org.eclipse.wst.sse.ui.internal.preferences.OverlayPreferenceStore.OverlayKey;
 import org.eclipse.wst.sse.ui.internal.preferences.ui.ColorHelper;
 import org.eclipse.wst.sse.ui.internal.util.EditorUtility;
+import org.eclipse.wst.xquery.sse.core.IXQDTSSECoreConstants;
+import org.eclipse.wst.xquery.sse.core.internal.parser.XQueryTokenizer;
 import org.eclipse.wst.xquery.sse.ui.XQDTSSEUIPlugin;
 import org.eclipse.wst.xquery.sse.ui.internal.XQueryUIMessages;
 import org.eclipse.wst.xquery.sse.ui.internal.style.XQueryLineStyleProvider;
@@ -85,25 +90,26 @@ import org.eclipse.wst.xquery.sse.ui.internal.style.XQueryLineStyleProvider;
  * 
  * The code is almost identical to the XML syntax coloring preference page.
  * 
- * TODO: This class should inherit from the XML page
+ * TODO: The similar XML page should be extended such that languages like XQuery can benefit from
+ * the base XML functionality by inheriting from it and add only the extra functionality.
  */
-@SuppressWarnings({ "restriction", "rawtypes", "unchecked" })
+@SuppressWarnings("restriction")
 public class XQDTSyntaxColoringPage extends PreferencePage implements IWorkbenchPreferencePage {
 
     private Button fBold;
     private Label fColorLabel;
     private Button fClearStyle;
 
-    private Map fContextToStyleMap;
+    private Map<String, String> fContextToStyleMap;
     private Color fDefaultColor = null;
     private IStructuredDocument fDocument;
     private ColorSelector fColorSelector;
     private Button fItalic;
     private OverlayPreferenceStore fOverlayStore;
     private Button fStrike;
-    private Collection fStylePreferenceKeys;
+    private Collection<String> fStylePreferenceKeys;
     private StructuredViewer fStylesViewer = null;
-    private Map fStyleToDescriptionMap;
+    private Map<String, String> fStyleToDescriptionMap;
     private StyledText fText;
     private Button fUnderline;
 
@@ -147,34 +153,32 @@ public class XQDTSyntaxColoringPage extends PreferencePage implements IWorkbench
      * Color the text in the sample area according to the current preferences
      */
     void applyStyles() {
-        // if (fText == null || fText.isDisposed())
-        // return;
-        // IStructuredDocumentRegion documentRegion = fDocument
-        // .getFirstStructuredDocumentRegion();
-        // while (documentRegion != null) {
-        // ITextRegionList regions = documentRegion.getRegions();
-        // for (int i = 0; i < regions.size(); i++) {
-        // ITextRegion currentRegion = regions.get(i);
-        // // lookup the local coloring type and apply it
-        // String namedStyle = (String) fContextToStyleMap
-        // .get(currentRegion.getType());
-        // if (namedStyle == null)
-        // continue;
-        // TextAttribute attribute = getAttributeFor(namedStyle);
-        // if (attribute == null)
-        // continue;
-        // StyleRange style = new StyleRange(documentRegion
-        // .getStartOffset(currentRegion), currentRegion
-        // .getTextLength(), attribute.getForeground(), attribute
-        // .getBackground(), attribute.getStyle());
-        // style.strikeout = (attribute.getStyle() &
-        // TextAttribute.STRIKETHROUGH) != 0;
-        // style.underline = (attribute.getStyle() & TextAttribute.UNDERLINE) !=
-        // 0;
-        // fText.setStyleRange(style);
-        // }
-        // documentRegion = documentRegion.getNext();
-        // }
+        if (fText == null || fText.isDisposed()) {
+            return;
+        }
+        IStructuredDocumentRegion documentRegion = fDocument.getFirstStructuredDocumentRegion();
+        while (documentRegion != null) {
+            ITextRegionList regions = documentRegion.getRegions();
+            for (int i = 0; i < regions.size(); i++) {
+                ITextRegion currentRegion = regions.get(i);
+                // lookup the local coloring type and apply it
+                String namedStyle = fContextToStyleMap.get(currentRegion.getType());
+                if (namedStyle == null) {
+                    continue;
+                }
+                TextAttribute attribute = getAttributeFor(namedStyle);
+                if (attribute == null) {
+                    continue;
+                }
+                StyleRange style = new StyleRange(documentRegion.getStartOffset(currentRegion),
+                        currentRegion.getTextLength(), attribute.getForeground(), attribute.getBackground(),
+                        attribute.getStyle());
+                style.strikeout = (attribute.getStyle() & TextAttribute.STRIKETHROUGH) != 0;
+                style.underline = (attribute.getStyle() & TextAttribute.UNDERLINE) != 0;
+                fText.setStyleRange(style);
+            }
+            documentRegion = documentRegion.getNext();
+        }
     }
 
     Button createCheckbox(Composite parent, String label) {
@@ -209,8 +213,7 @@ public class XQDTSyntaxColoringPage extends PreferencePage implements IWorkbench
 
         fDefaultColor = parent.getDisplay().getSystemColor(SWT.COLOR_LIST_FOREGROUND);
         Composite pageComponent = createComposite(parent, 2);
-        // PlatformUI.getWorkbench().getHelpSystem().setHelp(pageComponent,
-        // IHelpContextIds.XML_PREFWEBX_STYLES_HELPID);
+        // PlatformUI.getWorkbench().getHelpSystem().setHelp(pageComponent, IHelpContextIds.XML_PREFWEBX_STYLES_HELPID);
 
         Link link = new Link(pageComponent, SWT.WRAP);
         link.setText(SSEUIMessages.SyntaxColoring_Link);
@@ -221,8 +224,7 @@ public class XQDTSyntaxColoringPage extends PreferencePage implements IWorkbench
         });
 
         GridData linkData = new GridData(SWT.FILL, SWT.BEGINNING, true, false, 2, 1);
-        linkData.widthHint = 150; // only expand further if anyone else requires
-        // it
+        linkData.widthHint = 150; // only expand further if anyone else requires it
         link.setLayoutData(linkData);
 
         new Label(pageComponent, SWT.NONE).setLayoutData(new GridData());
@@ -240,7 +242,7 @@ public class XQDTSyntaxColoringPage extends PreferencePage implements IWorkbench
         fStylesViewer = createStylesViewer(styleEditor);
         GridData gridData = new GridData(SWT.FILL, SWT.FILL, true, true);
         gridData.horizontalIndent = 0;
-        Iterator iterator = fStyleToDescriptionMap.values().iterator();
+        Iterator<String> iterator = fStyleToDescriptionMap.values().iterator();
         while (iterator.hasNext()) {
             gridData.widthHint = Math.max(gridData.widthHint, convertWidthInCharsToPixels(iterator.next().toString()
                     .length()));
@@ -257,7 +259,7 @@ public class XQDTSyntaxColoringPage extends PreferencePage implements IWorkbench
         Composite editControls = createComposite(editingComposite, 2);
         ((GridLayout)editControls.getLayout()).marginLeft = 20;
 
-        fColorLabel = createLabel(editControls, "Color");
+        fColorLabel = createLabel(editControls, "&Color:");
         ((GridData)fColorLabel.getLayoutData()).verticalAlignment = SWT.CENTER;
         fColorLabel.setEnabled(false);
 
@@ -305,16 +307,14 @@ public class XQDTSyntaxColoringPage extends PreferencePage implements IWorkbench
         fText.addMouseListener(getTextMouseListener());
         fText.addTraverseListener(getTraverseListener());
         setAccessible(fText, SSEUIMessages.Sample_text__UI_);
-        // fDocument = StructuredModelManager.getModelManager()
-        // .createStructuredDocumentFor(
-        // ContentTypeIdForXML.ContentTypeID_XML);
-        // fDocument.set(getExampleText());
-        // viewer.setDocument(fDocument);
+        fDocument = StructuredModelManager.getModelManager().createStructuredDocumentFor(
+                IXQDTSSECoreConstants.XQUERY_CONTENT_TYPE_ID);
+        fDocument.set(getExampleText());
+        viewer.setDocument(fDocument);
 
         top.setWeights(new int[] { 1, 1 });
         editor.setWeights(new int[] { 1, 1 });
-        // PlatformUI.getWorkbench().getHelpSystem().setHelp(pageComponent,
-        // IHelpContextIds.XML_PREFWEBX_STYLES_HELPID);
+        // PlatformUI.getWorkbench().getHelpSystem().setHelp(pageComponent, IHelpContextIds.XML_PREFWEBX_STYLES_HELPID);
 
         fStylesViewer.setInput(getStylePreferenceKeys());
 
@@ -478,11 +478,11 @@ public class XQDTSyntaxColoringPage extends PreferencePage implements IWorkbench
      * Set up all the style preference keys in the overlay store
      */
     private OverlayKey[] createOverlayStoreKeys() {
-        List overlayKeys = new ArrayList();
+        List<OverlayPreferenceStore.OverlayKey> overlayKeys = new ArrayList<OverlayPreferenceStore.OverlayKey>();
 
-        Iterator i = getStylePreferenceKeys().iterator();
+        Iterator<String> i = getStylePreferenceKeys().iterator();
         while (i.hasNext()) {
-            overlayKeys.add(new OverlayPreferenceStore.OverlayKey(OverlayPreferenceStore.STRING, (String)i.next()));
+            overlayKeys.add(new OverlayPreferenceStore.OverlayKey(OverlayPreferenceStore.STRING, i.next()));
         }
 
         OverlayPreferenceStore.OverlayKey[] keys = new OverlayPreferenceStore.OverlayKey[overlayKeys.size()];
@@ -591,9 +591,9 @@ public class XQDTSyntaxColoringPage extends PreferencePage implements IWorkbench
         return ta;
     }
 
-//	private String getExampleText() {
-//		return XQueryUIMessages.Sample_XML_doc;
-//	}
+    private String getExampleText() {
+        return XQueryUIMessages.Sample_XQuery_doc;
+    }
 
     private String getNamedStyleAtOffset(int offset) {
         // ensure the offset is clean
@@ -621,7 +621,7 @@ public class XQDTSyntaxColoringPage extends PreferencePage implements IWorkbench
             }
             // find the named style (internal/selectable name) for that
             // context
-            String namedStyle = (String)fContextToStyleMap.get(regionContext);
+            String namedStyle = fContextToStyleMap.get(regionContext);
             if (namedStyle != null) {
                 return namedStyle;
             }
@@ -633,9 +633,9 @@ public class XQDTSyntaxColoringPage extends PreferencePage implements IWorkbench
         return fOverlayStore;
     }
 
-    private Collection getStylePreferenceKeys() {
+    private Collection<String> getStylePreferenceKeys() {
         if (fStylePreferenceKeys == null) {
-            List styles = new ArrayList();
+            List<String> styles = new ArrayList<String>();
             styles.add(XQueryLineStyleProvider.CK_KEYWORD);
             styles.add(XQueryLineStyleProvider.CK_STRING_LITERAL);
             styles.add(XQueryLineStyleProvider.CK_VAR_REF);
@@ -730,8 +730,8 @@ public class XQDTSyntaxColoringPage extends PreferencePage implements IWorkbench
     public void init(IWorkbench workbench) {
         setDescription(SSEUIMessages.SyntaxColoring_Description);
 
-        fStyleToDescriptionMap = new HashMap();
-        fContextToStyleMap = new HashMap();
+        fStyleToDescriptionMap = new HashMap<String, String>();
+        fContextToStyleMap = new HashMap<String, String>();
 
         initStyleToDescriptionMap();
         initRegionContextToStyleMap();
@@ -742,6 +742,36 @@ public class XQDTSyntaxColoringPage extends PreferencePage implements IWorkbench
     }
 
     private void initRegionContextToStyleMap() {
+        fContextToStyleMap.put(XQueryTokenizer.XQUERY_COMMENT, XQueryLineStyleProvider.CK_COMMENT);
+
+        fContextToStyleMap.put(XQueryTokenizer.KW_DECLARE, XQueryLineStyleProvider.CK_KEYWORD);
+        fContextToStyleMap.put(XQueryTokenizer.KW_FUNCTION, XQueryLineStyleProvider.CK_KEYWORD);
+        fContextToStyleMap.put(XQueryTokenizer.KW_AS, XQueryLineStyleProvider.CK_KEYWORD);
+        fContextToStyleMap.put(XQueryTokenizer.KW_LET, XQueryLineStyleProvider.CK_KEYWORD);
+        fContextToStyleMap.put(XQueryTokenizer.KW_RETURN, XQueryLineStyleProvider.CK_KEYWORD);
+
+        fContextToStyleMap.put(XQueryTokenizer.FUNCTIONNAME, XQueryLineStyleProvider.CK_FUNCTIONCALL);
+        fContextToStyleMap.put(XQueryTokenizer.VARREF, XQueryLineStyleProvider.CK_VAR_REF);
+        fContextToStyleMap.put(XQueryTokenizer.ST_ATOMICTYPE, XQueryLineStyleProvider.CK_TYPE);
+
+        fContextToStyleMap.put(XQueryTokenizer.OP_MINUS, XQueryLineStyleProvider.CK_OPERATOR);
+
+        fContextToStyleMap.put(XQueryTokenizer.STRINGLITERAL, XQueryLineStyleProvider.CK_STRING_LITERAL);
+
+        fContextToStyleMap.put(XQueryTokenizer.XML_TAG_OPEN, XQueryLineStyleProvider.CK_XML_TAG_DELIMITER);
+        fContextToStyleMap.put(XQueryTokenizer.XML_TAG_CLOSE, XQueryLineStyleProvider.CK_XML_TAG_DELIMITER);
+        fContextToStyleMap.put(XQueryTokenizer.XML_TAG_NAME, XQueryLineStyleProvider.CK_XML_TAG_NAME);
+
+        fContextToStyleMap.put(XQueryTokenizer.XML_TAG_ATTRIBUTE_NAME, XQueryLineStyleProvider.CK_XML_ATTR_NAME);
+        fContextToStyleMap.put(XQueryTokenizer.XML_TAG_ATTRIBUTE_EQUALS, XQueryLineStyleProvider.CK_XML_ATTR_EQUAL);
+        fContextToStyleMap.put(XQueryTokenizer.XML_ATTR_CHAR, XQueryLineStyleProvider.CK_XML_ATTR_VALUE);
+
+        fContextToStyleMap.put(XQueryTokenizer.XML_ELEM_CONTENT_CHAR, XQueryLineStyleProvider.CK_XML_CONTENT);
+        fContextToStyleMap.put(XQueryTokenizer.XML_END_TAG_OPEN, XQueryLineStyleProvider.CK_XML_TAG_DELIMITER);
+
+        fContextToStyleMap.put(XQueryTokenizer.XML_COMMENT_OPEN, XQueryLineStyleProvider.CK_XML_COMMENT);
+        fContextToStyleMap.put(XQueryTokenizer.XML_COMMENT_TEXT, XQueryLineStyleProvider.CK_XML_COMMENT);
+        fContextToStyleMap.put(XQueryTokenizer.XML_COMMENT_CLOSE, XQueryLineStyleProvider.CK_XML_COMMENT);
     }
 
     private void initStyleToDescriptionMap() {

@@ -27,7 +27,7 @@ public class XQueryUIMessages extends NLS {
 
 	// TODO: need a cleanup
 
-	public static String Sample_XML_doc;
+	public static String Sample_XQuery_doc;
 	public static String Comment_Delimiters_UI_;
 	public static String Comment_Content_UI_;
 	public static String Tag_Delimiters_UI_;

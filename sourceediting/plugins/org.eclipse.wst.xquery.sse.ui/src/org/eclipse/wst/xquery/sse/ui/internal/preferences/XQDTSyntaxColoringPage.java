@@ -21,6 +21,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import org.eclipse.jface.preference.ColorSelector;
 import org.eclipse.jface.preference.IPreferenceStore;
@@ -61,6 +62,7 @@ import org.eclipse.swt.graphics.RGB;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Button;
+import org.eclipse.swt.widgets.Combo;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Label;
@@ -96,22 +98,25 @@ import org.eclipse.wst.xquery.sse.ui.internal.style.XQueryLineStyleProvider;
 @SuppressWarnings("restriction")
 public class XQDTSyntaxColoringPage extends PreferencePage implements IWorkbenchPreferencePage {
 
-    private Button fBold;
-    private Label fColorLabel;
-    private Button fClearStyle;
+    private Combo fSchemeCombo;
 
-    private Map<String, String> fContextToStyleMap;
+    private Button fBold;
+    private Button fItalic;
+    private Button fStrike;
+    private Button fUnderline;
+
+    private Button fClearStyle;
+    private ColorSelector fColorSelector;
+    private Label fColorLabel;
+    private StyledText fText;
+
     private Color fDefaultColor = null;
     private IStructuredDocument fDocument;
-    private ColorSelector fColorSelector;
-    private Button fItalic;
     private OverlayPreferenceStore fOverlayStore;
-    private Button fStrike;
-    private Collection<String> fStylePreferenceKeys;
     private StructuredViewer fStylesViewer = null;
+    private Collection<String> fStylePreferenceKeys;
+    private Map<String, String> fContextToStyleMap;
     private Map<String, String> fStyleToDescriptionMap;
-    private StyledText fText;
-    private Button fUnderline;
 
     // activate controls based on the given local color type
     private void activate(String namedStyle) {
@@ -227,8 +232,23 @@ public class XQDTSyntaxColoringPage extends PreferencePage implements IWorkbench
         linkData.widthHint = 150; // only expand further if anyone else requires it
         link.setLayoutData(linkData);
 
-        new Label(pageComponent, SWT.NONE).setLayoutData(new GridData());
-        new Label(pageComponent, SWT.NONE).setLayoutData(new GridData());
+        Composite schemeComp = createComposite(pageComponent, 2);
+        GridLayout compLayout = (GridLayout)schemeComp.getLayout();
+        compLayout.marginBottom = compLayout.marginTop = 5;
+
+        Label schemeLabel = createLabel(schemeComp, XQueryUIMessages.SyntaxColoringPage_SchemesLabel);
+        ((GridData)schemeLabel.getLayoutData()).verticalAlignment = SWT.CENTER;
+
+        fSchemeCombo = new Combo(schemeComp, SWT.SIMPLE | SWT.READ_ONLY | SWT.DROP_DOWN);
+        GridData comboData = new GridData(SWT.FILL, SWT.CENTER, true, false);
+        fSchemeCombo.setLayoutData(comboData);
+        String[] schemes = getColorSchemes();
+        if (schemes.length == 0) {
+            fSchemeCombo.setEnabled(false);
+            schemes = new String[] { XQueryUIMessages.SyntaxColoringPage_NoSchemeItem };
+        }
+        fSchemeCombo.setItems(schemes);
+        fSchemeCombo.select(0);
 
         SashForm editor = new SashForm(pageComponent, SWT.VERTICAL);
         GridData gridData2 = new GridData(SWT.FILL, SWT.FILL, true, true);
@@ -259,7 +279,7 @@ public class XQDTSyntaxColoringPage extends PreferencePage implements IWorkbench
         Composite editControls = createComposite(editingComposite, 2);
         ((GridLayout)editControls.getLayout()).marginLeft = 20;
 
-        fColorLabel = createLabel(editControls, "&Color:");
+        fColorLabel = createLabel(editControls, XQueryUIMessages.SyntaxColoringPage_1);
         ((GridData)fColorLabel.getLayoutData()).verticalAlignment = SWT.CENTER;
         fColorLabel.setEnabled(false);
 
@@ -459,6 +479,16 @@ public class XQDTSyntaxColoringPage extends PreferencePage implements IWorkbench
         });
 
         return pageComponent;
+    }
+
+    private Map<String, Map<String, String>> fColorSchemes;
+
+    private String[] getColorSchemes() {
+        if (fColorSchemes == null) {
+            fColorSchemes = new HashMap<String, Map<String, String>>();
+        }
+        Set<String> names = fColorSchemes.keySet();
+        return names.toArray(new String[names.size()]);
     }
 
     private Label createLabel(Composite parent, String text) {

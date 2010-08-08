@@ -13,7 +13,6 @@
  *       - added color scheme templates
  *     
  *******************************************************************************/
-
 package org.eclipse.wst.xquery.sse.ui.internal.preferences;
 
 import java.text.Collator;

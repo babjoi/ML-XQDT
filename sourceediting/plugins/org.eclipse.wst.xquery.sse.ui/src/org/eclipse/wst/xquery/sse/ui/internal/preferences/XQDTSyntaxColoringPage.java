@@ -8,7 +8,9 @@
  * Contributors:
  *     IBM Corporation - initial API and implementation
  *     Lionel Vilard (IBM) - adoption in XQDT
- *     Gabriel Petrovay (28msec) - change to ignore background colors
+ *     Gabriel Petrovay (28msec)
+ *       - change to ignore background colors
+ *       - added color scheme templates
  *     
  *******************************************************************************/
 
@@ -79,12 +81,13 @@ import org.eclipse.wst.sse.ui.internal.SSEUIMessages;
 import org.eclipse.wst.sse.ui.internal.SSEUIPlugin;
 import org.eclipse.wst.sse.ui.internal.preferences.OverlayPreferenceStore;
 import org.eclipse.wst.sse.ui.internal.preferences.OverlayPreferenceStore.OverlayKey;
-import org.eclipse.wst.sse.ui.internal.preferences.ui.ColorHelper;
 import org.eclipse.wst.sse.ui.internal.util.EditorUtility;
 import org.eclipse.wst.xquery.sse.core.IXQDTSSECoreConstants;
 import org.eclipse.wst.xquery.sse.core.internal.parser.XQueryTokenizer;
 import org.eclipse.wst.xquery.sse.ui.XQDTSSEUIPlugin;
+import org.eclipse.wst.xquery.sse.ui.internal.XQDTEditorUIPreferenceInitializer;
 import org.eclipse.wst.xquery.sse.ui.internal.XQueryUIMessages;
+import org.eclipse.wst.xquery.sse.ui.internal.restrictions.ColorHelper;
 import org.eclipse.wst.xquery.sse.ui.internal.style.XQDTLineStyleProvider;
 
 /**
@@ -117,7 +120,6 @@ public class XQDTSyntaxColoringPage extends PreferencePage implements IWorkbench
     private Collection<String> fStylePreferenceKeys;
     private Map<String, String> fContextToStyleMap;
     private Map<String, String> fStyleToDescriptionMap;
-    private Map<String, Map<String, String>> fColorSchemes;
 
     // activate controls based on the given local color type
     private void activate(String namedStyle) {
@@ -249,7 +251,29 @@ public class XQDTSyntaxColoringPage extends PreferencePage implements IWorkbench
             schemes = new String[] { XQueryUIMessages.SyntaxColoringPage_NoSchemeItem };
         }
         fSchemeCombo.setItems(schemes);
-        fSchemeCombo.select(0);
+        fSchemeCombo.setText("Choose one color scheme...");
+        fSchemeCombo.addSelectionListener(new SelectionAdapter() {
+            public void widgetSelected(SelectionEvent event) {
+                fStylesViewer.setSelection(StructuredSelection.EMPTY);
+                activate(null);
+
+                String schemeName = fSchemeCombo.getItem(fSchemeCombo.getSelectionIndex());
+                Map<String, String> schemeStyles = XQDTColorSchemeRegistry.getColorSchemes().get(schemeName);
+
+                List<String> stylesToChange = new ArrayList<String>(fStylePreferenceKeys);
+                for (String key : schemeStyles.keySet()) {
+                    String style = schemeStyles.get(key);
+                    getOverlayStore().setValue(key, style);
+                    stylesToChange.remove(key);
+                }
+                for (String key : stylesToChange) {
+                    getOverlayStore().setValue(key, XQDTEditorUIPreferenceInitializer.DEFAULT_TEXT_STYLE);
+                }
+
+                applyStyles();
+                fText.redraw();
+            }
+        });
 
         SashForm editor = new SashForm(pageComponent, SWT.VERTICAL);
         GridData gridData2 = new GridData(SWT.FILL, SWT.FILL, true, true);
@@ -483,11 +507,18 @@ public class XQDTSyntaxColoringPage extends PreferencePage implements IWorkbench
     }
 
     private String[] getColorSchemes() {
-        if (fColorSchemes == null) {
-            fColorSchemes = new HashMap<String, Map<String, String>>();
+        Set<String> nameSet = XQDTColorSchemeRegistry.getColorSchemes().keySet();
+        List<String> orderedList = new ArrayList<String>();
+        for (String name : nameSet) {
+            if (name.startsWith("WTP")) {
+                orderedList.add(0, name);
+            } else if (name.startsWith("XQDT")) {
+                orderedList.add(0, name);
+            } else {
+                orderedList.add(name);
+            }
         }
-        Set<String> names = fColorSchemes.keySet();
-        return names.toArray(new String[names.size()]);
+        return orderedList.toArray(new String[orderedList.size()]);
     }
 
     private Label createLabel(Composite parent, String text) {

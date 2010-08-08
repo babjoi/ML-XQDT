@@ -50,7 +50,7 @@
    <element name="scheme">
       <complexType>
          <sequence minOccurs="0" maxOccurs="unbounded">
-            <element ref="color" minOccurs="0" maxOccurs="unbounded"/>
+            <element ref="style" minOccurs="0" maxOccurs="unbounded"/>
          </sequence>
          <attribute name="name" type="string" use="required">
             <annotation>
@@ -62,7 +62,7 @@
       </complexType>
    </element>
 
-   <element name="color">
+   <element name="style">
       <complexType>
          <attribute name="id" use="required">
             <annotation>
@@ -84,14 +84,14 @@
                   </enumeration>
                   <enumeration value="Pragma">
                   </enumeration>
-                  <enumeration value="String">
+                  <enumeration value="StringLiteral">
                   </enumeration>
                   <enumeration value="Type">
                   </enumeration>
                </restriction>
             </simpleType>
          </attribute>
-         <attribute name="value" type="string" use="default" value="#000000">
+         <attribute name="color" type="string" use="default" value="#000000">
             <annotation>
                <documentation>
                   The color value in the format #RRGGBB, where &apos;RR&apos;, &apos;GG&apos;, and &apos;BB&apos; take values from 00 to FF.

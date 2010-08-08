@@ -20,7 +20,7 @@ import org.eclipse.wst.sse.ui.internal.provisional.style.LineStyleProvider;
 import org.eclipse.wst.xquery.sse.core.internal.document.XQueryDocumentPartitioner;
 import org.eclipse.wst.xquery.sse.ui.internal.quickassist.XQDTTemplateCompletionProcessor;
 import org.eclipse.wst.xquery.sse.ui.internal.quickassist.XQDTVariableContentAssistProcessor;
-import org.eclipse.wst.xquery.sse.ui.internal.style.XQueryLineStyleProvider;
+import org.eclipse.wst.xquery.sse.ui.internal.style.XQDTLineStyleProvider;
 
 /**
  * XQuery configuration for the source view in the XQuery editor
@@ -46,7 +46,7 @@ public class XQueryStructuredTextViewerConfiguration extends
 
 	public XQueryStructuredTextViewerConfiguration() {
 		lineStyleProvider = new LineStyleProvider[1];
-		lineStyleProvider[0] = new XQueryLineStyleProvider();
+		lineStyleProvider[0] = new XQDTLineStyleProvider();
 
 		contentAssistProcessor = new IContentAssistProcessor[2];
 		contentAssistProcessor[0] = new XQDTVariableContentAssistProcessor();

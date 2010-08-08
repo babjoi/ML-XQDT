@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?eclipse version="3.4"?>
 <plugin>
-   <extension-point id="tokenizer" name="XQuery Tokenizer" schema="schema/org.eclipse.wst.xquery.sse.core.tokenizer.exsd"/>
+   <extension-point id="tokenizer" name="XQuery Tokenizer" schema="schema/tokenizer.exsd"/>
    <extension-point id="modelBuilder" name="XQuery Model Builder" schema="schema/modelBuilder.exsd"/>
    <extension
          id="org.eclipse.wst.xquery.sse.core"

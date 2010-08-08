@@ -85,7 +85,7 @@ import org.eclipse.wst.xquery.sse.core.IXQDTSSECoreConstants;
 import org.eclipse.wst.xquery.sse.core.internal.parser.XQueryTokenizer;
 import org.eclipse.wst.xquery.sse.ui.XQDTSSEUIPlugin;
 import org.eclipse.wst.xquery.sse.ui.internal.XQueryUIMessages;
-import org.eclipse.wst.xquery.sse.ui.internal.style.XQueryLineStyleProvider;
+import org.eclipse.wst.xquery.sse.ui.internal.style.XQDTLineStyleProvider;
 
 /**
  * A preference page to configure the XQuery syntax color.
@@ -117,6 +117,7 @@ public class XQDTSyntaxColoringPage extends PreferencePage implements IWorkbench
     private Collection<String> fStylePreferenceKeys;
     private Map<String, String> fContextToStyleMap;
     private Map<String, String> fStyleToDescriptionMap;
+    private Map<String, Map<String, String>> fColorSchemes;
 
     // activate controls based on the given local color type
     private void activate(String namedStyle) {
@@ -481,8 +482,6 @@ public class XQDTSyntaxColoringPage extends PreferencePage implements IWorkbench
         return pageComponent;
     }
 
-    private Map<String, Map<String, String>> fColorSchemes;
-
     private String[] getColorSchemes() {
         if (fColorSchemes == null) {
             fColorSchemes = new HashMap<String, Map<String, String>>();
@@ -666,24 +665,24 @@ public class XQDTSyntaxColoringPage extends PreferencePage implements IWorkbench
     private Collection<String> getStylePreferenceKeys() {
         if (fStylePreferenceKeys == null) {
             List<String> styles = new ArrayList<String>();
-            styles.add(XQueryLineStyleProvider.CK_KEYWORD);
-            styles.add(XQueryLineStyleProvider.CK_STRING_LITERAL);
-            styles.add(XQueryLineStyleProvider.CK_VAR_REF);
-            styles.add(XQueryLineStyleProvider.CK_TYPE);
-            styles.add(XQueryLineStyleProvider.CK_COMMENT);
-            styles.add(XQueryLineStyleProvider.CK_OPERATOR);
-            styles.add(XQueryLineStyleProvider.CK_PRAGMA);
-            styles.add(XQueryLineStyleProvider.CK_FUNCTIONCALL);
-            styles.add(XQueryLineStyleProvider.CK_XML_ATTR_EQUAL);
-            styles.add(XQueryLineStyleProvider.CK_XML_ATTR_NAME);
-            styles.add(XQueryLineStyleProvider.CK_XML_ATTR_VALUE);
-            styles.add(XQueryLineStyleProvider.CK_XML_CDATA_CONTENT);
-            styles.add(XQueryLineStyleProvider.CK_XML_COMMENT);
-            styles.add(XQueryLineStyleProvider.CK_XML_CONTENT);
-            styles.add(XQueryLineStyleProvider.CK_XML_ENTITY_REFERENCE);
-            styles.add(XQueryLineStyleProvider.CK_XML_PI_CONTENT);
-            styles.add(XQueryLineStyleProvider.CK_XML_TAG_DELIMITER);
-            styles.add(XQueryLineStyleProvider.CK_XML_TAG_NAME);
+            styles.add(XQDTLineStyleProvider.CK_KEYWORD);
+            styles.add(XQDTLineStyleProvider.CK_STRING_LITERAL);
+            styles.add(XQDTLineStyleProvider.CK_DOLLAR_EXPR);
+            styles.add(XQDTLineStyleProvider.CK_TYPE);
+            styles.add(XQDTLineStyleProvider.CK_COMMENT);
+            styles.add(XQDTLineStyleProvider.CK_OPERATOR);
+            styles.add(XQDTLineStyleProvider.CK_PRAGMA);
+            styles.add(XQDTLineStyleProvider.CK_FUNCTION_NAME);
+            styles.add(XQDTLineStyleProvider.CK_XML_ATTR_EQUAL);
+            styles.add(XQDTLineStyleProvider.CK_XML_ATTR_NAME);
+            styles.add(XQDTLineStyleProvider.CK_XML_ATTR_VALUE);
+            styles.add(XQDTLineStyleProvider.CK_XML_CDATA_CONTENT);
+            styles.add(XQDTLineStyleProvider.CK_XML_COMMENT);
+            styles.add(XQDTLineStyleProvider.CK_XML_CONTENT);
+            styles.add(XQDTLineStyleProvider.CK_XML_ENTITY_REFERENCE);
+            styles.add(XQDTLineStyleProvider.CK_XML_PI_CONTENT);
+            styles.add(XQDTLineStyleProvider.CK_XML_TAG_DELIMITER);
+            styles.add(XQDTLineStyleProvider.CK_XML_TAG_NAME);
             fStylePreferenceKeys = styles;
         }
         return fStylePreferenceKeys;
@@ -772,59 +771,59 @@ public class XQDTSyntaxColoringPage extends PreferencePage implements IWorkbench
     }
 
     private void initRegionContextToStyleMap() {
-        fContextToStyleMap.put(XQueryTokenizer.XQUERY_COMMENT, XQueryLineStyleProvider.CK_COMMENT);
+        fContextToStyleMap.put(XQueryTokenizer.XQUERY_COMMENT, XQDTLineStyleProvider.CK_COMMENT);
 
-        fContextToStyleMap.put(XQueryTokenizer.KW_DECLARE, XQueryLineStyleProvider.CK_KEYWORD);
-        fContextToStyleMap.put(XQueryTokenizer.KW_FUNCTION, XQueryLineStyleProvider.CK_KEYWORD);
-        fContextToStyleMap.put(XQueryTokenizer.KW_AS, XQueryLineStyleProvider.CK_KEYWORD);
-        fContextToStyleMap.put(XQueryTokenizer.KW_LET, XQueryLineStyleProvider.CK_KEYWORD);
-        fContextToStyleMap.put(XQueryTokenizer.KW_RETURN, XQueryLineStyleProvider.CK_KEYWORD);
+        fContextToStyleMap.put(XQueryTokenizer.KW_DECLARE, XQDTLineStyleProvider.CK_KEYWORD);
+        fContextToStyleMap.put(XQueryTokenizer.KW_FUNCTION, XQDTLineStyleProvider.CK_KEYWORD);
+        fContextToStyleMap.put(XQueryTokenizer.KW_AS, XQDTLineStyleProvider.CK_KEYWORD);
+        fContextToStyleMap.put(XQueryTokenizer.KW_LET, XQDTLineStyleProvider.CK_KEYWORD);
+        fContextToStyleMap.put(XQueryTokenizer.KW_RETURN, XQDTLineStyleProvider.CK_KEYWORD);
 
-        fContextToStyleMap.put(XQueryTokenizer.FUNCTIONNAME, XQueryLineStyleProvider.CK_FUNCTIONCALL);
-        fContextToStyleMap.put(XQueryTokenizer.VARREF, XQueryLineStyleProvider.CK_VAR_REF);
-        fContextToStyleMap.put(XQueryTokenizer.ST_ATOMICTYPE, XQueryLineStyleProvider.CK_TYPE);
+        fContextToStyleMap.put(XQueryTokenizer.FUNCTIONNAME, XQDTLineStyleProvider.CK_FUNCTION_NAME);
+        fContextToStyleMap.put(XQueryTokenizer.VARREF, XQDTLineStyleProvider.CK_DOLLAR_EXPR);
+        fContextToStyleMap.put(XQueryTokenizer.ST_ATOMICTYPE, XQDTLineStyleProvider.CK_TYPE);
 
-        fContextToStyleMap.put(XQueryTokenizer.OP_MINUS, XQueryLineStyleProvider.CK_OPERATOR);
+        fContextToStyleMap.put(XQueryTokenizer.OP_MINUS, XQDTLineStyleProvider.CK_OPERATOR);
 
-        fContextToStyleMap.put(XQueryTokenizer.STRINGLITERAL, XQueryLineStyleProvider.CK_STRING_LITERAL);
+        fContextToStyleMap.put(XQueryTokenizer.STRINGLITERAL, XQDTLineStyleProvider.CK_STRING_LITERAL);
 
-        fContextToStyleMap.put(XQueryTokenizer.XML_TAG_OPEN, XQueryLineStyleProvider.CK_XML_TAG_DELIMITER);
-        fContextToStyleMap.put(XQueryTokenizer.XML_TAG_CLOSE, XQueryLineStyleProvider.CK_XML_TAG_DELIMITER);
-        fContextToStyleMap.put(XQueryTokenizer.XML_TAG_NAME, XQueryLineStyleProvider.CK_XML_TAG_NAME);
+        fContextToStyleMap.put(XQueryTokenizer.XML_TAG_OPEN, XQDTLineStyleProvider.CK_XML_TAG_DELIMITER);
+        fContextToStyleMap.put(XQueryTokenizer.XML_TAG_CLOSE, XQDTLineStyleProvider.CK_XML_TAG_DELIMITER);
+        fContextToStyleMap.put(XQueryTokenizer.XML_TAG_NAME, XQDTLineStyleProvider.CK_XML_TAG_NAME);
 
-        fContextToStyleMap.put(XQueryTokenizer.XML_TAG_ATTRIBUTE_NAME, XQueryLineStyleProvider.CK_XML_ATTR_NAME);
-        fContextToStyleMap.put(XQueryTokenizer.XML_TAG_ATTRIBUTE_EQUALS, XQueryLineStyleProvider.CK_XML_ATTR_EQUAL);
-        fContextToStyleMap.put(XQueryTokenizer.XML_ATTR_CHAR, XQueryLineStyleProvider.CK_XML_ATTR_VALUE);
+        fContextToStyleMap.put(XQueryTokenizer.XML_TAG_ATTRIBUTE_NAME, XQDTLineStyleProvider.CK_XML_ATTR_NAME);
+        fContextToStyleMap.put(XQueryTokenizer.XML_TAG_ATTRIBUTE_EQUALS, XQDTLineStyleProvider.CK_XML_ATTR_EQUAL);
+        fContextToStyleMap.put(XQueryTokenizer.XML_ATTR_CHAR, XQDTLineStyleProvider.CK_XML_ATTR_VALUE);
 
-        fContextToStyleMap.put(XQueryTokenizer.XML_ELEM_CONTENT_CHAR, XQueryLineStyleProvider.CK_XML_CONTENT);
-        fContextToStyleMap.put(XQueryTokenizer.XML_END_TAG_OPEN, XQueryLineStyleProvider.CK_XML_TAG_DELIMITER);
+        fContextToStyleMap.put(XQueryTokenizer.XML_ELEM_CONTENT_CHAR, XQDTLineStyleProvider.CK_XML_CONTENT);
+        fContextToStyleMap.put(XQueryTokenizer.XML_END_TAG_OPEN, XQDTLineStyleProvider.CK_XML_TAG_DELIMITER);
 
-        fContextToStyleMap.put(XQueryTokenizer.XML_COMMENT_OPEN, XQueryLineStyleProvider.CK_XML_COMMENT);
-        fContextToStyleMap.put(XQueryTokenizer.XML_COMMENT_TEXT, XQueryLineStyleProvider.CK_XML_COMMENT);
-        fContextToStyleMap.put(XQueryTokenizer.XML_COMMENT_CLOSE, XQueryLineStyleProvider.CK_XML_COMMENT);
+        fContextToStyleMap.put(XQueryTokenizer.XML_COMMENT_OPEN, XQDTLineStyleProvider.CK_XML_COMMENT);
+        fContextToStyleMap.put(XQueryTokenizer.XML_COMMENT_TEXT, XQDTLineStyleProvider.CK_XML_COMMENT);
+        fContextToStyleMap.put(XQueryTokenizer.XML_COMMENT_CLOSE, XQDTLineStyleProvider.CK_XML_COMMENT);
     }
 
     private void initStyleToDescriptionMap() {
-        fStyleToDescriptionMap.put(XQueryLineStyleProvider.CK_KEYWORD, XQueryUIMessages.Keywords_UI_);
-        fStyleToDescriptionMap.put(XQueryLineStyleProvider.CK_STRING_LITERAL, XQueryUIMessages.StringLiteral_UI_);
-        fStyleToDescriptionMap.put(XQueryLineStyleProvider.CK_VAR_REF, XQueryUIMessages.VarRef_UI_);
-        fStyleToDescriptionMap.put(XQueryLineStyleProvider.CK_TYPE, XQueryUIMessages.Type_UI_);
-        fStyleToDescriptionMap.put(XQueryLineStyleProvider.CK_COMMENT, XQueryUIMessages.Comment_UI_);
-        fStyleToDescriptionMap.put(XQueryLineStyleProvider.CK_OPERATOR, XQueryUIMessages.Operator_UI_);
-        fStyleToDescriptionMap.put(XQueryLineStyleProvider.CK_XML_TAG_DELIMITER, XQueryUIMessages.Tag_Delimiters_UI_);
-        fStyleToDescriptionMap.put(XQueryLineStyleProvider.CK_PRAGMA, XQueryUIMessages.Pragma_UI_);
-        fStyleToDescriptionMap.put(XQueryLineStyleProvider.CK_FUNCTIONCALL, XQueryUIMessages.FunctionCall_UI_);
-        fStyleToDescriptionMap.put(XQueryLineStyleProvider.CK_XML_ATTR_EQUAL, XQueryUIMessages.Attribute_Equals_UI_);
-        fStyleToDescriptionMap.put(XQueryLineStyleProvider.CK_XML_ATTR_NAME, XQueryUIMessages.Attribute_Names_UI_);
-        fStyleToDescriptionMap.put(XQueryLineStyleProvider.CK_XML_ATTR_VALUE, XQueryUIMessages.Attribute_Values_UI_);
-        fStyleToDescriptionMap.put(XQueryLineStyleProvider.CK_XML_CDATA_CONTENT, XQueryUIMessages.CDATA_Content_UI_);
-        fStyleToDescriptionMap.put(XQueryLineStyleProvider.CK_XML_CONTENT, XQueryUIMessages.Content_UI_);
-        fStyleToDescriptionMap.put(XQueryLineStyleProvider.CK_XML_ENTITY_REFERENCE,
-                XQueryUIMessages.Entity_Reference_UI_);
-        fStyleToDescriptionMap.put(XQueryLineStyleProvider.CK_XML_PI_CONTENT,
+        fStyleToDescriptionMap.put(XQDTLineStyleProvider.CK_KEYWORD, XQueryUIMessages.Keywords_UI_);
+        fStyleToDescriptionMap.put(XQDTLineStyleProvider.CK_STRING_LITERAL, XQueryUIMessages.StringLiteral_UI_);
+        fStyleToDescriptionMap.put(XQDTLineStyleProvider.CK_DOLLAR_EXPR, XQueryUIMessages.VarRef_UI_);
+        fStyleToDescriptionMap.put(XQDTLineStyleProvider.CK_TYPE, XQueryUIMessages.Type_UI_);
+        fStyleToDescriptionMap.put(XQDTLineStyleProvider.CK_COMMENT, XQueryUIMessages.Comment_UI_);
+        fStyleToDescriptionMap.put(XQDTLineStyleProvider.CK_OPERATOR, XQueryUIMessages.Operator_UI_);
+        fStyleToDescriptionMap.put(XQDTLineStyleProvider.CK_XML_TAG_DELIMITER, XQueryUIMessages.Tag_Delimiters_UI_);
+        fStyleToDescriptionMap.put(XQDTLineStyleProvider.CK_PRAGMA, XQueryUIMessages.Pragma_UI_);
+        fStyleToDescriptionMap.put(XQDTLineStyleProvider.CK_FUNCTION_NAME, XQueryUIMessages.FunctionCall_UI_);
+        fStyleToDescriptionMap.put(XQDTLineStyleProvider.CK_XML_ATTR_EQUAL, XQueryUIMessages.Attribute_Equals_UI_);
+        fStyleToDescriptionMap.put(XQDTLineStyleProvider.CK_XML_ATTR_NAME, XQueryUIMessages.Attribute_Names_UI_);
+        fStyleToDescriptionMap.put(XQDTLineStyleProvider.CK_XML_ATTR_VALUE, XQueryUIMessages.Attribute_Values_UI_);
+        fStyleToDescriptionMap.put(XQDTLineStyleProvider.CK_XML_CDATA_CONTENT, XQueryUIMessages.CDATA_Content_UI_);
+        fStyleToDescriptionMap.put(XQDTLineStyleProvider.CK_XML_CONTENT, XQueryUIMessages.Content_UI_);
+        fStyleToDescriptionMap
+                .put(XQDTLineStyleProvider.CK_XML_ENTITY_REFERENCE, XQueryUIMessages.Entity_Reference_UI_);
+        fStyleToDescriptionMap.put(XQDTLineStyleProvider.CK_XML_PI_CONTENT,
                 XQueryUIMessages.Processing_Instruction_Con_UI__UI_);
-        fStyleToDescriptionMap.put(XQueryLineStyleProvider.CK_XML_TAG_NAME, XQueryUIMessages.Tag_Names_UI_);
-        fStyleToDescriptionMap.put(XQueryLineStyleProvider.CK_XML_COMMENT, XQueryUIMessages.Comment_Content_UI_);
+        fStyleToDescriptionMap.put(XQDTLineStyleProvider.CK_XML_TAG_NAME, XQueryUIMessages.Tag_Names_UI_);
+        fStyleToDescriptionMap.put(XQDTLineStyleProvider.CK_XML_COMMENT, XQueryUIMessages.Comment_Content_UI_);
 
     }
 

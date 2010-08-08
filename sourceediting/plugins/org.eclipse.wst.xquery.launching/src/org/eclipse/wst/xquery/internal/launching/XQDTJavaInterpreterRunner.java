@@ -63,8 +63,9 @@ public class XQDTJavaInterpreterRunner extends AbstractInterpreterRunner {
         // see if the ${query_file} variable was used, and replace it script file path
         boolean foundQueryVar = false;
         for (int i = 0; i < items.size(); i++) {
-            if (items.get(i).equals("${query_file}")) {
-                items.set(i, queryFile);
+            String argItem = items.get(i);
+            if (argItem.contains("${query_file}")) {
+                items.set(i, argItem.replace("${query_file}", queryFile));
                 for (Object arg : config.getScriptArgs()) {
                     items.add((String)arg);
                 }

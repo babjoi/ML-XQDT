@@ -51,14 +51,14 @@ public class VersionDeclStructuredDocumentRegion extends XQueryStructuredDocumen
 	// Methods
 
 	public ITextRegion getVersion() {
-		final int index = search(getRegions(), 1, XQueryRegions.STRINGLITERAL);
+		final int index = SDRegionUtils.search(getRegions(), 1, XQueryRegions.STRINGLITERAL);
 		return index == -1 ? null : getRegions().get(index);
 	}
 
 	public ITextRegion getEncoding() {
-		int index = search(getRegions(), 1, XQueryRegions.KW_ENCODING);
+		int index = SDRegionUtils.search(getRegions(), 1, XQueryRegions.KW_ENCODING);
 		if (index != -1) {
-			index = search(getRegions(), index, XQueryRegions.STRINGLITERAL);
+			index = SDRegionUtils.search(getRegions(), index, XQueryRegions.STRINGLITERAL);
 			if (index != -1)
 				return getRegions().get(index);
 		}

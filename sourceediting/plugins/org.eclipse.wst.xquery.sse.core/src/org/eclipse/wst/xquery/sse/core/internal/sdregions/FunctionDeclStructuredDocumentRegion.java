@@ -53,7 +53,7 @@ public class FunctionDeclStructuredDocumentRegion extends XQueryStructuredDocume
 	/** Is "sequential" specified? */
 	public boolean isSequential()
 	{
-		return search(getRegions(), 1, XQueryRegions.KW_SEQUENTIAL) != -1;
+		return SDRegionUtils.search(getRegions(), 1, XQueryRegions.KW_SEQUENTIAL) != -1;
 	}
 
 }

@@ -23,115 +23,119 @@ import org.eclipse.wst.sse.core.internal.provisional.text.IStructuredDocumentReg
 @SuppressWarnings("restriction")
 public class ASTFunctionDecl extends ASTNode {
 
-	// State
+    // State
 
-	/** Function raw name */
-	private String name;
+    /** Function raw name */
+    private String name;
 
-	/** Function Body */
-	private IASTNode body;
+    /** Function Body */
+    private IASTNode body;
 
-	/** Parameter name */
-	private List<IStructuredDocumentRegion> paramNames;
+    /** Parameter name */
+    private List<IStructuredDocumentRegion> paramNames;
 
-	// Constructors
+    // Constructors
 
-	public ASTFunctionDecl() {
-		paramNames = new ArrayList<IStructuredDocumentRegion>(2);
-	}
+    public ASTFunctionDecl() {
+        paramNames = new ArrayList<IStructuredDocumentRegion>(2);
+    }
 
-	// Methods
+    // Methods
 
-	/**
-	 * Gets the function raw name
-	 */
-	public String getName() {
-		return name;
-	}
+    /**
+     * Gets the function raw name
+     */
+    public String getName() {
+        return name;
+    }
 
-	/**
-	 * Sets the function name
-	 * 
-	 * @param object
-	 */
-	public void setName(String name) {
-		this.name = name;
-	}
+    /**
+     * Sets the function name
+     * 
+     * @param object
+     */
+    public void setName(String name) {
+        this.name = name;
+    }
 
-	/**
-	 * Return the function body expression
-	 * 
-	 * @return
-	 */
-	public IASTNode getBody() {
-		return body;
-	}
+    /**
+     * Return the function body expression
+     * 
+     * @return
+     */
+    public IASTNode getBody() {
+        return body;
+    }
 
-	/**
-	 * @param body
-	 *            the body to set
-	 */
-	public void setBody(IASTNode body) {
-		if (this.body != null)
-			this.body.setASTParent(null);
+    /**
+     * @param body
+     *            the body to set
+     */
+    public void setBody(IASTNode body) {
+        if (this.body != null) {
+            this.body.setASTParent(null);
+        }
 
-		this.body = body;
-		if (this.body != null)
-			this.body.setASTParent(this);
-	}
+        this.body = body;
+        if (this.body != null) {
+            this.body.setASTParent(this);
+        }
+    }
 
-	/**
-	 * @param index
-	 * @param region
-	 */
-	public void setParamName(int index, IStructuredDocumentRegion region) {
-		ASTHelper.ensureCapacity(index, paramNames);
-		paramNames.set(index, region);
-	}
+    /**
+     * @param index
+     * @param region
+     */
+    public void setParamName(int index, IStructuredDocumentRegion region) {
+        ASTHelper.ensureCapacity(index, paramNames);
+        paramNames.set(index, region);
+    }
 
-	/**
-	 * @param index
-	 * @param region
-	 */
-	public int getParamCount() {
-		return paramNames.size();
-	}
+    /**
+     * @param index
+     * @param region
+     */
+    public int getParamCount() {
+        return paramNames.size();
+    }
 
-	/**
-	 * 
-	 * @param index
-	 * @return
-	 */
-	public IStructuredDocumentRegion getParamNameAt(int index) {
-		if (paramNames.size() > index)
-			return paramNames.get(index);
-		return null;
-	}
+    /**
+     * 
+     * @param index
+     * @return
+     */
+    public IStructuredDocumentRegion getParamNameAt(int index) {
+        if (paramNames.size() > index) {
+            return paramNames.get(index);
+        }
+        return null;
+    }
 
-	/**
-	 * @param i
-	 */
-	public void removeParamNamesAfter(int i) {
-		ASTHelper.removeAfter(paramNames, i);
-	}
+    /**
+     * @param i
+     */
+    public void removeParamNamesAfter(int i) {
+        ASTHelper.removeAfter(paramNames, i);
+    }
 
-	// Overrides
+    // Overrides
 
-	@Override
-	public int getType() {
-		return FUNCTIONDECL;
-	}
+    @Override
+    public int getType() {
+        return FUNCTIONDECL;
+    }
 
-	@Override
-	protected void getInScopeVariables(List<String> vars, IASTNode child) {
-		// Include parameters..
-		for (int i = getParamCount() - 1; i >= 0; i--) {
-			IStructuredDocumentRegion var = getParamNameAt(i);
-			if (var != null)
-				vars.add(var.getFullText().trim());
-		}
-		
-		super.getInScopeVariables(vars, child);
-	}
+    @Override
+    protected void getInScopeVariables(List<String> vars, IASTNode child) {
+        // Include parameters..
+        for (int i = getParamCount() - 1; i >= 0; i--) {
+            IStructuredDocumentRegion var = getParamNameAt(i);
+            if (var != null) {
+                vars.add(ASTHelper.variableNameAsString(var));
+            }
+        }
+
+        super.getInScopeVariables(vars, child);
+    }
 
 }

@@ -39,88 +39,90 @@ import org.eclipse.wst.xquery.sse.core.internal.sdregions.XQueryStructuredDocume
 @SuppressWarnings("restriction")
 public class XQDTVariableContentAssistProcessor extends AbstractContentAssistProcessor {
 
-	// Overrides
+    // Overrides
 
-	@Override
-	public char[] getCompletionProposalAutoActivationCharacters() {
-		return new char[] { '$' };
-	}
+    @Override
+    public char[] getCompletionProposalAutoActivationCharacters() {
+        return new char[] { '$' };
+    }
 
-	@Override
-	public char[] getContextInformationAutoActivationCharacters() {
-		return new char[] { '$' };
-	}
+    @Override
+    public char[] getContextInformationAutoActivationCharacters() {
+        return new char[] { '$' };
+    }
 
-	@Override
-	protected ICompletionProposal[] propose(int offset, IStructuredDocument document, IStructuredDocumentRegion region,
-			XQueryStructuredModel model, IASTNode node) {
-		return proposeInScopeVariables(offset, document, region, model, node);
-	}
+    @Override
+    protected ICompletionProposal[] propose(int offset, IStructuredDocument document, IStructuredDocumentRegion region,
+            XQueryStructuredModel model, IASTNode node) {
+        return proposeInScopeVariables(offset, document, region, model, node);
+    }
 
-	// Helpers
- 
-	private ICompletionProposal[] proposeInScopeVariables(int offset, IStructuredDocument document,
-			IStructuredDocumentRegion region, XQueryStructuredModel model, IASTNode node) {
-		// In the context of a variable?
-		boolean varrefCtx = region.getType() == XQueryRegions.DOLLAR;
-		if (!varrefCtx) {
-			// Maybe the cursor is at the beginning of a region following a
-			// varref region
-			varrefCtx = offset == region.getStartOffset() && region.getPrevious() != null
-					&& region.getPrevious().getType() == XQueryRegions.DOLLAR;
+    // Helpers
 
-			if (varrefCtx) {
-				region = region.getPrevious();
-				node = ((XQueryStructuredDocumentRegion) region).getASTNode();
-			}
-		}
+    private ICompletionProposal[] proposeInScopeVariables(int offset, IStructuredDocument document,
+            IStructuredDocumentRegion sdregion, XQueryStructuredModel model, IASTNode node) {
+        // In the context of a variable?
+        boolean varrefCtx = sdregion.getType() == XQueryRegions.DOLLAR;
+        if (!varrefCtx) {
+            // Maybe the cursor is at the beginning of a region following a
+            // varref region
+            varrefCtx = offset == sdregion.getStartOffset() && sdregion.getPrevious() != null
+                    && sdregion.getPrevious().getType() == XQueryRegions.DOLLAR;
 
-		if (varrefCtx && node != null) {
-			List<String> vars = ModelHelper.getInScopeVariables(node);
-			if (vars != null) {
-				try {
-					final String prefix;
-					final int suffixLength;
-					if (offset == region.getStart() + 1
-							&& (document.getLength() <= offset || isWhitespace(document.getChar(offset)))) {
-						// Right after the '$' sign and the next character is a
-						// whitespace => ignore the variable name which might be
-						// part of the next token
-						prefix = "$";
-						suffixLength = 0;
-					} else {
-						prefix = document.get(region.getStart(), offset - region.getStart());
-						suffixLength = region.getText().trim().length() - prefix.length();
-					}
+            if (varrefCtx) {
+                sdregion = sdregion.getPrevious();
+                node = ((XQueryStructuredDocumentRegion)sdregion).getASTNode();
+            }
+        }
 
-					List<ICompletionProposal> proposals = new ArrayList<ICompletionProposal>();
+        if (varrefCtx && node != null) {
+            List<String> vars = ModelHelper.getInScopeVariables(node);
+            if (vars != null) {
+                try {
+                    // TODO: ignore XQuery comments
 
-					for (int i = vars.size() - 1; i >= 0; i--) {
-						String var = vars.get(i);
-						if (var.startsWith(prefix)) {
-							final String addStr = var.substring(prefix.length());
+                    final String prefix; // String before the cursor
+                    final int suffixLength; // Number of characters after the cursor and part of the variable name
+                    if (offset == sdregion.getStart() + 1
+                            && (document.getLength() <= offset || isWhitespace(document.getChar(offset)))) {
+                        // Right after the '$' sign and the next character is a
+                        // whitespace => ignore the variable name which might be
+                        // part of the next token
+                        prefix = "";
+                        suffixLength = 0;
+                    } else {
+                        prefix = document.get(sdregion.getStart() + 1, offset - sdregion.getStart());
+                        suffixLength = sdregion.getText().trim().length() - prefix.length() - 1;
+                    }
 
-							proposals.add(new CompletionProposal(addStr, offset, suffixLength, addStr.length(), null,
-									var, null, "Local variable"));
-						}
-					}
+                    List<ICompletionProposal> proposals = new ArrayList<ICompletionProposal>();
 
-					if (proposals.size() > 0) {
-						ICompletionProposal array[] = new ICompletionProposal[proposals.size()];
-						return proposals.toArray(array);
-					}
-				} catch (BadLocationException e) {
-					// TODO: log
-				}
-			}
-		}
+                    for (int i = vars.size() - 1; i >= 0; i--) {
+                        String var = vars.get(i);
+                        if (var.startsWith(prefix)) {
+                            final String addStr = var.substring(prefix.length());
 
-		return null;
+                            proposals.add(new CompletionProposal(addStr, offset, suffixLength, addStr.length(), null,
+                                    var, null, "Local variable"));
+                        }
+                    }
 
-	}
+                    if (proposals.size() > 0) {
+                        ICompletionProposal array[] = new ICompletionProposal[proposals.size()];
+                        return proposals.toArray(array);
+                    }
+                } catch (BadLocationException e) {
+                    // TODO: log
+                }
+            }
+        }
 
-	private static boolean isWhitespace(char c) {
-		return c == '\n' || c == '\r' || c == ' ' || c == '\t';
-	}
+        return null;
+
+    }
+
+    private static boolean isWhitespace(char c) {
+        return c == '\n' || c == '\r' || c == ' ' || c == '\t';
+    }
 
 }

@@ -55,7 +55,7 @@ public class ModuleDeclStructuredDocumentRegion extends XQueryStructuredDocument
 	 * @return the namespace prefix (NCName)
 	 */
 	public ITextRegion getNamespacePrefix() {
-		int index = search(getRegions(), 0, XQueryRegions.NCNAME);
+		int index = SDRegionUtils.search(getRegions(), 0, XQueryRegions.NCNAME);
 		return index == -1 ? null : getRegions().get(index);
 	}
 
@@ -63,9 +63,9 @@ public class ModuleDeclStructuredDocumentRegion extends XQueryStructuredDocument
 	 * @return the namespace (URILiteral)
 	 */
 	public ITextRegion getNamespace() {
-		int index = search(getRegions(), 0, XQueryRegions.EQUALS);
+		int index = SDRegionUtils.search(getRegions(), 0, XQueryRegions.EQUALS);
 		if (index != -1) {
-			index = search(getRegions(), index, XQueryRegions.URILITERAL);
+			index = SDRegionUtils.search(getRegions(), index, XQueryRegions.URILITERAL);
 			return index == -1 ? null : getRegions().get(index);
 		}
 		return null;

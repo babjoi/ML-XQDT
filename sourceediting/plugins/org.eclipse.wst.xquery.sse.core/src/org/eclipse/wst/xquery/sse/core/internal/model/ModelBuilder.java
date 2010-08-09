@@ -13,6 +13,8 @@ package org.eclipse.wst.xquery.sse.core.internal.model;
 import java.util.Stack;
 
 import org.eclipse.wst.sse.core.internal.provisional.text.IStructuredDocumentRegion;
+import org.eclipse.wst.sse.core.internal.provisional.text.ITextRegion;
+import org.eclipse.wst.sse.core.internal.provisional.text.ITextRegionList;
 import org.eclipse.wst.xquery.core.IXQDTLanguageConstants;
 import org.eclipse.wst.xquery.sse.core.internal.XQueryMessages;
 import org.eclipse.wst.xquery.sse.core.internal.model.ast.ASTApply;
@@ -60,8 +62,8 @@ import org.eclipse.wst.xquery.sse.core.internal.model.ast.xml.ASTDirComment;
 import org.eclipse.wst.xquery.sse.core.internal.model.ast.xml.ASTDirElement;
 import org.eclipse.wst.xquery.sse.core.internal.model.ast.xml.ASTDirPI;
 import org.eclipse.wst.xquery.sse.core.internal.regions.XQueryRegions;
-import org.eclipse.wst.xquery.sse.core.internal.sdregions.FunctionDeclStructuredDocumentRegion;
 import org.eclipse.wst.xquery.sse.core.internal.sdregions.ModuleDeclStructuredDocumentRegion;
+import org.eclipse.wst.xquery.sse.core.internal.sdregions.SDRegionUtils;
 import org.eclipse.wst.xquery.sse.core.internal.sdregions.VersionDeclStructuredDocumentRegion;
 import org.eclipse.wst.xquery.sse.core.internal.sdregions.XQueryStructuredDocumentRegion;
 
@@ -346,7 +348,7 @@ public class ModelBuilder {
             if (sameRegionType(XQueryRegions.KW_DECLARE)) {
 
                 // Tokenizer ensures there is always a second region
-                final String type2 = currentSDRegion.getRegions().get(1).getType();
+                final String type2 = getTextRegion(1).getType();
 
                 if (type2 == XQueryRegions.KW_NAMESPACE) {
                     IASTNode oldDecl = module.getChildASTNodeAt(count);
@@ -404,7 +406,7 @@ public class ModelBuilder {
      */
     protected int reparseProlog2(ASTModule module, int from) {
         while (sameRegionType(XQueryRegions.KW_DECLARE)) {
-            String type2 = currentSDRegion.getRegions().get(1).getType();
+            String type2 = getTextRegion(1).getType();
 
             IASTNode oldDecl = module.getChildASTNodeAt(from);
 
@@ -451,7 +453,6 @@ public class ModelBuilder {
      *      | ("declare" "sequential" "function" QName "(" ParamList? ")" ("as" SequenceType)? (Block | "external"))
      */
     protected ASTFunctionDecl reparseFunctionDecl(IASTNode node) {
-        final FunctionDeclStructuredDocumentRegion declareRegion = (FunctionDeclStructuredDocumentRegion)currentSDRegion;
         ASTFunctionDecl decl = asFunctionDecl(node);
 
         nextSDRegion(); // "declare" .... "function"
@@ -471,7 +472,7 @@ public class ModelBuilder {
 
                         if (sameRegionType(XQueryRegions.KW_EXTERNAL)) {
                             nextSDRegion(); // 'external'
-                        } else if (declareRegion.isSequential()) {
+                        } else if (SDRegionUtils.containsSequential(currentSDRegion)) {
                             reparseBlock();
                         } else {
 
@@ -2665,9 +2666,10 @@ public class ModelBuilder {
         return currentSDRegion != null && filter.accept(currentSDRegion.getType());
     }
 
-    /** Skip white spaces */
+    /** Skip white spaces and XQuery comments */
     protected void skipWhitespace() {
-        while (currentSDRegion != null && isIgnorableWhitespace(currentSDRegion.getType())) {
+        while (currentSDRegion != null
+                && (isIgnorableWhitespace(currentSDRegion.getType()) || currentSDRegion.getType() == XQueryRegions.XQUERY_COMMENT)) {
             currentSDRegion = (XQueryStructuredDocumentRegion)currentSDRegion.getNext();
             currentRegionIdx = 0;
         }
@@ -2841,6 +2843,34 @@ public class ModelBuilder {
         } else {
             return -1;
         }
+    }
+
+    /**
+     * Gets the ith text region in the current structured document region, ignoring XQuery comments.
+     * 
+     * @param i
+     * @return
+     */
+    protected ITextRegion getTextRegion(int index) {
+        if (currentSDRegion == null) {
+            return null;
+        }
+        final ITextRegionList list = currentSDRegion.getRegions();
+        if (index >= list.size()) {
+            return null;
+        }
+
+        for (int i = 0; i < list.size(); i++) {
+            if (list.get(i).getType() != XQueryRegions.XQUERY_COMMENT) {
+                if (index == 0) {
+                    return list.get(i);
+                }
+
+                index--;
+            }
+        }
+
+        return null;
     }
 
     // Inner classes

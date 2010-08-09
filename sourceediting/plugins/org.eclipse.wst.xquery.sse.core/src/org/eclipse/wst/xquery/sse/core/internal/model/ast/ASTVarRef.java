@@ -26,44 +26,44 @@ import org.eclipse.wst.xquery.sse.core.internal.model.ModelHelper;
 @SuppressWarnings("restriction")
 public class ASTVarRef extends ASTSDRNode {
 
-	// Methods
+    // Methods
 
-	/** Gets the variable reference name */
-	public String getName() {
-		if (region != null)
-			return region.getFullText().trim();
+    /** Gets the variable reference name */
+    public String getName() {
+        if (region != null) {
+            return ASTHelper.variableNameAsString(region);
+        }
 
-		return null;
-	}
+        return null;
+    }
 
-	/**
-	 * Check if variable definition is in scope
-	 * 
-	 * @return
-	 */
-	protected boolean isVariableInScope() {
-		final String varName = getName();
-		final List<String> vars = ModelHelper.getInScopeVariables(this);
-		return vars != null && vars.contains(varName);
-	}
+    /**
+     * Check if variable definition is in scope
+     * 
+     * @return
+     */
+    protected boolean isVariableInScope() {
+        final String varName = getName();
+        final List<String> vars = ModelHelper.getInScopeVariables(this);
+        return vars != null && vars.contains(varName);
+    }
 
-	// Overrides
+    // Overrides
 
-	@Override
-	public int getType() {
-		return VARREF;
-	}
+    @Override
+    public int getType() {
+        return VARREF;
+    }
 
-	@Override
-	public void staticCheck(IStructuredDocument document, IValidator validator,
-			IReporter reporter) {
-		// It is a static error [err:XPST0008] to reference a variable that is
-		// not in scope.
-		if (!isVariableInScope())
-			ASTHelper.reportError(region, null,
-					XQueryMessages.errorXQST0088_VR_UI_, validator, reporter);
+    @Override
+    public void staticCheck(IStructuredDocument document, IValidator validator, IReporter reporter) {
+        // It is a static error [err:XPST0008] to reference a variable that is
+        // not in scope.
+        if (!isVariableInScope()) {
+            ASTHelper.reportError(region, null, XQueryMessages.errorXQST0088_VR_UI_, validator, reporter);
+        }
 
-		super.staticCheck(document, validator, reporter);
-	}
+        super.staticCheck(document, validator, reporter);
+    }
 
 }

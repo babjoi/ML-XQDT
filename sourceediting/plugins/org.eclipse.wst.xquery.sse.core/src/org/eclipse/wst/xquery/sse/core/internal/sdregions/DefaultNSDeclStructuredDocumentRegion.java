@@ -38,7 +38,7 @@ public class DefaultNSDeclStructuredDocumentRegion extends XQueryStructuredDocum
 	 * @return the namespace (URILiteral)
 	 */
 	public ITextRegion getNamespace() {
-		int index = search(getRegions(), 0, XQueryRegions.URILITERAL);
+		int index = SDRegionUtils.search(getRegions(), 0, XQueryRegions.URILITERAL);
 		if (index != -1) {
 			return getRegions().get(index);
 		}

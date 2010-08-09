@@ -19,167 +19,168 @@ import org.eclipse.wst.validation.internal.provisional.core.IReporter;
 import org.eclipse.wst.validation.internal.provisional.core.IValidator;
 
 /**
- * Clause with multiple bindings of the form
- * <tt>"$" VarName TypeDeclaration? "XXX" ExprSingle</tt>
+ * Clause with multiple bindings of the form <tt>"$" VarName TypeDeclaration? "XXX" ExprSingle</tt>
  * 
  * <p>
- * Includes for binding clause, let binding clause, quantified binding clause,
- * etc..
+ * Includes for binding clause, let binding clause, quantified binding clause, etc..
  * 
  * @author <a href="villard@us.ibm.com">Lionel Villard</a>
  */
 @SuppressWarnings("restriction")
 public class ASTBindingClause extends ASTClause {
 
-	// State
+    // State
 
-	/** Binding variables */
-	protected List<IStructuredDocumentRegion> bindingVars;
+    /** Binding variables */
+    protected List<IStructuredDocumentRegion> bindingVars;
 
-	/** Binding positional variables (only for 'for' clause) */
-	protected List<IStructuredDocumentRegion> posVars;
+    /** Binding positional variables (only for 'for' clause) */
+    protected List<IStructuredDocumentRegion> posVars;
 
-	/** Binding expressions */
-	protected List<IASTNode> bindingExprs;
+    /** Binding expressions */
+    protected List<IASTNode> bindingExprs;
 
-	// Constructor
+    // Constructor
 
-	ASTBindingClause() {
-		bindingExprs = new ArrayList<IASTNode>(1);
-		bindingVars = new ArrayList<IStructuredDocumentRegion>(1);
-		posVars = new ArrayList<IStructuredDocumentRegion>(1);
-	}
+    ASTBindingClause() {
+        bindingExprs = new ArrayList<IASTNode>(1);
+        bindingVars = new ArrayList<IStructuredDocumentRegion>(1);
+        posVars = new ArrayList<IStructuredDocumentRegion>(1);
+    }
 
-	// Methods
+    // Methods
 
-	/**
-	 * @param index
-	 * @return
-	 */
-	public IASTNode getTypeDeclaration(int index) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+    /**
+     * @param index
+     * @return
+     */
+    public IASTNode getTypeDeclaration(int index) {
+        // TODO Auto-generated method stub
+        return null;
+    }
 
-	/**
-	 * @param index
-	 * @param newTypeDecl
-	 */
-	public void setTypeDeclaration(int index, IASTNode newTypeDecl) {
-		// TODO Auto-generated method stub
+    /**
+     * @param index
+     * @param newTypeDecl
+     */
+    public void setTypeDeclaration(int index, IASTNode newTypeDecl) {
+        // TODO Auto-generated method stub
 
-	}
+    }
 
-	/**
-	 * @param index
-	 * @return
-	 */
-	public IASTNode getBindingExpr(int index) {
-		return bindingExprs.size() > index ? bindingExprs.get(index) : null;
-	}
+    /**
+     * @param index
+     * @return
+     */
+    public IASTNode getBindingExpr(int index) {
+        return bindingExprs.size() > index ? bindingExprs.get(index) : null;
+    }
 
-	/**
-	 * Gets the number of binding expressions
-	 * 
-	 * @return
-	 */
-	public int getBindingExprCount() {
-		return bindingExprs.size();
-	}
+    /**
+     * Gets the number of binding expressions
+     * 
+     * @return
+     */
+    public int getBindingExprCount() {
+        return bindingExprs.size();
+    }
 
-	/**
-	 * @param index
-	 * @param newExpr
-	 */
-	public void setBindingExpr(int index, IASTNode expr) {
-		ASTHelper.ensureCapacity(index, bindingExprs);
-		if (expr != null)
-			expr.setASTParent(this);
+    /**
+     * @param index
+     * @param newExpr
+     */
+    public void setBindingExpr(int index, IASTNode expr) {
+        ASTHelper.ensureCapacity(index, bindingExprs);
+        if (expr != null) {
+            expr.setASTParent(this);
+        }
 
-		bindingExprs.set(index, expr);
+        bindingExprs.set(index, expr);
 
-	}
+    }
 
-	/**
-	 * @param index
-	 * @param currentSDRegion
-	 */
-	public void setBindingVariable(int index, IStructuredDocumentRegion region) {
-		ASTHelper.ensureCapacity(index, bindingVars);
-		bindingVars.set(index, region);
-	}
+    /**
+     * @param index
+     * @param currentSDRegion
+     */
+    public void setBindingVariable(int index, IStructuredDocumentRegion region) {
+        ASTHelper.ensureCapacity(index, bindingVars);
+        bindingVars.set(index, region);
+    }
 
-	/**
-	 * 
-	 * @param index
-	 * @return
-	 */
-	public IStructuredDocumentRegion getBindingVariable(int index) {
-		return bindingVars.size() > index ? bindingVars.get(index) : null;
-	}
+    /**
+     * 
+     * @param index
+     * @return
+     */
+    public IStructuredDocumentRegion getBindingVariable(int index) {
+        return bindingVars.size() > index ? bindingVars.get(index) : null;
+    }
 
-	/**
-	 * @param index
-	 * @param currentSDRegion
-	 */
-	public void setPositionalVar(int index, IStructuredDocumentRegion region) {
-		ASTHelper.ensureCapacity(index, posVars);
-		posVars.set(index, region);
-	}
+    /**
+     * @param index
+     * @param currentSDRegion
+     */
+    public void setPositionalVar(int index, IStructuredDocumentRegion region) {
+        ASTHelper.ensureCapacity(index, posVars);
+        posVars.set(index, region);
+    }
 
-	/**
-	 * 
-	 * @param index
-	 * @return
-	 */
-	public IStructuredDocumentRegion getPositionalVar(int index) {
-		return posVars.size() > index ? posVars.get(index) : null;
-	}
+    /**
+     * 
+     * @param index
+     * @return
+     */
+    public IStructuredDocumentRegion getPositionalVar(int index) {
+        return posVars.size() > index ? posVars.get(index) : null;
+    }
 
-	// Overrides
+    // Overrides
 
-	@Override
-	protected void getInScopeVariables(List<String> vars, IASTNode child) {
-		// Compute the last binding index to include
-		int lastBindingIndex = 0;
+    @Override
+    protected void getInScopeVariables(List<String> vars, IASTNode child) {
+        // Compute the last binding index to include
+        int lastBindingIndex = 0;
 
-		// Includes only the previous bindings
-		while (lastBindingIndex < getChildASTNodesCount()) {
-			if (getBindingExpr(lastBindingIndex) == child) {
-				break;
-			}
-			lastBindingIndex++;
-		}
+        // Includes only the previous bindings
+        while (lastBindingIndex < getChildASTNodesCount()) {
+            if (getBindingExpr(lastBindingIndex) == child) {
+                break;
+            }
+            lastBindingIndex++;
+        }
 
-		lastBindingIndex--;
+        lastBindingIndex--;
 
-		while (lastBindingIndex >= 0) {
-			IStructuredDocumentRegion var = getBindingVariable(lastBindingIndex);
+        while (lastBindingIndex >= 0) {
+            IStructuredDocumentRegion var = getBindingVariable(lastBindingIndex);
 
-			if (var != null)
-				vars.add(var.getFullText().trim());
+            if (var != null) {
+                vars.add(ASTHelper.variableNameAsString(var));
+            }
 
-			var = getPositionalVar(lastBindingIndex);
+            var = getPositionalVar(lastBindingIndex);
 
-			if (var != null)
-				vars.add(var.getFullText().trim());
-			lastBindingIndex--;
-		}
+            if (var != null) {
+                vars.add(ASTHelper.variableNameAsString(var));
+            }
+            lastBindingIndex--;
+        }
 
-		super.getInScopeVariables(vars, child);
-	}
+        super.getInScopeVariables(vars, child);
+    }
 
-	@Override
-	public void staticCheck(IStructuredDocument document, IValidator validator,
-			IReporter reporter) {
+    @Override
+    public void staticCheck(IStructuredDocument document, IValidator validator, IReporter reporter) {
 
-		for (int i = getBindingExprCount() - 1; i >= 0; i--) {
-			IASTNode expr = getBindingExpr(i);
-			if (expr != null)
-				expr.staticCheck(document, validator, reporter);
-		}
+        for (int i = getBindingExprCount() - 1; i >= 0; i--) {
+            IASTNode expr = getBindingExpr(i);
+            if (expr != null) {
+                expr.staticCheck(document, validator, reporter);
+            }
+        }
 
-		super.staticCheck(document, validator, reporter);
-	}
+        super.staticCheck(document, validator, reporter);
+    }
 
 }

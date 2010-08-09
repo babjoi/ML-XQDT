@@ -496,7 +496,7 @@ import org.eclipse.wst.xquery.sse.core.internal.regions.XQueryRegions;
 		
 		zzMarkedPos = zzCurrentPos;
 	}
-	 
+	
 	 
 	// Overrides 
 	
@@ -639,7 +639,7 @@ import org.eclipse.wst.xquery.sse.core.internal.regions.XQueryRegions;
  
 // DirCommentConstructor	   ::=   	"<!--" DirCommentContents "-->"
 // DirCommentContents	   ::=   	((Char - '-') | ('-' (Char - '-')))*
-XMLComment = "<--"{Char}*"-->"
+XMLComment = "<!--"{Char}*"-->"
 
 // CDataSectionContents	   ::=   	(Char* - (Char* ']]>' Char*))
 XMLCDATA =  "<![CDATA["{Char}*"]]>" 
@@ -1347,9 +1347,10 @@ SimpleName = ({Letter} | "_" ) ({SimpleNameChar})*
   
   // Direct contructors
   
-  "<"							{ startXML(); pushState(TS_ENDPRIMARY); yybegin(TS_XMLTAGNAME); return XML_TAG_OPEN; }
+  
   {XMLComment}				    { yybegin(TS_ENDPRIMARY); return XML_COMMENT; }
   {XMLPI}						{ yybegin(TS_ENDPRIMARY); return XML_PI; }
+  "<"							{ startXML(); pushState(TS_ENDPRIMARY); yybegin(TS_XMLTAGNAME); return XML_TAG_OPEN; }
 }
 
 <TS_COLONCOLON> "::"			{ pushState(TS_ENDAXISSTEP); yybegin(TS_NODETEST); return COLONCOLON; }
@@ -1739,12 +1740,13 @@ SimpleName = ({Letter} | "_" ) ({SimpleNameChar})*
 // CDataSection	     ::=   	"<![CDATA[" CDataSectionContents "]]>"
 
 <TS_XMLCONTENT> {
-  "</"				{ yybegin(TS_XMLENDTAGNAME); return XML_END_TAG_OPEN; }
-  "<"				{ yybegin(TS_XMLTAGNAME); return XML_TAG_OPEN; }
+  
   {XMLComment}		{ return XML_COMMENT; }
   {XMLPI}			{ return XML_PI; }
   {XMLCDATA}  		{ return XML_CDATA; }
   {ElemContentChar} { return XML_ELEM_CONTENT_CHAR; }
+  "</"				{ yybegin(TS_XMLENDTAGNAME); return XML_END_TAG_OPEN; }
+  "<"				{ yybegin(TS_XMLTAGNAME); return XML_TAG_OPEN; }
 }
 
 <TS_XMLENDTAGNAME>   	{QName} 	{ yybegin(TS_XMLENDTAGDELIM); return XML_TAG_NAME; }

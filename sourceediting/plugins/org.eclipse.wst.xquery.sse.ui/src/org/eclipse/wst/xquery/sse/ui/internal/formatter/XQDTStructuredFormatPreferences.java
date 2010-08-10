@@ -8,17 +8,16 @@
  * Contributors:
  *     IBM Corporation - initial API and implementation
  *******************************************************************************/
-package org.eclipse.wst.xquery.sse.ui.internal.editor;
+package org.eclipse.wst.xquery.sse.ui.internal.formatter;
 
 import org.eclipse.wst.xml.core.internal.provisional.format.StructuredFormatPreferencesXML;
 
 /**
- * Formatting preferences for XQuery
+ * Formatting preferences for XQDT
  * 
  * @author <a href="villard@us.ibm.com">Lionel Villard</a>
  */
 @SuppressWarnings("restriction")
-public class XQueryStructuredFormatPreferences extends
-		StructuredFormatPreferencesXML {
+public class XQDTStructuredFormatPreferences extends StructuredFormatPreferencesXML {
 
 }

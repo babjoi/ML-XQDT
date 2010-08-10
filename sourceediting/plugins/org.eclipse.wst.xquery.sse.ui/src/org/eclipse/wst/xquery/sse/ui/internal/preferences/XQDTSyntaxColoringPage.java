@@ -85,7 +85,7 @@ import org.eclipse.wst.xquery.sse.core.IXQDTSSECoreConstants;
 import org.eclipse.wst.xquery.sse.core.internal.parser.XQueryTokenizer;
 import org.eclipse.wst.xquery.sse.ui.XQDTSSEUIPlugin;
 import org.eclipse.wst.xquery.sse.ui.internal.XQDTEditorUIPreferenceInitializer;
-import org.eclipse.wst.xquery.sse.ui.internal.XQueryUIMessages;
+import org.eclipse.wst.xquery.sse.ui.internal.XQDTUIMessages;
 import org.eclipse.wst.xquery.sse.ui.internal.restrictions.ColorHelper;
 import org.eclipse.wst.xquery.sse.ui.internal.style.XQDTLineStyleProvider;
 
@@ -238,7 +238,7 @@ public class XQDTSyntaxColoringPage extends PreferencePage implements IWorkbench
         GridLayout compLayout = (GridLayout)schemeComp.getLayout();
         compLayout.marginBottom = compLayout.marginTop = 5;
 
-        Label schemeLabel = createLabel(schemeComp, XQueryUIMessages.SyntaxColoringPage_SchemesLabel);
+        Label schemeLabel = createLabel(schemeComp, XQDTUIMessages.SyntaxColoringPage_SchemesLabel);
         ((GridData)schemeLabel.getLayoutData()).verticalAlignment = SWT.CENTER;
 
         fSchemeCombo = new Combo(schemeComp, SWT.SIMPLE | SWT.READ_ONLY | SWT.DROP_DOWN);
@@ -247,7 +247,7 @@ public class XQDTSyntaxColoringPage extends PreferencePage implements IWorkbench
         String[] schemes = getColorSchemes();
         if (schemes.length == 0) {
             fSchemeCombo.setEnabled(false);
-            schemes = new String[] { XQueryUIMessages.SyntaxColoringPage_NoSchemeItem };
+            schemes = new String[] { XQDTUIMessages.SyntaxColoringPage_NoSchemeItem };
         }
         fSchemeCombo.setItems(schemes);
         fSchemeCombo.setText("Choose one color scheme...");
@@ -282,7 +282,7 @@ public class XQDTSyntaxColoringPage extends PreferencePage implements IWorkbench
         Composite styleEditor = createComposite(top, 1);
         ((GridLayout)styleEditor.getLayout()).marginRight = 5;
         ((GridLayout)styleEditor.getLayout()).marginLeft = 0;
-        createLabel(styleEditor, XQueryUIMessages.SyntaxColoringPage_0);
+        createLabel(styleEditor, XQDTUIMessages.SyntaxColoringPage_0);
         fStylesViewer = createStylesViewer(styleEditor);
         GridData gridData = new GridData(SWT.FILL, SWT.FILL, true, true);
         gridData.horizontalIndent = 0;
@@ -297,13 +297,13 @@ public class XQDTSyntaxColoringPage extends PreferencePage implements IWorkbench
         Composite editingComposite = createComposite(top, 1);
         ((GridLayout)styleEditor.getLayout()).marginLeft = 5;
         createLabel(editingComposite, ""); //$NON-NLS-1$
-        Button enabler = createCheckbox(editingComposite, XQueryUIMessages.SyntaxColoringPage_2);
+        Button enabler = createCheckbox(editingComposite, XQDTUIMessages.SyntaxColoringPage_2);
         enabler.setEnabled(false);
         enabler.setSelection(true);
         Composite editControls = createComposite(editingComposite, 2);
         ((GridLayout)editControls.getLayout()).marginLeft = 20;
 
-        fColorLabel = createLabel(editControls, XQueryUIMessages.SyntaxColoringPage_1);
+        fColorLabel = createLabel(editControls, XQDTUIMessages.SyntaxColoringPage_1);
         ((GridData)fColorLabel.getLayoutData()).verticalAlignment = SWT.CENTER;
         fColorLabel.setEnabled(false);
 
@@ -313,16 +313,16 @@ public class XQDTSyntaxColoringPage extends PreferencePage implements IWorkbench
         fForegroundColor.setLayoutData(gd);
         fColorSelector.setEnabled(false);
 
-        fBold = createCheckbox(editControls, XQueryUIMessages.SyntaxColoringPage_3);
+        fBold = createCheckbox(editControls, XQDTUIMessages.SyntaxColoringPage_3);
         fBold.setEnabled(false);
         ((GridData)fBold.getLayoutData()).horizontalSpan = 2;
-        fItalic = createCheckbox(editControls, XQueryUIMessages.SyntaxColoringPage_4);
+        fItalic = createCheckbox(editControls, XQDTUIMessages.SyntaxColoringPage_4);
         fItalic.setEnabled(false);
         ((GridData)fItalic.getLayoutData()).horizontalSpan = 2;
-        fStrike = createCheckbox(editControls, XQueryUIMessages.SyntaxColoringPage_5);
+        fStrike = createCheckbox(editControls, XQDTUIMessages.SyntaxColoringPage_5);
         fStrike.setEnabled(false);
         ((GridData)fStrike.getLayoutData()).horizontalSpan = 2;
-        fUnderline = createCheckbox(editControls, XQueryUIMessages.SyntaxColoringPage_6);
+        fUnderline = createCheckbox(editControls, XQDTUIMessages.SyntaxColoringPage_6);
         fUnderline.setEnabled(false);
         ((GridData)fUnderline.getLayoutData()).horizontalSpan = 2;
         fClearStyle = new Button(editingComposite, SWT.PUSH);
@@ -651,7 +651,7 @@ public class XQDTSyntaxColoringPage extends PreferencePage implements IWorkbench
     }
 
     private String getExampleText() {
-        return XQueryUIMessages.Sample_XQuery_doc;
+        return XQDTUIMessages.Sample_XQuery_doc;
     }
 
     private String getNamedStyleAtOffset(int offset) {
@@ -834,26 +834,26 @@ public class XQDTSyntaxColoringPage extends PreferencePage implements IWorkbench
     }
 
     private void initStyleToDescriptionMap() {
-        fStyleToDescriptionMap.put(XQDTLineStyleProvider.CK_KEYWORD, XQueryUIMessages.Keywords_UI_);
-        fStyleToDescriptionMap.put(XQDTLineStyleProvider.CK_STRING_LITERAL, XQueryUIMessages.StringLiteral_UI_);
-        fStyleToDescriptionMap.put(XQDTLineStyleProvider.CK_DOLLAR_EXPR, XQueryUIMessages.VarRef_UI_);
-        fStyleToDescriptionMap.put(XQDTLineStyleProvider.CK_TYPE, XQueryUIMessages.Type_UI_);
-        fStyleToDescriptionMap.put(XQDTLineStyleProvider.CK_COMMENT, XQueryUIMessages.Comment_UI_);
-        fStyleToDescriptionMap.put(XQDTLineStyleProvider.CK_OPERATOR, XQueryUIMessages.Operator_UI_);
-        fStyleToDescriptionMap.put(XQDTLineStyleProvider.CK_XML_TAG_DELIMITER, XQueryUIMessages.Tag_Delimiters_UI_);
-        fStyleToDescriptionMap.put(XQDTLineStyleProvider.CK_PRAGMA, XQueryUIMessages.Pragma_UI_);
-        fStyleToDescriptionMap.put(XQDTLineStyleProvider.CK_FUNCTION_NAME, XQueryUIMessages.FunctionCall_UI_);
-        fStyleToDescriptionMap.put(XQDTLineStyleProvider.CK_XML_ATTR_EQUAL, XQueryUIMessages.Attribute_Equals_UI_);
-        fStyleToDescriptionMap.put(XQDTLineStyleProvider.CK_XML_ATTR_NAME, XQueryUIMessages.Attribute_Names_UI_);
-        fStyleToDescriptionMap.put(XQDTLineStyleProvider.CK_XML_ATTR_VALUE, XQueryUIMessages.Attribute_Values_UI_);
-        fStyleToDescriptionMap.put(XQDTLineStyleProvider.CK_XML_CDATA_CONTENT, XQueryUIMessages.CDATA_Content_UI_);
-        fStyleToDescriptionMap.put(XQDTLineStyleProvider.CK_XML_CONTENT, XQueryUIMessages.Content_UI_);
+        fStyleToDescriptionMap.put(XQDTLineStyleProvider.CK_KEYWORD, XQDTUIMessages.Keywords_UI_);
+        fStyleToDescriptionMap.put(XQDTLineStyleProvider.CK_STRING_LITERAL, XQDTUIMessages.StringLiteral_UI_);
+        fStyleToDescriptionMap.put(XQDTLineStyleProvider.CK_DOLLAR_EXPR, XQDTUIMessages.VarRef_UI_);
+        fStyleToDescriptionMap.put(XQDTLineStyleProvider.CK_TYPE, XQDTUIMessages.Type_UI_);
+        fStyleToDescriptionMap.put(XQDTLineStyleProvider.CK_COMMENT, XQDTUIMessages.Comment_UI_);
+        fStyleToDescriptionMap.put(XQDTLineStyleProvider.CK_OPERATOR, XQDTUIMessages.Operator_UI_);
+        fStyleToDescriptionMap.put(XQDTLineStyleProvider.CK_XML_TAG_DELIMITER, XQDTUIMessages.Tag_Delimiters_UI_);
+        fStyleToDescriptionMap.put(XQDTLineStyleProvider.CK_PRAGMA, XQDTUIMessages.Pragma_UI_);
+        fStyleToDescriptionMap.put(XQDTLineStyleProvider.CK_FUNCTION_NAME, XQDTUIMessages.FunctionCall_UI_);
+        fStyleToDescriptionMap.put(XQDTLineStyleProvider.CK_XML_ATTR_EQUAL, XQDTUIMessages.Attribute_Equals_UI_);
+        fStyleToDescriptionMap.put(XQDTLineStyleProvider.CK_XML_ATTR_NAME, XQDTUIMessages.Attribute_Names_UI_);
+        fStyleToDescriptionMap.put(XQDTLineStyleProvider.CK_XML_ATTR_VALUE, XQDTUIMessages.Attribute_Values_UI_);
+        fStyleToDescriptionMap.put(XQDTLineStyleProvider.CK_XML_CDATA_CONTENT, XQDTUIMessages.CDATA_Content_UI_);
+        fStyleToDescriptionMap.put(XQDTLineStyleProvider.CK_XML_CONTENT, XQDTUIMessages.Content_UI_);
         fStyleToDescriptionMap
-                .put(XQDTLineStyleProvider.CK_XML_ENTITY_REFERENCE, XQueryUIMessages.Entity_Reference_UI_);
+                .put(XQDTLineStyleProvider.CK_XML_ENTITY_REFERENCE, XQDTUIMessages.Entity_Reference_UI_);
         fStyleToDescriptionMap.put(XQDTLineStyleProvider.CK_XML_PI_CONTENT,
-                XQueryUIMessages.Processing_Instruction_Con_UI__UI_);
-        fStyleToDescriptionMap.put(XQDTLineStyleProvider.CK_XML_TAG_NAME, XQueryUIMessages.Tag_Names_UI_);
-        fStyleToDescriptionMap.put(XQDTLineStyleProvider.CK_XML_COMMENT, XQueryUIMessages.Comment_Content_UI_);
+                XQDTUIMessages.Processing_Instruction_Con_UI__UI_);
+        fStyleToDescriptionMap.put(XQDTLineStyleProvider.CK_XML_TAG_NAME, XQDTUIMessages.Tag_Names_UI_);
+        fStyleToDescriptionMap.put(XQDTLineStyleProvider.CK_XML_COMMENT, XQDTUIMessages.Comment_Content_UI_);
 
     }
 

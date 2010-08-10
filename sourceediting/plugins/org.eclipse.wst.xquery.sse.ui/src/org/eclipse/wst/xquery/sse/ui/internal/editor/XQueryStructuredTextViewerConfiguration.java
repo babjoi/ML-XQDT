@@ -18,6 +18,7 @@ import org.eclipse.wst.sse.ui.StructuredTextViewerConfiguration;
 import org.eclipse.wst.sse.ui.internal.format.StructuredFormattingStrategy;
 import org.eclipse.wst.sse.ui.internal.provisional.style.LineStyleProvider;
 import org.eclipse.wst.xquery.sse.core.internal.document.XQueryDocumentPartitioner;
+import org.eclipse.wst.xquery.sse.ui.internal.formatter.XQDTFormatter;
 import org.eclipse.wst.xquery.sse.ui.internal.quickassist.XQDTTemplateCompletionProcessor;
 import org.eclipse.wst.xquery.sse.ui.internal.quickassist.XQDTVariableContentAssistProcessor;
 import org.eclipse.wst.xquery.sse.ui.internal.style.XQDTLineStyleProvider;
@@ -82,7 +83,7 @@ public class XQueryStructuredTextViewerConfiguration extends
 		if (formatter instanceof MultiPassContentFormatter) {
 			((MultiPassContentFormatter) formatter)
 					.setMasterStrategy(new StructuredFormattingStrategy(
-							new XQueryFormatter()));
+							new XQDTFormatter()));
 		}
 
 		return formatter;

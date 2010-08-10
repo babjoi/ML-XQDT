@@ -20,8 +20,8 @@ import org.eclipse.osgi.util.NLS;
  * 
  * @author <a href="villard@us.ibm.com">Lionel Villard</a>
  */
-public class XQueryUIMessages extends NLS {
-    private static final String BUNDLE_NAME = "org.eclipse.wst.xquery.sse.ui.internal.XQueryUIPluginResources";//$NON-NLS-1$
+public class XQDTUIMessages extends NLS {
+    private static final String BUNDLE_NAME = "org.eclipse.wst.xquery.sse.ui.internal.XQDTUIPluginResources";//$NON-NLS-1$
 
     private static ResourceBundle fResourceBundle;
 
@@ -325,10 +325,10 @@ public class XQueryUIMessages extends NLS {
 
     static {
         // load message values from bundle file
-        NLS.initializeMessages(BUNDLE_NAME, XQueryUIMessages.class);
+        NLS.initializeMessages(BUNDLE_NAME, XQDTUIMessages.class);
     }
 
-    private XQueryUIMessages() {
+    private XQDTUIMessages() {
         // cannot create new instance
     }
 

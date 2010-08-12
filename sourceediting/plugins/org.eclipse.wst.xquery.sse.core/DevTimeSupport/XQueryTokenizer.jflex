@@ -13,6 +13,7 @@ package org.eclipse.wst.xquery.sse.core.internal.parser;
 
 import java.io.CharArrayReader;
 import java.io.IOException; 
+import java.util.Stack; 
  
 import org.eclipse.wst.sse.core.internal.provisional.text.ITextRegion;
 import org.eclipse.wst.sse.core.internal.util.Debug;
@@ -101,6 +102,9 @@ import org.eclipse.wst.xquery.sse.core.internal.regions.XQueryRegions;
     final private static int GROUPBY = -42;
     
     
+    
+    final private static int NULL = -9999;
+    
     // State
     
     /** The owner parser */
@@ -123,13 +127,17 @@ import org.eclipse.wst.xquery.sse.core.internal.regions.XQueryRegions;
     
     /** State when token has been dropped */
     private int droppedState;
+    
+    /** Whether parsing a kind test or a sequence type */
+    private Stack<Boolean> sequenceType;
      
     // Constructors
     
     public XQueryTokenizer()
     {
-      elementDepths = new IntStack(512); // TODO: should use resizable IntStack..
+      elementDepths = new IntStack(512); 
       states = new IntStack(512);
+      sequenceType = new Stack<Boolean>();
     }
     
     // Methods
@@ -377,6 +385,33 @@ import org.eclipse.wst.xquery.sse.core.internal.regions.XQueryRegions;
 			
 		return false;
 	}
+	
+	/** Start sequence type */
+	private void startSequenceType()
+	{
+	  sequenceType.push(true);
+	}
+	
+	/** Start kind test */
+	private void startKindTest()
+	{
+	  sequenceType.push(false);
+	}
+	 
+	/** End sequence type or kind test */
+	private boolean endSTOrKT()
+	{
+	  if (!sequenceType.isEmpty())
+	     return sequenceType.pop();
+	  return false;
+	}
+	
+	/** Whether parsing a sequence type */
+	private boolean inSequenceType()
+	{
+	  return sequenceType.isEmpty() ? false : sequenceType.peek();
+	}
+	 
 	 
 	/** Restore tokenizer state with the value stored on top of the stack */
 	private void restoreState()
@@ -497,7 +532,373 @@ import org.eclipse.wst.xquery.sse.core.internal.regions.XQueryRegions;
 		zzMarkedPos = zzCurrentPos;
 	}
 	
-	 
+	/**
+     * Skip XQuery comments and white spaces and try matching the given token
+     * 
+     * @throws IOException
+     */
+    protected boolean skipAndMatch(String token) throws IOException {
+        int savedCurrentPos = zzCurrentPos;
+        int savedMarkedPos = zzMarkedPos;
+        zzCurrentPos = zzMarkedPos;
+        
+        boolean match = false;
+        if (skipWhitespace()) 
+       		match = match(token);
+           
+        zzCurrentPos = savedCurrentPos;
+        zzMarkedPos = savedMarkedPos;
+        return match;
+    }
+    
+    /** 
+     * Skip whitespace and XQuery comments.
+     * @return true is the current character is non-whitespace  
+     */
+    protected boolean skipWhitespace() throws IOException {
+        int c;
+        while (!isEOF()) {
+            c = yyadvance();
+
+            if (c == '(') {
+                if (isEOF())
+                    return false;
+                
+                c = yyadvance();
+                if (c == ':') { // Comment
+                    zzCurrentPos -= 2;
+                    parseXQueryComment();
+                } else {
+                	zzCurrentPos -= 2; // Point to '('
+                   return true;
+                }
+            } else if (isWhitespace(c)) {
+                // we're good -> skip
+            } else {
+                // must be the beginning of the token
+                zzCurrentPos--;
+                return true;
+            }
+        }
+        
+        return false;
+    }
+
+    protected boolean isWhitespace(int c) {
+        return c == '\n' || c == '\r' || c == ' ' || c == '\t';
+    }
+
+    protected boolean match(String token) throws IOException {
+        int c;
+        for (int i = 0; i < token.length(); i++) {
+            if (isEOF()) {
+               return false;
+            }
+            c = yyadvance();
+
+            if (c != token.charAt(i)) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+    
+    /**
+     * Go to the given state only if the input matches the given token (after skipping spaces and xquery comments) 
+     * 
+     * If fails, assumes the current token is a PATH_NAMETEST (and go to TS_ENDAXISSTEP)
+     *
+     * @throws IOException
+     */
+    protected String lookahead(String token, int pushState, int nextState, String regionName) throws IOException {
+    	if (skipAndMatch(token))
+    	{
+    	    if (pushState != NULL)
+    	      pushState(pushState);
+    		yybegin(nextState);
+    		return regionName;
+    	}
+    	
+    	yybegin(TS_ENDAXISSTEP);
+    	return PATH_NAMETEST;
+    }
+    
+    /** 'for' '$' look ahead */
+    protected String lookAheadForClause() throws IOException {
+    	if (skipAndMatch("$"))
+  		{
+  		  flowr(FLWORFOR); 
+  		  yybegin(TS_FORCLAUSE); 
+  		  return KW_FOR;
+  		} 
+  		
+  		yybegin(TS_ENDAXISSTEP);
+    	return PATH_NAMETEST;
+    }
+    
+    /** 'let' '$' look ahead */
+    protected String lookAheadLetClause() throws IOException {
+    	if (skipAndMatch("$"))
+  		{
+  		  flowr(FLWORLET); 
+  		  yybegin(TS_LETCLAUSE); 
+  		  return KW_LET;
+  		} 
+  		
+  		yybegin(TS_ENDAXISSTEP);
+    	return PATH_NAMETEST;
+    }
+    
+    /** Look for the non-separator token after 'declare' and set the lexer in the proper state */
+    protected String lookaheadDeclare(boolean declare)  throws IOException {
+    	int savedCurrentPos = zzCurrentPos;
+        int savedMarkedPos = zzMarkedPos;
+        zzCurrentPos = zzMarkedPos;
+        
+        int nextState = NULL; 
+        
+        String expectedToken = null; 
+        if (skipWhitespace()) 
+        {
+        	// Identify the token to match.
+        	
+        	int c = yyadvance();
+        	switch (c)
+        	{
+        		case 'a': // assignable
+        	  		expectedToken = "ssignable";
+        	  		nextState = TS_DECLVARSX;
+        	      	break;
+        		case 'b': // boundary-space, base-uri
+        	  		c = yyadvance();
+        	    	switch (c)
+        	   	 	{
+        	    		case 'a':
+        	    			expectedToken = "se-uri";
+        	    			nextState = TS_BASEURI;
+        	    			break;
+        	     		case 'o': 
+        	     			expectedToken = "undary-space";
+        	     			nextState = TS_BOUNDARYSPACE;
+        	      			break;
+        	    	}
+        	    	break;
+        	  	case 'c': // copy-namespaces, construction
+        	    	c = yyadvance(); 
+        	    	if (c == 'o')
+        	    	{
+        	    		c = yyadvance();
+	        	    	switch (c)
+        	    		{
+        	    			case 'p':
+        	    				expectedToken = "y-namespaces";
+        	    				nextState = TS_COPYNAMESPACES;
+        	    				break;
+        	     			case 'n': 
+        	     				expectedToken = "struction";
+        	     				nextState = TS_DECLCONST;
+        	      				break;
+        	   	 		}
+        	    		break;
+        	    	}
+        	    	break;
+        	  case 'd': // default
+        	  		expectedToken = "efault";
+        	  		nextState = TS_DECLAREDEFAULT;
+        	      	break;
+        	  case 'f': // function
+        	  		expectedToken = "unction";
+        	  		nextState = TS_DECLFUNCTION;
+        	      	break;
+        	  case 'n': // namespace
+        	  		expectedToken = "amespace";
+        	  		nextState = TS_NAMESPACEKEYWORD;
+        	      	break;
+        	  case 'm': // module
+        	  		expectedToken = "odule";
+        	  		nextState = TS_IMPORTMODULE;
+        	      	break;
+        	  case 'o': // option, ordering
+        	    	c = yyadvance();
+        	    	switch (c)
+        	   	 	{
+        	    		case 'p':
+        	    			expectedToken = "tion";
+        	    			nextState = TS_DECLAREDEFAULT;
+        	    			break;
+        	     		case 'r': 
+        	     			expectedToken = "dering";
+        	     			nextState = TS_ORDERING;
+        	      			break;
+        	    	}
+        	    	break;
+        	  case 'r': // revalidation
+        	  		expectedToken = "evalidation";
+        	     	nextState = TS_DECLREVAL;
+        	      	break;
+        	  case 's': // simple/sequential/schema
+        	  		c = yyadvance();
+        	    	switch (c)
+        	   	 	{ 
+        	    		case 'c':
+        	    			expectedToken = "hema";
+        	    			nextState = TS_IMPORTSCHEMA;
+        	    			break;
+        	    		case 'e':
+        	    			expectedToken = "quential";
+        	    			nextState = TS_DECLFUNCTION;
+        	    			break;
+        	     		case 'i': 
+        	     			expectedToken = "mple";
+        	     			nextState = TS_DECLFUNCTION;
+        	      			break;
+        	    	}
+        	    	break;
+        	  case 'v': // variable
+        	  		expectedToken = "ariable";
+        	  		nextState = TS_DECLVAR;
+        	      	break;
+        	  case 'u': // unassignable, updating
+        	  		c = yyadvance();
+        	    	switch (c)
+        	   	 	{
+        	    		case 'n':
+        	    			expectedToken = "assignable";
+        	    			nextState = TS_DECLVARSX;
+        	    			break;
+        	     		case 'p': 
+        	     			expectedToken = "dating";
+        	     			nextState = TS_DECLFUNCTION;
+        	      			break;
+        	    	}
+        	    	break; 
+        	}
+        	
+        }
+        
+        
+        String regionType = declare ? KW_DECLARE : KW_IMPORT;
+        boolean match = false; 
+        if (expectedToken != null)
+        	match = match(expectedToken);
+        
+        if (match)
+        {
+         	if (nextState == TS_NAMESPACEKEYWORD)
+        	{
+        	   // Special case for declare namespace
+        	   pushState(TS_PROLOG1); 
+        	   pushState(TS_SEPARATOR);
+        	}
+        }
+        else
+        {
+         	nextState = TS_ENDAXISSTEP;
+        	regionType = PATH_NAMETEST;
+        }
+        
+       
+         
+        // restore lexer position   
+        zzCurrentPos = savedCurrentPos;
+        zzMarkedPos = savedMarkedPos;
+        
+         
+        yybegin(nextState);
+    	return regionType;
+    }
+    
+    /** Look for an occurrence indicator after sequence type */
+    protected String lookaheadOccurrenceIndicator(boolean atomicType)  throws IOException {
+    	int savedCurrentPos = zzCurrentPos;
+        int savedMarkedPos = zzMarkedPos;
+        zzCurrentPos = zzMarkedPos;
+        
+        boolean isOI = false;
+        String regionType;
+        
+        if (skipWhitespace())
+        {
+           int c = yyadvance();
+           isOI = c == '?' || c == '*' || c == '+';
+        }
+        
+        if (isOI)
+        {
+        	yybegin(TS_OCCINDICATOR); 
+        	if (atomicType)
+        	{
+        		startSequenceType();
+        		regionType = ST_ATOMICTYPE;
+        	}
+        	else
+        	{ 
+        		regionType = ST_RPAR; 
+        	}
+        }
+        else
+        {
+          	endSTOrKT();
+            restoreState(); 
+            regionType = ST_RPAR; 
+        }
+        
+        
+         // restore lexer position   
+        zzCurrentPos = savedCurrentPos;
+        zzMarkedPos = savedMarkedPos;
+        
+        return regionType;
+    }
+    
+    /** Sequence type lookahead: fallback to atomic type. */
+    protected String lookaheadSeqType(boolean start, int nextState, String regionType) throws IOException {
+    	int savedCurrentPos = zzCurrentPos;
+        int savedMarkedPos = zzMarkedPos;
+        zzCurrentPos = zzMarkedPos;
+         
+        boolean restore = false;
+        if (skipWhitespace())
+        {
+           int c = yyadvance();
+           
+           if (c == '(')
+           {
+           		// This is a sequence type. Nothing to do
+           }
+           else
+           {
+               	// This is an atomic type. Is the current character an occurence indicator?
+           	   	if (c == '?' || c == '*' || c == '+')
+           		{
+           			start = true;
+           			nextState = TS_OCCINDICATOR;
+           			regionType = ST_ATOMICTYPE;
+           		}
+           		else
+           		{
+           		  	restore = true; 
+           		  	start = false;
+           		  	regionType = ST_ATOMICTYPE;
+           		}
+           	}
+        }
+         
+    	 // restore lexer position   
+        zzCurrentPos = savedCurrentPos;
+        zzMarkedPos = savedMarkedPos;
+    	
+    	if (start)
+    		startSequenceType();
+    	if (restore)
+    		restoreState();
+    	else
+    		yybegin(nextState);
+    	return regionType;
+    }
+    	 
+	
 	// Overrides 
 	
 	public final boolean isEOF() {
@@ -664,54 +1065,12 @@ ElemContentChar = [\x09\x0A\x0D\x20-\x25\x27-\x3B\x3D-\x7A\x7C\x7E-\uD7FF\uE000-
 PredefinedEntityRef = "&"("lt" | "gt" | "amp" | "quot" | "apos")";"
 
 // XQuery comments
-XQueryComment   = "(:" ~":)" 
+XQueryCommentStart   = {S}*"(:"  
 
-// Sequence type and kind test
+// Occurrence indicator
 
-EmptySequence = "empty-sequence"{S}*"("{S}*")"
-ItemType = "item"{S}*"("{S}*")"
-OccurrenceIndicator = "?" | "*" | "+"
-
-// ElementTest	   ::=   	"element" "(" (ElementNameOrWildcard ("," TypeName "?"?)?)? ")"
-// ElementNameOrWildcard	   ::=   	ElementName | "*"
-// ElementName	   ::=   	QName
-// TypeName	   ::=   	QName
-
-ElementTest = "element"{S}*"("{S}*({ElementNameOrWildcard}{S}*(","{S}*{QName}{S}*("?"?))?)?{S}*")" 
-ElementNameOrWildcard = {QName} | "*"
-
-// DocumentTest	   ::= "document-node" "(" (ElementTest | SchemaElementTest)? ")"
-DocumentTest = "document-node"{S}*"("({ElementTest}|{SchemaElementTest})?{S}*")"
-
-// SchemaElementTest	   ::=   	"schema-element" "(" ElementDeclaration ")"
-// ElementDeclaration	   ::=   	ElementName
-// ElementName	   ::=   	QName
-SchemaElementTest = "schema-element"{S}*"("{QName}")"
-	
-// AttributeTest	   ::=   	"attribute" "(" (AttribNameOrWildcard ("," TypeName)?)? ")"
-// AttribNameOrWildcard	   ::=   	AttributeName | "*"
-// AttributeName	   ::=   	QName
-AttributeTest = "attribute"{S}*({AttribNameOrWildcard}{S}*("," {QName})?)?{S}*")"
-AttribNameOrWildcard = {QName} | "*"
-
-// 	SchemaAttributeTest	   ::=   	"schema-attribute" "(" AttributeDeclaration ")"
-// 	AttributeDeclaration	   ::=   	AttributeName
-// AttributeName	   ::=   	QName
-SchemaAttributeTest = "schema-attribute"{S}*"("{QName}{S}*")"
-
-// 	PITest	   ::=   	"processing-instruction" "(" (NCName | StringLiteral)? ")"
-PITest = "processing-instruction"{S}*"("{S}*({NCName} | {StringLiteral})?{S}*")"
-
-// CommentTest	   ::=   	"comment" "(" ")"
-CommentTest = "comment"{S}*"("{S}*")"
-
-// TextTest	   ::=   	"text" "(" ")"
-TextTest = "text"{S}*"("{S}*")"
-
-// AnyKindTest	   ::=   	"node" "(" ")"
-AnyKindTest = "node"{S}*"("{S}*")"
-
-
+OccurrenceIndicator="+"|"?"|"*"
+ 
 // Literals
 
 Literal = {NumericLiteral} | {StringLiteral}
@@ -724,11 +1083,6 @@ StringLiteral = ("\"" ({PredefinedEntityRef} | {CharRef} | {EscapeQuot} | [^\"])
 PredefinedEntityRef = "&" ("lt" | "gt" | "amp" | "quot" | "apos") ";"
 Digits	   = [0-9]+
  
-
-// Symbols separator
-
-SymbolSep = ({S}|{XQueryComment})
-
 // Characters (XML 1.0)
 
 Char = [\x09\x0A\x0D\x20-\uD7FF\uE000-\uFFFD] 
@@ -911,6 +1265,41 @@ SimpleName = ({Letter} | "_" ) ({SimpleNameChar})*
 %state TS_ENDVARREF
 %state TS_SINGLETYPE
 %state TS_SINGLETYPEQMOREND
+%state TS_DECLAREDEFAULT
+%state TS_DD_NSORCOLLATIONORORDER
+
+%state TS_EMPTYSEQUENCE
+%state TS_EMPTYSEQUENCELPAR
+%state TS_ITEM
+%state TS_ITEMLPAR
+%state TS_DOCUMENTTEST 
+%state TS_ELEMENTTESTORSCHEMAELEMENTTESTOPT
+%state TS_ELEMENTTEST 
+%state TS_SCHEMAELEMENTTEST
+%state TS_ELEMENTNAMEORWILDCARDOPT
+%state TS_ATTRIBUTETEST
+%state TS_PITEST
+%state TS_COMMENTTEST
+%state TS_TEXTTEST
+%state TS_ANYKINDTEST 
+%state TS_OCCINDICATOR
+%state TS_DOCTESTENDELEMENTTEST
+%state TS_ELEMENTTESTCOMMAORRPAR
+%state TS_ELEMENTTESTTYPENAME
+%state TS_ELEMENTTESTOPTORRPAR
+%state TS_ELEMENTTESTRPAR
+%state TS_SET_ELEMENTDECLARATION
+%state TS_SET_RPAR
+%state TS_PIT_NCNAMEORSTRINGOPT
+%state TS_PIT_RPAR
+%state TS_AT_NAMEORWILDCARDOPT
+%state TS_AT_COMMAORRPAR
+%state TS_AT_TYPENAME
+%state TS_AT_RPAR
+%state TS_SCHEMAATTRIBUTETEST
+%state TS_SAT_ATTRIBUTEDECLARATION
+%state TS_SAT_RPAR
+
 
 // XQuery Update Facility 1.0 (Candidate Recommentation)
 
@@ -946,15 +1335,17 @@ SimpleName = ({Letter} | "_" ) ({SimpleNameChar})*
 %state TS_GCVARNAME
 %state TS_GCCOLLATIONURI
 %state TS_GCENDGROUPINGSPEC
-
+  
 %%
 
 // Prolog
 
 // "xquery" "version" StringLiteral ("encoding" StringLiteral)? Separator
 
-<YYINITIAL> "xquery" / {SymbolSep}+"version" { yybegin(TS_XQUERYVERSION); return KW_XQUERY; }
-
+<YYINITIAL> {
+  "xquery" / {S}+"version" 			{ yybegin(TS_XQUERYVERSION); return KW_XQUERY; }
+  "xquery" / {XQueryCommentStart} 	{ return lookahead("version", NULL, TS_XQUERYVERSION, KW_XQUERY); }
+}
 <TS_XQUERYVERSION>  "version" { yybegin(TS_XQUERYVERSIONSTRLITERAL); return KW_VERSION; } 
 
 <TS_XQUERYVERSIONSTRLITERAL> {
@@ -979,8 +1370,10 @@ SimpleName = ({Letter} | "_" ) ({SimpleNameChar})*
  
 // Handle separator (Restore stacked state)
 <TS_SEPARATOR> { 
-	";" 	{ restoreState(); return SEPARATOR; } 
-    .		{ recover(popState()); return UNDEFINED; }
+	";" 					{ restoreState(); return SEPARATOR; } 
+	{S}*					{ return WHITE_SPACE; }
+	"(:"					{ parseXQueryComment(); return XQUERY_COMMENT;}
+    .						{ recover(popState()); return UNDEFINED; }
 }
 
 // Handle "namespace" NCName "=" URILiteral  (Restore stacked state)
@@ -992,26 +1385,53 @@ SimpleName = ({Letter} | "_" ) ({SimpleNameChar})*
 // "module" "namespace" NCName "=" URILiteral Separator
 
 <YYINITIAL, TS_LIBRARYORMAIN> {
-  "module" / {SymbolSep}+"namespace" { pushState(TS_MODULESEP); yybegin(TS_NAMESPACEKEYWORD); return KW_MODULE; }
+  "module" / {S}+"namespace" 		{ pushState(TS_MODULESEP); yybegin(TS_NAMESPACEKEYWORD); return KW_MODULE; }
+  "module" / {XQueryCommentStart} 	{ return lookahead("namespace", TS_MODULESEP, TS_NAMESPACEKEYWORD, KW_MODULE); } 
 }
 <TS_MODULESEP> 	";" 				{ yybegin(TS_PROLOG1); return SEPARATOR; }
+ 
+// declare/import XQueryComment rule
 
+<YYINITIAL, TS_LIBRARYORMAIN, TS_PROLOG1, TS_PROLOG2> {
+  "declare" / {XQueryCommentStart} 	{ return lookaheadDeclare(true); }  
+  "import" / {XQueryCommentStart} 	{ return lookaheadDeclare(false); }  
+}
+
+// "declare" "default" dispatcher. 
+ 
+<YYINITIAL, TS_LIBRARYORMAIN, TS_PROLOG1>  "declare" / {S}+"default" 		{ yybegin(TS_DECLAREDEFAULT); return KW_DECLARE; }  
+  
+
+<TS_DECLAREDEFAULT> "default" { yybegin(TS_DD_NSORCOLLATIONORORDER); return KW_DEFAULT; }
+<TS_DD_NSORCOLLATIONORORDER> {
+  "element"			{ yybegin(TS_NSDECLNS); return KW_ELEMENT; }
+  "function" 		{ yybegin(TS_NSDECLNS); return KW_DEFAULTFUNCTION; }
+  
+  "collation" 		{ yybegin(TS_COURILITERAL); return KW_COLLATION; }
+  "order" 			{ yybegin(TS_DOEMPTY); return KW_ORDER; }
+}
 
 // "declare" "default" ("element" | "function") "namespace" URILiteral Separator
  
-<YYINITIAL, TS_LIBRARYORMAIN, TS_PROLOG1> "declare" / {SymbolSep}+"default"{SymbolSep}+("element"|"function") {
-  yybegin(TS_NSDECLDEFAULT); return KW_DECLARE; }
-<TS_NSDECLDEFAULT> 		"default" 		{ yybegin(TS_NSDECLELEMFUNCTION); return KW_DEFAULT; } 
-<TS_NSDECLELEMFUNCTION> "element" 		{ yybegin(TS_NSDECLNS); return KW_ELEMENT; }
-<TS_NSDECLELEMFUNCTION> "function" 		{ yybegin(TS_NSDECLNS); return KW_FUNCTION; }
 <TS_NSDECLNS>			"namespace" 	{ yybegin(TS_EFNSURILITERAL); return KW_NAMESPACE; }
 <TS_EFNSURILITERAL>		{StringLiteral}	{ yybegin(TS_NSDECLSEP); return URILITERAL; }
 <TS_NSDECLSEP>			";" 			{ yybegin(TS_PROLOG1); return SEPARATOR; }
 
+// 	"declare" "default" "collation" URILiteral Separator
+ 
+<TS_COURILITERAL>  	{StringLiteral} 		{ pushState(TS_PROLOG1); yybegin(TS_SEPARATOR); return URILITERAL; }
+
+// "declare" "default" "order" "empty" ("greatest" | "least") Separator
+
+<TS_DOEMPTY>			"empty" 		{ yybegin(TS_DOGREATESTLEAST); return KW_EMPTY; }
+<TS_DOGREATESTLEAST>    "greatest" 		{ pushState(TS_PROLOG1); yybegin(TS_SEPARATOR); return KW_GREATEST; }
+<TS_DOGREATESTLEAST>  	"least"   		{ pushState(TS_PROLOG1); yybegin(TS_SEPARATOR); return KW_LEAST; }
 
 // "declare" "boundary-space" ("preserve" | "strip") Separator
 
-<YYINITIAL, TS_LIBRARYORMAIN, TS_PROLOG1> "declare" / {SymbolSep}+"boundary-space" { yybegin(TS_BOUNDARYSPACE); return KW_DECLARE; }
+<YYINITIAL, TS_LIBRARYORMAIN, TS_PROLOG1> {
+  "declare" / {S}+"boundary-space" { yybegin(TS_BOUNDARYSPACE); return KW_DECLARE; }
+}
 
 <TS_BOUNDARYSPACE> "boundary-space" { yybegin(TS_BSPRESERVESTRIP); return KW_BOUNDARY_SPACE; }
 <TS_BSPRESERVESTRIP> {
@@ -1019,17 +1439,10 @@ SimpleName = ({Letter} | "_" ) ({SimpleNameChar})*
   "strip" 			{ pushState(TS_PROLOG1); yybegin(TS_SEPARATOR); return KW_STRIP; }
 }
 
-// 	"declare" "default" "collation" URILiteral Separator
-
-<YYINITIAL, TS_LIBRARYORMAIN, TS_PROLOG1> "declare" / {SymbolSep}+"default"{SymbolSep}+"collation" { yybegin(TS_COLLATION); return KW_DECLARE; }
-
-<TS_COLLATION> 		"default" 			{ yybegin(TS_CODEFAULT); return KW_DEFAULT; }
-<TS_CODEFAULT>      "collation" 		{ yybegin(TS_COURILITERAL); return KW_COLLATION; }
-<TS_COURILITERAL>  	{StringLiteral} 		{ pushState(TS_PROLOG1); yybegin(TS_SEPARATOR); return URILITERAL; }
 
 // "declare" "base-uri" URILiteral Separator
 
-<YYINITIAL, TS_LIBRARYORMAIN, TS_PROLOG1> "declare" / {SymbolSep}+"base-uri" { yybegin(TS_BASEURI); return KW_DECLARE; }
+<YYINITIAL, TS_LIBRARYORMAIN, TS_PROLOG1> "declare" / {S}+"base-uri" { yybegin(TS_BASEURI); return KW_DECLARE; }
 
 <TS_BASEURI> 		"base-uri"  	{ yybegin(TS_BUURILITERAL); return KW_BASEURI; }
 <TS_BUURILITERAL> 	{StringLiteral} 	{ pushState(TS_PROLOG1); yybegin(TS_SEPARATOR); return URILITERAL; }
@@ -1037,7 +1450,7 @@ SimpleName = ({Letter} | "_" ) ({SimpleNameChar})*
 
 // "declare" "construction" ("strip" | "preserve") Separator
 
-<YYINITIAL, TS_LIBRARYORMAIN, TS_PROLOG1> "declare" / {SymbolSep}+"construction" { yybegin(TS_DECLCONST); return KW_DECLARE; }
+<YYINITIAL, TS_LIBRARYORMAIN, TS_PROLOG1> "declare" / {S}+"construction" { yybegin(TS_DECLCONST); return KW_DECLARE; }
 
 <TS_DECLCONST> 			"construction"			{ yybegin(TS_CONSSTRIPPRESERVE); return KW_CONSTRUCTION; }
 <TS_CONSSTRIPPRESERVE>  "strip"					{ pushState(TS_PROLOG1); yybegin(TS_SEPARATOR); return KW_STRIP; }
@@ -1045,25 +1458,17 @@ SimpleName = ({Letter} | "_" ) ({SimpleNameChar})*
 
 // "declare" "ordering" ("ordered" | "unordered") Separator
 
-<YYINITIAL, TS_LIBRARYORMAIN, TS_PROLOG1> "declare" / {SymbolSep}+"ordering" { yybegin(TS_ORDERING);  return KW_DECLARE; }
+<YYINITIAL, TS_LIBRARYORMAIN, TS_PROLOG1> "declare" / {S}+"ordering" { yybegin(TS_ORDERING);  return KW_DECLARE; }
 
 <TS_ORDERING> 			"ordering" 		{ yybegin(TS_ORDERINGKW); return KW_ORDERING; }
 <TS_ORDERINGKW>			"ordered" 		{ pushState(TS_PROLOG1); yybegin(TS_SEPARATOR); return KW_ORDERED; }
 <TS_ORDERINGKW> 		"unordered"   	{ pushState(TS_PROLOG1); yybegin(TS_SEPARATOR); return KW_UNORDERED; }
  
- // "declare" "default" "order" "empty" ("greatest" | "least") Separator
-
-<YYINITIAL, TS_LIBRARYORMAIN, TS_PROLOG1> "declare" / {SymbolSep}+"default"{SymbolSep}+"order" { yybegin(TS_DEFAULTORDER); return KW_DECLARE; }
-
-<TS_DEFAULTORDER> 		"default" 		{ yybegin(TS_DOORDER); return KW_DEFAULT; }
-<TS_DOORDER>			"order" 		{ yybegin(TS_DOEMPTY); return KW_ORDER; }
-<TS_DOEMPTY>			"empty" 		{ yybegin(TS_DOGREATESTLEAST); return KW_EMPTY; }
-<TS_DOGREATESTLEAST>    "greatest" 		{ pushState(TS_PROLOG1); yybegin(TS_SEPARATOR); return KW_GREATEST; }
-<TS_DOGREATESTLEAST>  	"least"   		{ pushState(TS_PROLOG1); yybegin(TS_SEPARATOR); return KW_LEAST; }
+ 
 
 // "declare" "copy-namespaces" PreserveMode "," InheritMode Separator
 
-<YYINITIAL, TS_LIBRARYORMAIN, TS_PROLOG1> "declare" / {SymbolSep}+"copy-namespaces" { yybegin(TS_COPYNAMESPACES); return KW_DECLARE; }
+<YYINITIAL, TS_LIBRARYORMAIN, TS_PROLOG1> "declare" / {S}+"copy-namespaces" { yybegin(TS_COPYNAMESPACES); return KW_DECLARE; }
 
 <TS_COPYNAMESPACES> 		"copy-namespaces" 			{ yybegin(TS_CNPRESERVEMODE); return KW_COPYNAMESPACES; }
 <TS_CNPRESERVEMODE>  		"preserve" 					{ yybegin(TS_CNENDPRESERVEMODE); return KW_PRESERVE; }
@@ -1074,12 +1479,12 @@ SimpleName = ({Letter} | "_" ) ({SimpleNameChar})*
 
 // declare" "namespace" NCName "=" URILiteral Separator
 
-<YYINITIAL, TS_LIBRARYORMAIN, TS_PROLOG1> "declare" / {SymbolSep}+"namespace" { pushState(TS_PROLOG1); pushState(TS_SEPARATOR); yybegin(TS_NAMESPACEKEYWORD); return KW_DECLARE; }
+<YYINITIAL, TS_LIBRARYORMAIN, TS_PROLOG1> "declare" / {S}+"namespace" { pushState(TS_PROLOG1); pushState(TS_SEPARATOR); yybegin(TS_NAMESPACEKEYWORD); return KW_DECLARE; }
 
 // 	SchemaImport	   ::=   	"import" "schema" SchemaPrefix? URILiteral ("at" URILiteral ("," URILiteral)*)? Separator
 // 	SchemaPrefix	   ::=   	("namespace" NCName "=") | ("default" "element" "namespace")
 
-<YYINITIAL, TS_LIBRARYORMAIN, TS_PROLOG1> "import" / {SymbolSep}+"schema" { yybegin(TS_IMPORTSCHEMA); return KW_IMPORT; }
+<YYINITIAL, TS_LIBRARYORMAIN, TS_PROLOG1> "import" / {S}+"schema" { yybegin(TS_IMPORTSCHEMA); return KW_IMPORT; }
 
 <TS_IMPORTSCHEMA> 				"schema" 				{ yybegin(TS_ISPREFIX); return KW_SCHEMA; }
 <TS_ISPREFIX> {				
@@ -1103,7 +1508,7 @@ SimpleName = ({Letter} | "_" ) ({SimpleNameChar})*
 
 // ModuleImport	   ::=   	"import" "module" ("namespace" NCName "=")? URILiteral ("at" URILiteral ("," URILiteral)*)? Separator
 
-<YYINITIAL, TS_LIBRARYORMAIN, TS_PROLOG1> "import" / {SymbolSep}+"module" { yybegin(TS_IMPORTMODULE); return KW_IMPORT; }
+<YYINITIAL, TS_LIBRARYORMAIN, TS_PROLOG1> "import" / {S}+"module" { yybegin(TS_IMPORTMODULE); return KW_IMPORT; }
 
 <TS_IMPORTMODULE> "module" 			{ yybegin(TS_IMNS); return KW_MODULE; }
 <TS_IMNS> {
@@ -1125,7 +1530,10 @@ SimpleName = ({Letter} | "_" ) ({SimpleNameChar})*
 
 // RevalidationDecl	   ::=   	"declare" "revalidation" ("strict" | "lax" | "skip")
 
-<YYINITIAL, TS_LIBRARYORMAIN, TS_PROLOG1> "declare" / {SymbolSep}+"revalidation" { yybegin(TS_DECLREVAL); return KW_DECLARE; }
+<YYINITIAL, TS_LIBRARYORMAIN, TS_PROLOG1> {
+  "declare" / {S}+"revalidation" { yybegin(TS_DECLREVAL); return KW_DECLARE; }
+}
+
 <TS_DECLREVAL> "revalidation" { yybegin(TS_DECLREVAL2); return KW_REVALIDATION; }
 <TS_DECLREVAL2> {
   "strict"		{  pushState(TS_PROLOG1); yybegin(TS_SEPARATOR); return KW_STRICT; }
@@ -1143,8 +1551,8 @@ SimpleName = ({Letter} | "_" ) ({SimpleNameChar})*
 // XQuery Scripting: 
 // VarDecl	   ::=   	"declare" ("unassignable"? | "assignable") "variable" "$" QName TypeDeclaration? ((":=" ExprSingle) | "external")
 
-<YYINITIAL, TS_LIBRARYORMAIN, TS_PROLOG1, TS_PROLOG2> "declare" / {SymbolSep}+"variable" { yybegin(TS_DECLVAR); return KW_DECLARE; }
-<YYINITIAL, TS_LIBRARYORMAIN, TS_PROLOG1, TS_PROLOG2> "declare" / {SymbolSep}+("unassignable"|"assignable") { yybegin(TS_DECLVARSX); return KW_DECLARE; }
+<YYINITIAL, TS_LIBRARYORMAIN, TS_PROLOG1, TS_PROLOG2> "declare" / {S}+"variable" { yybegin(TS_DECLVAR); return KW_DECLARE; }
+<YYINITIAL, TS_LIBRARYORMAIN, TS_PROLOG1, TS_PROLOG2> "declare" / {S}+("unassignable"|"assignable") { yybegin(TS_DECLVARSX); return KW_DECLARE; }
 
 <TS_DECLVAR> 		"variable"		 			{ yybegin(TS_VDVAR); return KW_VARIABLE; }
 <TS_DECLVARSX> {
@@ -1172,7 +1580,7 @@ SimpleName = ({Letter} | "_" ) ({SimpleNameChar})*
 // FunctionDecl	   ::=   	("declare" ("simple"? | "updating") "function" QName "(" ParamList? ")" ("as" SequenceType)? (EnclosedExpr | "external"))
 //                        | ("declare" "sequential" "function" QName "(" ParamList? ")" ("as" SequenceType)? (Block | "external"))
 
-<YYINITIAL, TS_LIBRARYORMAIN, TS_PROLOG1, TS_PROLOG2> "declare" / {SymbolSep}+("function"|"updating"|"sequential"|"simple") {    yybegin(TS_DECLFUNCTION); return KW_DECLARE; }
+<YYINITIAL, TS_LIBRARYORMAIN, TS_PROLOG1, TS_PROLOG2> "declare" / {S}+("function"|"updating"|"sequential"|"simple") {    yybegin(TS_DECLFUNCTION); return KW_DECLARE; }
 
 <TS_DECLFUNCTION> 	{
   "updating"				{ yybegin(TS_FUNCTIONKW); return KW_UPDATING; }
@@ -1216,7 +1624,7 @@ SimpleName = ({Letter} | "_" ) ({SimpleNameChar})*
 
 // "declare" "option" QName StringLiteral Separator
 
-<YYINITIAL, TS_LIBRARYORMAIN, TS_PROLOG1, TS_PROLOG2> "declare" / {SymbolSep}+"option" { yybegin(TS_OPTION); return KW_DECLARE; } 
+<YYINITIAL, TS_LIBRARYORMAIN, TS_PROLOG1, TS_PROLOG2> "declare" / {S}+"option" { yybegin(TS_OPTION); return KW_DECLARE; } 
 
 <TS_OPTION> 		"option"  			{ yybegin(TS_OPTIONQNAME); return KW_OPTION; }
 <TS_OPTIONQNAME> 	{QName} 			{ yybegin(TS_OPTIONSL); return QNAME; }
@@ -1231,35 +1639,54 @@ SimpleName = ({Letter} | "_" ) ({SimpleNameChar})*
 
   // For clause
 
-  "for" / {SymbolSep}*"$"		{ flowr(FLWORFOR); yybegin(TS_FORCLAUSE); return KW_FOR; }
-  "let" / {SymbolSep}*"$"		{ flowr(FLWORLET); yybegin(TS_LETCLAUSE); return KW_LET; }
+  "for" / {S}*"$"					{ flowr(FLWORFOR); yybegin(TS_FORCLAUSE); return KW_FOR; }
+  "for" / {XQueryCommentStart}		{ return lookAheadForClause(); }
+  "let" / {S}*"$"					{ flowr(FLWORLET); yybegin(TS_LETCLAUSE); return KW_LET; }
+  "let" / {XQueryCommentStart}		{ return lookAheadLetClause(); }
    
   // Quantified expressions
   
-  "some" / {SymbolSep}*"$"      { pushState(QUANTIFIED); yybegin(TS_QUANTIFIEDEXPR); return KW_SOME; }
-  "every" / {SymbolSep}*"$"     { pushState(QUANTIFIED); yybegin(TS_QUANTIFIEDEXPR); return KW_EVERY; }
+  "some" / {S}*"$"      			{ pushState(QUANTIFIED); yybegin(TS_QUANTIFIEDEXPR); return KW_SOME; }
+  "some" / {XQueryCommentStart}		{ return lookahead("$", QUANTIFIED, TS_QUANTIFIEDEXPR, KW_SOME); }
+  "every" / {S}*"$"     			{ pushState(QUANTIFIED); yybegin(TS_QUANTIFIEDEXPR); return KW_EVERY; }
+  "every" / {XQueryCommentStart}	{ return lookahead("$", QUANTIFIED, TS_QUANTIFIEDEXPR, KW_EVERY); }
   
   // If expression
   
-  "if" / {SymbolSep}*"("        { pushState(IF); yybegin(TS_IFEXPR); return KW_IF; }
+  "if" / {S}*"("        			{ pushState(IF); yybegin(TS_IFEXPR); return KW_IF; }
+  "if" / {XQueryCommentStart}  		{ return lookahead("(", IF, TS_IFEXPR, KW_IF); }
+  
   
   // TypeSwitch expression
   
-  "typeswitch" / {SymbolSep}*"("        { pushState(TYPESWITCH); yybegin(TS_TYPESWITCHEXPR); return KW_TYPESWITCH; }
+  "typeswitch" / {S}*"("        		{ pushState(TYPESWITCH); yybegin(TS_TYPESWITCHEXPR); return KW_TYPESWITCH; }
+  "typeswitch" / {XQueryCommentStart}   { return lookahead("(", TYPESWITCH, TS_TYPESWITCHEXPR, KW_TYPESWITCH); }
   
   // XQuery Update Facility 1.0 expressions
   
-  "insert" / {SymbolSep}+("node"|"nodes")  { pushState(XUINSERT); yybegin(TS_INSERTEXPR); return KW_INSERT; }
-  "delete" / {SymbolSep}+("node"|"nodes")  { pushState(XUDELETE); yybegin(TS_DELETEEXPR); return KW_DELETE; }
-  "replace" / {SymbolSep}+("value"{SymbolSep}+"of"{SymbolSep}+)?"node" { pushState(XUREPLACE); yybegin(TS_REPLACEEXPR); return KW_REPLACE; }
-  "rename" / {SymbolSep}+"node"			   { pushState(XURENAME); yybegin(TS_RENAMEEXPR); return KW_RENAME; }
-  "copy" / {SymbolSep}*"$"			   	   { pushState(XUTRANSFORM); yybegin(TS_TRANSFORMEXPR); return KW_COPY; }
+  "insert" / {S}+("node"|"nodes")  	{ pushState(XUINSERT); yybegin(TS_INSERTEXPR); return KW_INSERT; }
+  "insert" / {XQueryCommentStart}  	{ return lookahead("node", XUINSERT, TS_INSERTEXPR, KW_INSERT);  }
+  
+  "delete" / {S}+("node"|"nodes")  	{ pushState(XUDELETE); yybegin(TS_DELETEEXPR); return KW_DELETE; }
+  "delete" / {XQueryCommentStart}  	{ return lookahead("node", XUDELETE, TS_DELETEEXPR, KW_DELETE);  }
+  
+  "replace" / {S}+"value" 			{ pushState(XUREPLACE); yybegin(TS_REPLACEEXPR); return KW_REPLACE; }
+  "replace" / {XQueryCommentStart}  { return lookahead("value", XUREPLACE, TS_REPLACEEXPR, KW_REPLACE);  }
+  
+  "rename" / {S}+"node"			   { pushState(XURENAME); yybegin(TS_RENAMEEXPR); return KW_RENAME; }
+  "rename" / {XQueryCommentStart}  { return lookahead("node", XURENAME, TS_RENAMEEXPR, KW_RENAME);  }
+  
+  "copy" / {S}*"$"			   	   { pushState(XUTRANSFORM); yybegin(TS_TRANSFORMEXPR); return KW_COPY; }
+  "copy" / {XQueryCommentStart}  	{ return lookahead("$", XUTRANSFORM, TS_TRANSFORMEXPR, KW_COPY);  }
   
   // XQuery Scripting Extension 1.0 expressions
   
-  "block" / {SymbolSep}*"{"				{ pushState(TS_ENDEXPRSINGLE); pushState(SXBLOCK); yybegin(TS_BLOCK); return KW_BLOCK; }
-  "exit" /  {SymbolSep}+"returning"     { pushState(SXEXIT); yybegin(TS_EXIT); return KW_EXIT; }
-  "while" / {SymbolSep}*"("				{ pushState(TS_ENDEXPRSINGLE); pushState(SXWHILE); yybegin(TS_WHILE); return KW_WHILE; }
+  "block" / {S}*"{"				{ pushState(TS_ENDEXPRSINGLE); pushState(SXBLOCK); yybegin(TS_BLOCK); return KW_BLOCK; }
+  
+  "exit" /  {S}+"returning"     { pushState(SXEXIT); yybegin(TS_EXIT); return KW_EXIT; }
+  "exit" / {XQueryCommentStart} { return lookahead("returning", SXEXIT, TS_EXIT, KW_EXIT);  }
+  
+  "while" / {S}*"("				{ pushState(TS_ENDEXPRSINGLE); pushState(SXWHILE); yybegin(TS_WHILE); return KW_WHILE; }
 }  
 
 // Operand (OrExpr)
@@ -1275,45 +1702,109 @@ SimpleName = ({Letter} | "_" ) ({SimpleNameChar})*
   "//"							{ yybegin(TS_STEPEXPR); return PATH_SLASHSLASH; }  
 }
 
+// NodeTest
 
+<YYINITIAL, TS_LIBRARYORMAIN, TS_PROLOG1, TS_PROLOG2, TS_OPERAND, TS_EXPR, TS_EXPROPT, TS_EXPRSINGLE, TS_STEPEXPR, TS_OPTSTEPEXPR, TS_BLOCKVARDECLOPT, TS_NODETEST> {
+  // NameTest
+
+  {NCName}":""*"						{ yybegin(TS_ENDAXISSTEP); return PATH_NAMETEST; } /* ws: explicit */
+  "*"":"{NCName}                		{ yybegin(TS_ENDAXISSTEP); return PATH_NAMETEST; } /* ws: explicit */
+  {QName}   							{ yybegin(TS_ENDAXISSTEP); return PATH_NAMETEST; } /* ws: explicit */
+  "*"									{ yybegin(TS_ENDAXISSTEP); return PATH_NAMETEST; } 
+  
+  // NodeTest
+  
+  "document-node" / {S}*"("					{ pushState(TS_ENDAXISSTEP); yybegin(TS_DOCUMENTTEST); return KT_DOCUMENTNODE; }  
+  "document-node" / {XQueryCommentStart} 	{ return lookahead("(", TS_ENDAXISSTEP, TS_DOCUMENTTEST, KT_DOCUMENTNODE); }
+  
+  "element"	/ {S}*"("						{ pushState(TS_ENDAXISSTEP); yybegin(TS_ELEMENTTEST); return KT_ELEMENT; }
+  "element" / {XQueryCommentStart} 			{ return lookahead("(", TS_ENDAXISSTEP, TS_ELEMENTTEST, KT_ELEMENT); }
+  
+  "attribute" / {S}*"("						{ pushState(TS_ENDAXISSTEP); yybegin(TS_ATTRIBUTETEST); return KT_ATTRIBUTE; }
+  "attribute" / {XQueryCommentStart} 		{ 
+  												// TODO: optimize
+  	
+   												// Attribute test?
+  												String regionType = lookahead("(", TS_ENDAXISSTEP, TS_ATTRIBUTETEST, KT_ATTRIBUTE); 
+  												if (regionType != KT_ATTRIBUTE)
+  												{
+  													// Axis name?
+  												  	regionType = lookahead("::", NULL, TS_COLONCOLON, PATH_ATTRIBUTE);
+  												  	if (regionType != PATH_ATTRIBUTE)
+  												  	{
+  												  		// Computed attribute?
+  												  		regionType = lookahead("{", TS_ENDAXISSTEP, TS_COMPELEMENTORATTR, KW_ATTRIBUTE);
+  												  	}
+  												}
+  												
+  												return regionType;
+  											}
+  
+  "processing-instruction" / {S}*"("    			{ pushState(TS_ENDAXISSTEP); yybegin(TS_PITEST); return KT_PI; }
+  "processing-instruction" / {XQueryCommentStart}   { return lookahead("(", TS_ENDAXISSTEP, TS_PITEST, KT_PI); }
+  
+  "schema-element" / {S}*"("    					{ pushState(TS_ENDAXISSTEP); yybegin(TS_SCHEMAELEMENTTEST); return KT_SCHEMAELEMENT; }
+  "schema-element" / {XQueryCommentStart}     		{ return lookahead("(", TS_ENDAXISSTEP, TS_SCHEMAELEMENTTEST, KT_SCHEMAELEMENT); }
+  
+  "schema-attribute" / {S}*"("    					{ pushState(TS_ENDAXISSTEP); yybegin(TS_SCHEMAATTRIBUTETEST); return KT_SCHEMAATTRIBUTE; }
+  "schema-attribute" / {XQueryCommentStart}     	{ return lookahead("(", TS_ENDAXISSTEP, TS_SCHEMAATTRIBUTETEST, KT_SCHEMAATTRIBUTE); }
+  
+  "comment" / {S}*"("    				{ pushState(TS_ENDAXISSTEP); yybegin(TS_ITEM); return KT_COMMENT; } // same as item()
+  "comment" / {XQueryCommentStart}  	{ return lookahead("(", TS_ENDAXISSTEP, TS_ITEM, KT_COMMENT);  } // same as item()
+  
+  "text" / {S}*"("    					{ pushState(TS_ENDAXISSTEP); yybegin(TS_ITEM); return KT_TEXT; }// same as item()
+  "text" / {XQueryCommentStart}    		{ return lookahead("(", TS_ENDAXISSTEP, TS_ITEM, KT_TEXT);   }// same as item()
+  
+  "node" / {S}*"("    					{ pushState(TS_ENDAXISSTEP); yybegin(TS_ITEM); return KT_ANYKIND; }// same as item()
+  "node" / {XQueryCommentStart} 		{ return lookahead("(", TS_ENDAXISSTEP, TS_ITEM, KT_ANYKIND); }// same as item()
+}
+ 
 
 <YYINITIAL, TS_LIBRARYORMAIN, TS_PROLOG1, TS_PROLOG2, TS_OPERAND, TS_EXPR, TS_EXPROPT, TS_EXPRSINGLE, TS_STEPEXPR, TS_OPTSTEPEXPR, TS_BLOCKVARDECLOPT> {
   
   // Axis Step
 
-  "child" / {SymbolSep}*"::"					{ yybegin(TS_COLONCOLON); return PATH_CHILD; }
-  "descendant" / {SymbolSep}*"::"				{ yybegin(TS_COLONCOLON); return PATH_DESCENDANT; }
-  "attribute" / {SymbolSep}*"::"				{ yybegin(TS_COLONCOLON); return PATH_ATTRIBUTE; }
-  "self" / {SymbolSep}*"::"						{ yybegin(TS_COLONCOLON); return PATH_SELF; }
-  "descendant-or-self" / {SymbolSep}*"::"		{ yybegin(TS_COLONCOLON); return PATH_DESCENDANT_OR_SELF; }
-  "following-sibling" / {SymbolSep}*"::"		{ yybegin(TS_COLONCOLON); return PATH_FOLLOWING_SIBLING; }
-  "following" / {SymbolSep}*"::"				{ yybegin(TS_COLONCOLON); return PATH_FOLLOWING; }
-  "parent" / {SymbolSep}*"::"					{ yybegin(TS_COLONCOLON); return PATH_PARENT; }
-  "ancestor" / {SymbolSep}*"::"					{ yybegin(TS_COLONCOLON); return PATH_ANCESTOR; }
-  "preceding-sibling" / {SymbolSep}*"::"		{ yybegin(TS_COLONCOLON); return PATH_PRECEDING_SIBLING; }
-  "preceding" / {SymbolSep}*"::"				{ yybegin(TS_COLONCOLON); return PATH_PRECEDING; }
-  "ancestor-or-self" / {SymbolSep}*"::"			{ yybegin(TS_COLONCOLON); return PATH_ANCESTOR_OR_SELF; }
-
-  {NCName}":""*"				{ yybegin(TS_ENDAXISSTEP); return PATH_NAMETEST; } /* ws: explicit */
-  "*"":"{NCName}                { yybegin(TS_ENDAXISSTEP); return PATH_NAMETEST; } /* ws: explicit */
-  {QName} / {SymbolSep}*		{ yybegin(TS_ENDAXISSTEP); return PATH_NAMETEST; } /* ws: explicit */
-  "*"							{ yybegin(TS_ENDAXISSTEP); return PATH_NAMETEST; } 
-  ".."							{ yybegin(TS_ENDAXISSTEP); return PATH_ABBREVPARENT; }
+  "child" / {S}*"::"							{ yybegin(TS_COLONCOLON); return PATH_CHILD; }
+  "child" / {XQueryCommentStart}				{ return lookahead("::", NULL, TS_COLONCOLON, PATH_CHILD); }
   
-  "@"							{ pushState(TS_ENDAXISSTEP); yybegin(TS_NODETEST); return PATH_ABBREVATTRIBUTE; }
+  "descendant-or-self" / {S}*"::"				{ yybegin(TS_COLONCOLON); return PATH_DESCENDANT_OR_SELF; }
+  "descendant-or-self" / {XQueryCommentStart}	{ return lookahead("::", NULL, TS_COLONCOLON, PATH_DESCENDANT_OR_SELF); }
   
-  // KindTest
-  {DocumentTest}{OccurrenceIndicator}?			{ yybegin(TS_ENDAXISSTEP); return KT_DOCUMENTTEST;}
-  {ElementTest}{OccurrenceIndicator}?			{ yybegin(TS_ENDAXISSTEP); return KT_ELEMENTTEST;}
-  {AttributeTest}{OccurrenceIndicator}?			{ yybegin(TS_ENDAXISSTEP); return KT_ATTRIBUTETEST;}
-  {SchemaElementTest}{OccurrenceIndicator}?		{ yybegin(TS_ENDAXISSTEP); return KT_SCHEMAELEMENTTEST;}
-  {SchemaAttributeTest}{OccurrenceIndicator}?	{ yybegin(TS_ENDAXISSTEP); return KT_SCHEMAATTRIBUTETEST;}
-  {PITest}{OccurrenceIndicator}?				{ yybegin(TS_ENDAXISSTEP); return KT_PITEST;}
-  {CommentTest}{OccurrenceIndicator}?			{ yybegin(TS_ENDAXISSTEP); return KT_COMMENTTEST;}
-  {TextTest}{OccurrenceIndicator}?				{ yybegin(TS_ENDAXISSTEP); return KT_TEXTTEST;}
-  {AnyKindTest}{OccurrenceIndicator}?			{ yybegin(TS_ENDAXISSTEP); return KT_ANYKINDTEST;}
-  {QName}{OccurrenceIndicator}?					{ yybegin(TS_ENDAXISSTEP); return ST_ATOMICTYPE;}
- 
+  "descendant" / {S}*"::"						{ yybegin(TS_COLONCOLON); return PATH_DESCENDANT; }
+  "descendant" / {XQueryCommentStart}			{ return lookahead("::", NULL, TS_COLONCOLON, PATH_DESCENDANT); }
+  
+  "attribute" / {S}*"::"						{ yybegin(TS_COLONCOLON); return PATH_ATTRIBUTE; }
+ // see above
+ // "attribute" / {XQueryCommentStart}			{ return lookahead("::", NULL, TS_COLONCOLON, PATH_ATTRIBUTE); }
+  
+  "self" / {S}*"::"								{ yybegin(TS_COLONCOLON); return PATH_SELF; }
+  "self" / {XQueryCommentStart}					{ return lookahead("::", NULL, TS_COLONCOLON, PATH_SELF); }
+  
+  "following-sibling" / {S}*"::"				{ yybegin(TS_COLONCOLON); return PATH_FOLLOWING_SIBLING; }
+  "following-sibling" / {XQueryCommentStart}	{ return lookahead("::", NULL, TS_COLONCOLON, PATH_FOLLOWING_SIBLING); }
+  
+  "following" / {S}*"::"						{ yybegin(TS_COLONCOLON); return PATH_FOLLOWING; }
+  "following" / {XQueryCommentStart}			{ return lookahead("::", NULL, TS_COLONCOLON, PATH_FOLLOWING); }
+  
+  "parent" / {S}*"::"							{ yybegin(TS_COLONCOLON); return PATH_PARENT; }
+  "parent" / {XQueryCommentStart}				{ return lookahead("::", NULL, TS_COLONCOLON, PATH_PARENT); }
+  
+  "ancestor-or-self" / {S}*"::"					{ yybegin(TS_COLONCOLON); return PATH_ANCESTOR_OR_SELF; }
+  "ancestor-or-self" / {XQueryCommentStart}		{ return lookahead("::", NULL, TS_COLONCOLON, PATH_ANCESTOR_OR_SELF); }
+  
+  "ancestor" / {S}*"::"							{ yybegin(TS_COLONCOLON); return PATH_ANCESTOR; }
+  "ancestor" / {XQueryCommentStart}				{ return lookahead("::", NULL, TS_COLONCOLON, PATH_ANCESTOR); }
+  
+  "preceding-sibling" / {S}*"::"				{ yybegin(TS_COLONCOLON); return PATH_PRECEDING_SIBLING; }
+  "preceding-sibling" / {XQueryCommentStart}	{ return lookahead("::", NULL, TS_COLONCOLON, PATH_PRECEDING_SIBLING); }
+  
+  "preceding" / {S}*"::"						{ yybegin(TS_COLONCOLON); return PATH_PRECEDING; }
+  "preceding" / {XQueryCommentStart}			{ return lookahead("::", NULL, TS_COLONCOLON, PATH_PRECEDING); }
+  
+  "@"											{  yybegin(TS_NODETEST); return PATH_ABBREVATTRIBUTE; }
+  
+  
+   
   // Primary Expr
 
   {StringLiteral} 				{ yybegin(TS_ENDPRIMARY); return STRINGLITERAL; } 
@@ -1326,36 +1817,50 @@ SimpleName = ({Letter} | "_" ) ({SimpleNameChar})*
   
   "."							{ yybegin(TS_ENDPRIMARY); return PATH_CONTEXTITEM; }
   
-  {QName} / {SymbolSep}*"("		{ yybegin(TS_FUNCTIONCALLLPAR); return FUNCTIONNAME; }
  
-  "ordered" / {SymbolSep}*"{"   { pushState(TS_ENDPRIMARY); pushState(CURLYEXPR); yybegin(TS_ORDEREDLCURLY); return KW_ORDERED; }
-  "unordered" / {SymbolSep}*"{" { pushState(TS_ENDPRIMARY); pushState(CURLYEXPR); yybegin(TS_ORDEREDLCURLY); return KW_UNORDERED; }
-  
-  
-  "validate" / {SymbolSep}*("lax"|"strict"|"{") { pushState(TS_ENDPRIMARY); yybegin(TS_VALIDATEEXPR); return KW_VALIDATE; }
+  "ordered" / {S}*"{"   				{ pushState(TS_ENDPRIMARY); yybegin(TS_ORDEREDLCURLY); return KW_ORDERED; }
+  "ordered" / {XQueryCommentStart}		{ return lookahead("{", TS_ENDPRIMARY, TS_ORDEREDLCURLY, KW_ORDERED); }
+ 
+  "unordered" / {S}*"{" 				{ pushState(TS_ENDPRIMARY); yybegin(TS_ORDEREDLCURLY); return KW_UNORDERED; }
+  "unordered" / {XQueryCommentStart}	{ return lookahead("{", TS_ENDPRIMARY, TS_ORDEREDLCURLY, KW_UNORDERED); }
+ 
+  "validate" / {S}*("lax"|"strict"|"{") 	{ yybegin(TS_VALIDATEEXPR); return KW_VALIDATE; }
+  "validate" / {XQueryCommentStart} 		{ 
+  												String regionType = lookahead("{", NULL, TS_VALIDATEEXPR, KW_VALIDATE);
+  												if (regionType != KW_VALIDATE)
+  												{
+  													regionType = lookahead("lax", NULL, TS_VALIDATEEXPR, KW_VALIDATE);
+  													if (regionType != KW_VALIDATE)
+  														regionType = lookahead("strict", NULL, TS_VALIDATEEXPR, KW_VALIDATE);
+  												}
+  												return regionType; 	
+											} 
  
   "(#"							{ pushState(TS_ENDPRIMARY); yybegin(TS_PRAGMA); return LPRAGMA; }
  
   // Computed constructors
-  
-  "document" / {SymbolSep}*"{"								{ pushState(TS_ENDPRIMARY); yybegin(TS_COMPDOCUMENT); return KW_DOCUMENT; }
-  "element" / {SymbolSep}*({QName}|"{")						{ pushState(TS_ENDPRIMARY); yybegin(TS_COMPELEMENTORATTR); return KW_ELEMENT; }
-  "attribute" / {SymbolSep}*({QName}|"{")					{ pushState(TS_ENDPRIMARY); yybegin(TS_COMPELEMENTORATTR); return KW_ATTRIBUTE; }
-  "text" / {SymbolSep}*"{"									{ pushState(TS_ENDPRIMARY); yybegin(TS_COMPTEXT); return KW_TEXT; }
-  "comment" / {SymbolSep}*"{"								{ pushState(TS_ENDPRIMARY); yybegin(TS_COMPCOMMENT); return KW_COMMENT; }
-  "processing-instruction" / {SymbolSep}*("{"|{NCName})     {  pushState(TS_ENDPRIMARY); yybegin(TS_COMPPI); return KW_PI; }
-  
+   
+  "document" / {S}*"{"								{ pushState(TS_ENDPRIMARY); yybegin(TS_COMPDOCUMENT); return KW_DOCUMENT; }
+  "element" / {S}*({QName}|"{")						{ pushState(TS_ENDPRIMARY); yybegin(TS_COMPELEMENTORATTR); return KW_ELEMENT; }
+  "attribute" / {S}*({QName}|"{")					{ pushState(TS_ENDPRIMARY); yybegin(TS_COMPELEMENTORATTR); return KW_ATTRIBUTE; }
+  "text" / {S}*"{"									{ pushState(TS_ENDPRIMARY); yybegin(TS_COMPTEXT); return KW_TEXT; }
+  "comment" / {S}*"{"								{ pushState(TS_ENDPRIMARY); yybegin(TS_COMPCOMMENT); return KW_COMMENT; }
+  "processing-instruction" / {S}*("{"|{NCName})     { pushState(TS_ENDPRIMARY); yybegin(TS_COMPPI); return KW_PI; }
+ 
   // Direct contructors
-  
   
   {XMLComment}				    { yybegin(TS_ENDPRIMARY); return XML_COMMENT; }
   {XMLPI}						{ yybegin(TS_ENDPRIMARY); return XML_PI; }
   "<"							{ startXML(); pushState(TS_ENDPRIMARY); yybegin(TS_XMLTAGNAME); return XML_TAG_OPEN; }
+  
+  // Function call
+  {QName} / {S}*"("				 { yybegin(TS_FUNCTIONCALLLPAR); return FUNCTIONNAME; }
+  {QName} / {XQueryCommentStart} { return lookahead("(", NULL, TS_FUNCTIONCALLLPAR, FUNCTIONNAME);  }  
 }
 
-<TS_COLONCOLON> "::"			{ pushState(TS_ENDAXISSTEP); yybegin(TS_NODETEST); return COLONCOLON; }
+<TS_COLONCOLON> "::"			{  yybegin(TS_NODETEST); return COLONCOLON; }
 
- 
+
 // Delimiters
 
 <TS_EXPROPT, TS_ENDPRIMARY, TS_SINGLETYPEQMOREND, TS_ENDAXISSTEP, TS_OPTSTEPEXPR, TS_ENDVARREF> {
@@ -1415,11 +1920,11 @@ SimpleName = ({Letter} | "_" ) ({SimpleNameChar})*
   "|"								{  yybegin(TS_OPERAND); return OP_PIPE; }
   "intersect"  						{  yybegin(TS_OPERAND); return OP_INTERSECT; }
   "except"  						{  yybegin(TS_OPERAND); return OP_EXCEPT; }
-  "instance" / {SymbolSep}+"of"		{  yybegin(TS_IOTYPEDECL); return OP_INSTANCEOF; }
-  "treat" / {SymbolSep}+"as"  		{  yybegin(TS_TATYPEDECL); return OP_TREATAS; }
-  "castable" / {SymbolSep}+"as"		{  yybegin(TS_CATYPEDECL); return OP_CASTABLEAS; }
-  "cast" / {SymbolSep}+"as" 		{  yybegin(TS_CATYPEDECL); return OP_CASTAS; }
-  
+  "instance" 						{  yybegin(TS_IOTYPEDECL); return OP_INSTANCEOF; }
+  "treat"  			 				{  yybegin(TS_TATYPEDECL); return OP_TREATAS; }
+  "castable" 						{  yybegin(TS_CATYPEDECL); return OP_CASTABLEAS; }
+  "cast" 			 				{  yybegin(TS_CATYPEDECL); return OP_CASTAS; }
+ 
   "=" 								{  yybegin(TS_OPERAND); return OP_GEQ; }
   "!="								{  yybegin(TS_OPERAND); return OP_GNEQ; }
   "<" 								{  yybegin(TS_OPERAND); return OP_GLT; }
@@ -1455,8 +1960,8 @@ SimpleName = ({Letter} | "_" ) ({SimpleNameChar})*
 // ExprSingle Delimiters for let/for clause
 
 <TS_ENDPRIMARY, TS_SINGLETYPEQMOREND, TS_ENDAXISSTEP, TS_OPTSTEPEXPR, TS_ENDVARREF,TS_GCAFTERVARNAME, TS_GCENDGROUPINGSPEC> {
-  "for" / {SymbolSep}*"$"			{ check(endExprSingle(), FLCLAUSEEXPR); checkTop(FLWORFOR, FLWORLET); popState(); pushState(FLWORFOR); yybegin(TS_FORCLAUSE); return KW_FOR; } 
-  "let" / {SymbolSep}*"$" 			{ check(endExprSingle(), FLCLAUSEEXPR); checkTop(FLWORFOR, FLWORLET); popState(); pushState(FLWORLET); yybegin(TS_LETCLAUSE); return KW_LET; }
+  "for" / {S}*"$"					{ check(endExprSingle(), FLCLAUSEEXPR); checkTop(FLWORFOR, FLWORLET); popState(); pushState(FLWORFOR); yybegin(TS_FORCLAUSE); return KW_FOR; } 
+  "let" / {S}*"$" 					{ check(endExprSingle(), FLCLAUSEEXPR); checkTop(FLWORFOR, FLWORLET); popState(); pushState(FLWORLET); yybegin(TS_LETCLAUSE); return KW_LET; }
   "where" 							{ 
   										check(endExprSingle(), FLCLAUSEEXPR);
   										checkTop(FLWORFOR, FLWORLET);
@@ -1464,21 +1969,20 @@ SimpleName = ({Letter} | "_" ) ({SimpleNameChar})*
   										yybegin(TS_EXPRSINGLE); 
   										return KW_WHERE; 
   									}
-
-  "order" / {SymbolSep}+"by"		{ 
+  "order" 							{ 
   										check(endExprSingle(), FLCLAUSEEXPR, WHEREEXPR); 
   										checkTop(FLWORFOR, FLWORLET);
   										yybegin(TS_BY); 
   										return KW_ORDER; 
   									}
-  "stable" / {SymbolSep}+"order"	{ 
+  "stable"  						{ 
   										check(endExprSingle(), FLCLAUSEEXPR, WHEREEXPR);
   										checkTop(FLWORFOR, FLWORLET);
   										yybegin(TS_STABLEORDER); 
   										return KW_STABLE; 
   									}
   									
-  "group" / {SymbolSep}+"by"		{
+  "group"  							{
   										endExprSingle();
   										pushState(GROUPBY);
   										yybegin(TS_GROUPBY); 
@@ -1562,8 +2066,8 @@ SimpleName = ({Letter} | "_" ) ({SimpleNameChar})*
 // ===== If expression
 // "if" "(" Expr ")" "then" ExprSingle "else" ExprSingle
 
-<TS_IFEXPR> "(" 		{ pushState(TS_ENDIFTEST); pushState(PAREXPR); yybegin(TS_EXPR); return LPAR; }
-<TS_ENDIFTEST> "then" 	{ pushState(IFTHENEXPR); yybegin(TS_EXPRSINGLE); return KW_THEN; }
+<TS_IFEXPR> 	"(" 		{ pushState(TS_ENDIFTEST); pushState(PAREXPR); yybegin(TS_EXPR); return LPAR; }
+<TS_ENDIFTEST> 	"then" 		{ pushState(IFTHENEXPR); yybegin(TS_EXPRSINGLE); return KW_THEN; }
 
 // ExprSingle delimiters for if expression
 <TS_ENDPRIMARY, TS_SINGLETYPEQMOREND, TS_ENDAXISSTEP, TS_OPTSTEPEXPR, TS_ENDVARREF> "else" { check(endExprSingle(), IFTHENEXPR); pushState(IFELSEEXPR); yybegin(TS_EXPRSINGLE); return KW_ELSE; }
@@ -1572,8 +2076,8 @@ SimpleName = ({Letter} | "_" ) ({SimpleNameChar})*
 // "typeswitch" "(" Expr ")" CaseClause+ "default" ("$" VarName)? "return" ExprSingle
 // "case" ("$" VarName "as")? SequenceType "return" ExprSingle
 
-<TS_TYPESWITCHEXPR> "("	{  pushState(TS_ENDTSOPERAND); pushState(PAREXPR); yybegin(TS_EXPR); return LPAR; }
-<TS_ENDTSOPERAND>  "case" { pushState(TS_ENDTSSEQUENCETYPE); yybegin(TS_ENDCASEKW); return KW_CASE; }
+<TS_TYPESWITCHEXPR> 	"("		{  pushState(TS_ENDTSOPERAND); pushState(PAREXPR); yybegin(TS_EXPR); return LPAR; }
+<TS_ENDTSOPERAND>  		"case" 	{ pushState(TS_ENDTSSEQUENCETYPE); yybegin(TS_ENDCASEKW); return KW_CASE; }
 <TS_ENDCASEKW> {
   "$"				{ pushState(TS_ENDCASEVARREF); yybegin(TS_EXPRVARREF); return DOLLAR;}
   // See SequenceType section below 
@@ -1596,7 +2100,7 @@ SimpleName = ({Letter} | "_" ) ({SimpleNameChar})*
 <TS_FUNCTIONCALLLPAR> "(" { pushState(TS_ENDPRIMARY); pushState(PAREXPR); yybegin(TS_EXPROPT); return LPAR; }
  
 // ==== Ordered/Unordered expression
-<TS_ORDEREDLCURLY> "{" { yybegin(TS_EXPR); return LCURLY; }
+<TS_ORDEREDLCURLY> "{" { pushState(CURLYEXPR); yybegin(TS_EXPR); return LCURLY; }
 
 // ==== Validate expression
 <TS_VALIDATEEXPR> {
@@ -1619,48 +2123,183 @@ SimpleName = ({Letter} | "_" ) ({SimpleNameChar})*
   "{"  			  	{ pushState(CURLYEXPR); yybegin(TS_EXPROPT); return LCURLY; }
 }
 
-// NameTest
-
-<TS_NODETEST> {
-  {QName} 						{ restoreState(); return PATH_NAMETEST; }
-  {NCName}":""*"				{ restoreState(); return PATH_NAMETEST; } /* ws: explicit */
-  "*"":"{NCName}                { restoreState(); return PATH_NAMETEST; } /* ws: explicit */ 
-  "*"							{ restoreState(); return PATH_NAMETEST; } 
-}
-
-// SequenceType  (Look at state stack for continuation)
+// SequenceType/KindTest  (Look at state stack for continuation)
 
 // SequenceType	   			::=  ("empty-sequence" "(" ")") | (ItemType OccurrenceIndicator?)
 // OccurrenceIndicator	  	::=  "?" | "*" | "+"
 // ItemType	   	  	 		::=  KindTest | ("item" "(" ")") | AtomicType
-
-<TS_TYPEDECL, TS_ENDCASEKW> {
-  {EmptySequence} 					{ restoreState(); return ST_EMPTY; }
-  {ItemType}{OccurrenceIndicator}?	{ restoreState(); return ST_ITEM; } 
-}
-
 // KindTest	   ::=   	DocumentTest | ElementTest | AttributeTest | SchemaElementTest | SchemaAttributeTest 
 //                     | PITest | CommentTest | TextTest | AnyKindTest
 
-<TS_NODETEST, TS_TYPEDECL, TS_ENDCASEKW> {
-  {DocumentTest}{OccurrenceIndicator}?			{ restoreState(); return KT_DOCUMENTTEST;}
-  {ElementTest}{OccurrenceIndicator}?			{ restoreState(); return KT_ELEMENTTEST;}
-  {AttributeTest}{OccurrenceIndicator}?			{ restoreState(); return KT_ATTRIBUTETEST;}
-  {SchemaElementTest}{OccurrenceIndicator}?		{ restoreState(); return KT_SCHEMAELEMENTTEST;}
-  {SchemaAttributeTest}{OccurrenceIndicator}?	{ restoreState(); return KT_SCHEMAATTRIBUTETEST;}
-  {PITest}{OccurrenceIndicator}?				{ restoreState(); return KT_PITEST;}
-  {CommentTest}{OccurrenceIndicator}?			{ restoreState(); return KT_COMMENTTEST;}
-  {TextTest}{OccurrenceIndicator}?				{ restoreState(); return KT_TEXTTEST;}
-  {AnyKindTest}{OccurrenceIndicator}?			{ restoreState(); return KT_ANYKINDTEST;}
+<TS_TYPEDECL, TS_ENDCASEKW> { 
+  "document-node" / {S}*"("					{ startSequenceType(); yybegin(TS_DOCUMENTTEST); return KT_DOCUMENTNODE; } 
+  "document-node" / {XQueryCommentStart}	{ return lookaheadSeqType(true, TS_DOCUMENTTEST, KT_DOCUMENTNODE); }
   
-  {QName}{OccurrenceIndicator}?					{ restoreState(); return ST_ATOMICTYPE;}
+  "element"	/ {S}*"("					{ startSequenceType(); yybegin(TS_ELEMENTTEST); return KT_ELEMENT; }
+  "element" / {XQueryCommentStart}		{ return lookaheadSeqType(true, TS_ELEMENTTEST, KT_ELEMENT); }
+  
+  "attribute" / {S}*"("					{ startSequenceType(); yybegin(TS_ATTRIBUTETEST); return KT_ATTRIBUTE; }
+  "attribute" / {XQueryCommentStart}	{ return lookaheadSeqType(true, TS_ATTRIBUTETEST, KT_ATTRIBUTE); }
+  
+  "processing-instruction" / {S}*"("    			{ startSequenceType(); yybegin(TS_PITEST); return KT_PI; }
+  "processing-instruction" / {XQueryCommentStart}	{ return lookaheadSeqType(true, TS_PITEST, KT_PI); }
+  
+  "schema-element" / {S}*"("    			{ startSequenceType(); yybegin(TS_SCHEMAELEMENTTEST); return KT_SCHEMAELEMENT; }
+  "schema-element" / {XQueryCommentStart}   { return lookaheadSeqType(true, TS_SCHEMAELEMENTTEST, KT_SCHEMAELEMENT); }
+  
+  "schema-attribute" / {S}*"("    			{ startSequenceType(); yybegin(TS_SCHEMAATTRIBUTETEST); return KT_SCHEMAATTRIBUTE; }
+  "schema-attribute" / {XQueryCommentStart}	{ return lookaheadSeqType(true, TS_SCHEMAATTRIBUTETEST, KT_SCHEMAATTRIBUTE); }
+ 
+  "comment" / {S}*"("    				{ startSequenceType(); yybegin(TS_ITEM); return KT_COMMENT; } // Same as item()
+  "comment" / {XQueryCommentStart}		{ return lookaheadSeqType(true, TS_ITEM, KT_COMMENT); }
+ 
+  "text" / {S}*"("    					{ startSequenceType(); yybegin(TS_ITEM); return KT_TEXT; } // Same as item()
+  "text" / {XQueryCommentStart}			{ return lookaheadSeqType(true, TS_ITEM, KT_TEXT); }
+  
+  "node" / {S}*"("    					{ startSequenceType(); yybegin(TS_ITEM); return KT_ANYKIND; } // Same as item()
+  "node" / {XQueryCommentStart}			{ return lookaheadSeqType(true, TS_ITEM, KT_ANYKIND); }
+  
+  "empty-sequence" / {S}*"(" 				{ yybegin(TS_EMPTYSEQUENCE); return ST_EMPTY; } 
+  "empty-sequence" / {XQueryCommentStart}	{ return lookaheadSeqType(false, TS_EMPTYSEQUENCE, ST_EMPTY); }
+  
+  "item" / {S}*"(" 							{ startSequenceType(); yybegin(TS_ITEM); return ST_ITEM; }
+  "item" / {XQueryCommentStart}				{ return lookaheadSeqType(true, TS_ITEM, ST_ITEM); }
+  
+  {QName}								{ restoreState(); return ST_ATOMICTYPE;}
+  {QName} / {S}*{OccurrenceIndicator}	{ startSequenceType(); yybegin(TS_OCCINDICATOR); return ST_ATOMICTYPE;} 
+  {QName} / {XQueryCommentStart}		{ return lookaheadOccurrenceIndicator(true); }
 }
+ 
+// Sequence type and kind test continuation rules
+
+// Empty sequence
+<TS_EMPTYSEQUENCE> 		"("		{ yybegin(TS_EMPTYSEQUENCELPAR); return ST_LPAR; }
+<TS_EMPTYSEQUENCELPAR> 	")" 	{ endSTOrKT(); restoreState(); return ST_RPAR; }
+
+// item()
+
+<TS_ITEM>  "("		{ yybegin(TS_ITEMLPAR); return ST_LPAR; }
+<TS_ITEMLPAR>	{
+  ")"	 							{ endSTOrKT(); restoreState(); return ST_RPAR; }
+  ")" /	{XQueryCommentStart} 		{ return lookaheadOccurrenceIndicator(false); }
+  ")" / {S}*{OccurrenceIndicator}   { yybegin(TS_OCCINDICATOR); return ST_RPAR; }
+}
+ 
+// Occurrence Indicator
+
+<TS_OCCINDICATOR> {
+  "+"	{ 
+  			restoreState(); 
+  			if (endSTOrKT())
+  			   return OCC_ONEORMORE;
+  			
+  			// That's an operator
+  			yybegin(TS_OPERAND);  
+  		    return OP_PLUS; 
+  		}
+  "*"	{ 
+  			restoreState(); 
+  			if (endSTOrKT())
+  			   return OCC_ZEROORMORE;
+  			
+  			// That's an operator
+  			yybegin(TS_OPERAND);  
+  		    return OP_MULTIPLY;
+  		}  
+  
+  "?"	{ restoreState(); return OCC_OPTIONAL; }
+} 
+ 
+// Document test
+// "document-node" "(" (ElementTest | SchemaElementTest)? ")"
+
+<TS_DOCUMENTTEST> 	"("	{ yybegin(TS_ELEMENTTESTORSCHEMAELEMENTTESTOPT); return ST_LPAR; } 
+
+
+<TS_ELEMENTTESTORSCHEMAELEMENTTESTOPT> {
+  ")"  								{ endSTOrKT(); restoreState(); return ST_RPAR; }
+  ")" / {S}*{OccurrenceIndicator}	{ yybegin(TS_OCCINDICATOR); return ST_RPAR; }	
+  ")" /	{XQueryCommentStart} 		{ return lookaheadOccurrenceIndicator(false); }			
+  
+  "element" / {S}*"("				{ pushState(TS_DOCTESTENDELEMENTTEST); startKindTest(); yybegin(TS_ELEMENTTEST); return KT_ELEMENT; }
+  "schema-element" / {S}*"("		{ pushState(TS_DOCTESTENDELEMENTTEST); startKindTest(); yybegin(TS_SCHEMAELEMENTTEST); return KT_SCHEMAELEMENT; } 
+}
+
+<TS_DOCTESTENDELEMENTTEST>	{
+  ")"		{ endSTOrKT(); restoreState(); return ST_RPAR; }
+}
+
+// Element Test
+// "element" "(" (ElementNameOrWildcard ("," TypeName "?"?)?)? ")"
+
+<TS_ELEMENTTEST> "(" 	{ yybegin(TS_ELEMENTNAMEORWILDCARDOPT); return ST_LPAR; }
+<TS_ELEMENTNAMEORWILDCARDOPT, TS_ELEMENTTESTCOMMAORRPAR, TS_ELEMENTTESTOPTORRPAR, TS_ELEMENTTESTRPAR> {
+  ")"								{ restoreState(); return ST_RPAR; }
+  ")" / {S}*{OccurrenceIndicator}	{ yybegin(TS_OCCINDICATOR); return ST_RPAR; }
+  ")" /	{XQueryCommentStart} 		{ return lookaheadOccurrenceIndicator(false); }
+}
+
+<TS_ELEMENTNAMEORWILDCARDOPT> {
+  "*"								{ yybegin(TS_ELEMENTTESTCOMMAORRPAR); return KT_WILDCARD; }
+  {QName}							{ yybegin(TS_ELEMENTTESTCOMMAORRPAR); return KT_QNAME; }
+}
+
+<TS_ELEMENTTESTCOMMAORRPAR> {
+  ","								{ yybegin(TS_ELEMENTTESTTYPENAME); return KT_COMMA; }
+}
+
+<TS_ELEMENTTESTTYPENAME> 	{QName}	{ yybegin(TS_ELEMENTTESTOPTORRPAR); return KT_QNAME; }
+<TS_ELEMENTTESTOPTORRPAR>	"?"		{ yybegin(TS_ELEMENTTESTRPAR); return OCC_OPTIONAL; }
+
+// Schema Element Test
+// "schema-element" "(" ElementDeclaration ")"
+
+<TS_SCHEMAELEMENTTEST> 			"(" 		{ yybegin(TS_SET_ELEMENTDECLARATION); return ST_LPAR; }
+<TS_SET_ELEMENTDECLARATION> 	{QName}		{ yybegin(TS_SET_RPAR); return KT_QNAME; }
+<TS_SET_RPAR>					")"			{ restoreState(); return ST_RPAR; }
+  
+
+// Processing instruction test
+// "processing-instruction" "(" (NCName | StringLiteral)? ")" 
+
+<TS_PITEST>						"("		{ yybegin(TS_PIT_NCNAMEORSTRINGOPT); return ST_LPAR; } 
+<TS_PIT_NCNAMEORSTRINGOPT> {
+  {NCName}			{ yybegin(TS_PIT_RPAR); return KT_NCNAME; }
+  {StringLiteral}	{ yybegin(TS_PIT_RPAR); return STRINGLITERAL; }
+}
+<TS_PIT_NCNAMEORSTRINGOPT, TS_PIT_RPAR> ")" 	{ restoreState(); return ST_RPAR; }
+
+// Attribute test
+// "attribute" "(" (AttribNameOrWildcard ("," TypeName)?)? ")"
+
+<TS_ATTRIBUTETEST> 	"(" 	{ yybegin(TS_AT_NAMEORWILDCARDOPT); return ST_LPAR; }
+<TS_AT_NAMEORWILDCARDOPT, TS_AT_COMMAORRPAR, TS_AT_RPAR> {
+  ")"								{ restoreState(); return ST_RPAR; }
+  ")" / {S}*{OccurrenceIndicator}	{ yybegin(TS_OCCINDICATOR); return ST_RPAR; }
+  ")" /	{XQueryCommentStart} 		{ return lookaheadOccurrenceIndicator(false); }
+}
+
+<TS_AT_NAMEORWILDCARDOPT> {
+  "*"								{ yybegin(TS_AT_COMMAORRPAR); return KT_WILDCARD; }
+  {QName}							{ yybegin(TS_AT_COMMAORRPAR); return KT_QNAME; }
+}
+
+<TS_AT_COMMAORRPAR> {
+  ","								{ yybegin(TS_AT_TYPENAME); return KT_COMMA; }
+}
+
+<TS_AT_TYPENAME> 	{QName}	{ yybegin(TS_AT_RPAR); return KT_QNAME; }
+ 
+// Schema-attribute test
+// "schema-attribute" "(" AttributeDeclaration ")" 
+<TS_SCHEMAATTRIBUTETEST> 		"(" 		{ yybegin(TS_SAT_ATTRIBUTEDECLARATION); return ST_LPAR; }
+<TS_SAT_ATTRIBUTEDECLARATION> 	{QName}		{ yybegin(TS_SAT_RPAR); return KT_QNAME; }
+<TS_SAT_RPAR>					")"			{ restoreState(); return ST_RPAR; } 
+ 
  
 // NCName state (pop state when finished)
 
 <TS_NCNAME>  {NCName} { restoreState(); return NCNAME; }
-
-
 
 // Computed construction
 
@@ -1772,7 +2411,7 @@ SimpleName = ({Letter} | "_" ) ({SimpleNameChar})*
 
 // ExprSingle delimiters for SourceExpr
 <TS_ENDPRIMARY, TS_SINGLETYPEQMOREND, TS_ENDAXISSTEP, TS_OPTSTEPEXPR, TS_ENDEXPRSINGLE,TS_ENDVARREF> {
-  "as" / {SymbolSep}+("first"|"last")	{ check(endExprSingle(), XUSOURCE); yybegin(TS_FIRSTORLAST); return KW_AS; }
+  "as" / {S}+("first"|"last")	{ check(endExprSingle(), XUSOURCE); yybegin(TS_FIRSTORLAST); return KW_AS; }
   "before"      { check(endExprSingle(), XUSOURCE); pushState(XUINSERTTARGET); yybegin(TS_EXPRSINGLE); return KW_BEFORE; }
   "after"		{ check(endExprSingle(), XUSOURCE); pushState(XUINSERTTARGET); yybegin(TS_EXPRSINGLE); return KW_AFTER; }
 }
@@ -1792,7 +2431,7 @@ SimpleName = ({Letter} | "_" ) ({SimpleNameChar})*
 
 // ReplaceExpr	   ::=   	"replace" ("value" "of")? "node" TargetExpr "with" ExprSingle
 <TS_REPLACEEXPR> {
-  "value" / {SymbolSep}+"of"	{ yybegin(TS_REPLACEOF); return KW_VALUE; }
+  "value" / {S}+"of"	{ yybegin(TS_REPLACEOF); return KW_VALUE; }
 }
 
 <TS_REPLACEEXPR, TS_REPLACENODE>  "node" 		{ pushState(XUREPLACETARGET); yybegin(TS_EXPRSINGLE); return KW_NODE; }
@@ -1836,7 +2475,7 @@ SimpleName = ({Letter} | "_" ) ({SimpleNameChar})*
 
 <TS_BLOCK>	"{"  {  yybegin(TS_BLOCKVARDECLOPT); return LCURLY; }
 <TS_BLOCKVARDECLOPT> {
-  "declare" / {SymbolSep}*"$" { yybegin(TS_BLOCKVARNAME); return KW_DECLARE; }
+  "declare" / {S}*"$" { yybegin(TS_BLOCKVARNAME); return KW_DECLARE; }
 } 
 <TS_BLOCKVARNAME> "$"	{ pushState(TS_BLOCKVARTYPEDECL); yybegin(TS_EXPRVARREF); return DOLLAR; }
 <TS_BLOCKVARTYPEDECL> {
@@ -1864,6 +2503,8 @@ SimpleName = ({Letter} | "_" ) ({SimpleNameChar})*
 		    }
 
 <TS_SINK> . { return UNDEFINED; }
+
+ 
 
 // Always available rules
 

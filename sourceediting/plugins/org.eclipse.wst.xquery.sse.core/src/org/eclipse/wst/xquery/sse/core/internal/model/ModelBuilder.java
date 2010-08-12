@@ -165,16 +165,15 @@ public class ModelBuilder {
             XQueryRegions.PATH_PARENT, XQueryRegions.PATH_PRECEDING, XQueryRegions.PATH_PRECEDING_SIBLING,
             XQueryRegions.PATH_SELF });
 
-    final protected RegionFilter kindTestFilter = new RegionFilter(new String[] { XQueryRegions.KT_ANYKINDTEST,
-            XQueryRegions.KT_ATTRIBUTETEST, XQueryRegions.KT_COMMENTTEST, XQueryRegions.KT_DOCUMENTTEST,
-            XQueryRegions.KT_ELEMENTTEST, XQueryRegions.KT_PITEST, XQueryRegions.KT_SCHEMAATTRIBUTETEST,
-            XQueryRegions.KT_SCHEMAELEMENTTEST, XQueryRegions.KT_TEXTTEST });
+    final protected RegionFilter kindTestFilter = new RegionFilter(new String[] { XQueryRegions.KT_ANYKIND,
+            XQueryRegions.KT_ATTRIBUTE, XQueryRegions.KT_COMMENT, XQueryRegions.KT_DOCUMENTNODE,
+            XQueryRegions.KT_ELEMENT, XQueryRegions.KT_PI, XQueryRegions.KT_SCHEMAATTRIBUTE,
+            XQueryRegions.KT_SCHEMAELEMENT, XQueryRegions.KT_TEXT });
 
     final protected RegionFilter sequenceTypeFilter = new RegionFilter(new String[] { XQueryRegions.ST_ATOMICTYPE,
-            XQueryRegions.ST_EMPTY, XQueryRegions.ST_ITEM, XQueryRegions.KT_ANYKINDTEST,
-            XQueryRegions.KT_ATTRIBUTETEST, XQueryRegions.KT_COMMENTTEST, XQueryRegions.KT_DOCUMENTTEST,
-            XQueryRegions.KT_ELEMENTTEST, XQueryRegions.KT_PITEST, XQueryRegions.KT_SCHEMAATTRIBUTETEST,
-            XQueryRegions.KT_SCHEMAELEMENTTEST, XQueryRegions.KT_TEXTTEST });
+            XQueryRegions.ST_EMPTY, XQueryRegions.ST_ITEM, XQueryRegions.KT_ANYKIND, XQueryRegions.KT_ATTRIBUTE,
+            XQueryRegions.KT_COMMENT, XQueryRegions.KT_DOCUMENTNODE, XQueryRegions.KT_ELEMENT, XQueryRegions.KT_PI,
+            XQueryRegions.KT_SCHEMAATTRIBUTE, XQueryRegions.KT_SCHEMAELEMENT, XQueryRegions.KT_TEXT });
 
     final protected RegionFilter nameTestFilter = new RegionFilter(new String[] { XQueryRegions.PATH_NAMETEST });
 
@@ -183,7 +182,7 @@ public class ModelBuilder {
 
     final protected RegionFilter commonContentFilter = new RegionFilter(new String[] { XQueryRegions.XML_PE_REFERENCE,
             XQueryRegions.XML_CHAR_REF, XQueryRegions.XML_ESCAPE_START_EXPR, XQueryRegions.XML_ESCAPE_CLOSE_EXPR,
-            XQueryRegions.XML_START_EXPR });
+            XQueryRegions.LCURLY });
 
     final protected RegionFilter forLetFilter = new RegionFilter(new String[] { XQueryRegions.KW_FOR,
             XQueryRegions.KW_LET });
@@ -347,21 +346,26 @@ public class ModelBuilder {
         while (currentSDRegion != null) {
             if (sameRegionType(XQueryRegions.KW_DECLARE)) {
 
-                // Tokenizer ensures there is always a second region
-                final String type2 = getTextRegion(1).getType();
+                final ITextRegion region2 = getTextRegion(1);
+                if (region2 != null) {
+                    final String type2 = region2.getType();
 
-                if (type2 == XQueryRegions.KW_NAMESPACE) {
-                    IASTNode oldDecl = module.getChildASTNodeAt(count);
-                    ASTNamespaceDecl newDecl = reparseNamespaceDecl(oldDecl);
-                    module.setChildASTNodeAt(count++, newDecl);
-                } else if (type2 == XQueryRegions.KW_BOUNDARY_SPACE || type2 == XQueryRegions.KW_DEFAULT
-                        || type2 == XQueryRegions.KW_BASEURI || type2 == XQueryRegions.KW_CONSTRUCTION
-                        || type2 == XQueryRegions.KW_ORDERING || type2 == XQueryRegions.KW_COPYNAMESPACES) {
-                    // Just skip for now...
-                    nextSDRegion();
+                    if (type2 == XQueryRegions.KW_NAMESPACE) {
+                        IASTNode oldDecl = module.getChildASTNodeAt(count);
+                        ASTNamespaceDecl newDecl = reparseNamespaceDecl(oldDecl);
+                        module.setChildASTNodeAt(count++, newDecl);
+                    } else if (type2 == XQueryRegions.KW_BOUNDARY_SPACE || type2 == XQueryRegions.KW_DEFAULT
+                            || type2 == XQueryRegions.KW_BASEURI || type2 == XQueryRegions.KW_CONSTRUCTION
+                            || type2 == XQueryRegions.KW_ORDERING || type2 == XQueryRegions.KW_COPYNAMESPACES) {
+                        // Just skip for now...
+                        nextSDRegion();
+                    } else {
+                        // Certainly a prolog2 declaration.. exit.
+                        break;
+                    }
                 } else {
-                    // Certainly a prolog2 declaration.. exit.
-                    break;
+                    // This can occurs when the sdregion contains nested comments
+                    nextSDRegion();
                 }
 
             } else if (sameRegionType(XQueryRegions.KW_IMPORT)) {
@@ -406,22 +410,28 @@ public class ModelBuilder {
      */
     protected int reparseProlog2(ASTModule module, int from) {
         while (sameRegionType(XQueryRegions.KW_DECLARE)) {
-            String type2 = getTextRegion(1).getType();
+            ITextRegion region2 = getTextRegion(1);
+            if (region2 != null) {
+                String type2 = region2.getType();
 
-            IASTNode oldDecl = module.getChildASTNodeAt(from);
+                IASTNode oldDecl = module.getChildASTNodeAt(from);
 
-            if (type2 == XQueryRegions.KW_VARIABLE) {
-                ASTVarDecl newDecl = reparseVarDecl(oldDecl);
-                module.setVariableDecl(from++, newDecl.getName(), newDecl);
-            } else if (type2 == XQueryRegions.KW_FUNCTION) {
-                ASTFunctionDecl newDecl = reparseFunctionDecl(oldDecl);
-                module.setFunctionDecl(from++, newDecl.getName(), newDecl);
-            } else if (type2 == XQueryRegions.KW_OPTION) {
-                reparseOptionDecl(module);
+                if (type2 == XQueryRegions.KW_VARIABLE) {
+                    ASTVarDecl newDecl = reparseVarDecl(oldDecl);
+                    module.setVariableDecl(from++, newDecl.getName(), newDecl);
+                } else if (type2 == XQueryRegions.KW_FUNCTION) {
+                    ASTFunctionDecl newDecl = reparseFunctionDecl(oldDecl);
+                    module.setFunctionDecl(from++, newDecl.getName(), newDecl);
+                } else if (type2 == XQueryRegions.KW_OPTION) {
+                    reparseOptionDecl(module);
+                } else {
+                    // Probably a Prolog1 declaration in the wrong place
+                    // TODO: report error
+                    break;
+                }
             } else {
-                // Probably a Prolog1 declaration in the wrong place
-                // TODO: report error
-                break;
+                // Probably contains an invalid nested xquery comments.
+                nextSDRegion();
             }
 
             if (sameRegionType(XQueryRegions.SEPARATOR)) {
@@ -2019,9 +2029,10 @@ public class ModelBuilder {
         // TODO
         if (sameRegionType(XQueryRegions.LCURLY)) {
             reparseEnclosedExpr(node);
+        } else {
+            nextSDRegion();
         }
 
-        nextSDRegion();
         return null;
     }
 
@@ -2204,6 +2215,11 @@ public class ModelBuilder {
             IASTNode oldExpr = expr.getExpr();
             IASTNode newExpr = reparseExpr(oldExpr);
             expr.setExpr(newExpr);
+
+            if (newExpr == null) {
+                reportError(XQueryMessages.errorXQSE_MissingExprSingle_UI_);
+                return expr;
+            }
         }
 
         if (checkAndReport(XQueryRegions.RPAR, XQueryMessages.errorXQSE_MissingRPar_UI_)) {
@@ -2285,6 +2301,11 @@ public class ModelBuilder {
             oldChild = operator.getChildASTNodeAt(index);
             newChild = continuation.reparse(oldChild);
             operator.setChildASTNodeAt(index, newChild);
+
+            if (newChild == null) {
+                reportError(XQueryMessages.errorXQSE_MissingExprSingle_UI_);
+                return operator;
+            }
 
             if (!sameRegionType(operatorFilter)) {
                 operator.removeChildASTNodesAfter(index);

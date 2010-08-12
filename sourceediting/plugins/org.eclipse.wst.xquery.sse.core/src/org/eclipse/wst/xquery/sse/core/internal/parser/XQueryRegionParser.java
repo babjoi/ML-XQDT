@@ -59,10 +59,6 @@ public class XQueryRegionParser implements StructuredDocumentRegionParser, XQuer
     {
         // Group $ VarName
         STARTING_GROUP_FACTORIES.put(XQueryRegions.DOLLAR, XQueryStructuredDocumentRegion.Factory.INSTANCE);
-        // Group empty ( )
-        STARTING_GROUP_FACTORIES.put(XQueryRegions.ST_EMPTY, XQueryStructuredDocumentRegion.Factory.INSTANCE);
-        // Group item ( )
-        STARTING_GROUP_FACTORIES.put(XQueryRegions.ST_ITEM, XQueryStructuredDocumentRegion.Factory.INSTANCE);
         // Group functionName (
         STARTING_GROUP_FACTORIES.put(XQueryRegions.FUNCTIONNAME, XQueryStructuredDocumentRegion.Factory.INSTANCE);
         STARTING_GROUP_FACTORIES.put(XQueryRegions.KW_ORDERED, XQueryStructuredDocumentRegion.Factory.INSTANCE);
@@ -117,14 +113,39 @@ public class XQueryRegionParser implements StructuredDocumentRegionParser, XQuer
         // Group "rename" "node"
         STARTING_GROUP_FACTORIES.put(XQueryRegions.KW_RENAME, XQueryStructuredDocumentRegion.Factory.INSTANCE);
 
+        // Group AtomicType OccurrenceIndicator?
+        STARTING_GROUP_FACTORIES.put(XQueryRegions.ST_ATOMICTYPE, XQueryStructuredDocumentRegion.Factory.INSTANCE);
+        // Group empty-sequence ( )
+        STARTING_GROUP_FACTORIES.put(XQueryRegions.ST_EMPTY, XQueryStructuredDocumentRegion.Factory.INSTANCE);
+        // Group item ( ) OccurrenceIndicator?
+        STARTING_GROUP_FACTORIES.put(XQueryRegions.ST_ITEM, XQueryStructuredDocumentRegion.Factory.INSTANCE);
+        // Group  node ( ) OccurrenceIndicator?
+        STARTING_GROUP_FACTORIES.put(XQueryRegions.KT_ANYKIND, XQueryStructuredDocumentRegion.Factory.INSTANCE);
+        // Group  text ( ) OccurrenceIndicator?
+        STARTING_GROUP_FACTORIES.put(XQueryRegions.KT_TEXT, XQueryStructuredDocumentRegion.Factory.INSTANCE);
+        // Group  comment ( ) OccurrenceIndicator?
+        STARTING_GROUP_FACTORIES.put(XQueryRegions.KT_COMMENT, XQueryStructuredDocumentRegion.Factory.INSTANCE);
+        // Group  document-node "(" (ElementTest | SchemaElementTest)? ")" OccurrenceIndicator?
+        STARTING_GROUP_FACTORIES.put(XQueryRegions.KT_DOCUMENTNODE, XQueryStructuredDocumentRegion.Factory.INSTANCE);
+        // Group "element" "(" (ElementNameOrWildcard ("," TypeName "?"?)?)? ")" OccurrenceIndicator?
+        STARTING_GROUP_FACTORIES.put(XQueryRegions.KT_ELEMENT, XQueryStructuredDocumentRegion.Factory.INSTANCE);
+        // Group "schema-element" "(" ElementDeclaration ")"  OccurrenceIndicator?
+        STARTING_GROUP_FACTORIES.put(XQueryRegions.KT_SCHEMAELEMENT, XQueryStructuredDocumentRegion.Factory.INSTANCE);
+        // Group "processing-instruction" "(" (NCName | StringLiteral)? ")" OccurrenceIndicator?
+        STARTING_GROUP_FACTORIES.put(XQueryRegions.KT_PI, XQueryStructuredDocumentRegion.Factory.INSTANCE);
+        // Group   "attribute" "(" (AttribNameOrWildcard ("," TypeName)?)? ")" OccurrenceIndicator?
+        STARTING_GROUP_FACTORIES.put(XQueryRegions.KT_ATTRIBUTE, XQueryStructuredDocumentRegion.Factory.INSTANCE);
+        // Group  "schema-attribute" "(" AttributeDeclaration ")" OccurrenceIndicator?
+        STARTING_GROUP_FACTORIES.put(XQueryRegions.KT_SCHEMAATTRIBUTE, XQueryStructuredDocumentRegion.Factory.INSTANCE);
+
     }
 
     /** Regions belonging to an existing group */
     final protected static Map<String, String[]> IN_GROUP = new HashMap<String, String[]>();
     {
+        // NOTE: regions need to be alphabetically sorted 
+
         IN_GROUP.put(XQueryRegions.DOLLAR, new String[] { XQueryRegions.VARREF });
-        IN_GROUP.put(XQueryRegions.ST_EMPTY, new String[] { XQueryRegions.LPAR, XQueryRegions.RPAR });
-        IN_GROUP.put(XQueryRegions.ST_ITEM, new String[] { XQueryRegions.LPAR, XQueryRegions.RPAR });
         IN_GROUP.put(XQueryRegions.FUNCTIONNAME, new String[] { XQueryRegions.LPAR });
         IN_GROUP.put(XQueryRegions.KW_ORDERED, new String[] { XQueryRegions.LCURLY });
         IN_GROUP.put(XQueryRegions.KW_UNORDERED, new String[] { XQueryRegions.LCURLY });
@@ -159,23 +180,72 @@ public class XQueryRegionParser implements StructuredDocumentRegionParser, XQuer
                 XQueryRegions.SEPARATOR, XQueryRegions.STRINGLITERAL });
 
         IN_GROUP.put(XQueryRegions.KW_ORDER, new String[] { XQueryRegions.KW_BY });
-        IN_GROUP.put(XQueryRegions.KW_STABLE, new String[] { XQueryRegions.KW_BY, XQueryRegions.KW_ORDER });
+        IN_GROUP.put(XQueryRegions.KW_STABLE, new String[] { XQueryRegions.KW_ORDER, XQueryRegions.KW_BY });
         IN_GROUP.put(XQueryRegions.KW_EMPTY, new String[] { XQueryRegions.KW_GREATEST, XQueryRegions.KW_LEAST });
 
         // Group "insert (node|nodes)"
         IN_GROUP.put(XQueryRegions.KW_INSERT, new String[] { XQueryRegions.KW_NODE, XQueryRegions.KW_NODES });
 
         // Group (("as" ("first" | "last"))? "into") | "after" | "before"
-        IN_GROUP.put(XQueryRegions.KW_AS, new String[] { XQueryRegions.KW_FIRST, XQueryRegions.KW_LAST,
-                XQueryRegions.KW_INTO });
+        IN_GROUP.put(XQueryRegions.KW_AS, new String[] { XQueryRegions.KW_FIRST, XQueryRegions.KW_INTO,
+                XQueryRegions.KW_LAST });
 
         // Group "replace" ("value" "of")? "node"
-        IN_GROUP.put(XQueryRegions.KW_REPLACE, new String[] { XQueryRegions.KW_VALUE, XQueryRegions.KW_OF,
-                XQueryRegions.KW_NODE });
+        IN_GROUP.put(XQueryRegions.KW_REPLACE, new String[] { XQueryRegions.KW_NODE, XQueryRegions.KW_OF,
+                XQueryRegions.KW_VALUE });
 
         // Group "rename" "node"
         IN_GROUP.put(XQueryRegions.KW_RENAME, new String[] { XQueryRegions.KW_NODE });
 
+        // Group AtomicType OccurrenceIndicator?
+        IN_GROUP.put(XQueryRegions.ST_ATOMICTYPE, new String[] { XQueryRegions.OCC_ONEORMORE,
+                XQueryRegions.OCC_OPTIONAL, XQueryRegions.OCC_ZEROORMORE });
+
+        // Group empty-sequence ( )
+        IN_GROUP.put(XQueryRegions.ST_EMPTY, new String[] { XQueryRegions.ST_LPAR, XQueryRegions.ST_RPAR });
+        // Group item ( ) OccurrenceIndicator?
+        IN_GROUP.put(XQueryRegions.ST_ITEM, new String[] { XQueryRegions.OCC_ONEORMORE, XQueryRegions.OCC_OPTIONAL,
+                XQueryRegions.OCC_ZEROORMORE, XQueryRegions.ST_LPAR, XQueryRegions.ST_RPAR });
+        // Group  node ( ) OccurrenceIndicator?
+        IN_GROUP.put(XQueryRegions.KT_ANYKIND, new String[] { XQueryRegions.OCC_ONEORMORE, XQueryRegions.OCC_OPTIONAL,
+                XQueryRegions.OCC_ZEROORMORE, XQueryRegions.ST_LPAR, XQueryRegions.ST_RPAR });
+        // Group  text ( ) OccurrenceIndicator?
+        IN_GROUP.put(XQueryRegions.KT_TEXT, new String[] { XQueryRegions.OCC_ONEORMORE, XQueryRegions.OCC_OPTIONAL,
+                XQueryRegions.OCC_ZEROORMORE, XQueryRegions.ST_LPAR, XQueryRegions.ST_RPAR });
+        // Group  comment ( ) OccurrenceIndicator?
+        IN_GROUP.put(XQueryRegions.KT_COMMENT, new String[] { XQueryRegions.OCC_ONEORMORE, XQueryRegions.OCC_OPTIONAL,
+                XQueryRegions.OCC_ZEROORMORE, XQueryRegions.ST_LPAR, XQueryRegions.ST_RPAR });
+
+        // Group  document-node "(" (ElementTest | SchemaElementTest)? ")" OccurrenceIndicator?
+        IN_GROUP.put(XQueryRegions.KT_DOCUMENTNODE,
+                new String[] { XQueryRegions.KT_COMMA, XQueryRegions.KT_QNAME, XQueryRegions.KT_ELEMENT,
+                        XQueryRegions.KT_SCHEMAELEMENT, XQueryRegions.OCC_ONEORMORE, XQueryRegions.OCC_OPTIONAL,
+                        XQueryRegions.OCC_ZEROORMORE, XQueryRegions.ST_LPAR, XQueryRegions.ST_RPAR });
+
+        // Group "element" "(" (ElementNameOrWildcard ("," TypeName "?"?)?)? ")" OccurrenceIndicator?
+        IN_GROUP.put(XQueryRegions.KT_ELEMENT, new String[] { XQueryRegions.KT_COMMA, XQueryRegions.KT_QNAME,
+                XQueryRegions.KT_WILDCARD, XQueryRegions.OCC_ONEORMORE, XQueryRegions.OCC_OPTIONAL,
+                XQueryRegions.OCC_ZEROORMORE, XQueryRegions.ST_LPAR, XQueryRegions.ST_RPAR });
+
+        // Group "schema-element" "(" ElementDeclaration ")" OccurrenceIndicator?
+        IN_GROUP.put(XQueryRegions.KT_SCHEMAELEMENT, new String[] { XQueryRegions.KT_QNAME,
+                XQueryRegions.OCC_ONEORMORE, XQueryRegions.OCC_OPTIONAL, XQueryRegions.OCC_ZEROORMORE,
+                XQueryRegions.ST_LPAR, XQueryRegions.ST_RPAR });
+
+        // Group "processing-instruction" "(" (NCName | StringLiteral)? ")" OccurrenceIndicator?
+        IN_GROUP.put(XQueryRegions.KT_PI, new String[] { XQueryRegions.KT_NCNAME, XQueryRegions.OCC_ONEORMORE,
+                XQueryRegions.OCC_OPTIONAL, XQueryRegions.OCC_ZEROORMORE, XQueryRegions.ST_LPAR, XQueryRegions.ST_RPAR,
+                XQueryRegions.STRINGLITERAL });
+
+        // Group   "attribute" "(" (AttribNameOrWildcard ("," TypeName)?)? ")" OccurrenceIndicator?
+        IN_GROUP.put(XQueryRegions.KT_ATTRIBUTE, new String[] { XQueryRegions.KT_COMMA, XQueryRegions.KT_QNAME,
+                XQueryRegions.KT_WILDCARD, XQueryRegions.OCC_ONEORMORE, XQueryRegions.OCC_OPTIONAL,
+                XQueryRegions.OCC_ZEROORMORE, XQueryRegions.ST_LPAR, XQueryRegions.ST_RPAR });
+
+        // Group  "schema-attribute" "(" AttributeDeclaration ")" OccurrenceIndicator?
+        IN_GROUP.put(XQueryRegions.KT_SCHEMAATTRIBUTE, new String[] { XQueryRegions.OCC_ONEORMORE,
+                XQueryRegions.OCC_OPTIONAL, XQueryRegions.OCC_ZEROORMORE, XQueryRegions.KT_QNAME,
+                XQueryRegions.ST_LPAR, XQueryRegions.ST_RPAR });
     }
     // State
 
@@ -391,7 +461,8 @@ public class XQueryRegionParser implements StructuredDocumentRegionParser, XQuer
                 }
 
                 if (region.getType() == XQueryRegions.KW_VARIABLE || region.getType() == XQueryRegions.KW_FUNCTION) {
-                    interruptGroup = true; // Interrupt for the next token
+                    interruptGroup = true;
+                    // Interrupt for the next token
                 }
 
                 return true;

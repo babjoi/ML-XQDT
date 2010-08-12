@@ -60,15 +60,23 @@ public class XQDTLineStyleProvider extends AbstractLineStyleProvider implements 
         COLOR_KEYS.put(XQueryRegions.ST_ATOMICTYPE, CK_TYPE);
         COLOR_KEYS.put(XQueryRegions.ST_EMPTY, CK_TYPE);
         COLOR_KEYS.put(XQueryRegions.ST_ITEM, CK_TYPE);
-        COLOR_KEYS.put(XQueryRegions.KT_ANYKINDTEST, CK_TYPE);
-        COLOR_KEYS.put(XQueryRegions.KT_ATTRIBUTETEST, CK_TYPE);
-        COLOR_KEYS.put(XQueryRegions.KT_COMMENTTEST, CK_TYPE);
-        COLOR_KEYS.put(XQueryRegions.KT_DOCUMENTTEST, CK_TYPE);
-        COLOR_KEYS.put(XQueryRegions.KT_ELEMENTTEST, CK_TYPE);
-        COLOR_KEYS.put(XQueryRegions.KT_PITEST, CK_TYPE);
-        COLOR_KEYS.put(XQueryRegions.KT_SCHEMAATTRIBUTETEST, CK_TYPE);
-        COLOR_KEYS.put(XQueryRegions.KT_SCHEMAELEMENTTEST, CK_TYPE);
-        COLOR_KEYS.put(XQueryRegions.KT_TEXTTEST, CK_TYPE);
+        COLOR_KEYS.put(XQueryRegions.KT_ANYKIND, CK_TYPE);
+        COLOR_KEYS.put(XQueryRegions.KT_ATTRIBUTE, CK_TYPE);
+        COLOR_KEYS.put(XQueryRegions.KT_COMMENT, CK_TYPE);
+        COLOR_KEYS.put(XQueryRegions.KT_DOCUMENTNODE, CK_TYPE);
+        COLOR_KEYS.put(XQueryRegions.KT_ELEMENT, CK_TYPE);
+        COLOR_KEYS.put(XQueryRegions.KT_PI, CK_TYPE);
+        COLOR_KEYS.put(XQueryRegions.KT_SCHEMAATTRIBUTE, CK_TYPE);
+        COLOR_KEYS.put(XQueryRegions.KT_SCHEMAELEMENT, CK_TYPE);
+        COLOR_KEYS.put(XQueryRegions.KT_WILDCARD, CK_TYPE);
+        COLOR_KEYS.put(XQueryRegions.KT_QNAME, CK_TYPE);
+        COLOR_KEYS.put(XQueryRegions.KT_NCNAME, CK_TYPE);
+        COLOR_KEYS.put(XQueryRegions.KT_TEXT, CK_TYPE);
+        COLOR_KEYS.put(XQueryRegions.ST_LPAR, CK_TYPE);
+        COLOR_KEYS.put(XQueryRegions.ST_RPAR, CK_TYPE);
+        COLOR_KEYS.put(XQueryRegions.OCC_ONEORMORE, CK_TYPE);
+        COLOR_KEYS.put(XQueryRegions.OCC_OPTIONAL, CK_TYPE);
+        COLOR_KEYS.put(XQueryRegions.OCC_ZEROORMORE, CK_TYPE);
 
         // Operators
 

@@ -14,7 +14,6 @@ import org.eclipse.dltk.ui.text.completion.ScriptCompletionProposalCollector;
 import org.eclipse.dltk.ui.text.completion.ScriptCompletionProposalComputer;
 import org.eclipse.dltk.ui.text.completion.ScriptContentAssistInvocationContext;
 import org.eclipse.jface.text.templates.TemplateCompletionProcessor;
-import org.eclipse.wst.xquery.internal.ui.text.codeassist.XQDTCompletionProposalCollector;
 
 public class XQDTTemplateProposalComputer extends ScriptCompletionProposalComputer {
 
@@ -23,7 +22,7 @@ public class XQDTTemplateProposalComputer extends ScriptCompletionProposalComput
     }
 
     protected ScriptCompletionProposalCollector createCollector(ScriptContentAssistInvocationContext context) {
-        return new XQDTCompletionProposalCollector(context.getSourceModule());
+        return null;
     }
 
 }

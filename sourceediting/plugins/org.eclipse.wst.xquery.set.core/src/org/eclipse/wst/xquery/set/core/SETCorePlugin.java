@@ -13,7 +13,7 @@ package org.eclipse.wst.xquery.set.core;
 import org.eclipse.core.runtime.Plugin;
 import org.osgi.framework.BundleContext;
 import org.eclipse.wst.xquery.core.IXQDTUriResolver;
-import org.eclipse.wst.xquery.set.internal.core.SETResolver;
+import org.eclipse.wst.xquery.set.internal.core.SETUriResolver;
 
 /**
  * The activator class controls the plug-in life cycle
@@ -65,7 +65,7 @@ public class SETCorePlugin extends Plugin {
 
     public IXQDTUriResolver getModuleResolver() {
         if (fModuleResolver == null) {
-            fModuleResolver = new SETResolver();
+            fModuleResolver = new SETUriResolver();
         }
         return fModuleResolver;
     }

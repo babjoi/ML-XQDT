@@ -25,13 +25,12 @@ import org.eclipse.dltk.core.ModelException;
 public class XQDTUriResolver implements IXQDTUriResolver {
 
     public URI resolveModuleImport(URI baseUri, String uri, String[] hints) {
-        if (hints.length == 0) {
-            return resolveUri(baseUri, uri);
-        }
-        for (int i = 0; i < hints.length; i++) {
-            URI u = resolveUri(baseUri, hints[i]);
-            if (u != null) {
-                return u;
+        if (hints.length != 0) {
+            for (int i = 0; i < hints.length; i++) {
+                URI u = resolveUri(baseUri, hints[i]);
+                if (u != null) {
+                    return u;
+                }
             }
         }
         return resolveUri(baseUri, uri);

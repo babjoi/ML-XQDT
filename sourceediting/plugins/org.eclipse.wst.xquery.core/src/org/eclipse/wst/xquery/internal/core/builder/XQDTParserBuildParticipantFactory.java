@@ -26,7 +26,6 @@ import org.eclipse.dltk.core.SourceParserUtil;
 import org.eclipse.dltk.core.builder.AbstractBuildParticipantType;
 import org.eclipse.dltk.core.builder.IBuildContext;
 import org.eclipse.dltk.core.builder.IBuildParticipant;
-import org.eclipse.dltk.core.builder.IScriptBuilder;
 import org.eclipse.dltk.internal.core.ModelManager;
 
 @SuppressWarnings("restriction")
@@ -51,7 +50,7 @@ public class XQDTParserBuildParticipantFactory extends AbstractBuildParticipantT
             final ISourceModuleInfo cacheEntry = ModelManager.getModelManager().getSourceModuleInfoCache()
                     .get(context.getSourceModule());
 
-            if (context.getBuildType() != IScriptBuilder.FULL_BUILD) {
+            if (context.getBuildType() == IBuildContext.RECONCILE_BUILD) {
                 // check if there is cached AST
                 moduleDeclaration = SourceParserUtil.getModuleFromCache(cacheEntry, context.getProblemReporter());
                 if (moduleDeclaration != null) {

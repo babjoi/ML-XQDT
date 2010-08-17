@@ -21,8 +21,11 @@ import org.eclipse.dltk.core.IScriptProject;
 import org.eclipse.dltk.core.ISourceModule;
 import org.eclipse.dltk.core.ModelException;
 import org.eclipse.wst.xquery.core.XQDTUriResolver;
+import org.eclipse.wst.xquery.set.core.ISETCoreConstants;
+import org.eclipse.wst.xquery.set.core.SETProjectConfig;
+import org.eclipse.wst.xquery.set.core.SETProjectConfigUtil;
 
-public class SETResolver extends XQDTUriResolver {
+public class SETUriResolver extends XQDTUriResolver {
 
     public ISourceModule locateSourceModule(URI uri, IScriptProject project) {
         String uriString = uri.toString();
@@ -33,7 +36,30 @@ public class SETResolver extends XQDTUriResolver {
             return findExternalSourceModule(project, modulePath);
         }
 
-        return super.locateSourceModule(uri, project);
+        SETProjectConfig config = SETProjectConfigUtil.readProjectConfig(project.getProject());
+        URI projectUri = config.getLogicalUri();
+        String projectUriString = projectUri.toString();
+        if (uriString.startsWith(projectUriString)) {
+            IPath path = new Path(uri.getPath());
+            try {
+                if (path.segment(0).equals(ISETCoreConstants.PROJECT_DIRECTORY_LIBRARY)) {
+                    path = path.addFileExtension("xq");
+                    IScriptFolder folder = project.findScriptFolder(project.getPath().append(
+                            ISETCoreConstants.PROJECT_DIRECTORY_LIBRARY));
+                    return folder.getSourceModule(path.removeFirstSegments(1).toString());
+                } else if (path.segment(0).equals(ISETCoreConstants.PROJECT_DIRECTORY_EXTERNAL)) {
+                    IScriptFolder folder = project.findScriptFolder(project.getPath().append(
+                            ISETCoreConstants.PROJECT_DIRECTORY_EXTERNAL));
+                    return folder.getSourceModule(path.removeFirstSegments(1).toString());
+                }
+            } catch (ModelException e) {
+                e.printStackTrace();
+                return null;
+            }
+
+        }
+
+        return null;
     }
 
     private ISourceModule findExternalSourceModule(IScriptProject project, IPath path) {

@@ -23,96 +23,90 @@ import org.eclipse.wst.validation.internal.provisional.core.IMessage;
 @SuppressWarnings("restriction")
 public class ValidationHelper {
 
-	/**
-	 * Create an error message from the given parameters.
-	 * 
-	 * @param sdregion
-	 * @param text
-	 * @param tip
-	 *            whether or not to only highlight the tip of the given sdregion
-	 * @return
-	 */
-	public static IMessage createErrorMessage(
-			IStructuredDocumentRegion sdregion, String text, boolean tip) {
-		IMessage message = new LocalizedMessage(IMessage.HIGH_SEVERITY, text);
+    /**
+     * Create an error message from the given parameters.
+     * 
+     * @param sdregion
+     * @param text
+     * @param tip
+     *            whether or not to only highlight the tip of the given sdregion
+     * @return
+     */
+    public static IMessage createErrorMessage(IStructuredDocumentRegion sdregion, String text, boolean tip) {
+        IMessage message = new LocalizedMessage(IMessage.HIGH_SEVERITY, text);
 
-		if (tip) {
-			int offset = sdregion.getStartOffset()
-					+ sdregion.getFullText().trim().length() - 1;
-			message.setOffset(offset);
-			message.setLength(1);
-			message.setLineNo(sdregion.getParentDocument().getLineOfOffset(
-					offset));
-		} else {
-			int offset = sdregion.getStartOffset();
-			message.setOffset(offset);
-			message.setLength(sdregion.getTextLength());
-			message.setLineNo(sdregion.getParentDocument().getLineOfOffset(
-					offset));
-		}
+        if (tip) {
+            int offset = sdregion.getStartOffset() + sdregion.getFullText().trim().length() - 1;
+            message.setOffset(offset);
+            message.setLength(1);
+            message.setLineNo(sdregion.getParentDocument().getLineOfOffset(offset));
+        } else {
+            int offset = sdregion.getStartOffset();
+            message.setOffset(offset);
+            message.setLength(sdregion.getLength());
+            message.setLineNo(sdregion.getParentDocument().getLineOfOffset(offset));
+        }
 
-		return message;
-	}
+        return message;
+    }
 
-	/**
-	 * Create an error message from the given parameters.
-	 * 
-	 * @param sdregion
-	 * @param region
-	 * @param text
-	 * @return
-	 */
-	public static IMessage createErrorMessage(
-			IStructuredDocumentRegion sdregion, ITextRegion region, String text) {
-		if (region == null)
-			return createErrorMessage(sdregion, text, false);
-		
-		IMessage message = new LocalizedMessage(IMessage.HIGH_SEVERITY, text);
+    /**
+     * Create an error message from the given parameters.
+     * 
+     * @param sdregion
+     * @param region
+     * @param text
+     * @return
+     */
+    public static IMessage createErrorMessage(IStructuredDocumentRegion sdregion, ITextRegion region, String text) {
+        if (region == null) {
+            return createErrorMessage(sdregion, text, false);
+        }
 
-		message.setOffset(sdregion.getStartOffset() + region.getStart());
-		message.setLength(region.getLength());
-		message.setLineNo(sdregion.getParentDocument().getLineOfOffset(
-				sdregion.getStartOffset() + region.getStart()));
+        IMessage message = new LocalizedMessage(IMessage.HIGH_SEVERITY, text);
 
-		return message;
-	}
+        message.setOffset(sdregion.getStartOffset() + region.getStart());
+        message.setLength(region.getLength());
+        message.setLineNo(sdregion.getParentDocument().getLineOfOffset(sdregion.getStartOffset() + region.getStart()));
 
-	/**
-	 * Create an error message from the given parameters.
-	 * 
-	 * @param first
-	 * @param last
-	 * @param text
-	 * @return
-	 */
-	public static IMessage createErrorMessage(IStructuredDocumentRegion first,
-			IStructuredDocumentRegion last, String text) {
-		IMessage message = new LocalizedMessage(IMessage.HIGH_SEVERITY, text);
+        return message;
+    }
 
-		message.setOffset(first.getStartOffset());
-		message.setLength(last.getEndOffset() - first.getStartOffset());
-		message.setLineNo(first.getParentDocument().getLineOfOffset(
-				first.getStartOffset()));
+    /**
+     * Create an error message from the given parameters.
+     * 
+     * @param first
+     * @param last
+     * @param text
+     * @return
+     */
+    public static IMessage createErrorMessage(IStructuredDocumentRegion first, IStructuredDocumentRegion last,
+            String text) {
+        IMessage message = new LocalizedMessage(IMessage.HIGH_SEVERITY, text);
 
-		return message;
-	}
+        message.setOffset(first.getStartOffset());
+        message.setLength(last.getEndOffset() - first.getStartOffset());
+        message.setLineNo(first.getParentDocument().getLineOfOffset(first.getStartOffset()));
 
-	/**
-	 * Create an error message from the given parameters.
-	 * 
-	 * @param first
-	 * @param last
-	 * @param text
-	 * @return
-	 */
-	public static IMessage createErrorMessage(String text) {
-		IMessage message = new LocalizedMessage(IMessage.HIGH_SEVERITY, text);
+        return message;
+    }
 
-		message.setOffset(0);
-		message.setLength(0);
-		message.setLineNo(0);
+    /**
+     * Create an error message from the given parameters.
+     * 
+     * @param first
+     * @param last
+     * @param text
+     * @return
+     */
+    public static IMessage createErrorMessage(String text) {
+        IMessage message = new LocalizedMessage(IMessage.HIGH_SEVERITY, text);
 
-		return message;
-	}
+        message.setOffset(0);
+        message.setLength(0);
+        message.setLineNo(0);
+
+        return message;
+    }
 
 }

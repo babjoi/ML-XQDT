@@ -120,6 +120,7 @@ public class XQueryRegion implements ITextRegion {
         fStart = region.getStart();
         fLength = region.getLength();
         fTextLength = region.getTextLength();
+        fType = region.getType();
     }
 
     public int getTextEnd() {
@@ -128,6 +129,7 @@ public class XQueryRegion implements ITextRegion {
 
     public int getTextLength() {
         return fTextLength;
+        //return fLength;
     }
 
     public String getType() {

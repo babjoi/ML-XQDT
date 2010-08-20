@@ -12,13 +12,20 @@
  *******************************************************************************/
 package org.eclipse.wst.xquery.sse.ui.internal.style;
 
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
 import org.eclipse.jface.preference.IPreferenceStore;
+import org.eclipse.jface.text.ITypedRegion;
 import org.eclipse.jface.text.TextAttribute;
+import org.eclipse.swt.custom.StyleRange;
 import org.eclipse.swt.graphics.RGB;
+import org.eclipse.wst.sse.core.internal.provisional.text.IStructuredDocumentRegion;
 import org.eclipse.wst.sse.core.internal.provisional.text.ITextRegion;
+import org.eclipse.wst.sse.core.internal.provisional.text.ITextRegionCollection;
+import org.eclipse.wst.sse.core.internal.provisional.text.ITextRegionList;
+import org.eclipse.wst.sse.core.internal.util.Debug;
 import org.eclipse.wst.sse.ui.internal.provisional.style.AbstractLineStyleProvider;
 import org.eclipse.wst.sse.ui.internal.provisional.style.LineStyleProvider;
 import org.eclipse.wst.xquery.sse.core.internal.regions.XQueryRegion;
@@ -31,7 +38,7 @@ import org.eclipse.wst.xquery.sse.ui.style.IXQDTColorKeys;
  * 
  * @author villardl
  */
-@SuppressWarnings("restriction")
+@SuppressWarnings({ "restriction", "rawtypes" })
 public class XQDTLineStyleProvider extends AbstractLineStyleProvider implements LineStyleProvider, IXQDTColorKeys {
 
     // Constants
@@ -210,6 +217,185 @@ public class XQDTLineStyleProvider extends AbstractLineStyleProvider implements 
         addTextAttribute(CK_XML_COMMENT);
 
         getTextAttributes().put(CK_UNDEFINED, createTextAttribute(new RGB(0, 0, 0), new RGB(255, 255, 255), false));
+    }
+
+    // Temporary override methods to work around white space refresh problem.
+
+    public boolean prepareRegions(ITypedRegion typedRegion, int lineRequestStart, int lineRequestLength,
+            Collection holdResults) {
+        final int partitionStartOffset = typedRegion.getOffset();
+        final int partitionLength = typedRegion.getLength();
+        IStructuredDocumentRegion structuredDocumentRegion = getDocument().getRegionAtCharacterOffset(
+                partitionStartOffset);
+        boolean handled = false;
+
+        handled = prepareTextRegions(structuredDocumentRegion, partitionStartOffset, partitionLength, holdResults);
+
+        return handled;
+    }
+
+    /**
+     * this version does "trim" regions to match request
+     */
+    private StyleRange createStyleRange(ITextRegionCollection flatNode, ITextRegion region, TextAttribute attr,
+            int startOffset, int length) {
+        int start = flatNode.getStartOffset(region);
+        if (start < startOffset) {
+            start = startOffset;
+        }
+
+        // Base the text end offset off of the, possibly adjusted, start
+        int textEnd = start + region.getLength();
+        int maxOffset = startOffset + length;
+
+        int end = flatNode.getEndOffset(region);
+        // Use the end of the text in the region to avoid applying background color to trailing whitespace
+        if (textEnd < end) {
+            end = textEnd;
+        }
+        // instead of end-start?
+        if (end > maxOffset) {
+            end = maxOffset;
+        }
+        StyleRange result = new StyleRange(start, end - start, attr.getForeground(), attr.getBackground(),
+                attr.getStyle());
+        if ((attr.getStyle() & TextAttribute.STRIKETHROUGH) != 0) {
+            result.strikeout = true;
+        }
+        if ((attr.getStyle() & TextAttribute.UNDERLINE) != 0) {
+            result.underline = true;
+        }
+        return result;
+
+    }
+
+    private boolean prepareTextRegions(IStructuredDocumentRegion structuredDocumentRegion, int partitionStartOffset,
+            int partitionLength, Collection holdResults) {
+        boolean handled = false;
+        final int partitionEndOffset = partitionStartOffset + partitionLength - 1;
+        while (structuredDocumentRegion != null && structuredDocumentRegion.getStartOffset() <= partitionEndOffset) {
+            ITextRegion region = null;
+            ITextRegionList regions = structuredDocumentRegion.getRegions();
+            int nRegions = regions.size();
+            StyleRange styleRange = null;
+            for (int i = 0; i < nRegions; i++) {
+                region = regions.get(i);
+                TextAttribute attr = null;
+                TextAttribute previousAttr = null;
+                if (structuredDocumentRegion.getStartOffset(region) > partitionEndOffset) {
+                    break;
+                }
+                if (structuredDocumentRegion.getEndOffset(region) <= partitionStartOffset) {
+                    continue;
+                }
+
+                if (region instanceof ITextRegionCollection) {
+                    boolean handledCollection = (prepareTextRegion((ITextRegionCollection)region, partitionStartOffset,
+                            partitionLength, holdResults));
+                    handled = (!handled) ? handledCollection : handled;
+                } else {
+
+                    attr = getAttributeFor(structuredDocumentRegion, region);
+                    if (attr != null) {
+                        handled = true;
+                        // if this region's attr is the same as previous one,
+                        // then just adjust the previous style range
+                        // instead of creating a new instance of one
+                        // note: to use 'equals' in this case is important,
+                        // since sometimes
+                        // different instances of attributes are associated
+                        // with a region, even the
+                        // the attribute has the same values.
+                        // TODO: this needs to be improved to handle readonly
+                        // regions correctly
+                        if ((styleRange != null) && (previousAttr != null) && (previousAttr.equals(attr))) {
+                            styleRange.length += region.getLength();
+                        } else {
+                            styleRange = createStyleRange(structuredDocumentRegion, region, attr, partitionStartOffset,
+                                    partitionLength);
+                            holdResults.add(styleRange);
+                            // technically speaking, we don't need to update
+                            // previousAttr
+                            // in the other case, because the other case is
+                            // when it hasn't changed
+                            previousAttr = attr;
+                        }
+                    } else {
+                        previousAttr = null;
+                    }
+                }
+
+                if (Debug.syntaxHighlighting && !handled) {
+                    System.out.println("not handled in prepareRegions"); //$NON-NLS-1$
+                }
+            }
+            structuredDocumentRegion = structuredDocumentRegion.getNext();
+        }
+        return handled;
+    }
+
+    /**
+     * @param region
+     * @param start
+     * @param length
+     * @param holdResults
+     * @return
+     */
+    private boolean prepareTextRegion(ITextRegionCollection blockedRegion, int partitionStartOffset,
+            int partitionLength, Collection holdResults) {
+        boolean handled = false;
+        final int partitionEndOffset = partitionStartOffset + partitionLength - 1;
+        ITextRegion region = null;
+        ITextRegionList regions = blockedRegion.getRegions();
+        int nRegions = regions.size();
+        StyleRange styleRange = null;
+        for (int i = 0; i < nRegions; i++) {
+            region = regions.get(i);
+            TextAttribute attr = null;
+            TextAttribute previousAttr = null;
+            if (blockedRegion.getStartOffset(region) > partitionEndOffset) {
+                break;
+            }
+            if (blockedRegion.getEndOffset(region) <= partitionStartOffset) {
+                continue;
+            }
+
+            if (region instanceof ITextRegionCollection) {
+                handled = prepareTextRegion((ITextRegionCollection)region, partitionStartOffset, partitionLength,
+                        holdResults);
+            } else {
+
+                attr = getAttributeFor(blockedRegion, region);
+                if (attr != null) {
+                    handled = true;
+                    // if this region's attr is the same as previous one, then
+                    // just adjust the previous style range
+                    // instead of creating a new instance of one
+                    // note: to use 'equals' in this case is important, since
+                    // sometimes
+                    // different instances of attributes are associated with a
+                    // region, even the
+                    // the attribute has the same values.
+                    // TODO: this needs to be improved to handle readonly
+                    // regions correctly
+                    if ((styleRange != null) && (previousAttr != null) && (previousAttr.equals(attr))) {
+                        styleRange.length += region.getLength();
+                    } else {
+                        styleRange = createStyleRange(blockedRegion, region, attr, partitionStartOffset,
+                                partitionLength);
+                        holdResults.add(styleRange);
+                        // technically speaking, we don't need to update
+                        // previousAttr
+                        // in the other case, because the other case is when
+                        // it hasn't changed
+                        previousAttr = attr;
+                    }
+                } else {
+                    previousAttr = null;
+                }
+            }
+        }
+        return handled;
     }
 
 }

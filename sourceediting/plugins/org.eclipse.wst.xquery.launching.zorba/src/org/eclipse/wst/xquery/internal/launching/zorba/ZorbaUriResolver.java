@@ -24,8 +24,7 @@ public class ZorbaUriResolver extends XQDTUriResolver {
 
     @Override
     public ISourceModule locateSourceModule(URI uri, IScriptProject project) {
-        if (uri.toString().startsWith(IZorbaConstants.ZORBA_NEW_MODULE_PREFIX)
-                || uri.toString().startsWith(IZorbaConstants.ZORBA_OLD_MODULE_PREFIX)) {
+        if (uri.toString().startsWith(IZorbaConstants.ZORBA_MODULE_PREFIX)) {
             return findBuiltinModule(project, uri);
         }
         if (uri.toString().startsWith(IZorbaConstants.ZORBA_EXPATH_MODULE_PREFIX)) {

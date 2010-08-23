@@ -60,7 +60,7 @@ public class SemanticCheckErrorReportReader {
             for (int i = 0; i < errors.getLength(); i++) {
                 Element error = (Element)errors.item(i);
                 SemanticCheckError semErr = readError(error);
-                if (semErr != null) {
+                if (semErr != null && !"XQST0088".equals(semErr.getErrorCode())) {
                     list.add(semErr);
                 }
             }

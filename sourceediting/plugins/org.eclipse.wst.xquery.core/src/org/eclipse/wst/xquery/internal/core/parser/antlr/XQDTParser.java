@@ -113,8 +113,8 @@ public class XQDTParser extends Parser implements IXQDTLanguageConstants {
                 CommonToken t = (CommonToken)input.get(e.index);
                 if (t.getType() != XQueryParser.EOF) {
                     String errorMessage = getErrorMessage(e, getTokenNames());
-                    problem = new SyntaxProblem(fFileName, errorMessage, t.getStartIndex(), t.getStopIndex() + 1,
-                            t.getLine() - 1);
+                    problem = new SyntaxProblem(fFileName, errorMessage, t.getStartIndex(), t.getStopIndex() + 1, t
+                            .getLine() - 1);
                 } else {
                     CommonToken last = (CommonToken)input.get(input.size() - 1);
                     String errorMessage = getErrorMessage(e, getTokenNames());
@@ -130,7 +130,7 @@ public class XQDTParser extends Parser implements IXQDTLanguageConstants {
         super.reportError(e);
     }
 
-    @SuppressWarnings("rawtypes")
+    @SuppressWarnings("unchecked")
     protected void ak(List list) {
         if (list == null) {
             return;

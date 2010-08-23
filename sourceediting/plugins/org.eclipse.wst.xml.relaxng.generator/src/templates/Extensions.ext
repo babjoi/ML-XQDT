@@ -1,9 +1,0 @@
-import relaxng;
-
-listSubclasses(Class this) :
-	let subclasses = this.eRootContainer.eAllContents.typeSelect(Class).select(e|e.superClass == this).name:
-		switch (subclasses.size) { 
-			case 0: "no subclasses"
-			case 1: "subclass: " + subclasses.toString(", ")
-			default: subclasses.size.toString() + " subclasses: " + subclasses.toString(", ")
-		};

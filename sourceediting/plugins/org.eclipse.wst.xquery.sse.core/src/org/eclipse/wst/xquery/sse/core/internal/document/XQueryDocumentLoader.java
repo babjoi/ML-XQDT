@@ -34,7 +34,7 @@ public class XQueryDocumentLoader extends AbstractDocumentLoader implements IDoc
 
 	@Override
 	public IDocumentPartitioner getDefaultDocumentPartitioner() {
-		return new XQueryDocumentPartitioner();
+		return new XQDTDocumentPartitioner();
 	}
 
 	@Override

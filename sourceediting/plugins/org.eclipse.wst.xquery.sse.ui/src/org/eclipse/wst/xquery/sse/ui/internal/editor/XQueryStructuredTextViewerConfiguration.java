@@ -6,7 +6,8 @@
  * http://www.eclipse.org/legal/epl-v10.html
  *
  * Contributors:
- *     IBM Corporation - initial API and implementation
+ *     Lionel Villard (IBM) - initial API and implementation
+ *     Gabriel Petrovay (IBM) - extended to XQuery comment and string partitions
  *******************************************************************************/
 package org.eclipse.wst.xquery.sse.ui.internal.editor;
 
@@ -17,76 +18,71 @@ import org.eclipse.jface.text.source.ISourceViewer;
 import org.eclipse.wst.sse.ui.StructuredTextViewerConfiguration;
 import org.eclipse.wst.sse.ui.internal.format.StructuredFormattingStrategy;
 import org.eclipse.wst.sse.ui.internal.provisional.style.LineStyleProvider;
-import org.eclipse.wst.xquery.sse.core.internal.document.XQueryDocumentPartitioner;
+import org.eclipse.wst.xquery.sse.core.text.IXQDTPartitions;
 import org.eclipse.wst.xquery.sse.ui.internal.formatter.XQDTFormatter;
 import org.eclipse.wst.xquery.sse.ui.internal.quickassist.XQDTTemplateCompletionProcessor;
 import org.eclipse.wst.xquery.sse.ui.internal.quickassist.XQDTVariableContentAssistProcessor;
 import org.eclipse.wst.xquery.sse.ui.internal.style.XQDTLineStyleProvider;
 
 /**
- * XQuery configuration for the source view in the XQuery editor
- * 
- * @author <a href="villard@us.ibm.com">Lionel Villard</a>
+ * XQuery configuration for the source view in the XQuery editor.
  */
-@SuppressWarnings("restriction")
-public class XQueryStructuredTextViewerConfiguration extends
-		StructuredTextViewerConfiguration {
+public class XQueryStructuredTextViewerConfiguration extends StructuredTextViewerConfiguration {
 
-	// State
+    // State
 
-	/** Cached XQuery line style provider */
-	final private LineStyleProvider[] lineStyleProvider;
+    /** Cached XQuery line style provider */
+    final private LineStyleProvider[] lineStyleProvider;
 
-	/** Cached XQuery content assist processors */
-	final private IContentAssistProcessor[] contentAssistProcessor;
+    /** Cached XQuery content assist processors */
+    final private IContentAssistProcessor[] contentAssistProcessor;
 
-	/** List of configured content types */
-	final private String[] contentTypes;
+    /** List of configured content types */
+    final private String[] contentTypes;
 
-	// Constructors
+    // Constructors
 
-	public XQueryStructuredTextViewerConfiguration() {
-		lineStyleProvider = new LineStyleProvider[1];
-		lineStyleProvider[0] = new XQDTLineStyleProvider();
+    public XQueryStructuredTextViewerConfiguration() {
+        lineStyleProvider = new LineStyleProvider[1];
+        lineStyleProvider[0] = new XQDTLineStyleProvider();
 
-		contentAssistProcessor = new IContentAssistProcessor[2];
-		contentAssistProcessor[0] = new XQDTVariableContentAssistProcessor();
-		contentAssistProcessor[1] = new XQDTTemplateCompletionProcessor();
+        contentAssistProcessor = new IContentAssistProcessor[2];
+        contentAssistProcessor[0] = new XQDTVariableContentAssistProcessor();
+        contentAssistProcessor[1] = new XQDTTemplateCompletionProcessor();
 
-		contentTypes = new String[1];
-		contentTypes[0] = XQueryDocumentPartitioner.DEFAULT_XQUERY_PARTITION;
-	}
+        contentTypes = new String[3];
+        contentTypes[0] = IXQDTPartitions.XQUERY_DEFAULT;
+        contentTypes[1] = IXQDTPartitions.XQUERY_COMMENT;
+        contentTypes[2] = IXQDTPartitions.XQUERY_STRING;
+    }
 
-	// Overrides
+    // Overrides
 
-	@Override
-	public LineStyleProvider[] getLineStyleProviders(
-			ISourceViewer sourceViewer, String partitionType) {
-		return lineStyleProvider;
-	}
+    @Override
+    public LineStyleProvider[] getLineStyleProviders(ISourceViewer sourceViewer, String partitionType) {
+        return lineStyleProvider;
+    }
 
-	@Override
-	public String[] getConfiguredContentTypes(ISourceViewer sourceViewer) {
-		return contentTypes;
-	}
+    @Override
+    public String[] getConfiguredContentTypes(ISourceViewer sourceViewer) {
+        return contentTypes;
+    }
 
-	@Override
-	protected IContentAssistProcessor[] getContentAssistProcessors(
-			ISourceViewer sourceViewer, String partitionType) {
-		return contentAssistProcessor;
-	}
+    @Override
+    protected IContentAssistProcessor[] getContentAssistProcessors(ISourceViewer sourceViewer, String partitionType) {
+        return contentAssistProcessor;
+    }
 
-	@Override
-	public IContentFormatter getContentFormatter(ISourceViewer sourceViewer) {
-		IContentFormatter formatter = super.getContentFormatter(sourceViewer);
+    @Override
+    public IContentFormatter getContentFormatter(ISourceViewer sourceViewer) {
+        IContentFormatter formatter = super.getContentFormatter(sourceViewer);
 
-		if (formatter instanceof MultiPassContentFormatter) {
-			((MultiPassContentFormatter) formatter)
-					.setMasterStrategy(new StructuredFormattingStrategy(
-							new XQDTFormatter()));
-		}
+        if (formatter instanceof MultiPassContentFormatter) {
+            ((MultiPassContentFormatter)formatter).setMasterStrategy(new StructuredFormattingStrategy(
+                    new XQDTFormatter()));
+        }
 
-		return formatter;
-	}
+        return formatter;
+    }
 
 }

@@ -27,6 +27,11 @@
             type="spellingregions"
             value="XML_CONTENT">
       </provisionalDefinition>
+      <provisionalConfiguration
+            class="org.eclipse.wst.xquery.sse.ui.internal.text.XQDTCharacterPairMatcher"
+            target="org.eclipse.wst.xquery.sse.core.xquery"
+            type="characterpairmatcher">
+      </provisionalConfiguration>
    </extension>
    <extension
          point="org.eclipse.ui.preferencePages">

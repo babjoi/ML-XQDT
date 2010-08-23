@@ -56,12 +56,20 @@ public class SETURICheckerParticipant implements IBuildParticipant {
                     String errorMessage;
                     if (!logicalURI.equals(URI.substring(0, URI.lastIndexOf('/')))) {
                         //logical uri not matching
-                        errorMessage = "Incorrect module namespace, wrong project logical URI.";
+                        errorMessage = "The module namespace declaration \""
+                                + URI
+                                + "\" does not match the expected namespace \""
+                                + expectedURI
+                                + "\".\nSee http://www.28msec.com/support_sausalito_project_structure/index#structure_handler_modules.";
                         arguments.add(INVALID_LOGICAL_URI);
                     } else {
                         //module name not matching
-                        String name = URI.substring(URI.lastIndexOf('/') + 1);
-                        errorMessage = "Incorrect module namespace, wrong module name: " + name + ".";
+                        //String name = URI.substring(URI.lastIndexOf('/') + 1);
+                        errorMessage = "The module namespace declaration \""
+                                + URI
+                                + "\" does not match the expected namespace \""
+                                + expectedURI
+                                + "\".\nSee http://www.28msec.com/support_sausalito_project_structure/index#structure_library_modules.";
                         arguments.add(INVALID_MODULE_NAME);
                     }
                     int start = namespaceURI.sourceStart();

@@ -1,5 +1,6 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
+Bundle-Localization: plugin 
 Bundle-Name: %pluginName
 Bundle-SymbolicName: org.eclipse.wst.xquery.sse.ui;singleton:=true
 Bundle-Version: 0.7.0.qualifier
@@ -26,5 +27,10 @@ Export-Package: org.eclipse.wst.xquery.sse.ui,
  org.eclipse.wst.xquery.sse.ui.internal,
  org.eclipse.wst.xquery.sse.ui.internal.breakpoint,
  org.eclipse.wst.xquery.sse.ui.internal.editor,
+ org.eclipse.wst.xquery.sse.ui.internal.formatter,
  org.eclipse.wst.xquery.sse.ui.internal.preferences,
- org.eclipse.wst.xquery.sse.ui.internal.style
+ org.eclipse.wst.xquery.sse.ui.internal.quickassist,
+ org.eclipse.wst.xquery.sse.ui.internal.restrictions,
+ org.eclipse.wst.xquery.sse.ui.internal.style,
+ org.eclipse.wst.xquery.sse.ui.internal.text,
+ org.eclipse.wst.xquery.sse.ui.style

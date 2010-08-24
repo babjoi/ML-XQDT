@@ -21,13 +21,9 @@ import java.io.InputStreamReader;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
-import java.util.Enumeration;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import java.util.zip.ZipEntry;
-import java.util.zip.ZipFile;
 
 import org.eclipse.core.resources.IContainer;
 import org.eclipse.core.resources.IFile;
@@ -297,67 +293,67 @@ public class CoreSDKTemplateUtility {
             }
         }
 
-        @SuppressWarnings({ "unchecked", "unused" })
-        private static void generateFiles(ZipFile zipFile, IPath path, IContainer dst, IProgressMonitor monitor)
-                throws CoreException {
-            int pathLength = path.segmentCount();
-            // Immidiate children
-            Map<String, ZipEntry> childZipEntries = new HashMap<String, ZipEntry>(); // "dir/" or
-            // "dir/file.java"
-
-            for (Enumeration<ZipEntry> zipEntries = (Enumeration<ZipEntry>)zipFile.entries(); zipEntries
-                    .hasMoreElements();) {
-                ZipEntry zipEntry = zipEntries.nextElement();
-                IPath entryPath = new Path(zipEntry.getName());
-                if (entryPath.segmentCount() <= pathLength) {
-                    // ancestor or current directory
-                    continue;
-                }
-                if (!path.isPrefixOf(entryPath)) {
-                    // not a descendant
-                    continue;
-                }
-                if (entryPath.segmentCount() == pathLength + 1) {
-                    childZipEntries.put(zipEntry.getName(), zipEntry);
-                } else {
-                    String name = entryPath.uptoSegment(pathLength + 1).addTrailingSeparator().toString();
-                    if (!childZipEntries.containsKey(name)) {
-                        ZipEntry dirEntry = new ZipEntry(name);
-                        childZipEntries.put(name, dirEntry);
-                    }
-                }
-            }
-
-            for (Iterator<ZipEntry> it = childZipEntries.values().iterator(); it.hasNext();) {
-                ZipEntry zipEnry = it.next();
-                String name = new Path(zipEnry.getName()).lastSegment().toString();
-                if (zipEnry.isDirectory()) {
-                    IContainer dstContainer = null;
-
-                    if (dstContainer == null) {
-                        dstContainer = dst.getFolder(new Path(name));
-                    }
-                    if (dstContainer instanceof IFolder && !dstContainer.exists()) {
-                        ((IFolder)dstContainer).create(true, true, monitor);
-                    }
-                    generateFiles(zipFile, path.append(name), dstContainer, monitor);
-                } else {
-                    InputStream in = null;
-                    try {
-                        in = zipFile.getInputStream(zipEnry);
-                        copyFile(name, in, dst, monitor);
-                    } catch (IOException ioe) {
-                    } finally {
-                        if (in != null) {
-                            try {
-                                in.close();
-                            } catch (IOException ioe2) {
-                            }
-                        }
-                    }
-                }
-            }
-        }
+//        @SuppressWarnings({ "unchecked", "unused" })
+//        private static void generateFiles(ZipFile zipFile, IPath path, IContainer dst, IProgressMonitor monitor)
+//                throws CoreException {
+//            int pathLength = path.segmentCount();
+//            // Immidiate children
+//            Map<String, ZipEntry> childZipEntries = new HashMap<String, ZipEntry>(); // "dir/" or
+//            // "dir/file.java"
+//
+//            for (Enumeration<ZipEntry> zipEntries = (Enumeration<ZipEntry>)zipFile.entries(); zipEntries
+//                    .hasMoreElements();) {
+//                ZipEntry zipEntry = zipEntries.nextElement();
+//                IPath entryPath = new Path(zipEntry.getName());
+//                if (entryPath.segmentCount() <= pathLength) {
+//                    // ancestor or current directory
+//                    continue;
+//                }
+//                if (!path.isPrefixOf(entryPath)) {
+//                    // not a descendant
+//                    continue;
+//                }
+//                if (entryPath.segmentCount() == pathLength + 1) {
+//                    childZipEntries.put(zipEntry.getName(), zipEntry);
+//                } else {
+//                    String name = entryPath.uptoSegment(pathLength + 1).addTrailingSeparator().toString();
+//                    if (!childZipEntries.containsKey(name)) {
+//                        ZipEntry dirEntry = new ZipEntry(name);
+//                        childZipEntries.put(name, dirEntry);
+//                    }
+//                }
+//            }
+//
+//            for (Iterator<ZipEntry> it = childZipEntries.values().iterator(); it.hasNext();) {
+//                ZipEntry zipEnry = it.next();
+//                String name = new Path(zipEnry.getName()).lastSegment().toString();
+//                if (zipEnry.isDirectory()) {
+//                    IContainer dstContainer = null;
+//
+//                    if (dstContainer == null) {
+//                        dstContainer = dst.getFolder(new Path(name));
+//                    }
+//                    if (dstContainer instanceof IFolder && !dstContainer.exists()) {
+//                        ((IFolder)dstContainer).create(true, true, monitor);
+//                    }
+//                    generateFiles(zipFile, path.append(name), dstContainer, monitor);
+//                } else {
+//                    InputStream in = null;
+//                    try {
+//                        in = zipFile.getInputStream(zipEnry);
+//                        copyFile(name, in, dst, monitor);
+//                    } catch (IOException ioe) {
+//                    } finally {
+//                        if (in != null) {
+//                            try {
+//                                in.close();
+//                            } catch (IOException ioe2) {
+//                            }
+//                        }
+//                    }
+//                }
+//            }
+//        }
 
         private InputStream getProcessedStream(InputStream input) throws IOException, CoreException {
             StringBuffer sb = new StringBuffer();
@@ -386,54 +382,39 @@ public class CoreSDKTemplateUtility {
 
     }
 
-    /**
-     * This function returns the list of project templates found in the location provided by the
-     * 
-     * <code>org.eclipse.wst.xquery.set.internal.ui.preferences.PreferenceConstants.TEMPLATES_PROJECTS_DIR</code>
-     * .
-     * 
-     * The list does not include the default template name which is provided by the
-     * 
-     * <code>org.eclipse.wst.xquery.set.internal.ui.preferences.PreferenceConstants.TEMPLATES_DEFAULT_PROJECT_DIR</code>
-     * .
-     * 
-     * @throws CoreException
-     */
     public static String[] getTemplateProjectNames() throws CoreException {
-        List<String> templateList = new ArrayList<String>(4);
+        return getTemplateProjectNames(null);
+    }
 
-        IPath templatePath = getDefaultCoreSDKTemplatePath();
+    /**
+     * This function searches for the project template names available at the giver interpreter
+     * install location. The result does not include the default project template.
+     * 
+     * @return An array containing the template names available at the provided install interpreter
+     *         location. If this is <code>null</code> the list of template names in the default
+     *         interpreter is returned. The function returns an empty string if no templates are
+     *         found or an error happens while trying to retrieve the template names.
+     */
+    public static String[] getTemplateProjectNames(IInterpreterInstall interpreter) throws CoreException {
+        IPath templatePath = null;
+        try {
+            if (interpreter == null) {
+                templatePath = getDefaultCoreSDKTemplatePath();
+            } else {
+                templatePath = getCoreSDKTemplatePath(interpreter);
+            }
+        } catch (CoreException ce) {
+        }
+
         if (templatePath == null) {
             return EMPTY_STRING_LIST;
         }
 
-        IPreferenceStore store = SETUIPlugin.getDefault().getPreferenceStore();
-        final String defaultTemplate = store.getString(PreferenceConstants.TEMPLATES_DEFAULT_PROJECT_DIR);
-
-        File templateDirectory = new File(templatePath.toOSString());
-        if (!templateDirectory.exists()) {
-            return EMPTY_STRING_LIST;
-        }
-
-        File[] members = templateDirectory.listFiles(new FileFilter() {
-
-            public boolean accept(File dir) {
-                String dirName = dir.getName();
-                return dir.isDirectory() && !dirName.equals(defaultTemplate) && !dirName.equals(".svn");
-            }
-        });
-        templateList = new ArrayList<String>();
-
-        for (File file : members) {
-            templateList.add(file.getName());
-        }
-        return templateList.toArray(new String[templateList.size()]);
+        return readTemplatesFromPath(templatePath);
     }
 
-    public static String[] getTemplateProjectNames(IInterpreterInstall interpreter) throws CoreException {
-        List<String> templateList = new ArrayList<String>(4);
-
-        IPath templatePath = getCoreSDKTemplatePath(interpreter);
+    private static String[] readTemplatesFromPath(IPath templatePath) {
+        List<String> templateList = new ArrayList<String>(10);
 
         IPreferenceStore store = SETUIPlugin.getDefault().getPreferenceStore();
         final String defaultTemplate = store.getString(PreferenceConstants.TEMPLATES_DEFAULT_PROJECT_DIR);
@@ -498,33 +479,33 @@ public class CoreSDKTemplateUtility {
         }
     }
 
-    @SuppressWarnings({ "unchecked", "unused" })
-    private static Map<String, ZipEntry> getChildEntriesFromZip(IPath path, ZipFile zipFile) {
-        int pathLength = path.segmentCount();
-        Map<String, ZipEntry> childZipEntries = new HashMap<String, ZipEntry>();
-        for (Enumeration<ZipEntry> zipEntries = (Enumeration<ZipEntry>)zipFile.entries(); zipEntries.hasMoreElements();) {
-            ZipEntry zipEntry = zipEntries.nextElement();
-            IPath entryPath = new Path(zipEntry.getName());
-            if (entryPath.segmentCount() <= pathLength) {
-                // ancestor or current directory
-                continue;
-            }
-            if (!path.isPrefixOf(entryPath)) {
-                // not a descendant
-                continue;
-            }
-            if (entryPath.segmentCount() == pathLength + 1) {
-                childZipEntries.put(zipEntry.getName(), zipEntry);
-            } else {
-                String name = entryPath.uptoSegment(pathLength + 1).addTrailingSeparator().toString();
-                if (!childZipEntries.containsKey(name)) {
-                    ZipEntry dirEntry = new ZipEntry(name);
-                    childZipEntries.put(name, dirEntry);
-                }
-            }
-        }
-        return childZipEntries;
-    }
+//    @SuppressWarnings({ "unchecked", "unused" })
+//    private static Map<String, ZipEntry> getChildEntriesFromZip(IPath path, ZipFile zipFile) {
+//        int pathLength = path.segmentCount();
+//        Map<String, ZipEntry> childZipEntries = new HashMap<String, ZipEntry>();
+//        for (Enumeration<ZipEntry> zipEntries = (Enumeration<ZipEntry>)zipFile.entries(); zipEntries.hasMoreElements();) {
+//            ZipEntry zipEntry = zipEntries.nextElement();
+//            IPath entryPath = new Path(zipEntry.getName());
+//            if (entryPath.segmentCount() <= pathLength) {
+//                // ancestor or current directory
+//                continue;
+//            }
+//            if (!path.isPrefixOf(entryPath)) {
+//                // not a descendant
+//                continue;
+//            }
+//            if (entryPath.segmentCount() == pathLength + 1) {
+//                childZipEntries.put(zipEntry.getName(), zipEntry);
+//            } else {
+//                String name = entryPath.uptoSegment(pathLength + 1).addTrailingSeparator().toString();
+//                if (!childZipEntries.containsKey(name)) {
+//                    ZipEntry dirEntry = new ZipEntry(name);
+//                    childZipEntries.put(name, dirEntry);
+//                }
+//            }
+//        }
+//        return childZipEntries;
+//    }
 
     // private static URL getResolvedTemplateLocationUrl() throws CoreException {
     // return getResolvedTemplateUrl("");

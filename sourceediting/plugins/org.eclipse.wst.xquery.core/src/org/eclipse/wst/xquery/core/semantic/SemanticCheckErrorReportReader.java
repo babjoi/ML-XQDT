@@ -35,8 +35,8 @@ import org.xml.sax.SAXException;
 
 public class SemanticCheckErrorReportReader {
 
-    private String fData;
-    private ISourceModule fModule;
+    protected String fData;
+    protected ISourceModule fModule;
 
     public SemanticCheckErrorReportReader(ISourceModule module, String data) {
         fData = data;
@@ -60,7 +60,7 @@ public class SemanticCheckErrorReportReader {
             for (int i = 0; i < errors.getLength(); i++) {
                 Element error = (Element)errors.item(i);
                 SemanticCheckError semErr = readError(error);
-                if (semErr != null && !"XQST0088".equals(semErr.getErrorCode())) {
+                if (semErr != null) {
                     list.add(semErr);
                 }
             }

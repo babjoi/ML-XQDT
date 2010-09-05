@@ -1,67 +1,85 @@
-package org.eclipse.wst.xquery.set.internal.core.builder;
+package org.eclipse.wst.xquery.set.internal.launching;
 
 import java.net.URI;
-import java.util.Collection;
 import java.util.LinkedList;
+import java.util.List;
 
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.dltk.ast.declarations.ModuleDeclaration;
-import org.eclipse.dltk.compiler.problem.DefaultProblem;
-import org.eclipse.dltk.compiler.problem.IProblem;
-import org.eclipse.dltk.compiler.problem.ProblemSeverities;
 import org.eclipse.dltk.core.ISourceModule;
 import org.eclipse.dltk.core.SourceParserUtil;
-import org.eclipse.dltk.core.builder.IBuildContext;
-import org.eclipse.dltk.core.builder.IBuildParticipant;
+import org.eclipse.dltk.core.builder.ISourceLineTracker;
+import org.eclipse.dltk.utils.TextUtils;
 import org.eclipse.wst.xquery.core.model.ast.XQueryLibraryModule;
 import org.eclipse.wst.xquery.core.model.ast.XQueryStringLiteral;
+import org.eclipse.wst.xquery.core.semantic.SemanticCheckError;
+import org.eclipse.wst.xquery.core.semantic.SemanticCheckErrorReportReader;
+import org.eclipse.wst.xquery.set.core.SETProjectConfigUtil;
 
-public class SETURICheckerParticipant implements IBuildParticipant {
+public class CoreSDKErrorReportReader extends SemanticCheckErrorReportReader {
 
-    public static final String INVALID_LOGICAL_URI = "INVALID_LOGICAL_URI";
-    public static final String INVALID_MODULE_NAME = "INVALID_MODULE_NAME";
-
-    private URI logicalURI;
-
-    public SETURICheckerParticipant(URI logicalURI) {
-        this.logicalURI = logicalURI;
+    public CoreSDKErrorReportReader(ISourceModule module, String data) {
+        super(module, data);
     }
 
-    public void build(IBuildContext context) throws CoreException {
+    @Override
+    public List<SemanticCheckError> getErrors() {
+        List<SemanticCheckError> errors = super.getErrors();
+        List<SemanticCheckError> newErrors = new LinkedList<SemanticCheckError>();
+        for (SemanticCheckError error : errors) {
+            if ("XQST0088".equals(error.getErrorCode())) {
+                try {
+                    SemanticCheckError newError = checkModuleURI(error, fModule);
+                    newErrors.add(newError);
+                } catch (CoreException e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                }
+            } else {
+                newErrors.add(error);
+            }
+        }
+        return newErrors;
+    }
+
+    private SemanticCheckError checkModuleURI(SemanticCheckError oldError, ISourceModule sourceModule)
+            throws CoreException {
         try {
-            String fileName = context.getFileName();
+            String logicalURI = SETProjectConfigUtil.readProjectConfig(sourceModule.getResource().getProject())
+                    .getLogicalUri().toString();
+            String fileName = sourceModule.getResource().getName();
             String moduleName = fileName.substring(0, fileName.lastIndexOf('.'));
-            IPath moduleLocation = context.getFile().getLocation();
+            IPath moduleLocation = sourceModule.getResource().getLocation();
             int pathSegment = moduleLocation.segmentCount();
             if (pathSegment < 2) {
-                return;
+                return null;
             }
             String enclosingFolder = moduleLocation.segment(pathSegment - 2);
             if (enclosingFolder.equals("lib")) {
                 moduleName = "lib/" + moduleName;
             } else if (!enclosingFolder.equals("handlers")) {
-                return;
+                return null;
             }
             URI expectedURI = new URI(logicalURI + moduleName);
-            ISourceModule sourceModule = context.getSourceModule();
             ModuleDeclaration module = SourceParserUtil.getModuleDeclaration(sourceModule);
             if (module instanceof XQueryLibraryModule) {
                 XQueryLibraryModule libraryModule = (XQueryLibraryModule)module;
                 XQueryStringLiteral namespaceURI = libraryModule.getModuleDeclaration().getNamespaceUri();
                 String URI = namespaceURI.toString();
                 URI moduleURI = new URI(URI);
-                Collection<String> arguments = new LinkedList<String>();
                 if (!expectedURI.equals(moduleURI)) {
                     String errorMessage;
-                    if (!logicalURI.equals(URI.substring(0, URI.lastIndexOf('/')))) {
+                    String problemID;
+                    String currentLogicalURI = URI.substring(0, URI.lastIndexOf('/') + 1);
+                    if (!logicalURI.toString().equals(currentLogicalURI)) {
                         //logical uri not matching
                         errorMessage = "The module namespace declaration \""
                                 + URI
                                 + "\" does not match the expected namespace \""
                                 + expectedURI
                                 + "\".\nSee http://www.28msec.com/support_sausalito_project_structure/index#structure_handler_modules.";
-                        arguments.add(INVALID_LOGICAL_URI);
+                        problemID = "SAUSA0001";
                     } else {
                         //module name not matching
                         //String name = URI.substring(URI.lastIndexOf('/') + 1);
@@ -70,18 +88,20 @@ public class SETURICheckerParticipant implements IBuildParticipant {
                                 + "\" does not match the expected namespace \""
                                 + expectedURI
                                 + "\".\nSee http://www.28msec.com/support_sausalito_project_structure/index#structure_library_modules.";
-                        arguments.add(INVALID_MODULE_NAME);
+                        problemID = "SAUSA0002";
                     }
+
                     int start = namespaceURI.sourceStart();
                     int end = namespaceURI.sourceEnd();
-                    int line = context.getLineTracker().getLineNumberOfOffset(start);
-                    DefaultProblem problem = new DefaultProblem(fileName, errorMessage, IProblem.ImportRelated,
-                            arguments.toArray(new String[arguments.size()]), ProblemSeverities.Error, start, end, line);
-                    context.getProblemReporter().reportProblem(problem);
+                    ISourceLineTracker lineTracker = TextUtils.createLineTracker(sourceModule.getSource());
+                    int line = lineTracker.getLineNumberOfOffset(start);
+                    return new SemanticCheckError(oldError.getOriginatingFileName(), problemID, errorMessage, line,
+                            start, end);
                 }
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
+        return null;
     }
 }

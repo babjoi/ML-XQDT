@@ -20,6 +20,7 @@ public class SemanticCheckError implements IProblem {
     private int fLineNumber;
     private int fSourceStart;
     private int fSourceEnd;
+    private int id = 0;
 
     public SemanticCheckError(String fileName, String errorCode, String description, int line) {
         this(fileName, errorCode, description, line, -1, -1);
@@ -43,7 +44,7 @@ public class SemanticCheckError implements IProblem {
     }
 
     public int getID() {
-        return 0;
+        return id;
     }
 
     public String getErrorCode() {

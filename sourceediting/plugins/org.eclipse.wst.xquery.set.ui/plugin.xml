@@ -239,4 +239,11 @@
             name="Sausalito test folder"
             targetId="org.eclipse.dltk.ui.ScriptExplorer"></filter>
    </extension>
+   <extension
+         point="org.eclipse.wst.xquery.ui.quickFixProcessors">
+      <quickFixProcessor
+            id="org.eclipse.wst.xquery.set.ui.quickfixes.ModuleDeclQuickFix"
+            class="org.eclipse.wst.xquery.set.internal.ui.quickfixes.ModuleDeclQuickFix">
+      </quickFixProcessor>
+   </extension>
 </plugin>

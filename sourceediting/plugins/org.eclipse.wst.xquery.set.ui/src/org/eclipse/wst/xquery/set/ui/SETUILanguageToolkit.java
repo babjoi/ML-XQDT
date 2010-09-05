@@ -11,23 +11,21 @@
 package org.eclipse.wst.xquery.set.ui;
 
 import org.eclipse.dltk.core.IDLTKLanguageToolkit;
+import org.eclipse.dltk.ui.AbstractDLTKUILanguageToolkit;
 import org.eclipse.dltk.ui.IDLTKUILanguageToolkit;
 import org.eclipse.jface.preference.IPreferenceStore;
-import org.eclipse.wst.xquery.core.XQDTLanguageToolkit;
-import org.eclipse.wst.xquery.ui.XQDTUILanguageToolkit;
+import org.eclipse.wst.xquery.set.core.SETLanguageToolkit;
 
-public class SETUILanguageToolkit extends XQDTUILanguageToolkit {
+public class SETUILanguageToolkit extends AbstractDLTKUILanguageToolkit {
 
     private static SETUILanguageToolkit sToolkit = null;
 
-    @Override
     public IPreferenceStore getPreferenceStore() {
         return SETUIPlugin.getDefault().getPreferenceStore();
     }
 
-    @Override
     public IDLTKLanguageToolkit getCoreToolkit() {
-        return XQDTLanguageToolkit.getDefault();
+        return SETLanguageToolkit.getDefault();
     }
 
     @Override

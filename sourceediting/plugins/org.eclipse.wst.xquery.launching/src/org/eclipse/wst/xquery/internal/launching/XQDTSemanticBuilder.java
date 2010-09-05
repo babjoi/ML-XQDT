@@ -57,12 +57,15 @@ public class XQDTSemanticBuilder implements IBuildParticipant {
             List<SemanticCheckError> errors = check(source);
             if (errors != null) {
                 for (SemanticCheckError error : errors) {
+                    if (error == null) {
+                        continue;
+                    }
                     String fileName = error.getOriginatingFileName();
-                    if (fileName.equals(source.getPath().toString())) {
+                    if (source.getPath().toString().equals(fileName)) {
                         context.getProblemReporter().reportProblem(error);
                     } else {
-                        IModelElement element = DLTKCore.create(ResourcesPlugin.getWorkspace().getRoot().findMember(
-                                fileName));
+                        IModelElement element = DLTKCore.create(ResourcesPlugin.getWorkspace().getRoot()
+                                .findMember(fileName));
                         if (element instanceof ISourceModule) {
                             ISourceModule module = (ISourceModule)element;
                             createMarker(module, error);

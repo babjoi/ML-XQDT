@@ -21,6 +21,7 @@ import org.eclipse.dltk.compiler.problem.IProblemReporter;
 import org.eclipse.wst.xquery.core.model.ast.IChildProcessor;
 import org.eclipse.wst.xquery.core.model.ast.XQueryBaseURIDecl;
 import org.eclipse.wst.xquery.core.model.ast.XQueryFunctionDecl;
+import org.eclipse.wst.xquery.core.model.ast.XQueryFunctionDecl.XQueryFunctionKind;
 import org.eclipse.wst.xquery.core.model.ast.XQueryLibraryModule;
 import org.eclipse.wst.xquery.core.model.ast.XQueryMainModule;
 import org.eclipse.wst.xquery.core.model.ast.XQueryModule;
@@ -154,10 +155,9 @@ public class XQDTCommonTreeVisitor implements NodeVisitor {
                 // check if external
                 boolean isExternalFun = tree.getChildCount() == 3;
                 int indexOfColon = str.indexOf(':');
-                push(xct,
-                        new XQueryFunctionDecl(str.substring(0, indexOfColon), str.substring(indexOfColon + 1), child0
-                                .getStart(), child0.getStop() + 1, xct.getStart(), xct.getStop() + 1, type,
-                                isExternalFun));
+                push(xct, new XQueryFunctionDecl(str.substring(0, indexOfColon), str.substring(indexOfColon + 1),
+                        child0.getStart(), child0.getStop() + 1, xct.getStart(), xct.getStop() + 1, type,
+                        XQueryFunctionKind.PURE, isExternalFun));
                 break;
             case XQueryParser.Param:
                 child0 = xct.getChild(0);

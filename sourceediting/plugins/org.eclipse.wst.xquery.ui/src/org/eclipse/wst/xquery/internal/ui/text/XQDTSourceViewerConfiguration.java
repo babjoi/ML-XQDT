@@ -13,6 +13,7 @@ package org.eclipse.wst.xquery.internal.ui.text;
 import org.eclipse.dltk.internal.ui.editor.ScriptSourceViewer;
 import org.eclipse.dltk.ui.text.AbstractScriptScanner;
 import org.eclipse.dltk.ui.text.IColorManager;
+import org.eclipse.dltk.ui.text.ScriptCorrectionAssistant;
 import org.eclipse.dltk.ui.text.ScriptPresentationReconciler;
 import org.eclipse.dltk.ui.text.ScriptSourceViewerConfiguration;
 import org.eclipse.dltk.ui.text.SingleTokenScriptScanner;
@@ -28,6 +29,7 @@ import org.eclipse.jface.text.contentassist.IContentAssistProcessor;
 import org.eclipse.jface.text.information.IInformationPresenter;
 import org.eclipse.jface.text.presentation.IPresentationReconciler;
 import org.eclipse.jface.text.presentation.PresentationReconciler;
+import org.eclipse.jface.text.quickassist.IQuickAssistAssistant;
 import org.eclipse.jface.text.rules.DefaultDamagerRepairer;
 import org.eclipse.jface.text.source.ISourceViewer;
 import org.eclipse.jface.util.PropertyChangeEvent;
@@ -46,6 +48,14 @@ public class XQDTSourceViewerConfiguration extends ScriptSourceViewerConfigurati
     public XQDTSourceViewerConfiguration(IColorManager colorManager, IPreferenceStore preferenceStore,
             ITextEditor editor, String partitioning) {
         super(colorManager, preferenceStore, editor, partitioning);
+    }
+
+    @Override
+    public IQuickAssistAssistant getQuickAssistAssistant(ISourceViewer sourceViewer) {
+        if (getEditor() != null) {
+            return new ScriptCorrectionAssistant(getEditor(), fPreferenceStore, getColorManager());
+        }
+        return null;
     }
 
     @Override

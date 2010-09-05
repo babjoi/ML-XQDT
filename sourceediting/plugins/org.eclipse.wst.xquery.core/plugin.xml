@@ -2,6 +2,7 @@
 <?eclipse version="3.2"?>
 <plugin>
    <extension-point id="uriResolver" name="URI Module and Schema Resolver" schema="schema/uriResolver.exsd"/>
+   <extension-point id="buildParticipant" name="XQuery Build Participant" schema="schema/buildParticipant.exsd"/>
    <extension
          id="nature"
          name="XQuery Nature"

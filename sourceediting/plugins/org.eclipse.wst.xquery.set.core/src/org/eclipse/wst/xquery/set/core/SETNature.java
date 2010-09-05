@@ -15,4 +15,5 @@ import org.eclipse.dltk.core.ScriptNature;
 public class SETNature extends ScriptNature {
 
     public static final String NATURE_ID = SETCorePlugin.PLUGIN_ID + ".nature"; //$NON-NLS-1$
+
 }

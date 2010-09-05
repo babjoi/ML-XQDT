@@ -23,6 +23,7 @@ import org.eclipse.dltk.core.environment.IExecutionEnvironment;
 import org.eclipse.dltk.launching.EnvironmentVariable;
 import org.eclipse.dltk.launching.IInterpreterInstall;
 import org.eclipse.wst.xquery.core.XQDTCorePlugin;
+import org.eclipse.wst.xquery.core.semantic.CheckErrorReportReaderFactory;
 import org.eclipse.wst.xquery.core.semantic.ISemanticValidator;
 import org.eclipse.wst.xquery.core.semantic.SemanticCheckError;
 import org.eclipse.wst.xquery.core.semantic.SemanticCheckErrorReportReader;
@@ -30,6 +31,7 @@ import org.eclipse.wst.xquery.core.semantic.SemanticCheckErrorReportReader;
 public abstract class AbstractLocalInterpreterSemanticValidator implements ISemanticValidator {
 
     private IInterpreterInstall fInterpreterInstall;
+    private CheckErrorReportReaderFactory errorRepportReaderFactory;
 
     public AbstractLocalInterpreterSemanticValidator(IInterpreterInstall install) {
         fInterpreterInstall = install;
@@ -37,6 +39,11 @@ public abstract class AbstractLocalInterpreterSemanticValidator implements ISema
 
     protected IInterpreterInstall getInterpreterInstall() {
         return fInterpreterInstall;
+    }
+
+    public AbstractLocalInterpreterSemanticValidator setReportReaderFactory(CheckErrorReportReaderFactory factory) {
+        errorRepportReaderFactory = factory;
+        return this;
     }
 
     public List<SemanticCheckError> check(ISourceModule module) throws CoreException {
@@ -146,14 +153,19 @@ public abstract class AbstractLocalInterpreterSemanticValidator implements ISema
                 }
             }
 
+            SemanticCheckErrorReportReader builder = null;
             if (XQDTLaunchingPlugin.DEBUG_SEMANTIC_CHECK) {
                 log(IStatus.INFO, "Building error document", null);
             }
-            SemanticCheckErrorReportReader builder = new SemanticCheckErrorReportReader(module, buffer[0].toString());
+            String data = buffer[0].toString();
+            if (errorRepportReaderFactory != null) {
+                builder = errorRepportReaderFactory.make(module, data);
+            } else {
+                builder = new SemanticCheckErrorReportReader(module, data);
+            }
             List<SemanticCheckError> errors = builder.getErrors();
             if (errors == null || errors.size() == 0) {
-                abort("An error occurred while executing the Semantic Validator command:\n"
-                        + buffer[0].toString().trim());
+                abort("An error occurred while executing the Semantic Validator command:\n" + data.trim());
             }
             if (XQDTLaunchingPlugin.DEBUG_SEMANTIC_CHECK) {
                 log(IStatus.INFO, "", null);
@@ -175,7 +187,7 @@ public abstract class AbstractLocalInterpreterSemanticValidator implements ISema
 
     public abstract String[] buildCommandLine(ISourceModule module);
 
-    private void abort(String message) throws CoreException {
+    protected void abort(String message) throws CoreException {
         CoreException exception = new CoreException(new Status(IStatus.ERROR, XQDTCorePlugin.PLUGIN_ID, message));
         if (XQDTLaunchingPlugin.DEBUG_SEMANTIC_CHECK) {
             log(IStatus.ERROR, message, exception);

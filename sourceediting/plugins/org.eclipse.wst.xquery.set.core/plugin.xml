@@ -48,19 +48,4 @@
             priority="0">
       </completionEngine>
    </extension>
-   <extension
-         point="org.eclipse.dltk.core.buildParticipant">
-      <buildParticipant
-            class="org.eclipse.wst.xquery.internal.core.builder.XQDTParserBuildParticipantFactory"
-            id="org.eclipse.wst.xquery.set.core.buildParticipant.parser"
-            name="XQuery Parser"
-            nature="org.eclipse.wst.xquery.set.core.nature">
-      </buildParticipant>
-      <buildParticipant
-            class="org.eclipse.wst.xquery.set.internal.core.builder.URICheckerBuildParticipantFactory"
-            id="org.eclipse.wst.xquery.set.core.buildParticipant.urichecker"
-            name="Sausalito URI Checker"
-            nature="org.eclipse.wst.xquery.set.core.nature">
-      </buildParticipant>
-   </extension>
 </plugin>

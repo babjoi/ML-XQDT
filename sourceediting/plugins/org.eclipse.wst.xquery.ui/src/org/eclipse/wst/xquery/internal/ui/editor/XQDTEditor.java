@@ -85,8 +85,8 @@ public class XQDTEditor extends ScriptEditor {
         if (document instanceof IDocumentExtension3) {
             IDocumentExtension3 extension = (IDocumentExtension3)document;
             if (extension.getDocumentPartitioner(IXQDTPartitions.XQDT_PARTITIONING) == null) {
-                XQDTUIPlugin.getDefault().getTextTools().setupDocumentPartitioner(document,
-                        IXQDTPartitions.XQDT_PARTITIONING);
+                XQDTUIPlugin.getDefault().getTextTools()
+                        .setupDocumentPartitioner(document, IXQDTPartitions.XQDT_PARTITIONING);
                 XQDTPartitioner partitioner = (XQDTPartitioner)extension
                         .getDocumentPartitioner(IXQDTPartitions.XQDT_PARTITIONING);
                 partitioner.setEditor(this, getPreferenceStore());

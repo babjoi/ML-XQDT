@@ -18,7 +18,8 @@ Require-Bundle: org.eclipse.core.runtime,
 Eclipse-LazyStart: true
 Bundle-RequiredExecutionEnvironment: J2SE-1.5
 Bundle-ActivationPolicy: lazy
-Export-Package: org.eclipse.wst.xquery.debug.dbgp,
+Export-Package: org.eclipse.wst.xquery.core.semantic,
+ org.eclipse.wst.xquery.debug.dbgp,
  org.eclipse.wst.xquery.debug.dbgp.client,
  org.eclipse.wst.xquery.internal.launching;x-internal:=true,
  org.eclipse.wst.xquery.internal.launching.xqdoc;x-internal:=true,

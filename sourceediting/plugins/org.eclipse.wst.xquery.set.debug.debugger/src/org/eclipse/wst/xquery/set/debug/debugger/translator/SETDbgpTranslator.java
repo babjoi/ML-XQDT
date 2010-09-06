@@ -18,10 +18,10 @@ import java.net.InetAddress;
 import java.net.Socket;
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.TreeMap;
 
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Path;
@@ -175,7 +175,7 @@ public class SETDbgpTranslator extends DbgpWorkingThread implements IDbgpTransla
     private SuspendedMessage fLastSuspendedEvent;
     private boolean fGlobalTerminate;
 
-    private List<SetMessage> fPendingBreakpoint = new ArrayList<SetMessage>();
+    private Map<Integer, SetMessage> fPendingBreakpoint = new TreeMap<Integer, SetMessage>();
 
     private synchronized DbgpResponse processCommand(final DbgpRequest request) {
         DbgpResponse response = null;
@@ -210,7 +210,7 @@ public class SETDbgpTranslator extends DbgpWorkingThread implements IDbgpTransla
                     }
                 }
 
-                for (SetMessage setMessage : fPendingBreakpoint) {
+                for (SetMessage setMessage : fPendingBreakpoint.values()) {
                     fEngine.sendCommand(setMessage);
                 }
                 fStarted = true;
@@ -286,7 +286,7 @@ public class SETDbgpTranslator extends DbgpWorkingThread implements IDbgpTransla
             set.addBreakpoint(new Breakpoint(id, ql));
 
             if (!fEngine.isInitialized()) {
-                fPendingBreakpoint.add(set);
+                fPendingBreakpoint.put(id, set);
             } else {
                 fEngine.sendCommand(set);
             }
@@ -299,8 +299,10 @@ public class SETDbgpTranslator extends DbgpWorkingThread implements IDbgpTransla
             response.addAttribute("success", "0");
         } else if (command.equals(IDbgpConstants.COMMAND_BREAKPOINT_REMOVE)) {
             ClearMessage clear = new ClearMessage();
-            clear.addBreakpointId(Integer.parseInt(request.getOption("-d")));
+            int id = Integer.parseInt(request.getOption("-d"));
+            clear.addBreakpointId(id);
             fEngine.sendCommand(clear);
+            fPendingBreakpoint.remove(id);
             response = new DbgpResponse(request);
         } else if (command.equals(IDbgpConstants.COMMAND_BREAKPOINT_UPDATE)) {
             response = new DbgpResponse(request);
@@ -488,7 +490,7 @@ public class SETDbgpTranslator extends DbgpWorkingThread implements IDbgpTransla
                     while (!fEngine.isInitialized()) {
                         Thread.sleep(500);
                     }
-                    for (SetMessage setMessage : fPendingBreakpoint) {
+                    for (SetMessage setMessage : fPendingBreakpoint.values()) {
                         fEngine.sendCommand(setMessage);
                     }
                     fEngine.run();

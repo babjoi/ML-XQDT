@@ -6,6 +6,7 @@ import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IMarker;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.CoreException;
+import org.eclipse.core.runtime.IPath;
 import org.eclipse.dltk.core.ISourceModule;
 import org.eclipse.dltk.ui.editor.IScriptAnnotation;
 import org.eclipse.dltk.ui.editor.ScriptMarkerAnnotation;
@@ -30,6 +31,9 @@ public class ModuleHandlerURICorrection implements IScriptCompletionProposal {
             IMarker marker = ((ScriptMarkerAnnotation)annotation).getMarker();
             ISourceModule module = annotation.getSourceModule();
             IFile file = (IFile)module.getResource();
+            IPath location = file.getLocation();
+            String parentDir = location.segment(location.segmentCount() - 2);
+
             IProject project = file.getProject();
             SETProjectConfig projectConfig = SETProjectConfigUtil.readProjectConfig(project);
             URI logicalURI = projectConfig.getLogicalUri();
@@ -38,6 +42,9 @@ public class ModuleHandlerURICorrection implements IScriptCompletionProposal {
             String lURI = logicalURI.toString();
             if (lURI.charAt(lURI.length() - 1) != '/') {
                 lURI += '/';
+            }
+            if ("lib".equals(parentDir)) {
+                lURI += "lib/";
             }
             newURI = lURI + moduleName;
             start = (Integer)marker.getAttribute("charStart");

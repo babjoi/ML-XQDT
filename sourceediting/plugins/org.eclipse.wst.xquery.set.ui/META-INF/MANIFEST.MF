@@ -14,11 +14,11 @@ Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.dltk.launching;bundle-version="[2.0.0,3.0.0)",
  org.eclipse.dltk.ui;bundle-version="[2.0.0,3.0.0)",
  org.eclipse.wst.xquery.core,
- org.eclipse.wst.xquery.ui,
  org.eclipse.wst.xquery.set.core,
  org.eclipse.wst.xquery.set.launching,
  org.eclipse.ui.editors;bundle-version="3.6.0",
- org.eclipse.jface.text;bundle-version="3.6.0"
+ org.eclipse.jface.text;bundle-version="3.6.0",
+ org.eclipse.wst.xquery.ui;bundle-version="0.8.0"
 Eclipse-LazyStart: true
 Bundle-RequiredExecutionEnvironment: J2SE-1.5
 Bundle-ActivationPolicy: lazy

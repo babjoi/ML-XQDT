@@ -211,9 +211,19 @@ public class XQDTCommonTreeVisitor implements NodeVisitor {
             case XQueryParser.StringLiteral:
                 sb = new StringBuffer();
                 if (xct.getChildCount() > 0) {
+                    int start = xct.getStart() + 1;
                     for (Object child : xct.getChildren()) {
+                        XQDTCommonTree childTree = (XQDTCommonTree)child;
+                        for (; start < childTree.getStart(); start++) {
+                            sb.append(" ");
+                        }
                         sb.append(child.toString());
+                        start += child.toString().length();
                     }
+                    for (; start < xct.getStop(); start++) {
+                        sb.append(" ");
+                    }
+
                 }
                 push(xct, new XQueryStringLiteral(xct.getStart(), xct.getStop(), sb.toString()));
                 break;

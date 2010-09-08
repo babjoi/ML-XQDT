@@ -1,3 +1,13 @@
+/*******************************************************************************
+ * Copyright (c) 2010 28msec Inc. and others.
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ *
+ * Contributors:
+ *     William Candillon (28msec) - initial API and implementation
+ *******************************************************************************/
 package org.eclipse.wst.xquery.set.internal.ui.quickfixes;
 
 import java.net.URI;
@@ -22,9 +32,9 @@ import org.eclipse.wst.xquery.set.internal.ui.util.SETPluginImages;
 
 public class ModuleHandlerURICorrection implements IScriptCompletionProposal {
 
-    private String newURI;
-    private int start;
-    private int length;
+    private String fNewUri;
+    private int fStart;
+    private int fLength;
 
     public ModuleHandlerURICorrection(IScriptAnnotation annotation) throws CoreException {
         if (annotation instanceof ScriptMarkerAnnotation) {
@@ -46,17 +56,16 @@ public class ModuleHandlerURICorrection implements IScriptCompletionProposal {
             if ("lib".equals(parentDir)) {
                 lURI += "lib/";
             }
-            newURI = lURI + moduleName;
-            start = (Integer)marker.getAttribute("charStart");
-            length = (Integer)marker.getAttribute("charEnd") - start;
-            assert length >= 0;
+            fNewUri = lURI + moduleName;
+            fStart = (Integer)marker.getAttribute("charStart");
+            fLength = (Integer)marker.getAttribute("charEnd") - fStart;
+            assert fLength >= 0;
         }
     }
 
     public void apply(IDocument document) {
         try {
-            //the +1 comes from a bug in zorba query location
-            document.replace(start + 1, length - 1, newURI);
+            document.replace(fStart, fLength, fNewUri);
         } catch (BadLocationException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
@@ -68,7 +77,7 @@ public class ModuleHandlerURICorrection implements IScriptCompletionProposal {
     }
 
     public String getAdditionalProposalInfo() {
-        return getDisplayString() + " to " + newURI + '.';
+        return getDisplayString() + " to " + fNewUri + '.';
     }
 
     public String getDisplayString() {

@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2008, 2009 28msec Inc. and others.
+ * Copyright (c) 2008 28msec Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -7,6 +7,7 @@
  *
  * Contributors:
  *     Gabriel Petrovay (28msec) - initial API and implementation
+ *     William Candillon (28msec) - extensions for quick fix support
  *******************************************************************************/
 package org.eclipse.wst.xquery.launching;
 
@@ -31,7 +32,7 @@ import org.eclipse.wst.xquery.core.semantic.SemanticCheckErrorReportReader;
 public abstract class AbstractLocalInterpreterSemanticValidator implements ISemanticValidator {
 
     private IInterpreterInstall fInterpreterInstall;
-    private CheckErrorReportReaderFactory errorRepportReaderFactory;
+    private CheckErrorReportReaderFactory fErrorReportReaderFactory;
 
     public AbstractLocalInterpreterSemanticValidator(IInterpreterInstall install) {
         fInterpreterInstall = install;
@@ -42,7 +43,7 @@ public abstract class AbstractLocalInterpreterSemanticValidator implements ISema
     }
 
     public AbstractLocalInterpreterSemanticValidator setReportReaderFactory(CheckErrorReportReaderFactory factory) {
-        errorRepportReaderFactory = factory;
+        fErrorReportReaderFactory = factory;
         return this;
     }
 
@@ -130,6 +131,7 @@ public abstract class AbstractLocalInterpreterSemanticValidator implements ISema
 
             outputReader.join();
             errorReader.join();
+
             if (XQDTLaunchingPlugin.DEBUG_SEMANTIC_CHECK) {
                 StringBuilder sb = new StringBuilder();
                 if (buffer[0] != null) {
@@ -144,6 +146,7 @@ public abstract class AbstractLocalInterpreterSemanticValidator implements ISema
                 }
                 log(IStatus.INFO, sb.toString(), null);
             }
+
             if (buffer[0] == null || buffer[0].toString().trim().length() == 0) {
                 if (buffer[1] == null || buffer[1].toString().trim().length() == 0) {
                     abort("An unknown error occurred while executing the Semantic Validator command");
@@ -153,17 +156,18 @@ public abstract class AbstractLocalInterpreterSemanticValidator implements ISema
                 }
             }
 
-            SemanticCheckErrorReportReader builder = null;
             if (XQDTLaunchingPlugin.DEBUG_SEMANTIC_CHECK) {
                 log(IStatus.INFO, "Building error document", null);
             }
+
             String data = buffer[0].toString();
-            if (errorRepportReaderFactory != null) {
-                builder = errorRepportReaderFactory.make(module, data);
+            SemanticCheckErrorReportReader docReader = null;
+            if (fErrorReportReaderFactory != null) {
+                docReader = fErrorReportReaderFactory.make(module, data);
             } else {
-                builder = new SemanticCheckErrorReportReader(module, data);
+                docReader = new SemanticCheckErrorReportReader(module, data);
             }
-            List<SemanticCheckError> errors = builder.getErrors();
+            List<SemanticCheckError> errors = docReader.getErrors();
             if (errors == null || errors.size() == 0) {
                 abort("An error occurred while executing the Semantic Validator command:\n" + data.trim());
             }

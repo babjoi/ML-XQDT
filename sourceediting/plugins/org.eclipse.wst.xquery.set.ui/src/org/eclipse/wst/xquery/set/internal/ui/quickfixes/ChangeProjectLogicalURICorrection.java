@@ -1,3 +1,13 @@
+/*******************************************************************************
+ * Copyright (c) 2010 28msec Inc. and others.
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ *
+ * Contributors:
+ *     William Candillon (28msec) - initial API and implementation
+ *******************************************************************************/
 package org.eclipse.wst.xquery.set.internal.ui.quickfixes;
 
 import java.net.URI;
@@ -21,30 +31,30 @@ import org.eclipse.wst.xquery.set.internal.ui.util.SETPluginImages;
 
 public class ChangeProjectLogicalURICorrection implements ICompletionProposal {
 
-    private IResource resource;
-    private String markerType;
-    private String newURI;
-    private int start;
-    private int length;
+    private IResource fResource;
+    private String fMarkerType;
+    private String fNewUri;
+    private int fStart;
+    private int fLength;
 
     public ChangeProjectLogicalURICorrection(IScriptAnnotation annotation) throws CoreException {
         assert annotation instanceof ScriptMarkerAnnotation;
         IMarker marker = ((ScriptMarkerAnnotation)annotation).getMarker();
-        resource = annotation.getSourceModule().getResource();
-        start = (Integer)marker.getAttribute("charStart");
-        length = ((Integer)marker.getAttribute("charEnd")) - start;
-        markerType = marker.getType();
+        fResource = annotation.getSourceModule().getResource();
+        fStart = (Integer)marker.getAttribute("charStart");
+        fLength = ((Integer)marker.getAttribute("charEnd")) - fStart;
+        fMarkerType = marker.getType();
     }
 
     public void apply(IDocument document) {
         try {
-            IProject project = resource.getProject();
-            String moduleNS = document.get(start + 1, length - 1);
+            IProject project = fResource.getProject();
+            String moduleNS = document.get(fStart, fLength);
             URI newLogicalURI = new URI(moduleNS.substring(0, moduleNS.lastIndexOf('/')));
             SETProjectConfig config = SETProjectConfigUtil.readProjectConfig(project);
             config.setLogicalUri(newLogicalURI);
             SETProjectConfigUtil.writeProjectConfig(project, config);
-            resource.deleteMarkers(markerType, false, IResource.DEPTH_INFINITE);
+            fResource.deleteMarkers(fMarkerType, false, IResource.DEPTH_INFINITE);
         } catch (BadLocationException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
@@ -65,7 +75,7 @@ public class ChangeProjectLogicalURICorrection implements ICompletionProposal {
 
     public String getAdditionalProposalInfo() {
         // TODO Auto-generated method stub
-        return getDisplayString() + " to " + newURI;
+        return getDisplayString() + " to " + fNewUri;
     }
 
     public String getDisplayString() {

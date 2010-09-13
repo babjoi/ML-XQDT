@@ -23,27 +23,25 @@ import org.eclipse.wst.xquery.sse.core.internal.regions.XQueryRegions;
  * @author <a href="villard@us.ibm.com">Lionel Villard</a>
  * 
  */
-@SuppressWarnings("restriction")
 public class DefaultNSDeclStructuredDocumentRegion extends XQueryStructuredDocumentRegion {
 
-	// Constructors
+    // Constructors
 
-	public DefaultNSDeclStructuredDocumentRegion() {
-		super();
-	}
+    public DefaultNSDeclStructuredDocumentRegion() {
+        super();
+    }
 
-	// Methods
+    // Methods
 
-	/**
-	 * @return the namespace (URILiteral)
-	 */
-	public ITextRegion getNamespace() {
-		int index = SDRegionUtils.search(getRegions(), 0, XQueryRegions.URILITERAL);
-		if (index != -1) {
-			return getRegions().get(index);
-		}
-		return null;
-	}
- 
+    /**
+     * @return the namespace (URILiteral)
+     */
+    public ITextRegion getNamespace() {
+        int index = SDRegionUtils.search(getRegions(), 0, XQueryRegions.URILITERAL);
+        if (index != -1) {
+            return getRegions().get(index);
+        }
+        return null;
+    }
 
 }

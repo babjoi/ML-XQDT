@@ -20,7 +20,6 @@ import org.eclipse.wst.validation.internal.provisional.core.IMessage;
  * 
  * @author <a href="villard@us.ibm.com">Lionel Villard</a>
  */
-@SuppressWarnings("restriction")
 public class ValidationHelper {
 
     /**

@@ -22,24 +22,24 @@ import org.eclipse.wst.sse.core.internal.text.StructuredDocumentReParser;
  * 
  * @author <a href="villard@us.ibm.com">Lionel Villard</a>
  */
-@SuppressWarnings("restriction")
 public class XQueryReParser extends StructuredDocumentReParser {
 
-	// Overrides
+    // Overrides
 
-	@Override
-	protected void findDirtyStart(int start) {
-		dirtyStart = fStructuredDocument.getRegionAtCharacterOffset(0);
-	}
+    @Override
+    protected void findDirtyStart(int start) {
+        dirtyStart = fStructuredDocument.getRegionAtCharacterOffset(0);
+    }
 
-	@Override
-	protected IStructuredDocumentRegion findDirtyEnd(int end) {
-		IStructuredDocumentRegion result = fStructuredDocument.getRegionAtCharacterOffset(end);
-		while (result.getNext() != null)
-			result = result.getNext();
+    @Override
+    protected IStructuredDocumentRegion findDirtyEnd(int end) {
+        IStructuredDocumentRegion result = fStructuredDocument.getRegionAtCharacterOffset(end);
+        while (result.getNext() != null) {
+            result = result.getNext();
+        }
 
-		dirtyEnd = result;
-		return dirtyEnd;
-	}
+        dirtyEnd = result;
+        return dirtyEnd;
+    }
 
 }

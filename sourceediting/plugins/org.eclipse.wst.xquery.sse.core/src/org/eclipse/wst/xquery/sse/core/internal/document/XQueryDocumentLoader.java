@@ -27,36 +27,33 @@ import org.eclipse.wst.xquery.sse.core.internal.parser.XQueryRegionParser;
  * 
  * @author <a href="mailto:villard@us.ibm.com">Lionel Villard</a>
  */
-@SuppressWarnings("restriction")
 public class XQueryDocumentLoader extends AbstractDocumentLoader implements IDocumentLoader {
 
-	// Overrides
+    // Overrides
 
-	@Override
-	public IDocumentPartitioner getDefaultDocumentPartitioner() {
-		return new XQDTDocumentPartitioner();
-	}
+    @Override
+    public IDocumentPartitioner getDefaultDocumentPartitioner() {
+        return new XQDTDocumentPartitioner();
+    }
 
-	@Override
-	protected IEncodedDocument newEncodedDocument() {
-		IStructuredDocument structuredDocument = StructuredDocumentFactory
-				.getNewStructuredDocumentInstance(new XQueryRegionParser());
+    @Override
+    protected IEncodedDocument newEncodedDocument() {
+        IStructuredDocument structuredDocument = StructuredDocumentFactory
+                .getNewStructuredDocumentInstance(new XQueryRegionParser());
 
-		if (structuredDocument instanceof BasicStructuredDocument) {
-			((BasicStructuredDocument) structuredDocument).setReParser(new XQueryReParser());
-		}
+        if (structuredDocument instanceof BasicStructuredDocument) {
+            ((BasicStructuredDocument)structuredDocument).setReParser(new XQueryReParser());
+        }
 
-		return structuredDocument;
-	}
+        return structuredDocument;
+    }
 
-	// Implement IDocumentLoader
+    // Implement IDocumentLoader
 
-	public IDocumentCharsetDetector getDocumentEncodingDetector() {
-		return new XQueryEncodingDetector();
-	}
-	
-	// Extension point for Reparser
-	
-	
+    public IDocumentCharsetDetector getDocumentEncodingDetector() {
+        return new XQueryEncodingDetector();
+    }
+
+    // Extension point for Reparser
 
 }

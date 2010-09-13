@@ -12,7 +12,6 @@ package org.eclipse.wst.xquery.sse.core.internal.sdregions;
 
 import org.eclipse.wst.sse.core.internal.provisional.text.IStructuredDocumentRegion;
 import org.eclipse.wst.sse.core.internal.provisional.text.ITextRegion;
-import org.eclipse.wst.sse.core.internal.provisional.text.ITextRegionList;
 import org.eclipse.wst.sse.core.internal.text.BasicStructuredDocumentRegion;
 import org.eclipse.wst.xquery.sse.core.internal.model.ast.IASTNode;
 import org.eclipse.wst.xquery.sse.core.internal.regions.XQueryRegion;
@@ -22,10 +21,10 @@ import org.eclipse.wst.xquery.sse.core.internal.regions.XQueryRegion;
  * 
  * <p>
  * Extends basic behavior by making it aware of lexical errors stored in {@link XQueryRegion}
+ * </p>
  * 
  * @author <a href="villard@us.ibm.com">Lionel Villard</a>
  */
-@SuppressWarnings("restriction")
 public class XQueryStructuredDocumentRegion extends BasicStructuredDocumentRegion {
 
     // Factory

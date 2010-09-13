@@ -42,14 +42,14 @@ import org.eclipse.wst.xquery.sse.core.internal.sdregions.XQueryStructuredDocume
  * 
  * <p>
  * Creates an ordered list of {@link IStructuredDocumentRegion structured regions}.
- * 
+ * </p>
  * <p>
  * Namespace prefixes are resolved at this level.
+ * </p>
  * 
  * 
  * @author <a href="villard@us.ibm.com">Lionel Villard</a>
  */
-@SuppressWarnings("restriction")
 public class XQueryRegionParser implements StructuredDocumentRegionParser, XQueryRegions {
 
     // Constants

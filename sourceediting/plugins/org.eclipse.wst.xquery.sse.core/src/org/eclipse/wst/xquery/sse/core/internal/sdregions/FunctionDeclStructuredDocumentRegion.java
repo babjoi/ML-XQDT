@@ -16,44 +16,42 @@ import org.eclipse.wst.xquery.sse.core.internal.regions.XQueryRegions;
  * Region for
  * 
  * <pre>
- * 	FunctionDecl	   ::=   ("declare" ("simple"? | "updating") "function" QName "(" ParamList? ")" ("as" SequenceType)? (EnclosedExpr | "external"))
- *                         | ("declare" "sequential" "function" QName "(" ParamList? ")" ("as" SequenceType)? (Block | "external"))	  
+ * 	FunctionDecl ::= ("declare" ("simple"? | "updating") "function" QName "(" ParamList? ")" ("as" SequenceType)? (EnclosedExpr | "external"))
+ *                 | ("declare" "sequential" "function" QName "(" ParamList? ")" ("as" SequenceType)? (Block | "external"))
  * </pre>
  * 
  * @author <a href="villard@us.ibm.com">Lionel Villard</a>
  * 
  */
-@SuppressWarnings("restriction")
 public class FunctionDeclStructuredDocumentRegion extends XQueryStructuredDocumentRegion {
-	// Factory
+    // Factory
 
-	final public static class Factory implements StructuredDocumentRegionFactory {
+    final public static class Factory implements StructuredDocumentRegionFactory {
 
-		final public static Factory INSTANCE = new Factory();
+        final public static Factory INSTANCE = new Factory();
 
-		private Factory() {
-		}
+        private Factory() {
+        }
 
-		// Implements StructuredDocumentRegionFactory
+        // Implements StructuredDocumentRegionFactory
 
-		public XQueryStructuredDocumentRegion create() {
-			return new FunctionDeclStructuredDocumentRegion();
-		}
+        public XQueryStructuredDocumentRegion create() {
+            return new FunctionDeclStructuredDocumentRegion();
+        }
 
-	}
+    }
 
-	// Constructors
+    // Constructors
 
-	public FunctionDeclStructuredDocumentRegion() {
-		super();
-	}
+    public FunctionDeclStructuredDocumentRegion() {
+        super();
+    }
 
-	// Methods
-	
-	/** Is "sequential" specified? */
-	public boolean isSequential()
-	{
-		return SDRegionUtils.search(getRegions(), 1, XQueryRegions.KW_SEQUENTIAL) != -1;
-	}
+    // Methods
+
+    /** Is "sequential" specified? */
+    public boolean isSequential() {
+        return SDRegionUtils.search(getRegions(), 1, XQueryRegions.KW_SEQUENTIAL) != -1;
+    }
 
 }

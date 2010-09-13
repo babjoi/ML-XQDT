@@ -17,7 +17,6 @@ import org.eclipse.wst.xml.core.internal.regions.DOMRegionContext;
  * 
  * @author <a href="mailto:villard@us.ibm.com">Lionel Villard</a>
  */
-@SuppressWarnings("restriction")
 public interface XQueryRegions extends DOMRegionContext {
 
     public static final String UNDEFINED = "UNDEFINED"; //$NON-NLS-1$

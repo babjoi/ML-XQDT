@@ -20,7 +20,7 @@ import org.eclipse.wst.sse.core.internal.util.Debug;
 import org.eclipse.wst.sse.core.utils.StringUtils;  
 import org.eclipse.wst.xquery.sse.core.internal.regions.XQueryRegions;
 
-@SuppressWarnings("restriction")
+@SuppressWarnings("unused")
 
 %%
 

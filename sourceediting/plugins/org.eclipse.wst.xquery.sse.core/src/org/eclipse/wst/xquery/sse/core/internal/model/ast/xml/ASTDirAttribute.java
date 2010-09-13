@@ -27,85 +27,83 @@ import org.w3c.dom.Node;
  * 
  * <p>
  * Might contains XQuery expressions as child AST nodes.
+ * </p>
  * 
  * @author <a href="villard@us.ibm.com">Lionel Villard</a>
  */
-@SuppressWarnings("restriction")
 public class ASTDirAttribute extends AttrImpl implements IASTNode {
 
-	// State
+    // State
 
-	/** List of inner expressions */
-	protected List<IASTNode> children;
+    /** List of inner expressions */
+    protected List<IASTNode> children;
 
-	// Constructor
+    // Constructor
 
-	public ASTDirAttribute() {
-		children = new ArrayList<IASTNode>(1);
-	}
+    public ASTDirAttribute() {
+        children = new ArrayList<IASTNode>(1);
+    }
 
-	// Overrides
+    // Overrides
 
-	@Override
-	public void setName(String name) {
-		super.setName(name);
-	}
+    @Override
+    public void setName(String name) {
+        super.setName(name);
+    }
 
-	// Implements IASTNode
+    // Implements IASTNode
 
-	public void setASTParent(IASTNode parent) {
-		setParentNode((Node) parent); // Should be the element.
-	}
+    public void setASTParent(IASTNode parent) {
+        setParentNode((Node)parent); // Should be the element.
+    }
 
-	public IASTNode getASTParent() {
-		return (IASTNode) getParentNode();
-	}
+    public IASTNode getASTParent() {
+        return (IASTNode)getParentNode();
+    }
 
-	public int getType() {
-		return DIRATTRIBUTE;
-	}
+    public int getType() {
+        return DIRATTRIBUTE;
+    }
 
-	public void removeChildASTNodesAfter(int index) {
-		ASTHelper.removeAfter(children, index);
-	}
+    public void removeChildASTNodesAfter(int index) {
+        ASTHelper.removeAfter(children, index);
+    }
 
-	public void setChildASTNodeAt(int index, IASTNode newChild) {
-		ASTHelper.setChildASTNodeAt(children, this, index, newChild);
-	}
+    public void setChildASTNodeAt(int index, IASTNode newChild) {
+        ASTHelper.setChildASTNodeAt(children, this, index, newChild);
+    }
 
-	public IASTNode getChildASTNodeAt(int i) {
-		return ASTHelper.getChildASTNodeAt(children, i);
-	}
+    public IASTNode getChildASTNodeAt(int i) {
+        return ASTHelper.getChildASTNodeAt(children, i);
+    }
 
-	public int getChildASTNodesCount() {
-		return ASTHelper.getChildASTNodesCount(children);
-	}
+    public int getChildASTNodesCount() {
+        return ASTHelper.getChildASTNodesCount(children);
+    }
 
-	public IASTNode getPreviousASTNodeSibling() {
-		return ASTHelper.getPreviousASTNodeSibling(this);
-	}
+    public IASTNode getPreviousASTNodeSibling() {
+        return ASTHelper.getPreviousASTNodeSibling(this);
+    }
 
-	public IASTNode getFollowingASTNodeSibling() {
-		return ASTHelper.getFollowingASTNodeSibling(this);
-	}
+    public IASTNode getFollowingASTNodeSibling() {
+        return ASTHelper.getFollowingASTNodeSibling(this);
+    }
 
-	public void staticCheck(IStructuredDocument document,
-			IValidator validator, IReporter reporter) {
-		ASTHelper.staticCheck(this, document, validator, reporter);
-	}
+    public void staticCheck(IStructuredDocument document, IValidator validator, IReporter reporter) {
+        ASTHelper.staticCheck(this, document, validator, reporter);
+    }
 
-	public List<IMessage> getErrorMessages() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+    public List<IMessage> getErrorMessages() {
+        // TODO Auto-generated method stub
+        return null;
+    }
 
-	public List<String> getInScopeVariables() {
-		return getASTParent() == null ? null : getASTParent()
-				.getInScopeVariables();
-	}
+    public List<String> getInScopeVariables() {
+        return getASTParent() == null ? null : getASTParent().getInScopeVariables();
+    }
 
-	public void toString(int indent, StringBuilder builder) {
-		builder.append(toString());
-	}
+    public void toString(int indent, StringBuilder builder) {
+        builder.append(toString());
+    }
 
 }

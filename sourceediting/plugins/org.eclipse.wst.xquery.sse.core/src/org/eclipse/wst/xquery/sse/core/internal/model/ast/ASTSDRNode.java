@@ -18,31 +18,31 @@ import org.eclipse.wst.xquery.sse.core.internal.sdregions.XQueryStructuredDocume
  * 
  * @author <a href="villard@us.ibm.com">Lionel Villard</a>
  */
-@SuppressWarnings("restriction")
 public abstract class ASTSDRNode extends ASTNode {
 
-	// State
+    // State
 
-	/** The structured document region */
-	protected IStructuredDocumentRegion region;
+    /** The structured document region */
+    protected IStructuredDocumentRegion region;
 
-	// Methods
+    // Methods
 
-	/**
-	 * Get the region matching this node
-	 */
-	public IStructuredDocumentRegion getStructuredDocumentRegion() {
-		return region;
-	}
+    /**
+     * Get the region matching this node
+     */
+    public IStructuredDocumentRegion getStructuredDocumentRegion() {
+        return region;
+    }
 
-	/**
-	 * @param region
-	 */
-	public void setStructuredDocumentRegion(IStructuredDocumentRegion region) {
-		this.region = region;
+    /**
+     * @param region
+     */
+    public void setStructuredDocumentRegion(IStructuredDocumentRegion region) {
+        this.region = region;
 
-		if (region instanceof XQueryStructuredDocumentRegion)
-			((XQueryStructuredDocumentRegion) region).setASTNode(this);
-	}
+        if (region instanceof XQueryStructuredDocumentRegion) {
+            ((XQueryStructuredDocumentRegion)region).setASTNode(this);
+        }
+    }
 
 }

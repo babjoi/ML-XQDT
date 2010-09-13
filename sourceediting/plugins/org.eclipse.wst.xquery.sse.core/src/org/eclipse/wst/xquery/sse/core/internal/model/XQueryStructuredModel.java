@@ -56,213 +56,197 @@ import org.eclipse.wst.xquery.sse.core.internal.sdregions.XQueryStructuredDocume
  * 
  * @author <a href="villard@us.ibm.com">Lionel Villard</a>
  */
-@SuppressWarnings({ "restriction", "deprecation" })
-public class XQueryStructuredModel extends AbstractStructuredModel implements
-		IStructuredDocumentListener {
+@SuppressWarnings("deprecation")
+public class XQueryStructuredModel extends AbstractStructuredModel implements IStructuredDocumentListener {
 
-	// State
+    // State
 
-	/** Model AST builder */
-	final protected ModelBuilder builder;
+    /** Model AST builder */
+    final protected ModelBuilder builder;
 
-	/** Root AST node (module) */
-	private ASTModule module;
+    /** Root AST node (module) */
+    private ASTModule module;
 
-	/** Current language */
-	protected int language;
+    /** Current language */
+    protected int language;
 
-	/** List of error messages reported by the builder */
-	protected List<IMessage> messages;
+    /** List of error messages reported by the builder */
+    protected List<IMessage> messages;
 
-	// Constructors
+    // Constructors
 
-	public XQueryStructuredModel() {
-		builder = getContributionModelBuilder();
-		messages = new ArrayList<IMessage>();
-	}
+    public XQueryStructuredModel() {
+        builder = getContributionModelBuilder();
+        messages = new ArrayList<IMessage>();
+    }
 
-	// Methods
+    // Methods
 
-	/**
-	 * Gets error messages issued by the model builder
-	 */
-	public List<IMessage> getErrorMessages() {
-		return messages;
-	}
+    /**
+     * Gets error messages issued by the model builder
+     */
+    public List<IMessage> getErrorMessages() {
+        return messages;
+    }
 
-	/**
-	 * @param sdregion
-	 * @param text
-	 * @param tip
-	 *            whether or not to only highlight the tip of the given sdregion
-	 */
-	protected void reportError(XQueryStructuredDocumentRegion sdregion,
-			String text, boolean tip) {
-		messages.add(ValidationHelper.createErrorMessage(sdregion, text, tip));
+    /**
+     * @param sdregion
+     * @param text
+     * @param tip
+     *            whether or not to only highlight the tip of the given sdregion
+     */
+    protected void reportError(XQueryStructuredDocumentRegion sdregion, String text, boolean tip) {
+        messages.add(ValidationHelper.createErrorMessage(sdregion, text, tip));
 
-	}
-	
-	/**
-	 * @param sdregion
-	 * @param text
-	 
-	 */
-	protected void reportError(XQueryStructuredDocumentRegion sdregion, ITextRegion region,
-			String text) {
-		messages.add(ValidationHelper.createErrorMessage(sdregion, region, text));
+    }
 
-	}
+    /**
+     * @param sdregion
+     * @param text
+     */
+    protected void reportError(XQueryStructuredDocumentRegion sdregion, ITextRegion region, String text) {
+        messages.add(ValidationHelper.createErrorMessage(sdregion, region, text));
 
-	/**
-	 * @param sdregion
-	 * @param text
-	 */
-	protected void reportError(IStructuredDocumentRegion first,
-			IStructuredDocumentRegion last, String text) {
-		messages.add(ValidationHelper.createErrorMessage(first, last, text));
+    }
 
-	}
+    /**
+     * @param sdregion
+     * @param text
+     */
+    protected void reportError(IStructuredDocumentRegion first, IStructuredDocumentRegion last, String text) {
+        messages.add(ValidationHelper.createErrorMessage(first, last, text));
 
-	/**
-	 * @param text
-	 */
-	public void reportError(String text) {
-		messages.add(ValidationHelper.createErrorMessage(text));
-	}
+    }
 
-	/** Gets module managed by this model */
-	public ASTModule getModule() {
-		return module;
-	}
+    /**
+     * @param text
+     */
+    public void reportError(String text) {
+        messages.add(ValidationHelper.createErrorMessage(text));
+    }
 
-	/** Get the AST node attached to the given region */
-	public IASTNode getASTNode(IStructuredDocumentRegion region) {
-		if (region instanceof XQueryStructuredDocumentRegion) {
-			final XQueryStructuredDocumentRegion xregion = (XQueryStructuredDocumentRegion) region;
-			return xregion.getASTNode();
-		}
-		return null;
-	}
+    /** Gets module managed by this model */
+    public ASTModule getModule() {
+        return module;
+    }
 
-	/** Get what is the target language for this model */
-	protected int getLanguage() {
-		String pref = Platform.getPreferencesService().getString(
-				XQDTCorePlugin.PLUGIN_ID, IXQDTCorePreferences.LANGUAGE_LEVEL,
-				"", null);
-		if (IXQDTCorePreferences.LANGUAGE_NAME_XQUERY.equals(pref))
-			return IXQDTLanguageConstants.LANGUAGE_XQUERY;
+    /** Get the AST node attached to the given region */
+    public IASTNode getASTNode(IStructuredDocumentRegion region) {
+        if (region instanceof XQueryStructuredDocumentRegion) {
+            final XQueryStructuredDocumentRegion xregion = (XQueryStructuredDocumentRegion)region;
+            return xregion.getASTNode();
+        }
+        return null;
+    }
 
-		if (IXQDTCorePreferences.LANGUAGE_NAME_XQUERY_UPDATE.equals(pref))
-			return IXQDTLanguageConstants.LANGUAGE_XQUERY
-					| IXQDTLanguageConstants.LANGUAGE_XQUERY_UPDATE;
+    /** Get what is the target language for this model */
+    protected int getLanguage() {
+        String pref = Platform.getPreferencesService().getString(XQDTCorePlugin.PLUGIN_ID,
+                IXQDTCorePreferences.LANGUAGE_LEVEL, "", null);
+        if (IXQDTCorePreferences.LANGUAGE_NAME_XQUERY.equals(pref)) {
+            return IXQDTLanguageConstants.LANGUAGE_XQUERY;
+        }
 
-		if (IXQDTCorePreferences.LANGUAGE_NAME_XQUERY_SCRIPTING.equals(pref))
-			return IXQDTLanguageConstants.LANGUAGE_XQUERY
-					| IXQDTLanguageConstants.LANGUAGE_XQUERY_UPDATE
-					| IXQDTLanguageConstants.LANGUAGE_XQUERY_SCRIPTING;
+        if (IXQDTCorePreferences.LANGUAGE_NAME_XQUERY_UPDATE.equals(pref)) {
+            return IXQDTLanguageConstants.LANGUAGE_XQUERY | IXQDTLanguageConstants.LANGUAGE_XQUERY_UPDATE;
+        }
 
-		return IXQDTLanguageConstants.LANGUAGE_XQUERY;
-	}
+        if (IXQDTCorePreferences.LANGUAGE_NAME_XQUERY_SCRIPTING.equals(pref)) {
+            return IXQDTLanguageConstants.LANGUAGE_XQUERY | IXQDTLanguageConstants.LANGUAGE_XQUERY_UPDATE
+                    | IXQDTLanguageConstants.LANGUAGE_XQUERY_SCRIPTING;
+        }
 
-	// Overrides
+        return IXQDTLanguageConstants.LANGUAGE_XQUERY;
+    }
 
-	@Override
-	public IndexedRegion getIndexedRegion(int offset) {
-		return null;
+    // Overrides
 
-		// return (IndexedRegion) fStructuredDocument
-		// .getRegionAtCharacterOffset(offset);
-	}
+    @Override
+    public IndexedRegion getIndexedRegion(int offset) {
+        return null;
 
-	@Override
-	public void setStructuredDocument(IStructuredDocument newStructuredDocument) {
-		if (fStructuredDocument != null)
-			fStructuredDocument.removeDocumentChangingListener(this);
+        // return (IndexedRegion) fStructuredDocument
+        // .getRegionAtCharacterOffset(offset);
+    }
 
-		super.setStructuredDocument(newStructuredDocument);
+    @Override
+    public void setStructuredDocument(IStructuredDocument newStructuredDocument) {
+        if (fStructuredDocument != null) {
+            fStructuredDocument.removeDocumentChangingListener(this);
+        }
 
-		if (fStructuredDocument != null) {
-			fStructuredDocument.addDocumentChangingListener(this);
+        super.setStructuredDocument(newStructuredDocument);
 
-			// Parse..
-			if (newStructuredDocument != null)
-				rebuild(fStructuredDocument.getFirstStructuredDocumentRegion(),
-						0, fStructuredDocument.getLength());
-		}
-	}
+        if (fStructuredDocument != null) {
+            fStructuredDocument.addDocumentChangingListener(this);
 
-	/**
-	 * Incrementally rebuilt AST
-	 */
-	protected void rebuild(IStructuredDocumentRegion sdregion, int offset,
-			int length) {
-		messages.clear();
-		module = builder.reparseQuery(module, sdregion, offset, length,
-				getLanguage());
+            // Parse..
+            if (newStructuredDocument != null) {
+                rebuild(fStructuredDocument.getFirstStructuredDocumentRegion(), 0, fStructuredDocument.getLength());
+            }
+        }
+    }
 
-	}
+    /**
+     * Incrementally rebuilt AST
+     */
+    protected void rebuild(IStructuredDocumentRegion sdregion, int offset, int length) {
+        messages.clear();
+        module = builder.reparseQuery(module, sdregion, offset, length, getLanguage());
 
-	// Implements IStructuredDocumentListener
+    }
 
-	public void newModel(NewDocumentEvent event) {
-		rebuild(event.getStructuredDocument()
-				.getFirstStructuredDocumentRegion(), 0, event.getDocument()
-				.getLength());
-	}
+    // Implements IStructuredDocumentListener
 
-	public void noChange(NoChangeEvent event) {
-	}
+    public void newModel(NewDocumentEvent event) {
+        rebuild(event.getStructuredDocument().getFirstStructuredDocumentRegion(), 0, event.getDocument().getLength());
+    }
 
-	public void nodesReplaced(StructuredDocumentRegionsReplacedEvent event) {
-		rebuild(event.getStructuredDocument()
-				.getFirstStructuredDocumentRegion(), event.getOffset(),
-				event.getLength());
-	}
+    public void noChange(NoChangeEvent event) {
+    }
 
-	public void regionChanged(RegionChangedEvent event) {
-		// AST does not have to be rebuilt.
-		// The rest is handled locally (in regions)
-	}
+    public void nodesReplaced(StructuredDocumentRegionsReplacedEvent event) {
+        rebuild(event.getStructuredDocument().getFirstStructuredDocumentRegion(), event.getOffset(), event.getLength());
+    }
 
-	public void regionsReplaced(RegionsReplacedEvent event) {
-		// TODO: see if we can do better here.
+    public void regionChanged(RegionChangedEvent event) {
+        // AST does not have to be rebuilt.
+        // The rest is handled locally (in regions)
+    }
 
-		rebuild(event.getStructuredDocument()
-				.getFirstStructuredDocumentRegion(), event.getOffset(),
-				event.getLength());
-	}
+    public void regionsReplaced(RegionsReplacedEvent event) {
+        // TODO: see if we can do better here.
 
-	// ModelBuilder Extension point
+        rebuild(event.getStructuredDocument().getFirstStructuredDocumentRegion(), event.getOffset(), event.getLength());
+    }
 
-	/**
-	 * Gets the XQuery model builder. Allow other plugins to provide an
-	 * alternative
-	 * 
-	 * @return
-	 */
-	protected ModelBuilder getContributionModelBuilder() {
-		ModelBuilder modelBuilder = null;
+    // ModelBuilder Extension point
 
-		IExtensionRegistry registry = Platform.getExtensionRegistry();
-		IExtensionPoint point = registry.getExtensionPoint(
-				"org.eclipse.wst.xquery.sse.core", "modelBuilder");
-		IExtension[] extensions = point.getExtensions();
-		if (extensions.length > 0) {
-			IConfigurationElement[] elements = extensions[0]
-					.getConfigurationElements();
-			if (elements.length > 0) {
-				try {
-					modelBuilder = (ModelBuilder) elements[0]
-							.createExecutableExtension("class");
-				} catch (CoreException e) {
-					// TODO
-				}
-			}
-		}
+    /**
+     * Gets the XQuery model builder. Allow other plugins to provide an alternative
+     * 
+     * @return
+     */
+    protected ModelBuilder getContributionModelBuilder() {
+        ModelBuilder modelBuilder = null;
 
-		modelBuilder = modelBuilder == null ? new ModelBuilder() : modelBuilder;
-		modelBuilder.setModel(this);
-		return modelBuilder;
-	}
+        IExtensionRegistry registry = Platform.getExtensionRegistry();
+        IExtensionPoint point = registry.getExtensionPoint("org.eclipse.wst.xquery.sse.core", "modelBuilder");
+        IExtension[] extensions = point.getExtensions();
+        if (extensions.length > 0) {
+            IConfigurationElement[] elements = extensions[0].getConfigurationElements();
+            if (elements.length > 0) {
+                try {
+                    modelBuilder = (ModelBuilder)elements[0].createExecutableExtension("class");
+                } catch (CoreException e) {
+                    // TODO
+                }
+            }
+        }
+
+        modelBuilder = modelBuilder == null ? new ModelBuilder() : modelBuilder;
+        modelBuilder.setModel(this);
+        return modelBuilder;
+    }
 
 }

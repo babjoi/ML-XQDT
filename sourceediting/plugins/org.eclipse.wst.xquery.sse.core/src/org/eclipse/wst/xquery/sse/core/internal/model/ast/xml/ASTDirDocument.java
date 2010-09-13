@@ -17,18 +17,19 @@ import org.w3c.dom.Element;
 /**
  * Direct document constructor
  * 
- * <p>Not an XQuery constructor, just overrides create** methods creating AST nodes
- *
- * @author <a href="villard@us.ibm.com">Lionel Villard</a> 
+ * <p>
+ * Not an XQuery constructor, just overrides create** methods creating AST nodes
+ * </p>
+ * 
+ * @author <a href="villard@us.ibm.com">Lionel Villard</a>
  */
-@SuppressWarnings("restriction")
 public class ASTDirDocument extends DocumentImpl {
 
-	@Override
-	public Element createElement(String tagName) throws DOMException {
-		checkTagNameValidity(tagName);
+    @Override
+    public Element createElement(String tagName) throws DOMException {
+        checkTagNameValidity(tagName);
 
-		return new ASTDirElement(this, tagName);
-	}
+        return new ASTDirElement(this, tagName);
+    }
 
 }

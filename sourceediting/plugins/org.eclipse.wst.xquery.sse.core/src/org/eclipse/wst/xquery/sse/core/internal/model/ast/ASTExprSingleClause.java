@@ -16,48 +16,45 @@ import org.eclipse.wst.validation.internal.provisional.core.IValidator;
 
 /**
  * Clause of the form <tt>'clauseName' ExprSingle</tt>
- *
+ * 
  * @author <a href="villard@us.ibm.com">Lionel Villard</a>
  */
-@SuppressWarnings("restriction")
 public class ASTExprSingleClause extends ASTClause {
 
-	// State
-	
-	/** Expression */
-	protected IASTNode expr;
-	
-	// Methods
-	
-	/**
-	 * Set clause expression
-	 */
-	public void setExpr(IASTNode expr)
-	{
-		if (expr != null)
-			expr.setASTParent(this);
-		
-		this.expr = expr;
-	}
-	
-	/**
-	 * Get clause expression
-	 */
-	public IASTNode getExpr()
-	{
-		return this.expr;
-	}
-	
-	// Overrides
+    // State
 
-	@Override
-	public void staticCheck(IStructuredDocument document, IValidator validator,
-			IReporter reporter) {
-		if (expr != null)
-			expr.staticCheck(document, validator, reporter);
-		
-		super.staticCheck(document, validator, reporter);
-	}
-	
-	
+    /** Expression */
+    protected IASTNode expr;
+
+    // Methods
+
+    /**
+     * Set clause expression
+     */
+    public void setExpr(IASTNode expr) {
+        if (expr != null) {
+            expr.setASTParent(this);
+        }
+
+        this.expr = expr;
+    }
+
+    /**
+     * Get clause expression
+     */
+    public IASTNode getExpr() {
+        return this.expr;
+    }
+
+    // Overrides
+
+    @Override
+    public void staticCheck(IStructuredDocument document, IValidator validator, IReporter reporter) {
+        if (expr != null) {
+            expr.staticCheck(document, validator, reporter);
+        }
+
+        super.staticCheck(document, validator, reporter);
+    }
+
 }

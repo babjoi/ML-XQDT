@@ -19,67 +19,67 @@ import org.eclipse.wst.sse.core.internal.provisional.text.IStructuredDocumentReg
  * 
  * @author <a href="villard@us.ibm.com">Lionel Villard</a>
  */
-@SuppressWarnings("restriction")
 public class ASTQuantified extends ASTParentNode {
 
-	// Methods
+    // Methods
 
-	/**
-	 * Set binding clause
-	 * 
-	 * @param index
-	 * @param region
-	 */
-	public void setBindingClause(ASTBindingClause clause) {
-		setChildASTNodeAt(0, clause);
-	}
+    /**
+     * Set binding clause
+     * 
+     * @param index
+     * @param region
+     */
+    public void setBindingClause(ASTBindingClause clause) {
+        setChildASTNodeAt(0, clause);
+    }
 
-	/**
-	 * Get binding clause
-	 * 
-	 * @param index
-	 */
-	public ASTBindingClause getBindingClause() {
-		return (ASTBindingClause) getChildASTNodeAt(0);
-	}
+    /**
+     * Get binding clause
+     * 
+     * @param index
+     */
+    public ASTBindingClause getBindingClause() {
+        return (ASTBindingClause)getChildASTNodeAt(0);
+    }
 
-	/**
-	 * @param expr
-	 */
-	public void setSatisfiesExpr(IASTNode expr) {
-		setChildASTNodeAt(1, expr);
-	}
+    /**
+     * @param expr
+     */
+    public void setSatisfiesExpr(IASTNode expr) {
+        setChildASTNodeAt(1, expr);
+    }
 
-	/**
-	 * @return satisfies expression
-	 */
-	public IASTNode getSatisfiesExpr() {
-		return getChildASTNodeAt(1);
-	}
+    /**
+     * @return satisfies expression
+     */
+    public IASTNode getSatisfiesExpr() {
+        return getChildASTNodeAt(1);
+    }
 
-	// Overrides
+    // Overrides
 
-	@Override
-	public int getType() {
-		return QUANTIFIED;
-	}
+    @Override
+    public int getType() {
+        return QUANTIFIED;
+    }
 
-	@Override
-	protected void getInScopeVariables(List<String> vars, IASTNode child) {
-		if (child == getSatisfiesExpr()) {
+    @Override
+    protected void getInScopeVariables(List<String> vars, IASTNode child) {
+        if (child == getSatisfiesExpr()) {
 
-			ASTBindingClause bindings = getBindingClause();
-			if (bindings != null)
-				for (int i = bindings.getBindingExprCount() - 1; i >= 0; i--) {
-					
-					IStructuredDocumentRegion var = bindings
-							.getBindingVariable(i);
-					if (var != null)
-						vars.add(var.getFullText().trim());
-				}
-		}
+            ASTBindingClause bindings = getBindingClause();
+            if (bindings != null) {
+                for (int i = bindings.getBindingExprCount() - 1; i >= 0; i--) {
 
-		super.getInScopeVariables(vars, child);
-	}
+                    IStructuredDocumentRegion var = bindings.getBindingVariable(i);
+                    if (var != null) {
+                        vars.add(var.getFullText().trim());
+                    }
+                }
+            }
+        }
+
+        super.getInScopeVariables(vars, child);
+    }
 
 }

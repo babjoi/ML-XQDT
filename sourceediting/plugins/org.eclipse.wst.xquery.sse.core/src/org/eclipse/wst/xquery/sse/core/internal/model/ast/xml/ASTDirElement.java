@@ -27,145 +27,146 @@ import org.w3c.dom.Node;
 /**
  * Direct element constructor
  * 
- * 
  * @author <a href="villard@us.ibm.com">Lionel Villard</a>
  */
-@SuppressWarnings("restriction")
 public class ASTDirElement extends ElementImpl implements IASTNode {
 
-	// State
+    // State
 
-	/** AST parent node (which could be a non-xml parent) */
-	protected IASTNode parentAST;
+    /** AST parent node (which could be a non-xml parent) */
+    protected IASTNode parentAST;
 
-	// Constructors
+    // Constructors
 
-	public ASTDirElement() {
-	}
+    public ASTDirElement() {
+    }
 
-	/**
-	 * @param astDirDocument
-	 * @param tagName
-	 */
-	public ASTDirElement(ASTDirDocument owner, String tagName) {
-		setOwnerDocument(owner);
-		setTagName(tagName);
-	}
+    /**
+     * @param astDirDocument
+     * @param tagName
+     */
+    public ASTDirElement(ASTDirDocument owner, String tagName) {
+        setOwnerDocument(owner);
+        setTagName(tagName);
+    }
 
-	// Overrides
+    // Overrides
 
-	@Override
-	public Attr setAttributeNode(Attr newAttr) throws DOMException {
-		if (newAttr instanceof ASTDirAttribute)
-			((ASTDirAttribute) newAttr).setASTParent(this);
+    @Override
+    public Attr setAttributeNode(Attr newAttr) throws DOMException {
+        if (newAttr instanceof ASTDirAttribute) {
+            ((ASTDirAttribute)newAttr).setASTParent(this);
+        }
 
-		return super.setAttributeNode(newAttr);
-	}
+        return super.setAttributeNode(newAttr);
+    }
 
-	@Override
-	public void setTagName(String tagName) {
-		super.setTagName(tagName);
-	}
+    @Override
+    public void setTagName(String tagName) {
+        super.setTagName(tagName);
+    }
 
-	// Implements IASTNode
+    // Implements IASTNode
 
-	public IASTNode getChildASTNodeAt(int i) {
-		if (i < getChildNodes().getLength()) {
-			final Node node = getChildNodes().item(i);
-			if (node instanceof IASTNode)
-				return (IASTNode) node;
+    public IASTNode getChildASTNodeAt(int i) {
+        if (i < getChildNodes().getLength()) {
+            final Node node = getChildNodes().item(i);
+            if (node instanceof IASTNode) {
+                return (IASTNode)node;
+            }
 
-			// Wrapper
-			return ((ASTNodeText) node).node;
-		}
-		return null;
-	}
+            // Wrapper
+            return ((ASTNodeText)node).node;
+        }
+        return null;
+    }
 
-	public int getChildASTNodesCount() {
-		return getChildNodes().getLength();
-	}
+    public int getChildASTNodesCount() {
+        return getChildNodes().getLength();
+    }
 
-	public IASTNode getASTParent() {
-		return parentAST;
-	}
+    public IASTNode getASTParent() {
+        return parentAST;
+    }
 
-	public void setASTParent(IASTNode parent) {
-		parentAST = parent;
-		if (parent instanceof Node)
-			setParentNode((Node) parent);
-	}
+    public void setASTParent(IASTNode parent) {
+        parentAST = parent;
+        if (parent instanceof Node) {
+            setParentNode((Node)parent);
+        }
+    }
 
-	public int getType() {
-		return DIRELEMENT;
-	}
+    public int getType() {
+        return DIRELEMENT;
+    }
 
-	public void removeChildASTNodesAfter(int index) {
-		if (getChildNodes().getLength() > index) {
-			while (getChildNodes().getLength() != index)
-				removeChild(getLastChild());
-		}
-	}
+    public void removeChildASTNodesAfter(int index) {
+        if (getChildNodes().getLength() > index) {
+            while (getChildNodes().getLength() != index) {
+                removeChild(getLastChild());
+            }
+        }
+    }
 
-	public void setChildASTNodeAt(int index, IASTNode newChild) {
-		Node node;
-		if (!(newChild instanceof Node)) {
-			// This is an XQuery expression=> wrap around a text node
-			node = new ASTNodeText(newChild);
-		} else
-			node = (Node) newChild;
+    public void setChildASTNodeAt(int index, IASTNode newChild) {
+        Node node;
+        if (!(newChild instanceof Node)) {
+            // This is an XQuery expression=> wrap around a text node
+            node = new ASTNodeText(newChild);
+        } else {
+            node = (Node)newChild;
+        }
 
-		if (getChildNodes().getLength() >= index)
-			appendChild(node);
-		else
+        if (getChildNodes().getLength() >= index) {
+            appendChild(node);
+        } else
 
-		{
-			Node oldChild = getChildNodes().item(index);
-			replaceChild(node, oldChild);
-		}
+        {
+            Node oldChild = getChildNodes().item(index);
+            replaceChild(node, oldChild);
+        }
 
-		newChild.setASTParent(this);
-	}
+        newChild.setASTParent(this);
+    }
 
-	public IASTNode getPreviousASTNodeSibling() {
-		return ASTHelper.getPreviousASTNodeSibling(this);
-	}
+    public IASTNode getPreviousASTNodeSibling() {
+        return ASTHelper.getPreviousASTNodeSibling(this);
+    }
 
-	public IASTNode getFollowingASTNodeSibling() {
-		return ASTHelper.getFollowingASTNodeSibling(this);
-	}
+    public IASTNode getFollowingASTNodeSibling() {
+        return ASTHelper.getFollowingASTNodeSibling(this);
+    }
 
-	public void staticCheck(IStructuredDocument document,
-			IValidator validator, IReporter reporter) {
-		ASTHelper.staticCheck(this, document, validator, reporter);
-	}
+    public void staticCheck(IStructuredDocument document, IValidator validator, IReporter reporter) {
+        ASTHelper.staticCheck(this, document, validator, reporter);
+    }
 
-	public List<IMessage> getErrorMessages() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+    public List<IMessage> getErrorMessages() {
+        // TODO Auto-generated method stub
+        return null;
+    }
 
-	public List<String> getInScopeVariables() {
-		return getASTParent() == null ? null : getASTParent()
-				.getInScopeVariables();
-	}
+    public List<String> getInScopeVariables() {
+        return getASTParent() == null ? null : getASTParent().getInScopeVariables();
+    }
 
-	public void toString(int indent, StringBuilder builder) {
-		builder.append(toString());
-	}
+    public void toString(int indent, StringBuilder builder) {
+        builder.append(toString());
+    }
 
-	// Inner class
+    // Inner class
 
-	class ASTNodeText extends TextImpl {
-		// State
+    class ASTNodeText extends TextImpl {
+        // State
 
-		/** Wrapped AST node */
-		protected IASTNode node;
+        /** Wrapped AST node */
+        protected IASTNode node;
 
-		// Constructor
+        // Constructor
 
-		protected ASTNodeText(IASTNode node) {
-			this.node = node;
-		}
-	}
+        protected ASTNodeText(IASTNode node) {
+            this.node = node;
+        }
+    }
 
 }

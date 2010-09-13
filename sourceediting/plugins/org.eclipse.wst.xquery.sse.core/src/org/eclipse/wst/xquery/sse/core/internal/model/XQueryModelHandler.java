@@ -22,29 +22,28 @@ import org.eclipse.wst.xquery.sse.core.internal.encoding.XQueryEncodingDetector;
  * 
  * @author <a href="villard@us.ibm.com">Lionel Villard</a>
  */
-@SuppressWarnings("restriction")
 public class XQueryModelHandler extends AbstractModelHandler {
 
-	// Constructors
+    // Constructors
 
-	public XQueryModelHandler() {
-	}
+    public XQueryModelHandler() {
+    }
 
-	// Overrides
+    // Overrides
 
-	@Override
-	public IDocumentCharsetDetector getEncodingDetector() {
-		return new XQueryEncodingDetector();
-	}
+    @Override
+    public IDocumentCharsetDetector getEncodingDetector() {
+        return new XQueryEncodingDetector();
+    }
 
-	// Implements IModelHandler
+    // Implements IModelHandler
 
-	public IModelLoader getModelLoader() {
-		return new XQueryModelLoader();
-	}
+    public IModelLoader getModelLoader() {
+        return new XQueryModelLoader();
+    }
 
-	public IDocumentLoader getDocumentLoader() {
-		return new XQueryDocumentLoader();
-	}
+    public IDocumentLoader getDocumentLoader() {
+        return new XQueryDocumentLoader();
+    }
 
 }

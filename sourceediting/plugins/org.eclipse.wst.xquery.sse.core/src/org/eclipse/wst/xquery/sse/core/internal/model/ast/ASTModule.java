@@ -26,174 +26,170 @@ import org.eclipse.wst.xquery.sse.core.internal.sdregions.ModuleDeclStructuredDo
  * 
  * @author <a href="villard@us.ibm.com">Lionel Villard</a>
  */
-@SuppressWarnings("restriction")
 public class ASTModule extends ASTParentNode {
 
-	// State
+    // State
 
-	/** Version text region */
-	protected ITextRegion versionTextRegion;
+    /** Version text region */
+    protected ITextRegion versionTextRegion;
 
-	/** Encoding text region */
-	protected ITextRegion encodingTextRegion;
+    /** Encoding text region */
+    protected ITextRegion encodingTextRegion;
 
-	/** Module namespace prefix (library only) */
-	protected ITextRegion namespacePrefixTextRegion;
+    /** Module namespace prefix (library only) */
+    protected ITextRegion namespacePrefixTextRegion;
 
-	/** Module declaration (library only) */
-	protected ModuleDeclStructuredDocumentRegion moduleSDRegion;
+    /** Module declaration (library only) */
+    protected ModuleDeclStructuredDocumentRegion moduleSDRegion;
 
-	/** List of function declaration, indexed by their name */
-	// TODO: namespaces..
-	protected Map<String, ASTFunctionDecl> functionDecls;
+    /** List of function declaration, indexed by their name */
+    // TODO: namespaces..
+    protected Map<String, ASTFunctionDecl> functionDecls;
 
-	/** List of variable declarations, indexed by their name */
-	protected Map<String, ASTVarDecl> variableDecls;
+    /** List of variable declarations, indexed by their name */
+    protected Map<String, ASTVarDecl> variableDecls;
 
-	// Constructors
+    // Constructors
 
-	protected ASTModule() {
-		functionDecls = new HashMap<String, ASTFunctionDecl>();
-		variableDecls = new HashMap<String, ASTVarDecl>();
-	}
+    protected ASTModule() {
+        functionDecls = new HashMap<String, ASTFunctionDecl>();
+        variableDecls = new HashMap<String, ASTVarDecl>();
+    }
 
-	// Methods
+    // Methods
 
-	public void setVersionRegion(ITextRegion version) {
-		this.versionTextRegion = version;
-	}
+    public void setVersionRegion(ITextRegion version) {
+        this.versionTextRegion = version;
+    }
 
-	public void setEncodingRegion(ITextRegion encoding) {
-		this.encodingTextRegion = encoding;
-	}
+    public void setEncodingRegion(ITextRegion encoding) {
+        this.encodingTextRegion = encoding;
+    }
 
-	public void setModuleDeclStructuredDocumentRegion(
-			ModuleDeclStructuredDocumentRegion region) {
-		moduleSDRegion = region;
-	}
+    public void setModuleDeclStructuredDocumentRegion(ModuleDeclStructuredDocumentRegion region) {
+        moduleSDRegion = region;
+    }
 
-	public void setNamespacePrefixRegion(ITextRegion version) {
-		this.namespacePrefixTextRegion = version;
-	}
+    public void setNamespacePrefixRegion(ITextRegion version) {
+        this.namespacePrefixTextRegion = version;
+    }
 
-	public String getModuleNamespace() {
-		if (moduleSDRegion != null) {
-			try {
-				ITextRegion region = moduleSDRegion.getNamespace();
-				if (region != null) {
-					// Return namespace without surrounding ""
+    public String getModuleNamespace() {
+        if (moduleSDRegion != null) {
+            try {
+                ITextRegion region = moduleSDRegion.getNamespace();
+                if (region != null) {
+                    // Return namespace without surrounding ""
 
-					return moduleSDRegion.getParentDocument().get(
-							region.getStart() + region.getStart() + 1,
-							region.getLength() - 2);
-				}
-			} catch (BadLocationException e) {
-				// Ignore..
-				return null;
-			}
-		}
+                    return moduleSDRegion.getParentDocument().get(region.getStart() + region.getStart() + 1,
+                            region.getLength() - 2);
+                }
+            } catch (BadLocationException e) {
+                // Ignore..
+                return null;
+            }
+        }
 
-		return null;
-	}
+        return null;
+    }
 
-	/**
-	 * Gets the module prefix or null is none
-	 * @return
-	 */
-	public String getModulePrefix() {
-		if (moduleSDRegion != null) { 
-			ITextRegion region = moduleSDRegion.getNamespacePrefix();
-			if (region != null) {
-				return moduleSDRegion.getFullText(region).trim();
-			}
-		}
+    /**
+     * Gets the module prefix or null is none
+     * 
+     * @return
+     */
+    public String getModulePrefix() {
+        if (moduleSDRegion != null) {
+            ITextRegion region = moduleSDRegion.getNamespacePrefix();
+            if (region != null) {
+                return moduleSDRegion.getFullText(region).trim();
+            }
+        }
 
-		return null;
-	}
+        return null;
+    }
 
-	/**
-	 * Get the function of the given name, or null if none exist
-	 * 
-	 * @param name
-	 * @return
-	 */
-	public ASTFunctionDecl getFunctionDecl(String name) {
-		return functionDecls.get(name);
-	}
+    /**
+     * Get the function of the given name, or null if none exist
+     * 
+     * @param name
+     * @return
+     */
+    public ASTFunctionDecl getFunctionDecl(String name) {
+        return functionDecls.get(name);
+    }
 
-	/**
-	 * Add new function declaration of the given name. Silently replace any
-	 * existing declarations of the same name
-	 * 
-	 * @param name
-	 * @param decl
-	 */
-	public void setFunctionDecl(int index, String name, ASTFunctionDecl decl) {
-		setChildASTNodeAt(index, decl);
-		functionDecls.put(name, decl);
-	}
+    /**
+     * Add new function declaration of the given name. Silently replace any existing declarations of
+     * the same name
+     * 
+     * @param name
+     * @param decl
+     */
+    public void setFunctionDecl(int index, String name, ASTFunctionDecl decl) {
+        setChildASTNodeAt(index, decl);
+        functionDecls.put(name, decl);
+    }
 
-	/**
-	 * Add a new variable declaration
-	 * 
-	 * @param region
-	 */
-	public void setVariableDecl(int index, String name, ASTVarDecl decl) {
-		setChildASTNodeAt(index, decl);
-		variableDecls.put(name, decl);
-	}
+    /**
+     * Add a new variable declaration
+     * 
+     * @param region
+     */
+    public void setVariableDecl(int index, String name, ASTVarDecl decl) {
+        setChildASTNodeAt(index, decl);
+        variableDecls.put(name, decl);
+    }
 
-	/**
-	 * Get the variable of the given name, or null if none exist
-	 * 
-	 * @param name
-	 * @return
-	 */
-	public ASTVarDecl getVariableDecl(String name) {
-		return variableDecls.get(name);
-	}
+    /**
+     * Get the variable of the given name, or null if none exist
+     * 
+     * @param name
+     * @return
+     */
+    public ASTVarDecl getVariableDecl(String name) {
+        return variableDecls.get(name);
+    }
 
-	/**
-	 * @return Query body
-	 */
-	public IASTNode getQueryBody() {
-		return getChildASTNodeAt(getChildASTNodesCount());
-	}
+    /**
+     * @return Query body
+     */
+    public IASTNode getQueryBody() {
+        return getChildASTNodeAt(getChildASTNodesCount());
+    }
 
-	/**
-	 * @param queryBody
-	 */
-	public void setQueryBody(IASTNode expr) {
-		setChildASTNodeAt(getChildASTNodesCount(), expr);
-	}
+    /**
+     * @param queryBody
+     */
+    public void setQueryBody(IASTNode expr) {
+        setChildASTNodeAt(getChildASTNodesCount(), expr);
+    }
 
-	// Overrides
+    // Overrides
 
-	@Override
-	public void staticCheck(IStructuredDocument document,
-			IValidator validator, IReporter reporter) {
-		// ModuleDecl: The URILiteral must be of nonzero length [err:XQST0088]
-		String moduleNS = getModuleNamespace();
+    @Override
+    public void staticCheck(IStructuredDocument document, IValidator validator, IReporter reporter) {
+        // ModuleDecl: The URILiteral must be of nonzero length [err:XQST0088]
+        String moduleNS = getModuleNamespace();
 
-		if (moduleNS != null && moduleNS.length() == 0) {
-			ASTHelper.reportError(moduleSDRegion,
-					moduleSDRegion.getNamespace(),
-					XQueryMessages.errorXQST0088_UI_, validator, reporter);
-		}
-		
-		// ModuleDecl: The namespace prefix specified in a module declaration must not be xml or xmlns [err:XQST0070]
-		final String modulePrefix = getModulePrefix();
-		if (modulePrefix != null && (modulePrefix.equals("xml") || modulePrefix.equals("xmlns")))		 
-				ASTHelper.reportError(moduleSDRegion,
-						moduleSDRegion.getNamespacePrefix(),
-						XQueryMessages.errorXQST0070_MD_UI_, validator, reporter);
+        if (moduleNS != null && moduleNS.length() == 0) {
+            ASTHelper.reportError(moduleSDRegion, moduleSDRegion.getNamespace(), XQueryMessages.errorXQST0088_UI_,
+                    validator, reporter);
+        }
 
-		super.staticCheck(document, validator, reporter);
-	}
+        // ModuleDecl: The namespace prefix specified in a module declaration must not be xml or xmlns [err:XQST0070]
+        final String modulePrefix = getModulePrefix();
+        if (modulePrefix != null && (modulePrefix.equals("xml") || modulePrefix.equals("xmlns"))) {
+            ASTHelper.reportError(moduleSDRegion, moduleSDRegion.getNamespacePrefix(),
+                    XQueryMessages.errorXQST0070_MD_UI_, validator, reporter);
+        }
 
-	@Override
-	public int getType() {
-		return MODULE;
-	}
+        super.staticCheck(document, validator, reporter);
+    }
+
+    @Override
+    public int getType() {
+        return MODULE;
+    }
 
 }

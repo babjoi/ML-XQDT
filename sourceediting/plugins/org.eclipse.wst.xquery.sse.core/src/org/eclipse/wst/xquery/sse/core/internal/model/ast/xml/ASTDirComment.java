@@ -26,86 +26,83 @@ import org.w3c.dom.Node;
  * 
  * @author <a href="villard@us.ibm.com">Lionel Villard</a>
  */
-@SuppressWarnings("restriction")
 public class ASTDirComment extends ProcessingInstructionImpl implements IASTNode {
 
-	// State
+    // State
 
-	/** AST parent node (which could be a non-xml parent) */
-	protected IASTNode parentAST;
+    /** AST parent node (which could be a non-xml parent) */
+    protected IASTNode parentAST;
 
-	// Constructors
+    // Constructors
 
-	public ASTDirComment() {
-	}
+    public ASTDirComment() {
+    }
 
-	/**
-	 * @param astDirDocument
-	 */
-	public ASTDirComment(ASTDirDocument owner) {
-		setOwnerDocument(owner);
-	}
+    /**
+     * @param astDirDocument
+     */
+    public ASTDirComment(ASTDirDocument owner) {
+        setOwnerDocument(owner);
+    }
 
-	// Overrides
+    // Overrides
 
-	// Implements IASTNode
+    // Implements IASTNode
 
-	public IASTNode getChildASTNodeAt(int i) {
-		return null;
-	}
+    public IASTNode getChildASTNodeAt(int i) {
+        return null;
+    }
 
-	public int getChildASTNodesCount() {
-		return 0;
-	}
+    public int getChildASTNodesCount() {
+        return 0;
+    }
 
-	public IASTNode getASTParent() {
-		return parentAST;
-	}
+    public IASTNode getASTParent() {
+        return parentAST;
+    }
 
-	public void setASTParent(IASTNode parent) {
-		parentAST = parent;
-		if (parent instanceof Node)
-			setParentNode((Node) parent);
-	}
+    public void setASTParent(IASTNode parent) {
+        parentAST = parent;
+        if (parent instanceof Node) {
+            setParentNode((Node)parent);
+        }
+    }
 
-	public int getType() {
-		return DIRCOMMENT;
-	}
+    public int getType() {
+        return DIRCOMMENT;
+    }
 
-	public void removeChildASTNodesAfter(int index) {
+    public void removeChildASTNodesAfter(int index) {
 
-	}
+    }
 
-	public void setChildASTNodeAt(int index, IASTNode newChild) {
+    public void setChildASTNodeAt(int index, IASTNode newChild) {
 
-	}
+    }
 
-	public IASTNode getPreviousASTNodeSibling() {
-		return ASTHelper.getPreviousASTNodeSibling(this);
-	}
+    public IASTNode getPreviousASTNodeSibling() {
+        return ASTHelper.getPreviousASTNodeSibling(this);
+    }
 
-	public IASTNode getFollowingASTNodeSibling() {
-		return ASTHelper.getFollowingASTNodeSibling(this);
-	}
+    public IASTNode getFollowingASTNodeSibling() {
+        return ASTHelper.getFollowingASTNodeSibling(this);
+    }
 
-	public void staticCheck(IStructuredDocument document, IValidator validator,
-			IReporter reporter) {
-		ASTHelper.staticCheck(this, document, validator, reporter);
-	}
+    public void staticCheck(IStructuredDocument document, IValidator validator, IReporter reporter) {
+        ASTHelper.staticCheck(this, document, validator, reporter);
+    }
 
-	public List<IMessage> getErrorMessages() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+    public List<IMessage> getErrorMessages() {
+        // TODO Auto-generated method stub
+        return null;
+    }
 
-	public List<String> getInScopeVariables() {
-		return getASTParent() == null ? null : getASTParent()
-				.getInScopeVariables();
-	}
+    public List<String> getInScopeVariables() {
+        return getASTParent() == null ? null : getASTParent().getInScopeVariables();
+    }
 
-	public void toString(int indent, StringBuilder builder) {
-		builder.append(toString());
-	}
- 
+    public void toString(int indent, StringBuilder builder) {
+        builder.append(toString());
+    }
 
 }

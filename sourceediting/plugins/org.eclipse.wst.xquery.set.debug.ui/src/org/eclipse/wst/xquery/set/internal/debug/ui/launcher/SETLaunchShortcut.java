@@ -41,7 +41,6 @@ import org.eclipse.wst.xquery.set.debug.core.ISETLaunchConfigurationConstants;
 import org.eclipse.wst.xquery.set.internal.ui.SETEditProjectConfigDialog;
 import org.eclipse.wst.xquery.set.launching.SETRuntimeProcessFactory;
 
-@SuppressWarnings("restriction")
 public class SETLaunchShortcut extends AbstractScriptLaunchShortcut {
 
     protected ILaunchConfigurationType getConfigurationType() {
@@ -89,6 +88,7 @@ public class SETLaunchShortcut extends AbstractScriptLaunchShortcut {
         return super.findScripts(new Object[] { sp.getProjectFragment(hd) }, context);
     }
 
+    @SuppressWarnings("deprecation")
     protected ILaunchConfiguration createConfiguration(IProject project, String startPage) {
         ILaunchConfiguration config = null;
         ILaunchConfigurationWorkingCopy wc = null;

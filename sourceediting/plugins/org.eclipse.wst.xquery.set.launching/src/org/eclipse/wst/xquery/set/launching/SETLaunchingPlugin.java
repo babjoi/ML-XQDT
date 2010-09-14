@@ -16,8 +16,11 @@ import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.Platform;
 import org.eclipse.core.runtime.Plugin;
 import org.eclipse.core.runtime.Status;
+import org.eclipse.core.runtime.preferences.DefaultScope;
+import org.eclipse.core.runtime.preferences.IEclipsePreferences;
 import org.eclipse.dltk.core.environment.IFileHandle;
 import org.eclipse.dltk.core.internal.environment.LocalEnvironment;
+import org.eclipse.dltk.internal.launching.DLTKLaunchingPlugin;
 import org.eclipse.dltk.launching.IInterpreterInstall;
 import org.eclipse.dltk.launching.IInterpreterInstallChangedListener;
 import org.eclipse.dltk.launching.PropertyChangeEvent;
@@ -27,6 +30,7 @@ import org.eclipse.wst.xquery.set.internal.launching.variables.CoreSdkExecNameRe
 import org.eclipse.wst.xquery.set.internal.launching.variables.CoreSdkLocationResolver;
 import org.eclipse.wst.xquery.set.internal.launching.variables.CoreSdkVersionResolver;
 import org.osgi.framework.BundleContext;
+import org.osgi.service.prefs.BackingStoreException;
 
 /**
  * The activator class controls the plug-in life cycle
@@ -101,7 +105,10 @@ public class SETLaunchingPlugin extends Plugin implements IInterpreterInstallCha
             if (!handle.exists()) {
                 Path path = new Path(handle.toOSString());
                 StringBuffer pathSB = new StringBuffer(path.toPortableString());
-                String xml = ScriptRuntime.getPreferences().getString(ScriptRuntime.PREF_INTERPRETER_XML);
+
+                DefaultScope scope = new DefaultScope();
+                IEclipsePreferences pref = scope.getNode(DLTKLaunchingPlugin.PLUGIN_ID);
+                String xml = pref.get(ScriptRuntime.PREF_INTERPRETER_XML, null);
 
                 // first try to find an installed CoreSDK and recover
                 // by replacing the old values with new resolves ones
@@ -129,8 +136,17 @@ public class SETLaunchingPlugin extends Plugin implements IInterpreterInstallCha
                     }
                 }
 
-                ScriptRuntime.getPreferences().setValue(ScriptRuntime.PREF_INTERPRETER_XML, xml);
-                ScriptRuntime.savePreferences();
+                pref.put(ScriptRuntime.PREF_INTERPRETER_XML, xml);
+                try {
+                    pref.flush();
+                } catch (BackingStoreException e) {
+                    IStatus status = new Status(IStatus.ERROR, SETLaunchingPlugin.PLUGIN_ID, IStatus.ERROR,
+                            "Problem saving interpreter XML preferences", e);
+                    SETLaunchingPlugin.log(status);
+                }
+
+//                ScriptRuntime.getPreferences().setValue(ScriptRuntime.PREF_INTERPRETER_XML, xml);
+//                ScriptRuntime.savePreferences();
             }
         }
     }

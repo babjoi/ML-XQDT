@@ -19,7 +19,6 @@ import org.eclipse.wst.xquery.core.model.ast.XQueryFunctionDecl;
 import org.eclipse.wst.xquery.internal.core.parser.antlr.XQueryLexer;
 import org.eclipse.wst.xquery.internal.ui.XQDTImages;
 
-@SuppressWarnings("restriction")
 public class AddSequentialKeywordCorrection implements IScriptCompletionProposal {
 
     private XQueryFunctionDecl function = null;

@@ -54,7 +54,6 @@ import org.eclipse.wst.xquery.set.internal.launching.server.ServerManager;
 import org.eclipse.wst.xquery.set.internal.ui.SETEditProjectConfigDialog;
 import org.eclipse.wst.xquery.set.launching.SETRuntimeProcessFactory;
 
-@SuppressWarnings("restriction")
 public class SETMainLaunchConfigurationTab extends MainLaunchConfigurationTab {
 
     private SocketSelectionBlock fSocketBlock;

@@ -130,8 +130,8 @@ public class SETDebuggerEngine extends DbgpTermination implements IDebuggerEngin
 //                            fireObjectTerminated(se);
 //                        }
                     } catch (ProtocolException pe) {
-                        ZorbaDebuggerPlugin.getDefault().getLog().log(
-                                new Status(IStatus.ERROR, ZorbaDebuggerPlugin.PLUGIN_ID, pe.getMessage(), pe));
+                        ZorbaDebuggerPlugin.getDefault().getLog()
+                                .log(new Status(IStatus.ERROR, ZorbaDebuggerPlugin.PLUGIN_ID, pe.getMessage(), pe));
                     }
                 }
             } catch (Exception e) {
@@ -144,6 +144,7 @@ public class SETDebuggerEngine extends DbgpTermination implements IDebuggerEngin
             return new Status(IStatus.ERROR, XQDTDebugCorePlugin.PLUGIN_ID, 0, exception.getMessage(), exception);
         }
 
+        @SuppressWarnings("unused")
         public void close() {
             try {
                 fEventReader.close();

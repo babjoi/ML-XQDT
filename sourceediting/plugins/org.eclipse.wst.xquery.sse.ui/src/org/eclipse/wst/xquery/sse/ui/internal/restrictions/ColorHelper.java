@@ -17,7 +17,6 @@ import org.eclipse.swt.graphics.RGB;
  * Class that groups the restricted access to
  * <code>org.eclipse.wst.sse.ui.internal.preferences.ui.ColorHelper</code>.
  */
-@SuppressWarnings("restriction")
 public class ColorHelper extends org.eclipse.wst.sse.ui.internal.preferences.ui.ColorHelper {
 
     public static RGB toRGB(String anRGBString) {

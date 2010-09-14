@@ -38,7 +38,7 @@ import org.eclipse.wst.xquery.sse.ui.style.IXQDTColorKeys;
  * 
  * @author villardl
  */
-@SuppressWarnings({ "restriction", "rawtypes" })
+@SuppressWarnings({ "rawtypes", "unused", "unchecked" })
 public class XQDTLineStyleProvider extends AbstractLineStyleProvider implements LineStyleProvider, IXQDTColorKeys {
 
     // Constants
@@ -195,7 +195,6 @@ public class XQDTLineStyleProvider extends AbstractLineStyleProvider implements 
         return XQDTSSEUIPlugin.getDefault().getPreferenceStore();
     }
 
-    @SuppressWarnings("unchecked")
     protected void loadColors() {
         addTextAttribute(CK_STRING_LITERAL);
         addTextAttribute(CK_KEYWORD);

@@ -17,7 +17,6 @@ import org.eclipse.wst.xml.core.internal.provisional.format.StructuredFormatPref
  * 
  * @author <a href="villard@us.ibm.com">Lionel Villard</a>
  */
-@SuppressWarnings("restriction")
 public class XQDTStructuredFormatPreferences extends StructuredFormatPreferencesXML {
 
 }

@@ -29,46 +29,45 @@ import org.eclipse.wst.sse.ui.internal.provisional.extensions.breakpoint.IBreakp
  * @author <a href="villard@us.ibm.com">Lionel Villard</a>
  */
 
-@SuppressWarnings("restriction")
 public class BreakpointProvider implements IBreakpointProvider {
 
-	// State
+    // State
 
-	/** The text tools */
-	ISourceEditingTextTools tool;
+    /** The text tools */
+    ISourceEditingTextTools tool;
 
-	// Implements IBreakpointProvider
+    // Implements IBreakpointProvider
 
-	public IStatus addBreakpoint(IDocument document, IEditorInput input, int lineNumber, int offset)
-			throws CoreException {
+    public IStatus addBreakpoint(IDocument document, IEditorInput input, int lineNumber, int offset)
+            throws CoreException {
 
-		IResource resource = getResource(input);
-		if (resource != null) {
+        IResource resource = getResource(input);
+        if (resource != null) {
 
-			try {
-				final int startChar = document.getLineOffset(lineNumber - 1);
-				final int endChar = startChar + document.getLineLength(lineNumber - 1);
+            try {
+                final int startChar = document.getLineOffset(lineNumber - 1);
+                final int endChar = startChar + document.getLineLength(lineNumber - 1);
 
-				// Create breakpoint in DLTK.
-				ScriptDebugModel.createLineBreakpoint(resource, resource.getFullPath(), lineNumber, startChar, endChar,
-						true, null);
+                // Create breakpoint in DLTK.
+                ScriptDebugModel.createLineBreakpoint(resource, resource.getFullPath(), lineNumber, startChar, endChar,
+                        true, null);
 
-				return Status.OK_STATUS;
-			} catch (BadLocationException e) {
+                return Status.OK_STATUS;
+            } catch (BadLocationException e) {
 
-			}
+            }
 
-		}
+        }
 
-		// Fallback.
-		return Status.CANCEL_STATUS;
-	}
+        // Fallback.
+        return Status.CANCEL_STATUS;
+    }
 
-	public void setSourceEditingTextTools(ISourceEditingTextTools tool) {
-		this.tool = tool;
-	}
+    public void setSourceEditingTextTools(ISourceEditingTextTools tool) {
+        this.tool = tool;
+    }
 
-	public IResource getResource(IEditorInput input) {
-		return (IResource) input.getAdapter(IResource.class);
-	}
+    public IResource getResource(IEditorInput input) {
+        return (IResource)input.getAdapter(IResource.class);
+    }
 }

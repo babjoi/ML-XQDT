@@ -30,13 +30,13 @@ import org.eclipse.wst.xquery.sse.core.internal.sdregions.XQueryStructuredDocume
  * 
  * <p>
  * For now it's really a basic content assist for demo purposes.
- * 
+ * </p>
  * <p>
  * Should be hooked up somehow to the XML content assist processor.
+ * </p>
  * 
  * @author <a href="villard@us.ibm.com">Lionel Villard</a>
  */
-@SuppressWarnings("restriction")
 public class XQDTVariableContentAssistProcessor extends AbstractContentAssistProcessor {
 
     // Overrides

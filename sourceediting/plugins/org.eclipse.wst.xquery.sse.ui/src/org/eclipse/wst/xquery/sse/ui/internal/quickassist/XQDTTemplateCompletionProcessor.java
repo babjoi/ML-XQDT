@@ -29,10 +29,8 @@ import org.eclipse.jface.text.templates.persistence.TemplateStore;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.wst.sse.core.StructuredModelManager;
 import org.eclipse.wst.sse.core.internal.provisional.text.IStructuredDocument;
-import org.eclipse.wst.sse.core.internal.provisional.text.IStructuredDocumentRegion;
 import org.eclipse.wst.xquery.sse.core.internal.model.XQueryStructuredModel;
 import org.eclipse.wst.xquery.sse.core.internal.model.ast.IASTNode;
-import org.eclipse.wst.xquery.sse.core.internal.regions.XQueryRegions;
 import org.eclipse.wst.xquery.sse.core.internal.sdregions.XQueryStructuredDocumentRegion;
 import org.eclipse.wst.xquery.sse.ui.XQDTSSEUIPlugin;
 import org.eclipse.wst.xquery.sse.ui.internal.preferences.XQDTTemplatePreferencePage;
@@ -42,167 +40,155 @@ import org.eclipse.wst.xquery.sse.ui.internal.preferences.XQDTTemplatePreference
  * 
  * Templates include:
  * <ul>
- * <li>User-defined templates. See {@link XQDTTemplatePreferencePage}
- * <li>Builtins functions
- * <li>TODO: XML character template
+ * <li>User-defined templates. See {@link XQDTTemplatePreferencePage}</li>
+ * <li>Builtins functions</li>
+ * <li>TODO: XML character template</li>
  * </ul>
- * 
- * 
  * 
  * @author <a href="villard@us.ibm.com">Lionel Villard</a>
  */
-@SuppressWarnings("restriction")
-public class XQDTTemplateCompletionProcessor extends
-		TemplateCompletionProcessor {
+public class XQDTTemplateCompletionProcessor extends TemplateCompletionProcessor {
 
-	// State
+    // State
 
-	/** Context type ID */
-	protected String contextTypeID;
+    /** Context type ID */
+    protected String contextTypeID;
 
-	// Methods
+    // Methods
 
-	/**
-	 * Gets the context the given node lives in
-	 */
-	protected TemplateContextType getContextType(IASTNode node) {
-		if (node != null) {
-			final IASTNode prev = node.getPreviousASTNodeSibling();
-			if (prev != null) {
-				switch (prev.getType()) {
-				case IASTNode.VARDECL:
-				case IASTNode.FUNCTIONDECL:
-					return XQDTTemplateContexTypeIDs.ALL_BUT_PROLOG1_TCT;
-				}
-			}
-		}
-		
-		// Coudn't figure out context => could be in any
-		return XQDTTemplateContexTypeIDs.ALL_TCT;
-	}
+    /**
+     * Gets the context the given node lives in
+     */
+    protected TemplateContextType getContextType(IASTNode node) {
+        if (node != null) {
+            final IASTNode prev = node.getPreviousASTNodeSibling();
+            if (prev != null) {
+                switch (prev.getType()) {
+                case IASTNode.VARDECL:
+                case IASTNode.FUNCTIONDECL:
+                    return XQDTTemplateContexTypeIDs.ALL_BUT_PROLOG1_TCT;
+                }
+            }
+        }
 
-	// Overrides
+        // Coudn't figure out context => could be in any
+        return XQDTTemplateContexTypeIDs.ALL_TCT;
+    }
 
-	@Override
-	protected TemplateContextType getContextType(ITextViewer viewer,
-			IRegion region) {
-		final IStructuredDocument document = (IStructuredDocument) viewer
-				.getDocument();
-		final XQueryStructuredDocumentRegion sdregion = (XQueryStructuredDocumentRegion) document
-				.getRegionAtCharacterOffset(region.getOffset());
+    // Overrides
 
-		if (sdregion != null) {
+    @Override
+    protected TemplateContextType getContextType(ITextViewer viewer, IRegion region) {
+        final IStructuredDocument document = (IStructuredDocument)viewer.getDocument();
+        final XQueryStructuredDocumentRegion sdregion = (XQueryStructuredDocumentRegion)document
+                .getRegionAtCharacterOffset(region.getOffset());
 
-			final XQueryStructuredModel model = (XQueryStructuredModel) StructuredModelManager
-					.getModelManager().getModelForRead(document);
+        if (sdregion != null) {
 
-			final IASTNode node = model.getASTNode(sdregion);
+            final XQueryStructuredModel model = (XQueryStructuredModel)StructuredModelManager.getModelManager()
+                    .getModelForRead(document);
 
-			
-			TemplateContextType tct = getContextType(node);
+            final IASTNode node = model.getASTNode(sdregion);
 
-			model.releaseFromRead();
+            TemplateContextType tct = getContextType(node);
 
-			return tct;
-		}
+            model.releaseFromRead();
 
-		// Coudn't figure out context => allow all
-		return XQDTTemplateContexTypeIDs.ALL_TCT;
-	}
+            return tct;
+        }
 
-	@Override
-	protected Image getImage(Template template) {
-		return null;
-	}
+        // Coudn't figure out context => allow all
+        return XQDTTemplateContexTypeIDs.ALL_TCT;
+    }
 
-	@Override
-	protected Template[] getTemplates(String contextTypeId) {
-		String[] ids;
+    @Override
+    protected Image getImage(Template template) {
+        return null;
+    }
 
-		// Is this a logical context type ID?
-		if (contextTypeId == XQDTTemplateContexTypeIDs.PROLOG12) {
-			ids = new String[] { XQDTTemplateContexTypeIDs.PROLOG1,
-					XQDTTemplateContexTypeIDs.PROLOG2 };
-		} else if (contextTypeId == XQDTTemplateContexTypeIDs.ALL) {
-			ids = new String[] { XQDTTemplateContexTypeIDs.PROLOG1,
-					XQDTTemplateContexTypeIDs.PROLOG2,
-					XQDTTemplateContexTypeIDs.EXPR };
-		} else if (contextTypeId == XQDTTemplateContexTypeIDs.ALL_BUT_PROLOG1) {
-			ids = new String[] { XQDTTemplateContexTypeIDs.PROLOG2,
-					XQDTTemplateContexTypeIDs.EXPR };
-		} else {
-			ids = new String[] { contextTypeId };
-		}
+    @Override
+    protected Template[] getTemplates(String contextTypeId) {
+        String[] ids;
 
-		final TemplateStore store = getTemplateStore();
-		if (store != null) {
-			List<Template> templates = new ArrayList<Template>();
+        // Is this a logical context type ID?
+        if (contextTypeId == XQDTTemplateContexTypeIDs.PROLOG12) {
+            ids = new String[] { XQDTTemplateContexTypeIDs.PROLOG1, XQDTTemplateContexTypeIDs.PROLOG2 };
+        } else if (contextTypeId == XQDTTemplateContexTypeIDs.ALL) {
+            ids = new String[] { XQDTTemplateContexTypeIDs.PROLOG1, XQDTTemplateContexTypeIDs.PROLOG2,
+                    XQDTTemplateContexTypeIDs.EXPR };
+        } else if (contextTypeId == XQDTTemplateContexTypeIDs.ALL_BUT_PROLOG1) {
+            ids = new String[] { XQDTTemplateContexTypeIDs.PROLOG2, XQDTTemplateContexTypeIDs.EXPR };
+        } else {
+            ids = new String[] { contextTypeId };
+        }
 
-			for (int i = 0; i < ids.length; i++) {
-				Template[] t = store.getTemplates(ids[i]);
-				if (t != null) {
-					for (int j = 0; j < t.length; j++)
-						templates.add(t[j]);
-				}
-			}
+        final TemplateStore store = getTemplateStore();
+        if (store != null) {
+            List<Template> templates = new ArrayList<Template>();
 
-			Template[] array = new Template[templates.size()];
-			return templates.toArray(array);
-		}
+            for (int i = 0; i < ids.length; i++) {
+                Template[] t = store.getTemplates(ids[i]);
+                if (t != null) {
+                    for (int j = 0; j < t.length; j++) {
+                        templates.add(t[j]);
+                    }
+                }
+            }
 
-		return null;
-	}
+            Template[] array = new Template[templates.size()];
+            return templates.toArray(array);
+        }
 
-	@Override
-	public ICompletionProposal[] computeCompletionProposals(ITextViewer viewer,
-			int offset) {
-		ITextSelection selection = (ITextSelection) viewer
-				.getSelectionProvider().getSelection();
+        return null;
+    }
 
-		// adjust offset to end of normalized selection
-		if (selection.getOffset() == offset)
-			offset = selection.getOffset() + selection.getLength();
+    @Override
+    public ICompletionProposal[] computeCompletionProposals(ITextViewer viewer, int offset) {
+        ITextSelection selection = (ITextSelection)viewer.getSelectionProvider().getSelection();
 
-		String prefix = extractPrefix(viewer, offset);
-		Region region = new Region(offset - prefix.length(), prefix.length());
-		TemplateContext context = createContext(viewer, region);
-		if (context == null)
-			return new ICompletionProposal[0];
+        // adjust offset to end of normalized selection
+        if (selection.getOffset() == offset) {
+            offset = selection.getOffset() + selection.getLength();
+        }
 
-		context.setVariable("selection", selection.getText()); // name of the selection variables {line, word}_selection //$NON-NLS-1$
+        String prefix = extractPrefix(viewer, offset);
+        Region region = new Region(offset - prefix.length(), prefix.length());
+        TemplateContext context = createContext(viewer, region);
+        if (context == null) {
+            return new ICompletionProposal[0];
+        }
 
-		Template[] templates = getTemplates(context.getContextType().getId());
+        context.setVariable("selection", selection.getText()); // name of the selection variables {line, word}_selection //$NON-NLS-1$
 
-		List<ICompletionProposal> matches = new ArrayList<ICompletionProposal>();
-		for (int i = 0; i < templates.length; i++) {
-			Template template = templates[i];
+        Template[] templates = getTemplates(context.getContextType().getId());
 
-			final int relevance = getRelevance(template, prefix);
-			if (relevance > 0)
-				matches.add(createProposal(template, context, (IRegion) region,
-						relevance));
-		}
+        List<ICompletionProposal> matches = new ArrayList<ICompletionProposal>();
+        for (int i = 0; i < templates.length; i++) {
+            Template template = templates[i];
 
-		Collections.sort(matches, fgProposalComparator);
+            final int relevance = getRelevance(template, prefix);
+            if (relevance > 0) {
+                matches.add(createProposal(template, context, (IRegion)region, relevance));
+            }
+        }
 
-		return (ICompletionProposal[]) matches
-				.toArray(new ICompletionProposal[matches.size()]);
-	}
+        Collections.sort(matches, fgProposalComparator);
 
-	// Helpers
+        return matches.toArray(new ICompletionProposal[matches.size()]);
+    }
 
-	private TemplateStore getTemplateStore() {
-		return XQDTSSEUIPlugin.getDefault().getTemplateStore();
-	}
+    // Helpers
 
-	private static final class ProposalComparator implements
-			Comparator<ICompletionProposal> {
-		public int compare(ICompletionProposal o1, ICompletionProposal o2) {
-			return ((TemplateProposal) o2).getRelevance()
-					- ((TemplateProposal) o1).getRelevance();
-		}
-	}
+    private TemplateStore getTemplateStore() {
+        return XQDTSSEUIPlugin.getDefault().getTemplateStore();
+    }
 
-	private static final Comparator<ICompletionProposal> fgProposalComparator = new ProposalComparator();
+    private static final class ProposalComparator implements Comparator<ICompletionProposal> {
+        public int compare(ICompletionProposal o1, ICompletionProposal o2) {
+            return ((TemplateProposal)o2).getRelevance() - ((TemplateProposal)o1).getRelevance();
+        }
+    }
+
+    private static final Comparator<ICompletionProposal> fgProposalComparator = new ProposalComparator();
 
 }

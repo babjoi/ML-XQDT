@@ -91,6 +91,11 @@
       <category id="uriResolverCategory">
          <label>URI Resolvers</label>
       </category>
+   </extension>
+   <extension
+         id="uriResolvers"
+         name="URI Resolvers"
+         point="org.eclipse.wst.common.project.facet.core.groups">
       <group
             id="uriResolvers">
          <label>

@@ -24,7 +24,6 @@ import org.eclipse.swt.events.VerifyEvent;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.wst.xquery.internal.core.parser.antlr.XMLLexer;
 
-@SuppressWarnings("restriction")
 public class XQDTXMLAutoInserter implements VerifyKeyListener {
 
     private final ScriptEditor editor;

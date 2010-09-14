@@ -97,7 +97,6 @@ import org.eclipse.wst.xquery.sse.ui.internal.style.XQDTLineStyleProvider;
  * TODO: The similar XML page should be extended such that languages like XQuery can benefit from
  * the base XML functionality by inheriting from it and add only the extra functionality.
  */
-@SuppressWarnings("restriction")
 public class XQDTSyntaxColoringPage extends PreferencePage implements IWorkbenchPreferencePage {
 
     private Combo fSchemeCombo;
@@ -848,8 +847,7 @@ public class XQDTSyntaxColoringPage extends PreferencePage implements IWorkbench
         fStyleToDescriptionMap.put(XQDTLineStyleProvider.CK_XML_ATTR_VALUE, XQDTUIMessages.Attribute_Values_UI_);
         fStyleToDescriptionMap.put(XQDTLineStyleProvider.CK_XML_CDATA_CONTENT, XQDTUIMessages.CDATA_Content_UI_);
         fStyleToDescriptionMap.put(XQDTLineStyleProvider.CK_XML_CONTENT, XQDTUIMessages.Content_UI_);
-        fStyleToDescriptionMap
-                .put(XQDTLineStyleProvider.CK_XML_ENTITY_REFERENCE, XQDTUIMessages.Entity_Reference_UI_);
+        fStyleToDescriptionMap.put(XQDTLineStyleProvider.CK_XML_ENTITY_REFERENCE, XQDTUIMessages.Entity_Reference_UI_);
         fStyleToDescriptionMap.put(XQDTLineStyleProvider.CK_XML_PI_CONTENT,
                 XQDTUIMessages.Processing_Instruction_Con_UI__UI_);
         fStyleToDescriptionMap.put(XQDTLineStyleProvider.CK_XML_TAG_NAME, XQDTUIMessages.Tag_Names_UI_);

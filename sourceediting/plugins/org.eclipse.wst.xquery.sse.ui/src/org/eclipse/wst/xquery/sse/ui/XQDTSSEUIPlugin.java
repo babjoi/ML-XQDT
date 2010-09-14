@@ -23,92 +23,89 @@ import org.osgi.framework.BundleContext;
 /**
  * The activator class controls the plug-in life cycle
  */
-@SuppressWarnings("restriction")
 public class XQDTSSEUIPlugin extends UIPlugin {
 
-	// The plug-in ID
-	public static final String PLUGIN_ID = "org.eclipse.wst.xquery.ui.sse";
+    // The plug-in ID
+    public static final String PLUGIN_ID = "org.eclipse.wst.xquery.ui.sse";
 
-	// The shared instance
-	private static XQDTSSEUIPlugin plugin;
+    // The shared instance
+    private static XQDTSSEUIPlugin plugin;
 
-	// Template store
-	private TemplateStore templateStore;
+    // Template store
+    private TemplateStore templateStore;
 
-	// Context Type registry
-	private ContextTypeRegistry contextTypeRegistry;
+    // Context Type registry
+    private ContextTypeRegistry contextTypeRegistry;
 
-	/**
-	 * The constructor
-	 */
-	public XQDTSSEUIPlugin() {
-	}
+    /**
+     * The constructor
+     */
+    public XQDTSSEUIPlugin() {
+    }
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * org.eclipse.core.runtime.Plugins#start(org.osgi.framework.BundleContext)
-	 */
-	public void start(BundleContext context) throws Exception {
-		super.start(context);
-		plugin = this;
-	}
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.eclipse.core.runtime.Plugins#start(org.osgi.framework.BundleContext)
+     */
+    public void start(BundleContext context) throws Exception {
+        super.start(context);
+        plugin = this;
+    }
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * org.eclipse.core.runtime.Plugin#stop(org.osgi.framework.BundleContext)
-	 */
-	public void stop(BundleContext context) throws Exception {
-		plugin = null;
-		super.stop(context);
-	}
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.eclipse.core.runtime.Plugin#stop(org.osgi.framework.BundleContext)
+     */
+    public void stop(BundleContext context) throws Exception {
+        plugin = null;
+        super.stop(context);
+    }
 
-	/**
-	 * Returns the shared instance
-	 * 
-	 * @return the shared instance
-	 */
-	public static XQDTSSEUIPlugin getDefault() {
-		return plugin;
-	}
+    /**
+     * Returns the shared instance
+     * 
+     * @return the shared instance
+     */
+    public static XQDTSSEUIPlugin getDefault() {
+        return plugin;
+    }
 
-	/**
-	 * Returns the template store for the xml editor templates.
-	 * 
-	 * @return the template store for the xml editor templates
-	 */
-	public TemplateStore getTemplateStore() {
-		if (templateStore == null) {
-			templateStore = new ContributionTemplateStore(getTemplateContextRegistry(), getPreferenceStore(),
-					"org.eclipse.wst.xquery.templates");
+    /**
+     * Returns the template store for the xml editor templates.
+     * 
+     * @return the template store for the xml editor templates
+     */
+    public TemplateStore getTemplateStore() {
+        if (templateStore == null) {
+            templateStore = new ContributionTemplateStore(getTemplateContextRegistry(), getPreferenceStore(),
+                    "org.eclipse.wst.xquery.templates");
 
-			try {
-				templateStore.load();
-			} catch (IOException e) {
-				Logger.logException(e);
-			}
-		}
-		return templateStore;
-	}
+            try {
+                templateStore.load();
+            } catch (IOException e) {
+                Logger.logException(e);
+            }
+        }
+        return templateStore;
+    }
 
-	/**
-	 * Returns the template context type registry for the XQDT plugin.
-	 * 
-	 * @return the template context type registry for the XQDT plugin
-	 */
-	public ContextTypeRegistry getTemplateContextRegistry() {
-		if (contextTypeRegistry == null) {
-			ContributionContextTypeRegistry registry = new ContributionContextTypeRegistry(
-					"org.eclipse.wst.xquery.sse.ui.contextTypeRegistry");
+    /**
+     * Returns the template context type registry for the XQDT plugin.
+     * 
+     * @return the template context type registry for the XQDT plugin
+     */
+    public ContextTypeRegistry getTemplateContextRegistry() {
+        if (contextTypeRegistry == null) {
+            ContributionContextTypeRegistry registry = new ContributionContextTypeRegistry(
+                    "org.eclipse.wst.xquery.sse.ui.contextTypeRegistry");
 
-			// registry.addContextType(XQDTTemplateContexTypeIDs.PROLOG1);
+            // registry.addContextType(XQDTTemplateContexTypeIDs.PROLOG1);
 
-			contextTypeRegistry = registry;
-		}
+            contextTypeRegistry = registry;
+        }
 
-		return contextTypeRegistry;
-	}
+        return contextTypeRegistry;
+    }
 }

@@ -1504,19 +1504,11 @@ p_IndexDomainExpr
         ;
 
 p_IndexKeySpec
-        : p_IndexKeyExpr p_IndexKeyTypeDecl p_IndexKeyCollation?
+        : p_IndexKeyExpr p_TypeDeclaration p_OrderModifier
         ;
 
 p_IndexKeyExpr
         : p_PathExpr
-        ;
-
-p_IndexKeyTypeDecl
-        : ka=AS {ak($ka);} p_AtomicType
-        ;
-
-p_IndexKeyCollation
-        : kc=COLLATION {ak($kc);} p_StringLiteral
         ;
 
 p_ICDecl

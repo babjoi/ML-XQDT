@@ -1,4 +1,4 @@
-// $ANTLR 3.1.2 XQueryLexer.g 2010-07-13 22:09:14
+// $ANTLR 3.1.2 XQueryLexer.g 2010-09-20 15:34:04
 
 /*******************************************************************************
  * Copyright (c) 2008, 2009 28msec Inc. and others.
@@ -20,256 +20,256 @@ import java.util.List;
 import java.util.ArrayList;
 
 public class XQueryLexer extends XQDTLexer {
-    public static final int FUNCTION=54;
-    public static final int APOS=234;
-    public static final int STAR=206;
-    public static final int LSQUARE=198;
-    public static final int L_AnyChar=252;
-    public static final int PER_MILLE=130;
-    public static final int NON=182;
-    public static final int MOD=72;
-    public static final int PATTERN_SEPARATOR=128;
-    public static final int CONST=171;
-    public static final int EXCEPT=49;
-    public static final int EOF=-1;
-    public static final int FOREIGN=174;
-    public static final int L_DirPIConstructor=247;
-    public static final int PI_END=230;
-    public static final int LBRACKET=196;
-    public static final int VBAR=224;
-    public static final int RPAREN=194;
-    public static final int SLASH_SLASH=216;
-    public static final int IMPORT=60;
-    public static final int CDATA_END=15;
-    public static final int USING=165;
-    public static final int BIND=201;
-    public static final int PRECEDING=86;
-    public static final int RETURN=90;
-    public static final int ELEMENT=42;
-    public static final int EQ=47;
-    public static final int READ_ONLY=186;
-    public static final int CHILD=29;
-    public static final int GE=55;
-    public static final int STRICT=98;
-    public static final int PRESERVE=88;
-    public static final int KEY=178;
-    public static final int ELSE=43;
-    public static final int TYPESWITCH=104;
-    public static final int SEMICOLON=223;
-    public static final int APPEND_ONLY=166;
-    public static final int S=243;
-    public static final int EMPTY_CLOSE_TAG=221;
-    public static final int VALUE=154;
-    public static final int EMPTY=44;
-    public static final int INTERSECT=64;
-    public static final int GROUP=119;
-    public static final int SCHEMA_ELEMENT=94;
-    public static final int NO_PRESERVE=77;
-    public static final int CONSTANT=157;
-    public static final int GT=57;
-    public static final int MAINTAINED=179;
-    public static final int END=118;
-    public static final int CONSTRAINT=170;
-    public static final int L_QuotAttrContentChar=4;
-    public static final int NAN=124;
-    public static final int RENAME=149;
-    public static final int MODIFY=147;
-    public static final int EQUALITY=172;
-    public static final int OPTION=80;
-    public static final int BOUNDARY_SPACE=24;
-    public static final int ONLY=126;
-    public static final int SATISFIES=91;
-    public static final int VERSION=109;
-    public static final int L_DirCommentConstructor=246;
-    public static final int IDIV=58;
-    public static final int ASCENDING=20;
-    public static final int LPAREN=193;
-    public static final int UPDATING=153;
-    public static final int AT=21;
-    public static final int EMPTY_SEQUENCE=45;
-    public static final int AS=19;
-    public static final int PARENT=85;
-    public static final int CONSTRUCTION=32;
-    public static final int SLASH=215;
-    public static final int THEN=101;
-    public static final int DOCUMENT=40;
-    public static final int COLLATION=30;
-    public static final int MINUS_SIGN=122;
-    public static final int REPLACE=150;
-    public static final int PREVIOUS=131;
-    public static final int MANUALLY=180;
-    public static final int ANCESTOR=16;
-    public static final int NODES=148;
-    public static final int PLUS=207;
-    public static final int CASTABLE=28;
-    public static final int PRAGMA_START=225;
-    public static final int DOT_DOT=218;
-    public static final int GREATEREQ=212;
-    public static final int OUTER=127;
-    public static final int BY=25;
-    public static final int L_DoubleLiteral=250;
-    public static final int NCNameChar=237;
-    public static final int ITEM=66;
-    public static final int TO=102;
-    public static final int ESCAPE_RBRACKET=11;
-    public static final int L_DecimalLiteral=249;
-    public static final int INHERIT=62;
-    public static final int QUOT=235;
-    public static final int ANCESTOR_OR_SELF=17;
-    public static final int SU=244;
-    public static final int SET=161;
-    public static final int COLON_COLON=220;
-    public static final int MINUS=208;
-    public static final int TEXT=100;
-    public static final int MODULE=73;
-    public static final int ORDERED=83;
-    public static final int ESCAPE_LBRACKET=10;
-    public static final int NAMESPACE_NODE=123;
-    public static final int UNION=105;
-    public static final int SCHEMA_ATTRIBUTE=93;
-    public static final int COLON=219;
-    public static final int FOLLOWING_SIBLING=52;
-    public static final int APOS_ER=191;
-    public static final int SCHEMA=92;
-    public static final int WHEN=136;
-    public static final int INSTANCE=63;
-    public static final int VALIDATE=107;
-    public static final int INFINITY=121;
-    public static final int BLOCK=156;
-    public static final int DECLARE=34;
-    public static final int START=133;
-    public static final int DIV=39;
-    public static final int DESCENDING=38;
-    public static final int SEQUENTIAL=160;
-    public static final int SELF=95;
-    public static final int MUTABLE=181;
-    public static final int FIRST=143;
-    public static final int CAST=27;
-    public static final int XML_COMMENT_END=228;
-    public static final int EXTERNAL=50;
-    public static final int LT=71;
-    public static final int WHILE=163;
-    public static final int CASE=26;
-    public static final int ENCODING=46;
-    public static final int COUNT=114;
-    public static final int DOCUMENT_NODE=41;
-    public static final int NOTEQUAL=202;
-    public static final int L_NCName=238;
-    public static final int L_Comment=251;
-    public static final int GREATER=210;
-    public static final int GREATER_GREATER=214;
-    public static final int QUOT_ER=192;
-    public static final int INSERT=144;
-    public static final int XML_COMMENT_START=227;
-    public static final int Digits=242;
-    public static final int RETURNING=159;
-    public static final int L_Pragma=245;
-    public static final int QUEUE=184;
-    public static final int ZERO_DIGIT=138;
-    public static final int LAST=146;
-    public static final int COMMENT=31;
-    public static final int PRAGMA_END=226;
-    public static final int INTO=145;
-    public static final int REVALIDATION=151;
-    public static final int NE=75;
-    public static final int EXIT=158;
-    public static final int NO_INHERIT=76;
-    public static final int UNIQUE=187;
-    public static final int CHARREF_HEX=233;
-    public static final int NODE=78;
-    public static final int L_ElementContentChar=6;
-    public static final int CHARREF_DEC=232;
-    public static final int PRIVATE=189;
-    public static final int DECIMAL_FORMAT=115;
-    public static final int GREATEST=56;
-    public static final int EVERY=48;
-    public static final int ON=183;
-    public static final int PROCESSING_INSTRUCTION=89;
-    public static final int DELETE=142;
-    public static final int OF=79;
-    public static final int TRY=134;
-    public static final int NAMESPACE=74;
-    public static final int SKIP=152;
-    public static final int VARIABLE=108;
-    public static final int EVAL=164;
-    public static final int DESCENDANT_OR_SELF=37;
-    public static final int BASE_URI=23;
-    public static final int CDATA_START=14;
-    public static final int OR=81;
-    public static final int CHECK=168;
-    public static final int FOREACH=173;
-    public static final int CATCH=112;
-    public static final int FROM=175;
-    public static final int PRECEDING_SIBLING=87;
-    public static final int Letter=239;
-    public static final int SIMPLE=162;
-    public static final int ESCAPE_APOS=12;
-    public static final int DOLLAR=195;
-    public static final int WHERE=110;
-    public static final int LAX=67;
-    public static final int ORDER=82;
-    public static final int AMP=203;
-    public static final int ATTRIBUTE=22;
-    public static final int ESCAPE_QUOT=13;
-    public static final int FOR=53;
-    public static final int SMALLER_SMALLER=213;
-    public static final int SMALLER=209;
-    public static final int FOLLOWING=51;
-    public static final int AND=18;
-    public static final int DECIMAL_SEPARATOR=116;
-    public static final int L_CharRef=9;
-    public static final int CONTEXT=113;
-    public static final int IF=59;
-    public static final int ATTR_SIGN=231;
-    public static final int INDEX=176;
-    public static final int IN=61;
-    public static final int COPY_NAMESPACES=33;
-    public static final int COMMA=204;
-    public static final int IS=65;
-    public static final int COPY=141;
-    public static final int SOME=96;
-    public static final int EQUAL=200;
     public static final int L_CDataSection=7;
-    public static final int L_PredefinedEntityRef=8;
-    public static final int STRIP=99;
-    public static final int NEXT=125;
-    public static final int COLLECTION=169;
-    public static final int DIGIT=117;
-    public static final int RBRACKET=197;
-    public static final int DOT=217;
-    public static final int SLIDING=132;
-    public static final int INTEGRITY=177;
-    public static final int STABLE=97;
-    public static final int AUTOMATICALLY=167;
-    public static final int WITH=155;
-    public static final int NCNameStartChar=236;
-    public static final int PERCENT=129;
-    public static final int XQUERY=111;
-    public static final int L_IntegerLiteral=248;
-    public static final int DEFAULT=35;
-    public static final int DESCENDANT=36;
-    public static final int TUMBLING=135;
-    public static final int RANGE=185;
-    public static final int CLOSE_TAG=222;
-    public static final int BEFORE=140;
-    public static final int PI_START=229;
-    public static final int HexLetter=240;
-    public static final int RSQUARE=199;
-    public static final int AFTER=139;
-    public static final int Digit=241;
-    public static final int GROUPING_SEPARATOR=120;
-    public static final int UNORDERED=106;
-    public static final int L_AposAttrContentChar=5;
-    public static final int QUESTION=205;
-    public static final int ORDERING=84;
-    public static final int AMP_ER=190;
-    public static final int LEAST=69;
-    public static final int WINDOW=137;
-    public static final int SMALLEREQ=211;
+    public static final int INDEX=176;
+    public static final int MINUS=208;
+    public static final int NAMESPACE_NODE=123;
+    public static final int END=118;
+    public static final int INTO=145;
+    public static final int PATTERN_SEPARATOR=128;
+    public static final int GREATER_GREATER=214;
+    public static final int RENAME=149;
+    public static final int INSTANCE=63;
+    public static final int LAX=67;
+    public static final int IMPORT=60;
     public static final int BINARY=188;
+    public static final int ON=183;
+    public static final int DOT=217;
+    public static final int CONSTRAINT=170;
+    public static final int Letter=239;
+    public static final int ORDER=82;
+    public static final int CASTABLE=28;
+    public static final int CONSTANT=157;
+    public static final int EMPTY_CLOSE_TAG=221;
+    public static final int TYPESWITCH=104;
+    public static final int MODULE=73;
+    public static final int ESCAPE_RBRACKET=11;
+    public static final int AMP=203;
+    public static final int RPAREN=194;
+    public static final int VERSION=109;
+    public static final int XML_COMMENT_START=227;
+    public static final int DECLARE=34;
+    public static final int BOUNDARY_SPACE=24;
+    public static final int CLOSE_TAG=222;
+    public static final int UNION=105;
+    public static final int STRIP=99;
+    public static final int GROUPING_SEPARATOR=120;
+    public static final int RANGE=185;
+    public static final int HexLetter=240;
+    public static final int WHEN=136;
+    public static final int DESCENDING=38;
+    public static final int DOCUMENT_NODE=41;
+    public static final int ANCESTOR_OR_SELF=17;
+    public static final int MUTABLE=181;
+    public static final int SMALLER_SMALLER=213;
+    public static final int CATCH=112;
+    public static final int ATTR_SIGN=231;
+    public static final int GE=55;
+    public static final int SU=244;
+    public static final int ELSE=43;
+    public static final int PRAGMA_START=225;
+    public static final int L_ElementContentChar=6;
+    public static final int EVAL=164;
+    public static final int SELF=95;
+    public static final int COUNT=114;
+    public static final int TEXT=100;
+    public static final int COLON=219;
+    public static final int PARENT=85;
+    public static final int SET=161;
+    public static final int UNIQUE=187;
+    public static final int FOREACH=173;
+    public static final int PERCENT=129;
+    public static final int Digit=241;
+    public static final int EXTERNAL=50;
+    public static final int EMPTY_SEQUENCE=45;
+    public static final int LAST=146;
+    public static final int COLLECTION=169;
+    public static final int DOT_DOT=218;
+    public static final int L_CharRef=9;
+    public static final int CAST=27;
+    public static final int DECIMAL_SEPARATOR=116;
+    public static final int AUTOMATICALLY=167;
+    public static final int LBRACKET=196;
+    public static final int MOD=72;
+    public static final int EXCEPT=49;
+    public static final int QUESTION=205;
+    public static final int OR=81;
+    public static final int AFTER=139;
+    public static final int S=243;
+    public static final int SMALLEREQ=211;
+    public static final int BLOCK=156;
+    public static final int BY=25;
+    public static final int SCHEMA_ELEMENT=94;
+    public static final int INFINITY=121;
+    public static final int TUMBLING=135;
+    public static final int NO_INHERIT=76;
+    public static final int LPAREN=193;
+    public static final int PRECEDING_SIBLING=87;
+    public static final int L_DecimalLiteral=249;
+    public static final int EXIT=158;
+    public static final int PI_START=229;
+    public static final int APOS=234;
+    public static final int SKIP=152;
+    public static final int FROM=175;
+    public static final int DELETE=142;
+    public static final int EMPTY=44;
+    public static final int ASCENDING=20;
+    public static final int QUEUE=184;
+    public static final int WHILE=163;
+    public static final int ESCAPE_QUOT=13;
+    public static final int ONLY=126;
+    public static final int APOS_ER=191;
+    public static final int NE=75;
+    public static final int COMMENT=31;
+    public static final int RETURNING=159;
+    public static final int L_AnyChar=252;
+    public static final int RSQUARE=199;
+    public static final int ESCAPE_APOS=12;
+    public static final int NCNameChar=237;
+    public static final int EQUALITY=172;
+    public static final int WITH=155;
+    public static final int IN=61;
+    public static final int SOME=96;
+    public static final int NEXT=125;
+    public static final int RETURN=90;
     public static final int LET=70;
-    public static final int LE=68;
+    public static final int IF=59;
+    public static final int NODE=78;
+    public static final int PER_MILLE=130;
+    public static final int FOR=53;
+    public static final int CHARREF_HEX=233;
+    public static final int PRESERVE=88;
+    public static final int DEFAULT=35;
+    public static final int L_AposAttrContentChar=5;
+    public static final int BEFORE=140;
+    public static final int ATTRIBUTE=22;
+    public static final int CHILD=29;
+    public static final int Digits=242;
+    public static final int CDATA_START=14;
+    public static final int TRY=134;
+    public static final int OPTION=80;
+    public static final int L_DirCommentConstructor=246;
+    public static final int COMMA=204;
+    public static final int CONST=171;
+    public static final int ELEMENT=42;
+    public static final int AS=19;
+    public static final int DOCUMENT=40;
+    public static final int ENCODING=46;
+    public static final int NAN=124;
     public static final int TREAT=103;
+    public static final int NAMESPACE=74;
+    public static final int LEAST=69;
+    public static final int THEN=101;
+    public static final int PI_END=230;
+    public static final int GREATEREQ=212;
+    public static final int FOREIGN=174;
+    public static final int NCNameStartChar=236;
+    public static final int PRIVATE=189;
+    public static final int AND=18;
+    public static final int BASE_URI=23;
+    public static final int TO=102;
+    public static final int FUNCTION=54;
+    public static final int L_Pragma=245;
+    public static final int READ_ONLY=186;
+    public static final int RBRACKET=197;
+    public static final int LE=68;
+    public static final int SCHEMA=92;
+    public static final int CONSTRUCTION=32;
+    public static final int PLUS=207;
+    public static final int L_DoubleLiteral=250;
+    public static final int NON=182;
+    public static final int INTERSECT=64;
+    public static final int AT=21;
+    public static final int L_QuotAttrContentChar=4;
+    public static final int LSQUARE=198;
+    public static final int GREATEST=56;
+    public static final int APPEND_ONLY=166;
+    public static final int MAINTAINED=179;
+    public static final int EQ=47;
+    public static final int LT=71;
+    public static final int ESCAPE_LBRACKET=10;
+    public static final int OF=79;
+    public static final int DOLLAR=195;
+    public static final int WINDOW=137;
+    public static final int FOLLOWING=51;
+    public static final int CASE=26;
+    public static final int CDATA_END=15;
+    public static final int DESCENDANT_OR_SELF=37;
+    public static final int EQUAL=200;
+    public static final int SEMICOLON=223;
+    public static final int CHECK=168;
+    public static final int KEY=178;
+    public static final int FIRST=143;
+    public static final int SIMPLE=162;
+    public static final int DIV=39;
+    public static final int INSERT=144;
+    public static final int REVALIDATION=151;
+    public static final int QUOT=235;
+    public static final int WHERE=110;
+    public static final int PREVIOUS=131;
+    public static final int COPY=141;
+    public static final int AMP_ER=190;
+    public static final int USING=165;
+    public static final int EVERY=48;
+    public static final int SCHEMA_ATTRIBUTE=93;
+    public static final int XQUERY=111;
+    public static final int CONTEXT=113;
+    public static final int INTEGRITY=177;
+    public static final int SLIDING=132;
+    public static final int PRAGMA_END=226;
+    public static final int IDIV=58;
+    public static final int UPDATING=153;
+    public static final int SATISFIES=91;
+    public static final int DESCENDANT=36;
+    public static final int VALUE=154;
+    public static final int NOTEQUAL=202;
+    public static final int STRICT=98;
+    public static final int COLON_COLON=220;
+    public static final int L_PredefinedEntityRef=8;
+    public static final int L_IntegerLiteral=248;
+    public static final int FOLLOWING_SIBLING=52;
+    public static final int CHARREF_DEC=232;
+    public static final int STABLE=97;
+    public static final int DECIMAL_FORMAT=115;
+    public static final int START=133;
+    public static final int GROUP=119;
+    public static final int VALIDATE=107;
+    public static final int PRECEDING=86;
+    public static final int VBAR=224;
+    public static final int GREATER=210;
+    public static final int MINUS_SIGN=122;
+    public static final int ZERO_DIGIT=138;
+    public static final int ORDERING=84;
+    public static final int COPY_NAMESPACES=33;
+    public static final int DIGIT=117;
+    public static final int NO_PRESERVE=77;
+    public static final int UNORDERED=106;
+    public static final int OUTER=127;
+    public static final int L_NCName=238;
+    public static final int INHERIT=62;
+    public static final int SLASH=215;
+    public static final int L_DirPIConstructor=247;
+    public static final int IS=65;
+    public static final int REPLACE=150;
+    public static final int GT=57;
+    public static final int ITEM=66;
+    public static final int ORDERED=83;
+    public static final int PROCESSING_INSTRUCTION=89;
+    public static final int COLLATION=30;
+    public static final int SLASH_SLASH=216;
+    public static final int ANCESTOR=16;
+    public static final int SEQUENTIAL=160;
+    public static final int SMALLER=209;
+    public static final int NODES=148;
+    public static final int MANUALLY=180;
+    public static final int EOF=-1;
+    public static final int VARIABLE=108;
+    public static final int MODIFY=147;
+    public static final int STAR=206;
+    public static final int QUOT_ER=192;
+    public static final int L_Comment=251;
+    public static final int BIND=201;
+    public static final int XML_COMMENT_END=228;
 
     // dummy list for warning elimination
     List<Stack<Object>> dummy = new ArrayList<Stack<Object>>();
@@ -7447,7 +7447,7 @@ public class XQueryLexer extends XQDTLexer {
         "\u00ca\14\76\1\u00e4\6\76\1\u00ef\1\76\1\u00f2\1\76\1\u00f4\1\76"+
         "\1\u00fb\1\u00fc\2\76\1\u0102\1\u0103\5\76\1\u010b\1\76\1\u010f"+
         "\1\76\1\u0112\1\u0114\20\76\1\u012f\17\76\1\u0145\15\uffff\1\u0148"+
-        "\14\uffff\1\u014a\11\uffff\1\u014c\10\uffff\1\u014c\1\u00b9\1\uffff"+
+        "\14\uffff\1\u014a\11\uffff\1\u014c\10\uffff\1\u014c\1\uffff\1\u00b9"+
         "\1\76\1\u014f\1\76\1\uffff\1\76\1\uffff\4\76\1\u0156\2\76\1\uffff"+
         "\20\76\1\u016c\6\76\1\u0173\1\76\1\uffff\6\76\1\u017c\3\76\1\uffff"+
         "\2\76\1\uffff\1\76\1\uffff\6\76\2\uffff\1\76\1\u018c\2\76\1\u018f"+
@@ -7516,7 +7516,7 @@ public class XQueryLexer extends XQDTLexer {
         "\162\1\141\1\156\1\164\1\150\1\154\1\155\1\141\2\151\1\155\1\170"+
         "\1\145\1\55\1\145\1\160\1\155\1\151\1\144\1\151\1\154\1\162\1\145"+
         "\1\156\1\165\1\116\1\162\1\171\1\145\1\11\15\uffff\1\170\13\uffff"+
-        "\1\55\1\11\11\uffff\1\60\10\uffff\1\60\1\56\1\uffff\1\145\1\55\1"+
+        "\1\55\1\11\11\uffff\1\60\10\uffff\1\60\1\uffff\1\56\1\145\1\55\1"+
         "\145\1\uffff\1\162\1\uffff\2\145\1\163\1\157\1\55\1\145\1\156\1"+
         "\uffff\1\157\1\143\1\141\1\145\1\143\1\154\1\143\1\154\1\155\1\163"+
         "\1\171\1\156\1\151\1\141\1\143\1\145\1\55\1\151\1\165\1\155\1\145"+
@@ -7609,7 +7609,7 @@ public class XQueryLexer extends XQDTLexer {
         "\2\164\1\157\1\162\1\166\1\156\1\164\1\150\1\164\1\155\1\162\2\151"+
         "\1\155\1\170\1\145\1\172\1\171\1\160\1\155\1\157\1\144\1\151\2\162"+
         "\1\151\1\164\1\165\1\116\1\162\1\171\1\157\1\172\15\uffff\1\170"+
-        "\13\uffff\1\55\1\172\11\uffff\1\145\10\uffff\2\145\1\uffff\1\145"+
+        "\13\uffff\1\55\1\172\11\uffff\1\145\10\uffff\1\145\1\uffff\2\145"+
         "\1\172\1\145\1\uffff\1\162\1\uffff\2\145\1\163\1\157\1\172\1\145"+
         "\1\156\1\uffff\1\157\1\143\1\141\1\164\1\143\1\154\1\143\1\154\1"+
         "\155\1\164\1\171\1\156\1\154\1\141\1\143\1\145\1\172\1\151\1\165"+
@@ -7702,8 +7702,8 @@ public class XQueryLexer extends XQDTLexer {
         "\1\uffff\1\u00bc\1\u00bd\1\u00d7\1\u00be\1\u00bf\1\u00c0\1\u00d5"+
         "\1\u00c1\1\u00c4\1\u00c6\1\u00cf\2\uffff\1\u00c2\1\u00c5\1\u00c7"+
         "\1\u00c3\1\u00c9\1\u00ce\1\u00c8\1\u00cb\1\u00ca\1\uffff\1\u00d0"+
-        "\1\u00d1\1\u00d3\1\u00d8\1\u00db\1\u00dc\1\u00de\1\u00e2\2\uffff"+
-        "\1\u00e4\3\uffff\1\4\1\uffff\1\6\7\uffff\1\12\31\uffff\1\40\12\uffff"+
+        "\1\u00d1\1\u00d3\1\u00d8\1\u00db\1\u00dc\1\u00de\1\u00e2\1\uffff"+
+        "\1\u00e4\4\uffff\1\4\1\uffff\1\6\7\uffff\1\12\31\uffff\1\40\12\uffff"+
         "\1\50\2\uffff\1\52\1\uffff\1\54\6\uffff\1\56\1\62\5\uffff\1\65\1"+
         "\70\7\uffff\1\74\3\uffff\1\100\2\uffff\1\102\1\uffff\1\u00a8\32"+
         "\uffff\1\127\25\uffff\1\u00d2\1\u00df\1\u00da\1\u00d9\1\uffff\1"+
@@ -7806,7 +7806,7 @@ public class XQueryLexer extends XQDTLexer {
             "",
             "",
             "",
-            "\1\u00ba\1\uffff\12\u00bb\13\uffff\1\u00bc\37\uffff\1\u00bc",
+            "\1\u00ba\1\uffff\12\u00bc\13\uffff\1\u00bb\37\uffff\1\u00bb",
             "",
             "\1\u00bd\1\u00be",
             "\2\76\1\uffff\12\76\7\uffff\32\76\4\uffff\1\76\1\uffff\2\76"+
@@ -7949,7 +7949,7 @@ public class XQueryLexer extends XQDTLexer {
             "",
             "",
             "",
-            "\12\u00b1\13\uffff\1\u00bc\37\uffff\1\u00bc",
+            "\12\u00b1\13\uffff\1\u00bb\37\uffff\1\u00bb",
             "",
             "",
             "",
@@ -7958,9 +7958,9 @@ public class XQueryLexer extends XQDTLexer {
             "",
             "",
             "",
-            "\12\u014d\13\uffff\1\u00bc\37\uffff\1\u00bc",
-            "\1\u00ba\1\uffff\12\u00bb\13\uffff\1\u00bc\37\uffff\1\u00bc",
+            "\12\u014d\13\uffff\1\u00bb\37\uffff\1\u00bb",
             "",
+            "\1\u00ba\1\uffff\12\u00bc\13\uffff\1\u00bb\37\uffff\1\u00bb",
             "\1\u014e",
             "\2\76\1\uffff\12\76\7\uffff\32\76\4\uffff\1\76\1\uffff\32"+
             "\76",
@@ -8118,7 +8118,7 @@ public class XQueryLexer extends XQDTLexer {
             "",
             "",
             "",
-            "\12\u014d\13\uffff\1\u00bc\37\uffff\1\u00bc",
+            "\12\u014d\13\uffff\1\u00bb\37\uffff\1\u00bb",
             "\1\u01d7",
             "",
             "\1\u01d8",

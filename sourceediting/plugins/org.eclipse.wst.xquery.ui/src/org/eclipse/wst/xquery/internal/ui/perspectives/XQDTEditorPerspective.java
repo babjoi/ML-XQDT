@@ -11,6 +11,7 @@
  *******************************************************************************/
 package org.eclipse.wst.xquery.internal.ui.perspectives;
 
+import org.eclipse.debug.ui.IDebugUIConstants;
 import org.eclipse.search.ui.NewSearchUI;
 import org.eclipse.ui.IFolderLayout;
 import org.eclipse.ui.IPageLayout;
@@ -55,7 +56,9 @@ public class XQDTEditorPerspective implements IPerspectiveFactory {
     protected void addActionSets(IPageLayout layout) {
         layout.addActionSet(IPageLayout.ID_NAVIGATE_ACTION_SET);
         // TODO: add XQDT action set
-        layout.addActionSet("org.eclipse.debug.ui.launchActionSet"); //$NON-NLS-1$
+        layout.addActionSet(IDebugUIConstants.LAUNCH_ACTION_SET);
+        layout.addActionSet(IDebugUIConstants.DEBUG_ACTION_SET);
+        layout.addActionSet("org.eclipse.debug.ui.breakpointActionSet"); //$NON-NLS-1$
     }
 
     protected void addViews(IPageLayout layout) {

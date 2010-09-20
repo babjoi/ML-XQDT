@@ -117,23 +117,23 @@ public class SETNewProjectWizardFirstPage extends ProjectWizardFirstPage {
             group.setText("Sausalito settings");
             fNewRadioButton = new SelectionButtonDialogField(SWT.RADIO);
             fNewRadioButton.setDialogFieldListener(this);
-            fNewRadioButton.setLabelText("Create an empty project");
+            fNewRadioButton.setLabelText("Create an e&mpty project");
             fNewRadioButton.doFillIntoGrid(group, numColumns);
 
             fProjectUriText = new StringDialogField();
             fProjectUriText.setDialogFieldListener(this);
-            fProjectUriText.setLabelText("Project logical URI:");
+            fProjectUriText.setLabelText("Project logical &URI:");
             fProjectUriText.doFillIntoGrid(group, numColumns);
             LayoutUtil.setHorizontalGrabbing(fProjectUriText.getTextControl(null));
             fNewRadioButton.attachDialogFields(new DialogField[] { fProjectUriText });
 
             fTemplateRadioButton = new SelectionButtonDialogField(SWT.RADIO);
             fTemplateRadioButton.setDialogFieldListener(this);
-            fTemplateRadioButton.setLabelText("Create project from a template");
+            fTemplateRadioButton.setLabelText("Create project from a temp&late");
             fTemplateRadioButton.doFillIntoGrid(group, numColumns);
 
             fProjectTemplateCombo = new ComboDialogField(SWT.DROP_DOWN | SWT.READ_ONLY);
-            fProjectTemplateCombo.setLabelText("Project template:");
+            fProjectTemplateCombo.setLabelText("Proje&ct template:");
             fProjectTemplateCombo.setDialogFieldListener(this);
             fProjectTemplateCombo.doFillIntoGrid(group, numColumns);
             LayoutUtil.setHorizontalGrabbing(fProjectTemplateCombo.getComboControl(null));

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project name="project" default="publish">
 	
-	<property name="P2Zip" value="https://hudson.eclipse.org/hudson/job/cbi-wtp-inc-xquery-integration/lastSuccessfulBuild/artifact/sourceediting/development/org.eclipse.wst.xquery.repository/target/site/*zip*/site.zip"/>
+	<property name="P2Zip" value="https://hudson.eclipse.org/hudson/view/WTP/job/cbi-wtp-inc-xquery-integration/7/artifact/sourceediting/development/org.eclipse.wst.xquery.repository/target/site/*zip*/site.zip"/>
 	<property name="publishDir" location="publishDir"/>
 
     <!-- ================================= 

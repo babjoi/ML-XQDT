@@ -43,7 +43,7 @@
 			</fileset>
 		</copy>
 
-		<findbugs home="${libs}/findbugs-1.3.9/lib" output="xml" outputFile="${basedir}/fb.xml">
+		<findbugs home="${libs}/findbugs-1.3.9/lib" output="xml" outputFile="${basedir}/fb.xml" jvmargs="-Xms1024M -Xmx1024M">
 			<class location="findbugs" />
 		</findbugs>
 

@@ -24,7 +24,7 @@ public class XQDTKeywords {
     /**
      * Keywords present in the XQuery 1.1 specification
      */
-    public static String[] KEYWORDS_XQUERY_11 = { "ancestor", "ancestor-or-self", "and", "as", "ascending", "at",
+    public static final String[] KEYWORDS_XQUERY_11 = { "ancestor", "ancestor-or-self", "and", "as", "ascending", "at",
             "attribute", "base-uri", "boundary-space", "by", "case", "cast", "castable", "child", "collation",
             "comment", "construction", "copy-namespaces", "declare", "default", "descendant", "descendant-or-self",
             "descending", "div", "document", "document-node", "element", "else", "empty", "empty-sequence", "encoding",
@@ -34,28 +34,27 @@ public class XQDTKeywords {
             "order", "ordered", "ordering", "parent", "preceding", "preceding-sibling", "preserve",
             "processing-instruction", "return", "satisfies", "schema", "schema-attribute", "schema-element", "self",
             "some", "stable", "strict", "strip", "text", "then", "to", "treat", "typeswitch", "union", "unordered",
-            "validate", "variable", "version",
-            "where",
-            "xquery",
-            // XQuery 1.1 keywords
-            "catch", "context", "count", "decimal-format", "decimal-separator", "digit", "end", "group",
-            "grouping-separator", "infinity", "minus-sign", "namespace-node", "NaN", "next", "only", "outer",
-            "pattern-separator", "percent", "per-mille", "previous", "sliding", "start", "try", "tumbling", "when",
-            "window", "zero-digit" };
+            "validate", "variable", "version", "where", "xquery",
+            /* XQuery 1.1 keywords */
+            "catch", "context", "count", "decimal-format", "decimal-separator", "deterministic", "digit", "end",
+            "group", "grouping-separator", "infinity", "minus-sign", "namespace-node", "NaN", "next",
+            "nondeterministic", "only", "outer", "pattern-separator", "percent", "per-mille", "previous", "private",
+            "public", "sliding", "start", "try", "tumbling", "when", "window", "zero-digit" };
 
     /**
      * Keywords added by the XQuery Update 1.0 specification (not including the already existing
      * ones in XQuery 1.0)
      */
-    public static String[] KEYWORDS_XQUERY_UPDATE = { "after", "before", "copy", "delete", "first", "insert", "into",
-            "last", "modify", "nodes", "rename", "replace", "revalidation", "update", "updating", "value", "with" };
+    public static final String[] KEYWORDS_XQUERY_UPDATE = { "after", "before", "copy", "delete", "first", "insert",
+            "into", "last", "modify", "nodes", "rename", "replace", "revalidation", "update", "updating", "value",
+            "with" };
 
     /**
      * Keywords added by the XQuery Full Text 1.0 specification (not including the already existing
      * ones in XQuery 1.0)
      */
-    public static String[] FULLTEXT_KEYWORDS = { "all", "any", "content", "diacritics", "different", "distance", "end",
-            "entire", "exactly", "from", "ft-option", "ftand", "ftcontains", "ftnot", "ftor", "insensitive",
+    public static final String[] FULLTEXT_KEYWORDS = { "all", "any", "content", "diacritics", "different", "distance",
+            "end", "entire", "exactly", "from", "ft-option", "ftand", "ftcontains", "ftnot", "ftor", "insensitive",
             "language", "least", "levels", "lowercase", "most", "not", "occurs", "paragraph", "paragraphs", "phrase",
             "relationship", "same", "score", "sensitive", "sentence", "sentences", "start", "stemming", "stop",
             "thesaurus", "times", "uppercase", "weight", "wildcards", "window", "with", "without", "word", "words" };
@@ -64,21 +63,21 @@ public class XQDTKeywords {
      * Keywords added by the XQuery Scripting 1.0 specification (not including the already existing
      * ones in XQuery 1.0 or XQuery Update 1.0)
      */
-    public static String[] KEYWORDS_XQUERY_SCRIPTING = { "block", "constant", "exit", "returning", "sequential", "set",
-            "simple", "while" };
+    public static final String[] KEYWORDS_XQUERY_SCRIPTING = { "block", "constant", "exit", "returning", "sequential",
+            "set", "simple", "while" };
 
     /**
      * Keywords added by the Xorba XQuery DDL extensions (not including the already existing ones in
      * XQuery 1.0, XQuery Update 1.0, XQuery Scripting 1.0)
      */
-    public static String[] KEYWORDS_ZORBA = { "append_only", "automatically", "check", "collection", "constraint",
-            "const", "equality", "eval", "foreach", "foreign", "from", "index", "integrity", "key", "maintained",
-            "manually", "mutable", "non", "on", "queue", "range", "read-only", "unique", "using" };
+    public static final String[] KEYWORDS_ZORBA = { "append_only", "automatically", "check", "collection",
+            "constraint", "const", "equality", "eval", "foreach", "foreign", "from", "index", "integrity", "key",
+            "maintained", "manually", "mutable", "non", "on", "queue", "range", "read-only", "unique", "using" };
 
     /**
      * Keywords added by the MarkLogic XQuery extensions
      */
-    public static String[] KEYWORDS_MARKLOGIC = { "binary", "private" };
+    public static final String[] KEYWORDS_MARKLOGIC = { "binary" };
 
     /**
      * XQuery 1.0 item types
@@ -101,7 +100,7 @@ public class XQDTKeywords {
     /**
      * Entity reference character
      */
-    public static String[] EMTITY_REFERECE_CHAR = { "&", "'", "<", ">", "\"" };
+    public static final String[] EMTITY_REFERECE_CHAR = { "&", "'", "<", ">", "\"" };
 
     public static String[] findByPrefix(String prefix, int languageLevel) {
         List<String> result = new ArrayList<String>();

@@ -34,6 +34,7 @@ import org.eclipse.dltk.core.SourceParserUtil;
 import org.eclipse.wst.xquery.core.IXQDTUriResolver;
 import org.eclipse.wst.xquery.core.XQDTCorePlugin;
 import org.eclipse.wst.xquery.core.codeassist.IXQDTCompletionConstants;
+import org.eclipse.wst.xquery.core.codeassist.IXQDTKeywords;
 import org.eclipse.wst.xquery.core.codeassist.XQDTKeywords;
 import org.eclipse.wst.xquery.core.model.ast.XQueryLibraryModule;
 import org.eclipse.wst.xquery.core.model.ast.XQueryModule;
@@ -221,10 +222,10 @@ public class XQDTCompletionEngine extends ScriptCompletionEngine implements IXQD
     private void reportEntities() {
         // only for AMPERSAND prefix type
         if (fPrefixType == CompletionPrefixType.AMPERSAND) {
-            for (int i = 0; i < XQDTKeywords.EMTITY_REFERECE_NAMES.length; i++) {
-                String name = XQDTKeywords.EMTITY_REFERECE_NAMES[i];
+            for (int i = 0; i < IXQDTKeywords.EMTITY_REFERECE_NAMES.length; i++) {
+                String name = IXQDTKeywords.EMTITY_REFERECE_NAMES[i];
                 if (name.startsWith(fPrefix)) {
-                    reportEntity(XQDTKeywords.EMTITY_REFERECE_NAMES[i], XQDTKeywords.EMTITY_REFERECE_CHAR[i]);
+                    reportEntity(IXQDTKeywords.EMTITY_REFERECE_NAMES[i], IXQDTKeywords.EMTITY_REFERECE_CHAR[i]);
                 }
             }
         }

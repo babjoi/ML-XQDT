@@ -20,7 +20,7 @@ import org.eclipse.jface.text.rules.ICharacterScanner;
 import org.eclipse.jface.text.rules.IRule;
 import org.eclipse.jface.text.rules.IToken;
 import org.eclipse.jface.text.rules.Token;
-import org.eclipse.wst.xquery.core.codeassist.XQDTKeywords;
+import org.eclipse.wst.xquery.core.codeassist.IXQDTKeywords;
 import org.eclipse.wst.xquery.core.text.XQDTWhitespaceDetector;
 import org.eclipse.wst.xquery.core.text.XQDTWordDetector;
 
@@ -206,9 +206,9 @@ public class ExpressionRule implements IRule {
                 } else {
                     unconsume(scanner);
                     if ((segment.equals(WORD_FUNCTION_QNAME) && Arrays.binarySearch(
-                            XQDTKeywords.XQUERY_KEYWORDS_RESERVED_FN_NAMES, name) >= 0)
+                            IXQDTKeywords.XQUERY_KEYWORDS_RESERVED_FN_NAMES, name) >= 0)
                             || (segment.equals(WORD_ITEM_TYPE) && Arrays.binarySearch(
-                                    XQDTKeywords.XQUERY_KEYWORDS_ITEM_TYPES, name) < 0)) {
+                                    IXQDTKeywords.XQUERY_KEYWORDS_ITEM_TYPES, name) < 0)) {
                         return false;
                     }
                 }

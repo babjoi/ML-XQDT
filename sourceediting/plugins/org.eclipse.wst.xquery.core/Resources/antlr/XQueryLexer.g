@@ -147,6 +147,7 @@ CONTEXT                     : 'context';
 COUNT                       : 'count';
 DECIMAL_FORMAT              : 'decimal-format';
 DECIMAL_SEPARATOR           : 'decimal-separator';
+DETERMINISTIC               : 'deterministic';
 DIGIT                       : 'digit';
 END                         : 'end';
 GROUP                       : 'group';
@@ -156,11 +157,14 @@ MINUS_SIGN                  : 'minus-sign';
 NAMESPACE_NODE              : 'namespace-node';
 NAN                         : 'NaN';
 NEXT                        : 'next';
+NONDETERMINISTIC            : 'nondeterministic';
 ONLY                        : 'only';
 OUTER                       : 'outer';
 PATTERN_SEPARATOR           : 'pattern-separator';
 PERCENT                     : 'percent';
 PER_MILLE                   : 'per-mille';
+PRIVATE                     : 'private';
+PUBLIC                      : 'public';
 PREVIOUS                    : 'previous';
 SLIDING                     : 'sliding';
 START                       : 'start';
@@ -224,7 +228,6 @@ READ_ONLY                   : 'read-only';
 UNIQUE                      : 'unique';
 // MarkLogic
 BINARY                      : 'binary';
-PRIVATE                     : 'private';
 
 // entity references
 AMP_ER  : 'amp';

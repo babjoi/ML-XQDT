@@ -293,7 +293,7 @@ pm_ModuleImport
 
 //[26]
 pm_VarDecl
-        : k+=DECLARE p_PrivateOption vdt=pg_VarDeclType DOLLAR qn=p_QName td=p_TypeDeclaration? ((BIND es=p_ExprSingle) | (k+=EXTERNAL (BIND des=p_ExprSingle)?)) SEMICOLON {ak($k);}
+        : k+=DECLARE pg_PrivateVarOption vdt=pg_VarDeclType DOLLAR qn=p_QName td=p_TypeDeclaration? ((BIND es=p_ExprSingle) | (k+=EXTERNAL (BIND des=p_ExprSingle)?)) SEMICOLON {ak($k);}
                 -> ^(VarDecl $vdt $qn ^(VarType $td?) ^(VarValue $es? ^(VarDefaultValue $des?)))
         ;
 
@@ -302,10 +302,19 @@ pm_VarDecl
 // This is needed to decide between the CONSTANT and the 
 // VARIABLE keywords in the Scripting 1.0 specification
 pg_VarDeclType
-        : {lc(XQS)}?=> ku=CONSTANT {ak($ku);}
+        : {lc(XQS)}?=> kc=CONSTANT {ak($kc);}
                 -> VarConstantDecl
         | kv=VARIABLE {ak($kv);}
                 -> VarVariableDecl
+        ;
+// *************************************************
+
+// *************************************************
+// This is not in the EBNF grammar.
+// This is needed to add MarkLogic private variables 
+pg_PrivateVarOption
+        : {lc(MLS)}?=> kp=PRIVATE {ak($kp);}
+        | /* nothing */
         ;
 // *************************************************
 
@@ -330,11 +339,11 @@ pm_ConstructionDecl
 
 //?????????????????????????
 //("deterministic" | "nondeterministic")?
-//[32]
+//[31]
 pm_FunctionDecl
         :   {lc(XQS)}?=> k+=DECLARE k+=SEQUENTIAL k+=FUNCTION qn=p_QName LPAREN pl=p_ParamList? RPAREN td=p_TypeDeclaration? (b=p_Block | k+=EXTERNAL) SEMICOLON {ak($k);}
                 -> ^(FunctionDecl $qn ^(ParamList $pl?) ^(ReturnType $td?) $b?)
-        |   k+=DECLARE p_PrivateOption p_FunctionType k+=FUNCTION qn=p_QName LPAREN pl=p_ParamList? RPAREN td=p_TypeDeclaration? (ee=p_EnclosedExpr | k+=EXTERNAL) SEMICOLON {ak($k);}
+        |   k+=DECLARE p_FunctionOption p_FunctionType k+=FUNCTION qn=p_QName LPAREN pl=p_ParamList? RPAREN td=p_TypeDeclaration? (ee=p_EnclosedExpr | k+=EXTERNAL) SEMICOLON {ak($k);}
                 -> ^(FunctionDecl $qn ^(ParamList $pl?) ^(ReturnType $td?) $ee?)
         ;
 
@@ -348,9 +357,17 @@ p_FunctionType
         | /* nothing */
         ;
 // *************************************************
+
+p_FunctionOption
+        : (p_PrivateOption | p_DeterministicOption)*
+        ;
+
 p_PrivateOption
-        : {lc(MLS)}?=> kv=PRIVATE {ak($kv);}
-        | /* nothing */
+        : (k=PRIVATE | k=PUBLIC) {ak($k);}
+        ;
+
+p_DeterministicOption
+        : (k=DETERMINISTIC | k=NONDETERMINISTIC) {ak($k);}
         ;
 
 //[33]
@@ -1285,7 +1302,7 @@ p_NCName
         // XQuery 1.0 keywords
         | ANCESTOR | ANCESTOR_OR_SELF | AND | AS | ASCENDING | AT | ATTRIBUTE | BASE_URI | BOUNDARY_SPACE | BY | CASE | CAST | CASTABLE | CHILD | COLLATION | COMMENT | CONSTRUCTION | COPY_NAMESPACES | DECLARE | DEFAULT | DESCENDANT | DESCENDANT_OR_SELF | DESCENDING | DIV | DOCUMENT | DOCUMENT_NODE | ELEMENT | ELSE | EMPTY | EMPTY_SEQUENCE | ENCODING | EQ | EVERY | EXCEPT | EXTERNAL | FOLLOWING | FOLLOWING_SIBLING | FOR | FUNCTION | GE | GREATEST | GT | IDIV | IF | IMPORT | IN | INHERIT | INSTANCE | INTERSECT | IS | ITEM | LAX | LE | LEAST | LET | LT | MOD | MODULE | NAMESPACE | NE | NO_INHERIT | NO_PRESERVE | NODE | OF | OPTION | OR | ORDER | ORDERED | ORDERING | PARENT | PRECEDING | PRECEDING_SIBLING | PRESERVE | PROCESSING_INSTRUCTION | RETURN | SATISFIES | SCHEMA | SCHEMA_ATTRIBUTE | SCHEMA_ELEMENT | SELF | SOME | STABLE | STRICT | STRIP | TEXT | THEN | TO | TREAT | TYPESWITCH | UNION | UNORDERED | VALIDATE | VARIABLE | VERSION | WHERE | XQUERY
         // XQuery 1.1 keywords
-        | CATCH | CONTEXT | COUNT   | DECIMAL_FORMAT | DECIMAL_SEPARATOR | DIGIT | END | GROUP | GROUPING_SEPARATOR | INFINITY | MINUS_SIGN | NAMESPACE_NODE | NAN | NEXT | ONLY | OUTER | PATTERN_SEPARATOR | PERCENT | PER_MILLE | PREVIOUS | SLIDING | START | TRY | TUMBLING | WHEN | WINDOW | ZERO_DIGIT
+        | CATCH | CONTEXT | COUNT   | DECIMAL_FORMAT | DECIMAL_SEPARATOR | DIGIT | END | GROUP | GROUPING_SEPARATOR | INFINITY | MINUS_SIGN | NAMESPACE_NODE | NAN | NEXT | ONLY | OUTER | PATTERN_SEPARATOR | PERCENT | PER_MILLE | PREVIOUS | PRIVATE | PUBLIC | SLIDING | START | TRY | TUMBLING | WHEN | WINDOW | ZERO_DIGIT
         // XQuery Update 1.0 keywords
         | AFTER | BEFORE | COPY | DELETE | FIRST |INSERT | INTO | LAST | MODIFY | NODES | RENAME | REPLACE | REVALIDATION | SKIP | UPDATING | VALUE | WITH
         // XQuery Scripting 1.0 keywords
@@ -1295,7 +1312,7 @@ p_NCName
         // Zorba DDL keywords
         | APPEND_ONLY | AUTOMATICALLY | CHECK | COLLECTION | CONSTRAINT | CONST | EQUALITY | EXPLICITLY | FOREACH | FOREIGN | FROM | INDEX | INTEGRITY | KEY | MAINTAINED | MUTABLE | NON | ON | QUEUE | RANGE | READ_ONLY | UNIQUE
         // Mark Logic keywords
-        | BINARY | PRIVATE
+        | BINARY
         // entity references
         | AMP_ER | APOS_ER | QUOT_ER
         ;
@@ -1304,7 +1321,7 @@ p_FNCName
         // XQuery 1.0 keywords
         | ANCESTOR | ANCESTOR_OR_SELF | AND | AS | ASCENDING | AT | BASE_URI | BOUNDARY_SPACE | BY | CASE | CAST | CASTABLE | CHILD | COLLATION | CONSTRUCTION | COPY_NAMESPACES | DECLARE | DEFAULT | DESCENDANT | DESCENDANT_OR_SELF | DESCENDING | DIV | DOCUMENT | ELSE | EMPTY | ENCODING | EQ | EVERY | EXCEPT | EXTERNAL | FOLLOWING | FOLLOWING_SIBLING | FOR | FUNCTION | GE | GREATEST | GT | IDIV | IMPORT | IN | INHERIT | INSTANCE | INTERSECT | IS | LAX | LE | LEAST | LET | LT | MOD | MODULE | NAMESPACE | NE | NO_INHERIT | NO_PRESERVE | OF | OPTION | OR | ORDER | ORDERED | ORDERING | PARENT | PRECEDING | PRECEDING_SIBLING | PRESERVE | RETURN | SATISFIES | SCHEMA | SELF | SOME | STABLE | STRICT | STRIP | THEN | TO | TREAT | UNION | UNORDERED | VALIDATE | VARIABLE | VERSION | WHERE | XQUERY
         // XQuery 1.1 keywords
-        | CATCH | CONTEXT | COUNT   | DECIMAL_FORMAT | DECIMAL_SEPARATOR | DIGIT | END | GROUP | GROUPING_SEPARATOR | INFINITY | MINUS_SIGN | NAN | NEXT | ONLY | OUTER | PATTERN_SEPARATOR | PERCENT | PER_MILLE | PREVIOUS | SLIDING | START | TRY | TUMBLING | WHEN | WINDOW | ZERO_DIGIT
+        | CATCH | CONTEXT | COUNT   | DECIMAL_FORMAT | DECIMAL_SEPARATOR | DIGIT | END | GROUP | GROUPING_SEPARATOR | INFINITY | MINUS_SIGN | NAN | NEXT | ONLY | OUTER | PATTERN_SEPARATOR | PERCENT | PER_MILLE | PREVIOUS | PRIVATE | PUBLIC | SLIDING | START | TRY | TUMBLING | WHEN | WINDOW | ZERO_DIGIT
         // XQuery Update 1.0 keywords
         | AFTER | BEFORE | COPY | DELETE | FIRST |INSERT | INTO | LAST | MODIFY | NODES | RENAME | REPLACE | REVALIDATION | SKIP | UPDATING | VALUE | WITH
         // XQuery Scripting 1.0 keywords
@@ -1314,7 +1331,7 @@ p_FNCName
         // Zorba DDL keywords
         | APPEND_ONLY | AUTOMATICALLY | CHECK | COLLECTION | CONSTRAINT | CONST | EQUALITY | EXPLICITLY | FOREACH | FOREIGN | FROM | INDEX | INTEGRITY | KEY | MAINTAINED | MUTABLE | NON | ON | QUEUE | RANGE | READ_ONLY | UNIQUE
         // Mark Logic keywords
-        | BINARY | PRIVATE
+        | BINARY
         // entity references
         | AMP_ER | APOS_ER | QUOT_ER
         ;

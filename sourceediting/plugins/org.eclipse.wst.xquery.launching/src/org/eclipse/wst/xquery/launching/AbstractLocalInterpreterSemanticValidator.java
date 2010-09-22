@@ -11,9 +11,6 @@
  *******************************************************************************/
 package org.eclipse.wst.xquery.launching;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
 import java.util.List;
 
 import org.eclipse.core.runtime.CoreException;
@@ -28,6 +25,7 @@ import org.eclipse.wst.xquery.core.semantic.CheckErrorReportReaderFactory;
 import org.eclipse.wst.xquery.core.semantic.ISemanticValidator;
 import org.eclipse.wst.xquery.core.semantic.SemanticCheckError;
 import org.eclipse.wst.xquery.core.semantic.SemanticCheckErrorReportReader;
+import org.eclipse.wst.xquery.core.utils.ProcessStreamConsumer;
 
 public abstract class AbstractLocalInterpreterSemanticValidator implements ISemanticValidator {
 
@@ -68,52 +66,18 @@ public abstract class AbstractLocalInterpreterSemanticValidator implements ISema
             log(IStatus.INFO, sb.toString(), null);
         }
 
-        final Process p = exeEnv.exec(cmdLine, null, vars);
-        final StringBuffer[] buffer = new StringBuffer[2];
+        Process p = exeEnv.exec(cmdLine, null, vars);
 
         if (p == null) {
             abort("Could not invoke the Semantic Validator");
         }
         try {
-            Thread outputReader = new Thread(new Runnable() {
-
-                public void run() {
-                    try {
-                        BufferedReader output = new BufferedReader(new InputStreamReader(p.getInputStream()));
-                        StringBuffer outputReport = new StringBuffer();
-
-                        for (String line; (line = output.readLine()) != null;) {
-                            outputReport.append(line + "\n");
-                        }
-                        buffer[1] = outputReport;
-                    } catch (IOException e) {
-                        // abort("Exception while reading the the Semantic Validator output streams");
-                    }
-                }
-            });
-
-            Thread errorReader = new Thread(new Runnable() {
-
-                public void run() {
-                    try {
-                        BufferedReader errstr = new BufferedReader(new InputStreamReader(p.getErrorStream()));
-                        StringBuffer errorReport = new StringBuffer();
-
-                        for (String line; (line = errstr.readLine()) != null;) {
-                            errorReport.append(line + "\n");
-                        }
-                        buffer[0] = errorReport;
-                    } catch (IOException e) {
-                        // abort("Exception while reading the the Semantic Validator output streams");
-                    }
-                }
-            });
+            ProcessStreamConsumer psc = new ProcessStreamConsumer(p);
 
             if (XQDTLaunchingPlugin.DEBUG_SEMANTIC_CHECK) {
-                log(IStatus.INFO, "Starting reader threads", null);
+                log(IStatus.INFO, "Starting the process stream consumer", null);
             }
-            outputReader.start();
-            errorReader.start();
+            psc.start();
 
             if (XQDTLaunchingPlugin.DEBUG_SEMANTIC_CHECK) {
                 log(IStatus.INFO, "Waiting for termination", null);
@@ -128,31 +92,22 @@ public abstract class AbstractLocalInterpreterSemanticValidator implements ISema
                 }
                 return null;
             }
-
-            outputReader.join();
-            errorReader.join();
+            psc.join();
+            String error = psc.getError();
+            String output = psc.getOutput();
 
             if (XQDTLaunchingPlugin.DEBUG_SEMANTIC_CHECK) {
                 StringBuilder sb = new StringBuilder();
-                if (buffer[0] != null) {
-                    sb.append("Error: " + buffer[0]);
-                } else {
-                    sb.append("Error: null");
-                }
-                if (buffer[1] != null) {
-                    sb.append("Output: " + buffer[1]);
-                } else {
-                    sb.append("Output: null");
-                }
+                sb.append("Error: " + (error != null ? error : "null") + "\n");
+                sb.append("Output: " + (output != null ? output : "null"));
                 log(IStatus.INFO, sb.toString(), null);
             }
 
-            if (buffer[0] == null || buffer[0].toString().trim().length() == 0) {
-                if (buffer[1] == null || buffer[1].toString().trim().length() == 0) {
+            if (error == null || error.trim().length() == 0) {
+                if (output == null || output.trim().length() == 0) {
                     abort("An unknown error occurred while executing the Semantic Validator command");
                 } else {
-                    abort("An error occurred while executing the Semantic Validator command:\n"
-                            + buffer[1].toString().trim());
+                    abort("An error occurred while executing the Semantic Validator command:\n" + output.trim());
                 }
             }
 
@@ -160,16 +115,15 @@ public abstract class AbstractLocalInterpreterSemanticValidator implements ISema
                 log(IStatus.INFO, "Building error document", null);
             }
 
-            String data = buffer[0].toString();
             SemanticCheckErrorReportReader docReader = null;
             if (fErrorReportReaderFactory != null) {
-                docReader = fErrorReportReaderFactory.make(module, data);
+                docReader = fErrorReportReaderFactory.make(module, error);
             } else {
-                docReader = new SemanticCheckErrorReportReader(module, data);
+                docReader = new SemanticCheckErrorReportReader(module, error);
             }
             List<SemanticCheckError> errors = docReader.getErrors();
             if (errors == null || errors.size() == 0) {
-                abort("An error occurred while executing the Semantic Validator command:\n" + data.trim());
+                abort("An error occurred while executing the Semantic Validator command:\n" + error.trim());
             }
             if (XQDTLaunchingPlugin.DEBUG_SEMANTIC_CHECK) {
                 log(IStatus.INFO, "", null);

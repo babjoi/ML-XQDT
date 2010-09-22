@@ -69,24 +69,46 @@ public class SETDeployProjectWizard extends Wizard {
                     if (status.isOK()) {
                         displayMessageBox("The project \"" + info.getProject().getElementName()
                                 + "\" was succesfully deployed as application \"" + info.getApplicationName() + "\"",
-                                true);
+                                SWT.ICON_INFORMATION);
+                    } else if (status.matches(IStatus.WARNING)) {
+                        displayMessageBox("The project \"" + info.getProject().getElementName()
+                                + "\" was deployed as application \"" + info.getApplicationName()
+                                + "\" with the following warnings:\n\n" + status.getMessage(), SWT.ICON_WARNING);
                     }
                 } else if (job instanceof SETDeployDataJob) {
                     if (status.isOK()) {
                         displayMessageBox("The data for project \"" + info.getProject().getElementName()
                                 + "\" was succesfully deployed into the application \"" + info.getApplicationName()
-                                + "\"", true);
+                                + "\"", SWT.ICON_INFORMATION);
                     }
                 }
 
             }
 
-            private void displayMessageBox(final String message, final boolean isSuccess) {
+            /**
+             * Displays a message box dialog containing the given image and icon type.
+             * 
+             * @param message
+             *            The message to display in the message dialog.
+             * @param type
+             *            One of <code>SWT.ICON_INFORMATION</code>, <code>SWT.ICON_WARNING</code>,
+             *            <code>SWT.ICON_ERROR</code>.
+             */
+            private void displayMessageBox(final String message, final int type) {
                 Display.getDefault().syncExec(new Runnable() {
 
                     public void run() {
-                        MessageBox mb = new MessageBox(new Shell(Display.getDefault().getActiveShell()),
-                                (isSuccess ? SWT.ICON_INFORMATION : SWT.ICON_ERROR) | SWT.OK);
+                        int iconType = SWT.ICON_INFORMATION;
+
+                        switch (type) {
+                        case SWT.ICON_INFORMATION:
+                        case SWT.ICON_WARNING:
+                        case SWT.ICON_ERROR:
+                            iconType = type;
+                        }
+
+                        MessageBox mb = new MessageBox(new Shell(Display.getDefault().getActiveShell()), (iconType)
+                                | SWT.OK);
                         mb.setMessage(message);
                         mb.open();
                     }

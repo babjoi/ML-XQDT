@@ -211,15 +211,15 @@ public class SETDeployProjectFirstWizardPage extends WizardPage {
 
     void createRememberCheckButton(Composite parent) {
         SWTFactory.createLabel(parent, "", 1);
-        fRememberCheckButton = SWTFactory.createCheckButton(parent, "Remember deployment data for this project", null,
-                false, 1);
+        fRememberCheckButton = SWTFactory.createCheckButton(parent,
+                "Remember deployment data for this project during this session", null, true, 1);
         fRememberCheckButton.addSelectionListener(fListener);
     }
 
     public DeployInfo getDeployInfo() {
         fConfig.setVersion(fVersionText.getText());
-        return new DeployInfo(fProject, fConfig, fApplicationNameText.getText(), fUsernameText.getText(), fPasswordText
-                .getText(), DeployInfo.DeployType.PROJECT, null);
+        return new DeployInfo(fProject, fConfig, fApplicationNameText.getText(), fUsernameText.getText(),
+                fPasswordText.getText(), DeployInfo.DeployType.PROJECT, null);
     }
 
     public boolean cacheCredentials() {

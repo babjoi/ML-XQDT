@@ -29,6 +29,7 @@ import org.eclipse.dltk.core.environment.IExecutionEnvironment;
 import org.eclipse.dltk.launching.EnvironmentVariable;
 import org.eclipse.dltk.launching.IInterpreterInstall;
 import org.eclipse.dltk.launching.ScriptRuntime;
+import org.eclipse.wst.xquery.core.utils.ProcessStreamConsumer;
 import org.eclipse.wst.xquery.set.core.SETCorePlugin;
 
 abstract public class SETCoreSDKCommandJob extends Job {
@@ -79,28 +80,30 @@ abstract public class SETCoreSDKCommandJob extends Job {
                     vars[j] = environmentVariables[j].toString();
                 }
             }
+
+            // start the command process
             final Process p = exeEnv.exec(cmdLine.toArray(new String[cmdLine.size()]), null, vars);
 
-            InputStream input = p.getInputStream();
-            readCommandOutput(input);
-            int err = p.waitFor();
-            if (err != 0) {
-                BufferedReader r = new BufferedReader(new InputStreamReader(p.getErrorStream()));
-                StringBuffer sb = new StringBuffer();
-                String line = null;
-                while ((line = r.readLine()) != null) {
-                    sb.append(line);
-                }
-                return reportError(sb.toString());
-            }
+            // read the process output and error streams 
+            ProcessStreamConsumer psc = new ProcessStreamConsumer(p);
+            psc.start();
 
-        } catch (Exception ce) {
-            return reportError(ce);
+            // wait for the process to reminate
+            int err = p.waitFor();
+
+            // wait for the consumer to read the entire contents of the streams
+            psc.join();
+
+            if (err == 0) {
+                return reportWarning(psc.getOutput());
+            }
+            return reportError(psc.getError());
+
+        } catch (Exception e) {
+            return reportError(e);
         } finally {
             monitor.done();
         }
-
-        return Status.OK_STATUS;
     }
 
     protected IStatus handleNoTicks() {
@@ -141,7 +144,19 @@ abstract public class SETCoreSDKCommandJob extends Job {
     }
 
     protected IStatus reportWarning(String message) {
-        return new Status(IStatus.WARNING, SETCorePlugin.PLUGIN_ID, message);
+        StringBuffer sb = new StringBuffer();
+
+        String[] lines = message.split("\n");
+        for (String line : lines) {
+            if (line.startsWith("[WARNING]")) {
+                sb.append(line + "\n");
+            }
+        }
+        if (sb.length() > 0) {
+            return new Status(IStatus.WARNING, SETCorePlugin.PLUGIN_ID, sb.toString());
+        }
+
+        return Status.OK_STATUS;
     }
 
     protected void updateMonitorTaskName(String taskName) {

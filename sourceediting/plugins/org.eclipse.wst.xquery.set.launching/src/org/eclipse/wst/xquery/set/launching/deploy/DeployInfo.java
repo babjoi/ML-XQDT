@@ -25,20 +25,20 @@ public class DeployInfo {
     private String fPassword;
     private DeployType fDeployType;
     private SETProjectConfig fConfig;
-    private String fHost = DEFAULT_DEPLOYMENT_SERVER;
+    private String fServer = DEFAULT_DEPLOYMENT_SERVER;
 
     public static final String DEFAULT_DEPLOYMENT_SERVER = "http://portal.28msec.com/";
 
     public DeployInfo(IScriptProject project, SETProjectConfig config, String appName, String username,
-            String password, DeployType type, String host) {
+            String password, DeployType type, String server) {
         fProject = project;
         fConfig = config;
         fApplicationName = appName;
         fUserName = username;
         fPassword = password;
         fDeployType = type;
-        if (host != null && !host.equals("")) {
-            fHost = host;
+        if (server != null && !server.equals("")) {
+            fServer = server;
         }
     }
 
@@ -66,8 +66,8 @@ public class DeployInfo {
         return fDeployType;
     }
 
-    public String getHost() {
-        return fHost;
+    public String getServer() {
+        return fServer;
     }
 
 }

@@ -95,7 +95,7 @@ abstract public class SETCoreSDKCommandJob extends Job {
             psc.join();
 
             if (err == 0) {
-                return reportWarning(psc.getOutput());
+                return reportWarning(psc.getError());
             }
             return reportError(psc.getError());
 

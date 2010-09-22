@@ -52,7 +52,7 @@ abstract public class SETCoreSDKDeployCommandJob extends SETCoreSDKCommandJob {
         params.add(fInfo.getUserName());
         params.add("-pw");
         params.add(fInfo.getPassword());
-        String host = fInfo.getHost().trim();
+        String host = fInfo.getServer().trim();
         if (host != null && !host.equals("")) {
             params.add("-s");
             params.add(host);

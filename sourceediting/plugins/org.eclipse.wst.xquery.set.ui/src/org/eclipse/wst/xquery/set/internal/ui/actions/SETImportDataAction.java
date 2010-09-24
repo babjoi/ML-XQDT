@@ -18,6 +18,8 @@ import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.jobs.IJobChangeEvent;
 import org.eclipse.core.runtime.jobs.Job;
 import org.eclipse.core.runtime.jobs.JobChangeAdapter;
+import org.eclipse.jface.dialogs.IDialogConstants;
+import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.wst.xquery.set.internal.launching.jobs.SETImportDataJob;
 import org.eclipse.wst.xquery.set.internal.ui.dialogs.InfoLinkMessageDialog;
@@ -59,7 +61,18 @@ public class SETImportDataAction extends SETCoreSDKCommandAction {
                         }
                     });
                 }
+            } else if (result.getSeverity() == IStatus.OK) {
+                Display.getDefault().syncExec(new Runnable() {
+                    public void run() {
+                        MessageDialog md = new MessageDialog(Display.getDefault().getActiveShell(),
+                                "Sausalito CoreSDK Bulkloader", null, "Data succesfully imported into project: "
+                                        + getProject().getName(), MessageDialog.INFORMATION,
+                                new String[] { IDialogConstants.OK_LABEL }, 0);
+                        md.open();
+                    }
+                });
             }
+
         }
     };
 }

@@ -144,16 +144,18 @@ abstract public class SETCoreSDKCommandJob extends Job {
     }
 
     protected IStatus reportWarning(String message) {
-        StringBuffer sb = new StringBuffer();
+        if (message != null) {
+            StringBuffer sb = new StringBuffer();
 
-        String[] lines = message.split("\n");
-        for (String line : lines) {
-            if (line.startsWith("[WARNING]")) {
-                sb.append(line + "\n");
+            String[] lines = message.split("\n");
+            for (String line : lines) {
+                if (line.startsWith("[WARNING]")) {
+                    sb.append(line + "\n");
+                }
             }
-        }
-        if (sb.length() > 0) {
-            return new Status(IStatus.WARNING, SETCorePlugin.PLUGIN_ID, sb.toString());
+            if (sb.length() > 0) {
+                return new Status(IStatus.WARNING, SETCorePlugin.PLUGIN_ID, sb.toString());
+            }
         }
 
         return Status.OK_STATUS;

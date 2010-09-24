@@ -16,8 +16,9 @@ import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.Platform;
 import org.eclipse.core.runtime.Plugin;
 import org.eclipse.core.runtime.Status;
-import org.eclipse.core.runtime.preferences.DefaultScope;
 import org.eclipse.core.runtime.preferences.IEclipsePreferences;
+import org.eclipse.core.runtime.preferences.IScopeContext;
+import org.eclipse.core.runtime.preferences.InstanceScope;
 import org.eclipse.dltk.core.environment.IFileHandle;
 import org.eclipse.dltk.core.internal.environment.LocalEnvironment;
 import org.eclipse.dltk.internal.launching.DLTKLaunchingPlugin;
@@ -25,6 +26,7 @@ import org.eclipse.dltk.launching.IInterpreterInstall;
 import org.eclipse.dltk.launching.IInterpreterInstallChangedListener;
 import org.eclipse.dltk.launching.PropertyChangeEvent;
 import org.eclipse.dltk.launching.ScriptRuntime;
+import org.eclipse.wst.xquery.set.core.SETNature;
 import org.eclipse.wst.xquery.set.internal.launching.CoreSDKInstall;
 import org.eclipse.wst.xquery.set.internal.launching.variables.CoreSdkExecNameResolver;
 import org.eclipse.wst.xquery.set.internal.launching.variables.CoreSdkLocationResolver;
@@ -96,57 +98,116 @@ public class SETLaunchingPlugin extends Plugin implements IInterpreterInstallCha
 
     }
 
-    public void interpreterAdded(IInterpreterInstall interpreter) {
-        if (interpreter instanceof CoreSDKInstall) {
-            IFileHandle handle = interpreter.getInstallLocation();
+    private final String CORE_SDK_NAME_PREFIX = "Sausalito CoreSDK ";
+    private boolean fCoreSDKUpdated = false;
 
-            // if an interpreter is added that doesn't exist anymore,
-            // delete the entry from the installed interpreter list
-            if (!handle.exists()) {
-                Path path = new Path(handle.toOSString());
-                StringBuffer pathSB = new StringBuffer(path.toPortableString());
+    private boolean isDefaultInterpreter(IInterpreterInstall interpreter) {
+        String xml = getInterpreterPreferenceXMLString();
 
-                DefaultScope scope = new DefaultScope();
-                IEclipsePreferences pref = scope.getNode(DLTKLaunchingPlugin.PLUGIN_ID);
-                String xml = pref.get(ScriptRuntime.PREF_INTERPRETER_XML, null);
-
-                // first try to find an installed CoreSDK and recover
-                // by replacing the old values with new resolves ones
-                String newValue = CoreSdkLocationResolver.resolve();
-                String version = CoreSdkVersionResolver.resolve();
-
-                // no installed CoreSDK was found, so we delete the false entry
-                if (newValue == null || newValue.equals("")) {
-                    String envId = LocalEnvironment.ENVIRONMENT_ID;
-                    xml = xml.replace("<interpreter environmentId=\"" + envId
-                            + "\" id=\"defaultSausalitoCoreSDK\" name=\"Sausalito CoreSDK " + version + "\" path=\""
-                            + pathSB.toString() + "\"/>", "");
-
-                    log(new Status(IStatus.WARNING, PLUGIN_ID, "Could not find a valid Sausalito CoreSDK installation."));
-                } else {
-                    // in this case we can recover and adjust the wrong CoreSDK entry 
-                    IPath newPath = new Path(newValue);
-                    String executable = CoreSdkExecNameResolver
-                            .resolve(CoreSdkExecNameResolver.SAUSALITO_SCRIPT_VARIABLE_NAME);
-
-                    if (executable != null && executable != "") {
-                        newPath = newPath.append(ISETLaunchingConstants.SAUSALITO_EXECUTABLE_DIRECTORY).append(
-                                executable);
-                        xml = xml.replace(pathSB, newPath.toOSString());
+        String[] lines = xml.split("\n");
+        String id = null;
+        for (String line : lines) {
+            // if we find the default CoreSDK interpreter reference
+            if (line.contains("<defaultInterpreter") && line.contains("nature=\"" + SETNature.NATURE_ID + "\"")) {
+                // get the interpreter ID
+                int searchIndex = line.indexOf("id=\"") + 4;
+                if (searchIndex > 0) {
+                    int endIndex = line.indexOf("\"", searchIndex);
+                    if (endIndex > 0) {
+                        String compositeID = line.substring(searchIndex, endIndex);
+                        String[] parts = compositeID.split(",");
+                        if (parts.length == 3) {
+                            id = parts[2];
+                            break;
+                        }
                     }
                 }
+            }
+        }
 
-                pref.put(ScriptRuntime.PREF_INTERPRETER_XML, xml);
-                try {
-                    pref.flush();
-                } catch (BackingStoreException e) {
-                    IStatus status = new Status(IStatus.ERROR, SETLaunchingPlugin.PLUGIN_ID, IStatus.ERROR,
-                            "Problem saving interpreter XML preferences", e);
-                    SETLaunchingPlugin.log(status);
+        if (interpreter.getId().equals(id)) {
+            return true;
+        }
+        return false;
+    }
+
+    private String getInterpreterPreferenceXMLString() {
+        IScopeContext scope = new InstanceScope();
+        IEclipsePreferences pref = scope.getNode(DLTKLaunchingPlugin.PLUGIN_ID);
+        return pref.get(ScriptRuntime.PREF_INTERPRETER_XML, "");
+    }
+
+    private void saveInterpreterPreferenceXMLString(String xml) {
+        IScopeContext scope = new InstanceScope();
+        IEclipsePreferences pref = scope.getNode(DLTKLaunchingPlugin.PLUGIN_ID);
+        pref.put(ScriptRuntime.PREF_INTERPRETER_XML, xml);
+        try {
+            pref.flush();
+        } catch (BackingStoreException e) {
+            IStatus status = new Status(IStatus.ERROR, SETLaunchingPlugin.PLUGIN_ID, IStatus.ERROR,
+                    "Problem saving interpreter XML preferences", e);
+            SETLaunchingPlugin.log(status);
+        }
+    }
+
+    public void interpreterAdded(IInterpreterInstall interpreter) {
+        // only do this logic if a CoreSDK is added and this happend to be the default one
+        // perform this only once, the first time the default CoreSDK is added
+        if (interpreter instanceof CoreSDKInstall && !fCoreSDKUpdated && isDefaultInterpreter(interpreter)) {
+            IFileHandle handle = interpreter.getInstallLocation();
+
+            Path path = new Path(handle.toOSString());
+            String pathStr = path.toPortableString();
+            String name = interpreter.getName();
+
+            String xml = getInterpreterPreferenceXMLString();
+
+            // first try to find an installed CoreSDK and recover
+            // by replacing the old values with new resolved ones
+            String newValue = CoreSdkLocationResolver.resolve();
+            String version = CoreSdkVersionResolver.resolve();
+
+            // no installed CoreSDK was found, so we delete the false entry
+            if (newValue == null || newValue.equals("")) {
+                String envId = LocalEnvironment.ENVIRONMENT_ID;
+                xml = xml.replace("<interpreter environmentId=\"" + envId
+                        + "\" id=\"defaultSausalitoCoreSDK\" name=\"Sausalito CoreSDK " + version + "\" path=\""
+                        + pathStr + "\"/>", "");
+
+                log(new Status(IStatus.ERROR, PLUGIN_ID, "Could not find a valid Sausalito CoreSDK installation."));
+            } else {
+                // in this case we can recover and adjust the wrong CoreSDK entry 
+
+                String newName = name;
+                if (version != null && name.startsWith(CORE_SDK_NAME_PREFIX)) {
+                    int replaceIndex = name.indexOf(CORE_SDK_NAME_PREFIX) + CORE_SDK_NAME_PREFIX.length();
+                    newName = name.replace(name.substring(replaceIndex), version);
                 }
 
-//                ScriptRuntime.getPreferences().setValue(ScriptRuntime.PREF_INTERPRETER_XML, xml);
-//                ScriptRuntime.savePreferences();
+                StringBuilder newXml = new StringBuilder();
+                String[] lines = xml.split("\n");
+                String id = interpreter.getId();
+                for (String line : lines) {
+                    String modifiedLine = line;
+
+                    if (id != null && line.contains("<interpreter") && line.contains(id)) {
+                        // replace the name with the new one having the updated version
+                        modifiedLine = modifiedLine.replace("name=\"" + name + "\"", "name=\"" + newName + "\"");
+
+                        // replace the path with the new found (shipped) one
+                        IPath newPath = new Path(newValue);
+                        String executable = CoreSdkExecNameResolver
+                                .resolve(CoreSdkExecNameResolver.SAUSALITO_SCRIPT_VARIABLE_NAME);
+                        if (executable != null && executable != "") {
+                            newPath = newPath.append(ISETLaunchingConstants.SAUSALITO_EXECUTABLE_DIRECTORY).append(
+                                    executable);
+                            modifiedLine = modifiedLine.replace("path=\"" + pathStr + "\"",
+                                    "path=\"" + newPath.toPortableString() + "\"");
+                        }
+                    }
+                    newXml.append(modifiedLine + "\n");
+                }
+                saveInterpreterPreferenceXMLString(newXml.toString());
             }
         }
     }

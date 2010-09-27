@@ -17,4 +17,8 @@ public interface ISETConstants extends IZorbaConstants {
     // TODO: create special code to contribute such modules
     public static final String SAUSALITO_MODULE_PREFIX = "http://www.28msec.com/modules/";
 
+    // names of the output console started by SETCoreSDKCommandAction 
+    public static final String SAUSALITO_COMMAND_IMORT_DATA = "Import data";
+    public static final String SAUSALITO_COMMAND_DELETE_DATA = "Delete data";
+
 }

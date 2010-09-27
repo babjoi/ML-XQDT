@@ -85,7 +85,7 @@ abstract public class SETCoreSDKCommandJob extends Job {
             final Process p = exeEnv.exec(cmdLine.toArray(new String[cmdLine.size()]), null, vars);
 
             // read the process output and error streams 
-            ProcessStreamConsumer psc = new ProcessStreamConsumer(p);
+            ProcessStreamConsumer psc = new ProcessStreamConsumer(p, getOutputStream());
             psc.start();
 
             // wait for the process to reminate
@@ -140,7 +140,8 @@ abstract public class SETCoreSDKCommandJob extends Job {
     }
 
     protected IStatus reportError(String message) {
-        return new Status(IStatus.ERROR, SETCorePlugin.PLUGIN_ID, message);
+        return new Status(IStatus.ERROR, SETCorePlugin.PLUGIN_ID, "See details for more information.", new Exception(
+                message));
     }
 
     protected IStatus reportWarning(String message) {
@@ -149,7 +150,7 @@ abstract public class SETCoreSDKCommandJob extends Job {
 
             String[] lines = message.split("\n");
             for (String line : lines) {
-                if (line.startsWith("[WARNING]")) {
+                if (line.startsWith(getWarningLinePrefix())) {
                     sb.append(line + "\n");
                 }
             }
@@ -159,6 +160,10 @@ abstract public class SETCoreSDKCommandJob extends Job {
         }
 
         return Status.OK_STATUS;
+    }
+
+    protected String getWarningLinePrefix() {
+        return "[WARNING]";
     }
 
     protected void updateMonitorTaskName(String taskName) {

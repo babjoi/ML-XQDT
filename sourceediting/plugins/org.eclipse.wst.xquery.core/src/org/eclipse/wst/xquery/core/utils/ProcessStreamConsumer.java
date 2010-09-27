@@ -14,6 +14,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.OutputStream;
 
 public class ProcessStreamConsumer {
 
@@ -29,6 +30,7 @@ public class ProcessStreamConsumer {
             try {
                 BufferedReader output = new BufferedReader(new InputStreamReader(fInputStream));
                 for (String line; (line = output.readLine()) != null;) {
+                    forwardWrite(line + "\n");
                     if (fBuffer == null) {
                         fBuffer = new StringBuffer();
                     }
@@ -50,8 +52,13 @@ public class ProcessStreamConsumer {
     private ProcessStreamReader fProcessOutputReader;
     private ProcessStreamReader fProcessErrorReader;
     private Thread fOutputReader, fErrorReader;
+    private OutputStream fCopyToStreamStream;
 
     public ProcessStreamConsumer(Process process) {
+        this(process, null);
+    }
+
+    public ProcessStreamConsumer(Process process, OutputStream copyToStream) {
         if (process == null) {
             throw new IllegalArgumentException("The process can not be null.");
         }
@@ -59,6 +66,7 @@ public class ProcessStreamConsumer {
         fProcessErrorReader = new ProcessStreamReader(process.getErrorStream());
         fOutputReader = new Thread(fProcessOutputReader);
         fErrorReader = new Thread(fProcessErrorReader);
+        fCopyToStreamStream = copyToStream;
     }
 
     public void start() {
@@ -85,5 +93,16 @@ public class ProcessStreamConsumer {
 
     public String getError() {
         return fProcessErrorReader.getData();
+    }
+
+    private synchronized void forwardWrite(String data) {
+        if (fCopyToStreamStream != null) {
+            try {
+                fCopyToStreamStream.write(data.getBytes());
+            } catch (IOException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
+        }
     }
 }

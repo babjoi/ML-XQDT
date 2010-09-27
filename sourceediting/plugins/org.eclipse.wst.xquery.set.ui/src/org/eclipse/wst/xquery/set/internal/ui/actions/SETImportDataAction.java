@@ -18,9 +18,8 @@ import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.jobs.IJobChangeEvent;
 import org.eclipse.core.runtime.jobs.Job;
 import org.eclipse.core.runtime.jobs.JobChangeAdapter;
-import org.eclipse.jface.dialogs.IDialogConstants;
-import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.swt.widgets.Display;
+import org.eclipse.wst.xquery.set.internal.core.ISETConstants;
 import org.eclipse.wst.xquery.set.internal.launching.jobs.SETImportDataJob;
 import org.eclipse.wst.xquery.set.internal.ui.dialogs.InfoLinkMessageDialog;
 
@@ -30,15 +29,10 @@ public class SETImportDataAction extends SETCoreSDKCommandAction {
     private static final String MESSAGE_NOTHING_TO_DO_DETAILS = "Find our more on how to use the bulkloader in the "
             + "<a href=\"" + MESSAGE_NOTHING_TO_DO_URL + "\">Sausalito Documentation</a>.";
 
-    @Override
-    protected Job getActionJob(OutputStream output) {
+    protected Job createActionJob(OutputStream output) {
         Job job = new SETImportDataJob(getProject(), output);
-        addJobListeners(job);
-        return job;
-    }
-
-    private void addJobListeners(Job job) {
         job.addJobChangeListener(fListener);
+        return job;
     }
 
     private JobChangeAdapter fListener = new JobChangeAdapter() {
@@ -61,18 +55,12 @@ public class SETImportDataAction extends SETCoreSDKCommandAction {
                         }
                     });
                 }
-            } else if (result.getSeverity() == IStatus.OK) {
-                Display.getDefault().syncExec(new Runnable() {
-                    public void run() {
-                        MessageDialog md = new MessageDialog(Display.getDefault().getActiveShell(),
-                                "Sausalito CoreSDK Bulkloader", null, "Data succesfully imported into project: "
-                                        + getProject().getName(), MessageDialog.INFORMATION,
-                                new String[] { IDialogConstants.OK_LABEL }, 0);
-                        md.open();
-                    }
-                });
             }
-
         }
     };
+
+    protected String getActionLabel() {
+        return ISETConstants.SAUSALITO_COMMAND_IMORT_DATA;
+    }
+
 }

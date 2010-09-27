@@ -38,4 +38,8 @@ public class SETDeleteDataJob extends SETCoreSDKCommandJob {
         return "Deleting data for project: " + fProject.getName();
     }
 
+    @Override
+    protected String getWarningLinePrefix() {
+        return "No data available";
+    }
 }

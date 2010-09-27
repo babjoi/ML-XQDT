@@ -13,7 +13,7 @@ package org.eclipse.wst.xquery.debug.debugger.zorba.translator.messages;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.eclipse.wst.xquery.debug.debugger.zorba.translator.model.Breakpoint;
+import org.eclipse.wst.xquery.debug.debugger.zorba.translator.model.BreakpointPosition;
 
 import com.google.gson.Gson;
 import com.google.gson.annotations.SerializedName;
@@ -21,19 +21,19 @@ import com.google.gson.annotations.SerializedName;
 public class SetMessage extends AbstractCommandMessage {
 
     @SerializedName("breakpoints")
-    private List<Breakpoint> fBreakpoints = new ArrayList<Breakpoint>();
+    private List<BreakpointPosition> fBreakpoints = new ArrayList<BreakpointPosition>();
 
     public SetMessage() {
         super(ICommandSets.COMMAND_SET_BREAKPOINTS, ICommandSets.COMMAND_SET);
     }
 
-    public void addBreakpoint(Breakpoint breakpoint) {
+    public void addBreakpoint(BreakpointPosition breakpoint) {
         if (fBreakpoints == null)
-            fBreakpoints = new ArrayList<Breakpoint>();
+            fBreakpoints = new ArrayList<BreakpointPosition>();
         fBreakpoints.add(breakpoint);
     }
 
-    public List<Breakpoint> getBreakpointPositions() {
+    public List<BreakpointPosition> getBreakpointPositions() {
         return fBreakpoints;
     }
 

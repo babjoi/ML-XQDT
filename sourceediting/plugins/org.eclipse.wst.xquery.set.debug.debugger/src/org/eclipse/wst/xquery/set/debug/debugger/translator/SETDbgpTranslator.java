@@ -55,7 +55,7 @@ import org.eclipse.wst.xquery.debug.debugger.zorba.translator.messages.Suspended
 import org.eclipse.wst.xquery.debug.debugger.zorba.translator.messages.TerminatedMessage;
 import org.eclipse.wst.xquery.debug.debugger.zorba.translator.messages.VariablesMessage;
 import org.eclipse.wst.xquery.debug.debugger.zorba.translator.messages.VariablesPayload;
-import org.eclipse.wst.xquery.debug.debugger.zorba.translator.model.Breakpoint;
+import org.eclipse.wst.xquery.debug.debugger.zorba.translator.model.BreakpointPosition;
 import org.eclipse.wst.xquery.debug.debugger.zorba.translator.model.QueryLocation;
 import org.eclipse.wst.xquery.debug.debugger.zorba.translator.model.Variable;
 import org.eclipse.wst.xquery.set.launching.SETLaunchUtil;
@@ -175,7 +175,8 @@ public class SETDbgpTranslator extends DbgpWorkingThread implements IDbgpTransla
     private SuspendedMessage fLastSuspendedEvent;
     private boolean fGlobalTerminate;
 
-    private Map<Integer, SetMessage> fPendingBreakpoint = new TreeMap<Integer, SetMessage>();
+    private Map<Integer, BreakpointPosition> fPendingBreakpoints = new TreeMap<Integer, BreakpointPosition>();
+    private Map<Integer, BreakpointPosition> fDisabledBreakpoints = new TreeMap<Integer, BreakpointPosition>();
 
     private synchronized DbgpResponse processCommand(final DbgpRequest request) {
         DbgpResponse response = null;
@@ -210,9 +211,15 @@ public class SETDbgpTranslator extends DbgpWorkingThread implements IDbgpTransla
                     }
                 }
 
-                for (SetMessage setMessage : fPendingBreakpoint.values()) {
+                // send all set breakpoint to the engine in one SET message
+                if (fPendingBreakpoints.size() > 0) {
+                    SetMessage setMessage = new SetMessage();
+                    for (BreakpointPosition breakpoint : fPendingBreakpoints.values()) {
+                        setMessage.addBreakpoint(breakpoint);
+                    }
                     fEngine.sendCommand(setMessage);
                 }
+
                 fStarted = true;
                 fEngine.run();
             } else {
@@ -272,23 +279,28 @@ public class SETDbgpTranslator extends DbgpWorkingThread implements IDbgpTransla
             response = new DbgpResponse(request);
             response.addAttribute("success", "0");
         } else if (command.equals(IDbgpConstants.COMMAND_BREAKPOINT_SET)) {
-
             // construct the query location
             int line = Integer.parseInt(request.getOption("-n"));
             String filename = request.getOption("-f");
             String namespace = getModuleNamespace(filename);
             QueryLocation ql = new QueryLocation(namespace, line, 0, line, 0);
 
-            // build the set message
-            SetMessage set = new SetMessage();
-            int id = set.hashCode();
-            String state = request.getOption("-s");
-            set.addBreakpoint(new Breakpoint(id, ql));
+            int id = Integer.parseInt(request.getOption("-i"));
+            BreakpointPosition breakpoint = new BreakpointPosition(id, ql);
 
-            if (!fEngine.isInitialized()) {
-                fPendingBreakpoint.put(id, set);
+            String state = request.getOption("-s");
+            if (state.equals("enabled")) {
+                if (!fEngine.isInitialized()) {
+                    // add to pending breakpoint for later sending
+                    fPendingBreakpoints.put(id, breakpoint);
+                } else {
+                    // build the SET message and sent it now
+                    SetMessage set = new SetMessage();
+                    set.addBreakpoint(breakpoint);
+                    fEngine.sendCommand(set);
+                }
             } else {
-                fEngine.sendCommand(set);
+                fDisabledBreakpoints.put(id, breakpoint);
             }
 
             response = new DbgpResponse(request);
@@ -298,15 +310,36 @@ public class SETDbgpTranslator extends DbgpWorkingThread implements IDbgpTransla
             response = new DbgpResponse(request);
             response.addAttribute("success", "0");
         } else if (command.equals(IDbgpConstants.COMMAND_BREAKPOINT_REMOVE)) {
-            ClearMessage clear = new ClearMessage();
             int id = Integer.parseInt(request.getOption("-d"));
-            clear.addBreakpointId(id);
-            fEngine.sendCommand(clear);
-            fPendingBreakpoint.remove(id);
+            if (fEngine.isInitialized()) {
+                ClearMessage clear = new ClearMessage();
+                clear.addBreakpointId(id);
+                fEngine.sendCommand(clear);
+            } else {
+                fPendingBreakpoints.remove(id);
+            }
             response = new DbgpResponse(request);
         } else if (command.equals(IDbgpConstants.COMMAND_BREAKPOINT_UPDATE)) {
+            int id = Integer.parseInt(request.getOption("-d"));
+            String state = request.getOption("-s");
+
+            if (state.equals("enabled")) {
+                BreakpointPosition breakpoint = fDisabledBreakpoints.remove(id);
+                if (fEngine.isInitialized()) {
+                    if (breakpoint != null) {
+                        // build and send the SET message
+                        SetMessage set = new SetMessage();
+                        set.addBreakpoint(breakpoint);
+                        fEngine.sendCommand(set);
+                    }
+                } else {
+                    // add to pending breakpoint for later sending
+                    fPendingBreakpoints.put(id, breakpoint);
+                }
+            }
             response = new DbgpResponse(request);
-            response.addAttribute("success", "0");
+            response.addAttribute("state", state);
+            response.addAttribute("id", "" + id);
         } else if (command.equals(IDbgpConstants.COMMAND_SOURCE)) {
             response = new DbgpResponse(request);
             response.addAttribute("success", "0");
@@ -490,9 +523,16 @@ public class SETDbgpTranslator extends DbgpWorkingThread implements IDbgpTransla
                     while (!fEngine.isInitialized()) {
                         Thread.sleep(500);
                     }
-                    for (SetMessage setMessage : fPendingBreakpoint.values()) {
+
+                    // send all set breakpoint to the engine in one SET message
+                    if (fPendingBreakpoints.size() > 0) {
+                        SetMessage setMessage = new SetMessage();
+                        for (BreakpointPosition breakpoint : fPendingBreakpoints.values()) {
+                            setMessage.addBreakpoint(breakpoint);
+                        }
                         fEngine.sendCommand(setMessage);
                     }
+
                     fEngine.run();
                     Thread.sleep(10000);
                 } catch (Exception e) {
@@ -538,4 +578,5 @@ public class SETDbgpTranslator extends DbgpWorkingThread implements IDbgpTransla
         }
 
     }
+
 }

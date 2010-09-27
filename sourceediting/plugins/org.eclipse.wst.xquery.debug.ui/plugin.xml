@@ -209,7 +209,7 @@
          <action
                actionID="RulerDoubleClick"
                class="org.eclipse.debug.ui.actions.RulerToggleBreakpointActionDelegate"
-               id="XQDTEditor.doubleClickBreakpointAction"
+               id="XQDTEditor.ToggleBreakpointAction"
                label="Toggle &amp;Breakpoint"
                style="push">
          </action>
@@ -221,9 +221,15 @@
             id="org.eclipse.wst.xquery.debug.ui.rulerContribution"
             targetID="#XQDTRulerContext">
          <action
+               class="org.eclipse.debug.ui.actions.RulerEnableDisableBreakpointActionDelegate"
+               id="EnableDisableBreakpointAction"
+               label="Disable Breakpoint"
+               menubarPath="debug">
+         </action>
+         <action
                class="org.eclipse.debug.ui.actions.RulerToggleBreakpointActionDelegate"
                icon="$nl$/icons/obj16/brkp_obj.gif"
-               id="org.eclipse.wst.xquery.ui.actions.RulerToggleBreakpointActionDelegate"
+               id="ToggleBreakpointAction"
                label="Toggle &amp;Breakpoint"
                menubarPath="debug">
          </action>

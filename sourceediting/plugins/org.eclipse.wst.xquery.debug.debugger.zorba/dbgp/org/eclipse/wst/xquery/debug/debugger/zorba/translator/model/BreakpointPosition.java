@@ -12,7 +12,7 @@ package org.eclipse.wst.xquery.debug.debugger.zorba.translator.model;
 
 import com.google.gson.annotations.SerializedName;
 
-public class Breakpoint {
+public class BreakpointPosition {
 
     @SerializedName("id")
     private int fId;
@@ -20,10 +20,10 @@ public class Breakpoint {
     private QueryLocation fLocation;
 
     @SuppressWarnings("unused")
-    private Breakpoint() {
+    private BreakpointPosition() {
     }
 
-    public Breakpoint(int id, QueryLocation location) {
+    public BreakpointPosition(int id, QueryLocation location) {
         fId = id;
         fLocation = location;
     }

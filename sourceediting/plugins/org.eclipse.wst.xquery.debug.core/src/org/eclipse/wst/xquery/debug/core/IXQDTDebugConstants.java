@@ -10,10 +10,7 @@
  *******************************************************************************/
 package org.eclipse.wst.xquery.debug.core;
 
-public final class XQDTDebugConstants {
-
-    private XQDTDebugConstants() {
-    }
+public interface IXQDTDebugConstants {
 
     public static final String DEBUG_MODEL_ID = "org.eclipse.wst.xquery.debug.core.xqdtModel";
 

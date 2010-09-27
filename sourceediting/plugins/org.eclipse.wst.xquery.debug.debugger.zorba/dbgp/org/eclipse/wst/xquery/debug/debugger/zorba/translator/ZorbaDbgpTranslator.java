@@ -54,7 +54,7 @@ import org.eclipse.wst.xquery.debug.debugger.zorba.translator.messages.Terminate
 import org.eclipse.wst.xquery.debug.debugger.zorba.translator.messages.TerminatedMessage;
 import org.eclipse.wst.xquery.debug.debugger.zorba.translator.messages.VariablesMessage;
 import org.eclipse.wst.xquery.debug.debugger.zorba.translator.messages.VariablesPayload;
-import org.eclipse.wst.xquery.debug.debugger.zorba.translator.model.Breakpoint;
+import org.eclipse.wst.xquery.debug.debugger.zorba.translator.model.BreakpointPosition;
 import org.eclipse.wst.xquery.debug.debugger.zorba.translator.model.QueryLocation;
 import org.eclipse.wst.xquery.debug.debugger.zorba.translator.model.Variable;
 
@@ -282,7 +282,7 @@ public class ZorbaDbgpTranslator extends DbgpWorkingThread implements IDbgpTrans
                 int id = set.hashCode();
                 String state = request.getOption("-s");
 
-                set.addBreakpoint(new Breakpoint(id, ql));
+                set.addBreakpoint(new BreakpointPosition(id, ql));
                 fEngine.sendCommand(set);
 
                 response = new DbgpResponse(request);

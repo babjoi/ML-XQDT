@@ -13,7 +13,7 @@ public class XQDTDebugEngineSelector extends DLTKPriorityContributionSelector {
         if (contributions != null) {
             IEclipsePreferences preferences = (new InstanceScope()).getNode(XQDTDebugCorePlugin.PLUGIN_ID);
             if (preferences != null) {
-                String debugEngineID = preferences.get(XQDTDebugConstants.DEBUGGING_ENGINE_ID_KEY, null);
+                String debugEngineID = preferences.get(IXQDTDebugConstants.DEBUGGING_ENGINE_ID_KEY, null);
                 if (debugEngineID != null) {
                     for (int i = 0; i < contributions.length; i++) {
                         if (contributions[i].getId().equals(debugEngineID)) {

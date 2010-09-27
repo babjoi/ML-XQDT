@@ -14,12 +14,12 @@ import org.eclipse.core.runtime.CoreException;
 import org.eclipse.dltk.debug.ui.breakpoints.ScriptToggleBreakpointAdapter;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.ui.IWorkbenchPart;
-import org.eclipse.wst.xquery.debug.core.XQDTDebugConstants;
+import org.eclipse.wst.xquery.debug.core.IXQDTDebugConstants;
 
 public class XQDTToggleBreakpointAdapter extends ScriptToggleBreakpointAdapter {
 
     protected String getDebugModelId() {
-        return XQDTDebugConstants.DEBUG_MODEL_ID;
+        return IXQDTDebugConstants.DEBUG_MODEL_ID;
     }
 
     public boolean canToggleBreakpoints(IWorkbenchPart part, ISelection selection) {

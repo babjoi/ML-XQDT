@@ -27,7 +27,7 @@ import org.eclipse.wst.xquery.core.model.ast.XQueryStringLiteral;
 import org.eclipse.wst.xquery.core.semantic.SemanticCheckError;
 import org.eclipse.wst.xquery.core.semantic.SemanticCheckErrorReportReader;
 import org.eclipse.wst.xquery.set.core.ISETCoreConstants;
-import org.eclipse.wst.xquery.set.core.SETProjectConfigUtil;
+import org.eclipse.wst.xquery.set.core.utils.SETProjectConfigUtil;
 
 public class CoreSDKErrorReportReader extends SemanticCheckErrorReportReader {
 

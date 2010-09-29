@@ -65,6 +65,7 @@ import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Link;
 import org.eclipse.ui.actions.WorkspaceModifyOperation;
 import org.eclipse.ui.dialogs.PreferencesUtil;
+import org.eclipse.wst.xquery.set.core.ISETCoreConstants;
 import org.eclipse.wst.xquery.set.core.SETNature;
 import org.eclipse.wst.xquery.set.internal.ui.preferences.PreferenceConstants;
 import org.eclipse.wst.xquery.set.ui.ISETUIConstants;
@@ -285,7 +286,8 @@ public class SETImportProjectWizardPage extends WizardPage implements IDialogFie
             setErrorMessage("The indicated path already contains an eclipse project. Use the \"Existing Projects into Workspace\" import wizard.");
             return false;
         }
-        file = new File(importDir + File.separator + ".config" + File.separator + "sausalito.xml");
+        file = new File(importDir + File.separator + ISETCoreConstants.PROJECT_DIRECTORY_CONFIG + File.separator
+                + ISETCoreConstants.PROJECT_FILE_CONFIG);
         if (!file.exists() || file.isDirectory()) {
             setErrorMessage("\"" + importDir + "\" is not a valid Sausalito project");
             return false;

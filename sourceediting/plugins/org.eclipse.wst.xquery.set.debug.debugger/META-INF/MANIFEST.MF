@@ -19,6 +19,7 @@ Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.wst.xquery.launching;bundle-version="[0.8.0,2.0.0)",
  org.eclipse.wst.xquery.debug.core,
  org.eclipse.wst.xquery.debug.ui;bundle-version="[0.8.0,2.0.0)",
+ org.eclipse.wst.xquery.set.core;bundle-version="[0.8.0,2.0.0)",
  org.eclipse.wst.xquery.set.debug.core;bundle-version="[0.8.0,2.0.0)",
  org.eclipse.wst.xquery.set.launching;bundle-version="[0.8.0,2.0.0)",
  org.eclipse.wst.xquery.debug.debugger.zorba;bundle-version="[0.8.0,2.0.0)"

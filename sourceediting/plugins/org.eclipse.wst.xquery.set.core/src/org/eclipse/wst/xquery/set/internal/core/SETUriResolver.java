@@ -23,7 +23,7 @@ import org.eclipse.dltk.core.ModelException;
 import org.eclipse.wst.xquery.core.XQDTUriResolver;
 import org.eclipse.wst.xquery.set.core.ISETCoreConstants;
 import org.eclipse.wst.xquery.set.core.SETProjectConfig;
-import org.eclipse.wst.xquery.set.core.SETProjectConfigUtil;
+import org.eclipse.wst.xquery.set.core.utils.SETProjectConfigUtil;
 
 public class SETUriResolver extends XQDTUriResolver {
 

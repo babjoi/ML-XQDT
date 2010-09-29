@@ -12,11 +12,19 @@ package org.eclipse.wst.xquery.set.core;
 
 public interface ISETCoreConstants {
 
-    // build paths
+    // project directories
+    public static final String PROJECT_DIRECTORY_CONFIG = ".config";
     public static final String PROJECT_DIRECTORY_HANDLER = "handlers";
     public static final String PROJECT_DIRECTORY_LIBRARY = "lib";
+    public static final String PROJECT_DIRECTORY_BULKLOAD = "bulkload";
     public static final String PROJECT_DIRECTORY_EXTERNAL = "external";
     public static final String PROJECT_DIRECTORY_PUBLIC = "public";
     public static final String PROJECT_DIRECTORY_TEST = "test";
-    public static final String PROJECT_DIRECTORY_BULKLOAD = "bulkload";
+
+    // project files
+    public static final String PROJECT_FILE_CONFIG = "sausalito.xml";
+
+    // other
+    public static final String XQUERY_FILE_EXTENSION = "xq";
+
 }

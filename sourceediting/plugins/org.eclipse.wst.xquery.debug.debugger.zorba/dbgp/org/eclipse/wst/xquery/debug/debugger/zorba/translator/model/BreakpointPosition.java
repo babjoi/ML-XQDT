@@ -32,7 +32,7 @@ public class BreakpointPosition {
         return fId;
     }
 
-    public void setFId(int id) {
+    public void setId(int id) {
         fId = id;
     }
 

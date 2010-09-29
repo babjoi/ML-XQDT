@@ -93,7 +93,7 @@ import org.eclipse.wst.xquery.internal.core.parser.XQDTSourceParser;
 import org.eclipse.wst.xquery.set.core.ISETCoreConstants;
 import org.eclipse.wst.xquery.set.core.SETNature;
 import org.eclipse.wst.xquery.set.core.SETProjectConfig;
-import org.eclipse.wst.xquery.set.core.SETProjectConfigUtil;
+import org.eclipse.wst.xquery.set.core.utils.SETProjectConfigUtil;
 import org.eclipse.wst.xquery.set.ui.SETUIPlugin;
 
 @SuppressWarnings("restriction")

@@ -36,7 +36,7 @@ import org.eclipse.ui.IFileEditorInput;
 import org.eclipse.wst.xquery.set.core.ISETCoreConstants;
 import org.eclipse.wst.xquery.set.core.SETNature;
 import org.eclipse.wst.xquery.set.core.SETProjectConfig;
-import org.eclipse.wst.xquery.set.core.SETProjectConfigUtil;
+import org.eclipse.wst.xquery.set.core.utils.SETProjectConfigUtil;
 import org.eclipse.wst.xquery.set.debug.core.ISETLaunchConfigurationConstants;
 import org.eclipse.wst.xquery.set.internal.ui.SETEditProjectConfigDialog;
 import org.eclipse.wst.xquery.set.launching.SETRuntimeProcessFactory;

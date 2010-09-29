@@ -14,6 +14,7 @@ import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
+import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.debug.core.DebugPlugin;
 import org.eclipse.debug.core.ILaunchConfiguration;
@@ -48,7 +49,7 @@ import org.eclipse.wst.xquery.core.model.ast.XQueryLibraryModule;
 import org.eclipse.wst.xquery.set.core.ISETCoreConstants;
 import org.eclipse.wst.xquery.set.core.SETNature;
 import org.eclipse.wst.xquery.set.core.SETProjectConfig;
-import org.eclipse.wst.xquery.set.core.SETProjectConfigUtil;
+import org.eclipse.wst.xquery.set.core.utils.SETProjectConfigUtil;
 import org.eclipse.wst.xquery.set.debug.core.ISETLaunchConfigurationConstants;
 import org.eclipse.wst.xquery.set.internal.launching.server.ServerManager;
 import org.eclipse.wst.xquery.set.internal.ui.SETEditProjectConfigDialog;
@@ -116,7 +117,8 @@ public class SETMainLaunchConfigurationTab extends MainLaunchConfigurationTab {
             return false;
         }
         String handlerName = path.segment(0);
-        ISourceModule module = DLTKCore.createSourceModuleFrom(folder.getFile(handlerName + ".xq"));
+        IPath fileName = new Path(handlerName).addFileExtension(ISETCoreConstants.XQUERY_FILE_EXTENSION);
+        ISourceModule module = DLTKCore.createSourceModuleFrom(folder.getFile(fileName));
         if (module == null || !module.exists()) {
             setErrorMessage("Could not find the '" + handlerName + ".xq' module in the \""
                     + ISETCoreConstants.PROJECT_DIRECTORY_HANDLER + "\" directory folder");
@@ -324,7 +326,6 @@ public class SETMainLaunchConfigurationTab extends MainLaunchConfigurationTab {
         config.setAttribute(ISETLaunchConfigurationConstants.ATTR_XQDT_SET_INDENT, fIndentCheckButton.getSelection());
         config.setAttribute(ISETLaunchConfigurationConstants.ATTR_XQDT_SET_CLEAR_COLLECTIONS,
                 fClearCollectionsCheckButton.getSelection());
-        config.setAttribute(DebugPlugin.ATTR_PROCESS_FACTORY_ID, SETRuntimeProcessFactory.PROCESS_FACTORY_ID);
 
         super.doPerformApply(config);
 
@@ -337,6 +338,11 @@ public class SETMainLaunchConfigurationTab extends MainLaunchConfigurationTab {
                 SETProjectConfigUtil.writeProjectConfig(getProject().getProject(), fConfig);
             }
         }
+    }
+
+    @Override
+    protected void applyProcessFactory(ILaunchConfigurationWorkingCopy config) {
+        config.setAttribute(DebugPlugin.ATTR_PROCESS_FACTORY_ID, SETRuntimeProcessFactory.PROCESS_FACTORY_ID);
     }
 
     @Override

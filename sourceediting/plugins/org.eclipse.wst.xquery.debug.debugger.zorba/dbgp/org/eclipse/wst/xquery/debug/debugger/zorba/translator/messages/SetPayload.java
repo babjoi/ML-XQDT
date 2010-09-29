@@ -15,39 +15,15 @@ import java.util.List;
 
 import org.eclipse.wst.xquery.debug.debugger.zorba.translator.model.BreakpointPosition;
 
-import com.google.gson.Gson;
 import com.google.gson.annotations.SerializedName;
 
-public class SetMessage extends AbstractCommandMessage {
+public class SetPayload {
 
     @SerializedName("breakpoints")
     private List<BreakpointPosition> fBreakpoints = new ArrayList<BreakpointPosition>();
 
-    public SetMessage() {
-        super(ICommandSets.COMMAND_SET_BREAKPOINTS, ICommandSets.COMMAND_SET);
-    }
-
-    public void addBreakpoint(BreakpointPosition breakpoint) {
-        if (fBreakpoints == null) {
-            fBreakpoints = new ArrayList<BreakpointPosition>();
-        }
-        fBreakpoints.add(breakpoint);
-    }
-
     public List<BreakpointPosition> getBreakpointPositions() {
         return fBreakpoints;
-    }
-
-    @Override
-    public byte[] serializeData() {
-        Gson g = new Gson();
-        return g.toJson(this).getBytes();
-    }
-
-    public SetPayload getReplyPayload(ReplyMessage reply) {
-        Gson g = new Gson();
-        String payload = new String(reply.getData());
-        return g.fromJson(payload.replaceAll("\\},\\]\\}", "}]}"), SetPayload.class);
     }
 
 }

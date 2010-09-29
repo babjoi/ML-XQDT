@@ -23,8 +23,17 @@ import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 
+import org.eclipse.core.resources.IFile;
+import org.eclipse.core.resources.IMarker;
+import org.eclipse.core.resources.IResource;
+import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
+import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Path;
+import org.eclipse.core.runtime.Status;
+import org.eclipse.debug.core.DebugPlugin;
+import org.eclipse.debug.core.IBreakpointManager;
+import org.eclipse.debug.core.model.IBreakpoint;
 import org.eclipse.dltk.ast.declarations.ModuleDeclaration;
 import org.eclipse.dltk.core.IScriptFolder;
 import org.eclipse.dltk.core.IScriptProject;
@@ -35,6 +44,7 @@ import org.eclipse.dltk.dbgp.DbgpRequest;
 import org.eclipse.dltk.dbgp.internal.DbgpWorkingThread;
 import org.eclipse.dltk.dbgp.internal.IDbgpTerminationListener;
 import org.eclipse.dltk.dbgp.internal.utils.Base64Helper;
+import org.eclipse.dltk.internal.debug.core.model.ScriptMarkerFactory;
 import org.eclipse.wst.xquery.core.model.ast.XQueryLibraryModule;
 import org.eclipse.wst.xquery.debug.dbgp.DbgpResponse;
 import org.eclipse.wst.xquery.debug.dbgp.InitPacket;
@@ -51,6 +61,7 @@ import org.eclipse.wst.xquery.debug.debugger.zorba.translator.messages.Evaluated
 import org.eclipse.wst.xquery.debug.debugger.zorba.translator.messages.ICommandSets;
 import org.eclipse.wst.xquery.debug.debugger.zorba.translator.messages.ReplyMessage;
 import org.eclipse.wst.xquery.debug.debugger.zorba.translator.messages.SetMessage;
+import org.eclipse.wst.xquery.debug.debugger.zorba.translator.messages.SetPayload;
 import org.eclipse.wst.xquery.debug.debugger.zorba.translator.messages.SuspendedMessage;
 import org.eclipse.wst.xquery.debug.debugger.zorba.translator.messages.TerminatedMessage;
 import org.eclipse.wst.xquery.debug.debugger.zorba.translator.messages.VariablesMessage;
@@ -58,6 +69,8 @@ import org.eclipse.wst.xquery.debug.debugger.zorba.translator.messages.Variables
 import org.eclipse.wst.xquery.debug.debugger.zorba.translator.model.BreakpointPosition;
 import org.eclipse.wst.xquery.debug.debugger.zorba.translator.model.QueryLocation;
 import org.eclipse.wst.xquery.debug.debugger.zorba.translator.model.Variable;
+import org.eclipse.wst.xquery.set.core.utils.SETProjectUtil;
+import org.eclipse.wst.xquery.set.debug.debugger.SETDebuggerPlugin;
 import org.eclipse.wst.xquery.set.launching.SETLaunchUtil;
 
 @SuppressWarnings("restriction")
@@ -177,6 +190,7 @@ public class SETDbgpTranslator extends DbgpWorkingThread implements IDbgpTransla
 
     private Map<Integer, BreakpointPosition> fPendingBreakpoints = new TreeMap<Integer, BreakpointPosition>();
     private Map<Integer, BreakpointPosition> fDisabledBreakpoints = new TreeMap<Integer, BreakpointPosition>();
+    private Map<Integer, BreakpointPosition> fToDisableBreakpoints = new TreeMap<Integer, BreakpointPosition>();
 
     private synchronized DbgpResponse processCommand(final DbgpRequest request) {
         DbgpResponse response = null;
@@ -205,20 +219,14 @@ public class SETDbgpTranslator extends DbgpWorkingThread implements IDbgpTransla
             if (!fStarted) {
                 while (!fEngine.isInitialized()) {
                     try {
-                        Thread.sleep(1000);
+                        Thread.sleep(250);
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
                 }
 
                 // send all set breakpoint to the engine in one SET message
-                if (fPendingBreakpoints.size() > 0) {
-                    SetMessage setMessage = new SetMessage();
-                    for (BreakpointPosition breakpoint : fPendingBreakpoints.values()) {
-                        setMessage.addBreakpoint(breakpoint);
-                    }
-                    fEngine.sendCommand(setMessage);
-                }
+                setPendingBreakpoints();
 
                 fStarted = true;
                 fEngine.run();
@@ -311,6 +319,7 @@ public class SETDbgpTranslator extends DbgpWorkingThread implements IDbgpTransla
             response.addAttribute("success", "0");
         } else if (command.equals(IDbgpConstants.COMMAND_BREAKPOINT_REMOVE)) {
             int id = Integer.parseInt(request.getOption("-d"));
+
             if (fEngine.isInitialized()) {
                 ClearMessage clear = new ClearMessage();
                 clear.addBreakpointId(id);
@@ -323,18 +332,22 @@ public class SETDbgpTranslator extends DbgpWorkingThread implements IDbgpTransla
             int id = Integer.parseInt(request.getOption("-d"));
             String state = request.getOption("-s");
 
-            if (state.equals("enabled")) {
-                BreakpointPosition breakpoint = fDisabledBreakpoints.remove(id);
-                if (fEngine.isInitialized()) {
-                    if (breakpoint != null) {
-                        // build and send the SET message
-                        SetMessage set = new SetMessage();
-                        set.addBreakpoint(breakpoint);
-                        fEngine.sendCommand(set);
+            BreakpointPosition position = fToDisableBreakpoints.remove(id);
+            if (position == null) {
+
+                if (state.equals("enabled")) {
+                    BreakpointPosition breakpoint = fDisabledBreakpoints.remove(id);
+                    if (fEngine.isInitialized()) {
+                        if (breakpoint != null) {
+                            // build and send the SET message
+                            SetMessage set = new SetMessage();
+                            set.addBreakpoint(breakpoint);
+                            fEngine.sendCommand(set);
+                        }
+                    } else {
+                        // add to pending breakpoint for later sending
+                        fPendingBreakpoints.put(id, breakpoint);
                     }
-                } else {
-                    // add to pending breakpoint for later sending
-                    fPendingBreakpoints.put(id, breakpoint);
                 }
             }
             response = new DbgpResponse(request);
@@ -521,17 +534,10 @@ public class SETDbgpTranslator extends DbgpWorkingThread implements IDbgpTransla
                     SETLaunchUtil.bringBrowserOnTop();
                     fEngine.reconnect();
                     while (!fEngine.isInitialized()) {
-                        Thread.sleep(500);
+                        Thread.sleep(250);
                     }
 
-                    // send all set breakpoint to the engine in one SET message
-                    if (fPendingBreakpoints.size() > 0) {
-                        SetMessage setMessage = new SetMessage();
-                        for (BreakpointPosition breakpoint : fPendingBreakpoints.values()) {
-                            setMessage.addBreakpoint(breakpoint);
-                        }
-                        fEngine.sendCommand(setMessage);
-                    }
+                    setPendingBreakpoints();
 
                     fEngine.run();
                     Thread.sleep(10000);
@@ -556,6 +562,79 @@ public class SETDbgpTranslator extends DbgpWorkingThread implements IDbgpTransla
                 response.addAttribute("reason", IDbgpConstants.REASON_OK);
             }
             fResponder.send(response);
+        }
+    }
+
+    private void setPendingBreakpoints() {
+        // send all set breakpoint to the engine in one SET message
+        if (fPendingBreakpoints.size() > 0) {
+            SetMessage setMessage = new SetMessage();
+            for (BreakpointPosition breakpoint : fPendingBreakpoints.values()) {
+                setMessage.addBreakpoint(breakpoint);
+            }
+            // send the command to the debugger engine
+            ReplyMessage reply = (ReplyMessage)fEngine.sendCommand(setMessage);
+
+            // check for "not set" breakpoints and disable them
+            SetPayload paylod = setMessage.getReplyPayload(reply);
+            for (BreakpointPosition breakpoint : paylod.getBreakpointPositions()) {
+                // if the breakpoint was not set disable it
+                if (breakpoint.getLocation().getFileName().equals("")) {
+                    int id = breakpoint.getId();
+                    BreakpointPosition originalBreakpoint = fPendingBreakpoints.remove(id);
+                    fDisabledBreakpoints.put(id, originalBreakpoint);
+
+                    // disable it in the UI
+                    try {
+                        notifyBreakpointDisabled(originalBreakpoint);
+                    } catch (CoreException ce) {
+                        SETDebuggerPlugin
+                                .getDefault()
+                                .getLog()
+                                .log(new Status(IStatus.ERROR, SETDebuggerPlugin.PLUGIN_ID,
+                                        "An error ocured while disabling breakpoints.", ce));
+                    }
+                }
+            }
+        }
+    }
+
+    private void notifyBreakpointDisabled(BreakpointPosition originalBreakpoint) throws CoreException {
+        IBreakpointManager manager = DebugPlugin.getDefault().getBreakpointManager();
+
+        String moduleNamespace = originalBreakpoint.getLocation().getFileName();
+        IFile file = SETProjectUtil.getModuleFileForNamespace(fProject.getProject(), moduleNamespace);
+        if (file == null) {
+            return;
+        }
+
+        // find the appropriate marker in the file
+        IMarker[] markers = file.findMarkers(null, false, IResource.DEPTH_ZERO);
+        if (markers.length == 0) {
+            return;
+        }
+        IMarker breakMarker = null;
+        for (IMarker marker : markers) {
+            int line = marker.getAttribute(IMarker.LINE_NUMBER, -1);
+            if (line == -1) {
+                continue;
+            }
+            if (marker.getType().equals(ScriptMarkerFactory.LINE_BREAKPOINT_MARKER_ID)
+                    && line == originalBreakpoint.getLocation().getLineBegin()) {
+                breakMarker = marker;
+                break;
+            }
+        }
+
+        // no marker matches the criteria, so nothing to do
+        if (breakMarker == null) {
+            return;
+        }
+
+        IBreakpoint breakpoint = manager.getBreakpoint(breakMarker);
+        if (breakpoint != null) {
+            fToDisableBreakpoints.put(originalBreakpoint.getId(), originalBreakpoint);
+            breakpoint.setEnabled(false);
         }
     }
 

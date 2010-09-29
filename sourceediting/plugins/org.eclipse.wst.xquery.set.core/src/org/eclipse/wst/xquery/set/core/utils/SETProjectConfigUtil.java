@@ -8,7 +8,7 @@
  * Contributors:
  *     Gabriel Petrovay (28msec) - initial API and implementation
  *******************************************************************************/
-package org.eclipse.wst.xquery.set.core;
+package org.eclipse.wst.xquery.set.core.utils;
 
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -29,7 +29,10 @@ import javax.xml.transform.stream.StreamResult;
 
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
+import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Path;
+import org.eclipse.wst.xquery.set.core.ISETCoreConstants;
+import org.eclipse.wst.xquery.set.core.SETProjectConfig;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -42,7 +45,9 @@ public class SETProjectConfigUtil {
             return null;
         }
         try {
-            IFile f = project.getFile(".config/sausalito.xml");
+            IPath configPath = new Path(ISETCoreConstants.PROJECT_DIRECTORY_CONFIG)
+                    .append(ISETCoreConstants.PROJECT_FILE_CONFIG);
+            IFile f = project.getFile(configPath);
             DocumentBuilder builder = DocumentBuilderFactory.newInstance().newDocumentBuilder();
             Document document = builder.parse(f.getLocationURI().toString());
 

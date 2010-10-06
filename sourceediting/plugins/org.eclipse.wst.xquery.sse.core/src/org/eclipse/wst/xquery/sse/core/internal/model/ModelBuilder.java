@@ -388,7 +388,7 @@ public class ModelBuilder {
      */
     protected ASTNamespaceDecl reparseNamespaceDecl(IASTNode decl) {
         ASTNamespaceDecl nsdecl = asNamespaceDecl(decl);
-        nsdecl.setStructuredDocumentRegion(currentSDRegion);
+        nsdecl.setFirstStructuredDocumentRegion(currentSDRegion);
         nextSDRegion();
         return nsdecl;
     }
@@ -463,6 +463,7 @@ public class ModelBuilder {
      */
     protected ASTFunctionDecl reparseFunctionDecl(IASTNode node) {
         ASTFunctionDecl decl = asFunctionDecl(node);
+        decl.setFirstStructuredDocumentRegion(currentSDRegion);
 
         nextSDRegion(); // "declare" .... "function"
 
@@ -1140,6 +1141,7 @@ public class ModelBuilder {
      */
     protected IASTNode reparseFLWORExpr(IASTNode expr) {
         ASTFLWOR flwor = asFLWOR(expr);
+        flwor.setFirstStructuredDocumentRegion(currentSDRegion);
 
         int index = 0;
         do {
@@ -1264,6 +1266,7 @@ public class ModelBuilder {
      */
     protected ASTBindingClause reparseForLetQuantifyClause(IASTNode node) {
         ASTBindingClause clause = asBindingClause(node);
+        clause.setFirstStructuredDocumentRegion(currentSDRegion);
 
         final String clauseType = currentSDRegion.getType();
         if (clauseType == XQueryRegions.KW_LET) {
@@ -1274,7 +1277,7 @@ public class ModelBuilder {
             clause.setClauseType(IASTNode.QUANTIFIEDCLAUSE);
         }
 
-        nextSDRegion(); // 'for', 'let', 'some', 'quantified'
+        nextSDRegion(); // 'for', 'let', 'some', 'every'
         // The first '$' is always there
 
         int index = 0;
@@ -1360,7 +1363,7 @@ public class ModelBuilder {
         if (sameRegionType(XQueryRegions.ST_ATOMICTYPE)) {
             ASTSingleType type = asSingleType(node);
 
-            type.setStructuredDocumentRegion(currentSDRegion);
+            type.setFirstStructuredDocumentRegion(currentSDRegion);
             nextSDRegion(); // AtomicType
 
             if (sameRegionType(XQueryRegions.OCC_OPTIONAL)) {
@@ -1379,7 +1382,7 @@ public class ModelBuilder {
         if (sameRegionType(sequenceTypeFilter)) {
             ASTSequenceType type = asSequenceType(node);
 
-            type.setStructuredDocumentRegion(currentSDRegion);
+            type.setFirstStructuredDocumentRegion(currentSDRegion);
             nextSDRegion();
             return type;
         }
@@ -1677,7 +1680,7 @@ public class ModelBuilder {
             IASTNode newRelPath = reparseRelativePathExpr(oldRelPath);
             path.setRelativePath(newRelPath);
         } else {
-            boolean slashslash = sameRegionType(XQueryRegions.PATH_SLASHSLASH);
+            final boolean slashslash = sameRegionType(XQueryRegions.PATH_SLASHSLASH);
             if (slashslash) {
                 nextSDRegion(); // '//'
             }
@@ -1686,6 +1689,7 @@ public class ModelBuilder {
             IASTNode newRelPath = reparseRelativePathExpr(oldRelPath);
             path.setRelativePath(newRelPath);
 
+            // Syntax checking..
             if (newRelPath == null) {
                 if (slashslash) {
                     reportError(XQueryMessages.errorXQSE_MissingRelPath_UI_);
@@ -1695,6 +1699,7 @@ public class ModelBuilder {
                 }
             }
 
+            return slashslash ? path : newRelPath;
         }
 
         return path;
@@ -1753,17 +1758,17 @@ public class ModelBuilder {
             }
         }
 
-        if (primary != null) {
-            step.setPrimaryExpr(primary);
-        }
-
         // PredicateList
 
         if (sameRegionType(XQueryRegions.LSQUARE)) {
+            step.setPrimaryExpr(primary);
             reparsePredicateList(step);
+
+            return step;
         }
 
-        return step;
+        // Just return the primary expression
+        return primary;
 
     }
 
@@ -1816,7 +1821,7 @@ public class ModelBuilder {
     protected IASTNode reparseKindTest(IASTNode node) {
         if (sameRegionType(kindTestFilter)) {
             ASTKindTest test = asKindTest(node);
-            test.setStructuredDocumentRegion(currentSDRegion);
+            test.setFirstStructuredDocumentRegion(currentSDRegion);
             nextSDRegion(); // the kind test
             return test;
         }
@@ -1832,7 +1837,7 @@ public class ModelBuilder {
     protected IASTNode reparseNameTest(IASTNode node) {
         ASTNameTest test = asNameTest(node);
 
-        test.setStructuredDocumentRegion(currentSDRegion);
+        test.setFirstStructuredDocumentRegion(currentSDRegion);
         nextSDRegion();
 
         return test;
@@ -2195,7 +2200,7 @@ public class ModelBuilder {
      */
     protected IASTNode reparseContextItemExpr(IASTNode node) {
         ASTContextItem item = asContextItem(node);
-        item.setStructuredDocumentRegion(currentSDRegion);
+        item.setFirstStructuredDocumentRegion(currentSDRegion);
 
         nextSDRegion(); // .
 
@@ -2234,7 +2239,7 @@ public class ModelBuilder {
     protected IASTNode reparseLiteral(IASTNode expr) {
         ASTLiteral literal = asLiteral(expr);
 
-        literal.setStructuredDocumentRegion(currentSDRegion);
+        literal.setFirstStructuredDocumentRegion(currentSDRegion);
         nextSDRegion(); // Literal
         return literal;
     }
@@ -2250,7 +2255,7 @@ public class ModelBuilder {
             varRef = (ASTVarRef)expr;
         }
 
-        varRef.setStructuredDocumentRegion(currentSDRegion);
+        varRef.setFirstStructuredDocumentRegion(currentSDRegion);
         nextSDRegion(); // $ and VarName has been grouped together
         return varRef;
     }

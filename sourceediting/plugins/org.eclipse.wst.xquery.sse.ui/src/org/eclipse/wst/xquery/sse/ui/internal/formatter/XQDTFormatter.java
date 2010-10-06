@@ -38,6 +38,21 @@ public class XQDTFormatter extends AbstractStructuredFormatProcessor {
         preferences = new XQDTStructuredFormatPreferences();
     }
 
+    // Methods
+
+    /**
+     * Load formatting preferences
+     * 
+     * @return
+     */
+    protected XQDTStructuredFormatPreferences loadXQDTStructuredFormatPreferences() {
+        XQDTStructuredFormatPreferences prefs = new XQDTStructuredFormatPreferences();
+
+        prefs.setIndent("");
+        prefs.pushTrailingWhitespaceLength(0, 0);
+        return prefs;
+    }
+
     // Overrides
 
     @Override
@@ -47,7 +62,8 @@ public class XQDTFormatter extends AbstractStructuredFormatProcessor {
                 final XQueryStructuredModel xmodel = (XQueryStructuredModel)model;
 
                 MultiTextEdit edit = new MultiTextEdit();
-                DefaultXQDTPartitionFormatter.SINGLETON.format(xmodel.getModule(), edit);
+                DefaultXQDTPartitionFormatter.SINGLETON.format(xmodel.getModule(), edit,
+                        loadXQDTStructuredFormatPreferences());
                 if (edit != null) {
                     try {
                         model.aboutToChangeModel();

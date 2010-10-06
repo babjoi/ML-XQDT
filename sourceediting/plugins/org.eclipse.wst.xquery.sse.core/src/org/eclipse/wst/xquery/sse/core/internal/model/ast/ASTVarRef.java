@@ -23,14 +23,14 @@ import org.eclipse.wst.xquery.sse.core.internal.model.ModelHelper;
  * 
  * @author <a href="villard@us.ibm.com">Lionel Villard</a>
  */
-public class ASTVarRef extends ASTSDRNode {
+public class ASTVarRef extends ASTNode {
 
     // Methods
 
     /** Gets the variable reference name */
     public String getName() {
-        if (region != null) {
-            return ASTHelper.variableNameAsString(region);
+        if (firstRegion != null) {
+            return ASTHelper.variableNameAsString(firstRegion);
         }
 
         return null;
@@ -59,7 +59,7 @@ public class ASTVarRef extends ASTSDRNode {
         // It is a static error [err:XPST0008] to reference a variable that is
         // not in scope.
         if (!isVariableInScope()) {
-            ASTHelper.reportError(region, null, XQueryMessages.errorXQST0088_VR_UI_, validator, reporter);
+            ASTHelper.reportError(firstRegion, null, XQueryMessages.errorXQST0088_VR_UI_, validator, reporter);
         }
 
         super.staticCheck(document, validator, reporter);

@@ -15,13 +15,13 @@ package org.eclipse.wst.xquery.sse.core.internal.model.ast;
  * 
  * @author <a href="villard@us.ibm.com">Lionel Villard</a>
  */
-public class ASTKindTest extends ASTSDRNode {
+public class ASTKindTest extends ASTNode {
 
-	// Overrides
+    // Overrides
 
-	@Override
-	public int getType() {
-		return KINDTEST;
-	}
+    @Override
+    public int getType() {
+        return KINDTEST;
+    }
 
 }

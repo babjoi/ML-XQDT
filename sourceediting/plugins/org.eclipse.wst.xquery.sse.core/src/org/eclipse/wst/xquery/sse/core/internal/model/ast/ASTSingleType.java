@@ -15,15 +15,15 @@ package org.eclipse.wst.xquery.sse.core.internal.model.ast;
  * 
  * @author <a href="villard@us.ibm.com">Lionel Villard</a>
  */
-public class ASTSingleType extends ASTSDRNode {
+public class ASTSingleType extends ASTNode {
 
-	// Methods
-	
-	// Overrides
+    // Methods
 
-	@Override
-	public int getType() {
-		return SINGLETYPE;
-	}
+    // Overrides
+
+    @Override
+    public int getType() {
+        return SINGLETYPE;
+    }
 
 }

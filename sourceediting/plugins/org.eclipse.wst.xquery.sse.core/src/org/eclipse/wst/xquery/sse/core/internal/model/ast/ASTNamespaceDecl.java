@@ -15,22 +15,22 @@ package org.eclipse.wst.xquery.sse.core.internal.model.ast;
  * 
  * @author <a href="villard@us.ibm.com">Lionel Villard</a>
  */
-public class ASTNamespaceDecl extends ASTSDRNode {
+public class ASTNamespaceDecl extends ASTNode {
 
-	// State
+    // State
 
-	// Constructors
+    // Constructors
 
-	public ASTNamespaceDecl() {
-	}
+    public ASTNamespaceDecl() {
+    }
 
-	// Methods
+    // Methods
 
-	// Overrides
+    // Overrides
 
-	@Override
-	public int getType() {
-		return NAMESPACEDECL;
-	}
+    @Override
+    public int getType() {
+        return NAMESPACEDECL;
+    }
 
 }

@@ -15,13 +15,13 @@ package org.eclipse.wst.xquery.sse.core.internal.model.ast;
  * 
  * @author <a href="villard@us.ibm.com">Lionel Villard</a>
  */
-public class ASTNameTest extends ASTSDRNode {
+public class ASTNameTest extends ASTNode {
 
-	// Overrides
+    // Overrides
 
-	@Override
-	public int getType() {
-		return NAMETEST;
-	}
+    @Override
+    public int getType() {
+        return NAMETEST;
+    }
 
 }

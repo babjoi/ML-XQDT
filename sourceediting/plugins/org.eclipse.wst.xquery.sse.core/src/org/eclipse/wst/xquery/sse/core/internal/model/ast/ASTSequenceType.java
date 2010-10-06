@@ -14,16 +14,16 @@ package org.eclipse.wst.xquery.sse.core.internal.model.ast;
  * 
  * @author <a href="villard@us.ibm.com">Lionel Villard</a>
  */
-public class ASTSequenceType extends ASTSDRNode {
+public class ASTSequenceType extends ASTNode {
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.eclipse.wst.xquery.sse.core.internal.model.ast.ASTNode#getType()
-	 */
-	@Override
-	public int getType() {
-		return SEQUENCETYPE;
-	}
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.eclipse.wst.xquery.sse.core.internal.model.ast.ASTNode#getType()
+     */
+    @Override
+    public int getType() {
+        return SEQUENCETYPE;
+    }
 
 }

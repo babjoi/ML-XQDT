@@ -13,6 +13,7 @@ package org.eclipse.wst.xquery.sse.core.internal.model.ast;
 import java.util.List;
 
 import org.eclipse.wst.sse.core.internal.provisional.text.IStructuredDocument;
+import org.eclipse.wst.sse.core.internal.provisional.text.IStructuredDocumentRegion;
 import org.eclipse.wst.validation.internal.provisional.core.IMessage;
 import org.eclipse.wst.validation.internal.provisional.core.IReporter;
 import org.eclipse.wst.validation.internal.provisional.core.IValidator;
@@ -116,6 +117,16 @@ public interface IASTNode {
      * 
      */
     public IASTNode getFollowingASTNodeSibling();
+
+    /**
+     * Gets the first structured document region corresponding to this node
+     */
+    public IStructuredDocumentRegion getFirstStructuredDocumentRegion();
+
+    /**
+     * Sets the first structured document region corresponding to this node
+     */
+    public void setFirstStructuredDocumentRegion(IStructuredDocumentRegion region);
 
     /**
      * Gets the list of error messages attached to this node

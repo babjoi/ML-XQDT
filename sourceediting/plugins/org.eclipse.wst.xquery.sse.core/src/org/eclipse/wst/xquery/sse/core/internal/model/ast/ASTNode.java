@@ -14,6 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.eclipse.wst.sse.core.internal.provisional.text.IStructuredDocument;
+import org.eclipse.wst.sse.core.internal.provisional.text.IStructuredDocumentRegion;
 import org.eclipse.wst.validation.internal.provisional.core.IMessage;
 import org.eclipse.wst.validation.internal.provisional.core.IReporter;
 import org.eclipse.wst.validation.internal.provisional.core.IValidator;
@@ -32,6 +33,9 @@ public abstract class ASTNode implements IASTNode {
 
     /** List of error messages attached to this node */
     protected List<IMessage> messages;
+
+    /** First sdr */
+    protected IStructuredDocumentRegion firstRegion;
 
     // Methods
 
@@ -80,6 +84,14 @@ public abstract class ASTNode implements IASTNode {
 
     public IASTNode getFollowingASTNodeSibling() {
         return ASTHelper.getFollowingASTNodeSibling(this);
+    }
+
+    public IStructuredDocumentRegion getFirstStructuredDocumentRegion() {
+        return firstRegion;
+    }
+
+    public void setFirstStructuredDocumentRegion(IStructuredDocumentRegion region) {
+        firstRegion = region;
     }
 
     public List<IMessage> getErrorMessages() {

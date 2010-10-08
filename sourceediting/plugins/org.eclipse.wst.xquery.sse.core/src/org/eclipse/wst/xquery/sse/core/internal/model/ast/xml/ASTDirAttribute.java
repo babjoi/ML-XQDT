@@ -14,6 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.eclipse.wst.sse.core.internal.provisional.text.IStructuredDocument;
+import org.eclipse.wst.sse.core.internal.provisional.text.IStructuredDocumentRegion;
 import org.eclipse.wst.validation.internal.provisional.core.IMessage;
 import org.eclipse.wst.validation.internal.provisional.core.IReporter;
 import org.eclipse.wst.validation.internal.provisional.core.IValidator;
@@ -87,6 +88,10 @@ public class ASTDirAttribute extends AttrImpl implements IASTNode {
 
     public IASTNode getFollowingASTNodeSibling() {
         return ASTHelper.getFollowingASTNodeSibling(this);
+    }
+
+    public void setFirstStructuredDocumentRegion(IStructuredDocumentRegion region) {
+        // TODO: XML SSE is really too restrictive. Need to submit a bug entry. 
     }
 
     public void staticCheck(IStructuredDocument document, IValidator validator, IReporter reporter) {

@@ -56,6 +56,15 @@ public class ASTFLWOR extends ASTParentNode {
     }
 
     /**
+     * Gets the number of clauses.
+     * 
+     * @return
+     */
+    public int getClauseCount() {
+        return getChildASTNodesCount();
+    }
+
+    /**
      * Gets return expression
      */
     public IASTNode getReturnExpr() {

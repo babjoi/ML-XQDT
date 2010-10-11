@@ -18,10 +18,14 @@ import org.eclipse.text.edits.TextEdit;
 import org.eclipse.wst.sse.core.internal.provisional.text.IStructuredDocumentRegion;
 import org.eclipse.wst.sse.core.internal.provisional.text.ITextRegion;
 import org.eclipse.wst.xquery.sse.core.internal.model.ast.ASTBindingClause;
+import org.eclipse.wst.xquery.sse.core.internal.model.ast.ASTClause;
 import org.eclipse.wst.xquery.sse.core.internal.model.ast.ASTExprSingleClause;
 import org.eclipse.wst.xquery.sse.core.internal.model.ast.ASTFLWOR;
 import org.eclipse.wst.xquery.sse.core.internal.model.ast.ASTFunctionDecl;
 import org.eclipse.wst.xquery.sse.core.internal.model.ast.ASTLiteral;
+import org.eclipse.wst.xquery.sse.core.internal.model.ast.ASTModule;
+import org.eclipse.wst.xquery.sse.core.internal.model.ast.ASTOperator;
+import org.eclipse.wst.xquery.sse.core.internal.model.ast.ASTParentherized;
 import org.eclipse.wst.xquery.sse.core.internal.model.ast.ASTVarRef;
 import org.eclipse.wst.xquery.sse.core.internal.model.ast.IASTNode;
 
@@ -42,18 +46,39 @@ public class DefaultXQDTPartitionFormatter {
     // Formatting methods
 
     /**
-     * Format node
+     * Format query module
      * 
      * @param edit
      * @param prefs
-     *            TODO
+     * 
      */
     public void format(IASTNode node, TextEdit edit, XQDTStructuredFormatPreferences prefs) {
+        // Remove leading white spaces
+        if (node.getFirstStructuredDocumentRegion() != null) {
+            normalizeWhitespace(node.getFirstStructuredDocumentRegion(), edit, 0, 0, 0);
+        }
+
+        formatNode(node, edit, prefs);
+    }
+
+    /**
+     * Dispatch formatting to proper sub-methods based on node type
+     * 
+     * @param node
+     * @param edit
+     * @param prefs
+     */
+    protected void formatNode(IASTNode node, TextEdit edit, XQDTStructuredFormatPreferences prefs) {
         // TODO:a visitor pattern could be of a help here... Wait for DLTK/SSE integration.
 
         if (node != null) {
             switch (node.getType()) {
-
+            case IASTNode.MODULE:
+                formatModule((ASTModule)node, edit, prefs);
+                break;
+            case IASTNode.OPERATOR:
+                formatOperator((ASTOperator)node, edit, prefs);
+                break;
             case IASTNode.FUNCTIONDECL:
                 formatFunctionDecl((ASTFunctionDecl)node, edit, prefs);
                 break;
@@ -63,6 +88,9 @@ public class DefaultXQDTPartitionFormatter {
             case IASTNode.VARREF:
                 formatVarRef((ASTVarRef)node, edit, prefs);
                 break;
+            case IASTNode.PARENTHERIZED:
+                formatParentherized((ASTParentherized)node, edit, prefs);
+                break;
             case IASTNode.LITERAL:
                 formatLiteral((ASTLiteral)node, edit, prefs);
                 break;
@@ -71,11 +99,69 @@ public class DefaultXQDTPartitionFormatter {
                 break;
             }
 
-            final int count = node.getChildASTNodesCount();
-            for (int i = 0; i < count; i++) {
-                format(node.getChildASTNodeAt(i), edit, prefs);
-            }
         }
+    }
+
+    /**
+     * @param node
+     * @param edit
+     * @param prefs
+     */
+    protected void formatModule(ASTModule node, TextEdit edit, XQDTStructuredFormatPreferences prefs) {
+        if (node.getQueryBody() != null) {
+            formatNode(node.getQueryBody(), edit, prefs);
+        }
+
+    }
+
+    /**
+     * @param node
+     * @param edit
+     * @param prefs
+     */
+    protected void formatOperator(ASTOperator node, TextEdit edit, XQDTStructuredFormatPreferences prefs) {
+        final int count = node.getChildASTNodesCount();
+        for (int i = 0; i < count; i++) {
+            IASTNode child = node.getChildASTNodeAt(i);
+
+            if (i < count - 1) {
+                prefs.pushTrailingWhitespaceLength(1, 0);
+            }
+
+            formatNode(child, edit, prefs);
+
+            if (i < count - 1) {
+                prefs.popTrailingWhitespaceLength();
+            }
+
+            if (child.getLastStructuredDocumentRegion() != null) {
+                IStructuredDocumentRegion opRegion = child.getLastStructuredDocumentRegion().getNext();
+                if (opRegion != null) {
+                    normalizeWhitespace(opRegion, edit, 0, 1, 0);
+                }
+            }
+
+        }
+    }
+
+    /**
+     * @param node
+     * @param edit
+     * @param prefs
+     */
+    protected void formatParentherized(ASTParentherized node, TextEdit edit, XQDTStructuredFormatPreferences prefs) {
+        IStructuredDocumentRegion sdregion = node.getFirstStructuredDocumentRegion(); // '('
+
+        normalizeWhitespace(sdregion, edit, 0, 0, 0);
+
+        if (node.getExpr() != null) {
+            prefs.pushTrailingWhitespaceLength(0, 0);
+            formatNode(node.getExpr(), edit, prefs);
+            prefs.popTrailingWhitespaceLength();
+        }
+
+        sdregion = node.getLastStructuredDocumentRegion(); // ')'
+        normalizeWhitespace(sdregion, edit, 0, prefs.getTrailingWhitespaceLength(), prefs.getLineSeparatorCount());
     }
 
     /**
@@ -95,7 +181,7 @@ public class DefaultXQDTPartitionFormatter {
         // Format clauses
         final int count = node.getClauseCount();
         for (int i = 0; i < count; i++) {
-            formatBindingClause((ASTBindingClause)node.getClause(i), edit, prefs);
+            formatClause(node.getClause(i), edit, prefs);
         }
 
         // Format return
@@ -103,9 +189,28 @@ public class DefaultXQDTPartitionFormatter {
         if (returnNode != null) {
             final String savedIndent = prefs.getIndent();
             prefs.pushTrailingWhitespaceLength(0, 0);
-            format(returnNode, edit, prefs);
+            formatNode(returnNode, edit, prefs);
             prefs.setIndent(savedIndent);
             prefs.popTrailingWhitespaceLength();
+        }
+
+    }
+
+    /**
+     * @param clause
+     * @param edit
+     * @param prefs
+     */
+    protected void formatClause(ASTClause clause, TextEdit edit, XQDTStructuredFormatPreferences prefs) {
+        switch (clause.getType()) {
+        case IASTNode.FORCLAUSE:
+        case IASTNode.LETCLAUSE:
+        case IASTNode.QUANTIFIEDCLAUSE:
+            formatBindingClause((ASTBindingClause)clause, edit, prefs);
+            break;
+        case IASTNode.WHERECLAUSE:
+            formatExprSingleClause((ASTExprSingleClause)clause, edit, prefs);
+            break;
         }
 
     }
@@ -151,7 +256,7 @@ public class DefaultXQDTPartitionFormatter {
 
                 boolean lastBinding = i == bindingCount - 1;
                 prefs.pushTrailingWhitespaceLength(lastBinding ? 1 : 0, lastBinding ? 1 : 0);
-                format(clause.getBindingExpr(i), edit, prefs);
+                formatNode(clause.getBindingExpr(i), edit, prefs);
                 prefs.popTrailingWhitespaceLength();
             }
 
@@ -177,8 +282,7 @@ public class DefaultXQDTPartitionFormatter {
      * @param prefs
      */
     protected void formatExprSingleClause(ASTExprSingleClause node, TextEdit edit, XQDTStructuredFormatPreferences prefs) {
-        format(node.getExpr(), edit, prefs);
-
+        formatNode(node.getExpr(), edit, prefs);
     }
 
     /**
@@ -246,7 +350,7 @@ public class DefaultXQDTPartitionFormatter {
         try {
             // Delete all whitespace chars and line separators
 
-            while (endOffset - wscount >= 0 && isWhitespace(document.getChar(endOffset - wscount - 1))) {
+            while (endOffset - wscount > 0 && isWhitespace(document.getChar(endOffset - wscount - 1))) {
                 wscount++;
             }
 

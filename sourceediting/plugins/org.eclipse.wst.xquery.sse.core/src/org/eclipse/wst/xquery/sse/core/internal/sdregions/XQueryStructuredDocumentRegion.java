@@ -10,6 +10,7 @@
  *******************************************************************************/
 package org.eclipse.wst.xquery.sse.core.internal.sdregions;
 
+import org.eclipse.wst.sse.core.internal.provisional.IndexedRegion;
 import org.eclipse.wst.sse.core.internal.provisional.text.IStructuredDocumentRegion;
 import org.eclipse.wst.sse.core.internal.provisional.text.ITextRegion;
 import org.eclipse.wst.sse.core.internal.text.BasicStructuredDocumentRegion;
@@ -25,7 +26,7 @@ import org.eclipse.wst.xquery.sse.core.internal.regions.XQueryRegion;
  * 
  * @author <a href="villard@us.ibm.com">Lionel Villard</a>
  */
-public class XQueryStructuredDocumentRegion extends BasicStructuredDocumentRegion {
+public class XQueryStructuredDocumentRegion extends BasicStructuredDocumentRegion implements IndexedRegion {
 
     // Factory
 
@@ -94,6 +95,17 @@ public class XQueryStructuredDocumentRegion extends BasicStructuredDocumentRegio
 
     private boolean sameLexicalState(IStructuredDocumentRegion region) {
         return sameLexicalState(region.getFirstRegion(), getFirstRegion());
+    }
+
+    // Implements IndexedRegion
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.eclipse.wst.sse.core.internal.provisional.IndexedRegion#contains(int)
+     */
+    public boolean contains(int testPosition) {
+        return containsOffset(testPosition);
     }
 
 }

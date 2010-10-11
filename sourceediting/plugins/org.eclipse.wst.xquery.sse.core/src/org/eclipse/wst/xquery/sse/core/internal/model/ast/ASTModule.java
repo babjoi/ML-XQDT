@@ -49,6 +49,9 @@ public class ASTModule extends ASTParentNode {
     /** List of variable declarations, indexed by their name */
     protected Map<String, ASTVarDecl> variableDecls;
 
+    /** Query body expression (null for library module) */
+    protected IASTNode queryBody;
+
     // Constructors
 
     protected ASTModule() {
@@ -155,14 +158,14 @@ public class ASTModule extends ASTParentNode {
      * @return Query body
      */
     public IASTNode getQueryBody() {
-        return getChildASTNodeAt(getChildASTNodesCount());
+        return queryBody;
     }
 
     /**
      * @param queryBody
      */
     public void setQueryBody(IASTNode expr) {
-        setChildASTNodeAt(getChildASTNodesCount(), expr);
+        queryBody = expr;
     }
 
     // Overrides

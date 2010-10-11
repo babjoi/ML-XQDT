@@ -129,6 +129,16 @@ public interface IASTNode {
     public void setFirstStructuredDocumentRegion(IStructuredDocumentRegion region);
 
     /**
+     * Gets the last structured document region corresponding to this node
+     */
+    public IStructuredDocumentRegion getLastStructuredDocumentRegion();
+
+    /**
+     * Sets the last structured document region corresponding to this node
+     */
+    public void setLastStructuredDocumentRegion(IStructuredDocumentRegion region);
+
+    /**
      * Gets the list of error messages attached to this node
      */
     public List<IMessage> getErrorMessages();

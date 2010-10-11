@@ -93,6 +93,10 @@ public class ASTDirPI extends ProcessingInstructionImpl implements IASTNode {
         // TODO: XML SSE is really too restrictive. Need to submit a bug entry. 
     }
 
+    public void setLastStructuredDocumentRegion(IStructuredDocumentRegion region) {
+        // TODO: XML SSE is really too restrictive. Need to submit a bug entry. 
+    }
+
     public void staticCheck(IStructuredDocument document, IValidator validator, IReporter reporter) {
         ASTHelper.staticCheck(this, document, validator, reporter);
     }

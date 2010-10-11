@@ -37,6 +37,9 @@ public abstract class ASTNode implements IASTNode {
     /** First sdr */
     protected IStructuredDocumentRegion firstRegion;
 
+    /** Last sdr */
+    protected IStructuredDocumentRegion lastRegion;
+
     // Methods
 
     /**
@@ -92,6 +95,14 @@ public abstract class ASTNode implements IASTNode {
 
     public void setFirstStructuredDocumentRegion(IStructuredDocumentRegion region) {
         firstRegion = region;
+    }
+
+    public IStructuredDocumentRegion getLastStructuredDocumentRegion() {
+        return lastRegion;
+    }
+
+    public void setLastStructuredDocumentRegion(IStructuredDocumentRegion region) {
+        lastRegion = region;
     }
 
     public List<IMessage> getErrorMessages() {

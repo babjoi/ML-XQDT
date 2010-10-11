@@ -1,14 +1,4 @@
 /*******************************************************************************
- * Copyright (c) 2005, 2010 IBM Corporation and others.
- * All rights reserved. This program and the accompanying materials
- * are made available under the terms of the Eclipse Public License v1.0
- * which accompanies this distribution, and is available at
- * http://www.eclipse.org/legal/epl-v10.html
- *
- * Contributors:
- *     IBM Corporation - initial API and implementation
- *******************************************************************************/
-/*******************************************************************************
  * Copyright (c) 2010 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
@@ -51,8 +41,6 @@ import org.eclipse.wst.xquery.sse.core.internal.sdregions.XQueryStructuredDocume
 
 /**
  * Structured model for XQuery document.
- * 
- * For now it's just a placeholder and this class does nothing.
  * 
  * @author <a href="villard@us.ibm.com">Lionel Villard</a>
  */
@@ -162,10 +150,7 @@ public class XQueryStructuredModel extends AbstractStructuredModel implements IS
 
     @Override
     public IndexedRegion getIndexedRegion(int offset) {
-        return null;
-
-        // return (IndexedRegion) fStructuredDocument
-        // .getRegionAtCharacterOffset(offset);
+        return (IndexedRegion)fStructuredDocument.getRegionAtCharacterOffset(offset);
     }
 
     @Override

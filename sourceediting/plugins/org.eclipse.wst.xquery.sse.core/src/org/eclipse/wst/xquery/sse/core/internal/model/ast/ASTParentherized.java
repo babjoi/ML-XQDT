@@ -17,27 +17,27 @@ package org.eclipse.wst.xquery.sse.core.internal.model.ast;
  */
 public class ASTParentherized extends ASTParentNode {
 
-	// Methods
+    // Methods
 
-	/**
-	 * @return parentherized expression
-	 */
-	public IASTNode getExpr() {
-		return getChildASTNodeAt(0);
-	}
+    /**
+     * @return parentherized expression
+     */
+    public IASTNode getExpr() {
+        return getChildASTNodeAt(0);
+    }
 
-	/**
-	 * Sets parentherized expression
-	 */
-	public void setExpr(IASTNode node) {
-		setChildASTNodeAt(0, node);
-	}
+    /**
+     * Sets parentherized expression
+     */
+    public void setExpr(IASTNode node) {
+        setChildASTNodeAt(0, node);
+    }
 
-	// Overrides
+    // Overrides
 
-	@Override
-	public int getType() {
-		return PARENTHERIZED;
-	}
+    @Override
+    public int getType() {
+        return PARENTHERIZED;
+    }
 
 }

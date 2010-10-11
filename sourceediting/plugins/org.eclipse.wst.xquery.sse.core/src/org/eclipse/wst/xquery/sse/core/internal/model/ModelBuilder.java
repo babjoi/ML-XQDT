@@ -252,8 +252,12 @@ public class ModelBuilder {
                 this.length = Integer.MAX_VALUE;
             }
 
+            module.setFirstStructuredDocumentRegion(region);
+
             reparseVersionDecl(module);
             reparseLibraryOrModule(module);
+
+            module.setLastStructuredDocumentRegion(previousSDRegion);
 
             if (currentSDRegion != null) {
                 model.reportError(currentSDRegion, "Syntax error: expected end of file.", false);
@@ -294,9 +298,9 @@ public class ModelBuilder {
      */
     protected void reparseMainModule(ASTModule module) {
         final int last = reparseProlog(module);
-        reparseQueryBody(module, last);
+        module.removeChildASTNodesAfter(last);
 
-        module.removeChildASTNodesAfter(last + 1);
+        reparseQueryBody(module);
     }
 
     /**
@@ -680,14 +684,11 @@ public class ModelBuilder {
 
     /**
      * Reparse <tt>QueryBody	   ::=   	Expr</tt>
-     * 
-     * @param count
-     *            the number of global declaration
      */
-    protected void reparseQueryBody(ASTModule module, int count) {
+    protected void reparseQueryBody(ASTModule module) {
         IASTNode oldBody = module.getQueryBody();
         IASTNode newBody = reparseExpr(oldBody);
-        module.setChildASTNodeAt(count++, newBody);
+        module.setQueryBody(newBody);
     }
 
     /**
@@ -2212,6 +2213,7 @@ public class ModelBuilder {
      */
     protected IASTNode reparseParentherizeExpr(IASTNode node) {
         ASTParentherized expr = asParentherized(node);
+        expr.setFirstStructuredDocumentRegion(currentSDRegion);
 
         nextSDRegion(); // "("
 
@@ -2225,6 +2227,8 @@ public class ModelBuilder {
                 return expr;
             }
         }
+
+        expr.setLastStructuredDocumentRegion(currentSDRegion);
 
         if (checkAndReport(XQueryRegions.RPAR, XQueryMessages.errorXQSE_MissingRPar_UI_)) {
             nextSDRegion(); // ")"
@@ -2240,6 +2244,8 @@ public class ModelBuilder {
         ASTLiteral literal = asLiteral(expr);
 
         literal.setFirstStructuredDocumentRegion(currentSDRegion);
+        literal.setLastStructuredDocumentRegion(currentSDRegion);
+
         nextSDRegion(); // Literal
         return literal;
     }
@@ -2256,6 +2262,7 @@ public class ModelBuilder {
         }
 
         varRef.setFirstStructuredDocumentRegion(currentSDRegion);
+        varRef.setLastStructuredDocumentRegion(currentSDRegion);
         nextSDRegion(); // $ and VarName has been grouped together
         return varRef;
     }
@@ -2281,7 +2288,6 @@ public class ModelBuilder {
      * Reparse operator following this grammar (Expr (op Expr)*)
      */
     protected IASTNode reparseOperatorStar(IASTNode expr, OperatorFilter operatorFilter, Continuation continuation) {
-
         IASTNode oldChild = getFirstOperand(expr, operatorFilter);
         IASTNode newChild = continuation.reparse(oldChild);
 
@@ -2299,6 +2305,7 @@ public class ModelBuilder {
 
         ASTOperator operator = asOperator(expr, operatorType);
         operator.setChildASTNodeAt(0, newChild);
+        operator.setFirstStructuredDocumentRegion(newChild.getFirstStructuredDocumentRegion());
 
         int index = 1;
         do {
@@ -2320,6 +2327,7 @@ public class ModelBuilder {
             index++;
         } while (currentSDRegion != null);
 
+        operator.setLastStructuredDocumentRegion(newChild.getLastStructuredDocumentRegion());
         return operator;
     }
 

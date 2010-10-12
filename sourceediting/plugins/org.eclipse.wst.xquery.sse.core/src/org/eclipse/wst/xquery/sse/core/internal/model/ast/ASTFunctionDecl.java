@@ -16,7 +16,7 @@ import java.util.List;
 import org.eclipse.wst.sse.core.internal.provisional.text.IStructuredDocumentRegion;
 
 /**
- * 
+ * Function declaration
  * 
  * @author <a href="villard@us.ibm.com">Lionel Villard</a>
  */

@@ -10,6 +10,9 @@
  *******************************************************************************/
 package org.eclipse.wst.xquery.sse.core.internal.model.ast;
 
+import org.eclipse.wst.sse.core.internal.provisional.text.IStructuredDocumentRegion;
+import org.eclipse.wst.xquery.sse.core.internal.regions.XQueryRegions;
+
 /**
  * Global variable declaration
  * 
@@ -17,61 +20,74 @@ package org.eclipse.wst.xquery.sse.core.internal.model.ast;
  */
 public class ASTVarDecl extends ASTNode {
 
-	// State
+    // State
 
-	/** Variable expression (if any) */
-	private IASTNode expr;
+    /** Variable expression (if any) */
+    private IASTNode expr;
 
-	/** Variable raw name */
-	private String name;
+    /** Variable raw name */
+    private String name;
 
-	// Constructors
+    // Constructors
 
-	public ASTVarDecl() {
-	}
+    public ASTVarDecl() {
+    }
 
-	// Methods
+    // Methods
 
-	/**
-	 * Return the variable initialization expression
-	 * 
-	 * @return
-	 */
-	public IASTNode getExpr() {
-		return expr;
-	}
+    /**
+     * Return the variable initialization expression
+     * 
+     * @return
+     */
+    public IASTNode getExpr() {
+        return expr;
+    }
 
-	/**
-	 * @param expr
-	 */
-	public void setExpr(IASTNode expr) {
-		if (this.expr != null)
-			this.expr.setASTParent(null);
+    /**
+     * @param expr
+     */
+    public void setExpr(IASTNode expr) {
+        if (this.expr != null) {
+            this.expr.setASTParent(null);
+        }
 
-		this.expr = expr;
-		if (this.expr != null)
-			this.expr.setASTParent(this);
-	}
+        this.expr = expr;
+        if (this.expr != null) {
+            this.expr.setASTParent(this);
+        }
+    }
 
-	/**
-	 * @return
-	 */
-	public void setName(String name) {
-		this.name = name;
-	}
+    /**
+     * @return
+     */
+    public void setName(String name) {
+        this.name = name;
+    }
 
-	/**
-	 * @return
-	 */
-	public String getName() {
-		return name;
-	}
+    /**
+     * @return
+     */
+    public String getName() {
+        return name;
+    }
 
-	// Overrides
+    /**
+     * @return
+     */
+    public IStructuredDocumentRegion getNameStructuredDocumentRegion() {
+        IStructuredDocumentRegion region = firstRegion.getNext();
+        while (region != null && region.getType() != XQueryRegions.DOLLAR) {
+            region = region.getNext();
+        }
+        return region;
+    }
 
-	@Override
-	public int getType() {
-		return VARDECL;
-	}
+    // Overrides
+
+    @Override
+    public int getType() {
+        return VARDECL;
+    }
 
 }

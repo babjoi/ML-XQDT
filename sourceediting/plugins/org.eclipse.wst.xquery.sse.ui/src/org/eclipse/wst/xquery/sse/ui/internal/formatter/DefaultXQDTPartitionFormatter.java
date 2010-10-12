@@ -26,8 +26,10 @@ import org.eclipse.wst.xquery.sse.core.internal.model.ast.ASTLiteral;
 import org.eclipse.wst.xquery.sse.core.internal.model.ast.ASTModule;
 import org.eclipse.wst.xquery.sse.core.internal.model.ast.ASTOperator;
 import org.eclipse.wst.xquery.sse.core.internal.model.ast.ASTParentherized;
+import org.eclipse.wst.xquery.sse.core.internal.model.ast.ASTVarDecl;
 import org.eclipse.wst.xquery.sse.core.internal.model.ast.ASTVarRef;
 import org.eclipse.wst.xquery.sse.core.internal.model.ast.IASTNode;
+import org.eclipse.wst.xquery.sse.core.internal.regions.XQueryRegions;
 
 /**
  * Formatter for default XQDT partition.
@@ -82,6 +84,9 @@ public class DefaultXQDTPartitionFormatter {
             case IASTNode.FUNCTIONDECL:
                 formatFunctionDecl((ASTFunctionDecl)node, edit, prefs);
                 break;
+            case IASTNode.VARDECL:
+                formatVarDecl((ASTVarDecl)node, edit, prefs);
+                break;
             case IASTNode.FLWOR:
                 formatFLWOR((ASTFLWOR)node, edit, prefs);
                 break;
@@ -102,12 +107,18 @@ public class DefaultXQDTPartitionFormatter {
         }
     }
 
-    /**
-     * @param node
-     * @param edit
-     * @param prefs
-     */
     protected void formatModule(ASTModule node, TextEdit edit, XQDTStructuredFormatPreferences prefs) {
+        final int count = node.getChildASTNodesCount();
+        for (int i = 0; i < count; i++) {
+            IASTNode child = node.getChildASTNodeAt(i);
+
+            prefs.pushTrailingWhitespaceLength(1, 1);
+
+            formatNode(child, edit, prefs);
+
+            prefs.popTrailingWhitespaceLength();
+        }
+
         if (node.getQueryBody() != null) {
             formatNode(node.getQueryBody(), edit, prefs);
         }
@@ -266,30 +277,44 @@ public class DefaultXQDTPartitionFormatter {
         prefs.setIndent(savedIndent);
     }
 
-    /**
-     * @param node
-     * @param edit
-     * @param prefs
-     */
     protected void formatFunctionDecl(ASTFunctionDecl node, TextEdit edit, XQDTStructuredFormatPreferences prefs) {
         IStructuredDocumentRegion region = node.getFirstStructuredDocumentRegion();
         normalizeWhitespace(region, edit, 1, 1, 0);
     }
 
-    /**
-     * @param node
-     * @param edit
-     * @param prefs
-     */
+    protected void formatVarDecl(ASTVarDecl node, TextEdit edit, XQDTStructuredFormatPreferences prefs) {
+        // Format 'declare ... variable '
+        IStructuredDocumentRegion region = node.getFirstStructuredDocumentRegion();
+        normalizeWhitespace(region, edit, 1, 1, 0);
+
+        region = node.getNameStructuredDocumentRegion();
+        normalizeWhitespace(region, edit, 0, 1, 0);
+        region = skipComment(region.getNext());
+
+        // Either := or external
+        if (region.getType() == XQueryRegions.KW_EXTERNAL) {
+            normalizeWhitespace(region, edit, 0, 0, 0); // external
+            region = skipComment(region.getNext());
+            normalizeWhitespace(region, edit, 0, 0, 1); // ';'
+        } else {
+            normalizeWhitespace(region, edit, 0, 1, 0); // :=
+            String saveIndent = prefs.getIndent();
+            prefs.setIndent(prefs.getIndent() + "  ");
+            prefs.pushTrailingWhitespaceLength(0, 0);
+            formatNode(node.getExpr(), edit, prefs);
+            prefs.popTrailingWhitespaceLength();
+            prefs.setIndent(saveIndent);
+
+            region = node.getLastStructuredDocumentRegion(); // ;
+            normalizeWhitespace(region, edit, 0, 0, 1);
+        }
+
+    }
+
     protected void formatExprSingleClause(ASTExprSingleClause node, TextEdit edit, XQDTStructuredFormatPreferences prefs) {
         formatNode(node.getExpr(), edit, prefs);
     }
 
-    /**
-     * Format varref
-     * 
-     * @param edit
-     */
     protected void formatVarRef(ASTVarRef node, TextEdit edit, XQDTStructuredFormatPreferences prefs) {
         normalizeWhitespace(node.getFirstStructuredDocumentRegion(), edit, 0, prefs.getTrailingWhitespaceLength(),
                 prefs.getLineSeparatorCount());
@@ -422,6 +447,13 @@ public class DefaultXQDTPartitionFormatter {
 //    }
 
     // Utility methods..
+
+    final protected IStructuredDocumentRegion skipComment(IStructuredDocumentRegion region) {
+        while (region != null && region.getType() == XQueryRegions.XQUERY_COMMENT) {
+            region = region.getNext();
+        }
+        return region;
+    }
 
     final protected boolean isWhitespace(char c) {
         return c == '\n' || c == '\r' || c == ' ' || c == '\t';

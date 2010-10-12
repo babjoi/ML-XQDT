@@ -642,8 +642,10 @@ public class ModelBuilder {
      *            of the variable declaration in the module
      */
     protected ASTVarDecl reparseVarDecl(IASTNode node) {
-        nextSDRegion(); // "declare" ... "variable"
         ASTVarDecl decl = asVarDecl(node);
+        decl.setFirstStructuredDocumentRegion(currentSDRegion);
+
+        nextSDRegion(); // "declare" ... "variable"
 
         if (sameRegionType(XQueryRegions.DOLLAR)) {
             final String name = currentSDRegion.getFullText();
@@ -678,6 +680,8 @@ public class ModelBuilder {
             decl.setName(null);
             reportError(XQueryMessages.errorXQSE_MissingVarName_UI_);
         }
+
+        decl.setLastStructuredDocumentRegion(currentSDRegion); // Should be ';'
 
         return decl;
     }

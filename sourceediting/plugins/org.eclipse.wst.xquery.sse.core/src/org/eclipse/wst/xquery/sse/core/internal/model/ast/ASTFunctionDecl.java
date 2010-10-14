@@ -49,6 +49,16 @@ public class ASTFunctionDecl extends ASTNode {
     }
 
     /**
+     * Gets the function raw name as a {@link IStructuredDocumentRegion}
+     * 
+     * <p>
+     * Valid only when the model is syntactically correct.
+     */
+    public IStructuredDocumentRegion getNameStructuredDocumentRegion() {
+        return ASTHelper.skipXQueryComment(firstRegion);
+    }
+
+    /**
      * Sets the function name
      * 
      * @param object

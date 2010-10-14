@@ -11,20 +11,17 @@
 package org.eclipse.wst.xquery.sse.core.internal.model.ast;
 
 /**
+ * Context item '.'
  * 
  * @author <a href="villard@us.ibm.com">Lionel Villard</a>
  */
 public class ASTContextItem extends ASTNode {
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see org.eclipse.wst.xquery.sse.core.internal.model.ast.ASTNode#getType()
-     */
+    // Overrides
+
     @Override
     public int getType() {
-        // TODO Auto-generated method stub
-        return 0;
+        return CONTEXTITEM;
     }
 
 }

@@ -70,6 +70,13 @@ public class XQueryStructuredModel extends AbstractStructuredModel implements IS
     // Methods
 
     /**
+     * Whether or not the model is error free.
+     */
+    public boolean isSyntacticallyValid() {
+        return messages.size() == 0;
+    }
+
+    /**
      * Gets error messages issued by the model builder
      */
     public List<IMessage> getErrorMessages() {

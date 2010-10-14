@@ -168,4 +168,15 @@ public class ASTHelper {
         return null;
     }
 
+    /**
+     * Check if the given region is an XQuery comment, and if yes skip it as well as all consecutive
+     * ones
+     */
+    public static IStructuredDocumentRegion skipXQueryComment(IStructuredDocumentRegion region) {
+        while (region != null && region.getType() == XQueryRegions.XQUERY_COMMENT) {
+            region = region.getNext();
+        }
+        return region;
+    }
+
 }

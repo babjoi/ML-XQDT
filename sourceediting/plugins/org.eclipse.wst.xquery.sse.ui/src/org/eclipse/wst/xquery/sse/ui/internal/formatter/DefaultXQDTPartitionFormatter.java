@@ -17,8 +17,10 @@ import org.eclipse.text.edits.InsertEdit;
 import org.eclipse.text.edits.TextEdit;
 import org.eclipse.wst.sse.core.internal.provisional.text.IStructuredDocumentRegion;
 import org.eclipse.wst.sse.core.internal.provisional.text.ITextRegion;
+import org.eclipse.wst.xquery.sse.core.internal.model.ModelHelper;
 import org.eclipse.wst.xquery.sse.core.internal.model.ast.ASTBindingClause;
 import org.eclipse.wst.xquery.sse.core.internal.model.ast.ASTClause;
+import org.eclipse.wst.xquery.sse.core.internal.model.ast.ASTContextItem;
 import org.eclipse.wst.xquery.sse.core.internal.model.ast.ASTExprSingleClause;
 import org.eclipse.wst.xquery.sse.core.internal.model.ast.ASTFLWOR;
 import org.eclipse.wst.xquery.sse.core.internal.model.ast.ASTFunctionDecl;
@@ -55,9 +57,11 @@ public class DefaultXQDTPartitionFormatter {
      * 
      */
     public void format(IASTNode node, TextEdit edit, XQDTStructuredFormatPreferences prefs) {
-        // Remove leading white spaces
-        if (node.getFirstStructuredDocumentRegion() != null) {
-            normalizeWhitespace(node.getFirstStructuredDocumentRegion(), edit, 0, 0, 0);
+        // Delete leading white spaces
+        IStructuredDocumentRegion first = node.getFirstStructuredDocumentRegion().getParentDocument()
+                .getFirstStructuredDocumentRegion();
+        if (first.getFullText().trim().equals("")) {
+            normalizeWhitespace(first, edit, 0, 0, 0);
         }
 
         formatNode(node, edit, prefs);
@@ -99,8 +103,8 @@ public class DefaultXQDTPartitionFormatter {
             case IASTNode.LITERAL:
                 formatLiteral((ASTLiteral)node, edit, prefs);
                 break;
-            case IASTNode.WHERECLAUSE:
-                formatExprSingleClause((ASTExprSingleClause)node, edit, prefs);
+            case IASTNode.CONTEXTITEM:
+                formatContextItem((ASTContextItem)node, edit, prefs);
                 break;
             }
 
@@ -112,10 +116,8 @@ public class DefaultXQDTPartitionFormatter {
         for (int i = 0; i < count; i++) {
             IASTNode child = node.getChildASTNodeAt(i);
 
-            prefs.pushTrailingWhitespaceLength(1, 1);
-
+            prefs.pushTrailingWhitespaceLength(0, 2);
             formatNode(child, edit, prefs);
-
             prefs.popTrailingWhitespaceLength();
         }
 
@@ -125,11 +127,6 @@ public class DefaultXQDTPartitionFormatter {
 
     }
 
-    /**
-     * @param node
-     * @param edit
-     * @param prefs
-     */
     protected void formatOperator(ASTOperator node, TextEdit edit, XQDTStructuredFormatPreferences prefs) {
         final int count = node.getChildASTNodesCount();
         for (int i = 0; i < count; i++) {
@@ -145,21 +142,22 @@ public class DefaultXQDTPartitionFormatter {
                 prefs.popTrailingWhitespaceLength();
             }
 
-            if (child.getLastStructuredDocumentRegion() != null) {
+            if (i < count - 1 && child.getLastStructuredDocumentRegion() != null) {
                 IStructuredDocumentRegion opRegion = child.getLastStructuredDocumentRegion().getNext();
                 if (opRegion != null) {
-                    normalizeWhitespace(opRegion, edit, 0, 1, 0);
+                    // Start the next expression on a new line if it is complex
+                    int type = node.getChildASTNodeAt(i + 1).getType();
+                    if (type == IASTNode.LITERAL || type == IASTNode.CONTEXTITEM || type == IASTNode.VARREF) {
+                        normalizeWhitespace(opRegion, edit, 0, 0, 1);
+                    } else {
+                        normalizeWhitespace(opRegion, edit, 0, 1, 0);
+                    }
                 }
             }
 
         }
     }
 
-    /**
-     * @param node
-     * @param edit
-     * @param prefs
-     */
     protected void formatParentherized(ASTParentherized node, TextEdit edit, XQDTStructuredFormatPreferences prefs) {
         IStructuredDocumentRegion sdregion = node.getFirstStructuredDocumentRegion(); // '('
 
@@ -172,14 +170,9 @@ public class DefaultXQDTPartitionFormatter {
         }
 
         sdregion = node.getLastStructuredDocumentRegion(); // ')'
-        normalizeWhitespace(sdregion, edit, 0, prefs.getTrailingWhitespaceLength(), prefs.getLineSeparatorCount());
+        normalizeWhitespace(sdregion, edit, 0, prefs.getLineSeparatorCount(), prefs.getTrailingWhitespaceLength());
     }
 
-    /**
-     * @param node
-     * @param edit
-     * @param prefs
-     */
     protected void formatFLWOR(ASTFLWOR node, TextEdit edit, XQDTStructuredFormatPreferences prefs) {
         // Default formatting
         // for/let $fffds as xs:type in ...,
@@ -207,11 +200,6 @@ public class DefaultXQDTPartitionFormatter {
 
     }
 
-    /**
-     * @param clause
-     * @param edit
-     * @param prefs
-     */
     protected void formatClause(ASTClause clause, TextEdit edit, XQDTStructuredFormatPreferences prefs) {
         switch (clause.getType()) {
         case IASTNode.FORCLAUSE:
@@ -223,81 +211,109 @@ public class DefaultXQDTPartitionFormatter {
             formatExprSingleClause((ASTExprSingleClause)clause, edit, prefs);
             break;
         }
-
     }
 
-    /**
-     * 
-     * @param clause
-     * @param edit
-     * @param prefs
-     */
     protected void formatBindingClause(ASTBindingClause clause, TextEdit edit, XQDTStructuredFormatPreferences prefs) {
-        //compressLines(clause.getFirstStructuredDocumentRegion(), edit, prefs, 1);
-        indent(clause.getFirstStructuredDocumentRegion(), edit, prefs);
+        IStructuredDocumentRegion sdregion = clause.getFirstStructuredDocumentRegion();
 
-        final int kwLength = clause.getFirstStructuredDocumentRegion().getFullText().trim().length(); // 'let' or 'for' or 'some' or 'every' ...
-        final String savedIndent = prefs.getIndent();
+        final int kwLength = sdregion.getFullText().trim().length(); // 'let' or 'for' or 'some' or 'every' ...
+        final int bindingIndentLength = prefs.getIndent().length() + kwLength + 1;
 
         // Normalize spaces between keyword and first variable binding
-        IStructuredDocumentRegion sdregion = clause.getFirstStructuredDocumentRegion();
-        normalizeWhitespace(sdregion, edit, 0, 1, 0);
+        normalizeWhitespace(sdregion, edit, 0, 0, 1);
 
         final int bindingCount = clause.getBindingExprCount();
-        for (int i = 0; i < bindingCount; i++) {
-            IStructuredDocumentRegion var = clause.getBindingVariable(i);
-            if (var != null) {
-                if (i > 0) {
-                    // Normalize space/line separator after preceding comma
-                    normalizeWhitespace(var.getPrevious(), edit, 0, 0, 1);
+        int i = 0;
+        do {
+            sdregion = skipComment(sdregion.getNext()); // '$ ... var'
+            normalizeWhitespace(sdregion, edit, 0, 0, 1); // ws between '$' and variable name
 
-                    setIndent(prefs.getIndent().length() + kwLength + 1, prefs);
-                    indent(var, edit, prefs);
-                }
+            sdregion = skipComment(sdregion.getNext());
+            sdregion = formatTypeDeclarationOpt(sdregion, edit, prefs);
+            sdregion = formatPositionalVarOpt(sdregion, edit, prefs);
 
-                normalizeWhitespace(var, edit, 0, 1, 0); // ws between '$' and variable name
+            normalizeWhitespace(sdregion, edit, 0, 0, 1); // token before binding expression
 
-                // This might change..
-                IStructuredDocumentRegion exprRegion = clause.getBindingExpr(i).getFirstStructuredDocumentRegion();
-                IStructuredDocumentRegion next = var.getNext();
-                while (next != exprRegion) {
-                    normalizeWhitespace(next, edit, 1, 1, 0);
-                    next = next.getNext();
-                }
+            sdregion = skipComment(sdregion.getNext());
 
-                boolean lastBinding = i == bindingCount - 1;
-                prefs.pushTrailingWhitespaceLength(lastBinding ? 1 : 0, lastBinding ? 1 : 0);
-                formatNode(clause.getBindingExpr(i), edit, prefs);
-                prefs.popTrailingWhitespaceLength();
+            // Format binding expression
+            boolean lastBinding = i == bindingCount - 1;
+            prefs.pushTrailingWhitespaceLength(lastBinding ? 1 : 0, lastBinding ? 1 : 0);
+            formatNode(clause.getBindingExpr(i), edit, prefs);
+            prefs.popTrailingWhitespaceLength();
+
+            sdregion = skipComment(clause.getBindingExpr(i).getLastStructuredDocumentRegion().getNext());
+
+            if (ModelHelper.sameRegionType(sdregion, XQueryRegions.COMMA)) {
+                normalizeWhitespace(sdregion, edit, 0, 1, bindingIndentLength);
+            } else {
+                break;
             }
 
-        }
+            i++;
 
-        // Restore indent
-        prefs.setIndent(savedIndent);
+        } while (sdregion != null);
     }
 
     protected void formatFunctionDecl(ASTFunctionDecl node, TextEdit edit, XQDTStructuredFormatPreferences prefs) {
-        IStructuredDocumentRegion region = node.getFirstStructuredDocumentRegion();
-        normalizeWhitespace(region, edit, 1, 1, 0);
+        IStructuredDocumentRegion region = node.getFirstStructuredDocumentRegion(); // declare ... function
+        normalizeWhitespace(region, edit, 1, 0, 1);
+
+        region = region.getNext(); // function name
+        region = skipComment(region);
+
+        normalizeWhitespace(region, edit, 0, 0, 0);
+
+        region = region.getNext(); // First param
+        region = skipComment(region);
+
+        if (region.getType() != XQueryRegions.RPAR) {
+            region = formatFunctionParams(region, node, edit, prefs);
+        }
+
+        normalizeWhitespace(region, edit, 0, 0, 1); // RPar
+
+        region = skipComment(region.getNext());
+        region = formatTypeDeclarationOpt(region, edit, prefs);
+
+        if (ModelHelper.sameRegionType(region, XQueryRegions.KW_EXTERNAL)) {
+            normalizeWhitespace(region, edit, 0, 0, 0); // 'external'
+            region = skipComment(region.getNext());
+
+        } else {
+            // TODO: sequential
+
+            normalizeWhitespace(region, edit, 0, 1, 2);
+
+            String saveIndent = prefs.getIndent();
+            setIndent(saveIndent.length() + 2, prefs);
+            prefs.pushTrailingWhitespaceLength(0, 1);
+            formatNode(node.getBody(), edit, prefs);
+
+            prefs.setIndent(saveIndent);
+            prefs.popTrailingWhitespaceLength();
+        }
+
+        region = node.getLastStructuredDocumentRegion(); // Should be ';'
+        normalizeWhitespace(region, edit, 0, prefs.getLineSeparatorCount(), prefs.getTrailingWhitespaceLength());
+
     }
 
     protected void formatVarDecl(ASTVarDecl node, TextEdit edit, XQDTStructuredFormatPreferences prefs) {
         // Format 'declare ... variable '
         IStructuredDocumentRegion region = node.getFirstStructuredDocumentRegion();
-        normalizeWhitespace(region, edit, 1, 1, 0);
+        normalizeWhitespace(region, edit, 1, 0, 1);
 
         region = node.getNameStructuredDocumentRegion();
-        normalizeWhitespace(region, edit, 0, 1, 0);
+        normalizeWhitespace(region, edit, 0, 0, 1);
         region = skipComment(region.getNext());
 
         // Either := or external
         if (region.getType() == XQueryRegions.KW_EXTERNAL) {
             normalizeWhitespace(region, edit, 0, 0, 0); // external
-            region = skipComment(region.getNext());
-            normalizeWhitespace(region, edit, 0, 0, 1); // ';'
+            region = skipComment(region.getNext()); // ;
         } else {
-            normalizeWhitespace(region, edit, 0, 1, 0); // :=
+            normalizeWhitespace(region, edit, 0, 0, 1); // :=
             String saveIndent = prefs.getIndent();
             prefs.setIndent(prefs.getIndent() + "  ");
             prefs.pushTrailingWhitespaceLength(0, 0);
@@ -305,53 +321,60 @@ public class DefaultXQDTPartitionFormatter {
             prefs.popTrailingWhitespaceLength();
             prefs.setIndent(saveIndent);
 
-            region = node.getLastStructuredDocumentRegion(); // ;
-            normalizeWhitespace(region, edit, 0, 0, 1);
+            region = node.getLastStructuredDocumentRegion(); // ; 
         }
 
+        normalizeWhitespace(region, edit, 0, prefs.getLineSeparatorCount(), prefs.getTrailingWhitespaceLength());
     }
 
     protected void formatExprSingleClause(ASTExprSingleClause node, TextEdit edit, XQDTStructuredFormatPreferences prefs) {
+        IStructuredDocumentRegion region = node.getFirstStructuredDocumentRegion();
+        normalizeWhitespace(region, edit, 0, 0, 1);
+
+        prefs.pushTrailingWhitespaceLength(1, 1);
         formatNode(node.getExpr(), edit, prefs);
+        prefs.popTrailingWhitespaceLength();
     }
 
     protected void formatVarRef(ASTVarRef node, TextEdit edit, XQDTStructuredFormatPreferences prefs) {
-        normalizeWhitespace(node.getFirstStructuredDocumentRegion(), edit, 0, prefs.getTrailingWhitespaceLength(),
-                prefs.getLineSeparatorCount());
+        normalizeWhitespace(node.getFirstStructuredDocumentRegion(), edit, 0, prefs.getLineSeparatorCount(),
+                prefs.getTrailingWhitespaceLength());
 
     }
 
-    /**
-     * Format Literal
-     * 
-     * @param edit
-     */
     protected void formatLiteral(ASTLiteral node, TextEdit edit, XQDTStructuredFormatPreferences prefs) {
-        normalizeWhitespace(node.getFirstStructuredDocumentRegion(), edit, 0, prefs.getTrailingWhitespaceLength(),
-                prefs.getLineSeparatorCount());
+        normalizeWhitespace(node.getFirstStructuredDocumentRegion(), edit, 0, prefs.getLineSeparatorCount(),
+                prefs.getTrailingWhitespaceLength());
 
+    }
+
+    protected void formatContextItem(ASTContextItem node, TextEdit edit, XQDTStructuredFormatPreferences prefs) {
+        normalizeWhitespace(node.getFirstStructuredDocumentRegion(), edit, 0, prefs.getLineSeparatorCount(),
+                prefs.getTrailingWhitespaceLength());
     }
 
     /**
      * Normalize whitespace between all the text regions contained in the given structured region
      * 
-     * @param wsc
+     * @param inwsc
      *            number of whitespace characters to normalize to
-     * @param lastwsc
-     *            number of whitespace characters to normalize to for the last text region.
      * @param lineSepCount
      *            number of line separators to have after the last text region
+     * @param lastwsc
+     *            number of whitespace characters to normalize to for the last text region. Applied
+     *            after line delimiters
+     * 
      */
-    protected void normalizeWhitespace(IStructuredDocumentRegion region, TextEdit edit, int wsc, int lastwsc,
-            int lineSepCount) {
+    protected void normalizeWhitespace(IStructuredDocumentRegion region, TextEdit edit, int inwsc, int lineSepCount,
+            int lastwsc) {
         if (region != null) {
 
             final int count = region.getNumberOfRegions();
             for (int i = 0; i < count - 1; i++) {
-                normalizeWhitespace(region, region.getRegions().get(i), edit, wsc, 0);
+                normalizeWhitespace(region, region.getRegions().get(i), edit, 0, inwsc);
             }
 
-            normalizeWhitespace(region, region.getLastRegion(), edit, lastwsc, lineSepCount);
+            normalizeWhitespace(region, region.getLastRegion(), edit, lineSepCount, lastwsc);
         }
     }
 
@@ -361,13 +384,13 @@ public class DefaultXQDTPartitionFormatter {
      * @param sdregion
      * @param region
      * @param edit
-     * @param wsc
-     *            number of white space
      * @param lineSepCount
      *            number of line separators
+     * @param wsc
+     *            number of white space characters
      */
-    protected void normalizeWhitespace(IStructuredDocumentRegion sdregion, ITextRegion region, TextEdit edit, int wsc,
-            int lineSepCount) {
+    protected void normalizeWhitespace(IStructuredDocumentRegion sdregion, ITextRegion region, TextEdit edit,
+            int lineSepCount, int wsc) {
         final IDocument document = sdregion.getParentDocument();
 
         int endOffset = sdregion.getStart() + region.getStart() + region.getLength();
@@ -383,14 +406,17 @@ public class DefaultXQDTPartitionFormatter {
                 edit.addChild(new DeleteEdit(endOffset - wscount, wscount));
             }
 
-            // Add proper number of wsc and line seps
-            for (int i = 0; i < wsc; i++) {
-                edit.addChild(new InsertEdit(endOffset, " "));
-            }
+            if (lineSepCount > 0 || wsc > 0) {
+                StringBuffer buffer = new StringBuffer();
+                String lineDelim = sdregion.getParentDocument().getLineDelimiter();
+                for (int i = 0; i < lineSepCount; i++) {
+                    buffer.append(lineDelim);
+                }
 
-            String lineDelim = sdregion.getParentDocument().getLineDelimiter();
-            for (int i = 0; i < lineSepCount; i++) {
-                edit.addChild(new InsertEdit(endOffset, lineDelim));
+                for (int i = 0; i < wsc; i++) {
+                    buffer.append(' ');
+                }
+                edit.addChild(new InsertEdit(endOffset, buffer.toString()));
             }
 
         } catch (BadLocationException e) {
@@ -409,42 +435,71 @@ public class DefaultXQDTPartitionFormatter {
         edit.addChild(new InsertEdit(sdregion.getStart(), prefs.getIndent()));
     }
 
-    /**
-     * Make sure there are X number of lines before the given region
-     * 
-     * @param sdregion
-     * @param edit
-     * @param prefs
-     * @param lineCount
-     */
-//    protected void normalizeLines(IStructuredDocumentRegion sdregion, TextEdit edit,
-//            XQDTStructuredFormatPreferences prefs, int lineCount) {
-//        IStructuredDocumentRegion prev = sdregion.getPrevious();
-//
-//        if (prev != null) {
-//            String text = prev.getFullText(prev.getLastRegion());
-//
-//            int lastws = text.length() - 1;
-//            while (lastws >= 0 && isWhitespace(text.charAt(lastws))) {
-//                lastws--;
-//            }
-//
-//            lastws++;
-//            int delete = -(lastws - text.length());
-//            if (delete > 0) {
-//                edit.addChild(new DeleteEdit(prev.getEndOffset() - delete, delete));
-//            }
-//
-//            // Add line separator(s)
-//            if (prev.getPrevious() != null) {
-//                String lineDelim = sdregion.getParentDocument().getLineDelimiter();
-//                for (int i = 0; i < lineCount; i++) {
-//                    edit.addChild(new InsertEdit(prev.getEndOffset(), lineDelim));
-//                }
-//            }
-//        }
-//
-//    }
+    IStructuredDocumentRegion formatFunctionParams(IStructuredDocumentRegion region, ASTFunctionDecl node,
+            TextEdit edit, XQDTStructuredFormatPreferences prefs) {
+        do {
+            IStructuredDocumentRegion next = skipComment(region.getNext());
+
+            final boolean isComma = next.getType() == XQueryRegions.COMMA;
+            boolean isRPar = next.getType() == XQueryRegions.RPAR;
+
+            normalizeWhitespace(region, edit, 0, 0, isComma || isRPar ? 0 : 1);
+            if (!isComma && !isRPar) {
+                // Must be a type declaration
+                region = next; // as
+                normalizeWhitespace(region, edit, 0, 0, 1);
+
+                region = skipComment(region.getNext()); // Type
+                normalizeWhitespace(region, edit, 0, 0, 0);
+
+                next = skipComment(region.getNext()); // comma or rpar
+                isRPar = next.getType() == XQueryRegions.RPAR;
+            }
+
+            if (isRPar) {
+                region = next;
+                break;
+            }
+
+            region = next;
+            normalizeWhitespace(region, edit, 0, 0, 1);
+            region = skipComment(region.getNext());
+        } while (region != null);
+
+        return region;
+    }
+
+    protected IStructuredDocumentRegion formatTypeDeclarationOpt(IStructuredDocumentRegion region, TextEdit edit,
+            XQDTStructuredFormatPreferences prefs) {
+        if (ModelHelper.sameRegionType(region, XQueryRegions.KW_AS)) {
+            normalizeWhitespace(region, edit, 0, 0, 1);
+            region = skipComment(region.getNext());
+
+            return formatSequenceType(region, edit, prefs);
+        }
+
+        return region;
+
+    }
+
+    protected IStructuredDocumentRegion formatPositionalVarOpt(IStructuredDocumentRegion region, TextEdit edit,
+            XQDTStructuredFormatPreferences prefs) {
+        if (ModelHelper.sameRegionType(region, XQueryRegions.KW_AT)) {
+            normalizeWhitespace(region, edit, 0, 0, 1);
+            region = skipComment(region.getNext()); // '$' .. varname
+
+            normalizeWhitespace(region, edit, 0, 0, 1);
+            return skipComment(region.getNext());
+        }
+
+        return region;
+    }
+
+    protected IStructuredDocumentRegion formatSequenceType(IStructuredDocumentRegion region, TextEdit edit,
+            XQDTStructuredFormatPreferences prefs) {
+        normalizeWhitespace(region, edit, 0, 0, 1);
+        return skipComment(region.getNext());
+    }
 
     // Utility methods..
 

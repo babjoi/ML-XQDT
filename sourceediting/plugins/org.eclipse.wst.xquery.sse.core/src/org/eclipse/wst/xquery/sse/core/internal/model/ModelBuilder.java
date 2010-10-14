@@ -102,9 +102,6 @@ public class ModelBuilder {
     /** Previous structured document region */
     protected XQueryStructuredDocumentRegion previousSDRegion;
 
-    /** Current region index in the current structured document region */
-    protected int currentRegionIdx;
-
     /** Starting offset of the change */
     protected int offset;
 
@@ -241,7 +238,6 @@ public class ModelBuilder {
             this.isValidLanguage = new Stack<Boolean>();
 
             previousSDRegion = (XQueryStructuredDocumentRegion)currentSDRegion.getPrevious();
-            currentRegionIdx = 0;
             this.offset = offset;
             this.length = length;
             if (module == null) {
@@ -494,6 +490,9 @@ public class ModelBuilder {
                             decl.setBody(newBody);
 
                         }
+
+                        decl.setLastStructuredDocumentRegion(currentSDRegion); // Should be ';'
+
                     } else {
                         reportError(XQueryMessages.errorXQSE_MissingRPar_UI_);
                     }
@@ -1161,8 +1160,6 @@ public class ModelBuilder {
 
         // WhereClause
         if (sameRegionType(XQueryRegions.KW_WHERE)) {
-            nextSDRegion(); // 'where'
-
             IASTNode oldWhere = flwor.getClause(index);
             ASTClause newWhere = reparseWhereClause(oldWhere);
             flwor.setClause(index++, newWhere);
@@ -1203,6 +1200,9 @@ public class ModelBuilder {
     protected ASTClause reparseWhereClause(IASTNode node) {
         ASTExprSingleClause clause = asExprSingleClause(node);
         clause.setClauseType(IASTNode.WHERECLAUSE);
+        clause.setFirstStructuredDocumentRegion(currentSDRegion);
+
+        nextSDRegion(); // 'where'
 
         IASTNode oldExpr = clause.getExpr();
         IASTNode newExpr = reparseExprSingle(oldExpr);
@@ -1211,6 +1211,7 @@ public class ModelBuilder {
         if (newExpr == null) {
             reportError(XQueryMessages.errorXQSE_MissingExprSingle_UI_);
         }
+        clause.setLastStructuredDocumentRegion(currentSDRegion);
 
         return clause;
     }
@@ -2206,6 +2207,7 @@ public class ModelBuilder {
     protected IASTNode reparseContextItemExpr(IASTNode node) {
         ASTContextItem item = asContextItem(node);
         item.setFirstStructuredDocumentRegion(currentSDRegion);
+        item.setLastStructuredDocumentRegion(currentSDRegion);
 
         nextSDRegion(); // .
 
@@ -2682,7 +2684,7 @@ public class ModelBuilder {
      */
     protected boolean sameRegionType(String type) {
         skipWhitespace();
-        return currentSDRegion != null && currentSDRegion.getType() == type;
+        return ModelHelper.sameRegionType(currentSDRegion, type);
     }
 
     /**
@@ -2705,18 +2707,7 @@ public class ModelBuilder {
 
     /** Skip white spaces and XQuery comments */
     protected void skipWhitespace() {
-        while (currentSDRegion != null
-                && (isIgnorableWhitespace(currentSDRegion.getType()) || currentSDRegion.getType() == XQueryRegions.XQUERY_COMMENT)) {
-            currentSDRegion = (XQueryStructuredDocumentRegion)currentSDRegion.getNext();
-            currentRegionIdx = 0;
-        }
-    }
-
-    /**
-     * Test whether the given region type is a ignorable white space (whitespace and comments)
-     */
-    protected boolean isIgnorableWhitespace(String type) {
-        return type == XQueryRegions.WHITE_SPACE || type == XQueryRegions.XQUERY_COMMENT;
+        currentSDRegion = ModelHelper.skipWhitespace(currentSDRegion);
     }
 
     /**
@@ -2736,7 +2727,6 @@ public class ModelBuilder {
         if (currentSDRegion != null) {
             previousSDRegion = currentSDRegion;
             currentSDRegion = (XQueryStructuredDocumentRegion)currentSDRegion.getNext();
-            currentRegionIdx = 0;
 
             skipWhitespace();
         }

@@ -61,15 +61,19 @@ public class XQDTFormatter extends AbstractStructuredFormatProcessor {
             try {
                 final XQueryStructuredModel xmodel = (XQueryStructuredModel)model;
 
-                MultiTextEdit edit = new MultiTextEdit();
-                DefaultXQDTPartitionFormatter.SINGLETON.format(xmodel.getModule(), edit,
-                        loadXQDTStructuredFormatPreferences());
-                if (edit != null) {
-                    try {
-                        model.aboutToChangeModel();
-                        edit.apply(model.getStructuredDocument());
-                    } finally {
-                        model.changedModel();
+                // Only format if the model is syntactically correct.
+                if (xmodel.isSyntacticallyValid()) {
+
+                    MultiTextEdit edit = new MultiTextEdit();
+                    DefaultXQDTPartitionFormatter.SINGLETON.format(xmodel.getModule(), edit,
+                            loadXQDTStructuredFormatPreferences());
+                    if (edit != null) {
+                        try {
+                            model.aboutToChangeModel();
+                            edit.apply(model.getStructuredDocument());
+                        } finally {
+                            model.changedModel();
+                        }
                     }
                 }
             } catch (MalformedTreeException e) {

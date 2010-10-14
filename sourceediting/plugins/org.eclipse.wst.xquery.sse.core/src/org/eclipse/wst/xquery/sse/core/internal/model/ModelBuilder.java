@@ -1773,9 +1773,7 @@ public class ModelBuilder {
             return step;
         }
 
-        // Just return the primary expression
-        return primary;
-
+        return primary == null ? step : primary;
     }
 
     /**

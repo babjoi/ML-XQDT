@@ -52,7 +52,7 @@
 	</target>
 
 	<target name="pmd.init" depends="init" unless="pmdAvailable">
-		<get src="http://sourceforge.net/projects/pmd/files/pmd/4.2.5/pmd-bin-4.2.5.zip/download" verbose="true" dest="${downloadDir}/pmd.zip" usetimestamp="true" />
+		<get src="http://downloads.sourceforge.net/project/pmd/pmd/4.2.5/pmd-bin-4.2.5.zip" dest="${downloadDir}/pmd.zip" usetimestamp="true" />
 		<unzip src="${downloadDir}/pmd.zip" dest="${libs}" />
 	</target>
 

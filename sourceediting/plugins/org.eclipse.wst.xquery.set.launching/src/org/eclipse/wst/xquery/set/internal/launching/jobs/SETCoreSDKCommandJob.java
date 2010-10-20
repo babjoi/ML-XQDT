@@ -17,6 +17,7 @@ import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.IProgressMonitor;
@@ -70,25 +71,16 @@ abstract public class SETCoreSDKCommandJob extends Job {
             cmdLine.add(install.getInstallLocation().getPath().toOSString());
             cmdLine.addAll(getCommandParameters());
 
-            IExecutionEnvironment exeEnv = install.getExecEnvironment();
-
-            EnvironmentVariable[] environmentVariables = install.getEnvironmentVariables();
-            String[] vars = null;
-            if (environmentVariables != null) {
-                vars = new String[environmentVariables.length];
-                for (int j = 0; j < environmentVariables.length; j++) {
-                    vars[j] = environmentVariables[j].toString();
-                }
-            }
-
             // start the command process
-            final Process p = exeEnv.exec(cmdLine.toArray(new String[cmdLine.size()]), null, vars);
+            IExecutionEnvironment exeEnv = install.getExecEnvironment();
+            String[] envp = getEnvironmentVariables(install);
+            Process p = exeEnv.exec(cmdLine.toArray(new String[cmdLine.size()]), null, envp);
 
             // read the process output and error streams 
             ProcessStreamConsumer psc = new ProcessStreamConsumer(p, getOutputStream());
             psc.start();
 
-            // wait for the process to reminate
+            // wait for the process to terminate
             int err = p.waitFor();
 
             // wait for the consumer to read the entire contents of the streams
@@ -104,6 +96,23 @@ abstract public class SETCoreSDKCommandJob extends Job {
         } finally {
             monitor.done();
         }
+    }
+
+    protected String[] getEnvironmentVariables(IInterpreterInstall install) {
+        List<String> vars = new ArrayList<String>();
+        IExecutionEnvironment exeEnv = install.getExecEnvironment();
+        Map<String, String> envp = exeEnv.getEnvironmentVariables(true);
+        for (String var : envp.keySet()) {
+            vars.add(var + "=" + envp.get(var));
+        }
+        EnvironmentVariable[] environmentVariables = install.getEnvironmentVariables();
+        if (environmentVariables != null) {
+            for (EnvironmentVariable variable : environmentVariables) {
+                vars.add(variable.getName() + "=" + variable.getValue());
+            }
+        }
+
+        return vars.toArray(new String[0]);
     }
 
     protected IStatus handleNoTicks() {

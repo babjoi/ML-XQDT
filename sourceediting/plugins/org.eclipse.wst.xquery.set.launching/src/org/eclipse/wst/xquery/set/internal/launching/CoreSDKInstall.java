@@ -10,9 +10,13 @@
  *******************************************************************************/
 package org.eclipse.wst.xquery.set.internal.launching;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.variables.VariablesPlugin;
 import org.eclipse.debug.core.ILaunchManager;
+import org.eclipse.dltk.launching.EnvironmentVariable;
 import org.eclipse.dltk.launching.IInterpreterInstallType;
 import org.eclipse.dltk.launching.IInterpreterRunner;
 import org.eclipse.wst.xquery.core.semantic.ISemanticValidator;
@@ -55,4 +59,24 @@ public class CoreSDKInstall extends XQDTInterpreterInstall implements ISemanticV
         }
         super.setName(name);
     }
+
+    @Override
+    public void setEnvironmentVariables(EnvironmentVariable[] variables) {
+        List<EnvironmentVariable> newVars = new ArrayList<EnvironmentVariable>();
+        boolean found = false;
+        if (variables != null) {
+            for (EnvironmentVariable variable : variables) {
+                if (variable.getName().equals("SAUSALITO_TOOLS")) {
+                    variable.setValue("true");
+                    found = true;
+                }
+                newVars.add(variable);
+            }
+        }
+        if (!found) {
+            newVars.add(new EnvironmentVariable("SAUSALITO_TOOLS", "true"));
+        }
+        super.setEnvironmentVariables(newVars.toArray(new EnvironmentVariable[] {}));
+    }
+
 }

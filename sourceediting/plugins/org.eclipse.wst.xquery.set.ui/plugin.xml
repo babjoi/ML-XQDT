@@ -36,6 +36,26 @@
          point="org.eclipse.ui.popupMenus">
       <objectContribution
             adaptable="true"
+            id="org.eclipse.wst.xquery.set.ui.popup.xqdoc"
+            objectClass="org.eclipse.core.resources.IProject">
+         <action
+               class="org.eclipse.wst.xquery.set.internal.ui.actions.SETXQDocAction"
+               enablesFor="1"
+               icon="$nl$/icons/elcl16/javadoc.gif"
+               id="org.eclipse.wst.xquery.set.ui.popup.xqdoc.action1"
+               label="Generate XQDoc"
+               menubarPath="additions"
+               tooltip="Generate Project Documentation">
+         </action>
+            <visibility>
+               <objectState
+                     name="nature"
+                     value="org.eclipse.wst.xquery.set.core.nature">
+               </objectState>
+            </visibility>
+      </objectContribution>
+      <objectContribution
+            adaptable="true"
             id="org.eclipse.wst.xquery.set.ui.popup.deploy.project"
             objectClass="org.eclipse.core.resources.IProject">
          <action

@@ -34,14 +34,14 @@
    </extension>
    <extension
          point="org.eclipse.ui.popupMenus">
-      <objectContribution
+<!--      <objectContribution
             adaptable="true"
             id="org.eclipse.wst.xquery.set.ui.popup.xqdoc"
             objectClass="org.eclipse.core.resources.IProject">
          <action
-               class="org.eclipse.wst.xquery.set.internal.ui.actions.SETXQDocAction"
+               class="org.eclipse.wst.xquery.set.internal.ui.actions.SETGenerateXQDocAction"
                enablesFor="1"
-               icon="$nl$/icons/elcl16/javadoc.gif"
+               icon="$nl$/icons/obj16/xqdoc.gif"
                id="org.eclipse.wst.xquery.set.ui.popup.xqdoc.action1"
                label="Generate XQDoc"
                menubarPath="additions"
@@ -53,7 +53,7 @@
                      value="org.eclipse.wst.xquery.set.core.nature">
                </objectState>
             </visibility>
-      </objectContribution>
+      </objectContribution>-->
       <objectContribution
             adaptable="true"
             id="org.eclipse.wst.xquery.set.ui.popup.deploy.project"

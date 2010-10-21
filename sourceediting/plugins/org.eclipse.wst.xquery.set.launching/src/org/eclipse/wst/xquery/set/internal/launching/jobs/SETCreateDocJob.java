@@ -1,15 +1,14 @@
-package org.eclipse.wst.xquery.set.internal.ui.actions;
+package org.eclipse.wst.xquery.set.internal.launching.jobs;
 
 import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
 import org.eclipse.core.resources.IProject;
-import org.eclipse.wst.xquery.set.internal.launching.jobs.SETCoreSDKCommandJob;
 
-public class XQDocJob extends SETCoreSDKCommandJob {
+public class SETCreateDocJob extends SETCoreSDKCommandJob {
 
-    public XQDocJob(String name, IProject project, OutputStream output) {
+    public SETCreateDocJob(String name, IProject project, OutputStream output) {
         super(name, project, output);
     }
 

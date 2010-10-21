@@ -15,8 +15,9 @@ import org.eclipse.ui.IViewActionDelegate;
 import org.eclipse.ui.IViewPart;
 import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.IWorkbenchWindowActionDelegate;
+import org.eclipse.wst.xquery.set.internal.launching.jobs.SETCreateDocJob;
 
-public class SETXQDocAction implements IViewActionDelegate, IWorkbenchWindowActionDelegate {
+public class SETGenerateXQDocAction implements IViewActionDelegate, IWorkbenchWindowActionDelegate {
 
     private ISelection fSelection;
     private Shell fCurrentShell;
@@ -60,7 +61,7 @@ public class SETXQDocAction implements IViewActionDelegate, IWorkbenchWindowActi
                 return;
             }
         }
-        Job job = new XQDocJob("create doc", prj, System.err);
+        Job job = new SETCreateDocJob("create doc", prj, System.err);
         job.schedule();
     }
 

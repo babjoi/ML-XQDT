@@ -26,4 +26,7 @@ public class XQDTImages {
             "fn_proposal.gif");
     public static final ImageDescriptor OBJ_ADD = helper.createUnManaged(PluginImagesHelper.T_OBJ, "add_exc.gif");
 
+    public static final ImageDescriptor OBJ_BREAK_FUNC = helper.createUnManaged(PluginImagesHelper.T_OBJ,
+            "func_brkp_obj.gif");
+
 }

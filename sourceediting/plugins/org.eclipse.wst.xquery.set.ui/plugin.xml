@@ -147,7 +147,7 @@
                class="org.eclipse.wst.xquery.set.internal.ui.actions.SETDeployProjectAction"
                enablesFor="1"
                icon="$nl$/icons/obj16/tocloud.gif"
-               id="org.eclipse.dltk.ruby.debug.ui.actions.AddExceptionBreakpoint"
+               id="org.eclipse.wst.xquery.set.ui.actions.SETDeployProjectAction"
                label="Dep&amp;loy Project..."
                menubarPath="project/additions">
             <enablement>

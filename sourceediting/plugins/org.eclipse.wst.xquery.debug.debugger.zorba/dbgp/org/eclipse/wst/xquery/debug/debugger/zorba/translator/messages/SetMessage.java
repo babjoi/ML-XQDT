@@ -20,22 +20,31 @@ import com.google.gson.annotations.SerializedName;
 
 public class SetMessage extends AbstractCommandMessage {
 
+    // We need to make this generic list based on Object otherwise the JSON
+    // serialization will consider the abstract type only for serialization
     @SerializedName("breakpoints")
-    private List<BreakpointPosition> fBreakpoints = new ArrayList<BreakpointPosition>();
+    private List<Object> fBreakpoints = new ArrayList<Object>();
 
     public SetMessage() {
         super(ICommandSets.COMMAND_SET_BREAKPOINTS, ICommandSets.COMMAND_SET);
     }
 
     public void addBreakpoint(BreakpointPosition breakpoint) {
-        if (fBreakpoints == null) {
-            fBreakpoints = new ArrayList<BreakpointPosition>();
-        }
         fBreakpoints.add(breakpoint);
     }
 
+    public void addBreakpoints(List<BreakpointPosition> breakpoints) {
+        fBreakpoints.addAll(breakpoints);
+    }
+
     public List<BreakpointPosition> getBreakpointPositions() {
-        return fBreakpoints;
+        List<BreakpointPosition> result = new ArrayList<BreakpointPosition>();
+        for (Object object : fBreakpoints) {
+            if (object instanceof BreakpointPosition) {
+                result.add((BreakpointPosition)object);
+            }
+        }
+        return result;
     }
 
     @Override

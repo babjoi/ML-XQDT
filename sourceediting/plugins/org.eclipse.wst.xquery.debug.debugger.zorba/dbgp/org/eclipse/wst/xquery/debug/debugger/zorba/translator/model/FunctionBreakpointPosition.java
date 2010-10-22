@@ -12,26 +12,35 @@ package org.eclipse.wst.xquery.debug.debugger.zorba.translator.model;
 
 import com.google.gson.annotations.SerializedName;
 
-public abstract class BreakpointPosition {
+public class FunctionBreakpointPosition extends BreakpointPosition {
 
-    @SerializedName("id")
-    protected int fId;
+    @SerializedName("func")
+    private FunctionLocation fLocation;
 
-    protected BreakpointPosition() {
+    protected FunctionBreakpointPosition() {
+        super();
     }
 
-    public BreakpointPosition(int id) {
-        fId = id;
+    public FunctionBreakpointPosition(int id, FunctionLocation location) {
+        super(id);
+        fLocation = location;
     }
 
-    public int getId() {
-        return fId;
+    public FunctionLocation getLocation() {
+        return fLocation;
     }
 
-    public void setId(int id) {
-        fId = id;
+    public void setLocation(FunctionLocation location) {
+        fLocation = location;
     }
 
-    public abstract String getFileName();
+    public String getFileName() {
+        return fLocation.getFileName();
+    }
+
+    @Override
+    public String toString() {
+        return fId + " - " + fLocation.toString();
+    }
 
 }

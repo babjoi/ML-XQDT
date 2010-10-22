@@ -13,16 +13,16 @@ package org.eclipse.wst.xquery.debug.debugger.zorba.translator.messages;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.eclipse.wst.xquery.debug.debugger.zorba.translator.model.BreakpointPosition;
+import org.eclipse.wst.xquery.debug.debugger.zorba.translator.model.LineBreakpointPosition;
 
 import com.google.gson.annotations.SerializedName;
 
 public class SetPayload {
 
     @SerializedName("breakpoints")
-    private List<BreakpointPosition> fBreakpoints = new ArrayList<BreakpointPosition>();
+    private List<LineBreakpointPosition> fBreakpoints = new ArrayList<LineBreakpointPosition>();
 
-    public List<BreakpointPosition> getBreakpointPositions() {
+    public List<LineBreakpointPosition> getBreakpointPositions() {
         return fBreakpoints;
     }
 

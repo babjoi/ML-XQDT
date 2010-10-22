@@ -151,9 +151,10 @@ public class SETLaunchingPlugin extends Plugin implements IInterpreterInstallCha
     }
 
     public void interpreterAdded(IInterpreterInstall interpreter) {
-        // only do this logic if a CoreSDK is added and this happend to be the default one
+        // only do this logic if a CoreSDK is added and this happened to be the default one
         // perform this only once, the first time the default CoreSDK is added
-        if (interpreter instanceof CoreSDKInstall && !fCoreSDKUpdated && isDefaultInterpreter(interpreter)) {
+        if (interpreter instanceof CoreSDKInstall && !fCoreSDKUpdated && isDefaultInterpreter(interpreter)
+                && interpreter.getName().startsWith(CORE_SDK_NAME_PREFIX)) {
             IFileHandle handle = interpreter.getInstallLocation();
 
             Path path = new Path(handle.toOSString());

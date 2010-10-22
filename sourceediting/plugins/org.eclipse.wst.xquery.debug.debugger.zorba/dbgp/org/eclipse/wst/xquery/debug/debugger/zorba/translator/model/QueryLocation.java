@@ -81,4 +81,10 @@ public class QueryLocation {
         }
         return false;
     }
+
+    @Override
+    public String toString() {
+        return fFileName + " (" + fLineBegin + ":" + fColumnBegin + "-" + fLineEnd + ":" + fColumnEnd + ")";
+    }
+
 }

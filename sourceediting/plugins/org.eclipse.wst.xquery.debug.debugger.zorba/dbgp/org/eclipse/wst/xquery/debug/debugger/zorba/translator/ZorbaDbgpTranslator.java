@@ -54,7 +54,7 @@ import org.eclipse.wst.xquery.debug.debugger.zorba.translator.messages.Terminate
 import org.eclipse.wst.xquery.debug.debugger.zorba.translator.messages.TerminatedMessage;
 import org.eclipse.wst.xquery.debug.debugger.zorba.translator.messages.VariablesMessage;
 import org.eclipse.wst.xquery.debug.debugger.zorba.translator.messages.VariablesPayload;
-import org.eclipse.wst.xquery.debug.debugger.zorba.translator.model.BreakpointPosition;
+import org.eclipse.wst.xquery.debug.debugger.zorba.translator.model.LineBreakpointPosition;
 import org.eclipse.wst.xquery.debug.debugger.zorba.translator.model.QueryLocation;
 import org.eclipse.wst.xquery.debug.debugger.zorba.translator.model.Variable;
 
@@ -255,40 +255,48 @@ public class ZorbaDbgpTranslator extends DbgpWorkingThread implements IDbgpTrans
             response = new DbgpResponse(request);
             response.addAttribute("success", "0");
         } else if (command.equals(IDbgpConstants.COMMAND_BREAKPOINT_SET)) {
-            SetMessage set = new SetMessage();
-
-            int line = Integer.parseInt(request.getOption("-n"));
-
+            String type = request.getOption("-t");
+            String state = request.getOption("-s");
+            //boolean enabled = state.equals(BreakpointState.ENABLED.toString());
+            // set the id of this breakpoint to this DBGP command id
+            int id = Integer.parseInt(request.getOption("-i"));
             String filename = request.getOption("-f");
+            //String namespace = getModuleNamespace(filename);
 
-            // TODO: this should be the final code when Zorba can work with namespaces
-            // String namespace = getModuleNamespace(filename);
+            if (type.equals("line")) {
+                int line = Integer.parseInt(request.getOption("-n"));
 
-            // the following lines are just a temporary solution
-            // ------------------------------
-            String namespace = null;
-            try {
-                URI fileUri = new URI(filename);
-                namespace = new Path(fileUri.getPath()).toOSString();
-            } catch (URISyntaxException e) {
-            }
-            // ------------------------------
+                // TODO: this should be the final code when Zorba can work with namespaces
+                // String namespace = getModuleNamespace(filename);
 
-            if (namespace == null) {
-                response = new DbgpResponse(request);
-                response.addAttribute("state", "0");
+                // the following lines are just a temporary solution
+                // ------------------------------
+                String namespace = null;
+                try {
+                    URI fileUri = new URI(filename);
+                    namespace = new Path(fileUri.getPath()).toOSString();
+                } catch (URISyntaxException e) {
+                }
+                // ------------------------------
+
+                if (namespace != null) {
+                    QueryLocation ql = new QueryLocation(namespace, line, 0, line, 0);
+
+                    SetMessage set = new SetMessage();
+                    set.addBreakpoint(new LineBreakpointPosition(id, ql));
+                    fEngine.sendCommand(set);
+
+                    response = new DbgpResponse(request);
+                    response.addAttribute("state", state);
+                    response.addAttribute("id", "" + id);
+                }
             } else {
-                QueryLocation ql = new QueryLocation(namespace, line, 0, line, 0);
-                int id = set.hashCode();
-                String state = request.getOption("-s");
-
-                set.addBreakpoint(new BreakpointPosition(id, ql));
-                fEngine.sendCommand(set);
-
-                response = new DbgpResponse(request);
-                response.addAttribute("state", state);
-                response.addAttribute("id", "" + id);
+                state = "disabled";
             }
+
+            response = new DbgpResponse(request);
+            response.addAttribute("state", state);
+
         } else if (command.equals(IDbgpConstants.COMMAND_BREAKPOINT_GET)) {
             response = new DbgpResponse(request);
             response.addAttribute("success", "0");

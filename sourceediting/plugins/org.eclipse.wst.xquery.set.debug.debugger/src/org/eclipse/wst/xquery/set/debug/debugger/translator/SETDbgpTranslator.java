@@ -21,7 +21,6 @@ import java.net.URISyntaxException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.TreeMap;
 
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IMarker;
@@ -45,7 +44,9 @@ import org.eclipse.dltk.dbgp.internal.DbgpWorkingThread;
 import org.eclipse.dltk.dbgp.internal.IDbgpTerminationListener;
 import org.eclipse.dltk.dbgp.internal.utils.Base64Helper;
 import org.eclipse.dltk.internal.debug.core.model.ScriptMarkerFactory;
+import org.eclipse.dltk.internal.debug.core.model.ScriptMethodEntryBreakpoint;
 import org.eclipse.wst.xquery.core.model.ast.XQueryLibraryModule;
+import org.eclipse.wst.xquery.debug.dbgp.BreakpointElement.BreakpointState;
 import org.eclipse.wst.xquery.debug.dbgp.DbgpResponse;
 import org.eclipse.wst.xquery.debug.dbgp.InitPacket;
 import org.eclipse.wst.xquery.debug.dbgp.client.DbgpProxyClientReceiver;
@@ -67,6 +68,9 @@ import org.eclipse.wst.xquery.debug.debugger.zorba.translator.messages.Terminate
 import org.eclipse.wst.xquery.debug.debugger.zorba.translator.messages.VariablesMessage;
 import org.eclipse.wst.xquery.debug.debugger.zorba.translator.messages.VariablesPayload;
 import org.eclipse.wst.xquery.debug.debugger.zorba.translator.model.BreakpointPosition;
+import org.eclipse.wst.xquery.debug.debugger.zorba.translator.model.FunctionBreakpointPosition;
+import org.eclipse.wst.xquery.debug.debugger.zorba.translator.model.FunctionLocation;
+import org.eclipse.wst.xquery.debug.debugger.zorba.translator.model.LineBreakpointPosition;
 import org.eclipse.wst.xquery.debug.debugger.zorba.translator.model.QueryLocation;
 import org.eclipse.wst.xquery.debug.debugger.zorba.translator.model.Variable;
 import org.eclipse.wst.xquery.set.core.utils.SETProjectUtil;
@@ -188,9 +192,7 @@ public class SETDbgpTranslator extends DbgpWorkingThread implements IDbgpTransla
     private SuspendedMessage fLastSuspendedEvent;
     private boolean fGlobalTerminate;
 
-    private Map<Integer, BreakpointPosition> fPendingBreakpoints = new TreeMap<Integer, BreakpointPosition>();
-    private Map<Integer, BreakpointPosition> fDisabledBreakpoints = new TreeMap<Integer, BreakpointPosition>();
-    private Map<Integer, BreakpointPosition> fToDisableBreakpoints = new TreeMap<Integer, BreakpointPosition>();
+    private SETBreakpointManager proxyBreakpointManager = new SETBreakpointManager();
 
     private synchronized DbgpResponse processCommand(final DbgpRequest request) {
         DbgpResponse response = null;
@@ -287,28 +289,39 @@ public class SETDbgpTranslator extends DbgpWorkingThread implements IDbgpTransla
             response = new DbgpResponse(request);
             response.addAttribute("success", "0");
         } else if (command.equals(IDbgpConstants.COMMAND_BREAKPOINT_SET)) {
-            // construct the query location
-            int line = Integer.parseInt(request.getOption("-n"));
+            String type = request.getOption("-t");
+            String state = request.getOption("-s");
+            boolean enabled = state.equals(BreakpointState.ENABLED.toString());
+            // set the id of this breakpoint to this DBGP command id
+            int id = Integer.parseInt(request.getOption("-i"));
             String filename = request.getOption("-f");
             String namespace = getModuleNamespace(filename);
-            QueryLocation ql = new QueryLocation(namespace, line, 0, line, 0);
 
-            int id = Integer.parseInt(request.getOption("-i"));
-            BreakpointPosition breakpoint = new BreakpointPosition(id, ql);
+            if (namespace != null) {
+                BreakpointPosition breakpoint = null;
+                boolean valid = false;
 
-            String state = request.getOption("-s");
-            if (state.equals("enabled")) {
-                if (!fEngine.isInitialized()) {
-                    // add to pending breakpoint for later sending
-                    fPendingBreakpoints.put(id, breakpoint);
-                } else {
-                    // build the SET message and sent it now
-                    SetMessage set = new SetMessage();
-                    set.addBreakpoint(breakpoint);
-                    fEngine.sendCommand(set);
+                if (type.equals("line")) {
+                    // build a line breakpoint position
+                    int line = Integer.parseInt(request.getOption("-n"));
+                    QueryLocation ql = new QueryLocation(namespace, line, 0, line, 0);
+                    breakpoint = new LineBreakpointPosition(id, ql);
+                    valid = true;
+                } else if (type.equals("call")) {
+                    // build a function breakpoint position
+                    String function = request.getOption("-m");
+                    FunctionLocation ql = new FunctionLocation(namespace, function);
+                    breakpoint = new FunctionBreakpointPosition(id, ql);
+                    valid = true;
                 }
+
+                if (fEngine.isInitialized()) {
+                    valid = sendBreakpoint(breakpoint);
+                }
+                proxyBreakpointManager.addBreakpoint(breakpoint, enabled, valid);
+
             } else {
-                fDisabledBreakpoints.put(id, breakpoint);
+                state = "disabled";
             }
 
             response = new DbgpResponse(request);
@@ -324,32 +337,31 @@ public class SETDbgpTranslator extends DbgpWorkingThread implements IDbgpTransla
                 ClearMessage clear = new ClearMessage();
                 clear.addBreakpointId(id);
                 fEngine.sendCommand(clear);
-            } else {
-                fPendingBreakpoints.remove(id);
             }
+            proxyBreakpointManager.deleteBreakpoint(id);
+
             response = new DbgpResponse(request);
         } else if (command.equals(IDbgpConstants.COMMAND_BREAKPOINT_UPDATE)) {
             int id = Integer.parseInt(request.getOption("-d"));
             String state = request.getOption("-s");
 
-            BreakpointPosition position = fToDisableBreakpoints.remove(id);
-            if (position == null) {
+            boolean enabled = state.equals(BreakpointState.ENABLED.toString());
+            boolean valid = true;
 
-                if (state.equals("enabled")) {
-                    BreakpointPosition breakpoint = fDisabledBreakpoints.remove(id);
-                    if (fEngine.isInitialized()) {
-                        if (breakpoint != null) {
-                            // build and send the SET message
-                            SetMessage set = new SetMessage();
-                            set.addBreakpoint(breakpoint);
-                            fEngine.sendCommand(set);
-                        }
-                    } else {
-                        // add to pending breakpoint for later sending
-                        fPendingBreakpoints.put(id, breakpoint);
-                    }
+            BreakpointPosition breakpoint = proxyBreakpointManager.getBreakpoint(id);
+
+            if (breakpoint != null && fEngine.isInitialized()) {
+                // build the SET/CLEAR message and send it now
+                if (enabled) {
+                    valid = sendBreakpoint(breakpoint);
+                } else {
+                    ClearMessage clear = new ClearMessage();
+                    clear.addBreakpointId(id);
+                    fEngine.sendCommand(clear);
                 }
             }
+            proxyBreakpointManager.setBreakpointState(id, enabled, valid);
+
             response = new DbgpResponse(request);
             response.addAttribute("state", state);
             response.addAttribute("id", "" + id);
@@ -379,6 +391,21 @@ public class SETDbgpTranslator extends DbgpWorkingThread implements IDbgpTransla
             fEngine.evaluate(request.getData(), tID);
         }
         return response;
+    }
+
+    private boolean sendBreakpoint(BreakpointPosition breakpoint) {
+        // build the SET message and send it now
+        SetMessage set = new SetMessage();
+        set.addBreakpoint(breakpoint);
+        ReplyMessage reply = (ReplyMessage)fEngine.sendCommand(set);
+
+        // check for "not set" breakpoint and disable it
+        SetPayload paylod = set.getReplyPayload(reply);
+        List<LineBreakpointPosition> rb = paylod.getBreakpointPositions();
+        if (rb.size() == 1 && rb.get(0).getFileName().equals("")) {
+            return false;
+        }
+        return true;
     }
 
     private String buildVarProperty(String name, String type, String value) {
@@ -485,7 +512,7 @@ public class SETDbgpTranslator extends DbgpWorkingThread implements IDbgpTransla
         // send an answer to the stack_get command
         DbgpResponse response = new DbgpResponse(fLastStackGetCommand);
         response.setData("<stack " + "level='0' " + "type='file' " + "filename='" + filename + "' " +
-        // "filename='xquery://main_module' " +
+        //"filename='xquery://main_module' " +
                 "lineno='" + lineno + "' " + "cmdbegin='" + cmdbegin + "' " + "cmdend='" + cmdend + "' " + "/>");
         fResponder.send(response);
 
@@ -567,11 +594,11 @@ public class SETDbgpTranslator extends DbgpWorkingThread implements IDbgpTransla
 
     private void setPendingBreakpoints() {
         // send all set breakpoint to the engine in one SET message
-        if (fPendingBreakpoints.size() > 0) {
+        List<BreakpointPosition> pendingBreakpoints = proxyBreakpointManager.getBreakpoints(true);
+        if (pendingBreakpoints.size() > 0) {
             SetMessage setMessage = new SetMessage();
-            for (BreakpointPosition breakpoint : fPendingBreakpoints.values()) {
-                setMessage.addBreakpoint(breakpoint);
-            }
+            setMessage.addBreakpoints(pendingBreakpoints);
+
             // send the command to the debugger engine
             ReplyMessage reply = (ReplyMessage)fEngine.sendCommand(setMessage);
 
@@ -579,10 +606,9 @@ public class SETDbgpTranslator extends DbgpWorkingThread implements IDbgpTransla
             SetPayload paylod = setMessage.getReplyPayload(reply);
             for (BreakpointPosition breakpoint : paylod.getBreakpointPositions()) {
                 // if the breakpoint was not set disable it
-                if (breakpoint.getLocation().getFileName().equals("")) {
+                if (breakpoint.getFileName().equals("")) {
                     int id = breakpoint.getId();
-                    BreakpointPosition originalBreakpoint = fPendingBreakpoints.remove(id);
-                    fDisabledBreakpoints.put(id, originalBreakpoint);
+                    BreakpointPosition originalBreakpoint = proxyBreakpointManager.setBreakpointState(id, true, false);
 
                     // disable it in the UI
                     try {
@@ -602,7 +628,7 @@ public class SETDbgpTranslator extends DbgpWorkingThread implements IDbgpTransla
     private void notifyBreakpointDisabled(BreakpointPosition originalBreakpoint) throws CoreException {
         IBreakpointManager manager = DebugPlugin.getDefault().getBreakpointManager();
 
-        String moduleNamespace = originalBreakpoint.getLocation().getFileName();
+        String moduleNamespace = originalBreakpoint.getFileName();
         IFile file = SETProjectUtil.getModuleFileForNamespace(fProject.getProject(), moduleNamespace);
         if (file == null) {
             return;
@@ -615,14 +641,21 @@ public class SETDbgpTranslator extends DbgpWorkingThread implements IDbgpTransla
         }
         IMarker breakMarker = null;
         for (IMarker marker : markers) {
-            int line = marker.getAttribute(IMarker.LINE_NUMBER, -1);
-            if (line == -1) {
-                continue;
-            }
             if (marker.getType().equals(ScriptMarkerFactory.LINE_BREAKPOINT_MARKER_ID)
-                    && line == originalBreakpoint.getLocation().getLineBegin()) {
-                breakMarker = marker;
-                break;
+                    && originalBreakpoint instanceof LineBreakpointPosition) {
+                int line = marker.getAttribute(IMarker.LINE_NUMBER, -1);
+                if (line != -1 && line == ((LineBreakpointPosition)originalBreakpoint).getLocation().getLineBegin()) {
+                    breakMarker = marker;
+                    break;
+                }
+            } else if (marker.getType().equals(ScriptMarkerFactory.METHOD_ENTRY_MARKER_ID)
+                    && originalBreakpoint instanceof FunctionBreakpointPosition) {
+                String functionName = marker.getAttribute(ScriptMethodEntryBreakpoint.METHOD_NAME, "");
+                if (functionName.equals(((FunctionBreakpointPosition)originalBreakpoint).getLocation()
+                        .getFunctionName())) {
+                    breakMarker = marker;
+                    break;
+                }
             }
         }
 
@@ -633,7 +666,6 @@ public class SETDbgpTranslator extends DbgpWorkingThread implements IDbgpTransla
 
         IBreakpoint breakpoint = manager.getBreakpoint(breakMarker);
         if (breakpoint != null) {
-            fToDisableBreakpoints.put(originalBreakpoint.getId(), originalBreakpoint);
             breakpoint.setEnabled(false);
         }
     }

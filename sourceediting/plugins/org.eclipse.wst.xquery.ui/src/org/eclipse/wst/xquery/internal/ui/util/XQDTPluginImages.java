@@ -39,8 +39,9 @@ public class XQDTPluginImages {
     }
 
     private static URL makeIconFileURL(String prefix, String name) throws MalformedURLException {
-        if (fgIconBaseURL == null)
+        if (fgIconBaseURL == null) {
             throw new MalformedURLException();
+        }
 
         StringBuffer buffer = new StringBuffer(prefix);
         buffer.append('/');

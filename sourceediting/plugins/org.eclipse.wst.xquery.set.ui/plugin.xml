@@ -34,6 +34,26 @@
    </extension>
    <extension
          point="org.eclipse.ui.popupMenus">
+<!--      <objectContribution
+            adaptable="true"
+            id="org.eclipse.wst.xquery.set.ui.popup.xqdoc"
+            objectClass="org.eclipse.core.resources.IProject">
+         <action
+               class="org.eclipse.wst.xquery.set.internal.ui.actions.SETGenerateXQDocAction"
+               enablesFor="1"
+               icon="$nl$/icons/obj16/xqdoc.gif"
+               id="org.eclipse.wst.xquery.set.ui.popup.xqdoc.action1"
+               label="Generate XQDoc"
+               menubarPath="additions"
+               tooltip="Generate Project Documentation">
+         </action>
+            <visibility>
+               <objectState
+                     name="nature"
+                     value="org.eclipse.wst.xquery.set.core.nature">
+               </objectState>
+            </visibility>
+      </objectContribution>-->
       <objectContribution
             adaptable="true"
             id="org.eclipse.wst.xquery.set.ui.popup.deploy.project"
@@ -127,7 +147,7 @@
                class="org.eclipse.wst.xquery.set.internal.ui.actions.SETDeployProjectAction"
                enablesFor="1"
                icon="$nl$/icons/obj16/tocloud.gif"
-               id="org.eclipse.dltk.ruby.debug.ui.actions.AddExceptionBreakpoint"
+               id="org.eclipse.wst.xquery.set.ui.actions.SETDeployProjectAction"
                label="Dep&amp;loy Project..."
                menubarPath="project/additions">
             <enablement>

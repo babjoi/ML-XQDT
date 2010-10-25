@@ -16,7 +16,7 @@ public class RefreshPackageExplorer extends UIJob {
     private static int previousExecutionTime;
 
     private RefreshPackageExplorer() {
-        super("Refresh PHP package explorer");
+        super("Refresh DLTK package explorer");
     }
 
     // reuse the same Job to avoid excessive updates

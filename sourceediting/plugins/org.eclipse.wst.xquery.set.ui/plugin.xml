@@ -34,7 +34,7 @@
    </extension>
    <extension
          point="org.eclipse.ui.popupMenus">
-<!--      <objectContribution
+      <objectContribution
             adaptable="true"
             id="org.eclipse.wst.xquery.set.ui.popup.xqdoc"
             objectClass="org.eclipse.core.resources.IProject">
@@ -53,7 +53,7 @@
                      value="org.eclipse.wst.xquery.set.core.nature">
                </objectState>
             </visibility>
-      </objectContribution>-->
+      </objectContribution>
       <objectContribution
             adaptable="true"
             id="org.eclipse.wst.xquery.set.ui.popup.deploy.project"

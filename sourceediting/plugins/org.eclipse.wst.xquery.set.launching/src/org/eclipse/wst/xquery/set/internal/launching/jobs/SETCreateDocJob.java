@@ -5,6 +5,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.eclipse.core.resources.IProject;
+import org.eclipse.core.resources.IResource;
+import org.eclipse.core.runtime.CoreException;
+import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.core.runtime.IStatus;
 
 public class SETCreateDocJob extends SETCoreSDKCommandJob {
 
@@ -23,6 +27,18 @@ public class SETCreateDocJob extends SETCoreSDKCommandJob {
         params.add(fProject.getName());
         params.add("-f");
         return params;
+    }
+
+    @Override
+    protected IStatus run(IProgressMonitor monitor) {
+        IStatus status = super.run(monitor);
+        try {
+            fProject.refreshLocal(IResource.DEPTH_INFINITE, monitor);
+        } catch (CoreException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        return status;
     }
 
 }

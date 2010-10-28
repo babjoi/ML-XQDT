@@ -63,6 +63,7 @@ public class SETGenerateXQDocAction implements IViewActionDelegate, IWorkbenchWi
         }
         Job job = new SETCreateDocJob("create doc", prj, System.err);
         job.schedule();
+        RefreshPackageExplorer.refreshJob();
     }
 
     public void selectionChanged(IAction action, ISelection selection) {

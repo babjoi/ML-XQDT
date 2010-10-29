@@ -12,8 +12,8 @@ import org.eclipse.core.runtime.IStatus;
 
 public class SETCreateDocJob extends SETCoreSDKCommandJob {
 
-    public SETCreateDocJob(String name, IProject project, OutputStream output) {
-        super(name, project, output);
+    public SETCreateDocJob(IProject project, OutputStream output) {
+        super("Creating project documentation", project, output);
     }
 
     @Override
@@ -40,5 +40,4 @@ public class SETCreateDocJob extends SETCoreSDKCommandJob {
         }
         return status;
     }
-
 }

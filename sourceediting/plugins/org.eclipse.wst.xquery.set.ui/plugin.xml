@@ -39,7 +39,7 @@
             id="org.eclipse.wst.xquery.set.ui.popup.xqdoc"
             objectClass="org.eclipse.core.resources.IProject">
          <action
-               class="org.eclipse.wst.xquery.set.internal.ui.actions.SETGenerateXQDocAction"
+               class="org.eclipse.wst.xquery.set.internal.ui.actions.SETCreateDocAction"
                enablesFor="1"
                icon="$nl$/icons/obj16/xqdoc.gif"
                id="org.eclipse.wst.xquery.set.ui.popup.xqdoc.action1"

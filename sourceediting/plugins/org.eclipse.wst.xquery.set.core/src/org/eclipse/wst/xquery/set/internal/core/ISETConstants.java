@@ -20,5 +20,6 @@ public interface ISETConstants extends IZorbaConstants {
     // names of the output console started by SETCoreSDKCommandAction 
     public static final String SAUSALITO_COMMAND_IMORT_DATA = "Import data";
     public static final String SAUSALITO_COMMAND_DELETE_DATA = "Delete data";
+    public static final String SAUSALITO_COMMAND_CREATE_DOC = "Create doc";
 
 }

@@ -164,6 +164,10 @@ public abstract class SETCoreSDKCommandAction implements IObjectActionDelegate {
         return fProject;
     }
 
+    protected Shell getShell() {
+        return fCurrentShell;
+    }
+
     //
     // implementation IObjectActionDelegate
     //

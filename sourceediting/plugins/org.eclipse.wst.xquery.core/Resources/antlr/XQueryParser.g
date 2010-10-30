@@ -934,9 +934,9 @@ pm_CommonContent
 // This is needed in order to switch the lexer from
 // XML back to XQuery
 p_ElemEnclosedExpr
-        :   LBRACKET
-            ({pushXQueryLexer();} pm_Expr {popLexer();})
-            RBRACKET 
+        :   LBRACKET {pushXQueryLexer();}
+            pm_Expr
+            RBRACKET {popLexer();}
         ;
 // *************************************************
 

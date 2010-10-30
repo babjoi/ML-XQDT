@@ -1,4 +1,4 @@
-// $ANTLR 3.1.2 XQueryParser.g 2010-09-21 09:33:46
+// $ANTLR 3.1.2 XQueryParser.g 2010-10-30 17:34:03
 
 /*******************************************************************************
  * Copyright (c) 2008, 2009 28msec Inc. and others.
@@ -816,7 +816,7 @@ public class XQueryParser extends XQDTParser {
 
 
             // AST REWRITE
-            // elements: pm_Prolog, p_QueryBody
+            // elements: p_QueryBody, pm_Prolog
             // token labels: 
             // rule labels: retval
             // token list labels: 
@@ -905,7 +905,7 @@ public class XQueryParser extends XQDTParser {
 
 
             // AST REWRITE
-            // elements: p_ModuleDecl, pm_Prolog
+            // elements: pm_Prolog, p_ModuleDecl
             // token labels: 
             // rule labels: retval
             // token list labels: 
@@ -1026,7 +1026,7 @@ public class XQueryParser extends XQDTParser {
 
 
             // AST REWRITE
-            // elements: p_StringLiteral, p_NCName
+            // elements: p_NCName, p_StringLiteral
             // token labels: 
             // rule labels: retval
             // token list labels: 
@@ -1887,7 +1887,7 @@ public class XQueryParser extends XQDTParser {
 
 
             // AST REWRITE
-            // elements: nn, us
+            // elements: us, nn
             // token labels: 
             // rule labels: us, nn, retval
             // token list labels: 
@@ -3594,7 +3594,7 @@ public class XQueryParser extends XQDTParser {
 
 
             // AST REWRITE
-            // elements: ah, us, sp
+            // elements: ah, sp, us
             // token labels: 
             // rule labels: sp, us, retval
             // token list labels: 
@@ -4008,7 +4008,7 @@ public class XQueryParser extends XQDTParser {
 
 
             // AST REWRITE
-            // elements: ah, nn, us
+            // elements: us, ah, nn
             // token labels: 
             // rule labels: us, nn, retval
             // token list labels: 
@@ -4282,7 +4282,7 @@ public class XQueryParser extends XQDTParser {
 
 
             // AST REWRITE
-            // elements: es, des, qn, td, vdt
+            // elements: vdt, des, td, qn, es
             // token labels: 
             // rule labels: td, qn, es, retval, vdt, des
             // token list labels: 
@@ -5361,7 +5361,7 @@ public class XQueryParser extends XQDTParser {
 
 
                     // AST REWRITE
-                    // elements: qn, pl, td, ee
+                    // elements: pl, td, ee, qn
                     // token labels: 
                     // rule labels: td, pl, ee, qn, retval
                     // token list labels: 
@@ -6017,7 +6017,7 @@ public class XQueryParser extends XQDTParser {
 
 
             // AST REWRITE
-            // elements: td, qn
+            // elements: qn, td
             // token labels: 
             // rule labels: td, qn, retval
             // token list labels: 
@@ -6282,10 +6282,10 @@ public class XQueryParser extends XQDTParser {
             int alt49=2;
             int LA49_0 = input.LA(1);
 
-            if ( (LA49_0==SEMICOLON) && ((((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||(lc(MLS))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||(lc(XQS))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))))) {
+            if ( (LA49_0==SEMICOLON) && ((((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||(lc(MLS))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||(lc(XQS))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))||((lc(XQS))&&(lc(MLS)))))) {
                 int LA49_1 = input.LA(2);
 
-                if ( ((((lc(XQS))&&(lc(MLS)))||(lc(XQS)))) ) {
+                if ( (((lc(XQS))||((lc(XQS))&&(lc(MLS))))) ) {
                     alt49=1;
                 }
                 else if ( ((lc(MLS))) ) {
@@ -16866,7 +16866,7 @@ public class XQueryParser extends XQDTParser {
     };
 
     // $ANTLR start "p_ElemEnclosedExpr"
-    // XQueryParser.g:936:1: p_ElemEnclosedExpr : LBRACKET ( pm_Expr ) RBRACKET ;
+    // XQueryParser.g:936:1: p_ElemEnclosedExpr : LBRACKET pm_Expr RBRACKET ;
     public final XQueryParser.p_ElemEnclosedExpr_return p_ElemEnclosedExpr() throws RecognitionException {
         XQueryParser.p_ElemEnclosedExpr_return retval = new XQueryParser.p_ElemEnclosedExpr_return();
         retval.start = input.LT(1);
@@ -16882,8 +16882,8 @@ public class XQueryParser extends XQDTParser {
         XQDTCommonTree RBRACKET402_tree=null;
 
         try {
-            // XQueryParser.g:937:9: ( LBRACKET ( pm_Expr ) RBRACKET )
-            // XQueryParser.g:937:13: LBRACKET ( pm_Expr ) RBRACKET
+            // XQueryParser.g:937:9: ( LBRACKET pm_Expr RBRACKET )
+            // XQueryParser.g:937:13: LBRACKET pm_Expr RBRACKET
             {
             root_0 = (XQDTCommonTree)adaptor.nil();
 
@@ -16892,28 +16892,22 @@ public class XQueryParser extends XQDTParser {
             LBRACKET400_tree = (XQDTCommonTree)adaptor.create(LBRACKET400);
             adaptor.addChild(root_0, LBRACKET400_tree);
             }
-            // XQueryParser.g:938:13: ( pm_Expr )
-            // XQueryParser.g:938:14: pm_Expr
-            {
             if ( state.backtracking==0 ) {
               pushXQueryLexer();
             }
-            pushFollow(FOLLOW_pm_Expr_in_p_ElemEnclosedExpr8029);
+            pushFollow(FOLLOW_pm_Expr_in_p_ElemEnclosedExpr8028);
             pm_Expr401=pm_Expr();
 
             state._fsp--;
             if (state.failed) return retval;
             if ( state.backtracking==0 ) adaptor.addChild(root_0, pm_Expr401.getTree());
-            if ( state.backtracking==0 ) {
-              popLexer();
-            }
-
-            }
-
-            RBRACKET402=(CommonToken)match(input,RBRACKET,FOLLOW_RBRACKET_in_p_ElemEnclosedExpr8046); if (state.failed) return retval;
+            RBRACKET402=(CommonToken)match(input,RBRACKET,FOLLOW_RBRACKET_in_p_ElemEnclosedExpr8042); if (state.failed) return retval;
             if ( state.backtracking==0 ) {
             RBRACKET402_tree = (XQDTCommonTree)adaptor.create(RBRACKET402);
             adaptor.addChild(root_0, RBRACKET402_tree);
+            }
+            if ( state.backtracking==0 ) {
+              popLexer();
             }
 
             }
@@ -17011,7 +17005,7 @@ public class XQueryParser extends XQDTParser {
                     {
                     root_0 = (XQDTCommonTree)adaptor.nil();
 
-                    pushFollow(FOLLOW_p_CompDocConstructor_in_p_ComputedConstructor8097);
+                    pushFollow(FOLLOW_p_CompDocConstructor_in_p_ComputedConstructor8094);
                     p_CompDocConstructor403=p_CompDocConstructor();
 
                     state._fsp--;
@@ -17025,7 +17019,7 @@ public class XQueryParser extends XQDTParser {
                     {
                     root_0 = (XQDTCommonTree)adaptor.nil();
 
-                    pushFollow(FOLLOW_p_CompElemConstructor_in_p_ComputedConstructor8109);
+                    pushFollow(FOLLOW_p_CompElemConstructor_in_p_ComputedConstructor8106);
                     p_CompElemConstructor404=p_CompElemConstructor();
 
                     state._fsp--;
@@ -17039,7 +17033,7 @@ public class XQueryParser extends XQDTParser {
                     {
                     root_0 = (XQDTCommonTree)adaptor.nil();
 
-                    pushFollow(FOLLOW_p_CompAttrConstructor_in_p_ComputedConstructor8121);
+                    pushFollow(FOLLOW_p_CompAttrConstructor_in_p_ComputedConstructor8118);
                     p_CompAttrConstructor405=p_CompAttrConstructor();
 
                     state._fsp--;
@@ -17053,7 +17047,7 @@ public class XQueryParser extends XQDTParser {
                     {
                     root_0 = (XQDTCommonTree)adaptor.nil();
 
-                    pushFollow(FOLLOW_p_CompNamespaceConstructor_in_p_ComputedConstructor8133);
+                    pushFollow(FOLLOW_p_CompNamespaceConstructor_in_p_ComputedConstructor8130);
                     p_CompNamespaceConstructor406=p_CompNamespaceConstructor();
 
                     state._fsp--;
@@ -17067,7 +17061,7 @@ public class XQueryParser extends XQDTParser {
                     {
                     root_0 = (XQDTCommonTree)adaptor.nil();
 
-                    pushFollow(FOLLOW_p_CompTextConstructor_in_p_ComputedConstructor8145);
+                    pushFollow(FOLLOW_p_CompTextConstructor_in_p_ComputedConstructor8142);
                     p_CompTextConstructor407=p_CompTextConstructor();
 
                     state._fsp--;
@@ -17081,7 +17075,7 @@ public class XQueryParser extends XQDTParser {
                     {
                     root_0 = (XQDTCommonTree)adaptor.nil();
 
-                    pushFollow(FOLLOW_p_CompCommentConstructor_in_p_ComputedConstructor8157);
+                    pushFollow(FOLLOW_p_CompCommentConstructor_in_p_ComputedConstructor8154);
                     p_CompCommentConstructor408=p_CompCommentConstructor();
 
                     state._fsp--;
@@ -17095,7 +17089,7 @@ public class XQueryParser extends XQDTParser {
                     {
                     root_0 = (XQDTCommonTree)adaptor.nil();
 
-                    pushFollow(FOLLOW_p_CompPIConstructor_in_p_ComputedConstructor8169);
+                    pushFollow(FOLLOW_p_CompPIConstructor_in_p_ComputedConstructor8166);
                     p_CompPIConstructor409=p_CompPIConstructor();
 
                     state._fsp--;
@@ -17113,7 +17107,7 @@ public class XQueryParser extends XQDTParser {
                         if (state.backtracking>0) {state.failed=true; return retval;}
                         throw new FailedPredicateException(input, "p_ComputedConstructor", "lc(MLS)");
                     }
-                    pushFollow(FOLLOW_p_CompBinaryConstructor_in_p_ComputedConstructor8184);
+                    pushFollow(FOLLOW_p_CompBinaryConstructor_in_p_ComputedConstructor8181);
                     p_CompBinaryConstructor410=p_CompBinaryConstructor();
 
                     state._fsp--;
@@ -17173,7 +17167,7 @@ public class XQueryParser extends XQDTParser {
             {
             root_0 = (XQDTCommonTree)adaptor.nil();
 
-            k=(CommonToken)match(input,DOCUMENT,FOLLOW_DOCUMENT_in_p_CompDocConstructor8218); if (state.failed) return retval;
+            k=(CommonToken)match(input,DOCUMENT,FOLLOW_DOCUMENT_in_p_CompDocConstructor8215); if (state.failed) return retval;
             if ( state.backtracking==0 ) {
             k_tree = (XQDTCommonTree)adaptor.create(k);
             adaptor.addChild(root_0, k_tree);
@@ -17181,18 +17175,18 @@ public class XQueryParser extends XQDTParser {
             if ( state.backtracking==0 ) {
               ak(k);
             }
-            LBRACKET411=(CommonToken)match(input,LBRACKET,FOLLOW_LBRACKET_in_p_CompDocConstructor8222); if (state.failed) return retval;
+            LBRACKET411=(CommonToken)match(input,LBRACKET,FOLLOW_LBRACKET_in_p_CompDocConstructor8219); if (state.failed) return retval;
             if ( state.backtracking==0 ) {
             LBRACKET411_tree = (XQDTCommonTree)adaptor.create(LBRACKET411);
             adaptor.addChild(root_0, LBRACKET411_tree);
             }
-            pushFollow(FOLLOW_pm_Expr_in_p_CompDocConstructor8224);
+            pushFollow(FOLLOW_pm_Expr_in_p_CompDocConstructor8221);
             pm_Expr412=pm_Expr();
 
             state._fsp--;
             if (state.failed) return retval;
             if ( state.backtracking==0 ) adaptor.addChild(root_0, pm_Expr412.getTree());
-            RBRACKET413=(CommonToken)match(input,RBRACKET,FOLLOW_RBRACKET_in_p_CompDocConstructor8226); if (state.failed) return retval;
+            RBRACKET413=(CommonToken)match(input,RBRACKET,FOLLOW_RBRACKET_in_p_CompDocConstructor8223); if (state.failed) return retval;
             if ( state.backtracking==0 ) {
             RBRACKET413_tree = (XQDTCommonTree)adaptor.create(RBRACKET413);
             adaptor.addChild(root_0, RBRACKET413_tree);
@@ -17257,7 +17251,7 @@ public class XQueryParser extends XQDTParser {
             {
             root_0 = (XQDTCommonTree)adaptor.nil();
 
-            k=(CommonToken)match(input,ELEMENT,FOLLOW_ELEMENT_in_p_CompElemConstructor8267); if (state.failed) return retval;
+            k=(CommonToken)match(input,ELEMENT,FOLLOW_ELEMENT_in_p_CompElemConstructor8264); if (state.failed) return retval;
             if ( state.backtracking==0 ) {
             k_tree = (XQDTCommonTree)adaptor.create(k);
             adaptor.addChild(root_0, k_tree);
@@ -17286,7 +17280,7 @@ public class XQueryParser extends XQDTParser {
                 case 1 :
                     // XQueryParser.g:980:34: p_QName
                     {
-                    pushFollow(FOLLOW_p_QName_in_p_CompElemConstructor8272);
+                    pushFollow(FOLLOW_p_QName_in_p_CompElemConstructor8269);
                     p_QName414=p_QName();
 
                     state._fsp--;
@@ -17301,18 +17295,18 @@ public class XQueryParser extends XQDTParser {
                     // XQueryParser.g:980:44: ( LBRACKET pm_Expr RBRACKET )
                     // XQueryParser.g:980:45: LBRACKET pm_Expr RBRACKET
                     {
-                    LBRACKET415=(CommonToken)match(input,LBRACKET,FOLLOW_LBRACKET_in_p_CompElemConstructor8277); if (state.failed) return retval;
+                    LBRACKET415=(CommonToken)match(input,LBRACKET,FOLLOW_LBRACKET_in_p_CompElemConstructor8274); if (state.failed) return retval;
                     if ( state.backtracking==0 ) {
                     LBRACKET415_tree = (XQDTCommonTree)adaptor.create(LBRACKET415);
                     adaptor.addChild(root_0, LBRACKET415_tree);
                     }
-                    pushFollow(FOLLOW_pm_Expr_in_p_CompElemConstructor8279);
+                    pushFollow(FOLLOW_pm_Expr_in_p_CompElemConstructor8276);
                     pm_Expr416=pm_Expr();
 
                     state._fsp--;
                     if (state.failed) return retval;
                     if ( state.backtracking==0 ) adaptor.addChild(root_0, pm_Expr416.getTree());
-                    RBRACKET417=(CommonToken)match(input,RBRACKET,FOLLOW_RBRACKET_in_p_CompElemConstructor8281); if (state.failed) return retval;
+                    RBRACKET417=(CommonToken)match(input,RBRACKET,FOLLOW_RBRACKET_in_p_CompElemConstructor8278); if (state.failed) return retval;
                     if ( state.backtracking==0 ) {
                     RBRACKET417_tree = (XQDTCommonTree)adaptor.create(RBRACKET417);
                     adaptor.addChild(root_0, RBRACKET417_tree);
@@ -17326,7 +17320,7 @@ public class XQueryParser extends XQDTParser {
 
             }
 
-            LBRACKET418=(CommonToken)match(input,LBRACKET,FOLLOW_LBRACKET_in_p_CompElemConstructor8285); if (state.failed) return retval;
+            LBRACKET418=(CommonToken)match(input,LBRACKET,FOLLOW_LBRACKET_in_p_CompElemConstructor8282); if (state.failed) return retval;
             if ( state.backtracking==0 ) {
             LBRACKET418_tree = (XQDTCommonTree)adaptor.create(LBRACKET418);
             adaptor.addChild(root_0, LBRACKET418_tree);
@@ -17342,7 +17336,7 @@ public class XQueryParser extends XQDTParser {
                 case 1 :
                     // XQueryParser.g:980:82: pm_Expr
                     {
-                    pushFollow(FOLLOW_pm_Expr_in_p_CompElemConstructor8287);
+                    pushFollow(FOLLOW_pm_Expr_in_p_CompElemConstructor8284);
                     pm_Expr419=pm_Expr();
 
                     state._fsp--;
@@ -17354,7 +17348,7 @@ public class XQueryParser extends XQDTParser {
 
             }
 
-            RBRACKET420=(CommonToken)match(input,RBRACKET,FOLLOW_RBRACKET_in_p_CompElemConstructor8290); if (state.failed) return retval;
+            RBRACKET420=(CommonToken)match(input,RBRACKET,FOLLOW_RBRACKET_in_p_CompElemConstructor8287); if (state.failed) return retval;
             if ( state.backtracking==0 ) {
             RBRACKET420_tree = (XQDTCommonTree)adaptor.create(RBRACKET420);
             adaptor.addChild(root_0, RBRACKET420_tree);
@@ -17419,7 +17413,7 @@ public class XQueryParser extends XQDTParser {
             {
             root_0 = (XQDTCommonTree)adaptor.nil();
 
-            k=(CommonToken)match(input,ATTRIBUTE,FOLLOW_ATTRIBUTE_in_p_CompAttrConstructor8323); if (state.failed) return retval;
+            k=(CommonToken)match(input,ATTRIBUTE,FOLLOW_ATTRIBUTE_in_p_CompAttrConstructor8320); if (state.failed) return retval;
             if ( state.backtracking==0 ) {
             k_tree = (XQDTCommonTree)adaptor.create(k);
             adaptor.addChild(root_0, k_tree);
@@ -17448,7 +17442,7 @@ public class XQueryParser extends XQDTParser {
                 case 1 :
                     // XQueryParser.g:988:36: p_QName
                     {
-                    pushFollow(FOLLOW_p_QName_in_p_CompAttrConstructor8328);
+                    pushFollow(FOLLOW_p_QName_in_p_CompAttrConstructor8325);
                     p_QName421=p_QName();
 
                     state._fsp--;
@@ -17463,18 +17457,18 @@ public class XQueryParser extends XQDTParser {
                     // XQueryParser.g:988:46: ( LBRACKET pm_Expr RBRACKET )
                     // XQueryParser.g:988:47: LBRACKET pm_Expr RBRACKET
                     {
-                    LBRACKET422=(CommonToken)match(input,LBRACKET,FOLLOW_LBRACKET_in_p_CompAttrConstructor8333); if (state.failed) return retval;
+                    LBRACKET422=(CommonToken)match(input,LBRACKET,FOLLOW_LBRACKET_in_p_CompAttrConstructor8330); if (state.failed) return retval;
                     if ( state.backtracking==0 ) {
                     LBRACKET422_tree = (XQDTCommonTree)adaptor.create(LBRACKET422);
                     adaptor.addChild(root_0, LBRACKET422_tree);
                     }
-                    pushFollow(FOLLOW_pm_Expr_in_p_CompAttrConstructor8335);
+                    pushFollow(FOLLOW_pm_Expr_in_p_CompAttrConstructor8332);
                     pm_Expr423=pm_Expr();
 
                     state._fsp--;
                     if (state.failed) return retval;
                     if ( state.backtracking==0 ) adaptor.addChild(root_0, pm_Expr423.getTree());
-                    RBRACKET424=(CommonToken)match(input,RBRACKET,FOLLOW_RBRACKET_in_p_CompAttrConstructor8337); if (state.failed) return retval;
+                    RBRACKET424=(CommonToken)match(input,RBRACKET,FOLLOW_RBRACKET_in_p_CompAttrConstructor8334); if (state.failed) return retval;
                     if ( state.backtracking==0 ) {
                     RBRACKET424_tree = (XQDTCommonTree)adaptor.create(RBRACKET424);
                     adaptor.addChild(root_0, RBRACKET424_tree);
@@ -17488,7 +17482,7 @@ public class XQueryParser extends XQDTParser {
 
             }
 
-            LBRACKET425=(CommonToken)match(input,LBRACKET,FOLLOW_LBRACKET_in_p_CompAttrConstructor8341); if (state.failed) return retval;
+            LBRACKET425=(CommonToken)match(input,LBRACKET,FOLLOW_LBRACKET_in_p_CompAttrConstructor8338); if (state.failed) return retval;
             if ( state.backtracking==0 ) {
             LBRACKET425_tree = (XQDTCommonTree)adaptor.create(LBRACKET425);
             adaptor.addChild(root_0, LBRACKET425_tree);
@@ -17504,7 +17498,7 @@ public class XQueryParser extends XQDTParser {
                 case 1 :
                     // XQueryParser.g:988:84: pm_Expr
                     {
-                    pushFollow(FOLLOW_pm_Expr_in_p_CompAttrConstructor8343);
+                    pushFollow(FOLLOW_pm_Expr_in_p_CompAttrConstructor8340);
                     pm_Expr426=pm_Expr();
 
                     state._fsp--;
@@ -17516,7 +17510,7 @@ public class XQueryParser extends XQDTParser {
 
             }
 
-            RBRACKET427=(CommonToken)match(input,RBRACKET,FOLLOW_RBRACKET_in_p_CompAttrConstructor8346); if (state.failed) return retval;
+            RBRACKET427=(CommonToken)match(input,RBRACKET,FOLLOW_RBRACKET_in_p_CompAttrConstructor8343); if (state.failed) return retval;
             if ( state.backtracking==0 ) {
             RBRACKET427_tree = (XQDTCommonTree)adaptor.create(RBRACKET427);
             adaptor.addChild(root_0, RBRACKET427_tree);
@@ -17581,7 +17575,7 @@ public class XQueryParser extends XQDTParser {
             {
             root_0 = (XQDTCommonTree)adaptor.nil();
 
-            k=(CommonToken)match(input,NAMESPACE,FOLLOW_NAMESPACE_in_p_CompNamespaceConstructor8374); if (state.failed) return retval;
+            k=(CommonToken)match(input,NAMESPACE,FOLLOW_NAMESPACE_in_p_CompNamespaceConstructor8371); if (state.failed) return retval;
             if ( state.backtracking==0 ) {
             k_tree = (XQDTCommonTree)adaptor.create(k);
             adaptor.addChild(root_0, k_tree);
@@ -17610,7 +17604,7 @@ public class XQueryParser extends XQDTParser {
                 case 1 :
                     // XQueryParser.g:993:34: p_NCName
                     {
-                    pushFollow(FOLLOW_p_NCName_in_p_CompNamespaceConstructor8379);
+                    pushFollow(FOLLOW_p_NCName_in_p_CompNamespaceConstructor8376);
                     p_NCName428=p_NCName();
 
                     state._fsp--;
@@ -17625,18 +17619,18 @@ public class XQueryParser extends XQDTParser {
                     // XQueryParser.g:993:45: ( LBRACKET pm_Expr RBRACKET )
                     // XQueryParser.g:993:46: LBRACKET pm_Expr RBRACKET
                     {
-                    LBRACKET429=(CommonToken)match(input,LBRACKET,FOLLOW_LBRACKET_in_p_CompNamespaceConstructor8384); if (state.failed) return retval;
+                    LBRACKET429=(CommonToken)match(input,LBRACKET,FOLLOW_LBRACKET_in_p_CompNamespaceConstructor8381); if (state.failed) return retval;
                     if ( state.backtracking==0 ) {
                     LBRACKET429_tree = (XQDTCommonTree)adaptor.create(LBRACKET429);
                     adaptor.addChild(root_0, LBRACKET429_tree);
                     }
-                    pushFollow(FOLLOW_pm_Expr_in_p_CompNamespaceConstructor8386);
+                    pushFollow(FOLLOW_pm_Expr_in_p_CompNamespaceConstructor8383);
                     pm_Expr430=pm_Expr();
 
                     state._fsp--;
                     if (state.failed) return retval;
                     if ( state.backtracking==0 ) adaptor.addChild(root_0, pm_Expr430.getTree());
-                    RBRACKET431=(CommonToken)match(input,RBRACKET,FOLLOW_RBRACKET_in_p_CompNamespaceConstructor8388); if (state.failed) return retval;
+                    RBRACKET431=(CommonToken)match(input,RBRACKET,FOLLOW_RBRACKET_in_p_CompNamespaceConstructor8385); if (state.failed) return retval;
                     if ( state.backtracking==0 ) {
                     RBRACKET431_tree = (XQDTCommonTree)adaptor.create(RBRACKET431);
                     adaptor.addChild(root_0, RBRACKET431_tree);
@@ -17650,7 +17644,7 @@ public class XQueryParser extends XQDTParser {
 
             }
 
-            LBRACKET432=(CommonToken)match(input,LBRACKET,FOLLOW_LBRACKET_in_p_CompNamespaceConstructor8392); if (state.failed) return retval;
+            LBRACKET432=(CommonToken)match(input,LBRACKET,FOLLOW_LBRACKET_in_p_CompNamespaceConstructor8389); if (state.failed) return retval;
             if ( state.backtracking==0 ) {
             LBRACKET432_tree = (XQDTCommonTree)adaptor.create(LBRACKET432);
             adaptor.addChild(root_0, LBRACKET432_tree);
@@ -17666,7 +17660,7 @@ public class XQueryParser extends XQDTParser {
                 case 1 :
                     // XQueryParser.g:993:83: pm_Expr
                     {
-                    pushFollow(FOLLOW_pm_Expr_in_p_CompNamespaceConstructor8394);
+                    pushFollow(FOLLOW_pm_Expr_in_p_CompNamespaceConstructor8391);
                     pm_Expr433=pm_Expr();
 
                     state._fsp--;
@@ -17678,7 +17672,7 @@ public class XQueryParser extends XQDTParser {
 
             }
 
-            RBRACKET434=(CommonToken)match(input,RBRACKET,FOLLOW_RBRACKET_in_p_CompNamespaceConstructor8397); if (state.failed) return retval;
+            RBRACKET434=(CommonToken)match(input,RBRACKET,FOLLOW_RBRACKET_in_p_CompNamespaceConstructor8394); if (state.failed) return retval;
             if ( state.backtracking==0 ) {
             RBRACKET434_tree = (XQDTCommonTree)adaptor.create(RBRACKET434);
             adaptor.addChild(root_0, RBRACKET434_tree);
@@ -17735,7 +17729,7 @@ public class XQueryParser extends XQDTParser {
             {
             root_0 = (XQDTCommonTree)adaptor.nil();
 
-            k=(CommonToken)match(input,TEXT,FOLLOW_TEXT_in_p_CompTextConstructor8433); if (state.failed) return retval;
+            k=(CommonToken)match(input,TEXT,FOLLOW_TEXT_in_p_CompTextConstructor8430); if (state.failed) return retval;
             if ( state.backtracking==0 ) {
             k_tree = (XQDTCommonTree)adaptor.create(k);
             adaptor.addChild(root_0, k_tree);
@@ -17743,18 +17737,18 @@ public class XQueryParser extends XQDTParser {
             if ( state.backtracking==0 ) {
               ak(k);
             }
-            LBRACKET435=(CommonToken)match(input,LBRACKET,FOLLOW_LBRACKET_in_p_CompTextConstructor8437); if (state.failed) return retval;
+            LBRACKET435=(CommonToken)match(input,LBRACKET,FOLLOW_LBRACKET_in_p_CompTextConstructor8434); if (state.failed) return retval;
             if ( state.backtracking==0 ) {
             LBRACKET435_tree = (XQDTCommonTree)adaptor.create(LBRACKET435);
             adaptor.addChild(root_0, LBRACKET435_tree);
             }
-            pushFollow(FOLLOW_pm_Expr_in_p_CompTextConstructor8439);
+            pushFollow(FOLLOW_pm_Expr_in_p_CompTextConstructor8436);
             pm_Expr436=pm_Expr();
 
             state._fsp--;
             if (state.failed) return retval;
             if ( state.backtracking==0 ) adaptor.addChild(root_0, pm_Expr436.getTree());
-            RBRACKET437=(CommonToken)match(input,RBRACKET,FOLLOW_RBRACKET_in_p_CompTextConstructor8441); if (state.failed) return retval;
+            RBRACKET437=(CommonToken)match(input,RBRACKET,FOLLOW_RBRACKET_in_p_CompTextConstructor8438); if (state.failed) return retval;
             if ( state.backtracking==0 ) {
             RBRACKET437_tree = (XQDTCommonTree)adaptor.create(RBRACKET437);
             adaptor.addChild(root_0, RBRACKET437_tree);
@@ -17811,7 +17805,7 @@ public class XQueryParser extends XQDTParser {
             {
             root_0 = (XQDTCommonTree)adaptor.nil();
 
-            k=(CommonToken)match(input,BINARY,FOLLOW_BINARY_in_p_CompBinaryConstructor8471); if (state.failed) return retval;
+            k=(CommonToken)match(input,BINARY,FOLLOW_BINARY_in_p_CompBinaryConstructor8468); if (state.failed) return retval;
             if ( state.backtracking==0 ) {
             k_tree = (XQDTCommonTree)adaptor.create(k);
             adaptor.addChild(root_0, k_tree);
@@ -17819,18 +17813,18 @@ public class XQueryParser extends XQDTParser {
             if ( state.backtracking==0 ) {
               ak(k);
             }
-            LBRACKET438=(CommonToken)match(input,LBRACKET,FOLLOW_LBRACKET_in_p_CompBinaryConstructor8475); if (state.failed) return retval;
+            LBRACKET438=(CommonToken)match(input,LBRACKET,FOLLOW_LBRACKET_in_p_CompBinaryConstructor8472); if (state.failed) return retval;
             if ( state.backtracking==0 ) {
             LBRACKET438_tree = (XQDTCommonTree)adaptor.create(LBRACKET438);
             adaptor.addChild(root_0, LBRACKET438_tree);
             }
-            pushFollow(FOLLOW_pm_Expr_in_p_CompBinaryConstructor8477);
+            pushFollow(FOLLOW_pm_Expr_in_p_CompBinaryConstructor8474);
             pm_Expr439=pm_Expr();
 
             state._fsp--;
             if (state.failed) return retval;
             if ( state.backtracking==0 ) adaptor.addChild(root_0, pm_Expr439.getTree());
-            RBRACKET440=(CommonToken)match(input,RBRACKET,FOLLOW_RBRACKET_in_p_CompBinaryConstructor8479); if (state.failed) return retval;
+            RBRACKET440=(CommonToken)match(input,RBRACKET,FOLLOW_RBRACKET_in_p_CompBinaryConstructor8476); if (state.failed) return retval;
             if ( state.backtracking==0 ) {
             RBRACKET440_tree = (XQDTCommonTree)adaptor.create(RBRACKET440);
             adaptor.addChild(root_0, RBRACKET440_tree);
@@ -17887,7 +17881,7 @@ public class XQueryParser extends XQDTParser {
             {
             root_0 = (XQDTCommonTree)adaptor.nil();
 
-            k=(CommonToken)match(input,COMMENT,FOLLOW_COMMENT_in_p_CompCommentConstructor8509); if (state.failed) return retval;
+            k=(CommonToken)match(input,COMMENT,FOLLOW_COMMENT_in_p_CompCommentConstructor8506); if (state.failed) return retval;
             if ( state.backtracking==0 ) {
             k_tree = (XQDTCommonTree)adaptor.create(k);
             adaptor.addChild(root_0, k_tree);
@@ -17895,18 +17889,18 @@ public class XQueryParser extends XQDTParser {
             if ( state.backtracking==0 ) {
               ak(k);
             }
-            LBRACKET441=(CommonToken)match(input,LBRACKET,FOLLOW_LBRACKET_in_p_CompCommentConstructor8513); if (state.failed) return retval;
+            LBRACKET441=(CommonToken)match(input,LBRACKET,FOLLOW_LBRACKET_in_p_CompCommentConstructor8510); if (state.failed) return retval;
             if ( state.backtracking==0 ) {
             LBRACKET441_tree = (XQDTCommonTree)adaptor.create(LBRACKET441);
             adaptor.addChild(root_0, LBRACKET441_tree);
             }
-            pushFollow(FOLLOW_pm_Expr_in_p_CompCommentConstructor8515);
+            pushFollow(FOLLOW_pm_Expr_in_p_CompCommentConstructor8512);
             pm_Expr442=pm_Expr();
 
             state._fsp--;
             if (state.failed) return retval;
             if ( state.backtracking==0 ) adaptor.addChild(root_0, pm_Expr442.getTree());
-            RBRACKET443=(CommonToken)match(input,RBRACKET,FOLLOW_RBRACKET_in_p_CompCommentConstructor8517); if (state.failed) return retval;
+            RBRACKET443=(CommonToken)match(input,RBRACKET,FOLLOW_RBRACKET_in_p_CompCommentConstructor8514); if (state.failed) return retval;
             if ( state.backtracking==0 ) {
             RBRACKET443_tree = (XQDTCommonTree)adaptor.create(RBRACKET443);
             adaptor.addChild(root_0, RBRACKET443_tree);
@@ -17971,7 +17965,7 @@ public class XQueryParser extends XQDTParser {
             {
             root_0 = (XQDTCommonTree)adaptor.nil();
 
-            k=(CommonToken)match(input,PROCESSING_INSTRUCTION,FOLLOW_PROCESSING_INSTRUCTION_in_p_CompPIConstructor8548); if (state.failed) return retval;
+            k=(CommonToken)match(input,PROCESSING_INSTRUCTION,FOLLOW_PROCESSING_INSTRUCTION_in_p_CompPIConstructor8545); if (state.failed) return retval;
             if ( state.backtracking==0 ) {
             k_tree = (XQDTCommonTree)adaptor.create(k);
             adaptor.addChild(root_0, k_tree);
@@ -18000,7 +17994,7 @@ public class XQueryParser extends XQDTParser {
                 case 1 :
                     // XQueryParser.g:1019:49: p_NCName
                     {
-                    pushFollow(FOLLOW_p_NCName_in_p_CompPIConstructor8553);
+                    pushFollow(FOLLOW_p_NCName_in_p_CompPIConstructor8550);
                     p_NCName444=p_NCName();
 
                     state._fsp--;
@@ -18015,18 +18009,18 @@ public class XQueryParser extends XQDTParser {
                     // XQueryParser.g:1019:60: ( LBRACKET pm_Expr RBRACKET )
                     // XQueryParser.g:1019:61: LBRACKET pm_Expr RBRACKET
                     {
-                    LBRACKET445=(CommonToken)match(input,LBRACKET,FOLLOW_LBRACKET_in_p_CompPIConstructor8558); if (state.failed) return retval;
+                    LBRACKET445=(CommonToken)match(input,LBRACKET,FOLLOW_LBRACKET_in_p_CompPIConstructor8555); if (state.failed) return retval;
                     if ( state.backtracking==0 ) {
                     LBRACKET445_tree = (XQDTCommonTree)adaptor.create(LBRACKET445);
                     adaptor.addChild(root_0, LBRACKET445_tree);
                     }
-                    pushFollow(FOLLOW_pm_Expr_in_p_CompPIConstructor8560);
+                    pushFollow(FOLLOW_pm_Expr_in_p_CompPIConstructor8557);
                     pm_Expr446=pm_Expr();
 
                     state._fsp--;
                     if (state.failed) return retval;
                     if ( state.backtracking==0 ) adaptor.addChild(root_0, pm_Expr446.getTree());
-                    RBRACKET447=(CommonToken)match(input,RBRACKET,FOLLOW_RBRACKET_in_p_CompPIConstructor8562); if (state.failed) return retval;
+                    RBRACKET447=(CommonToken)match(input,RBRACKET,FOLLOW_RBRACKET_in_p_CompPIConstructor8559); if (state.failed) return retval;
                     if ( state.backtracking==0 ) {
                     RBRACKET447_tree = (XQDTCommonTree)adaptor.create(RBRACKET447);
                     adaptor.addChild(root_0, RBRACKET447_tree);
@@ -18040,7 +18034,7 @@ public class XQueryParser extends XQDTParser {
 
             }
 
-            LBRACKET448=(CommonToken)match(input,LBRACKET,FOLLOW_LBRACKET_in_p_CompPIConstructor8566); if (state.failed) return retval;
+            LBRACKET448=(CommonToken)match(input,LBRACKET,FOLLOW_LBRACKET_in_p_CompPIConstructor8563); if (state.failed) return retval;
             if ( state.backtracking==0 ) {
             LBRACKET448_tree = (XQDTCommonTree)adaptor.create(LBRACKET448);
             adaptor.addChild(root_0, LBRACKET448_tree);
@@ -18056,7 +18050,7 @@ public class XQueryParser extends XQDTParser {
                 case 1 :
                     // XQueryParser.g:1019:98: pm_Expr
                     {
-                    pushFollow(FOLLOW_pm_Expr_in_p_CompPIConstructor8568);
+                    pushFollow(FOLLOW_pm_Expr_in_p_CompPIConstructor8565);
                     pm_Expr449=pm_Expr();
 
                     state._fsp--;
@@ -18068,7 +18062,7 @@ public class XQueryParser extends XQDTParser {
 
             }
 
-            RBRACKET450=(CommonToken)match(input,RBRACKET,FOLLOW_RBRACKET_in_p_CompPIConstructor8571); if (state.failed) return retval;
+            RBRACKET450=(CommonToken)match(input,RBRACKET,FOLLOW_RBRACKET_in_p_CompPIConstructor8568); if (state.failed) return retval;
             if ( state.backtracking==0 ) {
             RBRACKET450_tree = (XQDTCommonTree)adaptor.create(RBRACKET450);
             adaptor.addChild(root_0, RBRACKET450_tree);
@@ -18121,7 +18115,7 @@ public class XQueryParser extends XQDTParser {
             {
             root_0 = (XQDTCommonTree)adaptor.nil();
 
-            pushFollow(FOLLOW_p_AtomicType_in_p_SingleType8599);
+            pushFollow(FOLLOW_p_AtomicType_in_p_SingleType8596);
             p_AtomicType451=p_AtomicType();
 
             state._fsp--;
@@ -18138,7 +18132,7 @@ public class XQueryParser extends XQDTParser {
                 case 1 :
                     // XQueryParser.g:1024:26: QUESTION
                     {
-                    QUESTION452=(CommonToken)match(input,QUESTION,FOLLOW_QUESTION_in_p_SingleType8601); if (state.failed) return retval;
+                    QUESTION452=(CommonToken)match(input,QUESTION,FOLLOW_QUESTION_in_p_SingleType8598); if (state.failed) return retval;
                     if ( state.backtracking==0 ) {
                     QUESTION452_tree = (XQDTCommonTree)adaptor.create(QUESTION452);
                     adaptor.addChild(root_0, QUESTION452_tree);
@@ -18196,13 +18190,13 @@ public class XQueryParser extends XQDTParser {
             // XQueryParser.g:1029:9: (k= AS st= p_SequenceType -> ^( TypeDeclaration $st) )
             // XQueryParser.g:1029:13: k= AS st= p_SequenceType
             {
-            k=(CommonToken)match(input,AS,FOLLOW_AS_in_p_TypeDeclaration8632); if (state.failed) return retval; 
+            k=(CommonToken)match(input,AS,FOLLOW_AS_in_p_TypeDeclaration8629); if (state.failed) return retval; 
             if ( state.backtracking==0 ) stream_AS.add(k);
 
             if ( state.backtracking==0 ) {
               ak(k);
             }
-            pushFollow(FOLLOW_p_SequenceType_in_p_TypeDeclaration8638);
+            pushFollow(FOLLOW_p_SequenceType_in_p_TypeDeclaration8635);
             st=p_SequenceType();
 
             state._fsp--;
@@ -18325,22 +18319,22 @@ public class XQueryParser extends XQDTParser {
                 case 1 :
                     // XQueryParser.g:1035:13: k= EMPTY_SEQUENCE l= LPAREN r= RPAREN
                     {
-                    k=(CommonToken)match(input,EMPTY_SEQUENCE,FOLLOW_EMPTY_SEQUENCE_in_p_SequenceType8693); if (state.failed) return retval; 
+                    k=(CommonToken)match(input,EMPTY_SEQUENCE,FOLLOW_EMPTY_SEQUENCE_in_p_SequenceType8690); if (state.failed) return retval; 
                     if ( state.backtracking==0 ) stream_EMPTY_SEQUENCE.add(k);
 
                     if ( state.backtracking==0 ) {
                       ak(k);
                     }
-                    l=(CommonToken)match(input,LPAREN,FOLLOW_LPAREN_in_p_SequenceType8699); if (state.failed) return retval; 
+                    l=(CommonToken)match(input,LPAREN,FOLLOW_LPAREN_in_p_SequenceType8696); if (state.failed) return retval; 
                     if ( state.backtracking==0 ) stream_LPAREN.add(l);
 
-                    r=(CommonToken)match(input,RPAREN,FOLLOW_RPAREN_in_p_SequenceType8703); if (state.failed) return retval; 
+                    r=(CommonToken)match(input,RPAREN,FOLLOW_RPAREN_in_p_SequenceType8700); if (state.failed) return retval; 
                     if ( state.backtracking==0 ) stream_RPAREN.add(r);
 
 
 
                     // AST REWRITE
-                    // elements: k, r, l
+                    // elements: l, r, k
                     // token labels: k, r, l
                     // rule labels: retval
                     // token list labels: 
@@ -18384,7 +18378,7 @@ public class XQueryParser extends XQDTParser {
                 case 2 :
                     // XQueryParser.g:1037:11: it= p_ItemType ( ( p_OccurrenceIndicator )=>oi= p_OccurrenceIndicator )?
                     {
-                    pushFollow(FOLLOW_p_ItemType_in_p_SequenceType8752);
+                    pushFollow(FOLLOW_p_ItemType_in_p_SequenceType8749);
                     it=p_ItemType();
 
                     state._fsp--;
@@ -18397,7 +18391,7 @@ public class XQueryParser extends XQDTParser {
                         case 1 :
                             // XQueryParser.g:1037:26: ( p_OccurrenceIndicator )=>oi= p_OccurrenceIndicator
                             {
-                            pushFollow(FOLLOW_p_OccurrenceIndicator_in_p_SequenceType8763);
+                            pushFollow(FOLLOW_p_OccurrenceIndicator_in_p_SequenceType8760);
                             oi=p_OccurrenceIndicator();
 
                             state._fsp--;
@@ -18412,7 +18406,7 @@ public class XQueryParser extends XQDTParser {
 
 
                     // AST REWRITE
-                    // elements: oi, it
+                    // elements: it, oi
                     // token labels: 
                     // rule labels: oi, it, retval
                     // token list labels: 
@@ -18571,7 +18565,7 @@ public class XQueryParser extends XQDTParser {
                 case 1 :
                     // XQueryParser.g:1048:11: p_KindTest
                     {
-                    pushFollow(FOLLOW_p_KindTest_in_p_ItemType8865);
+                    pushFollow(FOLLOW_p_KindTest_in_p_ItemType8862);
                     p_KindTest454=p_KindTest();
 
                     state._fsp--;
@@ -18618,13 +18612,13 @@ public class XQueryParser extends XQDTParser {
                     // XQueryParser.g:1050:24: ( BINARY LPAREN RPAREN )
                     // XQueryParser.g:1050:25: BINARY LPAREN RPAREN
                     {
-                    BINARY455=(CommonToken)match(input,BINARY,FOLLOW_BINARY_in_p_ItemType8905); if (state.failed) return retval; 
+                    BINARY455=(CommonToken)match(input,BINARY,FOLLOW_BINARY_in_p_ItemType8902); if (state.failed) return retval; 
                     if ( state.backtracking==0 ) stream_BINARY.add(BINARY455);
 
-                    LPAREN456=(CommonToken)match(input,LPAREN,FOLLOW_LPAREN_in_p_ItemType8907); if (state.failed) return retval; 
+                    LPAREN456=(CommonToken)match(input,LPAREN,FOLLOW_LPAREN_in_p_ItemType8904); if (state.failed) return retval; 
                     if ( state.backtracking==0 ) stream_LPAREN.add(LPAREN456);
 
-                    RPAREN457=(CommonToken)match(input,RPAREN,FOLLOW_RPAREN_in_p_ItemType8909); if (state.failed) return retval; 
+                    RPAREN457=(CommonToken)match(input,RPAREN,FOLLOW_RPAREN_in_p_ItemType8906); if (state.failed) return retval; 
                     if ( state.backtracking==0 ) stream_RPAREN.add(RPAREN457);
 
 
@@ -18633,7 +18627,7 @@ public class XQueryParser extends XQDTParser {
 
 
                     // AST REWRITE
-                    // elements: BINARY, LPAREN, RPAREN
+                    // elements: LPAREN, RPAREN, BINARY
                     // token labels: 
                     // rule labels: retval
                     // token list labels: 
@@ -18669,13 +18663,13 @@ public class XQueryParser extends XQDTParser {
                     // XQueryParser.g:1052:11: ( ITEM LPAREN RPAREN )
                     // XQueryParser.g:1052:12: ITEM LPAREN RPAREN
                     {
-                    ITEM458=(CommonToken)match(input,ITEM,FOLLOW_ITEM_in_p_ItemType8951); if (state.failed) return retval; 
+                    ITEM458=(CommonToken)match(input,ITEM,FOLLOW_ITEM_in_p_ItemType8948); if (state.failed) return retval; 
                     if ( state.backtracking==0 ) stream_ITEM.add(ITEM458);
 
-                    LPAREN459=(CommonToken)match(input,LPAREN,FOLLOW_LPAREN_in_p_ItemType8953); if (state.failed) return retval; 
+                    LPAREN459=(CommonToken)match(input,LPAREN,FOLLOW_LPAREN_in_p_ItemType8950); if (state.failed) return retval; 
                     if ( state.backtracking==0 ) stream_LPAREN.add(LPAREN459);
 
-                    RPAREN460=(CommonToken)match(input,RPAREN,FOLLOW_RPAREN_in_p_ItemType8955); if (state.failed) return retval; 
+                    RPAREN460=(CommonToken)match(input,RPAREN,FOLLOW_RPAREN_in_p_ItemType8952); if (state.failed) return retval; 
                     if ( state.backtracking==0 ) stream_RPAREN.add(RPAREN460);
 
 
@@ -18684,7 +18678,7 @@ public class XQueryParser extends XQDTParser {
 
 
                     // AST REWRITE
-                    // elements: LPAREN, ITEM, RPAREN
+                    // elements: ITEM, RPAREN, LPAREN
                     // token labels: 
                     // rule labels: retval
                     // token list labels: 
@@ -18719,7 +18713,7 @@ public class XQueryParser extends XQDTParser {
                     {
                     root_0 = (XQDTCommonTree)adaptor.nil();
 
-                    pushFollow(FOLLOW_p_AtomicType_in_p_ItemType8996);
+                    pushFollow(FOLLOW_p_AtomicType_in_p_ItemType8993);
                     p_AtomicType461=p_AtomicType();
 
                     state._fsp--;
@@ -18771,7 +18765,7 @@ public class XQueryParser extends XQDTParser {
             // XQueryParser.g:1059:9: ( p_QName -> ^( AtomicType p_QName ) )
             // XQueryParser.g:1059:11: p_QName
             {
-            pushFollow(FOLLOW_p_QName_in_p_AtomicType9022);
+            pushFollow(FOLLOW_p_QName_in_p_AtomicType9019);
             p_QName462=p_QName();
 
             state._fsp--;
@@ -18931,7 +18925,7 @@ public class XQueryParser extends XQDTParser {
                     {
                     root_0 = (XQDTCommonTree)adaptor.nil();
 
-                    pushFollow(FOLLOW_p_DocumentTest_in_p_KindTest9072);
+                    pushFollow(FOLLOW_p_DocumentTest_in_p_KindTest9069);
                     p_DocumentTest463=p_DocumentTest();
 
                     state._fsp--;
@@ -18945,7 +18939,7 @@ public class XQueryParser extends XQDTParser {
                     {
                     root_0 = (XQDTCommonTree)adaptor.nil();
 
-                    pushFollow(FOLLOW_p_ElementTest_in_p_KindTest9084);
+                    pushFollow(FOLLOW_p_ElementTest_in_p_KindTest9081);
                     p_ElementTest464=p_ElementTest();
 
                     state._fsp--;
@@ -18959,7 +18953,7 @@ public class XQueryParser extends XQDTParser {
                     {
                     root_0 = (XQDTCommonTree)adaptor.nil();
 
-                    pushFollow(FOLLOW_p_AttributeTest_in_p_KindTest9096);
+                    pushFollow(FOLLOW_p_AttributeTest_in_p_KindTest9093);
                     p_AttributeTest465=p_AttributeTest();
 
                     state._fsp--;
@@ -18973,7 +18967,7 @@ public class XQueryParser extends XQDTParser {
                     {
                     root_0 = (XQDTCommonTree)adaptor.nil();
 
-                    pushFollow(FOLLOW_p_SchemaElementTest_in_p_KindTest9108);
+                    pushFollow(FOLLOW_p_SchemaElementTest_in_p_KindTest9105);
                     p_SchemaElementTest466=p_SchemaElementTest();
 
                     state._fsp--;
@@ -18987,7 +18981,7 @@ public class XQueryParser extends XQDTParser {
                     {
                     root_0 = (XQDTCommonTree)adaptor.nil();
 
-                    pushFollow(FOLLOW_p_SchemaAttributeTest_in_p_KindTest9120);
+                    pushFollow(FOLLOW_p_SchemaAttributeTest_in_p_KindTest9117);
                     p_SchemaAttributeTest467=p_SchemaAttributeTest();
 
                     state._fsp--;
@@ -19001,7 +18995,7 @@ public class XQueryParser extends XQDTParser {
                     {
                     root_0 = (XQDTCommonTree)adaptor.nil();
 
-                    pushFollow(FOLLOW_p_NamespaceNodeTest_in_p_KindTest9132);
+                    pushFollow(FOLLOW_p_NamespaceNodeTest_in_p_KindTest9129);
                     p_NamespaceNodeTest468=p_NamespaceNodeTest();
 
                     state._fsp--;
@@ -19015,7 +19009,7 @@ public class XQueryParser extends XQDTParser {
                     {
                     root_0 = (XQDTCommonTree)adaptor.nil();
 
-                    pushFollow(FOLLOW_p_PITest_in_p_KindTest9144);
+                    pushFollow(FOLLOW_p_PITest_in_p_KindTest9141);
                     p_PITest469=p_PITest();
 
                     state._fsp--;
@@ -19029,7 +19023,7 @@ public class XQueryParser extends XQDTParser {
                     {
                     root_0 = (XQDTCommonTree)adaptor.nil();
 
-                    pushFollow(FOLLOW_p_CommentTest_in_p_KindTest9156);
+                    pushFollow(FOLLOW_p_CommentTest_in_p_KindTest9153);
                     p_CommentTest470=p_CommentTest();
 
                     state._fsp--;
@@ -19043,7 +19037,7 @@ public class XQueryParser extends XQDTParser {
                     {
                     root_0 = (XQDTCommonTree)adaptor.nil();
 
-                    pushFollow(FOLLOW_p_TextTest_in_p_KindTest9168);
+                    pushFollow(FOLLOW_p_TextTest_in_p_KindTest9165);
                     p_TextTest471=p_TextTest();
 
                     state._fsp--;
@@ -19057,7 +19051,7 @@ public class XQueryParser extends XQDTParser {
                     {
                     root_0 = (XQDTCommonTree)adaptor.nil();
 
-                    pushFollow(FOLLOW_p_AnyKindTest_in_p_KindTest9180);
+                    pushFollow(FOLLOW_p_AnyKindTest_in_p_KindTest9177);
                     p_AnyKindTest472=p_AnyKindTest();
 
                     state._fsp--;
@@ -19115,17 +19109,17 @@ public class XQueryParser extends XQDTParser {
             {
             root_0 = (XQDTCommonTree)adaptor.nil();
 
-            NODE473=(CommonToken)match(input,NODE,FOLLOW_NODE_in_p_AnyKindTest9208); if (state.failed) return retval;
+            NODE473=(CommonToken)match(input,NODE,FOLLOW_NODE_in_p_AnyKindTest9205); if (state.failed) return retval;
             if ( state.backtracking==0 ) {
             NODE473_tree = (XQDTCommonTree)adaptor.create(NODE473);
             adaptor.addChild(root_0, NODE473_tree);
             }
-            LPAREN474=(CommonToken)match(input,LPAREN,FOLLOW_LPAREN_in_p_AnyKindTest9210); if (state.failed) return retval;
+            LPAREN474=(CommonToken)match(input,LPAREN,FOLLOW_LPAREN_in_p_AnyKindTest9207); if (state.failed) return retval;
             if ( state.backtracking==0 ) {
             LPAREN474_tree = (XQDTCommonTree)adaptor.create(LPAREN474);
             adaptor.addChild(root_0, LPAREN474_tree);
             }
-            RPAREN475=(CommonToken)match(input,RPAREN,FOLLOW_RPAREN_in_p_AnyKindTest9212); if (state.failed) return retval;
+            RPAREN475=(CommonToken)match(input,RPAREN,FOLLOW_RPAREN_in_p_AnyKindTest9209); if (state.failed) return retval;
             if ( state.backtracking==0 ) {
             RPAREN475_tree = (XQDTCommonTree)adaptor.create(RPAREN475);
             adaptor.addChild(root_0, RPAREN475_tree);
@@ -19184,12 +19178,12 @@ public class XQueryParser extends XQDTParser {
             {
             root_0 = (XQDTCommonTree)adaptor.nil();
 
-            DOCUMENT_NODE476=(CommonToken)match(input,DOCUMENT_NODE,FOLLOW_DOCUMENT_NODE_in_p_DocumentTest9240); if (state.failed) return retval;
+            DOCUMENT_NODE476=(CommonToken)match(input,DOCUMENT_NODE,FOLLOW_DOCUMENT_NODE_in_p_DocumentTest9237); if (state.failed) return retval;
             if ( state.backtracking==0 ) {
             DOCUMENT_NODE476_tree = (XQDTCommonTree)adaptor.create(DOCUMENT_NODE476);
             adaptor.addChild(root_0, DOCUMENT_NODE476_tree);
             }
-            LPAREN477=(CommonToken)match(input,LPAREN,FOLLOW_LPAREN_in_p_DocumentTest9242); if (state.failed) return retval;
+            LPAREN477=(CommonToken)match(input,LPAREN,FOLLOW_LPAREN_in_p_DocumentTest9239); if (state.failed) return retval;
             if ( state.backtracking==0 ) {
             LPAREN477_tree = (XQDTCommonTree)adaptor.create(LPAREN477);
             adaptor.addChild(root_0, LPAREN477_tree);
@@ -19208,7 +19202,7 @@ public class XQueryParser extends XQDTParser {
                 case 1 :
                     // XQueryParser.g:1084:35: p_ElementTest
                     {
-                    pushFollow(FOLLOW_p_ElementTest_in_p_DocumentTest9245);
+                    pushFollow(FOLLOW_p_ElementTest_in_p_DocumentTest9242);
                     p_ElementTest478=p_ElementTest();
 
                     state._fsp--;
@@ -19220,7 +19214,7 @@ public class XQueryParser extends XQDTParser {
                 case 2 :
                     // XQueryParser.g:1084:51: p_SchemaElementTest
                     {
-                    pushFollow(FOLLOW_p_SchemaElementTest_in_p_DocumentTest9249);
+                    pushFollow(FOLLOW_p_SchemaElementTest_in_p_DocumentTest9246);
                     p_SchemaElementTest479=p_SchemaElementTest();
 
                     state._fsp--;
@@ -19232,7 +19226,7 @@ public class XQueryParser extends XQDTParser {
 
             }
 
-            RPAREN480=(CommonToken)match(input,RPAREN,FOLLOW_RPAREN_in_p_DocumentTest9253); if (state.failed) return retval;
+            RPAREN480=(CommonToken)match(input,RPAREN,FOLLOW_RPAREN_in_p_DocumentTest9250); if (state.failed) return retval;
             if ( state.backtracking==0 ) {
             RPAREN480_tree = (XQDTCommonTree)adaptor.create(RPAREN480);
             adaptor.addChild(root_0, RPAREN480_tree);
@@ -19287,17 +19281,17 @@ public class XQueryParser extends XQDTParser {
             {
             root_0 = (XQDTCommonTree)adaptor.nil();
 
-            TEXT481=(CommonToken)match(input,TEXT,FOLLOW_TEXT_in_p_TextTest9273); if (state.failed) return retval;
+            TEXT481=(CommonToken)match(input,TEXT,FOLLOW_TEXT_in_p_TextTest9270); if (state.failed) return retval;
             if ( state.backtracking==0 ) {
             TEXT481_tree = (XQDTCommonTree)adaptor.create(TEXT481);
             adaptor.addChild(root_0, TEXT481_tree);
             }
-            LPAREN482=(CommonToken)match(input,LPAREN,FOLLOW_LPAREN_in_p_TextTest9275); if (state.failed) return retval;
+            LPAREN482=(CommonToken)match(input,LPAREN,FOLLOW_LPAREN_in_p_TextTest9272); if (state.failed) return retval;
             if ( state.backtracking==0 ) {
             LPAREN482_tree = (XQDTCommonTree)adaptor.create(LPAREN482);
             adaptor.addChild(root_0, LPAREN482_tree);
             }
-            RPAREN483=(CommonToken)match(input,RPAREN,FOLLOW_RPAREN_in_p_TextTest9277); if (state.failed) return retval;
+            RPAREN483=(CommonToken)match(input,RPAREN,FOLLOW_RPAREN_in_p_TextTest9274); if (state.failed) return retval;
             if ( state.backtracking==0 ) {
             RPAREN483_tree = (XQDTCommonTree)adaptor.create(RPAREN483);
             adaptor.addChild(root_0, RPAREN483_tree);
@@ -19352,17 +19346,17 @@ public class XQueryParser extends XQDTParser {
             {
             root_0 = (XQDTCommonTree)adaptor.nil();
 
-            COMMENT484=(CommonToken)match(input,COMMENT,FOLLOW_COMMENT_in_p_CommentTest9305); if (state.failed) return retval;
+            COMMENT484=(CommonToken)match(input,COMMENT,FOLLOW_COMMENT_in_p_CommentTest9302); if (state.failed) return retval;
             if ( state.backtracking==0 ) {
             COMMENT484_tree = (XQDTCommonTree)adaptor.create(COMMENT484);
             adaptor.addChild(root_0, COMMENT484_tree);
             }
-            LPAREN485=(CommonToken)match(input,LPAREN,FOLLOW_LPAREN_in_p_CommentTest9307); if (state.failed) return retval;
+            LPAREN485=(CommonToken)match(input,LPAREN,FOLLOW_LPAREN_in_p_CommentTest9304); if (state.failed) return retval;
             if ( state.backtracking==0 ) {
             LPAREN485_tree = (XQDTCommonTree)adaptor.create(LPAREN485);
             adaptor.addChild(root_0, LPAREN485_tree);
             }
-            RPAREN486=(CommonToken)match(input,RPAREN,FOLLOW_RPAREN_in_p_CommentTest9309); if (state.failed) return retval;
+            RPAREN486=(CommonToken)match(input,RPAREN,FOLLOW_RPAREN_in_p_CommentTest9306); if (state.failed) return retval;
             if ( state.backtracking==0 ) {
             RPAREN486_tree = (XQDTCommonTree)adaptor.create(RPAREN486);
             adaptor.addChild(root_0, RPAREN486_tree);
@@ -19417,17 +19411,17 @@ public class XQueryParser extends XQDTParser {
             {
             root_0 = (XQDTCommonTree)adaptor.nil();
 
-            NAMESPACE_NODE487=(CommonToken)match(input,NAMESPACE_NODE,FOLLOW_NAMESPACE_NODE_in_p_NamespaceNodeTest9335); if (state.failed) return retval;
+            NAMESPACE_NODE487=(CommonToken)match(input,NAMESPACE_NODE,FOLLOW_NAMESPACE_NODE_in_p_NamespaceNodeTest9332); if (state.failed) return retval;
             if ( state.backtracking==0 ) {
             NAMESPACE_NODE487_tree = (XQDTCommonTree)adaptor.create(NAMESPACE_NODE487);
             adaptor.addChild(root_0, NAMESPACE_NODE487_tree);
             }
-            LPAREN488=(CommonToken)match(input,LPAREN,FOLLOW_LPAREN_in_p_NamespaceNodeTest9337); if (state.failed) return retval;
+            LPAREN488=(CommonToken)match(input,LPAREN,FOLLOW_LPAREN_in_p_NamespaceNodeTest9334); if (state.failed) return retval;
             if ( state.backtracking==0 ) {
             LPAREN488_tree = (XQDTCommonTree)adaptor.create(LPAREN488);
             adaptor.addChild(root_0, LPAREN488_tree);
             }
-            RPAREN489=(CommonToken)match(input,RPAREN,FOLLOW_RPAREN_in_p_NamespaceNodeTest9339); if (state.failed) return retval;
+            RPAREN489=(CommonToken)match(input,RPAREN,FOLLOW_RPAREN_in_p_NamespaceNodeTest9336); if (state.failed) return retval;
             if ( state.backtracking==0 ) {
             RPAREN489_tree = (XQDTCommonTree)adaptor.create(RPAREN489);
             adaptor.addChild(root_0, RPAREN489_tree);
@@ -19486,12 +19480,12 @@ public class XQueryParser extends XQDTParser {
             {
             root_0 = (XQDTCommonTree)adaptor.nil();
 
-            PROCESSING_INSTRUCTION490=(CommonToken)match(input,PROCESSING_INSTRUCTION,FOLLOW_PROCESSING_INSTRUCTION_in_p_PITest9367); if (state.failed) return retval;
+            PROCESSING_INSTRUCTION490=(CommonToken)match(input,PROCESSING_INSTRUCTION,FOLLOW_PROCESSING_INSTRUCTION_in_p_PITest9364); if (state.failed) return retval;
             if ( state.backtracking==0 ) {
             PROCESSING_INSTRUCTION490_tree = (XQDTCommonTree)adaptor.create(PROCESSING_INSTRUCTION490);
             adaptor.addChild(root_0, PROCESSING_INSTRUCTION490_tree);
             }
-            LPAREN491=(CommonToken)match(input,LPAREN,FOLLOW_LPAREN_in_p_PITest9369); if (state.failed) return retval;
+            LPAREN491=(CommonToken)match(input,LPAREN,FOLLOW_LPAREN_in_p_PITest9366); if (state.failed) return retval;
             if ( state.backtracking==0 ) {
             LPAREN491_tree = (XQDTCommonTree)adaptor.create(LPAREN491);
             adaptor.addChild(root_0, LPAREN491_tree);
@@ -19510,7 +19504,7 @@ public class XQueryParser extends XQDTParser {
                 case 1 :
                     // XQueryParser.g:1103:44: p_NCName
                     {
-                    pushFollow(FOLLOW_p_NCName_in_p_PITest9372);
+                    pushFollow(FOLLOW_p_NCName_in_p_PITest9369);
                     p_NCName492=p_NCName();
 
                     state._fsp--;
@@ -19522,7 +19516,7 @@ public class XQueryParser extends XQDTParser {
                 case 2 :
                     // XQueryParser.g:1103:55: p_StringLiteral
                     {
-                    pushFollow(FOLLOW_p_StringLiteral_in_p_PITest9376);
+                    pushFollow(FOLLOW_p_StringLiteral_in_p_PITest9373);
                     p_StringLiteral493=p_StringLiteral();
 
                     state._fsp--;
@@ -19534,7 +19528,7 @@ public class XQueryParser extends XQDTParser {
 
             }
 
-            RPAREN494=(CommonToken)match(input,RPAREN,FOLLOW_RPAREN_in_p_PITest9380); if (state.failed) return retval;
+            RPAREN494=(CommonToken)match(input,RPAREN,FOLLOW_RPAREN_in_p_PITest9377); if (state.failed) return retval;
             if ( state.backtracking==0 ) {
             RPAREN494_tree = (XQDTCommonTree)adaptor.create(RPAREN494);
             adaptor.addChild(root_0, RPAREN494_tree);
@@ -19595,12 +19589,12 @@ public class XQueryParser extends XQDTParser {
             {
             root_0 = (XQDTCommonTree)adaptor.nil();
 
-            ATTRIBUTE495=(CommonToken)match(input,ATTRIBUTE,FOLLOW_ATTRIBUTE_in_p_AttributeTest9408); if (state.failed) return retval;
+            ATTRIBUTE495=(CommonToken)match(input,ATTRIBUTE,FOLLOW_ATTRIBUTE_in_p_AttributeTest9405); if (state.failed) return retval;
             if ( state.backtracking==0 ) {
             ATTRIBUTE495_tree = (XQDTCommonTree)adaptor.create(ATTRIBUTE495);
             adaptor.addChild(root_0, ATTRIBUTE495_tree);
             }
-            LPAREN496=(CommonToken)match(input,LPAREN,FOLLOW_LPAREN_in_p_AttributeTest9410); if (state.failed) return retval;
+            LPAREN496=(CommonToken)match(input,LPAREN,FOLLOW_LPAREN_in_p_AttributeTest9407); if (state.failed) return retval;
             if ( state.backtracking==0 ) {
             LPAREN496_tree = (XQDTCommonTree)adaptor.create(LPAREN496);
             adaptor.addChild(root_0, LPAREN496_tree);
@@ -19616,7 +19610,7 @@ public class XQueryParser extends XQDTParser {
                 case 1 :
                     // XQueryParser.g:1108:31: p_AttribNameOrWildcard ( COMMA p_TypeName )?
                     {
-                    pushFollow(FOLLOW_p_AttribNameOrWildcard_in_p_AttributeTest9413);
+                    pushFollow(FOLLOW_p_AttribNameOrWildcard_in_p_AttributeTest9410);
                     p_AttribNameOrWildcard497=p_AttribNameOrWildcard();
 
                     state._fsp--;
@@ -19633,12 +19627,12 @@ public class XQueryParser extends XQDTParser {
                         case 1 :
                             // XQueryParser.g:1108:55: COMMA p_TypeName
                             {
-                            COMMA498=(CommonToken)match(input,COMMA,FOLLOW_COMMA_in_p_AttributeTest9416); if (state.failed) return retval;
+                            COMMA498=(CommonToken)match(input,COMMA,FOLLOW_COMMA_in_p_AttributeTest9413); if (state.failed) return retval;
                             if ( state.backtracking==0 ) {
                             COMMA498_tree = (XQDTCommonTree)adaptor.create(COMMA498);
                             adaptor.addChild(root_0, COMMA498_tree);
                             }
-                            pushFollow(FOLLOW_p_TypeName_in_p_AttributeTest9418);
+                            pushFollow(FOLLOW_p_TypeName_in_p_AttributeTest9415);
                             p_TypeName499=p_TypeName();
 
                             state._fsp--;
@@ -19656,7 +19650,7 @@ public class XQueryParser extends XQDTParser {
 
             }
 
-            RPAREN500=(CommonToken)match(input,RPAREN,FOLLOW_RPAREN_in_p_AttributeTest9424); if (state.failed) return retval;
+            RPAREN500=(CommonToken)match(input,RPAREN,FOLLOW_RPAREN_in_p_AttributeTest9421); if (state.failed) return retval;
             if ( state.backtracking==0 ) {
             RPAREN500_tree = (XQDTCommonTree)adaptor.create(RPAREN500);
             adaptor.addChild(root_0, RPAREN500_tree);
@@ -19727,7 +19721,7 @@ public class XQueryParser extends XQDTParser {
                     {
                     root_0 = (XQDTCommonTree)adaptor.nil();
 
-                    pushFollow(FOLLOW_p_QName_in_p_AttribNameOrWildcard9454);
+                    pushFollow(FOLLOW_p_QName_in_p_AttribNameOrWildcard9451);
                     p_QName501=p_QName();
 
                     state._fsp--;
@@ -19741,7 +19735,7 @@ public class XQueryParser extends XQDTParser {
                     {
                     root_0 = (XQDTCommonTree)adaptor.nil();
 
-                    STAR502=(CommonToken)match(input,STAR,FOLLOW_STAR_in_p_AttribNameOrWildcard9458); if (state.failed) return retval;
+                    STAR502=(CommonToken)match(input,STAR,FOLLOW_STAR_in_p_AttribNameOrWildcard9455); if (state.failed) return retval;
                     if ( state.backtracking==0 ) {
                     STAR502_tree = (XQDTCommonTree)adaptor.create(STAR502);
                     adaptor.addChild(root_0, STAR502_tree);
@@ -19800,23 +19794,23 @@ public class XQueryParser extends XQDTParser {
             {
             root_0 = (XQDTCommonTree)adaptor.nil();
 
-            SCHEMA_ATTRIBUTE503=(CommonToken)match(input,SCHEMA_ATTRIBUTE,FOLLOW_SCHEMA_ATTRIBUTE_in_p_SchemaAttributeTest9486); if (state.failed) return retval;
+            SCHEMA_ATTRIBUTE503=(CommonToken)match(input,SCHEMA_ATTRIBUTE,FOLLOW_SCHEMA_ATTRIBUTE_in_p_SchemaAttributeTest9483); if (state.failed) return retval;
             if ( state.backtracking==0 ) {
             SCHEMA_ATTRIBUTE503_tree = (XQDTCommonTree)adaptor.create(SCHEMA_ATTRIBUTE503);
             adaptor.addChild(root_0, SCHEMA_ATTRIBUTE503_tree);
             }
-            LPAREN504=(CommonToken)match(input,LPAREN,FOLLOW_LPAREN_in_p_SchemaAttributeTest9488); if (state.failed) return retval;
+            LPAREN504=(CommonToken)match(input,LPAREN,FOLLOW_LPAREN_in_p_SchemaAttributeTest9485); if (state.failed) return retval;
             if ( state.backtracking==0 ) {
             LPAREN504_tree = (XQDTCommonTree)adaptor.create(LPAREN504);
             adaptor.addChild(root_0, LPAREN504_tree);
             }
-            pushFollow(FOLLOW_p_AttributeDeclaration_in_p_SchemaAttributeTest9490);
+            pushFollow(FOLLOW_p_AttributeDeclaration_in_p_SchemaAttributeTest9487);
             p_AttributeDeclaration505=p_AttributeDeclaration();
 
             state._fsp--;
             if (state.failed) return retval;
             if ( state.backtracking==0 ) adaptor.addChild(root_0, p_AttributeDeclaration505.getTree());
-            RPAREN506=(CommonToken)match(input,RPAREN,FOLLOW_RPAREN_in_p_SchemaAttributeTest9492); if (state.failed) return retval;
+            RPAREN506=(CommonToken)match(input,RPAREN,FOLLOW_RPAREN_in_p_SchemaAttributeTest9489); if (state.failed) return retval;
             if ( state.backtracking==0 ) {
             RPAREN506_tree = (XQDTCommonTree)adaptor.create(RPAREN506);
             adaptor.addChild(root_0, RPAREN506_tree);
@@ -19867,7 +19861,7 @@ public class XQueryParser extends XQDTParser {
             {
             root_0 = (XQDTCommonTree)adaptor.nil();
 
-            pushFollow(FOLLOW_p_AttributeName_in_p_AttributeDeclaration9518);
+            pushFollow(FOLLOW_p_AttributeName_in_p_AttributeDeclaration9515);
             p_AttributeName507=p_AttributeName();
 
             state._fsp--;
@@ -19931,12 +19925,12 @@ public class XQueryParser extends XQDTParser {
             {
             root_0 = (XQDTCommonTree)adaptor.nil();
 
-            ELEMENT508=(CommonToken)match(input,ELEMENT,FOLLOW_ELEMENT_in_p_ElementTest9546); if (state.failed) return retval;
+            ELEMENT508=(CommonToken)match(input,ELEMENT,FOLLOW_ELEMENT_in_p_ElementTest9543); if (state.failed) return retval;
             if ( state.backtracking==0 ) {
             ELEMENT508_tree = (XQDTCommonTree)adaptor.create(ELEMENT508);
             adaptor.addChild(root_0, ELEMENT508_tree);
             }
-            LPAREN509=(CommonToken)match(input,LPAREN,FOLLOW_LPAREN_in_p_ElementTest9548); if (state.failed) return retval;
+            LPAREN509=(CommonToken)match(input,LPAREN,FOLLOW_LPAREN_in_p_ElementTest9545); if (state.failed) return retval;
             if ( state.backtracking==0 ) {
             LPAREN509_tree = (XQDTCommonTree)adaptor.create(LPAREN509);
             adaptor.addChild(root_0, LPAREN509_tree);
@@ -19952,7 +19946,7 @@ public class XQueryParser extends XQDTParser {
                 case 1 :
                     // XQueryParser.g:1128:29: p_ElementNameOrWildcard ( COMMA p_TypeName ( QUESTION )? )?
                     {
-                    pushFollow(FOLLOW_p_ElementNameOrWildcard_in_p_ElementTest9551);
+                    pushFollow(FOLLOW_p_ElementNameOrWildcard_in_p_ElementTest9548);
                     p_ElementNameOrWildcard510=p_ElementNameOrWildcard();
 
                     state._fsp--;
@@ -19969,12 +19963,12 @@ public class XQueryParser extends XQDTParser {
                         case 1 :
                             // XQueryParser.g:1128:54: COMMA p_TypeName ( QUESTION )?
                             {
-                            COMMA511=(CommonToken)match(input,COMMA,FOLLOW_COMMA_in_p_ElementTest9554); if (state.failed) return retval;
+                            COMMA511=(CommonToken)match(input,COMMA,FOLLOW_COMMA_in_p_ElementTest9551); if (state.failed) return retval;
                             if ( state.backtracking==0 ) {
                             COMMA511_tree = (XQDTCommonTree)adaptor.create(COMMA511);
                             adaptor.addChild(root_0, COMMA511_tree);
                             }
-                            pushFollow(FOLLOW_p_TypeName_in_p_ElementTest9556);
+                            pushFollow(FOLLOW_p_TypeName_in_p_ElementTest9553);
                             p_TypeName512=p_TypeName();
 
                             state._fsp--;
@@ -19991,7 +19985,7 @@ public class XQueryParser extends XQDTParser {
                                 case 1 :
                                     // XQueryParser.g:1128:71: QUESTION
                                     {
-                                    QUESTION513=(CommonToken)match(input,QUESTION,FOLLOW_QUESTION_in_p_ElementTest9558); if (state.failed) return retval;
+                                    QUESTION513=(CommonToken)match(input,QUESTION,FOLLOW_QUESTION_in_p_ElementTest9555); if (state.failed) return retval;
                                     if ( state.backtracking==0 ) {
                                     QUESTION513_tree = (XQDTCommonTree)adaptor.create(QUESTION513);
                                     adaptor.addChild(root_0, QUESTION513_tree);
@@ -20014,7 +20008,7 @@ public class XQueryParser extends XQDTParser {
 
             }
 
-            RPAREN514=(CommonToken)match(input,RPAREN,FOLLOW_RPAREN_in_p_ElementTest9565); if (state.failed) return retval;
+            RPAREN514=(CommonToken)match(input,RPAREN,FOLLOW_RPAREN_in_p_ElementTest9562); if (state.failed) return retval;
             if ( state.backtracking==0 ) {
             RPAREN514_tree = (XQDTCommonTree)adaptor.create(RPAREN514);
             adaptor.addChild(root_0, RPAREN514_tree);
@@ -20085,7 +20079,7 @@ public class XQueryParser extends XQDTParser {
                     {
                     root_0 = (XQDTCommonTree)adaptor.nil();
 
-                    pushFollow(FOLLOW_p_QName_in_p_ElementNameOrWildcard9593);
+                    pushFollow(FOLLOW_p_QName_in_p_ElementNameOrWildcard9590);
                     p_QName515=p_QName();
 
                     state._fsp--;
@@ -20099,7 +20093,7 @@ public class XQueryParser extends XQDTParser {
                     {
                     root_0 = (XQDTCommonTree)adaptor.nil();
 
-                    STAR516=(CommonToken)match(input,STAR,FOLLOW_STAR_in_p_ElementNameOrWildcard9597); if (state.failed) return retval;
+                    STAR516=(CommonToken)match(input,STAR,FOLLOW_STAR_in_p_ElementNameOrWildcard9594); if (state.failed) return retval;
                     if ( state.backtracking==0 ) {
                     STAR516_tree = (XQDTCommonTree)adaptor.create(STAR516);
                     adaptor.addChild(root_0, STAR516_tree);
@@ -20158,23 +20152,23 @@ public class XQueryParser extends XQDTParser {
             {
             root_0 = (XQDTCommonTree)adaptor.nil();
 
-            SCHEMA_ELEMENT517=(CommonToken)match(input,SCHEMA_ELEMENT,FOLLOW_SCHEMA_ELEMENT_in_p_SchemaElementTest9617); if (state.failed) return retval;
+            SCHEMA_ELEMENT517=(CommonToken)match(input,SCHEMA_ELEMENT,FOLLOW_SCHEMA_ELEMENT_in_p_SchemaElementTest9614); if (state.failed) return retval;
             if ( state.backtracking==0 ) {
             SCHEMA_ELEMENT517_tree = (XQDTCommonTree)adaptor.create(SCHEMA_ELEMENT517);
             adaptor.addChild(root_0, SCHEMA_ELEMENT517_tree);
             }
-            LPAREN518=(CommonToken)match(input,LPAREN,FOLLOW_LPAREN_in_p_SchemaElementTest9619); if (state.failed) return retval;
+            LPAREN518=(CommonToken)match(input,LPAREN,FOLLOW_LPAREN_in_p_SchemaElementTest9616); if (state.failed) return retval;
             if ( state.backtracking==0 ) {
             LPAREN518_tree = (XQDTCommonTree)adaptor.create(LPAREN518);
             adaptor.addChild(root_0, LPAREN518_tree);
             }
-            pushFollow(FOLLOW_p_ElementDeclaration_in_p_SchemaElementTest9621);
+            pushFollow(FOLLOW_p_ElementDeclaration_in_p_SchemaElementTest9618);
             p_ElementDeclaration519=p_ElementDeclaration();
 
             state._fsp--;
             if (state.failed) return retval;
             if ( state.backtracking==0 ) adaptor.addChild(root_0, p_ElementDeclaration519.getTree());
-            RPAREN520=(CommonToken)match(input,RPAREN,FOLLOW_RPAREN_in_p_SchemaElementTest9623); if (state.failed) return retval;
+            RPAREN520=(CommonToken)match(input,RPAREN,FOLLOW_RPAREN_in_p_SchemaElementTest9620); if (state.failed) return retval;
             if ( state.backtracking==0 ) {
             RPAREN520_tree = (XQDTCommonTree)adaptor.create(RPAREN520);
             adaptor.addChild(root_0, RPAREN520_tree);
@@ -20225,7 +20219,7 @@ public class XQueryParser extends XQDTParser {
             {
             root_0 = (XQDTCommonTree)adaptor.nil();
 
-            pushFollow(FOLLOW_p_ElementName_in_p_ElementDeclaration9649);
+            pushFollow(FOLLOW_p_ElementName_in_p_ElementDeclaration9646);
             p_ElementName521=p_ElementName();
 
             state._fsp--;
@@ -20277,7 +20271,7 @@ public class XQueryParser extends XQDTParser {
             {
             root_0 = (XQDTCommonTree)adaptor.nil();
 
-            pushFollow(FOLLOW_p_QName_in_p_AttributeName9677);
+            pushFollow(FOLLOW_p_QName_in_p_AttributeName9674);
             p_QName522=p_QName();
 
             state._fsp--;
@@ -20329,7 +20323,7 @@ public class XQueryParser extends XQDTParser {
             {
             root_0 = (XQDTCommonTree)adaptor.nil();
 
-            pushFollow(FOLLOW_p_QName_in_p_ElementName9705);
+            pushFollow(FOLLOW_p_QName_in_p_ElementName9702);
             p_QName523=p_QName();
 
             state._fsp--;
@@ -20381,7 +20375,7 @@ public class XQueryParser extends XQDTParser {
             {
             root_0 = (XQDTCommonTree)adaptor.nil();
 
-            pushFollow(FOLLOW_p_QName_in_p_TypeName9733);
+            pushFollow(FOLLOW_p_QName_in_p_TypeName9730);
             p_QName524=p_QName();
 
             state._fsp--;
@@ -20435,7 +20429,7 @@ public class XQueryParser extends XQDTParser {
             {
             root_0 = (XQDTCommonTree)adaptor.nil();
 
-            pushFollow(FOLLOW_p_TryClause_in_p_TryCatchExpr9765);
+            pushFollow(FOLLOW_p_TryClause_in_p_TryCatchExpr9762);
             p_TryClause525=p_TryClause();
 
             state._fsp--;
@@ -20457,7 +20451,7 @@ public class XQueryParser extends XQDTParser {
             	case 1 :
             	    // XQueryParser.g:1168:23: p_CatchClause
             	    {
-            	    pushFollow(FOLLOW_p_CatchClause_in_p_TryCatchExpr9767);
+            	    pushFollow(FOLLOW_p_CatchClause_in_p_TryCatchExpr9764);
             	    p_CatchClause526=p_CatchClause();
 
             	    state._fsp--;
@@ -20529,7 +20523,7 @@ public class XQueryParser extends XQDTParser {
             {
             root_0 = (XQDTCommonTree)adaptor.nil();
 
-            kc=(CommonToken)match(input,TRY,FOLLOW_TRY_in_p_TryClause9796); if (state.failed) return retval;
+            kc=(CommonToken)match(input,TRY,FOLLOW_TRY_in_p_TryClause9793); if (state.failed) return retval;
             if ( state.backtracking==0 ) {
             kc_tree = (XQDTCommonTree)adaptor.create(kc);
             adaptor.addChild(root_0, kc_tree);
@@ -20537,18 +20531,18 @@ public class XQueryParser extends XQDTParser {
             if ( state.backtracking==0 ) {
               ak(kc);
             }
-            LBRACKET527=(CommonToken)match(input,LBRACKET,FOLLOW_LBRACKET_in_p_TryClause9800); if (state.failed) return retval;
+            LBRACKET527=(CommonToken)match(input,LBRACKET,FOLLOW_LBRACKET_in_p_TryClause9797); if (state.failed) return retval;
             if ( state.backtracking==0 ) {
             LBRACKET527_tree = (XQDTCommonTree)adaptor.create(LBRACKET527);
             adaptor.addChild(root_0, LBRACKET527_tree);
             }
-            pushFollow(FOLLOW_pm_Expr_in_p_TryClause9802);
+            pushFollow(FOLLOW_pm_Expr_in_p_TryClause9799);
             pm_Expr528=pm_Expr();
 
             state._fsp--;
             if (state.failed) return retval;
             if ( state.backtracking==0 ) adaptor.addChild(root_0, pm_Expr528.getTree());
-            RBRACKET529=(CommonToken)match(input,RBRACKET,FOLLOW_RBRACKET_in_p_TryClause9804); if (state.failed) return retval;
+            RBRACKET529=(CommonToken)match(input,RBRACKET,FOLLOW_RBRACKET_in_p_TryClause9801); if (state.failed) return retval;
             if ( state.backtracking==0 ) {
             RBRACKET529_tree = (XQDTCommonTree)adaptor.create(RBRACKET529);
             adaptor.addChild(root_0, RBRACKET529_tree);
@@ -20609,7 +20603,7 @@ public class XQueryParser extends XQDTParser {
             {
             root_0 = (XQDTCommonTree)adaptor.nil();
 
-            kc=(CommonToken)match(input,CATCH,FOLLOW_CATCH_in_p_CatchClause9835); if (state.failed) return retval;
+            kc=(CommonToken)match(input,CATCH,FOLLOW_CATCH_in_p_CatchClause9832); if (state.failed) return retval;
             if ( state.backtracking==0 ) {
             kc_tree = (XQDTCommonTree)adaptor.create(kc);
             adaptor.addChild(root_0, kc_tree);
@@ -20617,7 +20611,7 @@ public class XQueryParser extends XQDTParser {
             if ( state.backtracking==0 ) {
               ak(kc);
             }
-            pushFollow(FOLLOW_p_CatchErrorList_in_p_CatchClause9839);
+            pushFollow(FOLLOW_p_CatchErrorList_in_p_CatchClause9836);
             p_CatchErrorList530=p_CatchErrorList();
 
             state._fsp--;
@@ -20634,7 +20628,7 @@ public class XQueryParser extends XQDTParser {
                 case 1 :
                     // XQueryParser.g:1181:48: p_CatchVars
                     {
-                    pushFollow(FOLLOW_p_CatchVars_in_p_CatchClause9841);
+                    pushFollow(FOLLOW_p_CatchVars_in_p_CatchClause9838);
                     p_CatchVars531=p_CatchVars();
 
                     state._fsp--;
@@ -20646,18 +20640,18 @@ public class XQueryParser extends XQDTParser {
 
             }
 
-            LBRACKET532=(CommonToken)match(input,LBRACKET,FOLLOW_LBRACKET_in_p_CatchClause9844); if (state.failed) return retval;
+            LBRACKET532=(CommonToken)match(input,LBRACKET,FOLLOW_LBRACKET_in_p_CatchClause9841); if (state.failed) return retval;
             if ( state.backtracking==0 ) {
             LBRACKET532_tree = (XQDTCommonTree)adaptor.create(LBRACKET532);
             adaptor.addChild(root_0, LBRACKET532_tree);
             }
-            pushFollow(FOLLOW_pm_Expr_in_p_CatchClause9846);
+            pushFollow(FOLLOW_pm_Expr_in_p_CatchClause9843);
             pm_Expr533=pm_Expr();
 
             state._fsp--;
             if (state.failed) return retval;
             if ( state.backtracking==0 ) adaptor.addChild(root_0, pm_Expr533.getTree());
-            RBRACKET534=(CommonToken)match(input,RBRACKET,FOLLOW_RBRACKET_in_p_CatchClause9848); if (state.failed) return retval;
+            RBRACKET534=(CommonToken)match(input,RBRACKET,FOLLOW_RBRACKET_in_p_CatchClause9845); if (state.failed) return retval;
             if ( state.backtracking==0 ) {
             RBRACKET534_tree = (XQDTCommonTree)adaptor.create(RBRACKET534);
             adaptor.addChild(root_0, RBRACKET534_tree);
@@ -20730,7 +20724,7 @@ public class XQueryParser extends XQDTParser {
                     {
                     root_0 = (XQDTCommonTree)adaptor.nil();
 
-                    pushFollow(FOLLOW_p_NameTest_in_p_CatchErrorList9874);
+                    pushFollow(FOLLOW_p_NameTest_in_p_CatchErrorList9871);
                     p_NameTest535=p_NameTest();
 
                     state._fsp--;
@@ -20751,12 +20745,12 @@ public class XQueryParser extends XQDTParser {
                     	case 1 :
                     	    // XQueryParser.g:1186:23: VBAR p_NameTest
                     	    {
-                    	    VBAR536=(CommonToken)match(input,VBAR,FOLLOW_VBAR_in_p_CatchErrorList9877); if (state.failed) return retval;
+                    	    VBAR536=(CommonToken)match(input,VBAR,FOLLOW_VBAR_in_p_CatchErrorList9874); if (state.failed) return retval;
                     	    if ( state.backtracking==0 ) {
                     	    VBAR536_tree = (XQDTCommonTree)adaptor.create(VBAR536);
                     	    adaptor.addChild(root_0, VBAR536_tree);
                     	    }
-                    	    pushFollow(FOLLOW_p_NameTest_in_p_CatchErrorList9879);
+                    	    pushFollow(FOLLOW_p_NameTest_in_p_CatchErrorList9876);
                     	    p_NameTest537=p_NameTest();
 
                     	    state._fsp--;
@@ -20854,17 +20848,17 @@ public class XQueryParser extends XQDTParser {
             {
             root_0 = (XQDTCommonTree)adaptor.nil();
 
-            LPAREN538=(CommonToken)match(input,LPAREN,FOLLOW_LPAREN_in_p_CatchVars9925); if (state.failed) return retval;
+            LPAREN538=(CommonToken)match(input,LPAREN,FOLLOW_LPAREN_in_p_CatchVars9922); if (state.failed) return retval;
             if ( state.backtracking==0 ) {
             LPAREN538_tree = (XQDTCommonTree)adaptor.create(LPAREN538);
             adaptor.addChild(root_0, LPAREN538_tree);
             }
-            DOLLAR539=(CommonToken)match(input,DOLLAR,FOLLOW_DOLLAR_in_p_CatchVars9927); if (state.failed) return retval;
+            DOLLAR539=(CommonToken)match(input,DOLLAR,FOLLOW_DOLLAR_in_p_CatchVars9924); if (state.failed) return retval;
             if ( state.backtracking==0 ) {
             DOLLAR539_tree = (XQDTCommonTree)adaptor.create(DOLLAR539);
             adaptor.addChild(root_0, DOLLAR539_tree);
             }
-            pushFollow(FOLLOW_p_VarName_in_p_CatchVars9929);
+            pushFollow(FOLLOW_p_VarName_in_p_CatchVars9926);
             p_VarName540=p_VarName();
 
             state._fsp--;
@@ -20881,17 +20875,17 @@ public class XQueryParser extends XQDTParser {
                 case 1 :
                     // XQueryParser.g:1192:36: COMMA DOLLAR p_VarName ( COMMA DOLLAR p_VarName )?
                     {
-                    COMMA541=(CommonToken)match(input,COMMA,FOLLOW_COMMA_in_p_CatchVars9932); if (state.failed) return retval;
+                    COMMA541=(CommonToken)match(input,COMMA,FOLLOW_COMMA_in_p_CatchVars9929); if (state.failed) return retval;
                     if ( state.backtracking==0 ) {
                     COMMA541_tree = (XQDTCommonTree)adaptor.create(COMMA541);
                     adaptor.addChild(root_0, COMMA541_tree);
                     }
-                    DOLLAR542=(CommonToken)match(input,DOLLAR,FOLLOW_DOLLAR_in_p_CatchVars9934); if (state.failed) return retval;
+                    DOLLAR542=(CommonToken)match(input,DOLLAR,FOLLOW_DOLLAR_in_p_CatchVars9931); if (state.failed) return retval;
                     if ( state.backtracking==0 ) {
                     DOLLAR542_tree = (XQDTCommonTree)adaptor.create(DOLLAR542);
                     adaptor.addChild(root_0, DOLLAR542_tree);
                     }
-                    pushFollow(FOLLOW_p_VarName_in_p_CatchVars9936);
+                    pushFollow(FOLLOW_p_VarName_in_p_CatchVars9933);
                     p_VarName543=p_VarName();
 
                     state._fsp--;
@@ -20908,17 +20902,17 @@ public class XQueryParser extends XQDTParser {
                         case 1 :
                             // XQueryParser.g:1192:60: COMMA DOLLAR p_VarName
                             {
-                            COMMA544=(CommonToken)match(input,COMMA,FOLLOW_COMMA_in_p_CatchVars9939); if (state.failed) return retval;
+                            COMMA544=(CommonToken)match(input,COMMA,FOLLOW_COMMA_in_p_CatchVars9936); if (state.failed) return retval;
                             if ( state.backtracking==0 ) {
                             COMMA544_tree = (XQDTCommonTree)adaptor.create(COMMA544);
                             adaptor.addChild(root_0, COMMA544_tree);
                             }
-                            DOLLAR545=(CommonToken)match(input,DOLLAR,FOLLOW_DOLLAR_in_p_CatchVars9941); if (state.failed) return retval;
+                            DOLLAR545=(CommonToken)match(input,DOLLAR,FOLLOW_DOLLAR_in_p_CatchVars9938); if (state.failed) return retval;
                             if ( state.backtracking==0 ) {
                             DOLLAR545_tree = (XQDTCommonTree)adaptor.create(DOLLAR545);
                             adaptor.addChild(root_0, DOLLAR545_tree);
                             }
-                            pushFollow(FOLLOW_p_VarName_in_p_CatchVars9943);
+                            pushFollow(FOLLOW_p_VarName_in_p_CatchVars9940);
                             p_VarName546=p_VarName();
 
                             state._fsp--;
@@ -20936,7 +20930,7 @@ public class XQueryParser extends XQDTParser {
 
             }
 
-            RPAREN547=(CommonToken)match(input,RPAREN,FOLLOW_RPAREN_in_p_CatchVars9949); if (state.failed) return retval;
+            RPAREN547=(CommonToken)match(input,RPAREN,FOLLOW_RPAREN_in_p_CatchVars9946); if (state.failed) return retval;
             if ( state.backtracking==0 ) {
             RPAREN547_tree = (XQDTCommonTree)adaptor.create(RPAREN547);
             adaptor.addChild(root_0, RPAREN547_tree);
@@ -21016,19 +21010,19 @@ public class XQueryParser extends XQDTParser {
                 case 1 :
                     // XQueryParser.g:1219:11: QUOT p_QuotStringLiteralContent QUOT
                     {
-                    QUOT548=(CommonToken)match(input,QUOT,FOLLOW_QUOT_in_p_StringLiteral9998); if (state.failed) return retval; 
+                    QUOT548=(CommonToken)match(input,QUOT,FOLLOW_QUOT_in_p_StringLiteral9995); if (state.failed) return retval; 
                     if ( state.backtracking==0 ) stream_QUOT.add(QUOT548);
 
                     if ( state.backtracking==0 ) {
                       pushStringLexer(false);
                     }
-                    pushFollow(FOLLOW_p_QuotStringLiteralContent_in_p_StringLiteral10002);
+                    pushFollow(FOLLOW_p_QuotStringLiteralContent_in_p_StringLiteral9999);
                     p_QuotStringLiteralContent549=p_QuotStringLiteralContent();
 
                     state._fsp--;
                     if (state.failed) return retval;
                     if ( state.backtracking==0 ) stream_p_QuotStringLiteralContent.add(p_QuotStringLiteralContent549.getTree());
-                    QUOT550=(CommonToken)match(input,QUOT,FOLLOW_QUOT_in_p_StringLiteral10004); if (state.failed) return retval; 
+                    QUOT550=(CommonToken)match(input,QUOT,FOLLOW_QUOT_in_p_StringLiteral10001); if (state.failed) return retval; 
                     if ( state.backtracking==0 ) stream_QUOT.add(QUOT550);
 
                     if ( state.backtracking==0 ) {
@@ -21073,19 +21067,19 @@ public class XQueryParser extends XQDTParser {
                 case 2 :
                     // XQueryParser.g:1221:13: APOS p_AposStringLiteralContent APOS
                     {
-                    APOS551=(CommonToken)match(input,APOS,FOLLOW_APOS_in_p_StringLiteral10045); if (state.failed) return retval; 
+                    APOS551=(CommonToken)match(input,APOS,FOLLOW_APOS_in_p_StringLiteral10042); if (state.failed) return retval; 
                     if ( state.backtracking==0 ) stream_APOS.add(APOS551);
 
                     if ( state.backtracking==0 ) {
                       pushStringLexer(true);
                     }
-                    pushFollow(FOLLOW_p_AposStringLiteralContent_in_p_StringLiteral10049);
+                    pushFollow(FOLLOW_p_AposStringLiteralContent_in_p_StringLiteral10046);
                     p_AposStringLiteralContent552=p_AposStringLiteralContent();
 
                     state._fsp--;
                     if (state.failed) return retval;
                     if ( state.backtracking==0 ) stream_p_AposStringLiteralContent.add(p_AposStringLiteralContent552.getTree());
-                    APOS553=(CommonToken)match(input,APOS,FOLLOW_APOS_in_p_StringLiteral10051); if (state.failed) return retval; 
+                    APOS553=(CommonToken)match(input,APOS,FOLLOW_APOS_in_p_StringLiteral10048); if (state.failed) return retval; 
                     if ( state.backtracking==0 ) stream_APOS.add(APOS553);
 
                     if ( state.backtracking==0 ) {
@@ -21338,13 +21332,13 @@ public class XQueryParser extends XQDTParser {
             // XQueryParser.g:1273:9: ( p_NCName p_LocalNCName -> ^( QName p_NCName ( p_LocalNCName )? ) )
             // XQueryParser.g:1273:11: p_NCName p_LocalNCName
             {
-            pushFollow(FOLLOW_p_NCName_in_p_QName10249);
+            pushFollow(FOLLOW_p_NCName_in_p_QName10246);
             p_NCName556=p_NCName();
 
             state._fsp--;
             if (state.failed) return retval;
             if ( state.backtracking==0 ) stream_p_NCName.add(p_NCName556.getTree());
-            pushFollow(FOLLOW_p_LocalNCName_in_p_QName10251);
+            pushFollow(FOLLOW_p_LocalNCName_in_p_QName10248);
             p_LocalNCName557=p_LocalNCName();
 
             state._fsp--;
@@ -21353,7 +21347,7 @@ public class XQueryParser extends XQDTParser {
 
 
             // AST REWRITE
-            // elements: p_NCName, p_LocalNCName
+            // elements: p_LocalNCName, p_NCName
             // token labels: 
             // rule labels: retval
             // token list labels: 
@@ -21443,12 +21437,12 @@ public class XQueryParser extends XQDTParser {
                 case 1 :
                     // XQueryParser.g:1280:12: COLON p_NCName
                     {
-                    COLON558=(CommonToken)match(input,COLON,FOLLOW_COLON_in_p_LocalNCName10306); if (state.failed) return retval;
+                    COLON558=(CommonToken)match(input,COLON,FOLLOW_COLON_in_p_LocalNCName10303); if (state.failed) return retval;
                     if ( state.backtracking==0 ) {
                     COLON558_tree = (XQDTCommonTree)adaptor.create(COLON558);
                     adaptor.addChild(root_0, COLON558_tree);
                     }
-                    pushFollow(FOLLOW_p_NCName_in_p_LocalNCName10308);
+                    pushFollow(FOLLOW_p_NCName_in_p_LocalNCName10305);
                     p_NCName559=p_NCName();
 
                     state._fsp--;
@@ -21510,13 +21504,13 @@ public class XQueryParser extends XQDTParser {
             {
             root_0 = (XQDTCommonTree)adaptor.nil();
 
-            pushFollow(FOLLOW_p_FNCName_in_p_FQName10355);
+            pushFollow(FOLLOW_p_FNCName_in_p_FQName10352);
             p_FNCName560=p_FNCName();
 
             state._fsp--;
             if (state.failed) return retval;
             if ( state.backtracking==0 ) adaptor.addChild(root_0, p_FNCName560.getTree());
-            pushFollow(FOLLOW_p_LocalFNCName_in_p_FQName10357);
+            pushFollow(FOLLOW_p_LocalFNCName_in_p_FQName10354);
             p_LocalFNCName561=p_LocalFNCName();
 
             state._fsp--;
@@ -21581,12 +21575,12 @@ public class XQueryParser extends XQDTParser {
                 case 1 :
                     // XQueryParser.g:1294:12: COLON p_NCName
                     {
-                    COLON562=(CommonToken)match(input,COLON,FOLLOW_COLON_in_p_LocalFNCName10385); if (state.failed) return retval;
+                    COLON562=(CommonToken)match(input,COLON,FOLLOW_COLON_in_p_LocalFNCName10382); if (state.failed) return retval;
                     if ( state.backtracking==0 ) {
                     COLON562_tree = (XQDTCommonTree)adaptor.create(COLON562);
                     adaptor.addChild(root_0, COLON562_tree);
                     }
-                    pushFollow(FOLLOW_p_NCName_in_p_LocalFNCName10387);
+                    pushFollow(FOLLOW_p_NCName_in_p_LocalFNCName10384);
                     p_NCName563=p_NCName();
 
                     state._fsp--;
@@ -21762,7 +21756,7 @@ public class XQueryParser extends XQDTParser {
             {
             root_0 = (XQDTCommonTree)adaptor.nil();
 
-            k=(CommonToken)match(input,DECLARE,FOLLOW_DECLARE_in_pm_RevalidationDecl12123); if (state.failed) return retval;
+            k=(CommonToken)match(input,DECLARE,FOLLOW_DECLARE_in_pm_RevalidationDecl12120); if (state.failed) return retval;
             if ( state.backtracking==0 ) {
             k_tree = (XQDTCommonTree)adaptor.create(k);
             adaptor.addChild(root_0, k_tree);
@@ -21770,7 +21764,7 @@ public class XQueryParser extends XQDTParser {
             if (list_k==null) list_k=new ArrayList();
             list_k.add(k);
 
-            k=(CommonToken)match(input,REVALIDATION,FOLLOW_REVALIDATION_in_pm_RevalidationDecl12127); if (state.failed) return retval;
+            k=(CommonToken)match(input,REVALIDATION,FOLLOW_REVALIDATION_in_pm_RevalidationDecl12124); if (state.failed) return retval;
             if ( state.backtracking==0 ) {
             k_tree = (XQDTCommonTree)adaptor.create(k);
             adaptor.addChild(root_0, k_tree);
@@ -21808,7 +21802,7 @@ public class XQueryParser extends XQDTParser {
                 case 1 :
                     // XQueryParser.g:1354:39: k+= STRICT
                     {
-                    k=(CommonToken)match(input,STRICT,FOLLOW_STRICT_in_pm_RevalidationDecl12132); if (state.failed) return retval;
+                    k=(CommonToken)match(input,STRICT,FOLLOW_STRICT_in_pm_RevalidationDecl12129); if (state.failed) return retval;
                     if ( state.backtracking==0 ) {
                     k_tree = (XQDTCommonTree)adaptor.create(k);
                     adaptor.addChild(root_0, k_tree);
@@ -21822,7 +21816,7 @@ public class XQueryParser extends XQDTParser {
                 case 2 :
                     // XQueryParser.g:1354:51: k+= LAX
                     {
-                    k=(CommonToken)match(input,LAX,FOLLOW_LAX_in_pm_RevalidationDecl12138); if (state.failed) return retval;
+                    k=(CommonToken)match(input,LAX,FOLLOW_LAX_in_pm_RevalidationDecl12135); if (state.failed) return retval;
                     if ( state.backtracking==0 ) {
                     k_tree = (XQDTCommonTree)adaptor.create(k);
                     adaptor.addChild(root_0, k_tree);
@@ -21836,7 +21830,7 @@ public class XQueryParser extends XQDTParser {
                 case 3 :
                     // XQueryParser.g:1354:60: k+= SKIP
                     {
-                    k=(CommonToken)match(input,SKIP,FOLLOW_SKIP_in_pm_RevalidationDecl12144); if (state.failed) return retval;
+                    k=(CommonToken)match(input,SKIP,FOLLOW_SKIP_in_pm_RevalidationDecl12141); if (state.failed) return retval;
                     if ( state.backtracking==0 ) {
                     k_tree = (XQDTCommonTree)adaptor.create(k);
                     adaptor.addChild(root_0, k_tree);
@@ -21946,7 +21940,7 @@ public class XQueryParser extends XQDTParser {
                         case 1 :
                             // XQueryParser.g:1359:13: k+= AS (k+= FIRST | k+= LAST )
                             {
-                            k=(CommonToken)match(input,AS,FOLLOW_AS_in_p_InsertExprTargetChoice12177); if (state.failed) return retval;
+                            k=(CommonToken)match(input,AS,FOLLOW_AS_in_p_InsertExprTargetChoice12174); if (state.failed) return retval;
                             if ( state.backtracking==0 ) {
                             k_tree = (XQDTCommonTree)adaptor.create(k);
                             adaptor.addChild(root_0, k_tree);
@@ -21975,7 +21969,7 @@ public class XQueryParser extends XQDTParser {
                                 case 1 :
                                     // XQueryParser.g:1359:20: k+= FIRST
                                     {
-                                    k=(CommonToken)match(input,FIRST,FOLLOW_FIRST_in_p_InsertExprTargetChoice12182); if (state.failed) return retval;
+                                    k=(CommonToken)match(input,FIRST,FOLLOW_FIRST_in_p_InsertExprTargetChoice12179); if (state.failed) return retval;
                                     if ( state.backtracking==0 ) {
                                     k_tree = (XQDTCommonTree)adaptor.create(k);
                                     adaptor.addChild(root_0, k_tree);
@@ -21989,7 +21983,7 @@ public class XQueryParser extends XQDTParser {
                                 case 2 :
                                     // XQueryParser.g:1359:31: k+= LAST
                                     {
-                                    k=(CommonToken)match(input,LAST,FOLLOW_LAST_in_p_InsertExprTargetChoice12188); if (state.failed) return retval;
+                                    k=(CommonToken)match(input,LAST,FOLLOW_LAST_in_p_InsertExprTargetChoice12185); if (state.failed) return retval;
                                     if ( state.backtracking==0 ) {
                                     k_tree = (XQDTCommonTree)adaptor.create(k);
                                     adaptor.addChild(root_0, k_tree);
@@ -22009,7 +22003,7 @@ public class XQueryParser extends XQDTParser {
 
                     }
 
-                    k=(CommonToken)match(input,INTO,FOLLOW_INTO_in_p_InsertExprTargetChoice12195); if (state.failed) return retval;
+                    k=(CommonToken)match(input,INTO,FOLLOW_INTO_in_p_InsertExprTargetChoice12192); if (state.failed) return retval;
                     if ( state.backtracking==0 ) {
                     k_tree = (XQDTCommonTree)adaptor.create(k);
                     adaptor.addChild(root_0, k_tree);
@@ -22031,7 +22025,7 @@ public class XQueryParser extends XQDTParser {
                     {
                     root_0 = (XQDTCommonTree)adaptor.nil();
 
-                    ka=(CommonToken)match(input,AFTER,FOLLOW_AFTER_in_p_InsertExprTargetChoice12212); if (state.failed) return retval;
+                    ka=(CommonToken)match(input,AFTER,FOLLOW_AFTER_in_p_InsertExprTargetChoice12209); if (state.failed) return retval;
                     if ( state.backtracking==0 ) {
                     ka_tree = (XQDTCommonTree)adaptor.create(ka);
                     adaptor.addChild(root_0, ka_tree);
@@ -22047,7 +22041,7 @@ public class XQueryParser extends XQDTParser {
                     {
                     root_0 = (XQDTCommonTree)adaptor.nil();
 
-                    kb=(CommonToken)match(input,BEFORE,FOLLOW_BEFORE_in_p_InsertExprTargetChoice12228); if (state.failed) return retval;
+                    kb=(CommonToken)match(input,BEFORE,FOLLOW_BEFORE_in_p_InsertExprTargetChoice12225); if (state.failed) return retval;
                     if ( state.backtracking==0 ) {
                     kb_tree = (XQDTCommonTree)adaptor.create(kb);
                     adaptor.addChild(root_0, kb_tree);
@@ -22110,7 +22104,7 @@ public class XQueryParser extends XQDTParser {
             {
             root_0 = (XQDTCommonTree)adaptor.nil();
 
-            k=(CommonToken)match(input,INSERT,FOLLOW_INSERT_in_p_InsertExpr12258); if (state.failed) return retval;
+            k=(CommonToken)match(input,INSERT,FOLLOW_INSERT_in_p_InsertExpr12255); if (state.failed) return retval;
             if ( state.backtracking==0 ) {
             k_tree = (XQDTCommonTree)adaptor.create(k);
             adaptor.addChild(root_0, k_tree);
@@ -22139,7 +22133,7 @@ public class XQueryParser extends XQDTParser {
                 case 1 :
                     // XQueryParser.g:1366:22: k+= NODE
                     {
-                    k=(CommonToken)match(input,NODE,FOLLOW_NODE_in_p_InsertExpr12263); if (state.failed) return retval;
+                    k=(CommonToken)match(input,NODE,FOLLOW_NODE_in_p_InsertExpr12260); if (state.failed) return retval;
                     if ( state.backtracking==0 ) {
                     k_tree = (XQDTCommonTree)adaptor.create(k);
                     adaptor.addChild(root_0, k_tree);
@@ -22153,7 +22147,7 @@ public class XQueryParser extends XQDTParser {
                 case 2 :
                     // XQueryParser.g:1366:32: k+= NODES
                     {
-                    k=(CommonToken)match(input,NODES,FOLLOW_NODES_in_p_InsertExpr12269); if (state.failed) return retval;
+                    k=(CommonToken)match(input,NODES,FOLLOW_NODES_in_p_InsertExpr12266); if (state.failed) return retval;
                     if ( state.backtracking==0 ) {
                     k_tree = (XQDTCommonTree)adaptor.create(k);
                     adaptor.addChild(root_0, k_tree);
@@ -22167,19 +22161,19 @@ public class XQueryParser extends XQDTParser {
 
             }
 
-            pushFollow(FOLLOW_p_SourceExpr_in_p_InsertExpr12272);
+            pushFollow(FOLLOW_p_SourceExpr_in_p_InsertExpr12269);
             p_SourceExpr566=p_SourceExpr();
 
             state._fsp--;
             if (state.failed) return retval;
             if ( state.backtracking==0 ) adaptor.addChild(root_0, p_SourceExpr566.getTree());
-            pushFollow(FOLLOW_p_InsertExprTargetChoice_in_p_InsertExpr12274);
+            pushFollow(FOLLOW_p_InsertExprTargetChoice_in_p_InsertExpr12271);
             p_InsertExprTargetChoice567=p_InsertExprTargetChoice();
 
             state._fsp--;
             if (state.failed) return retval;
             if ( state.backtracking==0 ) adaptor.addChild(root_0, p_InsertExprTargetChoice567.getTree());
-            pushFollow(FOLLOW_p_TargetExpr_in_p_InsertExpr12276);
+            pushFollow(FOLLOW_p_TargetExpr_in_p_InsertExpr12273);
             p_TargetExpr568=p_TargetExpr();
 
             state._fsp--;
@@ -22237,7 +22231,7 @@ public class XQueryParser extends XQDTParser {
             {
             root_0 = (XQDTCommonTree)adaptor.nil();
 
-            k=(CommonToken)match(input,DELETE,FOLLOW_DELETE_in_p_DeleteExpr12306); if (state.failed) return retval;
+            k=(CommonToken)match(input,DELETE,FOLLOW_DELETE_in_p_DeleteExpr12303); if (state.failed) return retval;
             if ( state.backtracking==0 ) {
             k_tree = (XQDTCommonTree)adaptor.create(k);
             adaptor.addChild(root_0, k_tree);
@@ -22266,7 +22260,7 @@ public class XQueryParser extends XQDTParser {
                 case 1 :
                     // XQueryParser.g:1371:22: k+= NODE
                     {
-                    k=(CommonToken)match(input,NODE,FOLLOW_NODE_in_p_DeleteExpr12311); if (state.failed) return retval;
+                    k=(CommonToken)match(input,NODE,FOLLOW_NODE_in_p_DeleteExpr12308); if (state.failed) return retval;
                     if ( state.backtracking==0 ) {
                     k_tree = (XQDTCommonTree)adaptor.create(k);
                     adaptor.addChild(root_0, k_tree);
@@ -22280,7 +22274,7 @@ public class XQueryParser extends XQDTParser {
                 case 2 :
                     // XQueryParser.g:1371:32: k+= NODES
                     {
-                    k=(CommonToken)match(input,NODES,FOLLOW_NODES_in_p_DeleteExpr12317); if (state.failed) return retval;
+                    k=(CommonToken)match(input,NODES,FOLLOW_NODES_in_p_DeleteExpr12314); if (state.failed) return retval;
                     if ( state.backtracking==0 ) {
                     k_tree = (XQDTCommonTree)adaptor.create(k);
                     adaptor.addChild(root_0, k_tree);
@@ -22294,7 +22288,7 @@ public class XQueryParser extends XQDTParser {
 
             }
 
-            pushFollow(FOLLOW_p_TargetExpr_in_p_DeleteExpr12320);
+            pushFollow(FOLLOW_p_TargetExpr_in_p_DeleteExpr12317);
             p_TargetExpr569=p_TargetExpr();
 
             state._fsp--;
@@ -22354,7 +22348,7 @@ public class XQueryParser extends XQDTParser {
             {
             root_0 = (XQDTCommonTree)adaptor.nil();
 
-            k=(CommonToken)match(input,REPLACE,FOLLOW_REPLACE_in_p_ReplaceExpr12350); if (state.failed) return retval;
+            k=(CommonToken)match(input,REPLACE,FOLLOW_REPLACE_in_p_ReplaceExpr12347); if (state.failed) return retval;
             if ( state.backtracking==0 ) {
             k_tree = (XQDTCommonTree)adaptor.create(k);
             adaptor.addChild(root_0, k_tree);
@@ -22373,7 +22367,7 @@ public class XQueryParser extends XQDTParser {
                 case 1 :
                     // XQueryParser.g:1376:23: k+= VALUE k+= OF
                     {
-                    k=(CommonToken)match(input,VALUE,FOLLOW_VALUE_in_p_ReplaceExpr12355); if (state.failed) return retval;
+                    k=(CommonToken)match(input,VALUE,FOLLOW_VALUE_in_p_ReplaceExpr12352); if (state.failed) return retval;
                     if ( state.backtracking==0 ) {
                     k_tree = (XQDTCommonTree)adaptor.create(k);
                     adaptor.addChild(root_0, k_tree);
@@ -22381,7 +22375,7 @@ public class XQueryParser extends XQDTParser {
                     if (list_k==null) list_k=new ArrayList();
                     list_k.add(k);
 
-                    k=(CommonToken)match(input,OF,FOLLOW_OF_in_p_ReplaceExpr12359); if (state.failed) return retval;
+                    k=(CommonToken)match(input,OF,FOLLOW_OF_in_p_ReplaceExpr12356); if (state.failed) return retval;
                     if ( state.backtracking==0 ) {
                     k_tree = (XQDTCommonTree)adaptor.create(k);
                     adaptor.addChild(root_0, k_tree);
@@ -22395,7 +22389,7 @@ public class XQueryParser extends XQDTParser {
 
             }
 
-            k=(CommonToken)match(input,NODE,FOLLOW_NODE_in_p_ReplaceExpr12365); if (state.failed) return retval;
+            k=(CommonToken)match(input,NODE,FOLLOW_NODE_in_p_ReplaceExpr12362); if (state.failed) return retval;
             if ( state.backtracking==0 ) {
             k_tree = (XQDTCommonTree)adaptor.create(k);
             adaptor.addChild(root_0, k_tree);
@@ -22403,13 +22397,13 @@ public class XQueryParser extends XQDTParser {
             if (list_k==null) list_k=new ArrayList();
             list_k.add(k);
 
-            pushFollow(FOLLOW_p_ExprSingle_in_p_ReplaceExpr12367);
+            pushFollow(FOLLOW_p_ExprSingle_in_p_ReplaceExpr12364);
             p_ExprSingle570=p_ExprSingle();
 
             state._fsp--;
             if (state.failed) return retval;
             if ( state.backtracking==0 ) adaptor.addChild(root_0, p_ExprSingle570.getTree());
-            k=(CommonToken)match(input,WITH,FOLLOW_WITH_in_p_ReplaceExpr12371); if (state.failed) return retval;
+            k=(CommonToken)match(input,WITH,FOLLOW_WITH_in_p_ReplaceExpr12368); if (state.failed) return retval;
             if ( state.backtracking==0 ) {
             k_tree = (XQDTCommonTree)adaptor.create(k);
             adaptor.addChild(root_0, k_tree);
@@ -22417,7 +22411,7 @@ public class XQueryParser extends XQDTParser {
             if (list_k==null) list_k=new ArrayList();
             list_k.add(k);
 
-            pushFollow(FOLLOW_p_ExprSingle_in_p_ReplaceExpr12373);
+            pushFollow(FOLLOW_p_ExprSingle_in_p_ReplaceExpr12370);
             p_ExprSingle571=p_ExprSingle();
 
             state._fsp--;
@@ -22479,7 +22473,7 @@ public class XQueryParser extends XQDTParser {
             {
             root_0 = (XQDTCommonTree)adaptor.nil();
 
-            k=(CommonToken)match(input,RENAME,FOLLOW_RENAME_in_p_RenameExpr12403); if (state.failed) return retval;
+            k=(CommonToken)match(input,RENAME,FOLLOW_RENAME_in_p_RenameExpr12400); if (state.failed) return retval;
             if ( state.backtracking==0 ) {
             k_tree = (XQDTCommonTree)adaptor.create(k);
             adaptor.addChild(root_0, k_tree);
@@ -22487,7 +22481,7 @@ public class XQueryParser extends XQDTParser {
             if (list_k==null) list_k=new ArrayList();
             list_k.add(k);
 
-            k=(CommonToken)match(input,NODE,FOLLOW_NODE_in_p_RenameExpr12407); if (state.failed) return retval;
+            k=(CommonToken)match(input,NODE,FOLLOW_NODE_in_p_RenameExpr12404); if (state.failed) return retval;
             if ( state.backtracking==0 ) {
             k_tree = (XQDTCommonTree)adaptor.create(k);
             adaptor.addChild(root_0, k_tree);
@@ -22495,18 +22489,18 @@ public class XQueryParser extends XQDTParser {
             if (list_k==null) list_k=new ArrayList();
             list_k.add(k);
 
-            pushFollow(FOLLOW_p_TargetExpr_in_p_RenameExpr12409);
+            pushFollow(FOLLOW_p_TargetExpr_in_p_RenameExpr12406);
             p_TargetExpr572=p_TargetExpr();
 
             state._fsp--;
             if (state.failed) return retval;
             if ( state.backtracking==0 ) adaptor.addChild(root_0, p_TargetExpr572.getTree());
-            AS573=(CommonToken)match(input,AS,FOLLOW_AS_in_p_RenameExpr12411); if (state.failed) return retval;
+            AS573=(CommonToken)match(input,AS,FOLLOW_AS_in_p_RenameExpr12408); if (state.failed) return retval;
             if ( state.backtracking==0 ) {
             AS573_tree = (XQDTCommonTree)adaptor.create(AS573);
             adaptor.addChild(root_0, AS573_tree);
             }
-            pushFollow(FOLLOW_p_NewNameExpr_in_p_RenameExpr12413);
+            pushFollow(FOLLOW_p_NewNameExpr_in_p_RenameExpr12410);
             p_NewNameExpr574=p_NewNameExpr();
 
             state._fsp--;
@@ -22561,7 +22555,7 @@ public class XQueryParser extends XQDTParser {
             {
             root_0 = (XQDTCommonTree)adaptor.nil();
 
-            pushFollow(FOLLOW_p_ExprSingle_in_p_SourceExpr12441);
+            pushFollow(FOLLOW_p_ExprSingle_in_p_SourceExpr12438);
             p_ExprSingle575=p_ExprSingle();
 
             state._fsp--;
@@ -22613,7 +22607,7 @@ public class XQueryParser extends XQDTParser {
             {
             root_0 = (XQDTCommonTree)adaptor.nil();
 
-            pushFollow(FOLLOW_p_ExprSingle_in_p_TargetExpr12467);
+            pushFollow(FOLLOW_p_ExprSingle_in_p_TargetExpr12464);
             p_ExprSingle576=p_ExprSingle();
 
             state._fsp--;
@@ -22665,7 +22659,7 @@ public class XQueryParser extends XQDTParser {
             {
             root_0 = (XQDTCommonTree)adaptor.nil();
 
-            pushFollow(FOLLOW_p_ExprSingle_in_p_NewNameExpr12493);
+            pushFollow(FOLLOW_p_ExprSingle_in_p_NewNameExpr12490);
             p_ExprSingle577=p_ExprSingle();
 
             state._fsp--;
@@ -22740,7 +22734,7 @@ public class XQueryParser extends XQDTParser {
             {
             root_0 = (XQDTCommonTree)adaptor.nil();
 
-            k=(CommonToken)match(input,COPY,FOLLOW_COPY_in_p_TransformExpr12521); if (state.failed) return retval;
+            k=(CommonToken)match(input,COPY,FOLLOW_COPY_in_p_TransformExpr12518); if (state.failed) return retval;
             if ( state.backtracking==0 ) {
             k_tree = (XQDTCommonTree)adaptor.create(k);
             adaptor.addChild(root_0, k_tree);
@@ -22748,23 +22742,23 @@ public class XQueryParser extends XQDTParser {
             if (list_k==null) list_k=new ArrayList();
             list_k.add(k);
 
-            DOLLAR578=(CommonToken)match(input,DOLLAR,FOLLOW_DOLLAR_in_p_TransformExpr12523); if (state.failed) return retval;
+            DOLLAR578=(CommonToken)match(input,DOLLAR,FOLLOW_DOLLAR_in_p_TransformExpr12520); if (state.failed) return retval;
             if ( state.backtracking==0 ) {
             DOLLAR578_tree = (XQDTCommonTree)adaptor.create(DOLLAR578);
             adaptor.addChild(root_0, DOLLAR578_tree);
             }
-            pushFollow(FOLLOW_p_VarName_in_p_TransformExpr12525);
+            pushFollow(FOLLOW_p_VarName_in_p_TransformExpr12522);
             p_VarName579=p_VarName();
 
             state._fsp--;
             if (state.failed) return retval;
             if ( state.backtracking==0 ) adaptor.addChild(root_0, p_VarName579.getTree());
-            BIND580=(CommonToken)match(input,BIND,FOLLOW_BIND_in_p_TransformExpr12527); if (state.failed) return retval;
+            BIND580=(CommonToken)match(input,BIND,FOLLOW_BIND_in_p_TransformExpr12524); if (state.failed) return retval;
             if ( state.backtracking==0 ) {
             BIND580_tree = (XQDTCommonTree)adaptor.create(BIND580);
             adaptor.addChild(root_0, BIND580_tree);
             }
-            pushFollow(FOLLOW_p_ExprSingle_in_p_TransformExpr12529);
+            pushFollow(FOLLOW_p_ExprSingle_in_p_TransformExpr12526);
             p_ExprSingle581=p_ExprSingle();
 
             state._fsp--;
@@ -22785,28 +22779,28 @@ public class XQueryParser extends XQDTParser {
             	case 1 :
             	    // XQueryParser.g:1401:55: COMMA DOLLAR p_VarName BIND p_ExprSingle
             	    {
-            	    COMMA582=(CommonToken)match(input,COMMA,FOLLOW_COMMA_in_p_TransformExpr12532); if (state.failed) return retval;
+            	    COMMA582=(CommonToken)match(input,COMMA,FOLLOW_COMMA_in_p_TransformExpr12529); if (state.failed) return retval;
             	    if ( state.backtracking==0 ) {
             	    COMMA582_tree = (XQDTCommonTree)adaptor.create(COMMA582);
             	    adaptor.addChild(root_0, COMMA582_tree);
             	    }
-            	    DOLLAR583=(CommonToken)match(input,DOLLAR,FOLLOW_DOLLAR_in_p_TransformExpr12534); if (state.failed) return retval;
+            	    DOLLAR583=(CommonToken)match(input,DOLLAR,FOLLOW_DOLLAR_in_p_TransformExpr12531); if (state.failed) return retval;
             	    if ( state.backtracking==0 ) {
             	    DOLLAR583_tree = (XQDTCommonTree)adaptor.create(DOLLAR583);
             	    adaptor.addChild(root_0, DOLLAR583_tree);
             	    }
-            	    pushFollow(FOLLOW_p_VarName_in_p_TransformExpr12536);
+            	    pushFollow(FOLLOW_p_VarName_in_p_TransformExpr12533);
             	    p_VarName584=p_VarName();
 
             	    state._fsp--;
             	    if (state.failed) return retval;
             	    if ( state.backtracking==0 ) adaptor.addChild(root_0, p_VarName584.getTree());
-            	    BIND585=(CommonToken)match(input,BIND,FOLLOW_BIND_in_p_TransformExpr12538); if (state.failed) return retval;
+            	    BIND585=(CommonToken)match(input,BIND,FOLLOW_BIND_in_p_TransformExpr12535); if (state.failed) return retval;
             	    if ( state.backtracking==0 ) {
             	    BIND585_tree = (XQDTCommonTree)adaptor.create(BIND585);
             	    adaptor.addChild(root_0, BIND585_tree);
             	    }
-            	    pushFollow(FOLLOW_p_ExprSingle_in_p_TransformExpr12540);
+            	    pushFollow(FOLLOW_p_ExprSingle_in_p_TransformExpr12537);
             	    p_ExprSingle586=p_ExprSingle();
 
             	    state._fsp--;
@@ -22821,7 +22815,7 @@ public class XQueryParser extends XQDTParser {
                 }
             } while (true);
 
-            k=(CommonToken)match(input,MODIFY,FOLLOW_MODIFY_in_p_TransformExpr12546); if (state.failed) return retval;
+            k=(CommonToken)match(input,MODIFY,FOLLOW_MODIFY_in_p_TransformExpr12543); if (state.failed) return retval;
             if ( state.backtracking==0 ) {
             k_tree = (XQDTCommonTree)adaptor.create(k);
             adaptor.addChild(root_0, k_tree);
@@ -22829,13 +22823,13 @@ public class XQueryParser extends XQDTParser {
             if (list_k==null) list_k=new ArrayList();
             list_k.add(k);
 
-            pushFollow(FOLLOW_p_ExprSingle_in_p_TransformExpr12548);
+            pushFollow(FOLLOW_p_ExprSingle_in_p_TransformExpr12545);
             p_ExprSingle587=p_ExprSingle();
 
             state._fsp--;
             if (state.failed) return retval;
             if ( state.backtracking==0 ) adaptor.addChild(root_0, p_ExprSingle587.getTree());
-            k=(CommonToken)match(input,RETURN,FOLLOW_RETURN_in_p_TransformExpr12552); if (state.failed) return retval;
+            k=(CommonToken)match(input,RETURN,FOLLOW_RETURN_in_p_TransformExpr12549); if (state.failed) return retval;
             if ( state.backtracking==0 ) {
             k_tree = (XQDTCommonTree)adaptor.create(k);
             adaptor.addChild(root_0, k_tree);
@@ -22843,7 +22837,7 @@ public class XQueryParser extends XQDTParser {
             if (list_k==null) list_k=new ArrayList();
             list_k.add(k);
 
-            pushFollow(FOLLOW_p_ExprSingle_in_p_TransformExpr12554);
+            pushFollow(FOLLOW_p_ExprSingle_in_p_TransformExpr12551);
             p_ExprSingle588=p_ExprSingle();
 
             state._fsp--;
@@ -22900,13 +22894,13 @@ public class XQueryParser extends XQDTParser {
             {
             root_0 = (XQDTCommonTree)adaptor.nil();
 
-            pushFollow(FOLLOW_p_ConcatExpr_in_pm_ApplyExpr12589);
+            pushFollow(FOLLOW_p_ConcatExpr_in_pm_ApplyExpr12586);
             p_ConcatExpr589=p_ConcatExpr();
 
             state._fsp--;
             if (state.failed) return retval;
             if ( state.backtracking==0 ) adaptor.addChild(root_0, p_ConcatExpr589.getTree());
-            SEMICOLON590=(CommonToken)match(input,SEMICOLON,FOLLOW_SEMICOLON_in_pm_ApplyExpr12591); if (state.failed) return retval;
+            SEMICOLON590=(CommonToken)match(input,SEMICOLON,FOLLOW_SEMICOLON_in_pm_ApplyExpr12588); if (state.failed) return retval;
             if ( state.backtracking==0 ) {
             SEMICOLON590_tree = (XQDTCommonTree)adaptor.create(SEMICOLON590);
             adaptor.addChild(root_0, SEMICOLON590_tree);
@@ -22961,7 +22955,7 @@ public class XQueryParser extends XQDTParser {
             {
             root_0 = (XQDTCommonTree)adaptor.nil();
 
-            pushFollow(FOLLOW_p_ExprSingle_in_p_ConcatExpr12617);
+            pushFollow(FOLLOW_p_ExprSingle_in_p_ConcatExpr12614);
             p_ExprSingle591=p_ExprSingle();
 
             state._fsp--;
@@ -22982,12 +22976,12 @@ public class XQueryParser extends XQDTParser {
             	case 1 :
             	    // XQueryParser.g:1417:25: COMMA p_ExprSingle
             	    {
-            	    COMMA592=(CommonToken)match(input,COMMA,FOLLOW_COMMA_in_p_ConcatExpr12620); if (state.failed) return retval;
+            	    COMMA592=(CommonToken)match(input,COMMA,FOLLOW_COMMA_in_p_ConcatExpr12617); if (state.failed) return retval;
             	    if ( state.backtracking==0 ) {
             	    COMMA592_tree = (XQDTCommonTree)adaptor.create(COMMA592);
             	    adaptor.addChild(root_0, COMMA592_tree);
             	    }
-            	    pushFollow(FOLLOW_p_ExprSingle_in_p_ConcatExpr12622);
+            	    pushFollow(FOLLOW_p_ExprSingle_in_p_ConcatExpr12619);
             	    p_ExprSingle593=p_ExprSingle();
 
             	    state._fsp--;
@@ -23050,7 +23044,7 @@ public class XQueryParser extends XQDTParser {
             {
             root_0 = (XQDTCommonTree)adaptor.nil();
 
-            kb=(CommonToken)match(input,BLOCK,FOLLOW_BLOCK_in_p_BlockExpr12652); if (state.failed) return retval;
+            kb=(CommonToken)match(input,BLOCK,FOLLOW_BLOCK_in_p_BlockExpr12649); if (state.failed) return retval;
             if ( state.backtracking==0 ) {
             kb_tree = (XQDTCommonTree)adaptor.create(kb);
             adaptor.addChild(root_0, kb_tree);
@@ -23058,7 +23052,7 @@ public class XQueryParser extends XQDTParser {
             if ( state.backtracking==0 ) {
               ak(kb);
             }
-            pushFollow(FOLLOW_p_Block_in_p_BlockExpr12656);
+            pushFollow(FOLLOW_p_Block_in_p_BlockExpr12653);
             p_Block594=p_Block();
 
             state._fsp--;
@@ -23117,22 +23111,22 @@ public class XQueryParser extends XQDTParser {
             // XQueryParser.g:1427:9: ( LBRACKET bd= pm_BlockDecls bb= p_BlockBody RBRACKET -> ^( Block $bd $bb) )
             // XQueryParser.g:1427:11: LBRACKET bd= pm_BlockDecls bb= p_BlockBody RBRACKET
             {
-            LBRACKET595=(CommonToken)match(input,LBRACKET,FOLLOW_LBRACKET_in_p_Block12682); if (state.failed) return retval; 
+            LBRACKET595=(CommonToken)match(input,LBRACKET,FOLLOW_LBRACKET_in_p_Block12679); if (state.failed) return retval; 
             if ( state.backtracking==0 ) stream_LBRACKET.add(LBRACKET595);
 
-            pushFollow(FOLLOW_pm_BlockDecls_in_p_Block12686);
+            pushFollow(FOLLOW_pm_BlockDecls_in_p_Block12683);
             bd=pm_BlockDecls();
 
             state._fsp--;
             if (state.failed) return retval;
             if ( state.backtracking==0 ) stream_pm_BlockDecls.add(bd.getTree());
-            pushFollow(FOLLOW_p_BlockBody_in_p_Block12690);
+            pushFollow(FOLLOW_p_BlockBody_in_p_Block12687);
             bb=p_BlockBody();
 
             state._fsp--;
             if (state.failed) return retval;
             if ( state.backtracking==0 ) stream_p_BlockBody.add(bb.getTree());
-            RBRACKET596=(CommonToken)match(input,RBRACKET,FOLLOW_RBRACKET_in_p_Block12692); if (state.failed) return retval; 
+            RBRACKET596=(CommonToken)match(input,RBRACKET,FOLLOW_RBRACKET_in_p_Block12689); if (state.failed) return retval; 
             if ( state.backtracking==0 ) stream_RBRACKET.add(RBRACKET596);
 
 
@@ -23231,7 +23225,7 @@ public class XQueryParser extends XQDTParser {
             	case 1 :
             	    // XQueryParser.g:1433:14: bvd+= pm_BlockVarDecl
             	    {
-            	    pushFollow(FOLLOW_pm_BlockVarDecl_in_pm_BlockDecls12748);
+            	    pushFollow(FOLLOW_pm_BlockVarDecl_in_pm_BlockDecls12745);
             	    bvd=pm_BlockVarDecl();
 
             	    state._fsp--;
@@ -23357,16 +23351,16 @@ public class XQueryParser extends XQDTParser {
             // XQueryParser.g:1439:9: (kd= DECLARE DOLLAR qn= p_VarName (td= p_TypeDeclaration )? ( BIND es= p_ExprSingle )? ( COMMA DOLLAR p_VarName ( p_TypeDeclaration )? ( BIND p_ExprSingle )? )* SEMICOLON -> ^( BlockVarDecl $qn ( $td)? ( $es)? ) )
             // XQueryParser.g:1439:11: kd= DECLARE DOLLAR qn= p_VarName (td= p_TypeDeclaration )? ( BIND es= p_ExprSingle )? ( COMMA DOLLAR p_VarName ( p_TypeDeclaration )? ( BIND p_ExprSingle )? )* SEMICOLON
             {
-            kd=(CommonToken)match(input,DECLARE,FOLLOW_DECLARE_in_pm_BlockVarDecl12803); if (state.failed) return retval; 
+            kd=(CommonToken)match(input,DECLARE,FOLLOW_DECLARE_in_pm_BlockVarDecl12800); if (state.failed) return retval; 
             if ( state.backtracking==0 ) stream_DECLARE.add(kd);
 
             if ( state.backtracking==0 ) {
               ak(kd);
             }
-            DOLLAR597=(CommonToken)match(input,DOLLAR,FOLLOW_DOLLAR_in_pm_BlockVarDecl12807); if (state.failed) return retval; 
+            DOLLAR597=(CommonToken)match(input,DOLLAR,FOLLOW_DOLLAR_in_pm_BlockVarDecl12804); if (state.failed) return retval; 
             if ( state.backtracking==0 ) stream_DOLLAR.add(DOLLAR597);
 
-            pushFollow(FOLLOW_p_VarName_in_pm_BlockVarDecl12811);
+            pushFollow(FOLLOW_p_VarName_in_pm_BlockVarDecl12808);
             qn=p_VarName();
 
             state._fsp--;
@@ -23383,7 +23377,7 @@ public class XQueryParser extends XQDTParser {
                 case 1 :
                     // XQueryParser.g:1439:55: td= p_TypeDeclaration
                     {
-                    pushFollow(FOLLOW_p_TypeDeclaration_in_pm_BlockVarDecl12815);
+                    pushFollow(FOLLOW_p_TypeDeclaration_in_pm_BlockVarDecl12812);
                     td=p_TypeDeclaration();
 
                     state._fsp--;
@@ -23406,10 +23400,10 @@ public class XQueryParser extends XQDTParser {
                 case 1 :
                     // XQueryParser.g:1439:76: BIND es= p_ExprSingle
                     {
-                    BIND598=(CommonToken)match(input,BIND,FOLLOW_BIND_in_pm_BlockVarDecl12819); if (state.failed) return retval; 
+                    BIND598=(CommonToken)match(input,BIND,FOLLOW_BIND_in_pm_BlockVarDecl12816); if (state.failed) return retval; 
                     if ( state.backtracking==0 ) stream_BIND.add(BIND598);
 
-                    pushFollow(FOLLOW_p_ExprSingle_in_pm_BlockVarDecl12823);
+                    pushFollow(FOLLOW_p_ExprSingle_in_pm_BlockVarDecl12820);
                     es=p_ExprSingle();
 
                     state._fsp--;
@@ -23436,13 +23430,13 @@ public class XQueryParser extends XQDTParser {
             	case 1 :
             	    // XQueryParser.g:1439:100: COMMA DOLLAR p_VarName ( p_TypeDeclaration )? ( BIND p_ExprSingle )?
             	    {
-            	    COMMA599=(CommonToken)match(input,COMMA,FOLLOW_COMMA_in_pm_BlockVarDecl12828); if (state.failed) return retval; 
+            	    COMMA599=(CommonToken)match(input,COMMA,FOLLOW_COMMA_in_pm_BlockVarDecl12825); if (state.failed) return retval; 
             	    if ( state.backtracking==0 ) stream_COMMA.add(COMMA599);
 
-            	    DOLLAR600=(CommonToken)match(input,DOLLAR,FOLLOW_DOLLAR_in_pm_BlockVarDecl12830); if (state.failed) return retval; 
+            	    DOLLAR600=(CommonToken)match(input,DOLLAR,FOLLOW_DOLLAR_in_pm_BlockVarDecl12827); if (state.failed) return retval; 
             	    if ( state.backtracking==0 ) stream_DOLLAR.add(DOLLAR600);
 
-            	    pushFollow(FOLLOW_p_VarName_in_pm_BlockVarDecl12832);
+            	    pushFollow(FOLLOW_p_VarName_in_pm_BlockVarDecl12829);
             	    p_VarName601=p_VarName();
 
             	    state._fsp--;
@@ -23459,7 +23453,7 @@ public class XQueryParser extends XQDTParser {
             	        case 1 :
             	            // XQueryParser.g:1439:123: p_TypeDeclaration
             	            {
-            	            pushFollow(FOLLOW_p_TypeDeclaration_in_pm_BlockVarDecl12834);
+            	            pushFollow(FOLLOW_p_TypeDeclaration_in_pm_BlockVarDecl12831);
             	            p_TypeDeclaration602=p_TypeDeclaration();
 
             	            state._fsp--;
@@ -23482,10 +23476,10 @@ public class XQueryParser extends XQDTParser {
             	        case 1 :
             	            // XQueryParser.g:1439:143: BIND p_ExprSingle
             	            {
-            	            BIND603=(CommonToken)match(input,BIND,FOLLOW_BIND_in_pm_BlockVarDecl12838); if (state.failed) return retval; 
+            	            BIND603=(CommonToken)match(input,BIND,FOLLOW_BIND_in_pm_BlockVarDecl12835); if (state.failed) return retval; 
             	            if ( state.backtracking==0 ) stream_BIND.add(BIND603);
 
-            	            pushFollow(FOLLOW_p_ExprSingle_in_pm_BlockVarDecl12840);
+            	            pushFollow(FOLLOW_p_ExprSingle_in_pm_BlockVarDecl12837);
             	            p_ExprSingle604=p_ExprSingle();
 
             	            state._fsp--;
@@ -23506,13 +23500,13 @@ public class XQueryParser extends XQDTParser {
                 }
             } while (true);
 
-            SEMICOLON605=(CommonToken)match(input,SEMICOLON,FOLLOW_SEMICOLON_in_pm_BlockVarDecl12846); if (state.failed) return retval; 
+            SEMICOLON605=(CommonToken)match(input,SEMICOLON,FOLLOW_SEMICOLON_in_pm_BlockVarDecl12843); if (state.failed) return retval; 
             if ( state.backtracking==0 ) stream_SEMICOLON.add(SEMICOLON605);
 
 
 
             // AST REWRITE
-            // elements: es, td, qn
+            // elements: td, es, qn
             // token labels: 
             // rule labels: td, qn, es, retval
             // token list labels: 
@@ -23598,7 +23592,7 @@ public class XQueryParser extends XQDTParser {
             {
             root_0 = (XQDTCommonTree)adaptor.nil();
 
-            pushFollow(FOLLOW_pm_Expr_in_p_BlockBody12906);
+            pushFollow(FOLLOW_pm_Expr_in_p_BlockBody12903);
             pm_Expr606=pm_Expr();
 
             state._fsp--;
@@ -23658,7 +23652,7 @@ public class XQueryParser extends XQDTParser {
             {
             root_0 = (XQDTCommonTree)adaptor.nil();
 
-            ks=(CommonToken)match(input,SET,FOLLOW_SET_in_p_AssignmentExpr12934); if (state.failed) return retval;
+            ks=(CommonToken)match(input,SET,FOLLOW_SET_in_p_AssignmentExpr12931); if (state.failed) return retval;
             if ( state.backtracking==0 ) {
             ks_tree = (XQDTCommonTree)adaptor.create(ks);
             adaptor.addChild(root_0, ks_tree);
@@ -23666,23 +23660,23 @@ public class XQueryParser extends XQDTParser {
             if ( state.backtracking==0 ) {
               ak(ks);
             }
-            DOLLAR607=(CommonToken)match(input,DOLLAR,FOLLOW_DOLLAR_in_p_AssignmentExpr12938); if (state.failed) return retval;
+            DOLLAR607=(CommonToken)match(input,DOLLAR,FOLLOW_DOLLAR_in_p_AssignmentExpr12935); if (state.failed) return retval;
             if ( state.backtracking==0 ) {
             DOLLAR607_tree = (XQDTCommonTree)adaptor.create(DOLLAR607);
             adaptor.addChild(root_0, DOLLAR607_tree);
             }
-            pushFollow(FOLLOW_p_VarName_in_p_AssignmentExpr12940);
+            pushFollow(FOLLOW_p_VarName_in_p_AssignmentExpr12937);
             p_VarName608=p_VarName();
 
             state._fsp--;
             if (state.failed) return retval;
             if ( state.backtracking==0 ) adaptor.addChild(root_0, p_VarName608.getTree());
-            BIND609=(CommonToken)match(input,BIND,FOLLOW_BIND_in_p_AssignmentExpr12942); if (state.failed) return retval;
+            BIND609=(CommonToken)match(input,BIND,FOLLOW_BIND_in_p_AssignmentExpr12939); if (state.failed) return retval;
             if ( state.backtracking==0 ) {
             BIND609_tree = (XQDTCommonTree)adaptor.create(BIND609);
             adaptor.addChild(root_0, BIND609_tree);
             }
-            pushFollow(FOLLOW_p_ExprSingle_in_p_AssignmentExpr12944);
+            pushFollow(FOLLOW_p_ExprSingle_in_p_AssignmentExpr12941);
             p_ExprSingle610=p_ExprSingle();
 
             state._fsp--;
@@ -23738,7 +23732,7 @@ public class XQueryParser extends XQDTParser {
             {
             root_0 = (XQDTCommonTree)adaptor.nil();
 
-            ke=(CommonToken)match(input,EXIT,FOLLOW_EXIT_in_p_ExitExpr12972); if (state.failed) return retval;
+            ke=(CommonToken)match(input,EXIT,FOLLOW_EXIT_in_p_ExitExpr12969); if (state.failed) return retval;
             if ( state.backtracking==0 ) {
             ke_tree = (XQDTCommonTree)adaptor.create(ke);
             adaptor.addChild(root_0, ke_tree);
@@ -23746,7 +23740,7 @@ public class XQueryParser extends XQDTParser {
             if ( state.backtracking==0 ) {
               ak(ke);
             }
-            kr=(CommonToken)match(input,RETURNING,FOLLOW_RETURNING_in_p_ExitExpr12978); if (state.failed) return retval;
+            kr=(CommonToken)match(input,RETURNING,FOLLOW_RETURNING_in_p_ExitExpr12975); if (state.failed) return retval;
             if ( state.backtracking==0 ) {
             kr_tree = (XQDTCommonTree)adaptor.create(kr);
             adaptor.addChild(root_0, kr_tree);
@@ -23754,7 +23748,7 @@ public class XQueryParser extends XQDTParser {
             if ( state.backtracking==0 ) {
               ak(kr);
             }
-            pushFollow(FOLLOW_p_ExprSingle_in_p_ExitExpr12982);
+            pushFollow(FOLLOW_p_ExprSingle_in_p_ExitExpr12979);
             p_ExprSingle611=p_ExprSingle();
 
             state._fsp--;
@@ -23814,7 +23808,7 @@ public class XQueryParser extends XQDTParser {
             {
             root_0 = (XQDTCommonTree)adaptor.nil();
 
-            kw=(CommonToken)match(input,WHILE,FOLLOW_WHILE_in_p_WhileExpr13010); if (state.failed) return retval;
+            kw=(CommonToken)match(input,WHILE,FOLLOW_WHILE_in_p_WhileExpr13007); if (state.failed) return retval;
             if ( state.backtracking==0 ) {
             kw_tree = (XQDTCommonTree)adaptor.create(kw);
             adaptor.addChild(root_0, kw_tree);
@@ -23822,23 +23816,23 @@ public class XQueryParser extends XQDTParser {
             if ( state.backtracking==0 ) {
               ak(kw);
             }
-            LPAREN612=(CommonToken)match(input,LPAREN,FOLLOW_LPAREN_in_p_WhileExpr13014); if (state.failed) return retval;
+            LPAREN612=(CommonToken)match(input,LPAREN,FOLLOW_LPAREN_in_p_WhileExpr13011); if (state.failed) return retval;
             if ( state.backtracking==0 ) {
             LPAREN612_tree = (XQDTCommonTree)adaptor.create(LPAREN612);
             adaptor.addChild(root_0, LPAREN612_tree);
             }
-            pushFollow(FOLLOW_p_ExprSingle_in_p_WhileExpr13016);
+            pushFollow(FOLLOW_p_ExprSingle_in_p_WhileExpr13013);
             p_ExprSingle613=p_ExprSingle();
 
             state._fsp--;
             if (state.failed) return retval;
             if ( state.backtracking==0 ) adaptor.addChild(root_0, p_ExprSingle613.getTree());
-            RPAREN614=(CommonToken)match(input,RPAREN,FOLLOW_RPAREN_in_p_WhileExpr13018); if (state.failed) return retval;
+            RPAREN614=(CommonToken)match(input,RPAREN,FOLLOW_RPAREN_in_p_WhileExpr13015); if (state.failed) return retval;
             if ( state.backtracking==0 ) {
             RPAREN614_tree = (XQDTCommonTree)adaptor.create(RPAREN614);
             adaptor.addChild(root_0, RPAREN614_tree);
             }
-            pushFollow(FOLLOW_p_WhileBody_in_p_WhileExpr13020);
+            pushFollow(FOLLOW_p_WhileBody_in_p_WhileExpr13017);
             p_WhileBody615=p_WhileBody();
 
             state._fsp--;
@@ -23890,7 +23884,7 @@ public class XQueryParser extends XQDTParser {
             {
             root_0 = (XQDTCommonTree)adaptor.nil();
 
-            pushFollow(FOLLOW_p_Block_in_p_WhileBody13046);
+            pushFollow(FOLLOW_p_Block_in_p_WhileBody13043);
             p_Block616=p_Block();
 
             state._fsp--;
@@ -23961,7 +23955,7 @@ public class XQueryParser extends XQDTParser {
                 case 1 :
                     // XQueryParser.g:1474:11: p_UsingClause
                     {
-                    pushFollow(FOLLOW_p_UsingClause_in_p_EvalExpr13076);
+                    pushFollow(FOLLOW_p_UsingClause_in_p_EvalExpr13073);
                     p_UsingClause617=p_UsingClause();
 
                     state._fsp--;
@@ -23973,7 +23967,7 @@ public class XQueryParser extends XQDTParser {
 
             }
 
-            ke=(CommonToken)match(input,EVAL,FOLLOW_EVAL_in_p_EvalExpr13081); if (state.failed) return retval;
+            ke=(CommonToken)match(input,EVAL,FOLLOW_EVAL_in_p_EvalExpr13078); if (state.failed) return retval;
             if ( state.backtracking==0 ) {
             ke_tree = (XQDTCommonTree)adaptor.create(ke);
             adaptor.addChild(root_0, ke_tree);
@@ -23981,18 +23975,18 @@ public class XQueryParser extends XQDTParser {
             if ( state.backtracking==0 ) {
               ak(ke);
             }
-            LBRACKET618=(CommonToken)match(input,LBRACKET,FOLLOW_LBRACKET_in_p_EvalExpr13085); if (state.failed) return retval;
+            LBRACKET618=(CommonToken)match(input,LBRACKET,FOLLOW_LBRACKET_in_p_EvalExpr13082); if (state.failed) return retval;
             if ( state.backtracking==0 ) {
             LBRACKET618_tree = (XQDTCommonTree)adaptor.create(LBRACKET618);
             adaptor.addChild(root_0, LBRACKET618_tree);
             }
-            pushFollow(FOLLOW_p_ExprSingle_in_p_EvalExpr13087);
+            pushFollow(FOLLOW_p_ExprSingle_in_p_EvalExpr13084);
             p_ExprSingle619=p_ExprSingle();
 
             state._fsp--;
             if (state.failed) return retval;
             if ( state.backtracking==0 ) adaptor.addChild(root_0, p_ExprSingle619.getTree());
-            RBRACKET620=(CommonToken)match(input,RBRACKET,FOLLOW_RBRACKET_in_p_EvalExpr13089); if (state.failed) return retval;
+            RBRACKET620=(CommonToken)match(input,RBRACKET,FOLLOW_RBRACKET_in_p_EvalExpr13086); if (state.failed) return retval;
             if ( state.backtracking==0 ) {
             RBRACKET620_tree = (XQDTCommonTree)adaptor.create(RBRACKET620);
             adaptor.addChild(root_0, RBRACKET620_tree);
@@ -24053,7 +24047,7 @@ public class XQueryParser extends XQDTParser {
             {
             root_0 = (XQDTCommonTree)adaptor.nil();
 
-            ku=(CommonToken)match(input,USING,FOLLOW_USING_in_p_UsingClause13116); if (state.failed) return retval;
+            ku=(CommonToken)match(input,USING,FOLLOW_USING_in_p_UsingClause13113); if (state.failed) return retval;
             if ( state.backtracking==0 ) {
             ku_tree = (XQDTCommonTree)adaptor.create(ku);
             adaptor.addChild(root_0, ku_tree);
@@ -24061,12 +24055,12 @@ public class XQueryParser extends XQDTParser {
             if ( state.backtracking==0 ) {
               ak(ku);
             }
-            DOLLAR621=(CommonToken)match(input,DOLLAR,FOLLOW_DOLLAR_in_p_UsingClause13120); if (state.failed) return retval;
+            DOLLAR621=(CommonToken)match(input,DOLLAR,FOLLOW_DOLLAR_in_p_UsingClause13117); if (state.failed) return retval;
             if ( state.backtracking==0 ) {
             DOLLAR621_tree = (XQDTCommonTree)adaptor.create(DOLLAR621);
             adaptor.addChild(root_0, DOLLAR621_tree);
             }
-            pushFollow(FOLLOW_p_VarName_in_p_UsingClause13122);
+            pushFollow(FOLLOW_p_VarName_in_p_UsingClause13119);
             p_VarName622=p_VarName();
 
             state._fsp--;
@@ -24087,17 +24081,17 @@ public class XQueryParser extends XQDTParser {
             	case 1 :
             	    // XQueryParser.g:1478:49: COMMA DOLLAR p_VarName
             	    {
-            	    COMMA623=(CommonToken)match(input,COMMA,FOLLOW_COMMA_in_p_UsingClause13125); if (state.failed) return retval;
+            	    COMMA623=(CommonToken)match(input,COMMA,FOLLOW_COMMA_in_p_UsingClause13122); if (state.failed) return retval;
             	    if ( state.backtracking==0 ) {
             	    COMMA623_tree = (XQDTCommonTree)adaptor.create(COMMA623);
             	    adaptor.addChild(root_0, COMMA623_tree);
             	    }
-            	    DOLLAR624=(CommonToken)match(input,DOLLAR,FOLLOW_DOLLAR_in_p_UsingClause13127); if (state.failed) return retval;
+            	    DOLLAR624=(CommonToken)match(input,DOLLAR,FOLLOW_DOLLAR_in_p_UsingClause13124); if (state.failed) return retval;
             	    if ( state.backtracking==0 ) {
             	    DOLLAR624_tree = (XQDTCommonTree)adaptor.create(DOLLAR624);
             	    adaptor.addChild(root_0, DOLLAR624_tree);
             	    }
-            	    pushFollow(FOLLOW_p_VarName_in_p_UsingClause13129);
+            	    pushFollow(FOLLOW_p_VarName_in_p_UsingClause13126);
             	    p_VarName625=p_VarName();
 
             	    state._fsp--;
@@ -24169,7 +24163,7 @@ public class XQueryParser extends XQDTParser {
             {
             root_0 = (XQDTCommonTree)adaptor.nil();
 
-            k=(CommonToken)match(input,DECLARE,FOLLOW_DECLARE_in_p_CollectionDecl13164); if (state.failed) return retval;
+            k=(CommonToken)match(input,DECLARE,FOLLOW_DECLARE_in_p_CollectionDecl13161); if (state.failed) return retval;
             if ( state.backtracking==0 ) {
             k_tree = (XQDTCommonTree)adaptor.create(k);
             adaptor.addChild(root_0, k_tree);
@@ -24177,13 +24171,13 @@ public class XQueryParser extends XQDTParser {
             if (list_k==null) list_k=new ArrayList();
             list_k.add(k);
 
-            pushFollow(FOLLOW_p_CollProperties_in_p_CollectionDecl13166);
+            pushFollow(FOLLOW_p_CollProperties_in_p_CollectionDecl13163);
             p_CollProperties626=p_CollProperties();
 
             state._fsp--;
             if (state.failed) return retval;
             if ( state.backtracking==0 ) adaptor.addChild(root_0, p_CollProperties626.getTree());
-            k=(CommonToken)match(input,COLLECTION,FOLLOW_COLLECTION_in_p_CollectionDecl13170); if (state.failed) return retval;
+            k=(CommonToken)match(input,COLLECTION,FOLLOW_COLLECTION_in_p_CollectionDecl13167); if (state.failed) return retval;
             if ( state.backtracking==0 ) {
             k_tree = (XQDTCommonTree)adaptor.create(k);
             adaptor.addChild(root_0, k_tree);
@@ -24191,7 +24185,7 @@ public class XQueryParser extends XQDTParser {
             if (list_k==null) list_k=new ArrayList();
             list_k.add(k);
 
-            pushFollow(FOLLOW_p_QName_in_p_CollectionDecl13172);
+            pushFollow(FOLLOW_p_QName_in_p_CollectionDecl13169);
             p_QName627=p_QName();
 
             state._fsp--;
@@ -24208,7 +24202,7 @@ public class XQueryParser extends XQDTParser {
                 case 1 :
                     // XQueryParser.g:1488:61: p_CollectionTypeDecl
                     {
-                    pushFollow(FOLLOW_p_CollectionTypeDecl_in_p_CollectionDecl13174);
+                    pushFollow(FOLLOW_p_CollectionTypeDecl_in_p_CollectionDecl13171);
                     p_CollectionTypeDecl628=p_CollectionTypeDecl();
 
                     state._fsp--;
@@ -24231,7 +24225,7 @@ public class XQueryParser extends XQDTParser {
                 case 1 :
                     // XQueryParser.g:1488:84: k+= WITH p_NodeModifier k+= NODES
                     {
-                    k=(CommonToken)match(input,WITH,FOLLOW_WITH_in_p_CollectionDecl13180); if (state.failed) return retval;
+                    k=(CommonToken)match(input,WITH,FOLLOW_WITH_in_p_CollectionDecl13177); if (state.failed) return retval;
                     if ( state.backtracking==0 ) {
                     k_tree = (XQDTCommonTree)adaptor.create(k);
                     adaptor.addChild(root_0, k_tree);
@@ -24239,13 +24233,13 @@ public class XQueryParser extends XQDTParser {
                     if (list_k==null) list_k=new ArrayList();
                     list_k.add(k);
 
-                    pushFollow(FOLLOW_p_NodeModifier_in_p_CollectionDecl13182);
+                    pushFollow(FOLLOW_p_NodeModifier_in_p_CollectionDecl13179);
                     p_NodeModifier629=p_NodeModifier();
 
                     state._fsp--;
                     if (state.failed) return retval;
                     if ( state.backtracking==0 ) adaptor.addChild(root_0, p_NodeModifier629.getTree());
-                    k=(CommonToken)match(input,NODES,FOLLOW_NODES_in_p_CollectionDecl13186); if (state.failed) return retval;
+                    k=(CommonToken)match(input,NODES,FOLLOW_NODES_in_p_CollectionDecl13183); if (state.failed) return retval;
                     if ( state.backtracking==0 ) {
                     k_tree = (XQDTCommonTree)adaptor.create(k);
                     adaptor.addChild(root_0, k_tree);
@@ -24259,7 +24253,7 @@ public class XQueryParser extends XQDTParser {
 
             }
 
-            SEMICOLON630=(CommonToken)match(input,SEMICOLON,FOLLOW_SEMICOLON_in_p_CollectionDecl13190); if (state.failed) return retval;
+            SEMICOLON630=(CommonToken)match(input,SEMICOLON,FOLLOW_SEMICOLON_in_p_CollectionDecl13187); if (state.failed) return retval;
             if ( state.backtracking==0 ) {
             SEMICOLON630_tree = (XQDTCommonTree)adaptor.create(SEMICOLON630);
             adaptor.addChild(root_0, SEMICOLON630_tree);
@@ -24359,7 +24353,7 @@ public class XQueryParser extends XQDTParser {
             	case 1 :
             	    // XQueryParser.g:1492:13: k+= CONST
             	    {
-            	    k=(CommonToken)match(input,CONST,FOLLOW_CONST_in_p_CollProperties13221); if (state.failed) return retval;
+            	    k=(CommonToken)match(input,CONST,FOLLOW_CONST_in_p_CollProperties13218); if (state.failed) return retval;
             	    if ( state.backtracking==0 ) {
             	    k_tree = (XQDTCommonTree)adaptor.create(k);
             	    adaptor.addChild(root_0, k_tree);
@@ -24373,7 +24367,7 @@ public class XQueryParser extends XQDTParser {
             	case 2 :
             	    // XQueryParser.g:1492:24: k+= MUTABLE
             	    {
-            	    k=(CommonToken)match(input,MUTABLE,FOLLOW_MUTABLE_in_p_CollProperties13227); if (state.failed) return retval;
+            	    k=(CommonToken)match(input,MUTABLE,FOLLOW_MUTABLE_in_p_CollProperties13224); if (state.failed) return retval;
             	    if ( state.backtracking==0 ) {
             	    k_tree = (XQDTCommonTree)adaptor.create(k);
             	    adaptor.addChild(root_0, k_tree);
@@ -24387,7 +24381,7 @@ public class XQueryParser extends XQDTParser {
             	case 3 :
             	    // XQueryParser.g:1493:11: k+= APPEND_ONLY
             	    {
-            	    k=(CommonToken)match(input,APPEND_ONLY,FOLLOW_APPEND_ONLY_in_p_CollProperties13241); if (state.failed) return retval;
+            	    k=(CommonToken)match(input,APPEND_ONLY,FOLLOW_APPEND_ONLY_in_p_CollProperties13238); if (state.failed) return retval;
             	    if ( state.backtracking==0 ) {
             	    k_tree = (XQDTCommonTree)adaptor.create(k);
             	    adaptor.addChild(root_0, k_tree);
@@ -24401,7 +24395,7 @@ public class XQueryParser extends XQDTParser {
             	case 4 :
             	    // XQueryParser.g:1493:28: k+= QUEUE
             	    {
-            	    k=(CommonToken)match(input,QUEUE,FOLLOW_QUEUE_in_p_CollProperties13247); if (state.failed) return retval;
+            	    k=(CommonToken)match(input,QUEUE,FOLLOW_QUEUE_in_p_CollProperties13244); if (state.failed) return retval;
             	    if ( state.backtracking==0 ) {
             	    k_tree = (XQDTCommonTree)adaptor.create(k);
             	    adaptor.addChild(root_0, k_tree);
@@ -24415,7 +24409,7 @@ public class XQueryParser extends XQDTParser {
             	case 5 :
             	    // XQueryParser.g:1494:11: k+= ORDERED
             	    {
-            	    k=(CommonToken)match(input,ORDERED,FOLLOW_ORDERED_in_p_CollProperties13261); if (state.failed) return retval;
+            	    k=(CommonToken)match(input,ORDERED,FOLLOW_ORDERED_in_p_CollProperties13258); if (state.failed) return retval;
             	    if ( state.backtracking==0 ) {
             	    k_tree = (XQDTCommonTree)adaptor.create(k);
             	    adaptor.addChild(root_0, k_tree);
@@ -24429,7 +24423,7 @@ public class XQueryParser extends XQDTParser {
             	case 6 :
             	    // XQueryParser.g:1494:24: k+= UNORDERED
             	    {
-            	    k=(CommonToken)match(input,UNORDERED,FOLLOW_UNORDERED_in_p_CollProperties13267); if (state.failed) return retval;
+            	    k=(CommonToken)match(input,UNORDERED,FOLLOW_UNORDERED_in_p_CollProperties13264); if (state.failed) return retval;
             	    if ( state.backtracking==0 ) {
             	    k_tree = (XQDTCommonTree)adaptor.create(k);
             	    adaptor.addChild(root_0, k_tree);
@@ -24505,7 +24499,7 @@ public class XQueryParser extends XQDTParser {
             // XQueryParser.g:1498:11: (ka= AS p_KindTest ( ( p_OccurrenceIndicator )=> p_OccurrenceIndicator )? )
             // XQueryParser.g:1498:12: ka= AS p_KindTest ( ( p_OccurrenceIndicator )=> p_OccurrenceIndicator )?
             {
-            ka=(CommonToken)match(input,AS,FOLLOW_AS_in_p_CollectionTypeDecl13300); if (state.failed) return retval;
+            ka=(CommonToken)match(input,AS,FOLLOW_AS_in_p_CollectionTypeDecl13297); if (state.failed) return retval;
             if ( state.backtracking==0 ) {
             ka_tree = (XQDTCommonTree)adaptor.create(ka);
             adaptor.addChild(root_0, ka_tree);
@@ -24513,7 +24507,7 @@ public class XQueryParser extends XQDTParser {
             if ( state.backtracking==0 ) {
               ak(ka);
             }
-            pushFollow(FOLLOW_p_KindTest_in_p_CollectionTypeDecl13304);
+            pushFollow(FOLLOW_p_KindTest_in_p_CollectionTypeDecl13301);
             p_KindTest631=p_KindTest();
 
             state._fsp--;
@@ -24530,7 +24524,7 @@ public class XQueryParser extends XQDTParser {
                 case 1 :
                     // XQueryParser.g:1498:41: ( p_OccurrenceIndicator )=> p_OccurrenceIndicator
                     {
-                    pushFollow(FOLLOW_p_OccurrenceIndicator_in_p_CollectionTypeDecl13313);
+                    pushFollow(FOLLOW_p_OccurrenceIndicator_in_p_CollectionTypeDecl13310);
                     p_OccurrenceIndicator632=p_OccurrenceIndicator();
 
                     state._fsp--;
@@ -24613,7 +24607,7 @@ public class XQueryParser extends XQDTParser {
                 case 1 :
                     // XQueryParser.g:1502:12: k+= READ_ONLY
                     {
-                    k=(CommonToken)match(input,READ_ONLY,FOLLOW_READ_ONLY_in_p_NodeModifier13344); if (state.failed) return retval;
+                    k=(CommonToken)match(input,READ_ONLY,FOLLOW_READ_ONLY_in_p_NodeModifier13341); if (state.failed) return retval;
                     if ( state.backtracking==0 ) {
                     k_tree = (XQDTCommonTree)adaptor.create(k);
                     adaptor.addChild(root_0, k_tree);
@@ -24627,7 +24621,7 @@ public class XQueryParser extends XQDTParser {
                 case 2 :
                     // XQueryParser.g:1502:27: k+= MUTABLE
                     {
-                    k=(CommonToken)match(input,MUTABLE,FOLLOW_MUTABLE_in_p_NodeModifier13350); if (state.failed) return retval;
+                    k=(CommonToken)match(input,MUTABLE,FOLLOW_MUTABLE_in_p_NodeModifier13347); if (state.failed) return retval;
                     if ( state.backtracking==0 ) {
                     k_tree = (XQDTCommonTree)adaptor.create(k);
                     adaptor.addChild(root_0, k_tree);
@@ -24705,7 +24699,7 @@ public class XQueryParser extends XQDTParser {
             {
             root_0 = (XQDTCommonTree)adaptor.nil();
 
-            k=(CommonToken)match(input,DECLARE,FOLLOW_DECLARE_in_p_IndexDecl13380); if (state.failed) return retval;
+            k=(CommonToken)match(input,DECLARE,FOLLOW_DECLARE_in_p_IndexDecl13377); if (state.failed) return retval;
             if ( state.backtracking==0 ) {
             k_tree = (XQDTCommonTree)adaptor.create(k);
             adaptor.addChild(root_0, k_tree);
@@ -24713,13 +24707,13 @@ public class XQueryParser extends XQDTParser {
             if (list_k==null) list_k=new ArrayList();
             list_k.add(k);
 
-            pushFollow(FOLLOW_p_IndexProperties_in_p_IndexDecl13382);
+            pushFollow(FOLLOW_p_IndexProperties_in_p_IndexDecl13379);
             p_IndexProperties633=p_IndexProperties();
 
             state._fsp--;
             if (state.failed) return retval;
             if ( state.backtracking==0 ) adaptor.addChild(root_0, p_IndexProperties633.getTree());
-            k=(CommonToken)match(input,INDEX,FOLLOW_INDEX_in_p_IndexDecl13386); if (state.failed) return retval;
+            k=(CommonToken)match(input,INDEX,FOLLOW_INDEX_in_p_IndexDecl13383); if (state.failed) return retval;
             if ( state.backtracking==0 ) {
             k_tree = (XQDTCommonTree)adaptor.create(k);
             adaptor.addChild(root_0, k_tree);
@@ -24727,13 +24721,13 @@ public class XQueryParser extends XQDTParser {
             if (list_k==null) list_k=new ArrayList();
             list_k.add(k);
 
-            pushFollow(FOLLOW_p_IndexName_in_p_IndexDecl13388);
+            pushFollow(FOLLOW_p_IndexName_in_p_IndexDecl13385);
             p_IndexName634=p_IndexName();
 
             state._fsp--;
             if (state.failed) return retval;
             if ( state.backtracking==0 ) adaptor.addChild(root_0, p_IndexName634.getTree());
-            k=(CommonToken)match(input,ON,FOLLOW_ON_in_p_IndexDecl13392); if (state.failed) return retval;
+            k=(CommonToken)match(input,ON,FOLLOW_ON_in_p_IndexDecl13389); if (state.failed) return retval;
             if ( state.backtracking==0 ) {
             k_tree = (XQDTCommonTree)adaptor.create(k);
             adaptor.addChild(root_0, k_tree);
@@ -24741,7 +24735,7 @@ public class XQueryParser extends XQDTParser {
             if (list_k==null) list_k=new ArrayList();
             list_k.add(k);
 
-            k=(CommonToken)match(input,NODES,FOLLOW_NODES_in_p_IndexDecl13396); if (state.failed) return retval;
+            k=(CommonToken)match(input,NODES,FOLLOW_NODES_in_p_IndexDecl13393); if (state.failed) return retval;
             if ( state.backtracking==0 ) {
             k_tree = (XQDTCommonTree)adaptor.create(k);
             adaptor.addChild(root_0, k_tree);
@@ -24749,13 +24743,13 @@ public class XQueryParser extends XQDTParser {
             if (list_k==null) list_k=new ArrayList();
             list_k.add(k);
 
-            pushFollow(FOLLOW_p_IndexDomainExpr_in_p_IndexDecl13398);
+            pushFollow(FOLLOW_p_IndexDomainExpr_in_p_IndexDecl13395);
             p_IndexDomainExpr635=p_IndexDomainExpr();
 
             state._fsp--;
             if (state.failed) return retval;
             if ( state.backtracking==0 ) adaptor.addChild(root_0, p_IndexDomainExpr635.getTree());
-            k=(CommonToken)match(input,BY,FOLLOW_BY_in_p_IndexDecl13402); if (state.failed) return retval;
+            k=(CommonToken)match(input,BY,FOLLOW_BY_in_p_IndexDecl13399); if (state.failed) return retval;
             if ( state.backtracking==0 ) {
             k_tree = (XQDTCommonTree)adaptor.create(k);
             adaptor.addChild(root_0, k_tree);
@@ -24763,7 +24757,7 @@ public class XQueryParser extends XQDTParser {
             if (list_k==null) list_k=new ArrayList();
             list_k.add(k);
 
-            pushFollow(FOLLOW_p_IndexKeySpec_in_p_IndexDecl13404);
+            pushFollow(FOLLOW_p_IndexKeySpec_in_p_IndexDecl13401);
             p_IndexKeySpec636=p_IndexKeySpec();
 
             state._fsp--;
@@ -24784,12 +24778,12 @@ public class XQueryParser extends XQDTParser {
             	case 1 :
             	    // XQueryParser.g:1506:116: COMMA p_IndexKeySpec
             	    {
-            	    COMMA637=(CommonToken)match(input,COMMA,FOLLOW_COMMA_in_p_IndexDecl13407); if (state.failed) return retval;
+            	    COMMA637=(CommonToken)match(input,COMMA,FOLLOW_COMMA_in_p_IndexDecl13404); if (state.failed) return retval;
             	    if ( state.backtracking==0 ) {
             	    COMMA637_tree = (XQDTCommonTree)adaptor.create(COMMA637);
             	    adaptor.addChild(root_0, COMMA637_tree);
             	    }
-            	    pushFollow(FOLLOW_p_IndexKeySpec_in_p_IndexDecl13409);
+            	    pushFollow(FOLLOW_p_IndexKeySpec_in_p_IndexDecl13406);
             	    p_IndexKeySpec638=p_IndexKeySpec();
 
             	    state._fsp--;
@@ -24804,7 +24798,7 @@ public class XQueryParser extends XQDTParser {
                 }
             } while (true);
 
-            SEMICOLON639=(CommonToken)match(input,SEMICOLON,FOLLOW_SEMICOLON_in_p_IndexDecl13413); if (state.failed) return retval;
+            SEMICOLON639=(CommonToken)match(input,SEMICOLON,FOLLOW_SEMICOLON_in_p_IndexDecl13410); if (state.failed) return retval;
             if ( state.backtracking==0 ) {
             SEMICOLON639_tree = (XQDTCommonTree)adaptor.create(SEMICOLON639);
             adaptor.addChild(root_0, SEMICOLON639_tree);
@@ -24858,7 +24852,7 @@ public class XQueryParser extends XQDTParser {
             {
             root_0 = (XQDTCommonTree)adaptor.nil();
 
-            pushFollow(FOLLOW_p_QName_in_p_IndexName13440);
+            pushFollow(FOLLOW_p_QName_in_p_IndexName13437);
             p_QName640=p_QName();
 
             state._fsp--;
@@ -24960,7 +24954,7 @@ public class XQueryParser extends XQDTParser {
             	case 1 :
             	    // XQueryParser.g:1514:13: k+= UNIQUE
             	    {
-            	    k=(CommonToken)match(input,UNIQUE,FOLLOW_UNIQUE_in_p_IndexProperties13469); if (state.failed) return retval;
+            	    k=(CommonToken)match(input,UNIQUE,FOLLOW_UNIQUE_in_p_IndexProperties13466); if (state.failed) return retval;
             	    if ( state.backtracking==0 ) {
             	    k_tree = (XQDTCommonTree)adaptor.create(k);
             	    adaptor.addChild(root_0, k_tree);
@@ -24974,7 +24968,7 @@ public class XQueryParser extends XQDTParser {
             	case 2 :
             	    // XQueryParser.g:1514:25: k+= NON k+= UNIQUE
             	    {
-            	    k=(CommonToken)match(input,NON,FOLLOW_NON_in_p_IndexProperties13475); if (state.failed) return retval;
+            	    k=(CommonToken)match(input,NON,FOLLOW_NON_in_p_IndexProperties13472); if (state.failed) return retval;
             	    if ( state.backtracking==0 ) {
             	    k_tree = (XQDTCommonTree)adaptor.create(k);
             	    adaptor.addChild(root_0, k_tree);
@@ -24982,7 +24976,7 @@ public class XQueryParser extends XQDTParser {
             	    if (list_k==null) list_k=new ArrayList();
             	    list_k.add(k);
 
-            	    k=(CommonToken)match(input,UNIQUE,FOLLOW_UNIQUE_in_p_IndexProperties13479); if (state.failed) return retval;
+            	    k=(CommonToken)match(input,UNIQUE,FOLLOW_UNIQUE_in_p_IndexProperties13476); if (state.failed) return retval;
             	    if ( state.backtracking==0 ) {
             	    k_tree = (XQDTCommonTree)adaptor.create(k);
             	    adaptor.addChild(root_0, k_tree);
@@ -24996,7 +24990,7 @@ public class XQueryParser extends XQDTParser {
             	case 3 :
             	    // XQueryParser.g:1515:11: k+= VALUE k+= RANGE
             	    {
-            	    k=(CommonToken)match(input,VALUE,FOLLOW_VALUE_in_p_IndexProperties13493); if (state.failed) return retval;
+            	    k=(CommonToken)match(input,VALUE,FOLLOW_VALUE_in_p_IndexProperties13490); if (state.failed) return retval;
             	    if ( state.backtracking==0 ) {
             	    k_tree = (XQDTCommonTree)adaptor.create(k);
             	    adaptor.addChild(root_0, k_tree);
@@ -25004,7 +24998,7 @@ public class XQueryParser extends XQDTParser {
             	    if (list_k==null) list_k=new ArrayList();
             	    list_k.add(k);
 
-            	    k=(CommonToken)match(input,RANGE,FOLLOW_RANGE_in_p_IndexProperties13497); if (state.failed) return retval;
+            	    k=(CommonToken)match(input,RANGE,FOLLOW_RANGE_in_p_IndexProperties13494); if (state.failed) return retval;
             	    if ( state.backtracking==0 ) {
             	    k_tree = (XQDTCommonTree)adaptor.create(k);
             	    adaptor.addChild(root_0, k_tree);
@@ -25018,7 +25012,7 @@ public class XQueryParser extends XQDTParser {
             	case 4 :
             	    // XQueryParser.g:1515:31: k+= VALUE k+= EQUALITY
             	    {
-            	    k=(CommonToken)match(input,VALUE,FOLLOW_VALUE_in_p_IndexProperties13503); if (state.failed) return retval;
+            	    k=(CommonToken)match(input,VALUE,FOLLOW_VALUE_in_p_IndexProperties13500); if (state.failed) return retval;
             	    if ( state.backtracking==0 ) {
             	    k_tree = (XQDTCommonTree)adaptor.create(k);
             	    adaptor.addChild(root_0, k_tree);
@@ -25026,7 +25020,7 @@ public class XQueryParser extends XQDTParser {
             	    if (list_k==null) list_k=new ArrayList();
             	    list_k.add(k);
 
-            	    k=(CommonToken)match(input,EQUALITY,FOLLOW_EQUALITY_in_p_IndexProperties13507); if (state.failed) return retval;
+            	    k=(CommonToken)match(input,EQUALITY,FOLLOW_EQUALITY_in_p_IndexProperties13504); if (state.failed) return retval;
             	    if ( state.backtracking==0 ) {
             	    k_tree = (XQDTCommonTree)adaptor.create(k);
             	    adaptor.addChild(root_0, k_tree);
@@ -25040,7 +25034,7 @@ public class XQueryParser extends XQDTParser {
             	case 5 :
             	    // XQueryParser.g:1516:11: k+= AUTOMATICALLY k+= MAINTAINED
             	    {
-            	    k=(CommonToken)match(input,AUTOMATICALLY,FOLLOW_AUTOMATICALLY_in_p_IndexProperties13521); if (state.failed) return retval;
+            	    k=(CommonToken)match(input,AUTOMATICALLY,FOLLOW_AUTOMATICALLY_in_p_IndexProperties13518); if (state.failed) return retval;
             	    if ( state.backtracking==0 ) {
             	    k_tree = (XQDTCommonTree)adaptor.create(k);
             	    adaptor.addChild(root_0, k_tree);
@@ -25048,7 +25042,7 @@ public class XQueryParser extends XQDTParser {
             	    if (list_k==null) list_k=new ArrayList();
             	    list_k.add(k);
 
-            	    k=(CommonToken)match(input,MAINTAINED,FOLLOW_MAINTAINED_in_p_IndexProperties13525); if (state.failed) return retval;
+            	    k=(CommonToken)match(input,MAINTAINED,FOLLOW_MAINTAINED_in_p_IndexProperties13522); if (state.failed) return retval;
             	    if ( state.backtracking==0 ) {
             	    k_tree = (XQDTCommonTree)adaptor.create(k);
             	    adaptor.addChild(root_0, k_tree);
@@ -25062,7 +25056,7 @@ public class XQueryParser extends XQDTParser {
             	case 6 :
             	    // XQueryParser.g:1516:44: k+= MANUALLY k+= MAINTAINED
             	    {
-            	    k=(CommonToken)match(input,MANUALLY,FOLLOW_MANUALLY_in_p_IndexProperties13531); if (state.failed) return retval;
+            	    k=(CommonToken)match(input,MANUALLY,FOLLOW_MANUALLY_in_p_IndexProperties13528); if (state.failed) return retval;
             	    if ( state.backtracking==0 ) {
             	    k_tree = (XQDTCommonTree)adaptor.create(k);
             	    adaptor.addChild(root_0, k_tree);
@@ -25070,7 +25064,7 @@ public class XQueryParser extends XQDTParser {
             	    if (list_k==null) list_k=new ArrayList();
             	    list_k.add(k);
 
-            	    k=(CommonToken)match(input,MAINTAINED,FOLLOW_MAINTAINED_in_p_IndexProperties13535); if (state.failed) return retval;
+            	    k=(CommonToken)match(input,MAINTAINED,FOLLOW_MAINTAINED_in_p_IndexProperties13532); if (state.failed) return retval;
             	    if ( state.backtracking==0 ) {
             	    k_tree = (XQDTCommonTree)adaptor.create(k);
             	    adaptor.addChild(root_0, k_tree);
@@ -25139,7 +25133,7 @@ public class XQueryParser extends XQDTParser {
             {
             root_0 = (XQDTCommonTree)adaptor.nil();
 
-            pushFollow(FOLLOW_p_PathExpr_in_p_IndexDomainExpr13565);
+            pushFollow(FOLLOW_p_PathExpr_in_p_IndexDomainExpr13562);
             p_PathExpr641=p_PathExpr();
 
             state._fsp--;
@@ -25195,19 +25189,19 @@ public class XQueryParser extends XQDTParser {
             {
             root_0 = (XQDTCommonTree)adaptor.nil();
 
-            pushFollow(FOLLOW_p_IndexKeyExpr_in_p_IndexKeySpec13590);
+            pushFollow(FOLLOW_p_IndexKeyExpr_in_p_IndexKeySpec13587);
             p_IndexKeyExpr642=p_IndexKeyExpr();
 
             state._fsp--;
             if (state.failed) return retval;
             if ( state.backtracking==0 ) adaptor.addChild(root_0, p_IndexKeyExpr642.getTree());
-            pushFollow(FOLLOW_p_TypeDeclaration_in_p_IndexKeySpec13592);
+            pushFollow(FOLLOW_p_TypeDeclaration_in_p_IndexKeySpec13589);
             p_TypeDeclaration643=p_TypeDeclaration();
 
             state._fsp--;
             if (state.failed) return retval;
             if ( state.backtracking==0 ) adaptor.addChild(root_0, p_TypeDeclaration643.getTree());
-            pushFollow(FOLLOW_p_OrderModifier_in_p_IndexKeySpec13594);
+            pushFollow(FOLLOW_p_OrderModifier_in_p_IndexKeySpec13591);
             p_OrderModifier644=p_OrderModifier();
 
             state._fsp--;
@@ -25259,7 +25253,7 @@ public class XQueryParser extends XQDTParser {
             {
             root_0 = (XQDTCommonTree)adaptor.nil();
 
-            pushFollow(FOLLOW_p_PathExpr_in_p_IndexKeyExpr13619);
+            pushFollow(FOLLOW_p_PathExpr_in_p_IndexKeyExpr13616);
             p_PathExpr645=p_PathExpr();
 
             state._fsp--;
@@ -25320,7 +25314,7 @@ public class XQueryParser extends XQDTParser {
             {
             root_0 = (XQDTCommonTree)adaptor.nil();
 
-            k=(CommonToken)match(input,DECLARE,FOLLOW_DECLARE_in_p_ICDecl13646); if (state.failed) return retval;
+            k=(CommonToken)match(input,DECLARE,FOLLOW_DECLARE_in_p_ICDecl13643); if (state.failed) return retval;
             if ( state.backtracking==0 ) {
             k_tree = (XQDTCommonTree)adaptor.create(k);
             adaptor.addChild(root_0, k_tree);
@@ -25328,7 +25322,7 @@ public class XQueryParser extends XQDTParser {
             if (list_k==null) list_k=new ArrayList();
             list_k.add(k);
 
-            k=(CommonToken)match(input,INTEGRITY,FOLLOW_INTEGRITY_in_p_ICDecl13650); if (state.failed) return retval;
+            k=(CommonToken)match(input,INTEGRITY,FOLLOW_INTEGRITY_in_p_ICDecl13647); if (state.failed) return retval;
             if ( state.backtracking==0 ) {
             k_tree = (XQDTCommonTree)adaptor.create(k);
             adaptor.addChild(root_0, k_tree);
@@ -25336,7 +25330,7 @@ public class XQueryParser extends XQDTParser {
             if (list_k==null) list_k=new ArrayList();
             list_k.add(k);
 
-            k=(CommonToken)match(input,CONSTRAINT,FOLLOW_CONSTRAINT_in_p_ICDecl13654); if (state.failed) return retval;
+            k=(CommonToken)match(input,CONSTRAINT,FOLLOW_CONSTRAINT_in_p_ICDecl13651); if (state.failed) return retval;
             if ( state.backtracking==0 ) {
             k_tree = (XQDTCommonTree)adaptor.create(k);
             adaptor.addChild(root_0, k_tree);
@@ -25347,7 +25341,7 @@ public class XQueryParser extends XQDTParser {
             if ( state.backtracking==0 ) {
               ak(list_k);
             }
-            pushFollow(FOLLOW_p_QName_in_p_ICDecl13658);
+            pushFollow(FOLLOW_p_QName_in_p_ICDecl13655);
             p_QName646=p_QName();
 
             state._fsp--;
@@ -25374,7 +25368,7 @@ public class XQueryParser extends XQDTParser {
                 case 1 :
                     // XQueryParser.g:1532:68: p_ICCollection
                     {
-                    pushFollow(FOLLOW_p_ICCollection_in_p_ICDecl13661);
+                    pushFollow(FOLLOW_p_ICCollection_in_p_ICDecl13658);
                     p_ICCollection647=p_ICCollection();
 
                     state._fsp--;
@@ -25386,7 +25380,7 @@ public class XQueryParser extends XQDTParser {
                 case 2 :
                     // XQueryParser.g:1532:85: p_ICForeignKey
                     {
-                    pushFollow(FOLLOW_p_ICForeignKey_in_p_ICDecl13665);
+                    pushFollow(FOLLOW_p_ICForeignKey_in_p_ICDecl13662);
                     p_ICForeignKey648=p_ICForeignKey();
 
                     state._fsp--;
@@ -25398,7 +25392,7 @@ public class XQueryParser extends XQDTParser {
 
             }
 
-            SEMICOLON649=(CommonToken)match(input,SEMICOLON,FOLLOW_SEMICOLON_in_p_ICDecl13668); if (state.failed) return retval;
+            SEMICOLON649=(CommonToken)match(input,SEMICOLON,FOLLOW_SEMICOLON_in_p_ICDecl13665); if (state.failed) return retval;
             if ( state.backtracking==0 ) {
             SEMICOLON649_tree = (XQDTCommonTree)adaptor.create(SEMICOLON649);
             adaptor.addChild(root_0, SEMICOLON649_tree);
@@ -25458,7 +25452,7 @@ public class XQueryParser extends XQDTParser {
             {
             root_0 = (XQDTCommonTree)adaptor.nil();
 
-            k=(CommonToken)match(input,ON,FOLLOW_ON_in_p_ICCollection13695); if (state.failed) return retval;
+            k=(CommonToken)match(input,ON,FOLLOW_ON_in_p_ICCollection13692); if (state.failed) return retval;
             if ( state.backtracking==0 ) {
             k_tree = (XQDTCommonTree)adaptor.create(k);
             adaptor.addChild(root_0, k_tree);
@@ -25466,7 +25460,7 @@ public class XQueryParser extends XQDTParser {
             if (list_k==null) list_k=new ArrayList();
             list_k.add(k);
 
-            k=(CommonToken)match(input,COLLECTION,FOLLOW_COLLECTION_in_p_ICCollection13699); if (state.failed) return retval;
+            k=(CommonToken)match(input,COLLECTION,FOLLOW_COLLECTION_in_p_ICCollection13696); if (state.failed) return retval;
             if ( state.backtracking==0 ) {
             k_tree = (XQDTCommonTree)adaptor.create(k);
             adaptor.addChild(root_0, k_tree);
@@ -25477,7 +25471,7 @@ public class XQueryParser extends XQDTParser {
             if ( state.backtracking==0 ) {
               ak(list_k);
             }
-            pushFollow(FOLLOW_p_QName_in_p_ICCollection13703);
+            pushFollow(FOLLOW_p_QName_in_p_ICCollection13700);
             p_QName650=p_QName();
 
             state._fsp--;
@@ -25513,7 +25507,7 @@ public class XQueryParser extends XQDTParser {
                 case 1 :
                     // XQueryParser.g:1536:50: p_ICCollSequence
                     {
-                    pushFollow(FOLLOW_p_ICCollSequence_in_p_ICCollection13706);
+                    pushFollow(FOLLOW_p_ICCollSequence_in_p_ICCollection13703);
                     p_ICCollSequence651=p_ICCollSequence();
 
                     state._fsp--;
@@ -25525,7 +25519,7 @@ public class XQueryParser extends XQDTParser {
                 case 2 :
                     // XQueryParser.g:1536:69: p_ICCollSequenceUnique
                     {
-                    pushFollow(FOLLOW_p_ICCollSequenceUnique_in_p_ICCollection13710);
+                    pushFollow(FOLLOW_p_ICCollSequenceUnique_in_p_ICCollection13707);
                     p_ICCollSequenceUnique652=p_ICCollSequenceUnique();
 
                     state._fsp--;
@@ -25537,7 +25531,7 @@ public class XQueryParser extends XQDTParser {
                 case 3 :
                     // XQueryParser.g:1536:94: p_ICCollNode
                     {
-                    pushFollow(FOLLOW_p_ICCollNode_in_p_ICCollection13714);
+                    pushFollow(FOLLOW_p_ICCollNode_in_p_ICCollection13711);
                     p_ICCollNode653=p_ICCollNode();
 
                     state._fsp--;
@@ -25601,18 +25595,18 @@ public class XQueryParser extends XQDTParser {
             {
             root_0 = (XQDTCommonTree)adaptor.nil();
 
-            DOLLAR654=(CommonToken)match(input,DOLLAR,FOLLOW_DOLLAR_in_p_ICCollSequence13740); if (state.failed) return retval;
+            DOLLAR654=(CommonToken)match(input,DOLLAR,FOLLOW_DOLLAR_in_p_ICCollSequence13737); if (state.failed) return retval;
             if ( state.backtracking==0 ) {
             DOLLAR654_tree = (XQDTCommonTree)adaptor.create(DOLLAR654);
             adaptor.addChild(root_0, DOLLAR654_tree);
             }
-            pushFollow(FOLLOW_p_QName_in_p_ICCollSequence13742);
+            pushFollow(FOLLOW_p_QName_in_p_ICCollSequence13739);
             p_QName655=p_QName();
 
             state._fsp--;
             if (state.failed) return retval;
             if ( state.backtracking==0 ) adaptor.addChild(root_0, p_QName655.getTree());
-            kc=(CommonToken)match(input,CHECK,FOLLOW_CHECK_in_p_ICCollSequence13746); if (state.failed) return retval;
+            kc=(CommonToken)match(input,CHECK,FOLLOW_CHECK_in_p_ICCollSequence13743); if (state.failed) return retval;
             if ( state.backtracking==0 ) {
             kc_tree = (XQDTCommonTree)adaptor.create(kc);
             adaptor.addChild(root_0, kc_tree);
@@ -25620,7 +25614,7 @@ public class XQueryParser extends XQDTParser {
             if ( state.backtracking==0 ) {
               ak(kc);
             }
-            pushFollow(FOLLOW_p_ExprSingle_in_p_ICCollSequence13750);
+            pushFollow(FOLLOW_p_ExprSingle_in_p_ICCollSequence13747);
             p_ExprSingle656=p_ExprSingle();
 
             state._fsp--;
@@ -25677,7 +25671,7 @@ public class XQueryParser extends XQDTParser {
             {
             root_0 = (XQDTCommonTree)adaptor.nil();
 
-            k=(CommonToken)match(input,NODE,FOLLOW_NODE_in_p_ICCollSequenceUnique13777); if (state.failed) return retval;
+            k=(CommonToken)match(input,NODE,FOLLOW_NODE_in_p_ICCollSequenceUnique13774); if (state.failed) return retval;
             if ( state.backtracking==0 ) {
             k_tree = (XQDTCommonTree)adaptor.create(k);
             adaptor.addChild(root_0, k_tree);
@@ -25685,7 +25679,7 @@ public class XQueryParser extends XQDTParser {
             if (list_k==null) list_k=new ArrayList();
             list_k.add(k);
 
-            k=(CommonToken)match(input,DOLLAR,FOLLOW_DOLLAR_in_p_ICCollSequenceUnique13781); if (state.failed) return retval;
+            k=(CommonToken)match(input,DOLLAR,FOLLOW_DOLLAR_in_p_ICCollSequenceUnique13778); if (state.failed) return retval;
             if ( state.backtracking==0 ) {
             k_tree = (XQDTCommonTree)adaptor.create(k);
             adaptor.addChild(root_0, k_tree);
@@ -25693,13 +25687,13 @@ public class XQueryParser extends XQDTParser {
             if (list_k==null) list_k=new ArrayList();
             list_k.add(k);
 
-            pushFollow(FOLLOW_p_QName_in_p_ICCollSequenceUnique13783);
+            pushFollow(FOLLOW_p_QName_in_p_ICCollSequenceUnique13780);
             p_QName657=p_QName();
 
             state._fsp--;
             if (state.failed) return retval;
             if ( state.backtracking==0 ) adaptor.addChild(root_0, p_QName657.getTree());
-            k=(CommonToken)match(input,CHECK,FOLLOW_CHECK_in_p_ICCollSequenceUnique13787); if (state.failed) return retval;
+            k=(CommonToken)match(input,CHECK,FOLLOW_CHECK_in_p_ICCollSequenceUnique13784); if (state.failed) return retval;
             if ( state.backtracking==0 ) {
             k_tree = (XQDTCommonTree)adaptor.create(k);
             adaptor.addChild(root_0, k_tree);
@@ -25707,7 +25701,7 @@ public class XQueryParser extends XQDTParser {
             if (list_k==null) list_k=new ArrayList();
             list_k.add(k);
 
-            k=(CommonToken)match(input,UNIQUE,FOLLOW_UNIQUE_in_p_ICCollSequenceUnique13791); if (state.failed) return retval;
+            k=(CommonToken)match(input,UNIQUE,FOLLOW_UNIQUE_in_p_ICCollSequenceUnique13788); if (state.failed) return retval;
             if ( state.backtracking==0 ) {
             k_tree = (XQDTCommonTree)adaptor.create(k);
             adaptor.addChild(root_0, k_tree);
@@ -25715,7 +25709,7 @@ public class XQueryParser extends XQDTParser {
             if (list_k==null) list_k=new ArrayList();
             list_k.add(k);
 
-            k=(CommonToken)match(input,KEY,FOLLOW_KEY_in_p_ICCollSequenceUnique13795); if (state.failed) return retval;
+            k=(CommonToken)match(input,KEY,FOLLOW_KEY_in_p_ICCollSequenceUnique13792); if (state.failed) return retval;
             if ( state.backtracking==0 ) {
             k_tree = (XQDTCommonTree)adaptor.create(k);
             adaptor.addChild(root_0, k_tree);
@@ -25723,7 +25717,7 @@ public class XQueryParser extends XQDTParser {
             if (list_k==null) list_k=new ArrayList();
             list_k.add(k);
 
-            pushFollow(FOLLOW_p_PathExpr_in_p_ICCollSequenceUnique13797);
+            pushFollow(FOLLOW_p_PathExpr_in_p_ICCollSequenceUnique13794);
             p_PathExpr658=p_PathExpr();
 
             state._fsp--;
@@ -25785,7 +25779,7 @@ public class XQueryParser extends XQDTParser {
             {
             root_0 = (XQDTCommonTree)adaptor.nil();
 
-            k=(CommonToken)match(input,FOREACH,FOLLOW_FOREACH_in_p_ICCollNode13826); if (state.failed) return retval;
+            k=(CommonToken)match(input,FOREACH,FOLLOW_FOREACH_in_p_ICCollNode13823); if (state.failed) return retval;
             if ( state.backtracking==0 ) {
             k_tree = (XQDTCommonTree)adaptor.create(k);
             adaptor.addChild(root_0, k_tree);
@@ -25793,7 +25787,7 @@ public class XQueryParser extends XQDTParser {
             if (list_k==null) list_k=new ArrayList();
             list_k.add(k);
 
-            k=(CommonToken)match(input,NODE,FOLLOW_NODE_in_p_ICCollNode13830); if (state.failed) return retval;
+            k=(CommonToken)match(input,NODE,FOLLOW_NODE_in_p_ICCollNode13827); if (state.failed) return retval;
             if ( state.backtracking==0 ) {
             k_tree = (XQDTCommonTree)adaptor.create(k);
             adaptor.addChild(root_0, k_tree);
@@ -25801,18 +25795,18 @@ public class XQueryParser extends XQDTParser {
             if (list_k==null) list_k=new ArrayList();
             list_k.add(k);
 
-            DOLLAR659=(CommonToken)match(input,DOLLAR,FOLLOW_DOLLAR_in_p_ICCollNode13832); if (state.failed) return retval;
+            DOLLAR659=(CommonToken)match(input,DOLLAR,FOLLOW_DOLLAR_in_p_ICCollNode13829); if (state.failed) return retval;
             if ( state.backtracking==0 ) {
             DOLLAR659_tree = (XQDTCommonTree)adaptor.create(DOLLAR659);
             adaptor.addChild(root_0, DOLLAR659_tree);
             }
-            pushFollow(FOLLOW_p_QName_in_p_ICCollNode13834);
+            pushFollow(FOLLOW_p_QName_in_p_ICCollNode13831);
             p_QName660=p_QName();
 
             state._fsp--;
             if (state.failed) return retval;
             if ( state.backtracking==0 ) adaptor.addChild(root_0, p_QName660.getTree());
-            k=(CommonToken)match(input,CHECK,FOLLOW_CHECK_in_p_ICCollNode13838); if (state.failed) return retval;
+            k=(CommonToken)match(input,CHECK,FOLLOW_CHECK_in_p_ICCollNode13835); if (state.failed) return retval;
             if ( state.backtracking==0 ) {
             k_tree = (XQDTCommonTree)adaptor.create(k);
             adaptor.addChild(root_0, k_tree);
@@ -25820,7 +25814,7 @@ public class XQueryParser extends XQDTParser {
             if (list_k==null) list_k=new ArrayList();
             list_k.add(k);
 
-            pushFollow(FOLLOW_p_ExprSingle_in_p_ICCollNode13840);
+            pushFollow(FOLLOW_p_ExprSingle_in_p_ICCollNode13837);
             p_ExprSingle661=p_ExprSingle();
 
             state._fsp--;
@@ -25880,7 +25874,7 @@ public class XQueryParser extends XQDTParser {
             {
             root_0 = (XQDTCommonTree)adaptor.nil();
 
-            k=(CommonToken)match(input,FOREIGN,FOLLOW_FOREIGN_in_p_ICForeignKey13869); if (state.failed) return retval;
+            k=(CommonToken)match(input,FOREIGN,FOLLOW_FOREIGN_in_p_ICForeignKey13866); if (state.failed) return retval;
             if ( state.backtracking==0 ) {
             k_tree = (XQDTCommonTree)adaptor.create(k);
             adaptor.addChild(root_0, k_tree);
@@ -25888,7 +25882,7 @@ public class XQueryParser extends XQDTParser {
             if (list_k==null) list_k=new ArrayList();
             list_k.add(k);
 
-            k=(CommonToken)match(input,KEY,FOLLOW_KEY_in_p_ICForeignKey13873); if (state.failed) return retval;
+            k=(CommonToken)match(input,KEY,FOLLOW_KEY_in_p_ICForeignKey13870); if (state.failed) return retval;
             if ( state.backtracking==0 ) {
             k_tree = (XQDTCommonTree)adaptor.create(k);
             adaptor.addChild(root_0, k_tree);
@@ -25896,13 +25890,13 @@ public class XQueryParser extends XQDTParser {
             if (list_k==null) list_k=new ArrayList();
             list_k.add(k);
 
-            pushFollow(FOLLOW_p_ICForeignKeySource_in_p_ICForeignKey13875);
+            pushFollow(FOLLOW_p_ICForeignKeySource_in_p_ICForeignKey13872);
             p_ICForeignKeySource662=p_ICForeignKeySource();
 
             state._fsp--;
             if (state.failed) return retval;
             if ( state.backtracking==0 ) adaptor.addChild(root_0, p_ICForeignKeySource662.getTree());
-            pushFollow(FOLLOW_p_ICForeignKeyTarget_in_p_ICForeignKey13877);
+            pushFollow(FOLLOW_p_ICForeignKeyTarget_in_p_ICForeignKey13874);
             p_ICForeignKeyTarget663=p_ICForeignKeyTarget();
 
             state._fsp--;
@@ -25959,7 +25953,7 @@ public class XQueryParser extends XQDTParser {
             {
             root_0 = (XQDTCommonTree)adaptor.nil();
 
-            kf=(CommonToken)match(input,FROM,FOLLOW_FROM_in_p_ICForeignKeySource13906); if (state.failed) return retval;
+            kf=(CommonToken)match(input,FROM,FOLLOW_FROM_in_p_ICForeignKeySource13903); if (state.failed) return retval;
             if ( state.backtracking==0 ) {
             kf_tree = (XQDTCommonTree)adaptor.create(kf);
             adaptor.addChild(root_0, kf_tree);
@@ -25967,7 +25961,7 @@ public class XQueryParser extends XQDTParser {
             if ( state.backtracking==0 ) {
               ak(kf);
             }
-            pushFollow(FOLLOW_p_ICForeignKeyValues_in_p_ICForeignKeySource13910);
+            pushFollow(FOLLOW_p_ICForeignKeyValues_in_p_ICForeignKeySource13907);
             p_ICForeignKeyValues664=p_ICForeignKeyValues();
 
             state._fsp--;
@@ -26021,7 +26015,7 @@ public class XQueryParser extends XQDTParser {
             {
             root_0 = (XQDTCommonTree)adaptor.nil();
 
-            kt=(CommonToken)match(input,TO,FOLLOW_TO_in_p_ICForeignKeyTarget13937); if (state.failed) return retval;
+            kt=(CommonToken)match(input,TO,FOLLOW_TO_in_p_ICForeignKeyTarget13934); if (state.failed) return retval;
             if ( state.backtracking==0 ) {
             kt_tree = (XQDTCommonTree)adaptor.create(kt);
             adaptor.addChild(root_0, kt_tree);
@@ -26029,7 +26023,7 @@ public class XQueryParser extends XQDTParser {
             if ( state.backtracking==0 ) {
               ak(kt);
             }
-            pushFollow(FOLLOW_p_ICForeignKeyValues_in_p_ICForeignKeyTarget13941);
+            pushFollow(FOLLOW_p_ICForeignKeyValues_in_p_ICForeignKeyTarget13938);
             p_ICForeignKeyValues665=p_ICForeignKeyValues();
 
             state._fsp--;
@@ -26090,7 +26084,7 @@ public class XQueryParser extends XQDTParser {
             {
             root_0 = (XQDTCommonTree)adaptor.nil();
 
-            k=(CommonToken)match(input,COLLECTION,FOLLOW_COLLECTION_in_p_ICForeignKeyValues13968); if (state.failed) return retval;
+            k=(CommonToken)match(input,COLLECTION,FOLLOW_COLLECTION_in_p_ICForeignKeyValues13965); if (state.failed) return retval;
             if ( state.backtracking==0 ) {
             k_tree = (XQDTCommonTree)adaptor.create(k);
             adaptor.addChild(root_0, k_tree);
@@ -26098,13 +26092,13 @@ public class XQueryParser extends XQDTParser {
             if (list_k==null) list_k=new ArrayList();
             list_k.add(k);
 
-            pushFollow(FOLLOW_p_QName_in_p_ICForeignKeyValues13970);
+            pushFollow(FOLLOW_p_QName_in_p_ICForeignKeyValues13967);
             p_QName666=p_QName();
 
             state._fsp--;
             if (state.failed) return retval;
             if ( state.backtracking==0 ) adaptor.addChild(root_0, p_QName666.getTree());
-            k=(CommonToken)match(input,NODE,FOLLOW_NODE_in_p_ICForeignKeyValues13974); if (state.failed) return retval;
+            k=(CommonToken)match(input,NODE,FOLLOW_NODE_in_p_ICForeignKeyValues13971); if (state.failed) return retval;
             if ( state.backtracking==0 ) {
             k_tree = (XQDTCommonTree)adaptor.create(k);
             adaptor.addChild(root_0, k_tree);
@@ -26112,18 +26106,18 @@ public class XQueryParser extends XQDTParser {
             if (list_k==null) list_k=new ArrayList();
             list_k.add(k);
 
-            DOLLAR667=(CommonToken)match(input,DOLLAR,FOLLOW_DOLLAR_in_p_ICForeignKeyValues13976); if (state.failed) return retval;
+            DOLLAR667=(CommonToken)match(input,DOLLAR,FOLLOW_DOLLAR_in_p_ICForeignKeyValues13973); if (state.failed) return retval;
             if ( state.backtracking==0 ) {
             DOLLAR667_tree = (XQDTCommonTree)adaptor.create(DOLLAR667);
             adaptor.addChild(root_0, DOLLAR667_tree);
             }
-            pushFollow(FOLLOW_p_QName_in_p_ICForeignKeyValues13978);
+            pushFollow(FOLLOW_p_QName_in_p_ICForeignKeyValues13975);
             p_QName668=p_QName();
 
             state._fsp--;
             if (state.failed) return retval;
             if ( state.backtracking==0 ) adaptor.addChild(root_0, p_QName668.getTree());
-            k=(CommonToken)match(input,KEY,FOLLOW_KEY_in_p_ICForeignKeyValues13982); if (state.failed) return retval;
+            k=(CommonToken)match(input,KEY,FOLLOW_KEY_in_p_ICForeignKeyValues13979); if (state.failed) return retval;
             if ( state.backtracking==0 ) {
             k_tree = (XQDTCommonTree)adaptor.create(k);
             adaptor.addChild(root_0, k_tree);
@@ -26131,7 +26125,7 @@ public class XQueryParser extends XQDTParser {
             if (list_k==null) list_k=new ArrayList();
             list_k.add(k);
 
-            pushFollow(FOLLOW_p_PathExpr_in_p_ICForeignKeyValues13984);
+            pushFollow(FOLLOW_p_PathExpr_in_p_ICForeignKeyValues13981);
             p_PathExpr669=p_PathExpr();
 
             state._fsp--;
@@ -26184,7 +26178,7 @@ public class XQueryParser extends XQDTParser {
         // XQueryParser.g:1037:26: ( p_OccurrenceIndicator )
         // XQueryParser.g:1037:27: p_OccurrenceIndicator
         {
-        pushFollow(FOLLOW_p_OccurrenceIndicator_in_synpred2_XQueryParser8756);
+        pushFollow(FOLLOW_p_OccurrenceIndicator_in_synpred2_XQueryParser8753);
         p_OccurrenceIndicator();
 
         state._fsp--;
@@ -26199,7 +26193,7 @@ public class XQueryParser extends XQDTParser {
         // XQueryParser.g:1498:41: ( p_OccurrenceIndicator )
         // XQueryParser.g:1498:42: p_OccurrenceIndicator
         {
-        pushFollow(FOLLOW_p_OccurrenceIndicator_in_synpred3_XQueryParser13308);
+        pushFollow(FOLLOW_p_OccurrenceIndicator_in_synpred3_XQueryParser13305);
         p_OccurrenceIndicator();
 
         state._fsp--;
@@ -26284,15 +26278,15 @@ public class XQueryParser extends XQDTParser {
             "\2\1\uffff\14\2\1\uffff\1\2\12\uffff\4\2\5\uffff\4\2\14\uffff"+
             "\1\2\2\uffff\2\2\2\uffff\1\2\6\uffff\6\2\73\uffff\1\2",
             "\1\12\4\uffff\2\7\2\uffff\2\12\3\uffff\1\7\1\11\1\uffff\1"+
-            "\7\3\uffff\1\12\7\uffff\1\12\1\uffff\1\12\4\uffff\2\12\1\uffff"+
-            "\2\12\4\uffff\3\12\2\uffff\1\12\2\uffff\2\12\1\uffff\1\11\1"+
-            "\12\4\uffff\1\5\1\12\1\uffff\1\13\1\7\21\uffff\2\12\1\uffff"+
-            "\1\12\1\13\1\uffff\1\12\4\uffff\1\2\3\uffff\1\12\11\uffff\1"+
-            "\12\5\uffff\2\12\24\uffff\1\10\1\uffff\1\12\1\6\2\uffff\1\12"+
-            "\2\uffff\1\4\1\uffff\1\12\3\uffff\1\13\1\6\1\uffff\1\13\1\uffff"+
-            "\1\13\4\uffff\2\6\2\uffff\1\6\1\13\1\6\1\uffff\1\13\2\uffff"+
-            "\1\6\4\uffff\1\12\4\uffff\1\12\1\uffff\1\12\1\uffff\1\12\1\uffff"+
-            "\1\12\1\uffff\13\12\2\uffff\1\12\3\uffff\2\12",
+            "\7\3\uffff\1\12\7\uffff\1\12\1\uffff\1\12\4\uffff\1\14\1\12"+
+            "\1\uffff\2\12\4\uffff\3\12\2\uffff\1\12\2\uffff\2\12\1\uffff"+
+            "\1\11\1\12\4\uffff\1\5\1\12\1\uffff\1\6\1\7\21\uffff\2\12\1"+
+            "\uffff\1\12\1\6\1\uffff\1\14\4\uffff\1\2\3\uffff\1\14\11\uffff"+
+            "\1\14\5\uffff\2\14\24\uffff\1\10\1\uffff\1\14\1\13\2\uffff\1"+
+            "\14\2\uffff\1\4\1\uffff\1\14\3\uffff\1\6\1\13\1\uffff\1\6\1"+
+            "\uffff\1\6\4\uffff\1\13\1\6\2\uffff\1\13\1\6\1\13\1\uffff\1"+
+            "\6\2\uffff\1\13\4\uffff\1\12\4\uffff\1\12\1\uffff\1\12\1\uffff"+
+            "\1\12\1\uffff\1\12\1\uffff\13\12\2\uffff\1\12\3\uffff\2\12",
             "",
             "\1\14\10\uffff\2\14\12\uffff\1\14\7\uffff\1\14\1\uffff\1\14"+
             "\5\uffff\1\14\1\uffff\2\14\4\uffff\3\14\2\uffff\1\14\2\uffff"+
@@ -26360,7 +26354,7 @@ public class XQueryParser extends XQDTParser {
 
                         else if ( (LA6_1==OPTION) ) {s = 5;}
 
-                        else if ( (LA6_1==VALUE||LA6_1==AUTOMATICALLY||(LA6_1>=INDEX && LA6_1<=INTEGRITY)||LA6_1==MANUALLY||LA6_1==NON||LA6_1==UNIQUE) && ((lc(ZORBA)))) {s = 6;}
+                        else if ( (LA6_1==ORDERED||LA6_1==UNORDERED||LA6_1==APPEND_ONLY||LA6_1==COLLECTION||LA6_1==CONST||LA6_1==INTEGRITY||LA6_1==MUTABLE||LA6_1==QUEUE) && ((lc(ZORBA)))) {s = 6;}
 
                         else if ( ((LA6_1>=BASE_URI && LA6_1<=BOUNDARY_SPACE)||LA6_1==CONSTRUCTION||LA6_1==DEFAULT||LA6_1==ORDERING) ) {s = 7;}
 
@@ -26368,9 +26362,11 @@ public class XQueryParser extends XQDTParser {
 
                         else if ( (LA6_1==COPY_NAMESPACES||LA6_1==NAMESPACE) ) {s = 9;}
 
-                        else if ( (LA6_1==EOF||LA6_1==AND||(LA6_1>=CAST && LA6_1<=CASTABLE)||LA6_1==DIV||LA6_1==EQ||LA6_1==EXCEPT||(LA6_1>=FUNCTION && LA6_1<=GE)||(LA6_1>=GT && LA6_1<=IDIV)||(LA6_1>=INSTANCE && LA6_1<=IS)||LA6_1==LE||(LA6_1>=LT && LA6_1<=MOD)||LA6_1==NE||LA6_1==OR||(LA6_1>=TO && LA6_1<=TREAT)||LA6_1==UNION||LA6_1==VARIABLE||LA6_1==DETERMINISTIC||LA6_1==NONDETERMINISTIC||(LA6_1>=PRIVATE && LA6_1<=PUBLIC)||LA6_1==UPDATING||LA6_1==CONSTANT||LA6_1==SIMPLE||LA6_1==LPAREN||LA6_1==LSQUARE||LA6_1==EQUAL||LA6_1==NOTEQUAL||LA6_1==COMMA||(LA6_1>=STAR && LA6_1<=SLASH_SLASH)||LA6_1==COLON||(LA6_1>=SEMICOLON && LA6_1<=VBAR)) ) {s = 10;}
+                        else if ( (LA6_1==EOF||LA6_1==AND||(LA6_1>=CAST && LA6_1<=CASTABLE)||LA6_1==DIV||LA6_1==EQ||LA6_1==EXCEPT||LA6_1==GE||(LA6_1>=GT && LA6_1<=IDIV)||(LA6_1>=INSTANCE && LA6_1<=IS)||LA6_1==LE||(LA6_1>=LT && LA6_1<=MOD)||LA6_1==NE||LA6_1==OR||(LA6_1>=TO && LA6_1<=TREAT)||LA6_1==UNION||LA6_1==LPAREN||LA6_1==LSQUARE||LA6_1==EQUAL||LA6_1==NOTEQUAL||LA6_1==COMMA||(LA6_1>=STAR && LA6_1<=SLASH_SLASH)||LA6_1==COLON||(LA6_1>=SEMICOLON && LA6_1<=VBAR)) ) {s = 10;}
 
-                        else if ( (LA6_1==ORDERED||LA6_1==UNORDERED||LA6_1==APPEND_ONLY||LA6_1==COLLECTION||LA6_1==CONST||LA6_1==MUTABLE||LA6_1==QUEUE) && ((lc(ZORBA)))) {s = 11;}
+                        else if ( (LA6_1==VALUE||LA6_1==AUTOMATICALLY||LA6_1==INDEX||LA6_1==MANUALLY||LA6_1==NON||LA6_1==UNIQUE) && ((lc(ZORBA)))) {s = 11;}
+
+                        else if ( (LA6_1==FUNCTION||LA6_1==VARIABLE||LA6_1==DETERMINISTIC||LA6_1==NONDETERMINISTIC||(LA6_1>=PRIVATE && LA6_1<=PUBLIC)||LA6_1==UPDATING||LA6_1==CONSTANT||LA6_1==SIMPLE) ) {s = 12;}
 
                          
                         input.seek(index6_1);
@@ -26393,7 +26389,7 @@ public class XQueryParser extends XQDTParser {
     static final String DFA7_maxS =
         "\1\u0139\1\uffff\1\u00e3\5\uffff\1\u00a6\3\uffff";
     static final String DFA7_acceptS =
-        "\1\uffff\1\10\1\uffff\1\2\1\3\1\4\1\7\1\6\1\uffff\1\3\1\1\1\5";
+        "\1\uffff\1\10\1\uffff\1\2\1\3\1\4\1\7\1\5\1\uffff\1\3\1\1\1\6";
     static final String DFA7_specialS =
         "\2\uffff\1\0\11\uffff}>";
     static final String[] DFA7_transitionS = {
@@ -26403,13 +26399,13 @@ public class XQueryParser extends XQDTParser {
             "",
             "\1\1\10\uffff\2\1\12\uffff\1\1\7\uffff\1\1\1\uffff\1\1\4\uffff"+
             "\1\11\1\1\1\uffff\2\1\4\uffff\3\1\2\uffff\1\1\2\uffff\2\1\2"+
-            "\uffff\1\1\4\uffff\1\5\1\1\1\uffff\1\13\22\uffff\2\1\1\uffff"+
-            "\1\1\1\13\1\uffff\1\12\4\uffff\1\3\3\uffff\1\11\11\uffff\1\11"+
-            "\5\uffff\1\10\1\11\26\uffff\1\11\1\7\2\uffff\1\12\2\uffff\1"+
-            "\4\1\uffff\1\11\3\uffff\1\13\1\7\1\uffff\1\13\1\uffff\1\13\4"+
-            "\uffff\1\7\1\6\2\uffff\1\7\1\13\1\7\1\uffff\1\13\2\uffff\1\7"+
-            "\4\uffff\1\1\4\uffff\1\1\1\uffff\1\1\1\uffff\1\1\1\uffff\1\1"+
-            "\1\uffff\13\1\2\uffff\1\1\3\uffff\2\1",
+            "\uffff\1\1\4\uffff\1\5\1\1\1\uffff\1\7\22\uffff\2\1\1\uffff"+
+            "\1\1\1\7\1\uffff\1\12\4\uffff\1\3\3\uffff\1\11\11\uffff\1\11"+
+            "\5\uffff\1\10\1\11\26\uffff\1\11\1\13\2\uffff\1\12\2\uffff\1"+
+            "\4\1\uffff\1\11\3\uffff\1\7\1\13\1\uffff\1\7\1\uffff\1\7\4\uffff"+
+            "\1\13\1\6\2\uffff\1\13\1\7\1\13\1\uffff\1\7\2\uffff\1\13\4\uffff"+
+            "\1\1\4\uffff\1\1\1\uffff\1\1\1\uffff\1\1\1\uffff\1\1\1\uffff"+
+            "\13\1\2\uffff\1\1\3\uffff\2\1",
             "",
             "",
             "",
@@ -26473,9 +26469,9 @@ public class XQueryParser extends XQDTParser {
 
                         else if ( (LA7_2==INTEGRITY) && ((lc(ZORBA)))) {s = 6;}
 
-                        else if ( (LA7_2==EOF||LA7_2==AND||(LA7_2>=CAST && LA7_2<=CASTABLE)||LA7_2==DIV||LA7_2==EQ||LA7_2==EXCEPT||LA7_2==GE||(LA7_2>=GT && LA7_2<=IDIV)||(LA7_2>=INSTANCE && LA7_2<=IS)||LA7_2==LE||(LA7_2>=LT && LA7_2<=MOD)||LA7_2==NE||LA7_2==OR||(LA7_2>=TO && LA7_2<=TREAT)||LA7_2==UNION||LA7_2==LPAREN||LA7_2==LSQUARE||LA7_2==EQUAL||LA7_2==NOTEQUAL||LA7_2==COMMA||(LA7_2>=STAR && LA7_2<=SLASH_SLASH)||LA7_2==COLON||(LA7_2>=SEMICOLON && LA7_2<=VBAR)) ) {s = 1;}
+                        else if ( (LA7_2==ORDERED||LA7_2==UNORDERED||LA7_2==APPEND_ONLY||LA7_2==COLLECTION||LA7_2==CONST||LA7_2==MUTABLE||LA7_2==QUEUE) && ((lc(ZORBA)))) {s = 7;}
 
-                        else if ( (LA7_2==VALUE||LA7_2==AUTOMATICALLY||LA7_2==INDEX||LA7_2==MANUALLY||LA7_2==NON||LA7_2==UNIQUE) && ((lc(ZORBA)))) {s = 7;}
+                        else if ( (LA7_2==EOF||LA7_2==AND||(LA7_2>=CAST && LA7_2<=CASTABLE)||LA7_2==DIV||LA7_2==EQ||LA7_2==EXCEPT||LA7_2==GE||(LA7_2>=GT && LA7_2<=IDIV)||(LA7_2>=INSTANCE && LA7_2<=IS)||LA7_2==LE||(LA7_2>=LT && LA7_2<=MOD)||LA7_2==NE||LA7_2==OR||(LA7_2>=TO && LA7_2<=TREAT)||LA7_2==UNION||LA7_2==LPAREN||LA7_2==LSQUARE||LA7_2==EQUAL||LA7_2==NOTEQUAL||LA7_2==COMMA||(LA7_2>=STAR && LA7_2<=SLASH_SLASH)||LA7_2==COLON||(LA7_2>=SEMICOLON && LA7_2<=VBAR)) ) {s = 1;}
 
                         else if ( (LA7_2==PRIVATE) ) {s = 8;}
 
@@ -26483,7 +26479,7 @@ public class XQueryParser extends XQDTParser {
 
                         else if ( (LA7_2==VARIABLE||LA7_2==CONSTANT) ) {s = 10;}
 
-                        else if ( (LA7_2==ORDERED||LA7_2==UNORDERED||LA7_2==APPEND_ONLY||LA7_2==COLLECTION||LA7_2==CONST||LA7_2==MUTABLE||LA7_2==QUEUE) && ((lc(ZORBA)))) {s = 11;}
+                        else if ( (LA7_2==VALUE||LA7_2==AUTOMATICALLY||LA7_2==INDEX||LA7_2==MANUALLY||LA7_2==NON||LA7_2==UNIQUE) && ((lc(ZORBA)))) {s = 11;}
 
                          
                         input.seek(index7_2);
@@ -26605,7 +26601,7 @@ public class XQueryParser extends XQDTParser {
         "\23\uffff\1\20\1\1\1\2\1\3\1\4\1\5\1\6\1\7\1\10\1\11\1\12\1\13"+
         "\1\14\1\15\1\16\1\17";
     static final String DFA52_specialS =
-        "\10\uffff\1\2\1\7\1\10\1\6\1\5\1\11\1\12\1\4\1\1\1\0\1\3\20\uffff}>";
+        "\10\uffff\1\5\1\6\1\11\1\0\1\4\1\1\1\12\1\2\1\7\1\10\1\3\20\uffff}>";
     static final String[] DFA52_transitionS = {
             "\40\23\1\4\4\23\1\1\5\23\1\6\12\23\1\2\31\23\1\3\7\23\1\5\14"+
             "\23\1\uffff\11\23\1\uffff\12\23\1\7\6\23\1\16\1\13\1\23\1\12"+
@@ -26813,48 +26809,48 @@ public class XQueryParser extends XQDTParser {
         	int _s = s;
             switch ( s ) {
                     case 0 : 
-                        int LA52_17 = input.LA(1);
+                        int LA52_11 = input.LA(1);
 
                          
-                        int index52_17 = input.index();
+                        int index52_11 = input.index();
                         input.rewind();
                         s = -1;
-                        if ( (LA52_17==EOF||(LA52_17>=AND && LA52_17<=ASCENDING)||(LA52_17>=CASE && LA52_17<=CASTABLE)||LA52_17==COLLATION||LA52_17==DEFAULT||(LA52_17>=DESCENDING && LA52_17<=DIV)||(LA52_17>=ELSE && LA52_17<=EMPTY)||LA52_17==EQ||LA52_17==EXCEPT||LA52_17==FOR||LA52_17==GE||(LA52_17>=GT && LA52_17<=IDIV)||(LA52_17>=INSTANCE && LA52_17<=IS)||LA52_17==LE||(LA52_17>=LET && LA52_17<=MOD)||LA52_17==NE||(LA52_17>=OR && LA52_17<=ORDER)||(LA52_17>=RETURN && LA52_17<=SATISFIES)||LA52_17==STABLE||(LA52_17>=TO && LA52_17<=TREAT)||LA52_17==UNION||LA52_17==WHERE||LA52_17==COUNT||(LA52_17>=END && LA52_17<=GROUP)||LA52_17==ONLY||LA52_17==START||(LA52_17>=AFTER && LA52_17<=BEFORE)||LA52_17==INTO||LA52_17==MODIFY||LA52_17==WITH||(LA52_17>=LPAREN && LA52_17<=RPAREN)||(LA52_17>=RBRACKET && LA52_17<=EQUAL)||LA52_17==NOTEQUAL||LA52_17==COMMA||(LA52_17>=STAR && LA52_17<=SLASH_SLASH)||LA52_17==COLON||(LA52_17>=SEMICOLON && LA52_17<=VBAR)) ) {s = 19;}
+                        if ( (LA52_11==EOF||(LA52_11>=AND && LA52_11<=ASCENDING)||(LA52_11>=CASE && LA52_11<=CASTABLE)||LA52_11==COLLATION||LA52_11==DEFAULT||(LA52_11>=DESCENDING && LA52_11<=DIV)||(LA52_11>=ELSE && LA52_11<=EMPTY)||LA52_11==EQ||LA52_11==EXCEPT||LA52_11==FOR||LA52_11==GE||(LA52_11>=GT && LA52_11<=IDIV)||(LA52_11>=INSTANCE && LA52_11<=IS)||LA52_11==LE||(LA52_11>=LET && LA52_11<=MOD)||LA52_11==NE||(LA52_11>=OR && LA52_11<=ORDER)||(LA52_11>=RETURN && LA52_11<=SATISFIES)||LA52_11==STABLE||(LA52_11>=TO && LA52_11<=TREAT)||LA52_11==UNION||LA52_11==WHERE||LA52_11==COUNT||(LA52_11>=END && LA52_11<=GROUP)||LA52_11==ONLY||LA52_11==START||(LA52_11>=AFTER && LA52_11<=BEFORE)||LA52_11==INTO||LA52_11==MODIFY||LA52_11==WITH||(LA52_11>=LPAREN && LA52_11<=RPAREN)||(LA52_11>=RBRACKET && LA52_11<=EQUAL)||LA52_11==NOTEQUAL||LA52_11==COMMA||(LA52_11>=STAR && LA52_11<=SLASH_SLASH)||LA52_11==COLON||(LA52_11>=SEMICOLON && LA52_11<=VBAR)) ) {s = 19;}
 
-                        else if ( (LA52_17==RETURNING) && ((lc(XQS)))) {s = 33;}
+                        else if ( (LA52_11==NODE||LA52_11==NODES) && ((lc(XQU)))) {s = 27;}
 
                          
-                        input.seek(index52_17);
+                        input.seek(index52_11);
                         if ( s>=0 ) return s;
                         break;
                     case 1 : 
-                        int LA52_16 = input.LA(1);
+                        int LA52_13 = input.LA(1);
 
                          
-                        int index52_16 = input.index();
+                        int index52_13 = input.index();
                         input.rewind();
                         s = -1;
-                        if ( (LA52_16==EOF||(LA52_16>=AND && LA52_16<=ASCENDING)||(LA52_16>=CASE && LA52_16<=CASTABLE)||LA52_16==COLLATION||LA52_16==DEFAULT||(LA52_16>=DESCENDING && LA52_16<=DIV)||(LA52_16>=ELSE && LA52_16<=EMPTY)||LA52_16==EQ||LA52_16==EXCEPT||LA52_16==FOR||LA52_16==GE||(LA52_16>=GT && LA52_16<=IDIV)||(LA52_16>=INSTANCE && LA52_16<=IS)||LA52_16==LE||(LA52_16>=LET && LA52_16<=MOD)||LA52_16==NE||(LA52_16>=OR && LA52_16<=ORDER)||(LA52_16>=RETURN && LA52_16<=SATISFIES)||LA52_16==STABLE||(LA52_16>=TO && LA52_16<=TREAT)||LA52_16==UNION||LA52_16==WHERE||LA52_16==COUNT||(LA52_16>=END && LA52_16<=GROUP)||LA52_16==ONLY||LA52_16==START||(LA52_16>=AFTER && LA52_16<=BEFORE)||LA52_16==INTO||LA52_16==MODIFY||LA52_16==WITH||(LA52_16>=LPAREN && LA52_16<=RPAREN)||(LA52_16>=RBRACKET && LA52_16<=EQUAL)||LA52_16==NOTEQUAL||LA52_16==COMMA||(LA52_16>=STAR && LA52_16<=SLASH_SLASH)||LA52_16==COLON||(LA52_16>=SEMICOLON && LA52_16<=VBAR)) ) {s = 19;}
+                        if ( (LA52_13==EOF||(LA52_13>=AND && LA52_13<=ASCENDING)||(LA52_13>=CASE && LA52_13<=CASTABLE)||LA52_13==COLLATION||LA52_13==DEFAULT||(LA52_13>=DESCENDING && LA52_13<=DIV)||(LA52_13>=ELSE && LA52_13<=EMPTY)||LA52_13==EQ||LA52_13==EXCEPT||LA52_13==FOR||LA52_13==GE||(LA52_13>=GT && LA52_13<=IDIV)||(LA52_13>=INSTANCE && LA52_13<=IS)||LA52_13==LE||(LA52_13>=LET && LA52_13<=MOD)||LA52_13==NE||(LA52_13>=OR && LA52_13<=ORDER)||(LA52_13>=RETURN && LA52_13<=SATISFIES)||LA52_13==STABLE||(LA52_13>=TO && LA52_13<=TREAT)||LA52_13==UNION||LA52_13==WHERE||LA52_13==COUNT||(LA52_13>=END && LA52_13<=GROUP)||LA52_13==ONLY||LA52_13==START||(LA52_13>=AFTER && LA52_13<=BEFORE)||LA52_13==INTO||LA52_13==MODIFY||LA52_13==WITH||(LA52_13>=LPAREN && LA52_13<=RPAREN)||(LA52_13>=RBRACKET && LA52_13<=EQUAL)||LA52_13==NOTEQUAL||LA52_13==COMMA||(LA52_13>=STAR && LA52_13<=SLASH_SLASH)||LA52_13==COLON||(LA52_13>=SEMICOLON && LA52_13<=VBAR)) ) {s = 19;}
 
-                        else if ( (LA52_16==DOLLAR) && ((lc(XQS)))) {s = 32;}
+                        else if ( (LA52_13==NODE||LA52_13==VALUE) && ((lc(XQU)))) {s = 29;}
 
                          
-                        input.seek(index52_16);
+                        input.seek(index52_13);
                         if ( s>=0 ) return s;
                         break;
                     case 2 : 
-                        int LA52_8 = input.LA(1);
+                        int LA52_15 = input.LA(1);
 
                          
-                        int index52_8 = input.index();
+                        int index52_15 = input.index();
                         input.rewind();
                         s = -1;
-                        if ( (LA52_8==EOF||(LA52_8>=AND && LA52_8<=ASCENDING)||(LA52_8>=CASE && LA52_8<=CASTABLE)||LA52_8==COLLATION||LA52_8==DEFAULT||(LA52_8>=DESCENDING && LA52_8<=DIV)||(LA52_8>=ELSE && LA52_8<=EMPTY)||LA52_8==EQ||LA52_8==EXCEPT||LA52_8==FOR||LA52_8==GE||(LA52_8>=GT && LA52_8<=IDIV)||(LA52_8>=INSTANCE && LA52_8<=IS)||LA52_8==LE||(LA52_8>=LET && LA52_8<=MOD)||LA52_8==NE||(LA52_8>=OR && LA52_8<=ORDER)||(LA52_8>=RETURN && LA52_8<=SATISFIES)||LA52_8==STABLE||(LA52_8>=TO && LA52_8<=TREAT)||LA52_8==UNION||LA52_8==WHERE||LA52_8==COUNT||(LA52_8>=END && LA52_8<=GROUP)||LA52_8==ONLY||LA52_8==START||(LA52_8>=AFTER && LA52_8<=BEFORE)||LA52_8==INTO||LA52_8==MODIFY||LA52_8==WITH||(LA52_8>=LPAREN && LA52_8<=RPAREN)||(LA52_8>=RBRACKET && LA52_8<=EQUAL)||LA52_8==NOTEQUAL||LA52_8==COMMA||(LA52_8>=STAR && LA52_8<=SLASH_SLASH)||LA52_8==COLON||(LA52_8>=SEMICOLON && LA52_8<=VBAR)) ) {s = 19;}
+                        if ( (LA52_15==EOF||(LA52_15>=AND && LA52_15<=ASCENDING)||(LA52_15>=CASE && LA52_15<=CASTABLE)||LA52_15==COLLATION||LA52_15==DEFAULT||(LA52_15>=DESCENDING && LA52_15<=DIV)||(LA52_15>=ELSE && LA52_15<=EMPTY)||LA52_15==EQ||LA52_15==EXCEPT||LA52_15==FOR||LA52_15==GE||(LA52_15>=GT && LA52_15<=IDIV)||(LA52_15>=INSTANCE && LA52_15<=IS)||LA52_15==LE||(LA52_15>=LET && LA52_15<=MOD)||LA52_15==NE||(LA52_15>=OR && LA52_15<=ORDER)||(LA52_15>=RETURN && LA52_15<=SATISFIES)||LA52_15==STABLE||(LA52_15>=TO && LA52_15<=TREAT)||LA52_15==UNION||LA52_15==WHERE||LA52_15==COUNT||(LA52_15>=END && LA52_15<=GROUP)||LA52_15==ONLY||LA52_15==START||(LA52_15>=AFTER && LA52_15<=BEFORE)||LA52_15==INTO||LA52_15==MODIFY||LA52_15==WITH||(LA52_15>=LPAREN && LA52_15<=RPAREN)||(LA52_15>=RBRACKET && LA52_15<=EQUAL)||LA52_15==NOTEQUAL||LA52_15==COMMA||(LA52_15>=STAR && LA52_15<=SLASH_SLASH)||LA52_15==COLON||(LA52_15>=SEMICOLON && LA52_15<=VBAR)) ) {s = 19;}
 
-                        else if ( (LA52_8==DOLLAR) && ((lc(ZORBA)))) {s = 25;}
+                        else if ( (LA52_15==LBRACKET) && ((lc(XQS)))) {s = 31;}
 
                          
-                        input.seek(index52_8);
+                        input.seek(index52_15);
                         if ( s>=0 ) return s;
                         break;
                     case 3 : 
@@ -26873,21 +26869,6 @@ public class XQueryParser extends XQDTParser {
                         if ( s>=0 ) return s;
                         break;
                     case 4 : 
-                        int LA52_15 = input.LA(1);
-
-                         
-                        int index52_15 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (LA52_15==EOF||(LA52_15>=AND && LA52_15<=ASCENDING)||(LA52_15>=CASE && LA52_15<=CASTABLE)||LA52_15==COLLATION||LA52_15==DEFAULT||(LA52_15>=DESCENDING && LA52_15<=DIV)||(LA52_15>=ELSE && LA52_15<=EMPTY)||LA52_15==EQ||LA52_15==EXCEPT||LA52_15==FOR||LA52_15==GE||(LA52_15>=GT && LA52_15<=IDIV)||(LA52_15>=INSTANCE && LA52_15<=IS)||LA52_15==LE||(LA52_15>=LET && LA52_15<=MOD)||LA52_15==NE||(LA52_15>=OR && LA52_15<=ORDER)||(LA52_15>=RETURN && LA52_15<=SATISFIES)||LA52_15==STABLE||(LA52_15>=TO && LA52_15<=TREAT)||LA52_15==UNION||LA52_15==WHERE||LA52_15==COUNT||(LA52_15>=END && LA52_15<=GROUP)||LA52_15==ONLY||LA52_15==START||(LA52_15>=AFTER && LA52_15<=BEFORE)||LA52_15==INTO||LA52_15==MODIFY||LA52_15==WITH||(LA52_15>=LPAREN && LA52_15<=RPAREN)||(LA52_15>=RBRACKET && LA52_15<=EQUAL)||LA52_15==NOTEQUAL||LA52_15==COMMA||(LA52_15>=STAR && LA52_15<=SLASH_SLASH)||LA52_15==COLON||(LA52_15>=SEMICOLON && LA52_15<=VBAR)) ) {s = 19;}
-
-                        else if ( (LA52_15==LBRACKET) && ((lc(XQS)))) {s = 31;}
-
-                         
-                        input.seek(index52_15);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 5 : 
                         int LA52_12 = input.LA(1);
 
                          
@@ -26902,22 +26883,22 @@ public class XQueryParser extends XQDTParser {
                         input.seek(index52_12);
                         if ( s>=0 ) return s;
                         break;
-                    case 6 : 
-                        int LA52_11 = input.LA(1);
+                    case 5 : 
+                        int LA52_8 = input.LA(1);
 
                          
-                        int index52_11 = input.index();
+                        int index52_8 = input.index();
                         input.rewind();
                         s = -1;
-                        if ( (LA52_11==EOF||(LA52_11>=AND && LA52_11<=ASCENDING)||(LA52_11>=CASE && LA52_11<=CASTABLE)||LA52_11==COLLATION||LA52_11==DEFAULT||(LA52_11>=DESCENDING && LA52_11<=DIV)||(LA52_11>=ELSE && LA52_11<=EMPTY)||LA52_11==EQ||LA52_11==EXCEPT||LA52_11==FOR||LA52_11==GE||(LA52_11>=GT && LA52_11<=IDIV)||(LA52_11>=INSTANCE && LA52_11<=IS)||LA52_11==LE||(LA52_11>=LET && LA52_11<=MOD)||LA52_11==NE||(LA52_11>=OR && LA52_11<=ORDER)||(LA52_11>=RETURN && LA52_11<=SATISFIES)||LA52_11==STABLE||(LA52_11>=TO && LA52_11<=TREAT)||LA52_11==UNION||LA52_11==WHERE||LA52_11==COUNT||(LA52_11>=END && LA52_11<=GROUP)||LA52_11==ONLY||LA52_11==START||(LA52_11>=AFTER && LA52_11<=BEFORE)||LA52_11==INTO||LA52_11==MODIFY||LA52_11==WITH||(LA52_11>=LPAREN && LA52_11<=RPAREN)||(LA52_11>=RBRACKET && LA52_11<=EQUAL)||LA52_11==NOTEQUAL||LA52_11==COMMA||(LA52_11>=STAR && LA52_11<=SLASH_SLASH)||LA52_11==COLON||(LA52_11>=SEMICOLON && LA52_11<=VBAR)) ) {s = 19;}
+                        if ( (LA52_8==EOF||(LA52_8>=AND && LA52_8<=ASCENDING)||(LA52_8>=CASE && LA52_8<=CASTABLE)||LA52_8==COLLATION||LA52_8==DEFAULT||(LA52_8>=DESCENDING && LA52_8<=DIV)||(LA52_8>=ELSE && LA52_8<=EMPTY)||LA52_8==EQ||LA52_8==EXCEPT||LA52_8==FOR||LA52_8==GE||(LA52_8>=GT && LA52_8<=IDIV)||(LA52_8>=INSTANCE && LA52_8<=IS)||LA52_8==LE||(LA52_8>=LET && LA52_8<=MOD)||LA52_8==NE||(LA52_8>=OR && LA52_8<=ORDER)||(LA52_8>=RETURN && LA52_8<=SATISFIES)||LA52_8==STABLE||(LA52_8>=TO && LA52_8<=TREAT)||LA52_8==UNION||LA52_8==WHERE||LA52_8==COUNT||(LA52_8>=END && LA52_8<=GROUP)||LA52_8==ONLY||LA52_8==START||(LA52_8>=AFTER && LA52_8<=BEFORE)||LA52_8==INTO||LA52_8==MODIFY||LA52_8==WITH||(LA52_8>=LPAREN && LA52_8<=RPAREN)||(LA52_8>=RBRACKET && LA52_8<=EQUAL)||LA52_8==NOTEQUAL||LA52_8==COMMA||(LA52_8>=STAR && LA52_8<=SLASH_SLASH)||LA52_8==COLON||(LA52_8>=SEMICOLON && LA52_8<=VBAR)) ) {s = 19;}
 
-                        else if ( (LA52_11==NODE||LA52_11==NODES) && ((lc(XQU)))) {s = 27;}
+                        else if ( (LA52_8==DOLLAR) && ((lc(ZORBA)))) {s = 25;}
 
                          
-                        input.seek(index52_11);
+                        input.seek(index52_8);
                         if ( s>=0 ) return s;
                         break;
-                    case 7 : 
+                    case 6 : 
                         int LA52_9 = input.LA(1);
 
                          
@@ -26932,7 +26913,37 @@ public class XQueryParser extends XQDTParser {
                         input.seek(index52_9);
                         if ( s>=0 ) return s;
                         break;
+                    case 7 : 
+                        int LA52_16 = input.LA(1);
+
+                         
+                        int index52_16 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (LA52_16==EOF||(LA52_16>=AND && LA52_16<=ASCENDING)||(LA52_16>=CASE && LA52_16<=CASTABLE)||LA52_16==COLLATION||LA52_16==DEFAULT||(LA52_16>=DESCENDING && LA52_16<=DIV)||(LA52_16>=ELSE && LA52_16<=EMPTY)||LA52_16==EQ||LA52_16==EXCEPT||LA52_16==FOR||LA52_16==GE||(LA52_16>=GT && LA52_16<=IDIV)||(LA52_16>=INSTANCE && LA52_16<=IS)||LA52_16==LE||(LA52_16>=LET && LA52_16<=MOD)||LA52_16==NE||(LA52_16>=OR && LA52_16<=ORDER)||(LA52_16>=RETURN && LA52_16<=SATISFIES)||LA52_16==STABLE||(LA52_16>=TO && LA52_16<=TREAT)||LA52_16==UNION||LA52_16==WHERE||LA52_16==COUNT||(LA52_16>=END && LA52_16<=GROUP)||LA52_16==ONLY||LA52_16==START||(LA52_16>=AFTER && LA52_16<=BEFORE)||LA52_16==INTO||LA52_16==MODIFY||LA52_16==WITH||(LA52_16>=LPAREN && LA52_16<=RPAREN)||(LA52_16>=RBRACKET && LA52_16<=EQUAL)||LA52_16==NOTEQUAL||LA52_16==COMMA||(LA52_16>=STAR && LA52_16<=SLASH_SLASH)||LA52_16==COLON||(LA52_16>=SEMICOLON && LA52_16<=VBAR)) ) {s = 19;}
+
+                        else if ( (LA52_16==DOLLAR) && ((lc(XQS)))) {s = 32;}
+
+                         
+                        input.seek(index52_16);
+                        if ( s>=0 ) return s;
+                        break;
                     case 8 : 
+                        int LA52_17 = input.LA(1);
+
+                         
+                        int index52_17 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (LA52_17==EOF||(LA52_17>=AND && LA52_17<=ASCENDING)||(LA52_17>=CASE && LA52_17<=CASTABLE)||LA52_17==COLLATION||LA52_17==DEFAULT||(LA52_17>=DESCENDING && LA52_17<=DIV)||(LA52_17>=ELSE && LA52_17<=EMPTY)||LA52_17==EQ||LA52_17==EXCEPT||LA52_17==FOR||LA52_17==GE||(LA52_17>=GT && LA52_17<=IDIV)||(LA52_17>=INSTANCE && LA52_17<=IS)||LA52_17==LE||(LA52_17>=LET && LA52_17<=MOD)||LA52_17==NE||(LA52_17>=OR && LA52_17<=ORDER)||(LA52_17>=RETURN && LA52_17<=SATISFIES)||LA52_17==STABLE||(LA52_17>=TO && LA52_17<=TREAT)||LA52_17==UNION||LA52_17==WHERE||LA52_17==COUNT||(LA52_17>=END && LA52_17<=GROUP)||LA52_17==ONLY||LA52_17==START||(LA52_17>=AFTER && LA52_17<=BEFORE)||LA52_17==INTO||LA52_17==MODIFY||LA52_17==WITH||(LA52_17>=LPAREN && LA52_17<=RPAREN)||(LA52_17>=RBRACKET && LA52_17<=EQUAL)||LA52_17==NOTEQUAL||LA52_17==COMMA||(LA52_17>=STAR && LA52_17<=SLASH_SLASH)||LA52_17==COLON||(LA52_17>=SEMICOLON && LA52_17<=VBAR)) ) {s = 19;}
+
+                        else if ( (LA52_17==RETURNING) && ((lc(XQS)))) {s = 33;}
+
+                         
+                        input.seek(index52_17);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 9 : 
                         int LA52_10 = input.LA(1);
 
                          
@@ -26945,21 +26956,6 @@ public class XQueryParser extends XQDTParser {
 
                          
                         input.seek(index52_10);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 9 : 
-                        int LA52_13 = input.LA(1);
-
-                         
-                        int index52_13 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (LA52_13==EOF||(LA52_13>=AND && LA52_13<=ASCENDING)||(LA52_13>=CASE && LA52_13<=CASTABLE)||LA52_13==COLLATION||LA52_13==DEFAULT||(LA52_13>=DESCENDING && LA52_13<=DIV)||(LA52_13>=ELSE && LA52_13<=EMPTY)||LA52_13==EQ||LA52_13==EXCEPT||LA52_13==FOR||LA52_13==GE||(LA52_13>=GT && LA52_13<=IDIV)||(LA52_13>=INSTANCE && LA52_13<=IS)||LA52_13==LE||(LA52_13>=LET && LA52_13<=MOD)||LA52_13==NE||(LA52_13>=OR && LA52_13<=ORDER)||(LA52_13>=RETURN && LA52_13<=SATISFIES)||LA52_13==STABLE||(LA52_13>=TO && LA52_13<=TREAT)||LA52_13==UNION||LA52_13==WHERE||LA52_13==COUNT||(LA52_13>=END && LA52_13<=GROUP)||LA52_13==ONLY||LA52_13==START||(LA52_13>=AFTER && LA52_13<=BEFORE)||LA52_13==INTO||LA52_13==MODIFY||LA52_13==WITH||(LA52_13>=LPAREN && LA52_13<=RPAREN)||(LA52_13>=RBRACKET && LA52_13<=EQUAL)||LA52_13==NOTEQUAL||LA52_13==COMMA||(LA52_13>=STAR && LA52_13<=SLASH_SLASH)||LA52_13==COLON||(LA52_13>=SEMICOLON && LA52_13<=VBAR)) ) {s = 19;}
-
-                        else if ( (LA52_13==NODE||LA52_13==VALUE) && ((lc(XQU)))) {s = 29;}
-
-                         
-                        input.seek(index52_13);
                         if ( s>=0 ) return s;
                         break;
                     case 10 : 
@@ -27918,9 +27914,9 @@ public class XQueryParser extends XQDTParser {
                         s = -1;
                         if ( (LA115_23==COLON) ) {s = 25;}
 
-                        else if ( (LA115_23==EOF||(LA115_23>=AND && LA115_23<=ASCENDING)||(LA115_23>=BY && LA115_23<=CASTABLE)||LA115_23==COLLATION||LA115_23==DEFAULT||(LA115_23>=DESCENDING && LA115_23<=DIV)||(LA115_23>=ELSE && LA115_23<=EMPTY)||LA115_23==EQ||LA115_23==EXCEPT||LA115_23==FOR||LA115_23==GE||(LA115_23>=GT && LA115_23<=IDIV)||(LA115_23>=INSTANCE && LA115_23<=IS)||LA115_23==LE||(LA115_23>=LET && LA115_23<=MOD)||LA115_23==NE||(LA115_23>=OR && LA115_23<=ORDER)||(LA115_23>=RETURN && LA115_23<=SATISFIES)||LA115_23==STABLE||(LA115_23>=TO && LA115_23<=TREAT)||LA115_23==UNION||LA115_23==WHERE||LA115_23==COUNT||(LA115_23>=END && LA115_23<=GROUP)||LA115_23==ONLY||LA115_23==START||(LA115_23>=AFTER && LA115_23<=BEFORE)||LA115_23==INTO||LA115_23==MODIFY||LA115_23==WITH||LA115_23==RPAREN||(LA115_23>=RBRACKET && LA115_23<=EQUAL)||LA115_23==NOTEQUAL||LA115_23==COMMA||(LA115_23>=STAR && LA115_23<=SLASH_SLASH)||(LA115_23>=SEMICOLON && LA115_23<=VBAR)) ) {s = 6;}
-
                         else if ( (LA115_23==LPAREN) ) {s = 19;}
+
+                        else if ( (LA115_23==EOF||(LA115_23>=AND && LA115_23<=ASCENDING)||(LA115_23>=BY && LA115_23<=CASTABLE)||LA115_23==COLLATION||LA115_23==DEFAULT||(LA115_23>=DESCENDING && LA115_23<=DIV)||(LA115_23>=ELSE && LA115_23<=EMPTY)||LA115_23==EQ||LA115_23==EXCEPT||LA115_23==FOR||LA115_23==GE||(LA115_23>=GT && LA115_23<=IDIV)||(LA115_23>=INSTANCE && LA115_23<=IS)||LA115_23==LE||(LA115_23>=LET && LA115_23<=MOD)||LA115_23==NE||(LA115_23>=OR && LA115_23<=ORDER)||(LA115_23>=RETURN && LA115_23<=SATISFIES)||LA115_23==STABLE||(LA115_23>=TO && LA115_23<=TREAT)||LA115_23==UNION||LA115_23==WHERE||LA115_23==COUNT||(LA115_23>=END && LA115_23<=GROUP)||LA115_23==ONLY||LA115_23==START||(LA115_23>=AFTER && LA115_23<=BEFORE)||LA115_23==INTO||LA115_23==MODIFY||LA115_23==WITH||LA115_23==RPAREN||(LA115_23>=RBRACKET && LA115_23<=EQUAL)||LA115_23==NOTEQUAL||LA115_23==COMMA||(LA115_23>=STAR && LA115_23<=SLASH_SLASH)||(LA115_23>=SEMICOLON && LA115_23<=VBAR)) ) {s = 6;}
 
                         else if ( (LA115_23==LBRACKET) && ((lc(MLS)))) {s = 210;}
 
@@ -28259,9 +28255,9 @@ public class XQueryParser extends XQDTParser {
                         int index127_10 = input.index();
                         input.rewind();
                         s = -1;
-                        if ( (LA127_10==LBRACKET) && ((lc(MLS)))) {s = 14;}
+                        if ( (LA127_10==LPAREN||LA127_10==COLON) ) {s = 11;}
 
-                        else if ( (LA127_10==LPAREN||LA127_10==COLON) ) {s = 11;}
+                        else if ( (LA127_10==LBRACKET) && ((lc(MLS)))) {s = 14;}
 
                          
                         input.seek(index127_10);
@@ -29239,386 +29235,386 @@ public class XQueryParser extends XQDTParser {
     public static final BitSet FOLLOW_pm_CommonContent_in_pg_CommonContent7916 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_set_in_pm_CommonContent0 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_LBRACKET_in_p_ElemEnclosedExpr8012 = new BitSet(new long[]{0xFFFFFFFFFFFF0000L,0x7FDFFFFFFFFFFFFFL,0xFEFFFFF7FFFFFFFFL,0x3F0264003C1E005FL,0x0200000000000000L});
-    public static final BitSet FOLLOW_pm_Expr_in_p_ElemEnclosedExpr8029 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000000L,0x0000000000000000L,0x0000000000000100L});
-    public static final BitSet FOLLOW_RBRACKET_in_p_ElemEnclosedExpr8046 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_p_CompDocConstructor_in_p_ComputedConstructor8097 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_p_CompElemConstructor_in_p_ComputedConstructor8109 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_p_CompAttrConstructor_in_p_ComputedConstructor8121 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_p_CompNamespaceConstructor_in_p_ComputedConstructor8133 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_p_CompTextConstructor_in_p_ComputedConstructor8145 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_p_CompCommentConstructor_in_p_ComputedConstructor8157 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_p_CompPIConstructor_in_p_ComputedConstructor8169 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_p_CompBinaryConstructor_in_p_ComputedConstructor8184 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_DOCUMENT_in_p_CompDocConstructor8218 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000000L,0x0000000000000000L,0x0000000000000080L});
-    public static final BitSet FOLLOW_LBRACKET_in_p_CompDocConstructor8222 = new BitSet(new long[]{0xFFFFFFFFFFFF0000L,0x7FDFFFFFFFFFFFFFL,0xFEFFFFF7FFFFFFFFL,0x3F0264003C1E005FL,0x0200000000000000L});
-    public static final BitSet FOLLOW_pm_Expr_in_p_CompDocConstructor8224 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000000L,0x0000000000000000L,0x0000000000000100L});
-    public static final BitSet FOLLOW_RBRACKET_in_p_CompDocConstructor8226 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ELEMENT_in_p_CompElemConstructor8267 = new BitSet(new long[]{0xFFFFFFFFFFFF0000L,0x7FDFFFFFFFFFFFFFL,0xFEFFFFF7FFFFFFFFL,0x000200000000008FL,0x0200000000000000L});
-    public static final BitSet FOLLOW_p_QName_in_p_CompElemConstructor8272 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000000L,0x0000000000000000L,0x0000000000000080L});
-    public static final BitSet FOLLOW_LBRACKET_in_p_CompElemConstructor8277 = new BitSet(new long[]{0xFFFFFFFFFFFF0000L,0x7FDFFFFFFFFFFFFFL,0xFEFFFFF7FFFFFFFFL,0x3F0264003C1E005FL,0x0200000000000000L});
-    public static final BitSet FOLLOW_pm_Expr_in_p_CompElemConstructor8279 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000000L,0x0000000000000000L,0x0000000000000100L});
-    public static final BitSet FOLLOW_RBRACKET_in_p_CompElemConstructor8281 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000000L,0x0000000000000000L,0x0000000000000080L});
-    public static final BitSet FOLLOW_LBRACKET_in_p_CompElemConstructor8285 = new BitSet(new long[]{0xFFFFFFFFFFFF0000L,0x7FDFFFFFFFFFFFFFL,0xFEFFFFF7FFFFFFFFL,0x3F0264003C1E015FL,0x0200000000000000L});
-    public static final BitSet FOLLOW_pm_Expr_in_p_CompElemConstructor8287 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000000L,0x0000000000000000L,0x0000000000000100L});
-    public static final BitSet FOLLOW_RBRACKET_in_p_CompElemConstructor8290 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ATTRIBUTE_in_p_CompAttrConstructor8323 = new BitSet(new long[]{0xFFFFFFFFFFFF0000L,0x7FDFFFFFFFFFFFFFL,0xFEFFFFF7FFFFFFFFL,0x000200000000008FL,0x0200000000000000L});
-    public static final BitSet FOLLOW_p_QName_in_p_CompAttrConstructor8328 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000000L,0x0000000000000000L,0x0000000000000080L});
-    public static final BitSet FOLLOW_LBRACKET_in_p_CompAttrConstructor8333 = new BitSet(new long[]{0xFFFFFFFFFFFF0000L,0x7FDFFFFFFFFFFFFFL,0xFEFFFFF7FFFFFFFFL,0x3F0264003C1E005FL,0x0200000000000000L});
-    public static final BitSet FOLLOW_pm_Expr_in_p_CompAttrConstructor8335 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000000L,0x0000000000000000L,0x0000000000000100L});
-    public static final BitSet FOLLOW_RBRACKET_in_p_CompAttrConstructor8337 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000000L,0x0000000000000000L,0x0000000000000080L});
-    public static final BitSet FOLLOW_LBRACKET_in_p_CompAttrConstructor8341 = new BitSet(new long[]{0xFFFFFFFFFFFF0000L,0x7FDFFFFFFFFFFFFFL,0xFEFFFFF7FFFFFFFFL,0x3F0264003C1E015FL,0x0200000000000000L});
-    public static final BitSet FOLLOW_pm_Expr_in_p_CompAttrConstructor8343 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000000L,0x0000000000000000L,0x0000000000000100L});
-    public static final BitSet FOLLOW_RBRACKET_in_p_CompAttrConstructor8346 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_NAMESPACE_in_p_CompNamespaceConstructor8374 = new BitSet(new long[]{0xFFFFFFFFFFFF0000L,0x7FDFFFFFFFFFFFFFL,0xFEFFFFF7FFFFFFFFL,0x000200000000008FL,0x0200000000000000L});
-    public static final BitSet FOLLOW_p_NCName_in_p_CompNamespaceConstructor8379 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000000L,0x0000000000000000L,0x0000000000000080L});
-    public static final BitSet FOLLOW_LBRACKET_in_p_CompNamespaceConstructor8384 = new BitSet(new long[]{0xFFFFFFFFFFFF0000L,0x7FDFFFFFFFFFFFFFL,0xFEFFFFF7FFFFFFFFL,0x3F0264003C1E005FL,0x0200000000000000L});
-    public static final BitSet FOLLOW_pm_Expr_in_p_CompNamespaceConstructor8386 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000000L,0x0000000000000000L,0x0000000000000100L});
-    public static final BitSet FOLLOW_RBRACKET_in_p_CompNamespaceConstructor8388 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000000L,0x0000000000000000L,0x0000000000000080L});
-    public static final BitSet FOLLOW_LBRACKET_in_p_CompNamespaceConstructor8392 = new BitSet(new long[]{0xFFFFFFFFFFFF0000L,0x7FDFFFFFFFFFFFFFL,0xFEFFFFF7FFFFFFFFL,0x3F0264003C1E015FL,0x0200000000000000L});
-    public static final BitSet FOLLOW_pm_Expr_in_p_CompNamespaceConstructor8394 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000000L,0x0000000000000000L,0x0000000000000100L});
-    public static final BitSet FOLLOW_RBRACKET_in_p_CompNamespaceConstructor8397 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_TEXT_in_p_CompTextConstructor8433 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000000L,0x0000000000000000L,0x0000000000000080L});
-    public static final BitSet FOLLOW_LBRACKET_in_p_CompTextConstructor8437 = new BitSet(new long[]{0xFFFFFFFFFFFF0000L,0x7FDFFFFFFFFFFFFFL,0xFEFFFFF7FFFFFFFFL,0x3F0264003C1E005FL,0x0200000000000000L});
-    public static final BitSet FOLLOW_pm_Expr_in_p_CompTextConstructor8439 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000000L,0x0000000000000000L,0x0000000000000100L});
-    public static final BitSet FOLLOW_RBRACKET_in_p_CompTextConstructor8441 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_BINARY_in_p_CompBinaryConstructor8471 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000000L,0x0000000000000000L,0x0000000000000080L});
-    public static final BitSet FOLLOW_LBRACKET_in_p_CompBinaryConstructor8475 = new BitSet(new long[]{0xFFFFFFFFFFFF0000L,0x7FDFFFFFFFFFFFFFL,0xFEFFFFF7FFFFFFFFL,0x3F0264003C1E005FL,0x0200000000000000L});
-    public static final BitSet FOLLOW_pm_Expr_in_p_CompBinaryConstructor8477 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000000L,0x0000000000000000L,0x0000000000000100L});
-    public static final BitSet FOLLOW_RBRACKET_in_p_CompBinaryConstructor8479 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_COMMENT_in_p_CompCommentConstructor8509 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000000L,0x0000000000000000L,0x0000000000000080L});
-    public static final BitSet FOLLOW_LBRACKET_in_p_CompCommentConstructor8513 = new BitSet(new long[]{0xFFFFFFFFFFFF0000L,0x7FDFFFFFFFFFFFFFL,0xFEFFFFF7FFFFFFFFL,0x3F0264003C1E005FL,0x0200000000000000L});
-    public static final BitSet FOLLOW_pm_Expr_in_p_CompCommentConstructor8515 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000000L,0x0000000000000000L,0x0000000000000100L});
-    public static final BitSet FOLLOW_RBRACKET_in_p_CompCommentConstructor8517 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_PROCESSING_INSTRUCTION_in_p_CompPIConstructor8548 = new BitSet(new long[]{0xFFFFFFFFFFFF0000L,0x7FDFFFFFFFFFFFFFL,0xFEFFFFF7FFFFFFFFL,0x000200000000008FL,0x0200000000000000L});
-    public static final BitSet FOLLOW_p_NCName_in_p_CompPIConstructor8553 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000000L,0x0000000000000000L,0x0000000000000080L});
-    public static final BitSet FOLLOW_LBRACKET_in_p_CompPIConstructor8558 = new BitSet(new long[]{0xFFFFFFFFFFFF0000L,0x7FDFFFFFFFFFFFFFL,0xFEFFFFF7FFFFFFFFL,0x3F0264003C1E005FL,0x0200000000000000L});
-    public static final BitSet FOLLOW_pm_Expr_in_p_CompPIConstructor8560 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000000L,0x0000000000000000L,0x0000000000000100L});
-    public static final BitSet FOLLOW_RBRACKET_in_p_CompPIConstructor8562 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000000L,0x0000000000000000L,0x0000000000000080L});
-    public static final BitSet FOLLOW_LBRACKET_in_p_CompPIConstructor8566 = new BitSet(new long[]{0xFFFFFFFFFFFF0000L,0x7FDFFFFFFFFFFFFFL,0xFEFFFFF7FFFFFFFFL,0x3F0264003C1E015FL,0x0200000000000000L});
-    public static final BitSet FOLLOW_pm_Expr_in_p_CompPIConstructor8568 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000000L,0x0000000000000000L,0x0000000000000100L});
-    public static final BitSet FOLLOW_RBRACKET_in_p_CompPIConstructor8571 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_p_AtomicType_in_p_SingleType8599 = new BitSet(new long[]{0x0000000000000002L,0x0000000000000000L,0x0000000000000000L,0x0000000000010000L});
-    public static final BitSet FOLLOW_QUESTION_in_p_SingleType8601 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_AS_in_p_TypeDeclaration8632 = new BitSet(new long[]{0xFFFFFFFFFFFF0000L,0x7FDFFFFFFFFFFFFFL,0xFEFFFFF7FFFFFFFFL,0x000200000000004FL,0x0200000000000000L});
-    public static final BitSet FOLLOW_p_SequenceType_in_p_TypeDeclaration8638 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_EMPTY_SEQUENCE_in_p_SequenceType8693 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000000L,0x0000000000000000L,0x0000000000000010L});
-    public static final BitSet FOLLOW_LPAREN_in_p_SequenceType8699 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000000L,0x0000000000000000L,0x0000000000000020L});
-    public static final BitSet FOLLOW_RPAREN_in_p_SequenceType8703 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_p_ItemType_in_p_SequenceType8752 = new BitSet(new long[]{0x0000000000000002L,0x0000000000000000L,0x0000000000000000L,0x0000000000070000L});
-    public static final BitSet FOLLOW_p_OccurrenceIndicator_in_p_SequenceType8763 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_pm_Expr_in_p_ElemEnclosedExpr8028 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000000L,0x0000000000000000L,0x0000000000000100L});
+    public static final BitSet FOLLOW_RBRACKET_in_p_ElemEnclosedExpr8042 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_p_CompDocConstructor_in_p_ComputedConstructor8094 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_p_CompElemConstructor_in_p_ComputedConstructor8106 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_p_CompAttrConstructor_in_p_ComputedConstructor8118 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_p_CompNamespaceConstructor_in_p_ComputedConstructor8130 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_p_CompTextConstructor_in_p_ComputedConstructor8142 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_p_CompCommentConstructor_in_p_ComputedConstructor8154 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_p_CompPIConstructor_in_p_ComputedConstructor8166 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_p_CompBinaryConstructor_in_p_ComputedConstructor8181 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_DOCUMENT_in_p_CompDocConstructor8215 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000000L,0x0000000000000000L,0x0000000000000080L});
+    public static final BitSet FOLLOW_LBRACKET_in_p_CompDocConstructor8219 = new BitSet(new long[]{0xFFFFFFFFFFFF0000L,0x7FDFFFFFFFFFFFFFL,0xFEFFFFF7FFFFFFFFL,0x3F0264003C1E005FL,0x0200000000000000L});
+    public static final BitSet FOLLOW_pm_Expr_in_p_CompDocConstructor8221 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000000L,0x0000000000000000L,0x0000000000000100L});
+    public static final BitSet FOLLOW_RBRACKET_in_p_CompDocConstructor8223 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ELEMENT_in_p_CompElemConstructor8264 = new BitSet(new long[]{0xFFFFFFFFFFFF0000L,0x7FDFFFFFFFFFFFFFL,0xFEFFFFF7FFFFFFFFL,0x000200000000008FL,0x0200000000000000L});
+    public static final BitSet FOLLOW_p_QName_in_p_CompElemConstructor8269 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000000L,0x0000000000000000L,0x0000000000000080L});
+    public static final BitSet FOLLOW_LBRACKET_in_p_CompElemConstructor8274 = new BitSet(new long[]{0xFFFFFFFFFFFF0000L,0x7FDFFFFFFFFFFFFFL,0xFEFFFFF7FFFFFFFFL,0x3F0264003C1E005FL,0x0200000000000000L});
+    public static final BitSet FOLLOW_pm_Expr_in_p_CompElemConstructor8276 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000000L,0x0000000000000000L,0x0000000000000100L});
+    public static final BitSet FOLLOW_RBRACKET_in_p_CompElemConstructor8278 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000000L,0x0000000000000000L,0x0000000000000080L});
+    public static final BitSet FOLLOW_LBRACKET_in_p_CompElemConstructor8282 = new BitSet(new long[]{0xFFFFFFFFFFFF0000L,0x7FDFFFFFFFFFFFFFL,0xFEFFFFF7FFFFFFFFL,0x3F0264003C1E015FL,0x0200000000000000L});
+    public static final BitSet FOLLOW_pm_Expr_in_p_CompElemConstructor8284 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000000L,0x0000000000000000L,0x0000000000000100L});
+    public static final BitSet FOLLOW_RBRACKET_in_p_CompElemConstructor8287 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ATTRIBUTE_in_p_CompAttrConstructor8320 = new BitSet(new long[]{0xFFFFFFFFFFFF0000L,0x7FDFFFFFFFFFFFFFL,0xFEFFFFF7FFFFFFFFL,0x000200000000008FL,0x0200000000000000L});
+    public static final BitSet FOLLOW_p_QName_in_p_CompAttrConstructor8325 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000000L,0x0000000000000000L,0x0000000000000080L});
+    public static final BitSet FOLLOW_LBRACKET_in_p_CompAttrConstructor8330 = new BitSet(new long[]{0xFFFFFFFFFFFF0000L,0x7FDFFFFFFFFFFFFFL,0xFEFFFFF7FFFFFFFFL,0x3F0264003C1E005FL,0x0200000000000000L});
+    public static final BitSet FOLLOW_pm_Expr_in_p_CompAttrConstructor8332 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000000L,0x0000000000000000L,0x0000000000000100L});
+    public static final BitSet FOLLOW_RBRACKET_in_p_CompAttrConstructor8334 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000000L,0x0000000000000000L,0x0000000000000080L});
+    public static final BitSet FOLLOW_LBRACKET_in_p_CompAttrConstructor8338 = new BitSet(new long[]{0xFFFFFFFFFFFF0000L,0x7FDFFFFFFFFFFFFFL,0xFEFFFFF7FFFFFFFFL,0x3F0264003C1E015FL,0x0200000000000000L});
+    public static final BitSet FOLLOW_pm_Expr_in_p_CompAttrConstructor8340 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000000L,0x0000000000000000L,0x0000000000000100L});
+    public static final BitSet FOLLOW_RBRACKET_in_p_CompAttrConstructor8343 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_NAMESPACE_in_p_CompNamespaceConstructor8371 = new BitSet(new long[]{0xFFFFFFFFFFFF0000L,0x7FDFFFFFFFFFFFFFL,0xFEFFFFF7FFFFFFFFL,0x000200000000008FL,0x0200000000000000L});
+    public static final BitSet FOLLOW_p_NCName_in_p_CompNamespaceConstructor8376 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000000L,0x0000000000000000L,0x0000000000000080L});
+    public static final BitSet FOLLOW_LBRACKET_in_p_CompNamespaceConstructor8381 = new BitSet(new long[]{0xFFFFFFFFFFFF0000L,0x7FDFFFFFFFFFFFFFL,0xFEFFFFF7FFFFFFFFL,0x3F0264003C1E005FL,0x0200000000000000L});
+    public static final BitSet FOLLOW_pm_Expr_in_p_CompNamespaceConstructor8383 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000000L,0x0000000000000000L,0x0000000000000100L});
+    public static final BitSet FOLLOW_RBRACKET_in_p_CompNamespaceConstructor8385 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000000L,0x0000000000000000L,0x0000000000000080L});
+    public static final BitSet FOLLOW_LBRACKET_in_p_CompNamespaceConstructor8389 = new BitSet(new long[]{0xFFFFFFFFFFFF0000L,0x7FDFFFFFFFFFFFFFL,0xFEFFFFF7FFFFFFFFL,0x3F0264003C1E015FL,0x0200000000000000L});
+    public static final BitSet FOLLOW_pm_Expr_in_p_CompNamespaceConstructor8391 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000000L,0x0000000000000000L,0x0000000000000100L});
+    public static final BitSet FOLLOW_RBRACKET_in_p_CompNamespaceConstructor8394 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_TEXT_in_p_CompTextConstructor8430 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000000L,0x0000000000000000L,0x0000000000000080L});
+    public static final BitSet FOLLOW_LBRACKET_in_p_CompTextConstructor8434 = new BitSet(new long[]{0xFFFFFFFFFFFF0000L,0x7FDFFFFFFFFFFFFFL,0xFEFFFFF7FFFFFFFFL,0x3F0264003C1E005FL,0x0200000000000000L});
+    public static final BitSet FOLLOW_pm_Expr_in_p_CompTextConstructor8436 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000000L,0x0000000000000000L,0x0000000000000100L});
+    public static final BitSet FOLLOW_RBRACKET_in_p_CompTextConstructor8438 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_BINARY_in_p_CompBinaryConstructor8468 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000000L,0x0000000000000000L,0x0000000000000080L});
+    public static final BitSet FOLLOW_LBRACKET_in_p_CompBinaryConstructor8472 = new BitSet(new long[]{0xFFFFFFFFFFFF0000L,0x7FDFFFFFFFFFFFFFL,0xFEFFFFF7FFFFFFFFL,0x3F0264003C1E005FL,0x0200000000000000L});
+    public static final BitSet FOLLOW_pm_Expr_in_p_CompBinaryConstructor8474 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000000L,0x0000000000000000L,0x0000000000000100L});
+    public static final BitSet FOLLOW_RBRACKET_in_p_CompBinaryConstructor8476 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_COMMENT_in_p_CompCommentConstructor8506 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000000L,0x0000000000000000L,0x0000000000000080L});
+    public static final BitSet FOLLOW_LBRACKET_in_p_CompCommentConstructor8510 = new BitSet(new long[]{0xFFFFFFFFFFFF0000L,0x7FDFFFFFFFFFFFFFL,0xFEFFFFF7FFFFFFFFL,0x3F0264003C1E005FL,0x0200000000000000L});
+    public static final BitSet FOLLOW_pm_Expr_in_p_CompCommentConstructor8512 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000000L,0x0000000000000000L,0x0000000000000100L});
+    public static final BitSet FOLLOW_RBRACKET_in_p_CompCommentConstructor8514 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_PROCESSING_INSTRUCTION_in_p_CompPIConstructor8545 = new BitSet(new long[]{0xFFFFFFFFFFFF0000L,0x7FDFFFFFFFFFFFFFL,0xFEFFFFF7FFFFFFFFL,0x000200000000008FL,0x0200000000000000L});
+    public static final BitSet FOLLOW_p_NCName_in_p_CompPIConstructor8550 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000000L,0x0000000000000000L,0x0000000000000080L});
+    public static final BitSet FOLLOW_LBRACKET_in_p_CompPIConstructor8555 = new BitSet(new long[]{0xFFFFFFFFFFFF0000L,0x7FDFFFFFFFFFFFFFL,0xFEFFFFF7FFFFFFFFL,0x3F0264003C1E005FL,0x0200000000000000L});
+    public static final BitSet FOLLOW_pm_Expr_in_p_CompPIConstructor8557 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000000L,0x0000000000000000L,0x0000000000000100L});
+    public static final BitSet FOLLOW_RBRACKET_in_p_CompPIConstructor8559 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000000L,0x0000000000000000L,0x0000000000000080L});
+    public static final BitSet FOLLOW_LBRACKET_in_p_CompPIConstructor8563 = new BitSet(new long[]{0xFFFFFFFFFFFF0000L,0x7FDFFFFFFFFFFFFFL,0xFEFFFFF7FFFFFFFFL,0x3F0264003C1E015FL,0x0200000000000000L});
+    public static final BitSet FOLLOW_pm_Expr_in_p_CompPIConstructor8565 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000000L,0x0000000000000000L,0x0000000000000100L});
+    public static final BitSet FOLLOW_RBRACKET_in_p_CompPIConstructor8568 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_p_AtomicType_in_p_SingleType8596 = new BitSet(new long[]{0x0000000000000002L,0x0000000000000000L,0x0000000000000000L,0x0000000000010000L});
+    public static final BitSet FOLLOW_QUESTION_in_p_SingleType8598 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_AS_in_p_TypeDeclaration8629 = new BitSet(new long[]{0xFFFFFFFFFFFF0000L,0x7FDFFFFFFFFFFFFFL,0xFEFFFFF7FFFFFFFFL,0x000200000000004FL,0x0200000000000000L});
+    public static final BitSet FOLLOW_p_SequenceType_in_p_TypeDeclaration8635 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_EMPTY_SEQUENCE_in_p_SequenceType8690 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000000L,0x0000000000000000L,0x0000000000000010L});
+    public static final BitSet FOLLOW_LPAREN_in_p_SequenceType8696 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000000L,0x0000000000000000L,0x0000000000000020L});
+    public static final BitSet FOLLOW_RPAREN_in_p_SequenceType8700 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_p_ItemType_in_p_SequenceType8749 = new BitSet(new long[]{0x0000000000000002L,0x0000000000000000L,0x0000000000000000L,0x0000000000070000L});
+    public static final BitSet FOLLOW_p_OccurrenceIndicator_in_p_SequenceType8760 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_set_in_p_OccurrenceIndicator0 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_p_KindTest_in_p_ItemType8865 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_BINARY_in_p_ItemType8905 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000000L,0x0000000000000000L,0x0000000000000010L});
-    public static final BitSet FOLLOW_LPAREN_in_p_ItemType8907 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000000L,0x0000000000000000L,0x0000000000000020L});
-    public static final BitSet FOLLOW_RPAREN_in_p_ItemType8909 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ITEM_in_p_ItemType8951 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000000L,0x0000000000000000L,0x0000000000000010L});
-    public static final BitSet FOLLOW_LPAREN_in_p_ItemType8953 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000000L,0x0000000000000000L,0x0000000000000020L});
-    public static final BitSet FOLLOW_RPAREN_in_p_ItemType8955 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_p_AtomicType_in_p_ItemType8996 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_p_QName_in_p_AtomicType9022 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_p_DocumentTest_in_p_KindTest9072 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_p_ElementTest_in_p_KindTest9084 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_p_AttributeTest_in_p_KindTest9096 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_p_SchemaElementTest_in_p_KindTest9108 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_p_SchemaAttributeTest_in_p_KindTest9120 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_p_NamespaceNodeTest_in_p_KindTest9132 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_p_PITest_in_p_KindTest9144 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_p_CommentTest_in_p_KindTest9156 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_p_TextTest_in_p_KindTest9168 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_p_AnyKindTest_in_p_KindTest9180 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_NODE_in_p_AnyKindTest9208 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000000L,0x0000000000000000L,0x0000000000000010L});
-    public static final BitSet FOLLOW_LPAREN_in_p_AnyKindTest9210 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000000L,0x0000000000000000L,0x0000000000000020L});
-    public static final BitSet FOLLOW_RPAREN_in_p_AnyKindTest9212 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_DOCUMENT_NODE_in_p_DocumentTest9240 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000000L,0x0000000000000000L,0x0000000000000010L});
-    public static final BitSet FOLLOW_LPAREN_in_p_DocumentTest9242 = new BitSet(new long[]{0x0000040000000000L,0x0000000040000000L,0x0000000000000000L,0x0000000000000020L});
-    public static final BitSet FOLLOW_p_ElementTest_in_p_DocumentTest9245 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000000L,0x0000000000000000L,0x0000000000000020L});
-    public static final BitSet FOLLOW_p_SchemaElementTest_in_p_DocumentTest9249 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000000L,0x0000000000000000L,0x0000000000000020L});
-    public static final BitSet FOLLOW_RPAREN_in_p_DocumentTest9253 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_TEXT_in_p_TextTest9273 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000000L,0x0000000000000000L,0x0000000000000010L});
-    public static final BitSet FOLLOW_LPAREN_in_p_TextTest9275 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000000L,0x0000000000000000L,0x0000000000000020L});
-    public static final BitSet FOLLOW_RPAREN_in_p_TextTest9277 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_COMMENT_in_p_CommentTest9305 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000000L,0x0000000000000000L,0x0000000000000010L});
-    public static final BitSet FOLLOW_LPAREN_in_p_CommentTest9307 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000000L,0x0000000000000000L,0x0000000000000020L});
-    public static final BitSet FOLLOW_RPAREN_in_p_CommentTest9309 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_NAMESPACE_NODE_in_p_NamespaceNodeTest9335 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000000L,0x0000000000000000L,0x0000000000000010L});
-    public static final BitSet FOLLOW_LPAREN_in_p_NamespaceNodeTest9337 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000000L,0x0000000000000000L,0x0000000000000020L});
-    public static final BitSet FOLLOW_RPAREN_in_p_NamespaceNodeTest9339 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_PROCESSING_INSTRUCTION_in_p_PITest9367 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000000L,0x0000000000000000L,0x0000000000000010L});
-    public static final BitSet FOLLOW_LPAREN_in_p_PITest9369 = new BitSet(new long[]{0xFFFFFFFFFFFF0000L,0x7FDFFFFFFFFFFFFFL,0xFEFFFFF7FFFFFFFFL,0x000260000000002FL,0x0200000000000000L});
-    public static final BitSet FOLLOW_p_NCName_in_p_PITest9372 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000000L,0x0000000000000000L,0x0000000000000020L});
-    public static final BitSet FOLLOW_p_StringLiteral_in_p_PITest9376 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000000L,0x0000000000000000L,0x0000000000000020L});
-    public static final BitSet FOLLOW_RPAREN_in_p_PITest9380 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ATTRIBUTE_in_p_AttributeTest9408 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000000L,0x0000000000000000L,0x0000000000000010L});
-    public static final BitSet FOLLOW_LPAREN_in_p_AttributeTest9410 = new BitSet(new long[]{0xFFFFFFFFFFFF0000L,0x7FDFFFFFFFFFFFFFL,0xFEFFFFF7FFFFFFFFL,0x000200000002002FL,0x0200000000000000L});
-    public static final BitSet FOLLOW_p_AttribNameOrWildcard_in_p_AttributeTest9413 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000000L,0x0000000000000000L,0x0000000000008020L});
-    public static final BitSet FOLLOW_COMMA_in_p_AttributeTest9416 = new BitSet(new long[]{0xFFFFFFFFFFFF0000L,0x7FDFFFFFFFFFFFFFL,0xFEFFFFF7FFFFFFFFL,0x000200000000000FL,0x0200000000000000L});
-    public static final BitSet FOLLOW_p_TypeName_in_p_AttributeTest9418 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000000L,0x0000000000000000L,0x0000000000000020L});
-    public static final BitSet FOLLOW_RPAREN_in_p_AttributeTest9424 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_p_QName_in_p_AttribNameOrWildcard9454 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_STAR_in_p_AttribNameOrWildcard9458 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_SCHEMA_ATTRIBUTE_in_p_SchemaAttributeTest9486 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000000L,0x0000000000000000L,0x0000000000000010L});
-    public static final BitSet FOLLOW_LPAREN_in_p_SchemaAttributeTest9488 = new BitSet(new long[]{0xFFFFFFFFFFFF0000L,0x7FDFFFFFFFFFFFFFL,0xFEFFFFF7FFFFFFFFL,0x000200000000000FL,0x0200000000000000L});
-    public static final BitSet FOLLOW_p_AttributeDeclaration_in_p_SchemaAttributeTest9490 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000000L,0x0000000000000000L,0x0000000000000020L});
-    public static final BitSet FOLLOW_RPAREN_in_p_SchemaAttributeTest9492 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_p_AttributeName_in_p_AttributeDeclaration9518 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ELEMENT_in_p_ElementTest9546 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000000L,0x0000000000000000L,0x0000000000000010L});
-    public static final BitSet FOLLOW_LPAREN_in_p_ElementTest9548 = new BitSet(new long[]{0xFFFFFFFFFFFF0000L,0x7FDFFFFFFFFFFFFFL,0xFEFFFFF7FFFFFFFFL,0x000200000002002FL,0x0200000000000000L});
-    public static final BitSet FOLLOW_p_ElementNameOrWildcard_in_p_ElementTest9551 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000000L,0x0000000000000000L,0x0000000000008020L});
-    public static final BitSet FOLLOW_COMMA_in_p_ElementTest9554 = new BitSet(new long[]{0xFFFFFFFFFFFF0000L,0x7FDFFFFFFFFFFFFFL,0xFEFFFFF7FFFFFFFFL,0x000200000000000FL,0x0200000000000000L});
-    public static final BitSet FOLLOW_p_TypeName_in_p_ElementTest9556 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000000L,0x0000000000000000L,0x0000000000010020L});
-    public static final BitSet FOLLOW_QUESTION_in_p_ElementTest9558 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000000L,0x0000000000000000L,0x0000000000000020L});
-    public static final BitSet FOLLOW_RPAREN_in_p_ElementTest9565 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_p_QName_in_p_ElementNameOrWildcard9593 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_STAR_in_p_ElementNameOrWildcard9597 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_SCHEMA_ELEMENT_in_p_SchemaElementTest9617 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000000L,0x0000000000000000L,0x0000000000000010L});
-    public static final BitSet FOLLOW_LPAREN_in_p_SchemaElementTest9619 = new BitSet(new long[]{0xFFFFFFFFFFFF0000L,0x7FDFFFFFFFFFFFFFL,0xFEFFFFF7FFFFFFFFL,0x000200000000000FL,0x0200000000000000L});
-    public static final BitSet FOLLOW_p_ElementDeclaration_in_p_SchemaElementTest9621 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000000L,0x0000000000000000L,0x0000000000000020L});
-    public static final BitSet FOLLOW_RPAREN_in_p_SchemaElementTest9623 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_p_ElementName_in_p_ElementDeclaration9649 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_p_QName_in_p_AttributeName9677 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_p_QName_in_p_ElementName9705 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_p_QName_in_p_TypeName9733 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_p_TryClause_in_p_TryCatchExpr9765 = new BitSet(new long[]{0x0000000000000000L,0x0001000000000000L});
-    public static final BitSet FOLLOW_p_CatchClause_in_p_TryCatchExpr9767 = new BitSet(new long[]{0x0000000000000002L,0x0001000000000000L});
-    public static final BitSet FOLLOW_TRY_in_p_TryClause9796 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000000L,0x0000000000000000L,0x0000000000000080L});
-    public static final BitSet FOLLOW_LBRACKET_in_p_TryClause9800 = new BitSet(new long[]{0xFFFFFFFFFFFF0000L,0x7FDFFFFFFFFFFFFFL,0xFEFFFFF7FFFFFFFFL,0x3F0264003C1E005FL,0x0200000000000000L});
-    public static final BitSet FOLLOW_pm_Expr_in_p_TryClause9802 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000000L,0x0000000000000000L,0x0000000000000100L});
-    public static final BitSet FOLLOW_RBRACKET_in_p_TryClause9804 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_CATCH_in_p_CatchClause9835 = new BitSet(new long[]{0xFFFFFFFFFFFF0000L,0x7FDFFFFFFFFFFFFFL,0xFEFFFFF7FFFFFFFFL,0x000204002002009FL,0x0200000000000000L});
-    public static final BitSet FOLLOW_p_CatchErrorList_in_p_CatchClause9839 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000000L,0x0000000000000000L,0x0000000000000090L});
-    public static final BitSet FOLLOW_p_CatchVars_in_p_CatchClause9841 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000000L,0x0000000000000000L,0x0000000000000080L});
-    public static final BitSet FOLLOW_LBRACKET_in_p_CatchClause9844 = new BitSet(new long[]{0xFFFFFFFFFFFF0000L,0x7FDFFFFFFFFFFFFFL,0xFEFFFFF7FFFFFFFFL,0x3F0264003C1E005FL,0x0200000000000000L});
-    public static final BitSet FOLLOW_pm_Expr_in_p_CatchClause9846 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000000L,0x0000000000000000L,0x0000000000000100L});
-    public static final BitSet FOLLOW_RBRACKET_in_p_CatchClause9848 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_p_NameTest_in_p_CatchErrorList9874 = new BitSet(new long[]{0x0000000000000002L,0x0000000000000000L,0x0000000000000000L,0x0000000800000000L});
-    public static final BitSet FOLLOW_VBAR_in_p_CatchErrorList9877 = new BitSet(new long[]{0xFFFFFFFFFFFF0000L,0x7FDFFFFFFFFFFFFFL,0xFEFFFFF7FFFFFFFFL,0x000204002002000FL,0x0200000000000000L});
-    public static final BitSet FOLLOW_p_NameTest_in_p_CatchErrorList9879 = new BitSet(new long[]{0x0000000000000002L,0x0000000000000000L,0x0000000000000000L,0x0000000800000000L});
-    public static final BitSet FOLLOW_LPAREN_in_p_CatchVars9925 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000000L,0x0000000000000000L,0x0000000000000040L});
-    public static final BitSet FOLLOW_DOLLAR_in_p_CatchVars9927 = new BitSet(new long[]{0xFFFFFFFFFFFF0000L,0x7FDFFFFFFFFFFFFFL,0xFEFFFFF7FFFFFFFFL,0x000200000000000FL,0x0200000000000000L});
-    public static final BitSet FOLLOW_p_VarName_in_p_CatchVars9929 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000000L,0x0000000000000000L,0x0000000000008020L});
-    public static final BitSet FOLLOW_COMMA_in_p_CatchVars9932 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000000L,0x0000000000000000L,0x0000000000000040L});
-    public static final BitSet FOLLOW_DOLLAR_in_p_CatchVars9934 = new BitSet(new long[]{0xFFFFFFFFFFFF0000L,0x7FDFFFFFFFFFFFFFL,0xFEFFFFF7FFFFFFFFL,0x000200000000000FL,0x0200000000000000L});
-    public static final BitSet FOLLOW_p_VarName_in_p_CatchVars9936 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000000L,0x0000000000000000L,0x0000000000008020L});
-    public static final BitSet FOLLOW_COMMA_in_p_CatchVars9939 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000000L,0x0000000000000000L,0x0000000000000040L});
-    public static final BitSet FOLLOW_DOLLAR_in_p_CatchVars9941 = new BitSet(new long[]{0xFFFFFFFFFFFF0000L,0x7FDFFFFFFFFFFFFFL,0xFEFFFFF7FFFFFFFFL,0x000200000000000FL,0x0200000000000000L});
-    public static final BitSet FOLLOW_p_VarName_in_p_CatchVars9943 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000000L,0x0000000000000000L,0x0000000000000020L});
-    public static final BitSet FOLLOW_RPAREN_in_p_CatchVars9949 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_QUOT_in_p_StringLiteral9998 = new BitSet(new long[]{0xFFFFFFFFFFFFFFF0L,0xFFFFFFFFFFFFFFFFL,0xFFFFFFFFFFFFFFFFL,0xFFFFFFFFFFFFBFFFL,0x03FFFFFFFFFFFFFFL});
-    public static final BitSet FOLLOW_p_QuotStringLiteralContent_in_p_StringLiteral10002 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000000L,0x0000000000000000L,0x0000400000000000L});
-    public static final BitSet FOLLOW_QUOT_in_p_StringLiteral10004 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_APOS_in_p_StringLiteral10045 = new BitSet(new long[]{0xFFFFFFFFFFFFFFF0L,0xFFFFFFFFFFFFFFFFL,0xFFFFFFFFFFFFFFFFL,0xFFFFFFFFFFFFBFFFL,0x03FFFFFFFFFFFFFFL});
-    public static final BitSet FOLLOW_p_AposStringLiteralContent_in_p_StringLiteral10049 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000000L,0x0000000000000000L,0x0000200000000000L});
-    public static final BitSet FOLLOW_APOS_in_p_StringLiteral10051 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_set_in_p_QuotStringLiteralContent10107 = new BitSet(new long[]{0xFFFFFFFFFFFFFFF2L,0xFFFFFFFFFFFFFFFFL,0xFFFFFFFFFFFFFFFFL,0xFFFFBFFFFFFFBFFFL,0x03FFFFFFFFFFFFFFL});
-    public static final BitSet FOLLOW_set_in_p_AposStringLiteralContent10159 = new BitSet(new long[]{0xFFFFFFFFFFFFFFF2L,0xFFFFFFFFFFFFFFFFL,0xFFFFFFFFFFFFFFFFL,0xFFFFDFFFFFFFBFFFL,0x03FFFFFFFFFFFFFFL});
-    public static final BitSet FOLLOW_p_NCName_in_p_QName10249 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000000L,0x0000000000000000L,0x0000000040000000L});
-    public static final BitSet FOLLOW_p_LocalNCName_in_p_QName10251 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_COLON_in_p_LocalNCName10306 = new BitSet(new long[]{0xFFFFFFFFFFFF0000L,0x7FDFFFFFFFFFFFFFL,0xFEFFFFF7FFFFFFFFL,0x000200000000000FL,0x0200000000000000L});
-    public static final BitSet FOLLOW_p_NCName_in_p_LocalNCName10308 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_p_FNCName_in_p_FQName10355 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000000L,0x0000000000000000L,0x0000000040000000L});
-    public static final BitSet FOLLOW_p_LocalFNCName_in_p_FQName10357 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_COLON_in_p_LocalFNCName10385 = new BitSet(new long[]{0xFFFFFFFFFFFF0000L,0x7FDFFFFFFFFFFFFFL,0xFEFFFFF7FFFFFFFFL,0x000200000000000FL,0x0200000000000000L});
-    public static final BitSet FOLLOW_p_NCName_in_p_LocalFNCName10387 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_p_KindTest_in_p_ItemType8862 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_BINARY_in_p_ItemType8902 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000000L,0x0000000000000000L,0x0000000000000010L});
+    public static final BitSet FOLLOW_LPAREN_in_p_ItemType8904 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000000L,0x0000000000000000L,0x0000000000000020L});
+    public static final BitSet FOLLOW_RPAREN_in_p_ItemType8906 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ITEM_in_p_ItemType8948 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000000L,0x0000000000000000L,0x0000000000000010L});
+    public static final BitSet FOLLOW_LPAREN_in_p_ItemType8950 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000000L,0x0000000000000000L,0x0000000000000020L});
+    public static final BitSet FOLLOW_RPAREN_in_p_ItemType8952 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_p_AtomicType_in_p_ItemType8993 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_p_QName_in_p_AtomicType9019 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_p_DocumentTest_in_p_KindTest9069 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_p_ElementTest_in_p_KindTest9081 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_p_AttributeTest_in_p_KindTest9093 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_p_SchemaElementTest_in_p_KindTest9105 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_p_SchemaAttributeTest_in_p_KindTest9117 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_p_NamespaceNodeTest_in_p_KindTest9129 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_p_PITest_in_p_KindTest9141 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_p_CommentTest_in_p_KindTest9153 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_p_TextTest_in_p_KindTest9165 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_p_AnyKindTest_in_p_KindTest9177 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_NODE_in_p_AnyKindTest9205 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000000L,0x0000000000000000L,0x0000000000000010L});
+    public static final BitSet FOLLOW_LPAREN_in_p_AnyKindTest9207 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000000L,0x0000000000000000L,0x0000000000000020L});
+    public static final BitSet FOLLOW_RPAREN_in_p_AnyKindTest9209 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_DOCUMENT_NODE_in_p_DocumentTest9237 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000000L,0x0000000000000000L,0x0000000000000010L});
+    public static final BitSet FOLLOW_LPAREN_in_p_DocumentTest9239 = new BitSet(new long[]{0x0000040000000000L,0x0000000040000000L,0x0000000000000000L,0x0000000000000020L});
+    public static final BitSet FOLLOW_p_ElementTest_in_p_DocumentTest9242 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000000L,0x0000000000000000L,0x0000000000000020L});
+    public static final BitSet FOLLOW_p_SchemaElementTest_in_p_DocumentTest9246 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000000L,0x0000000000000000L,0x0000000000000020L});
+    public static final BitSet FOLLOW_RPAREN_in_p_DocumentTest9250 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_TEXT_in_p_TextTest9270 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000000L,0x0000000000000000L,0x0000000000000010L});
+    public static final BitSet FOLLOW_LPAREN_in_p_TextTest9272 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000000L,0x0000000000000000L,0x0000000000000020L});
+    public static final BitSet FOLLOW_RPAREN_in_p_TextTest9274 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_COMMENT_in_p_CommentTest9302 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000000L,0x0000000000000000L,0x0000000000000010L});
+    public static final BitSet FOLLOW_LPAREN_in_p_CommentTest9304 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000000L,0x0000000000000000L,0x0000000000000020L});
+    public static final BitSet FOLLOW_RPAREN_in_p_CommentTest9306 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_NAMESPACE_NODE_in_p_NamespaceNodeTest9332 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000000L,0x0000000000000000L,0x0000000000000010L});
+    public static final BitSet FOLLOW_LPAREN_in_p_NamespaceNodeTest9334 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000000L,0x0000000000000000L,0x0000000000000020L});
+    public static final BitSet FOLLOW_RPAREN_in_p_NamespaceNodeTest9336 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_PROCESSING_INSTRUCTION_in_p_PITest9364 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000000L,0x0000000000000000L,0x0000000000000010L});
+    public static final BitSet FOLLOW_LPAREN_in_p_PITest9366 = new BitSet(new long[]{0xFFFFFFFFFFFF0000L,0x7FDFFFFFFFFFFFFFL,0xFEFFFFF7FFFFFFFFL,0x000260000000002FL,0x0200000000000000L});
+    public static final BitSet FOLLOW_p_NCName_in_p_PITest9369 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000000L,0x0000000000000000L,0x0000000000000020L});
+    public static final BitSet FOLLOW_p_StringLiteral_in_p_PITest9373 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000000L,0x0000000000000000L,0x0000000000000020L});
+    public static final BitSet FOLLOW_RPAREN_in_p_PITest9377 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ATTRIBUTE_in_p_AttributeTest9405 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000000L,0x0000000000000000L,0x0000000000000010L});
+    public static final BitSet FOLLOW_LPAREN_in_p_AttributeTest9407 = new BitSet(new long[]{0xFFFFFFFFFFFF0000L,0x7FDFFFFFFFFFFFFFL,0xFEFFFFF7FFFFFFFFL,0x000200000002002FL,0x0200000000000000L});
+    public static final BitSet FOLLOW_p_AttribNameOrWildcard_in_p_AttributeTest9410 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000000L,0x0000000000000000L,0x0000000000008020L});
+    public static final BitSet FOLLOW_COMMA_in_p_AttributeTest9413 = new BitSet(new long[]{0xFFFFFFFFFFFF0000L,0x7FDFFFFFFFFFFFFFL,0xFEFFFFF7FFFFFFFFL,0x000200000000000FL,0x0200000000000000L});
+    public static final BitSet FOLLOW_p_TypeName_in_p_AttributeTest9415 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000000L,0x0000000000000000L,0x0000000000000020L});
+    public static final BitSet FOLLOW_RPAREN_in_p_AttributeTest9421 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_p_QName_in_p_AttribNameOrWildcard9451 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_STAR_in_p_AttribNameOrWildcard9455 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_SCHEMA_ATTRIBUTE_in_p_SchemaAttributeTest9483 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000000L,0x0000000000000000L,0x0000000000000010L});
+    public static final BitSet FOLLOW_LPAREN_in_p_SchemaAttributeTest9485 = new BitSet(new long[]{0xFFFFFFFFFFFF0000L,0x7FDFFFFFFFFFFFFFL,0xFEFFFFF7FFFFFFFFL,0x000200000000000FL,0x0200000000000000L});
+    public static final BitSet FOLLOW_p_AttributeDeclaration_in_p_SchemaAttributeTest9487 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000000L,0x0000000000000000L,0x0000000000000020L});
+    public static final BitSet FOLLOW_RPAREN_in_p_SchemaAttributeTest9489 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_p_AttributeName_in_p_AttributeDeclaration9515 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ELEMENT_in_p_ElementTest9543 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000000L,0x0000000000000000L,0x0000000000000010L});
+    public static final BitSet FOLLOW_LPAREN_in_p_ElementTest9545 = new BitSet(new long[]{0xFFFFFFFFFFFF0000L,0x7FDFFFFFFFFFFFFFL,0xFEFFFFF7FFFFFFFFL,0x000200000002002FL,0x0200000000000000L});
+    public static final BitSet FOLLOW_p_ElementNameOrWildcard_in_p_ElementTest9548 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000000L,0x0000000000000000L,0x0000000000008020L});
+    public static final BitSet FOLLOW_COMMA_in_p_ElementTest9551 = new BitSet(new long[]{0xFFFFFFFFFFFF0000L,0x7FDFFFFFFFFFFFFFL,0xFEFFFFF7FFFFFFFFL,0x000200000000000FL,0x0200000000000000L});
+    public static final BitSet FOLLOW_p_TypeName_in_p_ElementTest9553 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000000L,0x0000000000000000L,0x0000000000010020L});
+    public static final BitSet FOLLOW_QUESTION_in_p_ElementTest9555 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000000L,0x0000000000000000L,0x0000000000000020L});
+    public static final BitSet FOLLOW_RPAREN_in_p_ElementTest9562 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_p_QName_in_p_ElementNameOrWildcard9590 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_STAR_in_p_ElementNameOrWildcard9594 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_SCHEMA_ELEMENT_in_p_SchemaElementTest9614 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000000L,0x0000000000000000L,0x0000000000000010L});
+    public static final BitSet FOLLOW_LPAREN_in_p_SchemaElementTest9616 = new BitSet(new long[]{0xFFFFFFFFFFFF0000L,0x7FDFFFFFFFFFFFFFL,0xFEFFFFF7FFFFFFFFL,0x000200000000000FL,0x0200000000000000L});
+    public static final BitSet FOLLOW_p_ElementDeclaration_in_p_SchemaElementTest9618 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000000L,0x0000000000000000L,0x0000000000000020L});
+    public static final BitSet FOLLOW_RPAREN_in_p_SchemaElementTest9620 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_p_ElementName_in_p_ElementDeclaration9646 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_p_QName_in_p_AttributeName9674 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_p_QName_in_p_ElementName9702 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_p_QName_in_p_TypeName9730 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_p_TryClause_in_p_TryCatchExpr9762 = new BitSet(new long[]{0x0000000000000000L,0x0001000000000000L});
+    public static final BitSet FOLLOW_p_CatchClause_in_p_TryCatchExpr9764 = new BitSet(new long[]{0x0000000000000002L,0x0001000000000000L});
+    public static final BitSet FOLLOW_TRY_in_p_TryClause9793 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000000L,0x0000000000000000L,0x0000000000000080L});
+    public static final BitSet FOLLOW_LBRACKET_in_p_TryClause9797 = new BitSet(new long[]{0xFFFFFFFFFFFF0000L,0x7FDFFFFFFFFFFFFFL,0xFEFFFFF7FFFFFFFFL,0x3F0264003C1E005FL,0x0200000000000000L});
+    public static final BitSet FOLLOW_pm_Expr_in_p_TryClause9799 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000000L,0x0000000000000000L,0x0000000000000100L});
+    public static final BitSet FOLLOW_RBRACKET_in_p_TryClause9801 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_CATCH_in_p_CatchClause9832 = new BitSet(new long[]{0xFFFFFFFFFFFF0000L,0x7FDFFFFFFFFFFFFFL,0xFEFFFFF7FFFFFFFFL,0x000204002002009FL,0x0200000000000000L});
+    public static final BitSet FOLLOW_p_CatchErrorList_in_p_CatchClause9836 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000000L,0x0000000000000000L,0x0000000000000090L});
+    public static final BitSet FOLLOW_p_CatchVars_in_p_CatchClause9838 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000000L,0x0000000000000000L,0x0000000000000080L});
+    public static final BitSet FOLLOW_LBRACKET_in_p_CatchClause9841 = new BitSet(new long[]{0xFFFFFFFFFFFF0000L,0x7FDFFFFFFFFFFFFFL,0xFEFFFFF7FFFFFFFFL,0x3F0264003C1E005FL,0x0200000000000000L});
+    public static final BitSet FOLLOW_pm_Expr_in_p_CatchClause9843 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000000L,0x0000000000000000L,0x0000000000000100L});
+    public static final BitSet FOLLOW_RBRACKET_in_p_CatchClause9845 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_p_NameTest_in_p_CatchErrorList9871 = new BitSet(new long[]{0x0000000000000002L,0x0000000000000000L,0x0000000000000000L,0x0000000800000000L});
+    public static final BitSet FOLLOW_VBAR_in_p_CatchErrorList9874 = new BitSet(new long[]{0xFFFFFFFFFFFF0000L,0x7FDFFFFFFFFFFFFFL,0xFEFFFFF7FFFFFFFFL,0x000204002002000FL,0x0200000000000000L});
+    public static final BitSet FOLLOW_p_NameTest_in_p_CatchErrorList9876 = new BitSet(new long[]{0x0000000000000002L,0x0000000000000000L,0x0000000000000000L,0x0000000800000000L});
+    public static final BitSet FOLLOW_LPAREN_in_p_CatchVars9922 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000000L,0x0000000000000000L,0x0000000000000040L});
+    public static final BitSet FOLLOW_DOLLAR_in_p_CatchVars9924 = new BitSet(new long[]{0xFFFFFFFFFFFF0000L,0x7FDFFFFFFFFFFFFFL,0xFEFFFFF7FFFFFFFFL,0x000200000000000FL,0x0200000000000000L});
+    public static final BitSet FOLLOW_p_VarName_in_p_CatchVars9926 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000000L,0x0000000000000000L,0x0000000000008020L});
+    public static final BitSet FOLLOW_COMMA_in_p_CatchVars9929 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000000L,0x0000000000000000L,0x0000000000000040L});
+    public static final BitSet FOLLOW_DOLLAR_in_p_CatchVars9931 = new BitSet(new long[]{0xFFFFFFFFFFFF0000L,0x7FDFFFFFFFFFFFFFL,0xFEFFFFF7FFFFFFFFL,0x000200000000000FL,0x0200000000000000L});
+    public static final BitSet FOLLOW_p_VarName_in_p_CatchVars9933 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000000L,0x0000000000000000L,0x0000000000008020L});
+    public static final BitSet FOLLOW_COMMA_in_p_CatchVars9936 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000000L,0x0000000000000000L,0x0000000000000040L});
+    public static final BitSet FOLLOW_DOLLAR_in_p_CatchVars9938 = new BitSet(new long[]{0xFFFFFFFFFFFF0000L,0x7FDFFFFFFFFFFFFFL,0xFEFFFFF7FFFFFFFFL,0x000200000000000FL,0x0200000000000000L});
+    public static final BitSet FOLLOW_p_VarName_in_p_CatchVars9940 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000000L,0x0000000000000000L,0x0000000000000020L});
+    public static final BitSet FOLLOW_RPAREN_in_p_CatchVars9946 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_QUOT_in_p_StringLiteral9995 = new BitSet(new long[]{0xFFFFFFFFFFFFFFF0L,0xFFFFFFFFFFFFFFFFL,0xFFFFFFFFFFFFFFFFL,0xFFFFFFFFFFFFBFFFL,0x03FFFFFFFFFFFFFFL});
+    public static final BitSet FOLLOW_p_QuotStringLiteralContent_in_p_StringLiteral9999 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000000L,0x0000000000000000L,0x0000400000000000L});
+    public static final BitSet FOLLOW_QUOT_in_p_StringLiteral10001 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_APOS_in_p_StringLiteral10042 = new BitSet(new long[]{0xFFFFFFFFFFFFFFF0L,0xFFFFFFFFFFFFFFFFL,0xFFFFFFFFFFFFFFFFL,0xFFFFFFFFFFFFBFFFL,0x03FFFFFFFFFFFFFFL});
+    public static final BitSet FOLLOW_p_AposStringLiteralContent_in_p_StringLiteral10046 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000000L,0x0000000000000000L,0x0000200000000000L});
+    public static final BitSet FOLLOW_APOS_in_p_StringLiteral10048 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_set_in_p_QuotStringLiteralContent10104 = new BitSet(new long[]{0xFFFFFFFFFFFFFFF2L,0xFFFFFFFFFFFFFFFFL,0xFFFFFFFFFFFFFFFFL,0xFFFFBFFFFFFFBFFFL,0x03FFFFFFFFFFFFFFL});
+    public static final BitSet FOLLOW_set_in_p_AposStringLiteralContent10156 = new BitSet(new long[]{0xFFFFFFFFFFFFFFF2L,0xFFFFFFFFFFFFFFFFL,0xFFFFFFFFFFFFFFFFL,0xFFFFDFFFFFFFBFFFL,0x03FFFFFFFFFFFFFFL});
+    public static final BitSet FOLLOW_p_NCName_in_p_QName10246 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000000L,0x0000000000000000L,0x0000000040000000L});
+    public static final BitSet FOLLOW_p_LocalNCName_in_p_QName10248 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_COLON_in_p_LocalNCName10303 = new BitSet(new long[]{0xFFFFFFFFFFFF0000L,0x7FDFFFFFFFFFFFFFL,0xFEFFFFF7FFFFFFFFL,0x000200000000000FL,0x0200000000000000L});
+    public static final BitSet FOLLOW_p_NCName_in_p_LocalNCName10305 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_p_FNCName_in_p_FQName10352 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000000L,0x0000000000000000L,0x0000000040000000L});
+    public static final BitSet FOLLOW_p_LocalFNCName_in_p_FQName10354 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_COLON_in_p_LocalFNCName10382 = new BitSet(new long[]{0xFFFFFFFFFFFF0000L,0x7FDFFFFFFFFFFFFFL,0xFEFFFFF7FFFFFFFFL,0x000200000000000FL,0x0200000000000000L});
+    public static final BitSet FOLLOW_p_NCName_in_p_LocalFNCName10384 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_set_in_p_NCName0 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_set_in_p_FNCName0 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_DECLARE_in_pm_RevalidationDecl12123 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000000L,0x0000000008000000L});
-    public static final BitSet FOLLOW_REVALIDATION_in_pm_RevalidationDecl12127 = new BitSet(new long[]{0x0000000000000000L,0x0000000400000008L,0x0000000010000000L});
-    public static final BitSet FOLLOW_STRICT_in_pm_RevalidationDecl12132 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_LAX_in_pm_RevalidationDecl12138 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_SKIP_in_pm_RevalidationDecl12144 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_AS_in_p_InsertExprTargetChoice12177 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000000L,0x0000000000480000L});
-    public static final BitSet FOLLOW_FIRST_in_p_InsertExprTargetChoice12182 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000000L,0x0000000000200000L});
-    public static final BitSet FOLLOW_LAST_in_p_InsertExprTargetChoice12188 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000000L,0x0000000000200000L});
-    public static final BitSet FOLLOW_INTO_in_p_InsertExprTargetChoice12195 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_AFTER_in_p_InsertExprTargetChoice12212 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_BEFORE_in_p_InsertExprTargetChoice12228 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_INSERT_in_p_InsertExpr12258 = new BitSet(new long[]{0x0000000000000000L,0x0000000000004000L,0x0000000001000000L});
-    public static final BitSet FOLLOW_NODE_in_p_InsertExpr12263 = new BitSet(new long[]{0xFFFFFFFFFFFF0000L,0x7FDFFFFFFFFFFFFFL,0xFEFFFFF7FFFFFFFFL,0x3F0264003C1E005FL,0x0200000000000000L});
-    public static final BitSet FOLLOW_NODES_in_p_InsertExpr12269 = new BitSet(new long[]{0xFFFFFFFFFFFF0000L,0x7FDFFFFFFFFFFFFFL,0xFEFFFFF7FFFFFFFFL,0x3F0264003C1E005FL,0x0200000000000000L});
-    public static final BitSet FOLLOW_p_SourceExpr_in_p_InsertExpr12272 = new BitSet(new long[]{0x0000000000080000L,0x0000000000000000L,0x0000000000218000L});
-    public static final BitSet FOLLOW_p_InsertExprTargetChoice_in_p_InsertExpr12274 = new BitSet(new long[]{0xFFFFFFFFFFFF0000L,0x7FDFFFFFFFFFFFFFL,0xFEFFFFF7FFFFFFFFL,0x3F0264003C1E005FL,0x0200000000000000L});
-    public static final BitSet FOLLOW_p_TargetExpr_in_p_InsertExpr12276 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_DELETE_in_p_DeleteExpr12306 = new BitSet(new long[]{0x0000000000000000L,0x0000000000004000L,0x0000000001000000L});
-    public static final BitSet FOLLOW_NODE_in_p_DeleteExpr12311 = new BitSet(new long[]{0xFFFFFFFFFFFF0000L,0x7FDFFFFFFFFFFFFFL,0xFEFFFFF7FFFFFFFFL,0x3F0264003C1E005FL,0x0200000000000000L});
-    public static final BitSet FOLLOW_NODES_in_p_DeleteExpr12317 = new BitSet(new long[]{0xFFFFFFFFFFFF0000L,0x7FDFFFFFFFFFFFFFL,0xFEFFFFF7FFFFFFFFL,0x3F0264003C1E005FL,0x0200000000000000L});
-    public static final BitSet FOLLOW_p_TargetExpr_in_p_DeleteExpr12320 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_REPLACE_in_p_ReplaceExpr12350 = new BitSet(new long[]{0x0000000000000000L,0x0000000000004000L,0x0000000040000000L});
-    public static final BitSet FOLLOW_VALUE_in_p_ReplaceExpr12355 = new BitSet(new long[]{0x0000000000000000L,0x0000000000008000L});
-    public static final BitSet FOLLOW_OF_in_p_ReplaceExpr12359 = new BitSet(new long[]{0x0000000000000000L,0x0000000000004000L});
-    public static final BitSet FOLLOW_NODE_in_p_ReplaceExpr12365 = new BitSet(new long[]{0xFFFFFFFFFFFF0000L,0x7FDFFFFFFFFFFFFFL,0xFEFFFFF7FFFFFFFFL,0x3F0264003C1E005FL,0x0200000000000000L});
-    public static final BitSet FOLLOW_p_ExprSingle_in_p_ReplaceExpr12367 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000000L,0x0000000080000000L});
-    public static final BitSet FOLLOW_WITH_in_p_ReplaceExpr12371 = new BitSet(new long[]{0xFFFFFFFFFFFF0000L,0x7FDFFFFFFFFFFFFFL,0xFEFFFFF7FFFFFFFFL,0x3F0264003C1E005FL,0x0200000000000000L});
-    public static final BitSet FOLLOW_p_ExprSingle_in_p_ReplaceExpr12373 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_RENAME_in_p_RenameExpr12403 = new BitSet(new long[]{0x0000000000000000L,0x0000000000004000L});
-    public static final BitSet FOLLOW_NODE_in_p_RenameExpr12407 = new BitSet(new long[]{0xFFFFFFFFFFFF0000L,0x7FDFFFFFFFFFFFFFL,0xFEFFFFF7FFFFFFFFL,0x3F0264003C1E005FL,0x0200000000000000L});
-    public static final BitSet FOLLOW_p_TargetExpr_in_p_RenameExpr12409 = new BitSet(new long[]{0x0000000000080000L});
-    public static final BitSet FOLLOW_AS_in_p_RenameExpr12411 = new BitSet(new long[]{0xFFFFFFFFFFFF0000L,0x7FDFFFFFFFFFFFFFL,0xFEFFFFF7FFFFFFFFL,0x3F0264003C1E005FL,0x0200000000000000L});
-    public static final BitSet FOLLOW_p_NewNameExpr_in_p_RenameExpr12413 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_p_ExprSingle_in_p_SourceExpr12441 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_p_ExprSingle_in_p_TargetExpr12467 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_p_ExprSingle_in_p_NewNameExpr12493 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_COPY_in_p_TransformExpr12521 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000000L,0x0000000000000000L,0x0000000000000040L});
-    public static final BitSet FOLLOW_DOLLAR_in_p_TransformExpr12523 = new BitSet(new long[]{0xFFFFFFFFFFFF0000L,0x7FDFFFFFFFFFFFFFL,0xFEFFFFF7FFFFFFFFL,0x000200000000000FL,0x0200000000000000L});
-    public static final BitSet FOLLOW_p_VarName_in_p_TransformExpr12525 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000000L,0x0000000000000000L,0x0000000000001000L});
-    public static final BitSet FOLLOW_BIND_in_p_TransformExpr12527 = new BitSet(new long[]{0xFFFFFFFFFFFF0000L,0x7FDFFFFFFFFFFFFFL,0xFEFFFFF7FFFFFFFFL,0x3F0264003C1E005FL,0x0200000000000000L});
-    public static final BitSet FOLLOW_p_ExprSingle_in_p_TransformExpr12529 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000000L,0x0000000000800000L,0x0000000000008000L});
-    public static final BitSet FOLLOW_COMMA_in_p_TransformExpr12532 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000000L,0x0000000000000000L,0x0000000000000040L});
-    public static final BitSet FOLLOW_DOLLAR_in_p_TransformExpr12534 = new BitSet(new long[]{0xFFFFFFFFFFFF0000L,0x7FDFFFFFFFFFFFFFL,0xFEFFFFF7FFFFFFFFL,0x000200000000000FL,0x0200000000000000L});
-    public static final BitSet FOLLOW_p_VarName_in_p_TransformExpr12536 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000000L,0x0000000000000000L,0x0000000000001000L});
-    public static final BitSet FOLLOW_BIND_in_p_TransformExpr12538 = new BitSet(new long[]{0xFFFFFFFFFFFF0000L,0x7FDFFFFFFFFFFFFFL,0xFEFFFFF7FFFFFFFFL,0x3F0264003C1E005FL,0x0200000000000000L});
-    public static final BitSet FOLLOW_p_ExprSingle_in_p_TransformExpr12540 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000000L,0x0000000000800000L,0x0000000000008000L});
-    public static final BitSet FOLLOW_MODIFY_in_p_TransformExpr12546 = new BitSet(new long[]{0xFFFFFFFFFFFF0000L,0x7FDFFFFFFFFFFFFFL,0xFEFFFFF7FFFFFFFFL,0x3F0264003C1E005FL,0x0200000000000000L});
-    public static final BitSet FOLLOW_p_ExprSingle_in_p_TransformExpr12548 = new BitSet(new long[]{0x0000000000000000L,0x0000000004000000L});
-    public static final BitSet FOLLOW_RETURN_in_p_TransformExpr12552 = new BitSet(new long[]{0xFFFFFFFFFFFF0000L,0x7FDFFFFFFFFFFFFFL,0xFEFFFFF7FFFFFFFFL,0x3F0264003C1E005FL,0x0200000000000000L});
-    public static final BitSet FOLLOW_p_ExprSingle_in_p_TransformExpr12554 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_p_ConcatExpr_in_pm_ApplyExpr12589 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000000L,0x0000000000000000L,0x0000000400000000L});
-    public static final BitSet FOLLOW_SEMICOLON_in_pm_ApplyExpr12591 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_p_ExprSingle_in_p_ConcatExpr12617 = new BitSet(new long[]{0x0000000000000002L,0x0000000000000000L,0x0000000000000000L,0x0000000000008000L});
-    public static final BitSet FOLLOW_COMMA_in_p_ConcatExpr12620 = new BitSet(new long[]{0xFFFFFFFFFFFF0000L,0x7FDFFFFFFFFFFFFFL,0xFEFFFFF7FFFFFFFFL,0x3F0264003C1E005FL,0x0200000000000000L});
-    public static final BitSet FOLLOW_p_ExprSingle_in_p_ConcatExpr12622 = new BitSet(new long[]{0x0000000000000002L,0x0000000000000000L,0x0000000000000000L,0x0000000000008000L});
-    public static final BitSet FOLLOW_BLOCK_in_p_BlockExpr12652 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000000L,0x0000000000000000L,0x0000000000000080L});
-    public static final BitSet FOLLOW_p_Block_in_p_BlockExpr12656 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_LBRACKET_in_p_Block12682 = new BitSet(new long[]{0xFFFFFFFFFFFF0000L,0x7FDFFFFFFFFFFFFFL,0xFEFFFFF7FFFFFFFFL,0x3F0264003C1E005FL,0x0200000000000000L});
-    public static final BitSet FOLLOW_pm_BlockDecls_in_p_Block12686 = new BitSet(new long[]{0xFFFFFFFFFFFF0000L,0x7FDFFFFFFFFFFFFFL,0xFEFFFFF7FFFFFFFFL,0x3F0264003C1E005FL,0x0200000000000000L});
-    public static final BitSet FOLLOW_p_BlockBody_in_p_Block12690 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000000L,0x0000000000000000L,0x0000000000000100L});
-    public static final BitSet FOLLOW_RBRACKET_in_p_Block12692 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_pm_BlockVarDecl_in_pm_BlockDecls12748 = new BitSet(new long[]{0x0000000400000002L});
-    public static final BitSet FOLLOW_DECLARE_in_pm_BlockVarDecl12803 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000000L,0x0000000000000000L,0x0000000000000040L});
-    public static final BitSet FOLLOW_DOLLAR_in_pm_BlockVarDecl12807 = new BitSet(new long[]{0xFFFFFFFFFFFF0000L,0x7FDFFFFFFFFFFFFFL,0xFEFFFFF7FFFFFFFFL,0x000200000000000FL,0x0200000000000000L});
-    public static final BitSet FOLLOW_p_VarName_in_pm_BlockVarDecl12811 = new BitSet(new long[]{0x0000000000080000L,0x0000000000000000L,0x0000000000000000L,0x0000000400009000L});
-    public static final BitSet FOLLOW_p_TypeDeclaration_in_pm_BlockVarDecl12815 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000000L,0x0000000000000000L,0x0000000400009000L});
-    public static final BitSet FOLLOW_BIND_in_pm_BlockVarDecl12819 = new BitSet(new long[]{0xFFFFFFFFFFFF0000L,0x7FDFFFFFFFFFFFFFL,0xFEFFFFF7FFFFFFFFL,0x3F0264003C1E005FL,0x0200000000000000L});
-    public static final BitSet FOLLOW_p_ExprSingle_in_pm_BlockVarDecl12823 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000000L,0x0000000000000000L,0x0000000400008000L});
-    public static final BitSet FOLLOW_COMMA_in_pm_BlockVarDecl12828 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000000L,0x0000000000000000L,0x0000000000000040L});
-    public static final BitSet FOLLOW_DOLLAR_in_pm_BlockVarDecl12830 = new BitSet(new long[]{0xFFFFFFFFFFFF0000L,0x7FDFFFFFFFFFFFFFL,0xFEFFFFF7FFFFFFFFL,0x000200000000000FL,0x0200000000000000L});
-    public static final BitSet FOLLOW_p_VarName_in_pm_BlockVarDecl12832 = new BitSet(new long[]{0x0000000000080000L,0x0000000000000000L,0x0000000000000000L,0x0000000400009000L});
-    public static final BitSet FOLLOW_p_TypeDeclaration_in_pm_BlockVarDecl12834 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000000L,0x0000000000000000L,0x0000000400009000L});
-    public static final BitSet FOLLOW_BIND_in_pm_BlockVarDecl12838 = new BitSet(new long[]{0xFFFFFFFFFFFF0000L,0x7FDFFFFFFFFFFFFFL,0xFEFFFFF7FFFFFFFFL,0x3F0264003C1E005FL,0x0200000000000000L});
-    public static final BitSet FOLLOW_p_ExprSingle_in_pm_BlockVarDecl12840 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000000L,0x0000000000000000L,0x0000000400008000L});
-    public static final BitSet FOLLOW_SEMICOLON_in_pm_BlockVarDecl12846 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_pm_Expr_in_p_BlockBody12906 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_SET_in_p_AssignmentExpr12934 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000000L,0x0000000000000000L,0x0000000000000040L});
-    public static final BitSet FOLLOW_DOLLAR_in_p_AssignmentExpr12938 = new BitSet(new long[]{0xFFFFFFFFFFFF0000L,0x7FDFFFFFFFFFFFFFL,0xFEFFFFF7FFFFFFFFL,0x000200000000000FL,0x0200000000000000L});
-    public static final BitSet FOLLOW_p_VarName_in_p_AssignmentExpr12940 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000000L,0x0000000000000000L,0x0000000000001000L});
-    public static final BitSet FOLLOW_BIND_in_p_AssignmentExpr12942 = new BitSet(new long[]{0xFFFFFFFFFFFF0000L,0x7FDFFFFFFFFFFFFFL,0xFEFFFFF7FFFFFFFFL,0x3F0264003C1E005FL,0x0200000000000000L});
-    public static final BitSet FOLLOW_p_ExprSingle_in_p_AssignmentExpr12944 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_EXIT_in_p_ExitExpr12972 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000000L,0x0000000800000000L});
-    public static final BitSet FOLLOW_RETURNING_in_p_ExitExpr12978 = new BitSet(new long[]{0xFFFFFFFFFFFF0000L,0x7FDFFFFFFFFFFFFFL,0xFEFFFFF7FFFFFFFFL,0x3F0264003C1E005FL,0x0200000000000000L});
-    public static final BitSet FOLLOW_p_ExprSingle_in_p_ExitExpr12982 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_WHILE_in_p_WhileExpr13010 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000000L,0x0000000000000000L,0x0000000000000010L});
-    public static final BitSet FOLLOW_LPAREN_in_p_WhileExpr13014 = new BitSet(new long[]{0xFFFFFFFFFFFF0000L,0x7FDFFFFFFFFFFFFFL,0xFEFFFFF7FFFFFFFFL,0x3F0264003C1E005FL,0x0200000000000000L});
-    public static final BitSet FOLLOW_p_ExprSingle_in_p_WhileExpr13016 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000000L,0x0000000000000000L,0x0000000000000020L});
-    public static final BitSet FOLLOW_RPAREN_in_p_WhileExpr13018 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000000L,0x0000000000000000L,0x0000000000000080L});
-    public static final BitSet FOLLOW_p_WhileBody_in_p_WhileExpr13020 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_p_Block_in_p_WhileBody13046 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_p_UsingClause_in_p_EvalExpr13076 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000000L,0x0000010000000000L});
-    public static final BitSet FOLLOW_EVAL_in_p_EvalExpr13081 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000000L,0x0000000000000000L,0x0000000000000080L});
-    public static final BitSet FOLLOW_LBRACKET_in_p_EvalExpr13085 = new BitSet(new long[]{0xFFFFFFFFFFFF0000L,0x7FDFFFFFFFFFFFFFL,0xFEFFFFF7FFFFFFFFL,0x3F0264003C1E005FL,0x0200000000000000L});
-    public static final BitSet FOLLOW_p_ExprSingle_in_p_EvalExpr13087 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000000L,0x0000000000000000L,0x0000000000000100L});
-    public static final BitSet FOLLOW_RBRACKET_in_p_EvalExpr13089 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_USING_in_p_UsingClause13116 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000000L,0x0000000000000000L,0x0000000000000040L});
-    public static final BitSet FOLLOW_DOLLAR_in_p_UsingClause13120 = new BitSet(new long[]{0xFFFFFFFFFFFF0000L,0x7FDFFFFFFFFFFFFFL,0xFEFFFFF7FFFFFFFFL,0x000200000000000FL,0x0200000000000000L});
-    public static final BitSet FOLLOW_p_VarName_in_p_UsingClause13122 = new BitSet(new long[]{0x0000000000000002L,0x0000000000000000L,0x0000000000000000L,0x0000000000008000L});
-    public static final BitSet FOLLOW_COMMA_in_p_UsingClause13125 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000000L,0x0000000000000000L,0x0000000000000040L});
-    public static final BitSet FOLLOW_DOLLAR_in_p_UsingClause13127 = new BitSet(new long[]{0xFFFFFFFFFFFF0000L,0x7FDFFFFFFFFFFFFFL,0xFEFFFFF7FFFFFFFFL,0x000200000000000FL,0x0200000000000000L});
-    public static final BitSet FOLLOW_p_VarName_in_p_UsingClause13129 = new BitSet(new long[]{0x0000000000000002L,0x0000000000000000L,0x0000000000000000L,0x0000000000008000L});
-    public static final BitSet FOLLOW_DECLARE_in_p_CollectionDecl13164 = new BitSet(new long[]{0x0000000000000000L,0x0000040000080000L,0x1200A40000000000L});
-    public static final BitSet FOLLOW_p_CollProperties_in_p_CollectionDecl13166 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000000L,0x0000200000000000L});
-    public static final BitSet FOLLOW_COLLECTION_in_p_CollectionDecl13170 = new BitSet(new long[]{0xFFFFFFFFFFFF0000L,0x7FDFFFFFFFFFFFFFL,0xFEFFFFF7FFFFFFFFL,0x000200000000000FL,0x0200000000000000L});
-    public static final BitSet FOLLOW_p_QName_in_p_CollectionDecl13172 = new BitSet(new long[]{0x0000000000080000L,0x0000000000000000L,0x0000000080000000L,0x0000000400000000L});
-    public static final BitSet FOLLOW_p_CollectionTypeDecl_in_p_CollectionDecl13174 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000000L,0x0000000080000000L,0x0000000400000000L});
-    public static final BitSet FOLLOW_WITH_in_p_CollectionDecl13180 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000000L,0x4200000000000000L});
-    public static final BitSet FOLLOW_p_NodeModifier_in_p_CollectionDecl13182 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000000L,0x0000000001000000L});
-    public static final BitSet FOLLOW_NODES_in_p_CollectionDecl13186 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000000L,0x0000000000000000L,0x0000000400000000L});
-    public static final BitSet FOLLOW_SEMICOLON_in_p_CollectionDecl13190 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_CONST_in_p_CollProperties13221 = new BitSet(new long[]{0x0000000000000002L,0x0000040000080000L,0x1200840000000000L});
-    public static final BitSet FOLLOW_MUTABLE_in_p_CollProperties13227 = new BitSet(new long[]{0x0000000000000002L,0x0000040000080000L,0x1200840000000000L});
-    public static final BitSet FOLLOW_APPEND_ONLY_in_p_CollProperties13241 = new BitSet(new long[]{0x0000000000000002L,0x0000040000080000L,0x1200840000000000L});
-    public static final BitSet FOLLOW_QUEUE_in_p_CollProperties13247 = new BitSet(new long[]{0x0000000000000002L,0x0000040000080000L,0x1200840000000000L});
-    public static final BitSet FOLLOW_ORDERED_in_p_CollProperties13261 = new BitSet(new long[]{0x0000000000000002L,0x0000040000080000L,0x1200840000000000L});
-    public static final BitSet FOLLOW_UNORDERED_in_p_CollProperties13267 = new BitSet(new long[]{0x0000000000000002L,0x0000040000080000L,0x1200840000000000L});
-    public static final BitSet FOLLOW_AS_in_p_CollectionTypeDecl13300 = new BitSet(new long[]{0x0000060080400000L,0x1000001062004000L});
-    public static final BitSet FOLLOW_p_KindTest_in_p_CollectionTypeDecl13304 = new BitSet(new long[]{0x0000000000000002L,0x0000000000000000L,0x0000000000000000L,0x0000000000070000L});
-    public static final BitSet FOLLOW_p_OccurrenceIndicator_in_p_CollectionTypeDecl13313 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_READ_ONLY_in_p_NodeModifier13344 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_MUTABLE_in_p_NodeModifier13350 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_DECLARE_in_p_IndexDecl13380 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000000L,0x8510080040000000L});
-    public static final BitSet FOLLOW_p_IndexProperties_in_p_IndexDecl13382 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000000L,0x0010000000000000L});
-    public static final BitSet FOLLOW_INDEX_in_p_IndexDecl13386 = new BitSet(new long[]{0xFFFFFFFFFFFF0000L,0x7FDFFFFFFFFFFFFFL,0xFEFFFFF7FFFFFFFFL,0x000200000000000FL,0x0200000000000000L});
-    public static final BitSet FOLLOW_p_IndexName_in_p_IndexDecl13388 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000000L,0x0800000000000000L});
-    public static final BitSet FOLLOW_ON_in_p_IndexDecl13392 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000000L,0x0000000001000000L});
-    public static final BitSet FOLLOW_NODES_in_p_IndexDecl13396 = new BitSet(new long[]{0xFFFFFFFFFFFF0000L,0x7FDFFFFFFFFFFFFFL,0xFEFFFFF7FFFFFFFFL,0x3E0264003C12005FL,0x0200000000000000L});
-    public static final BitSet FOLLOW_p_IndexDomainExpr_in_p_IndexDecl13398 = new BitSet(new long[]{0x0000000002000000L});
-    public static final BitSet FOLLOW_BY_in_p_IndexDecl13402 = new BitSet(new long[]{0xFFFFFFFFFFFF0000L,0x7FDFFFFFFFFFFFFFL,0xFEFFFFF7FFFFFFFFL,0x3E0264003C12005FL,0x0200000000000000L});
-    public static final BitSet FOLLOW_p_IndexKeySpec_in_p_IndexDecl13404 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000000L,0x0000000000000000L,0x0000000400008000L});
-    public static final BitSet FOLLOW_COMMA_in_p_IndexDecl13407 = new BitSet(new long[]{0xFFFFFFFFFFFF0000L,0x7FDFFFFFFFFFFFFFL,0xFEFFFFF7FFFFFFFFL,0x3E0264003C12005FL,0x0200000000000000L});
-    public static final BitSet FOLLOW_p_IndexKeySpec_in_p_IndexDecl13409 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000000L,0x0000000000000000L,0x0000000400008000L});
-    public static final BitSet FOLLOW_SEMICOLON_in_p_IndexDecl13413 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_p_QName_in_p_IndexName13440 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_UNIQUE_in_p_IndexProperties13469 = new BitSet(new long[]{0x0000000000000002L,0x0000000000000000L,0x8500080040000000L});
-    public static final BitSet FOLLOW_NON_in_p_IndexProperties13475 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000000L,0x8000000000000000L});
-    public static final BitSet FOLLOW_UNIQUE_in_p_IndexProperties13479 = new BitSet(new long[]{0x0000000000000002L,0x0000000000000000L,0x8500080040000000L});
-    public static final BitSet FOLLOW_VALUE_in_p_IndexProperties13493 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000000L,0x2000000000000000L});
-    public static final BitSet FOLLOW_RANGE_in_p_IndexProperties13497 = new BitSet(new long[]{0x0000000000000002L,0x0000000000000000L,0x8500080040000000L});
-    public static final BitSet FOLLOW_VALUE_in_p_IndexProperties13503 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000000L,0x0001000000000000L});
-    public static final BitSet FOLLOW_EQUALITY_in_p_IndexProperties13507 = new BitSet(new long[]{0x0000000000000002L,0x0000000000000000L,0x8500080040000000L});
-    public static final BitSet FOLLOW_AUTOMATICALLY_in_p_IndexProperties13521 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000000L,0x0080000000000000L});
-    public static final BitSet FOLLOW_MAINTAINED_in_p_IndexProperties13525 = new BitSet(new long[]{0x0000000000000002L,0x0000000000000000L,0x8500080040000000L});
-    public static final BitSet FOLLOW_MANUALLY_in_p_IndexProperties13531 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000000L,0x0080000000000000L});
-    public static final BitSet FOLLOW_MAINTAINED_in_p_IndexProperties13535 = new BitSet(new long[]{0x0000000000000002L,0x0000000000000000L,0x8500080040000000L});
-    public static final BitSet FOLLOW_p_PathExpr_in_p_IndexDomainExpr13565 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_p_IndexKeyExpr_in_p_IndexKeySpec13590 = new BitSet(new long[]{0x0000000000080000L});
-    public static final BitSet FOLLOW_p_TypeDeclaration_in_p_IndexKeySpec13592 = new BitSet(new long[]{0x0000104040100000L});
-    public static final BitSet FOLLOW_p_OrderModifier_in_p_IndexKeySpec13594 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_p_PathExpr_in_p_IndexKeyExpr13619 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_DECLARE_in_p_ICDecl13646 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000000L,0x0020000000000000L});
-    public static final BitSet FOLLOW_INTEGRITY_in_p_ICDecl13650 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000000L,0x0000400000000000L});
-    public static final BitSet FOLLOW_CONSTRAINT_in_p_ICDecl13654 = new BitSet(new long[]{0xFFFFFFFFFFFF0000L,0x7FDFFFFFFFFFFFFFL,0xFEFFFFF7FFFFFFFFL,0x000200000000000FL,0x0200000000000000L});
-    public static final BitSet FOLLOW_p_QName_in_p_ICDecl13658 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000000L,0x0804000000000000L});
-    public static final BitSet FOLLOW_p_ICCollection_in_p_ICDecl13661 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000000L,0x0000000000000000L,0x0000000400000000L});
-    public static final BitSet FOLLOW_p_ICForeignKey_in_p_ICDecl13665 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000000L,0x0000000000000000L,0x0000000400000000L});
-    public static final BitSet FOLLOW_SEMICOLON_in_p_ICDecl13668 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ON_in_p_ICCollection13695 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000000L,0x0000200000000000L});
-    public static final BitSet FOLLOW_COLLECTION_in_p_ICCollection13699 = new BitSet(new long[]{0xFFFFFFFFFFFF0000L,0x7FDFFFFFFFFFFFFFL,0xFEFFFFF7FFFFFFFFL,0x000200000000000FL,0x0200000000000000L});
-    public static final BitSet FOLLOW_p_QName_in_p_ICCollection13703 = new BitSet(new long[]{0x0000000000000000L,0x0000000000004000L,0x0002000000000000L,0x0000000000000040L});
-    public static final BitSet FOLLOW_p_ICCollSequence_in_p_ICCollection13706 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_p_ICCollSequenceUnique_in_p_ICCollection13710 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_p_ICCollNode_in_p_ICCollection13714 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_DOLLAR_in_p_ICCollSequence13740 = new BitSet(new long[]{0xFFFFFFFFFFFF0000L,0x7FDFFFFFFFFFFFFFL,0xFEFFFFF7FFFFFFFFL,0x000200000000000FL,0x0200000000000000L});
-    public static final BitSet FOLLOW_p_QName_in_p_ICCollSequence13742 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000000L,0x0000100000000000L});
-    public static final BitSet FOLLOW_CHECK_in_p_ICCollSequence13746 = new BitSet(new long[]{0xFFFFFFFFFFFF0000L,0x7FDFFFFFFFFFFFFFL,0xFEFFFFF7FFFFFFFFL,0x3F0264003C1E005FL,0x0200000000000000L});
-    public static final BitSet FOLLOW_p_ExprSingle_in_p_ICCollSequence13750 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_NODE_in_p_ICCollSequenceUnique13777 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000000L,0x0000000000000000L,0x0000000000000040L});
-    public static final BitSet FOLLOW_DOLLAR_in_p_ICCollSequenceUnique13781 = new BitSet(new long[]{0xFFFFFFFFFFFF0000L,0x7FDFFFFFFFFFFFFFL,0xFEFFFFF7FFFFFFFFL,0x000200000000000FL,0x0200000000000000L});
-    public static final BitSet FOLLOW_p_QName_in_p_ICCollSequenceUnique13783 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000000L,0x0000100000000000L});
-    public static final BitSet FOLLOW_CHECK_in_p_ICCollSequenceUnique13787 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000000L,0x8000000000000000L});
-    public static final BitSet FOLLOW_UNIQUE_in_p_ICCollSequenceUnique13791 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000000L,0x0040000000000000L});
-    public static final BitSet FOLLOW_KEY_in_p_ICCollSequenceUnique13795 = new BitSet(new long[]{0xFFFFFFFFFFFF0000L,0x7FDFFFFFFFFFFFFFL,0xFEFFFFF7FFFFFFFFL,0x3E0264003C12005FL,0x0200000000000000L});
-    public static final BitSet FOLLOW_p_PathExpr_in_p_ICCollSequenceUnique13797 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_FOREACH_in_p_ICCollNode13826 = new BitSet(new long[]{0x0000000000000000L,0x0000000000004000L});
-    public static final BitSet FOLLOW_NODE_in_p_ICCollNode13830 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000000L,0x0000000000000000L,0x0000000000000040L});
-    public static final BitSet FOLLOW_DOLLAR_in_p_ICCollNode13832 = new BitSet(new long[]{0xFFFFFFFFFFFF0000L,0x7FDFFFFFFFFFFFFFL,0xFEFFFFF7FFFFFFFFL,0x000200000000000FL,0x0200000000000000L});
-    public static final BitSet FOLLOW_p_QName_in_p_ICCollNode13834 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000000L,0x0000100000000000L});
-    public static final BitSet FOLLOW_CHECK_in_p_ICCollNode13838 = new BitSet(new long[]{0xFFFFFFFFFFFF0000L,0x7FDFFFFFFFFFFFFFL,0xFEFFFFF7FFFFFFFFL,0x3F0264003C1E005FL,0x0200000000000000L});
-    public static final BitSet FOLLOW_p_ExprSingle_in_p_ICCollNode13840 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_FOREIGN_in_p_ICForeignKey13869 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000000L,0x0040000000000000L});
-    public static final BitSet FOLLOW_KEY_in_p_ICForeignKey13873 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000000L,0x0008000000000000L});
-    public static final BitSet FOLLOW_p_ICForeignKeySource_in_p_ICForeignKey13875 = new BitSet(new long[]{0x0000000000000000L,0x0000004000000000L});
-    public static final BitSet FOLLOW_p_ICForeignKeyTarget_in_p_ICForeignKey13877 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_FROM_in_p_ICForeignKeySource13906 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000000L,0x0000200000000000L});
-    public static final BitSet FOLLOW_p_ICForeignKeyValues_in_p_ICForeignKeySource13910 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_TO_in_p_ICForeignKeyTarget13937 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000000L,0x0000200000000000L});
-    public static final BitSet FOLLOW_p_ICForeignKeyValues_in_p_ICForeignKeyTarget13941 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_COLLECTION_in_p_ICForeignKeyValues13968 = new BitSet(new long[]{0xFFFFFFFFFFFF0000L,0x7FDFFFFFFFFFFFFFL,0xFEFFFFF7FFFFFFFFL,0x000200000000000FL,0x0200000000000000L});
-    public static final BitSet FOLLOW_p_QName_in_p_ICForeignKeyValues13970 = new BitSet(new long[]{0x0000000000000000L,0x0000000000004000L});
-    public static final BitSet FOLLOW_NODE_in_p_ICForeignKeyValues13974 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000000L,0x0000000000000000L,0x0000000000000040L});
-    public static final BitSet FOLLOW_DOLLAR_in_p_ICForeignKeyValues13976 = new BitSet(new long[]{0xFFFFFFFFFFFF0000L,0x7FDFFFFFFFFFFFFFL,0xFEFFFFF7FFFFFFFFL,0x000200000000000FL,0x0200000000000000L});
-    public static final BitSet FOLLOW_p_QName_in_p_ICForeignKeyValues13978 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000000L,0x0040000000000000L});
-    public static final BitSet FOLLOW_KEY_in_p_ICForeignKeyValues13982 = new BitSet(new long[]{0xFFFFFFFFFFFF0000L,0x7FDFFFFFFFFFFFFFL,0xFEFFFFF7FFFFFFFFL,0x3E0264003C12005FL,0x0200000000000000L});
-    public static final BitSet FOLLOW_p_PathExpr_in_p_ICForeignKeyValues13984 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_DECLARE_in_pm_RevalidationDecl12120 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000000L,0x0000000008000000L});
+    public static final BitSet FOLLOW_REVALIDATION_in_pm_RevalidationDecl12124 = new BitSet(new long[]{0x0000000000000000L,0x0000000400000008L,0x0000000010000000L});
+    public static final BitSet FOLLOW_STRICT_in_pm_RevalidationDecl12129 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_LAX_in_pm_RevalidationDecl12135 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_SKIP_in_pm_RevalidationDecl12141 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_AS_in_p_InsertExprTargetChoice12174 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000000L,0x0000000000480000L});
+    public static final BitSet FOLLOW_FIRST_in_p_InsertExprTargetChoice12179 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000000L,0x0000000000200000L});
+    public static final BitSet FOLLOW_LAST_in_p_InsertExprTargetChoice12185 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000000L,0x0000000000200000L});
+    public static final BitSet FOLLOW_INTO_in_p_InsertExprTargetChoice12192 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_AFTER_in_p_InsertExprTargetChoice12209 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_BEFORE_in_p_InsertExprTargetChoice12225 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_INSERT_in_p_InsertExpr12255 = new BitSet(new long[]{0x0000000000000000L,0x0000000000004000L,0x0000000001000000L});
+    public static final BitSet FOLLOW_NODE_in_p_InsertExpr12260 = new BitSet(new long[]{0xFFFFFFFFFFFF0000L,0x7FDFFFFFFFFFFFFFL,0xFEFFFFF7FFFFFFFFL,0x3F0264003C1E005FL,0x0200000000000000L});
+    public static final BitSet FOLLOW_NODES_in_p_InsertExpr12266 = new BitSet(new long[]{0xFFFFFFFFFFFF0000L,0x7FDFFFFFFFFFFFFFL,0xFEFFFFF7FFFFFFFFL,0x3F0264003C1E005FL,0x0200000000000000L});
+    public static final BitSet FOLLOW_p_SourceExpr_in_p_InsertExpr12269 = new BitSet(new long[]{0x0000000000080000L,0x0000000000000000L,0x0000000000218000L});
+    public static final BitSet FOLLOW_p_InsertExprTargetChoice_in_p_InsertExpr12271 = new BitSet(new long[]{0xFFFFFFFFFFFF0000L,0x7FDFFFFFFFFFFFFFL,0xFEFFFFF7FFFFFFFFL,0x3F0264003C1E005FL,0x0200000000000000L});
+    public static final BitSet FOLLOW_p_TargetExpr_in_p_InsertExpr12273 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_DELETE_in_p_DeleteExpr12303 = new BitSet(new long[]{0x0000000000000000L,0x0000000000004000L,0x0000000001000000L});
+    public static final BitSet FOLLOW_NODE_in_p_DeleteExpr12308 = new BitSet(new long[]{0xFFFFFFFFFFFF0000L,0x7FDFFFFFFFFFFFFFL,0xFEFFFFF7FFFFFFFFL,0x3F0264003C1E005FL,0x0200000000000000L});
+    public static final BitSet FOLLOW_NODES_in_p_DeleteExpr12314 = new BitSet(new long[]{0xFFFFFFFFFFFF0000L,0x7FDFFFFFFFFFFFFFL,0xFEFFFFF7FFFFFFFFL,0x3F0264003C1E005FL,0x0200000000000000L});
+    public static final BitSet FOLLOW_p_TargetExpr_in_p_DeleteExpr12317 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_REPLACE_in_p_ReplaceExpr12347 = new BitSet(new long[]{0x0000000000000000L,0x0000000000004000L,0x0000000040000000L});
+    public static final BitSet FOLLOW_VALUE_in_p_ReplaceExpr12352 = new BitSet(new long[]{0x0000000000000000L,0x0000000000008000L});
+    public static final BitSet FOLLOW_OF_in_p_ReplaceExpr12356 = new BitSet(new long[]{0x0000000000000000L,0x0000000000004000L});
+    public static final BitSet FOLLOW_NODE_in_p_ReplaceExpr12362 = new BitSet(new long[]{0xFFFFFFFFFFFF0000L,0x7FDFFFFFFFFFFFFFL,0xFEFFFFF7FFFFFFFFL,0x3F0264003C1E005FL,0x0200000000000000L});
+    public static final BitSet FOLLOW_p_ExprSingle_in_p_ReplaceExpr12364 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000000L,0x0000000080000000L});
+    public static final BitSet FOLLOW_WITH_in_p_ReplaceExpr12368 = new BitSet(new long[]{0xFFFFFFFFFFFF0000L,0x7FDFFFFFFFFFFFFFL,0xFEFFFFF7FFFFFFFFL,0x3F0264003C1E005FL,0x0200000000000000L});
+    public static final BitSet FOLLOW_p_ExprSingle_in_p_ReplaceExpr12370 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_RENAME_in_p_RenameExpr12400 = new BitSet(new long[]{0x0000000000000000L,0x0000000000004000L});
+    public static final BitSet FOLLOW_NODE_in_p_RenameExpr12404 = new BitSet(new long[]{0xFFFFFFFFFFFF0000L,0x7FDFFFFFFFFFFFFFL,0xFEFFFFF7FFFFFFFFL,0x3F0264003C1E005FL,0x0200000000000000L});
+    public static final BitSet FOLLOW_p_TargetExpr_in_p_RenameExpr12406 = new BitSet(new long[]{0x0000000000080000L});
+    public static final BitSet FOLLOW_AS_in_p_RenameExpr12408 = new BitSet(new long[]{0xFFFFFFFFFFFF0000L,0x7FDFFFFFFFFFFFFFL,0xFEFFFFF7FFFFFFFFL,0x3F0264003C1E005FL,0x0200000000000000L});
+    public static final BitSet FOLLOW_p_NewNameExpr_in_p_RenameExpr12410 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_p_ExprSingle_in_p_SourceExpr12438 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_p_ExprSingle_in_p_TargetExpr12464 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_p_ExprSingle_in_p_NewNameExpr12490 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_COPY_in_p_TransformExpr12518 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000000L,0x0000000000000000L,0x0000000000000040L});
+    public static final BitSet FOLLOW_DOLLAR_in_p_TransformExpr12520 = new BitSet(new long[]{0xFFFFFFFFFFFF0000L,0x7FDFFFFFFFFFFFFFL,0xFEFFFFF7FFFFFFFFL,0x000200000000000FL,0x0200000000000000L});
+    public static final BitSet FOLLOW_p_VarName_in_p_TransformExpr12522 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000000L,0x0000000000000000L,0x0000000000001000L});
+    public static final BitSet FOLLOW_BIND_in_p_TransformExpr12524 = new BitSet(new long[]{0xFFFFFFFFFFFF0000L,0x7FDFFFFFFFFFFFFFL,0xFEFFFFF7FFFFFFFFL,0x3F0264003C1E005FL,0x0200000000000000L});
+    public static final BitSet FOLLOW_p_ExprSingle_in_p_TransformExpr12526 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000000L,0x0000000000800000L,0x0000000000008000L});
+    public static final BitSet FOLLOW_COMMA_in_p_TransformExpr12529 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000000L,0x0000000000000000L,0x0000000000000040L});
+    public static final BitSet FOLLOW_DOLLAR_in_p_TransformExpr12531 = new BitSet(new long[]{0xFFFFFFFFFFFF0000L,0x7FDFFFFFFFFFFFFFL,0xFEFFFFF7FFFFFFFFL,0x000200000000000FL,0x0200000000000000L});
+    public static final BitSet FOLLOW_p_VarName_in_p_TransformExpr12533 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000000L,0x0000000000000000L,0x0000000000001000L});
+    public static final BitSet FOLLOW_BIND_in_p_TransformExpr12535 = new BitSet(new long[]{0xFFFFFFFFFFFF0000L,0x7FDFFFFFFFFFFFFFL,0xFEFFFFF7FFFFFFFFL,0x3F0264003C1E005FL,0x0200000000000000L});
+    public static final BitSet FOLLOW_p_ExprSingle_in_p_TransformExpr12537 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000000L,0x0000000000800000L,0x0000000000008000L});
+    public static final BitSet FOLLOW_MODIFY_in_p_TransformExpr12543 = new BitSet(new long[]{0xFFFFFFFFFFFF0000L,0x7FDFFFFFFFFFFFFFL,0xFEFFFFF7FFFFFFFFL,0x3F0264003C1E005FL,0x0200000000000000L});
+    public static final BitSet FOLLOW_p_ExprSingle_in_p_TransformExpr12545 = new BitSet(new long[]{0x0000000000000000L,0x0000000004000000L});
+    public static final BitSet FOLLOW_RETURN_in_p_TransformExpr12549 = new BitSet(new long[]{0xFFFFFFFFFFFF0000L,0x7FDFFFFFFFFFFFFFL,0xFEFFFFF7FFFFFFFFL,0x3F0264003C1E005FL,0x0200000000000000L});
+    public static final BitSet FOLLOW_p_ExprSingle_in_p_TransformExpr12551 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_p_ConcatExpr_in_pm_ApplyExpr12586 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000000L,0x0000000000000000L,0x0000000400000000L});
+    public static final BitSet FOLLOW_SEMICOLON_in_pm_ApplyExpr12588 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_p_ExprSingle_in_p_ConcatExpr12614 = new BitSet(new long[]{0x0000000000000002L,0x0000000000000000L,0x0000000000000000L,0x0000000000008000L});
+    public static final BitSet FOLLOW_COMMA_in_p_ConcatExpr12617 = new BitSet(new long[]{0xFFFFFFFFFFFF0000L,0x7FDFFFFFFFFFFFFFL,0xFEFFFFF7FFFFFFFFL,0x3F0264003C1E005FL,0x0200000000000000L});
+    public static final BitSet FOLLOW_p_ExprSingle_in_p_ConcatExpr12619 = new BitSet(new long[]{0x0000000000000002L,0x0000000000000000L,0x0000000000000000L,0x0000000000008000L});
+    public static final BitSet FOLLOW_BLOCK_in_p_BlockExpr12649 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000000L,0x0000000000000000L,0x0000000000000080L});
+    public static final BitSet FOLLOW_p_Block_in_p_BlockExpr12653 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_LBRACKET_in_p_Block12679 = new BitSet(new long[]{0xFFFFFFFFFFFF0000L,0x7FDFFFFFFFFFFFFFL,0xFEFFFFF7FFFFFFFFL,0x3F0264003C1E005FL,0x0200000000000000L});
+    public static final BitSet FOLLOW_pm_BlockDecls_in_p_Block12683 = new BitSet(new long[]{0xFFFFFFFFFFFF0000L,0x7FDFFFFFFFFFFFFFL,0xFEFFFFF7FFFFFFFFL,0x3F0264003C1E005FL,0x0200000000000000L});
+    public static final BitSet FOLLOW_p_BlockBody_in_p_Block12687 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000000L,0x0000000000000000L,0x0000000000000100L});
+    public static final BitSet FOLLOW_RBRACKET_in_p_Block12689 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_pm_BlockVarDecl_in_pm_BlockDecls12745 = new BitSet(new long[]{0x0000000400000002L});
+    public static final BitSet FOLLOW_DECLARE_in_pm_BlockVarDecl12800 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000000L,0x0000000000000000L,0x0000000000000040L});
+    public static final BitSet FOLLOW_DOLLAR_in_pm_BlockVarDecl12804 = new BitSet(new long[]{0xFFFFFFFFFFFF0000L,0x7FDFFFFFFFFFFFFFL,0xFEFFFFF7FFFFFFFFL,0x000200000000000FL,0x0200000000000000L});
+    public static final BitSet FOLLOW_p_VarName_in_pm_BlockVarDecl12808 = new BitSet(new long[]{0x0000000000080000L,0x0000000000000000L,0x0000000000000000L,0x0000000400009000L});
+    public static final BitSet FOLLOW_p_TypeDeclaration_in_pm_BlockVarDecl12812 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000000L,0x0000000000000000L,0x0000000400009000L});
+    public static final BitSet FOLLOW_BIND_in_pm_BlockVarDecl12816 = new BitSet(new long[]{0xFFFFFFFFFFFF0000L,0x7FDFFFFFFFFFFFFFL,0xFEFFFFF7FFFFFFFFL,0x3F0264003C1E005FL,0x0200000000000000L});
+    public static final BitSet FOLLOW_p_ExprSingle_in_pm_BlockVarDecl12820 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000000L,0x0000000000000000L,0x0000000400008000L});
+    public static final BitSet FOLLOW_COMMA_in_pm_BlockVarDecl12825 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000000L,0x0000000000000000L,0x0000000000000040L});
+    public static final BitSet FOLLOW_DOLLAR_in_pm_BlockVarDecl12827 = new BitSet(new long[]{0xFFFFFFFFFFFF0000L,0x7FDFFFFFFFFFFFFFL,0xFEFFFFF7FFFFFFFFL,0x000200000000000FL,0x0200000000000000L});
+    public static final BitSet FOLLOW_p_VarName_in_pm_BlockVarDecl12829 = new BitSet(new long[]{0x0000000000080000L,0x0000000000000000L,0x0000000000000000L,0x0000000400009000L});
+    public static final BitSet FOLLOW_p_TypeDeclaration_in_pm_BlockVarDecl12831 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000000L,0x0000000000000000L,0x0000000400009000L});
+    public static final BitSet FOLLOW_BIND_in_pm_BlockVarDecl12835 = new BitSet(new long[]{0xFFFFFFFFFFFF0000L,0x7FDFFFFFFFFFFFFFL,0xFEFFFFF7FFFFFFFFL,0x3F0264003C1E005FL,0x0200000000000000L});
+    public static final BitSet FOLLOW_p_ExprSingle_in_pm_BlockVarDecl12837 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000000L,0x0000000000000000L,0x0000000400008000L});
+    public static final BitSet FOLLOW_SEMICOLON_in_pm_BlockVarDecl12843 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_pm_Expr_in_p_BlockBody12903 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_SET_in_p_AssignmentExpr12931 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000000L,0x0000000000000000L,0x0000000000000040L});
+    public static final BitSet FOLLOW_DOLLAR_in_p_AssignmentExpr12935 = new BitSet(new long[]{0xFFFFFFFFFFFF0000L,0x7FDFFFFFFFFFFFFFL,0xFEFFFFF7FFFFFFFFL,0x000200000000000FL,0x0200000000000000L});
+    public static final BitSet FOLLOW_p_VarName_in_p_AssignmentExpr12937 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000000L,0x0000000000000000L,0x0000000000001000L});
+    public static final BitSet FOLLOW_BIND_in_p_AssignmentExpr12939 = new BitSet(new long[]{0xFFFFFFFFFFFF0000L,0x7FDFFFFFFFFFFFFFL,0xFEFFFFF7FFFFFFFFL,0x3F0264003C1E005FL,0x0200000000000000L});
+    public static final BitSet FOLLOW_p_ExprSingle_in_p_AssignmentExpr12941 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_EXIT_in_p_ExitExpr12969 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000000L,0x0000000800000000L});
+    public static final BitSet FOLLOW_RETURNING_in_p_ExitExpr12975 = new BitSet(new long[]{0xFFFFFFFFFFFF0000L,0x7FDFFFFFFFFFFFFFL,0xFEFFFFF7FFFFFFFFL,0x3F0264003C1E005FL,0x0200000000000000L});
+    public static final BitSet FOLLOW_p_ExprSingle_in_p_ExitExpr12979 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_WHILE_in_p_WhileExpr13007 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000000L,0x0000000000000000L,0x0000000000000010L});
+    public static final BitSet FOLLOW_LPAREN_in_p_WhileExpr13011 = new BitSet(new long[]{0xFFFFFFFFFFFF0000L,0x7FDFFFFFFFFFFFFFL,0xFEFFFFF7FFFFFFFFL,0x3F0264003C1E005FL,0x0200000000000000L});
+    public static final BitSet FOLLOW_p_ExprSingle_in_p_WhileExpr13013 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000000L,0x0000000000000000L,0x0000000000000020L});
+    public static final BitSet FOLLOW_RPAREN_in_p_WhileExpr13015 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000000L,0x0000000000000000L,0x0000000000000080L});
+    public static final BitSet FOLLOW_p_WhileBody_in_p_WhileExpr13017 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_p_Block_in_p_WhileBody13043 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_p_UsingClause_in_p_EvalExpr13073 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000000L,0x0000010000000000L});
+    public static final BitSet FOLLOW_EVAL_in_p_EvalExpr13078 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000000L,0x0000000000000000L,0x0000000000000080L});
+    public static final BitSet FOLLOW_LBRACKET_in_p_EvalExpr13082 = new BitSet(new long[]{0xFFFFFFFFFFFF0000L,0x7FDFFFFFFFFFFFFFL,0xFEFFFFF7FFFFFFFFL,0x3F0264003C1E005FL,0x0200000000000000L});
+    public static final BitSet FOLLOW_p_ExprSingle_in_p_EvalExpr13084 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000000L,0x0000000000000000L,0x0000000000000100L});
+    public static final BitSet FOLLOW_RBRACKET_in_p_EvalExpr13086 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_USING_in_p_UsingClause13113 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000000L,0x0000000000000000L,0x0000000000000040L});
+    public static final BitSet FOLLOW_DOLLAR_in_p_UsingClause13117 = new BitSet(new long[]{0xFFFFFFFFFFFF0000L,0x7FDFFFFFFFFFFFFFL,0xFEFFFFF7FFFFFFFFL,0x000200000000000FL,0x0200000000000000L});
+    public static final BitSet FOLLOW_p_VarName_in_p_UsingClause13119 = new BitSet(new long[]{0x0000000000000002L,0x0000000000000000L,0x0000000000000000L,0x0000000000008000L});
+    public static final BitSet FOLLOW_COMMA_in_p_UsingClause13122 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000000L,0x0000000000000000L,0x0000000000000040L});
+    public static final BitSet FOLLOW_DOLLAR_in_p_UsingClause13124 = new BitSet(new long[]{0xFFFFFFFFFFFF0000L,0x7FDFFFFFFFFFFFFFL,0xFEFFFFF7FFFFFFFFL,0x000200000000000FL,0x0200000000000000L});
+    public static final BitSet FOLLOW_p_VarName_in_p_UsingClause13126 = new BitSet(new long[]{0x0000000000000002L,0x0000000000000000L,0x0000000000000000L,0x0000000000008000L});
+    public static final BitSet FOLLOW_DECLARE_in_p_CollectionDecl13161 = new BitSet(new long[]{0x0000000000000000L,0x0000040000080000L,0x1200A40000000000L});
+    public static final BitSet FOLLOW_p_CollProperties_in_p_CollectionDecl13163 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000000L,0x0000200000000000L});
+    public static final BitSet FOLLOW_COLLECTION_in_p_CollectionDecl13167 = new BitSet(new long[]{0xFFFFFFFFFFFF0000L,0x7FDFFFFFFFFFFFFFL,0xFEFFFFF7FFFFFFFFL,0x000200000000000FL,0x0200000000000000L});
+    public static final BitSet FOLLOW_p_QName_in_p_CollectionDecl13169 = new BitSet(new long[]{0x0000000000080000L,0x0000000000000000L,0x0000000080000000L,0x0000000400000000L});
+    public static final BitSet FOLLOW_p_CollectionTypeDecl_in_p_CollectionDecl13171 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000000L,0x0000000080000000L,0x0000000400000000L});
+    public static final BitSet FOLLOW_WITH_in_p_CollectionDecl13177 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000000L,0x4200000000000000L});
+    public static final BitSet FOLLOW_p_NodeModifier_in_p_CollectionDecl13179 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000000L,0x0000000001000000L});
+    public static final BitSet FOLLOW_NODES_in_p_CollectionDecl13183 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000000L,0x0000000000000000L,0x0000000400000000L});
+    public static final BitSet FOLLOW_SEMICOLON_in_p_CollectionDecl13187 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_CONST_in_p_CollProperties13218 = new BitSet(new long[]{0x0000000000000002L,0x0000040000080000L,0x1200840000000000L});
+    public static final BitSet FOLLOW_MUTABLE_in_p_CollProperties13224 = new BitSet(new long[]{0x0000000000000002L,0x0000040000080000L,0x1200840000000000L});
+    public static final BitSet FOLLOW_APPEND_ONLY_in_p_CollProperties13238 = new BitSet(new long[]{0x0000000000000002L,0x0000040000080000L,0x1200840000000000L});
+    public static final BitSet FOLLOW_QUEUE_in_p_CollProperties13244 = new BitSet(new long[]{0x0000000000000002L,0x0000040000080000L,0x1200840000000000L});
+    public static final BitSet FOLLOW_ORDERED_in_p_CollProperties13258 = new BitSet(new long[]{0x0000000000000002L,0x0000040000080000L,0x1200840000000000L});
+    public static final BitSet FOLLOW_UNORDERED_in_p_CollProperties13264 = new BitSet(new long[]{0x0000000000000002L,0x0000040000080000L,0x1200840000000000L});
+    public static final BitSet FOLLOW_AS_in_p_CollectionTypeDecl13297 = new BitSet(new long[]{0x0000060080400000L,0x1000001062004000L});
+    public static final BitSet FOLLOW_p_KindTest_in_p_CollectionTypeDecl13301 = new BitSet(new long[]{0x0000000000000002L,0x0000000000000000L,0x0000000000000000L,0x0000000000070000L});
+    public static final BitSet FOLLOW_p_OccurrenceIndicator_in_p_CollectionTypeDecl13310 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_READ_ONLY_in_p_NodeModifier13341 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_MUTABLE_in_p_NodeModifier13347 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_DECLARE_in_p_IndexDecl13377 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000000L,0x8510080040000000L});
+    public static final BitSet FOLLOW_p_IndexProperties_in_p_IndexDecl13379 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000000L,0x0010000000000000L});
+    public static final BitSet FOLLOW_INDEX_in_p_IndexDecl13383 = new BitSet(new long[]{0xFFFFFFFFFFFF0000L,0x7FDFFFFFFFFFFFFFL,0xFEFFFFF7FFFFFFFFL,0x000200000000000FL,0x0200000000000000L});
+    public static final BitSet FOLLOW_p_IndexName_in_p_IndexDecl13385 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000000L,0x0800000000000000L});
+    public static final BitSet FOLLOW_ON_in_p_IndexDecl13389 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000000L,0x0000000001000000L});
+    public static final BitSet FOLLOW_NODES_in_p_IndexDecl13393 = new BitSet(new long[]{0xFFFFFFFFFFFF0000L,0x7FDFFFFFFFFFFFFFL,0xFEFFFFF7FFFFFFFFL,0x3E0264003C12005FL,0x0200000000000000L});
+    public static final BitSet FOLLOW_p_IndexDomainExpr_in_p_IndexDecl13395 = new BitSet(new long[]{0x0000000002000000L});
+    public static final BitSet FOLLOW_BY_in_p_IndexDecl13399 = new BitSet(new long[]{0xFFFFFFFFFFFF0000L,0x7FDFFFFFFFFFFFFFL,0xFEFFFFF7FFFFFFFFL,0x3E0264003C12005FL,0x0200000000000000L});
+    public static final BitSet FOLLOW_p_IndexKeySpec_in_p_IndexDecl13401 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000000L,0x0000000000000000L,0x0000000400008000L});
+    public static final BitSet FOLLOW_COMMA_in_p_IndexDecl13404 = new BitSet(new long[]{0xFFFFFFFFFFFF0000L,0x7FDFFFFFFFFFFFFFL,0xFEFFFFF7FFFFFFFFL,0x3E0264003C12005FL,0x0200000000000000L});
+    public static final BitSet FOLLOW_p_IndexKeySpec_in_p_IndexDecl13406 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000000L,0x0000000000000000L,0x0000000400008000L});
+    public static final BitSet FOLLOW_SEMICOLON_in_p_IndexDecl13410 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_p_QName_in_p_IndexName13437 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_UNIQUE_in_p_IndexProperties13466 = new BitSet(new long[]{0x0000000000000002L,0x0000000000000000L,0x8500080040000000L});
+    public static final BitSet FOLLOW_NON_in_p_IndexProperties13472 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000000L,0x8000000000000000L});
+    public static final BitSet FOLLOW_UNIQUE_in_p_IndexProperties13476 = new BitSet(new long[]{0x0000000000000002L,0x0000000000000000L,0x8500080040000000L});
+    public static final BitSet FOLLOW_VALUE_in_p_IndexProperties13490 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000000L,0x2000000000000000L});
+    public static final BitSet FOLLOW_RANGE_in_p_IndexProperties13494 = new BitSet(new long[]{0x0000000000000002L,0x0000000000000000L,0x8500080040000000L});
+    public static final BitSet FOLLOW_VALUE_in_p_IndexProperties13500 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000000L,0x0001000000000000L});
+    public static final BitSet FOLLOW_EQUALITY_in_p_IndexProperties13504 = new BitSet(new long[]{0x0000000000000002L,0x0000000000000000L,0x8500080040000000L});
+    public static final BitSet FOLLOW_AUTOMATICALLY_in_p_IndexProperties13518 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000000L,0x0080000000000000L});
+    public static final BitSet FOLLOW_MAINTAINED_in_p_IndexProperties13522 = new BitSet(new long[]{0x0000000000000002L,0x0000000000000000L,0x8500080040000000L});
+    public static final BitSet FOLLOW_MANUALLY_in_p_IndexProperties13528 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000000L,0x0080000000000000L});
+    public static final BitSet FOLLOW_MAINTAINED_in_p_IndexProperties13532 = new BitSet(new long[]{0x0000000000000002L,0x0000000000000000L,0x8500080040000000L});
+    public static final BitSet FOLLOW_p_PathExpr_in_p_IndexDomainExpr13562 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_p_IndexKeyExpr_in_p_IndexKeySpec13587 = new BitSet(new long[]{0x0000000000080000L});
+    public static final BitSet FOLLOW_p_TypeDeclaration_in_p_IndexKeySpec13589 = new BitSet(new long[]{0x0000104040100000L});
+    public static final BitSet FOLLOW_p_OrderModifier_in_p_IndexKeySpec13591 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_p_PathExpr_in_p_IndexKeyExpr13616 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_DECLARE_in_p_ICDecl13643 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000000L,0x0020000000000000L});
+    public static final BitSet FOLLOW_INTEGRITY_in_p_ICDecl13647 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000000L,0x0000400000000000L});
+    public static final BitSet FOLLOW_CONSTRAINT_in_p_ICDecl13651 = new BitSet(new long[]{0xFFFFFFFFFFFF0000L,0x7FDFFFFFFFFFFFFFL,0xFEFFFFF7FFFFFFFFL,0x000200000000000FL,0x0200000000000000L});
+    public static final BitSet FOLLOW_p_QName_in_p_ICDecl13655 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000000L,0x0804000000000000L});
+    public static final BitSet FOLLOW_p_ICCollection_in_p_ICDecl13658 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000000L,0x0000000000000000L,0x0000000400000000L});
+    public static final BitSet FOLLOW_p_ICForeignKey_in_p_ICDecl13662 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000000L,0x0000000000000000L,0x0000000400000000L});
+    public static final BitSet FOLLOW_SEMICOLON_in_p_ICDecl13665 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ON_in_p_ICCollection13692 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000000L,0x0000200000000000L});
+    public static final BitSet FOLLOW_COLLECTION_in_p_ICCollection13696 = new BitSet(new long[]{0xFFFFFFFFFFFF0000L,0x7FDFFFFFFFFFFFFFL,0xFEFFFFF7FFFFFFFFL,0x000200000000000FL,0x0200000000000000L});
+    public static final BitSet FOLLOW_p_QName_in_p_ICCollection13700 = new BitSet(new long[]{0x0000000000000000L,0x0000000000004000L,0x0002000000000000L,0x0000000000000040L});
+    public static final BitSet FOLLOW_p_ICCollSequence_in_p_ICCollection13703 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_p_ICCollSequenceUnique_in_p_ICCollection13707 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_p_ICCollNode_in_p_ICCollection13711 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_DOLLAR_in_p_ICCollSequence13737 = new BitSet(new long[]{0xFFFFFFFFFFFF0000L,0x7FDFFFFFFFFFFFFFL,0xFEFFFFF7FFFFFFFFL,0x000200000000000FL,0x0200000000000000L});
+    public static final BitSet FOLLOW_p_QName_in_p_ICCollSequence13739 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000000L,0x0000100000000000L});
+    public static final BitSet FOLLOW_CHECK_in_p_ICCollSequence13743 = new BitSet(new long[]{0xFFFFFFFFFFFF0000L,0x7FDFFFFFFFFFFFFFL,0xFEFFFFF7FFFFFFFFL,0x3F0264003C1E005FL,0x0200000000000000L});
+    public static final BitSet FOLLOW_p_ExprSingle_in_p_ICCollSequence13747 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_NODE_in_p_ICCollSequenceUnique13774 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000000L,0x0000000000000000L,0x0000000000000040L});
+    public static final BitSet FOLLOW_DOLLAR_in_p_ICCollSequenceUnique13778 = new BitSet(new long[]{0xFFFFFFFFFFFF0000L,0x7FDFFFFFFFFFFFFFL,0xFEFFFFF7FFFFFFFFL,0x000200000000000FL,0x0200000000000000L});
+    public static final BitSet FOLLOW_p_QName_in_p_ICCollSequenceUnique13780 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000000L,0x0000100000000000L});
+    public static final BitSet FOLLOW_CHECK_in_p_ICCollSequenceUnique13784 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000000L,0x8000000000000000L});
+    public static final BitSet FOLLOW_UNIQUE_in_p_ICCollSequenceUnique13788 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000000L,0x0040000000000000L});
+    public static final BitSet FOLLOW_KEY_in_p_ICCollSequenceUnique13792 = new BitSet(new long[]{0xFFFFFFFFFFFF0000L,0x7FDFFFFFFFFFFFFFL,0xFEFFFFF7FFFFFFFFL,0x3E0264003C12005FL,0x0200000000000000L});
+    public static final BitSet FOLLOW_p_PathExpr_in_p_ICCollSequenceUnique13794 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_FOREACH_in_p_ICCollNode13823 = new BitSet(new long[]{0x0000000000000000L,0x0000000000004000L});
+    public static final BitSet FOLLOW_NODE_in_p_ICCollNode13827 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000000L,0x0000000000000000L,0x0000000000000040L});
+    public static final BitSet FOLLOW_DOLLAR_in_p_ICCollNode13829 = new BitSet(new long[]{0xFFFFFFFFFFFF0000L,0x7FDFFFFFFFFFFFFFL,0xFEFFFFF7FFFFFFFFL,0x000200000000000FL,0x0200000000000000L});
+    public static final BitSet FOLLOW_p_QName_in_p_ICCollNode13831 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000000L,0x0000100000000000L});
+    public static final BitSet FOLLOW_CHECK_in_p_ICCollNode13835 = new BitSet(new long[]{0xFFFFFFFFFFFF0000L,0x7FDFFFFFFFFFFFFFL,0xFEFFFFF7FFFFFFFFL,0x3F0264003C1E005FL,0x0200000000000000L});
+    public static final BitSet FOLLOW_p_ExprSingle_in_p_ICCollNode13837 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_FOREIGN_in_p_ICForeignKey13866 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000000L,0x0040000000000000L});
+    public static final BitSet FOLLOW_KEY_in_p_ICForeignKey13870 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000000L,0x0008000000000000L});
+    public static final BitSet FOLLOW_p_ICForeignKeySource_in_p_ICForeignKey13872 = new BitSet(new long[]{0x0000000000000000L,0x0000004000000000L});
+    public static final BitSet FOLLOW_p_ICForeignKeyTarget_in_p_ICForeignKey13874 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_FROM_in_p_ICForeignKeySource13903 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000000L,0x0000200000000000L});
+    public static final BitSet FOLLOW_p_ICForeignKeyValues_in_p_ICForeignKeySource13907 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_TO_in_p_ICForeignKeyTarget13934 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000000L,0x0000200000000000L});
+    public static final BitSet FOLLOW_p_ICForeignKeyValues_in_p_ICForeignKeyTarget13938 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_COLLECTION_in_p_ICForeignKeyValues13965 = new BitSet(new long[]{0xFFFFFFFFFFFF0000L,0x7FDFFFFFFFFFFFFFL,0xFEFFFFF7FFFFFFFFL,0x000200000000000FL,0x0200000000000000L});
+    public static final BitSet FOLLOW_p_QName_in_p_ICForeignKeyValues13967 = new BitSet(new long[]{0x0000000000000000L,0x0000000000004000L});
+    public static final BitSet FOLLOW_NODE_in_p_ICForeignKeyValues13971 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000000L,0x0000000000000000L,0x0000000000000040L});
+    public static final BitSet FOLLOW_DOLLAR_in_p_ICForeignKeyValues13973 = new BitSet(new long[]{0xFFFFFFFFFFFF0000L,0x7FDFFFFFFFFFFFFFL,0xFEFFFFF7FFFFFFFFL,0x000200000000000FL,0x0200000000000000L});
+    public static final BitSet FOLLOW_p_QName_in_p_ICForeignKeyValues13975 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000000L,0x0040000000000000L});
+    public static final BitSet FOLLOW_KEY_in_p_ICForeignKeyValues13979 = new BitSet(new long[]{0xFFFFFFFFFFFF0000L,0x7FDFFFFFFFFFFFFFL,0xFEFFFFF7FFFFFFFFL,0x3E0264003C12005FL,0x0200000000000000L});
+    public static final BitSet FOLLOW_p_PathExpr_in_p_ICForeignKeyValues13981 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_SLASH_in_synpred1_XQueryParser6084 = new BitSet(new long[]{0xFFFFFFFFFFFF0000L,0x7FDFFFFFFFFFFFFFL,0xFEFFFFF7FFFFFFFFL,0x3E0264003C12005FL,0x0200000000000000L});
     public static final BitSet FOLLOW_p_RelativePathExpr_in_synpred1_XQueryParser6086 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_p_OccurrenceIndicator_in_synpred2_XQueryParser8756 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_p_OccurrenceIndicator_in_synpred3_XQueryParser13308 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_p_OccurrenceIndicator_in_synpred2_XQueryParser8753 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_p_OccurrenceIndicator_in_synpred3_XQueryParser13305 = new BitSet(new long[]{0x0000000000000002L});
 
 }

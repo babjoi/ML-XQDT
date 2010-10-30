@@ -1,71 +1,84 @@
-/*******************************************************************************
- * Copyright (c) 2008, 2009 28msec Inc. and others.
- * All rights reserved. This program and the accompanying materials
- * are made available under the terms of the Eclipse Public License v1.0
- * which accompanies this distribution, and is available at
- * http://www.eclipse.org/legal/epl-v10.html
- *
- * Contributors:
- *     Gabriel Petrovay (28msec) - initial API and implementation
- *******************************************************************************/
-package org.eclipse.wst.xquery.set.internal.ui.actions;
+package org.eclipse.wst.xquery.set.internal.ui.handlers;
 
 import java.io.OutputStream;
 
+import org.eclipse.core.commands.AbstractHandler;
+import org.eclipse.core.commands.ExecutionEvent;
+import org.eclipse.core.commands.ExecutionException;
 import org.eclipse.core.resources.IProject;
+import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.core.runtime.jobs.IJobChangeEvent;
 import org.eclipse.core.runtime.jobs.IJobChangeListener;
 import org.eclipse.core.runtime.jobs.Job;
 import org.eclipse.core.runtime.jobs.JobChangeAdapter;
-import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.dialogs.ErrorDialog;
 import org.eclipse.jface.dialogs.IDialogConstants;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.viewers.ISelection;
-import org.eclipse.jface.viewers.IStructuredSelection;
+import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
-import org.eclipse.ui.IObjectActionDelegate;
-import org.eclipse.ui.IWorkbenchPart;
 import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.console.ConsolePlugin;
 import org.eclipse.ui.console.IConsole;
 import org.eclipse.ui.console.IConsoleConstants;
 import org.eclipse.ui.console.MessageConsole;
+import org.eclipse.ui.handlers.HandlerUtil;
 import org.eclipse.wst.xquery.set.ui.SETUIPlugin;
 
-public abstract class SETCoreSDKCommandAction implements IObjectActionDelegate {
+public abstract class SETCoreSDKCommandHandler extends AbstractHandler {
 
     private IProject fProject;
-    private Shell fCurrentShell;
 
-    public void setActivePart(IAction action, IWorkbenchPart targetPart) {
-        fCurrentShell = targetPart.getSite().getShell();
+    public Object execute(ExecutionEvent event) throws ExecutionException {
+        fProject = getProjectFromEvent(event);
+        if (fProject == null) {
+            showError();
+            return null;
+        }
+
+        MessageConsole console = activateConsole();
+        Job job = createHandlerJob(console.newMessageStream());
+        if (job == null) {
+            return null;
+        }
+        addJobChangeListeners(job);
+        job.schedule();
+
+        return null;
     }
 
     //
     // abstract methods
     //
 
-    abstract protected String getActionLabel();
+    abstract protected String getLabel();
 
-    abstract protected Job createActionJob(OutputStream output);
+    abstract protected Job createHandlerJob(OutputStream output);
 
     //
     // implementation
     //
 
-    public void run(IAction action) {
-        if (fProject == null) {
-            ErrorDialog.openError(fCurrentShell, action.getText() + " Error",
-                    "An error occurred while performing action \"" + action.getText() + "\"", new Status(IStatus.ERROR,
-                            SETUIPlugin.PLUGIN_ID, "The Sausalito project could not be determined"));
-            return;
+    private IProject getProjectFromEvent(ExecutionEvent event) {
+        ISelection sel = HandlerUtil.getCurrentSelection(event);
+        if (sel instanceof StructuredSelection) {
+            StructuredSelection ssel = (StructuredSelection)sel;
+            Object elem = ssel.getFirstElement();
+            if (elem instanceof IAdaptable) {
+                Object obj = ((IAdaptable)elem).getAdapter(IProject.class);
+                if (obj != null) {
+                    fProject = (IProject)obj;
+                }
+            }
         }
+        return fProject;
+    }
 
+    private MessageConsole activateConsole() {
         String consoleName = getProjectActionLabel();
         MessageConsole console = findLastConsole();
         if (console == null) {
@@ -74,7 +87,7 @@ public abstract class SETCoreSDKCommandAction implements IObjectActionDelegate {
         } else {
             console.clearConsole();
         }
-        fCurrentShell.getDisplay().syncExec(new Runnable() {
+        Display.getCurrent().syncExec(new Runnable() {
             public void run() {
                 try {
                     PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage()
@@ -85,10 +98,7 @@ public abstract class SETCoreSDKCommandAction implements IObjectActionDelegate {
             }
         });
 
-        Job job = createActionJob(console.newMessageStream());
-        job.addJobChangeListener(createSuccessListener());
-        job.addJobChangeListener(createWarningListener());
-        job.schedule();
+        return console;
     }
 
     private MessageConsole findLastConsole() {
@@ -100,6 +110,18 @@ public abstract class SETCoreSDKCommandAction implements IObjectActionDelegate {
             }
         }
         return null;
+    }
+
+    private void showError() {
+        Shell shell = Display.getCurrent().getActiveShell();
+        ErrorDialog.openError(shell, "action.getText()" + " Error", "An error occurred while performing action \""
+                + "action.getText()" + "\"", new Status(IStatus.ERROR, SETUIPlugin.PLUGIN_ID,
+                "The Sausalito project could not be determined"));
+    }
+
+    protected void addJobChangeListeners(Job job) {
+        job.addJobChangeListener(createSuccessListener());
+        job.addJobChangeListener(createWarningListener());
     }
 
     protected IJobChangeListener createSuccessListener() {
@@ -149,36 +171,19 @@ public abstract class SETCoreSDKCommandAction implements IObjectActionDelegate {
     }
 
     protected String getSuccessMessage() {
-        return getActionLabel() + " for project \"" + getProject().getName() + "\" finished succesfully.";
+        return getLabel() + " for project \"" + getProject().getName() + "\" finished succesfully.";
     }
 
     protected String getWarningMessage() {
-        return getActionLabel() + " for project \"" + getProject().getName() + "\" finished with warnings.";
+        return getLabel() + " for project \"" + getProject().getName() + "\" finished with warnings.";
     }
 
     private String getProjectActionLabel() {
-        return getActionLabel() + " (Project: " + getProject().getName() + ")";
+        return getLabel() + " (Project: " + getProject().getName() + ")";
     }
 
     protected IProject getProject() {
         return fProject;
-    }
-
-    protected Shell getShell() {
-        return fCurrentShell;
-    }
-
-    //
-    // implementation IObjectActionDelegate
-    //
-
-    public void selectionChanged(IAction action, ISelection selection) {
-        if (selection instanceof IStructuredSelection) {
-            IStructuredSelection ss = (IStructuredSelection)selection;
-            if (ss.getFirstElement() instanceof IProject) {
-                fProject = (IProject)ss.getFirstElement();
-            }
-        }
     }
 
 }

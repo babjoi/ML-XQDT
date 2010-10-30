@@ -39,7 +39,7 @@ public class SETImportDataJob extends SETCoreSDKCommandJob {
     private String fProblemMessage = "";
 
     public SETImportDataJob(IProject project, OutputStream output) {
-        super("Importing project data", project, output);
+        super("Bulkloading project " + "\"" + project.getName() + "\"...", project, output);
     }
 
     protected List<String> getCommandParameters() {

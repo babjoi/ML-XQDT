@@ -13,7 +13,7 @@
             extensions="xq,xql,xqy,xquery"
             icon="$nl$/icons/obj16/xquery_obj.gif"
             id="org.eclipse.wst.xquery.ui.editor.XQDTEditor"
-            name="Sausalito Editor">
+            name="XQuery Editor">
          <contentTypeBinding
                contentTypeId="org.eclipse.wst.xquery.XQueryContentType">
          </contentTypeBinding>

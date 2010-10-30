@@ -16,6 +16,7 @@ import org.eclipse.core.commands.AbstractHandler;
 import org.eclipse.core.commands.ExecutionEvent;
 import org.eclipse.core.commands.ExecutionException;
 import org.eclipse.core.resources.IProject;
+import org.eclipse.core.resources.IResource;
 import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
@@ -26,10 +27,12 @@ import org.eclipse.core.runtime.jobs.JobChangeAdapter;
 import org.eclipse.jface.dialogs.ErrorDialog;
 import org.eclipse.jface.dialogs.IDialogConstants;
 import org.eclipse.jface.dialogs.MessageDialog;
+import org.eclipse.jface.text.TextSelection;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
+import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.console.ConsolePlugin;
@@ -74,18 +77,28 @@ public abstract class SETCoreSDKCommandHandler extends AbstractHandler {
     //
 
     private IProject getProjectFromEvent(ExecutionEvent event) {
+        IProject project = null;
         ISelection sel = HandlerUtil.getCurrentSelection(event);
         if (sel instanceof StructuredSelection) {
             StructuredSelection ssel = (StructuredSelection)sel;
             Object elem = ssel.getFirstElement();
             if (elem instanceof IAdaptable) {
-                Object obj = ((IAdaptable)elem).getAdapter(IProject.class);
+                Object obj = ((IAdaptable)elem).getAdapter(IResource.class);
                 if (obj != null) {
-                    fProject = (IProject)obj;
+                    project = ((IResource)obj).getProject();
                 }
             }
+        } else if (sel instanceof TextSelection) {
+            try {
+                IEditorPart editor = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage()
+                        .getActiveEditor();
+                Object obj = editor.getEditorInput().getAdapter(IResource.class);
+                project = ((IResource)obj).getProject();
+            } catch (NullPointerException npe) {
+                // nothing to do
+            }
         }
-        return fProject;
+        return project;
     }
 
     private MessageConsole activateConsole() {

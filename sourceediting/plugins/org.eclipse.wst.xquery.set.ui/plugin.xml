@@ -140,6 +140,16 @@
       </quickFixProcessor>
    </extension>
    <extension
+         point="org.eclipse.core.expressions.propertyTesters">
+      <propertyTester
+            class="org.eclipse.wst.xquery.set.internal.ui.propertytesters.SETSausalitoProjectTester"
+            id="org.eclipse.wst.xquery.set.ui.isInSausalitoProjectTester"
+            namespace="org.eclipse.wst.xquery.set"
+            properties="isInSausalitoProject"
+            type="org.eclipse.core.runtime.IAdaptable">
+      </propertyTester>
+   </extension>
+   <extension
          point="org.eclipse.ui.commands">
       <category
             id="org.eclipse.wst.xquery.set.ui.commands.coresdk"
@@ -153,9 +163,9 @@
       </command>
       <command
             categoryId="org.eclipse.wst.xquery.set.ui.commands.coresdk"
-            defaultHandler="org.eclipse.wst.xquery.set.internal.ui.handlers.SETDeleteDataCommandHandler"
+            defaultHandler="org.eclipse.wst.xquery.set.internal.ui.handlers.SETImportDataCommandHandler"
             id="org.eclipse.wst.xquery.set.ui.commands.coresdk.importData"
-            name="&amp;Import Data">
+            name="&amp;Bulkload Data">
       </command>
       <command
             categoryId="org.eclipse.wst.xquery.set.ui.commands.coresdk"
@@ -165,12 +175,13 @@
       </command>
       <command
             categoryId="org.eclipse.wst.xquery.set.ui.commands.coresdk"
-            defaultHandler="org.eclipse.wst.xquery.set.internal.ui.handlers.SETDeleteDataCommandHandler"
+            defaultHandler="org.eclipse.wst.xquery.set.internal.ui.handlers.SETCreateDocCommandHandler"
             id="org.eclipse.wst.xquery.set.ui.commands.coresdk.createXqdoc"
             name="Create &amp;XQDoc">
       </command>
    </extension>
    <extension
+         id="contextPopup"
          point="org.eclipse.ui.menus">
       <menuContribution
             allPopups="false"
@@ -187,11 +198,19 @@
                icon="icons/obj16/scloud.gif"
                id="org.eclipse.wst.xquery.set.ui.popup.coresdk"
                label="Sausa&amp;lito">
+            <separator
+                  name="deploy"
+                  visible="true">
+            </separator>
             <command
                   commandId="org.eclipse.wst.xquery.set.ui.commands.coresdk.deployProject"
                   icon="icons/obj16/tocloud.gif"
                   style="push">
             </command>
+            <separator
+                  name="data"
+                  visible="true">
+            </separator>
             <command
                   commandId="org.eclipse.wst.xquery.set.ui.commands.coresdk.importData"
                   style="push">
@@ -200,29 +219,114 @@
                   commandId="org.eclipse.wst.xquery.set.ui.commands.coresdk.deleteData"
                   style="push">
             </command>
+            <separator
+                  name="other"
+                  visible="true">
+            </separator>
             <command
                   commandId="org.eclipse.wst.xquery.set.ui.commands.coresdk.createXqdoc"
                   icon="icons/obj16/xqdoc.gif"
                   style="push">
             </command>
+            <separator
+                  name="additions"
+                  visible="true">
+            </separator>
             <visibleWhen
                   checkEnabled="false">
-               <and>
-                  <count
-                        value="1">
-                  </count>
-                  <iterate>
-                     <adapt
-                           type="org.eclipse.core.resources.IResource">
-                        <test
-                              property="org.eclipse.core.resources.projectNature"
-                              value="org.eclipse.wst.xquery.set.core.nature">
-                        </test>
-                     </adapt>
-                  </iterate>
-               </and>
+               <reference
+                     definitionId="org.eclipse.wst.xquery.set.ui.definition.coresdkGroup">
+               </reference>
             </visibleWhen>
          </menu>
       </menuContribution>
+   </extension>
+   <extension
+         id="mainMenu"
+         point="org.eclipse.ui.menus">
+      <menuContribution
+            allPopups="false"
+            locationURI="menu:org.eclipse.ui.main.menu?after=additions">
+         <menu
+               id="org.eclipse.wst.xquery.set.ui.menu.coresdk"
+               label="&amp;Sausalito">
+            <separator
+                  name="deploy"
+                  visible="true">
+            </separator>
+            <command
+                  commandId="org.eclipse.wst.xquery.set.ui.commands.coresdk.deployProject"
+                  icon="icons/obj16/tocloud.gif"
+                  style="push">
+            </command>
+            <separator
+                  name="data"
+                  visible="true">
+            </separator>
+            <command
+                  commandId="org.eclipse.wst.xquery.set.ui.commands.coresdk.importData"
+                  style="push">
+            </command>
+            <command
+                  commandId="org.eclipse.wst.xquery.set.ui.commands.coresdk.deleteData"
+                  style="push">
+            </command>
+            <separator
+                  name="other"
+                  visible="true">
+            </separator>
+            <command
+                  commandId="org.eclipse.wst.xquery.set.ui.commands.coresdk.createXqdoc"
+                  icon="icons/obj16/xqdoc.gif"
+                  style="push">
+            </command>
+            <separator
+                  name="additions"
+                  visible="true">
+            </separator>
+            <visibleWhen
+                  checkEnabled="false">
+               <reference
+                     definitionId="org.eclipse.wst.xquery.set.ui.definition.coresdkGroup">
+               </reference>
+            </visibleWhen>
+         </menu>
+      </menuContribution>
+   </extension>
+   <extension
+         point="org.eclipse.core.expressions.definitions">
+      <definition
+            id="org.eclipse.wst.xquery.set.ui.definition.coresdkGroup">
+         <and>
+            <count
+                  value="1">
+            </count>
+            <iterate>
+               <or>
+                  <adapt
+                        type="org.eclipse.core.resources.IResource">
+                     <test
+                           property="org.eclipse.core.resources.projectNature"
+                           value="org.eclipse.wst.xquery.set.core.nature">
+                     </test>
+                  </adapt>
+                  <and>
+                     <with
+                           variable="activePartId">
+                        <equals
+                              value="org.eclipse.wst.xquery.ui.editor.XQDTEditor">
+                        </equals>
+                     </with>
+                     <with
+                           variable="activeEditor">
+                        <test
+                              property="org.eclipse.wst.xquery.set.isInSausalitoProject">
+                        </test>
+                     </with>
+                  </and>
+               </or>
+            </iterate>
+         </and>
+      </definition>
    </extension>
 </plugin>

@@ -23,7 +23,7 @@ import org.eclipse.core.runtime.IStatus;
 public class SETCreateDocJob extends SETCoreSDKCommandJob {
 
     public SETCreateDocJob(IProject project, OutputStream output) {
-        super("Creating project documentation", project, output);
+        super("Creating XQDoc for project: \"" + project.getName() + "\"...", project, output);
     }
 
     @Override

@@ -19,7 +19,7 @@ import org.eclipse.core.resources.IProject;
 public class SETDeleteDataJob extends SETCoreSDKCommandJob {
 
     public SETDeleteDataJob(IProject project, OutputStream output) {
-        super("Deleting project data", project, output);
+        super("Deleting data from project: \"" + project.getName() + "\"...", project, output);
     }
 
     protected List<String> getCommandParameters() {

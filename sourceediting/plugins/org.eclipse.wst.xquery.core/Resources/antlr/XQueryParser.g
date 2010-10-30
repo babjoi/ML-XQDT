@@ -859,9 +859,9 @@ p_DirAttributeList
 
 //[121] /* ws: explicit */ - resolved through the XMLLexer
 p_DirAttributeValue
-        : (QUOT (ESCAPE_QUOT | pm_QuotAttrValueContent)* QUOT)
+        : (QUOT (ESCAPE_QUOT | APOS | pm_QuotAttrValueContent)* QUOT)
                 -> ^(DirAttributeValue pm_QuotAttrValueContent*)
-        | (APOS (ESCAPE_APOS | pm_AposAttrValueContent)* APOS)
+        | (APOS (ESCAPE_APOS | QUOT | pm_AposAttrValueContent)* APOS)
                 -> ^(DirAttributeValue pm_AposAttrValueContent*)
         ;
 

@@ -7,6 +7,7 @@ Bundle-Version: 0.8.0.qualifier
 Bundle-Activator: org.eclipse.wst.xquery.set.launching.SETLaunchingPlugin
 Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.core.variables,
+ org.eclipse.core.expressions,
  org.eclipse.debug.core,
  org.eclipse.ui,
  org.eclipse.ui.browser,
@@ -19,7 +20,7 @@ Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.wst.xquery.launching.zorba;bundle-version="[0.8.0,2.0.0)"
 Bundle-RequiredExecutionEnvironment: J2SE-1.5
 Export-Package: org.eclipse.wst.xquery.set.internal.launching;x-internal:=true,
- org.eclipse.wst.xquery.set.internal.launching.jobs;x-internal:=true,
+ org.eclipse.wst.xquery.set.internal.launching.jobs,
  org.eclipse.wst.xquery.set.internal.launching.server;x-internal:=true,
  org.eclipse.wst.xquery.set.internal.launching.variables;x-internal:=true,
  org.eclipse.wst.xquery.set.launching,

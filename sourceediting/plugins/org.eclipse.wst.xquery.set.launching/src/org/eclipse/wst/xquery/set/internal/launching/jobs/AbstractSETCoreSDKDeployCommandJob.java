@@ -16,7 +16,7 @@ import java.util.List;
 
 import org.eclipse.wst.xquery.set.launching.deploy.DeployInfo;
 
-abstract public class SETCoreSDKDeployCommandJob extends SETCoreSDKCommandJob {
+abstract public class AbstractSETCoreSDKDeployCommandJob extends SETCoreSDKCommandJob {
 
     protected static enum DeployType {
         DEPLOY_PROJECT("project"), DEPLOY_DATA("data");
@@ -35,7 +35,7 @@ abstract public class SETCoreSDKDeployCommandJob extends SETCoreSDKCommandJob {
 
     protected DeployInfo fInfo;
 
-    public SETCoreSDKDeployCommandJob(String name, DeployInfo info, OutputStream output) {
+    public AbstractSETCoreSDKDeployCommandJob(String name, DeployInfo info, OutputStream output) {
         super(name, info.getProject().getProject(), output);
         fInfo = info;
     }

@@ -33,133 +33,6 @@
       </initializer>
    </extension>
    <extension
-         point="org.eclipse.ui.popupMenus">
-      <objectContribution
-            adaptable="true"
-            id="org.eclipse.wst.xquery.set.ui.popup.xqdoc"
-            objectClass="org.eclipse.core.resources.IProject">
-         <action
-               class="org.eclipse.wst.xquery.set.internal.ui.actions.SETCreateDocAction"
-               enablesFor="1"
-               icon="$nl$/icons/obj16/xqdoc.gif"
-               id="org.eclipse.wst.xquery.set.ui.popup.xqdoc.action1"
-               label="Generate XQDoc"
-               menubarPath="additions"
-               tooltip="Generate Project Documentation">
-         </action>
-            <visibility>
-               <objectState
-                     name="nature"
-                     value="org.eclipse.wst.xquery.set.core.nature">
-               </objectState>
-            </visibility>
-      </objectContribution>
-      <objectContribution
-            adaptable="true"
-            id="org.eclipse.wst.xquery.set.ui.popup.deploy.project"
-            objectClass="org.eclipse.core.resources.IProject">
-         <action
-               class="org.eclipse.wst.xquery.set.internal.ui.actions.SETDeployProjectAction"
-               enablesFor="1"
-               icon="$nl$/icons/obj16/tocloud.gif"
-               id="org.eclipse.wst.xquery.set.ui.popup.deploy.action1"
-               label="Dep&amp;loy Project..."
-               menubarPath="additions"
-               tooltip="Deploys this project into the cloud">
-         </action>
-            <visibility>
-               <objectState
-                     name="nature"
-                     value="org.eclipse.wst.xquery.set.core.nature">
-               </objectState>
-            </visibility>
-      </objectContribution>
-      <objectContribution
-            adaptable="true"
-            id="org.eclipse.wst.xquery.set.ui.popup.importData"
-            objectClass="org.eclipse.core.resources.IProject">
-         <action
-               class="org.eclipse.wst.xquery.set.internal.ui.actions.SETImportDataAction"
-               enablesFor="1"
-               id="org.eclipse.wst.xquery.set.ui.popup.importData.action"
-               label="Import Data"
-               menubarPath="additions"
-               style="push"
-               tooltip="Import data into this project">
-         </action>
-         <visibility>
-            <objectState
-                  name="nature"
-                  value="org.eclipse.wst.xquery.set.core.nature">
-            </objectState>
-         </visibility>
-      </objectContribution>
-      <objectContribution
-            adaptable="true"
-            id="org.eclipse.wst.xquery.set.ui.popup.deleteData"
-            objectClass="org.eclipse.core.resources.IProject">
-         <action
-               class="org.eclipse.wst.xquery.set.internal.ui.actions.SETDeleteDataAction"
-               enablesFor="1"
-               id="org.eclipse.wst.xquery.set.ui.popup.deleteData.action"
-               label="Delete Data"
-               menubarPath="additions"
-               style="push"
-               tooltip="Delete project data">
-         </action>
-         <visibility>
-            <objectState
-                  name="nature"
-                  value="org.eclipse.wst.xquery.set.core.nature">
-            </objectState>
-         </visibility>
-      </objectContribution>
-<!--      
-      <objectContribution
-            adaptable="true"
-            id="org.eclipse.wst.xquery.set.ui.popup.deployData"
-            objectClass="org.eclipse.core.resources.IProject">
-         <action
-               class="org.eclipse.wst.xquery.set.internal.ui.actions.SETDeployDataAction"
-               enablesFor="1"
-               id="org.eclipse.wst.xquery.set.ui.popup.deployData.action"
-               label="Deploy Data..."
-               menubarPath="additions"
-               style="push"
-               tooltip="Import data into this project">
-         </action>
-         <visibility>
-            <objectState
-                  name="nature"
-                  value="org.eclipse.wst.xquery.set.core.nature">
-            </objectState>
-         </visibility>
-      </objectContribution>
--->
-   </extension>
-   <extension
-         point="org.eclipse.ui.actionSets">
-      <actionSet
-            id="org.eclipse.wst.xquery.set.ui.ProjectActionSet"
-            label="Sausalito Project Action Set"
-            visible="true">
-         <action
-               class="org.eclipse.wst.xquery.set.internal.ui.actions.SETDeployProjectAction"
-               enablesFor="1"
-               icon="$nl$/icons/obj16/tocloud.gif"
-               id="org.eclipse.wst.xquery.set.ui.actions.SETDeployProjectAction"
-               label="Dep&amp;loy Project..."
-               menubarPath="project/additions">
-            <enablement>
-               <objectState
-                     name="nature"
-                     value="org.eclipse.wst.xquery.set.core.nature">
-               </objectState>
-            </enablement>
-         </action>
-      </actionSet>
-   </extension>
-   <extension
          point="org.eclipse.ui.decorators">
       <decorator
             adaptable="true"
@@ -265,5 +138,91 @@
             id="org.eclipse.wst.xquery.set.ui.quickfixes.ModuleDeclQuickFix"
             class="org.eclipse.wst.xquery.set.internal.ui.quickfixes.ModuleDeclQuickFix">
       </quickFixProcessor>
+   </extension>
+   <extension
+         point="org.eclipse.ui.commands">
+      <category
+            id="org.eclipse.wst.xquery.set.ui.commands.coresdk"
+            name="Sausalito CoreSDK Commands">
+      </category>
+      <command
+            categoryId="org.eclipse.wst.xquery.set.ui.commands.coresdk"
+            defaultHandler="org.eclipse.wst.xquery.set.internal.ui.handlers.SETDeployProjectCommandHandler"
+            id="org.eclipse.wst.xquery.set.ui.commands.coresdk.deployProject"
+            name="Deploy &amp;Project...">
+      </command>
+      <command
+            categoryId="org.eclipse.wst.xquery.set.ui.commands.coresdk"
+            defaultHandler="org.eclipse.wst.xquery.set.internal.ui.handlers.SETDeleteDataCommandHandler"
+            id="org.eclipse.wst.xquery.set.ui.commands.coresdk.importData"
+            name="&amp;Import Data">
+      </command>
+      <command
+            categoryId="org.eclipse.wst.xquery.set.ui.commands.coresdk"
+            defaultHandler="org.eclipse.wst.xquery.set.internal.ui.handlers.SETDeleteDataCommandHandler"
+            id="org.eclipse.wst.xquery.set.ui.commands.coresdk.deleteData"
+            name="&amp;Delete Data">
+      </command>
+      <command
+            categoryId="org.eclipse.wst.xquery.set.ui.commands.coresdk"
+            defaultHandler="org.eclipse.wst.xquery.set.internal.ui.handlers.SETDeleteDataCommandHandler"
+            id="org.eclipse.wst.xquery.set.ui.commands.coresdk.createXqdoc"
+            name="Create &amp;XQDoc">
+      </command>
+   </extension>
+   <extension
+         point="org.eclipse.ui.menus">
+      <menuContribution
+            allPopups="false"
+            locationURI="popup:org.eclipse.ui.popup.any?before=additions">
+         <separator
+               name="coresdk.group"
+               visible="true">
+         </separator>
+      </menuContribution>
+      <menuContribution
+            allPopups="false"
+            locationURI="popup:org.eclipse.ui.popup.any?after=coresdk.group">
+         <menu
+               icon="icons/obj16/scloud.gif"
+               id="org.eclipse.wst.xquery.set.ui.popup.coresdk"
+               label="Sausa&amp;lito">
+            <command
+                  commandId="org.eclipse.wst.xquery.set.ui.commands.coresdk.deployProject"
+                  icon="icons/obj16/tocloud.gif"
+                  style="push">
+            </command>
+            <command
+                  commandId="org.eclipse.wst.xquery.set.ui.commands.coresdk.importData"
+                  style="push">
+            </command>
+            <command
+                  commandId="org.eclipse.wst.xquery.set.ui.commands.coresdk.deleteData"
+                  style="push">
+            </command>
+            <command
+                  commandId="org.eclipse.wst.xquery.set.ui.commands.coresdk.createXqdoc"
+                  icon="icons/obj16/xqdoc.gif"
+                  style="push">
+            </command>
+            <visibleWhen
+                  checkEnabled="false">
+               <and>
+                  <count
+                        value="1">
+                  </count>
+                  <iterate>
+                     <adapt
+                           type="org.eclipse.core.resources.IResource">
+                        <test
+                              property="org.eclipse.core.resources.projectNature"
+                              value="org.eclipse.wst.xquery.set.core.nature">
+                        </test>
+                     </adapt>
+                  </iterate>
+               </and>
+            </visibleWhen>
+         </menu>
+      </menuContribution>
    </extension>
 </plugin>

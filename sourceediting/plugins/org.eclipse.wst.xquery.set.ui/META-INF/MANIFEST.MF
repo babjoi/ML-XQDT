@@ -7,6 +7,7 @@ Bundle-Version: 0.8.0.qualifier
 Bundle-Activator: org.eclipse.wst.xquery.set.ui.SETUIPlugin
 Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.core.resources,
+ org.eclipse.core.expressions,
  org.eclipse.jface.text,
  org.eclipse.ui,
  org.eclipse.ui.ide,
@@ -24,6 +25,7 @@ Bundle-RequiredExecutionEnvironment: J2SE-1.5
 Bundle-ActivationPolicy: lazy
 Export-Package: org.eclipse.wst.xquery.set.internal.ui;x-internal:=true,
  org.eclipse.wst.xquery.set.internal.ui.actions;x-internal:=true,
+ org.eclipse.wst.xquery.set.internal.ui.handlers,
  org.eclipse.wst.xquery.set.internal.ui.preferences;x-internal:=true,
  org.eclipse.wst.xquery.set.internal.ui.util;x-internal:=true,
  org.eclipse.wst.xquery.set.internal.ui.wizards;x-internal:=true,

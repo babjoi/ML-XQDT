@@ -8,45 +8,55 @@
  * Contributors:
  *     Gabriel Petrovay (28msec) - initial API and implementation
  *******************************************************************************/
-package org.eclipse.wst.xquery.set.launching.deploy;
+package org.eclipse.wst.xquery.set.internal.launching.jobs;
 
+import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
+import org.eclipse.core.runtime.Status;
 import org.eclipse.core.runtime.jobs.IJobChangeEvent;
 import org.eclipse.core.runtime.jobs.IJobChangeListener;
 import org.eclipse.core.runtime.jobs.Job;
 import org.eclipse.core.runtime.jobs.JobChangeAdapter;
-import org.eclipse.wst.xquery.set.internal.launching.jobs.SETCoreSDKDeployCommandJob;
-import org.eclipse.wst.xquery.set.internal.launching.jobs.SETDeployDataJob;
-import org.eclipse.wst.xquery.set.internal.launching.jobs.SETDeployProjectJob;
+import org.eclipse.wst.xquery.set.launching.deploy.DeployInfo;
 
-public class Deployer {
+public class SETCoreSDKMultipleCommandJob extends Job {
 
     private DeployInfo fDeployInfo;
-    private List<Job> fJobs;
+    private IStatus fStatus;
+    private List<Job> fJobs = new ArrayList<Job>(1);
 
-    public Deployer(DeployInfo info) {
+    public SETCoreSDKMultipleCommandJob(DeployInfo info, OutputStream output) {
+        super("");
         fDeployInfo = info;
-        initJobs();
+        initJobs(output);
+        setSystem(true);
     }
 
-    public void initJobs() {
-        fJobs = new ArrayList<Job>(1);
-
+    public void initJobs(OutputStream output) {
         switch (fDeployInfo.getDeployType()) {
         case PROJECT:
-            fJobs.add(new SETDeployProjectJob(fDeployInfo, null));
+            fJobs.add(new SETDeployProjectJob(fDeployInfo, output));
             break;
         case DATA:
-            fJobs.add(new SETDeployDataJob(fDeployInfo, null));
+            fJobs.add(new SETDeployDataJob(fDeployInfo, output));
             break;
         case PROJECT_AND_DATA:
-            fJobs.add(new SETDeployProjectJob(fDeployInfo, null));
-            fJobs.add(new SETDeployDataJob(fDeployInfo, null));
+            fJobs.add(new SETDeployProjectJob(fDeployInfo, output));
+            fJobs.add(new SETDeployDataJob(fDeployInfo, output));
             break;
+        }
+    }
+
+    public void addJobChangeListenerToChildren(IJobChangeListener listener) {
+        for (Job job : fJobs) {
+            if (listener != null) {
+                job.addJobChangeListener(listener);
+            }
         }
     }
 
@@ -57,51 +67,46 @@ public class Deployer {
     public void setDeployInfo(DeployInfo info) {
         fDeployInfo = info;
         for (Job job : fJobs) {
-            if (job instanceof SETCoreSDKDeployCommandJob) {
-                ((SETCoreSDKDeployCommandJob)job).setDeployInfo(fDeployInfo);
+            if (job instanceof AbstractSETCoreSDKDeployCommandJob) {
+                ((AbstractSETCoreSDKDeployCommandJob)job).setDeployInfo(fDeployInfo);
             }
         }
     }
 
-    private String fLastError;
-
-    public void execute() {
+    @Override
+    protected IStatus run(IProgressMonitor monitor) {
         final Iterator<Job> iterator = fJobs.iterator();
 
         IJobChangeListener trigger = new JobChangeAdapter() {
             public void done(IJobChangeEvent event) {
-                IStatus result = event.getJob().getResult();
-                if (result.isOK()) {
-                    triggerNextJob(iterator, this);
-                } else {
-                    setError(result.getMessage());
+                fStatus = event.getResult();
+                synchronized (SETCoreSDKMultipleCommandJob.this) {
+                    SETCoreSDKMultipleCommandJob.this.notify();
                 }
             }
         };
 
-        triggerNextJob(iterator, trigger);
-    }
-
-    public void triggerNextJob(Iterator<Job> jobIterator, IJobChangeListener jobTrigger) {
-        if (jobIterator.hasNext()) {
-            Job currentJob = jobIterator.next();
-            currentJob.addJobChangeListener(jobTrigger);
+        while (iterator.hasNext()) {
+            Job currentJob = iterator.next();
+            currentJob.addJobChangeListener(trigger);
             currentJob.schedule();
+
+            setName(currentJob.getName());
+
+            waitForNextJob();
+            if (!fStatus.isOK()) {
+                break;
+            }
         }
+
+        return Status.OK_STATUS;
     }
 
-    public void addJobChangeListener(IJobChangeListener listener) {
-        for (Job job : fJobs) {
-            job.addJobChangeListener(listener);
+    synchronized private void waitForNextJob() {
+        try {
+            wait();
+        } catch (InterruptedException e) {
         }
-    }
-
-    private void setError(String error) {
-        fLastError = error;
-    }
-
-    public String getError() {
-        return fLastError;
     }
 
 }

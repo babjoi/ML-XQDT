@@ -15,10 +15,10 @@ import java.io.OutputStream;
 import org.eclipse.wst.xquery.set.core.utils.SETProjectConfigUtil;
 import org.eclipse.wst.xquery.set.launching.deploy.DeployInfo;
 
-public class SETDeployProjectJob extends SETCoreSDKDeployCommandJob {
+public class SETDeployProjectJob extends AbstractSETCoreSDKDeployCommandJob {
 
     public SETDeployProjectJob(DeployInfo info, OutputStream output) {
-        super("Deploying project", info, output);
+        super("Deploying project: \"" + info.getProject().getElementName() + "\"...", info, output);
     }
 
     @Override
@@ -28,7 +28,7 @@ public class SETDeployProjectJob extends SETCoreSDKDeployCommandJob {
 
     @Override
     protected String getJobTaskName() {
-        return "Deploying project : " + fProject.getName();
+        return "Deploying project: " + fProject.getName();
     }
 
     protected DeployType getDeployType() {

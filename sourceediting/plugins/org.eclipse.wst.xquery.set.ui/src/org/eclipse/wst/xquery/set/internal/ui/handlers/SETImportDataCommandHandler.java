@@ -10,19 +10,24 @@
  *******************************************************************************/
 package org.eclipse.wst.xquery.set.internal.ui.handlers;
 
-import java.io.OutputStream;
-
+import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.jobs.Job;
+import org.eclipse.wst.xquery.set.core.ISETCoreConstants;
 import org.eclipse.wst.xquery.set.internal.launching.jobs.SETImportDataJob;
 
 public class SETImportDataCommandHandler extends SETCoreSDKCommandHandler {
 
-    protected String getLabel() {
+    protected String getLabel(IProject project) {
         return "Import Data";
     }
 
-    protected Job createHandlerJob(OutputStream output) {
-        return new SETImportDataJob(getProject(), output);
+    protected Job createHandlerJob(IProject project) {
+        return new SETImportDataJob(project);
+    }
+
+    @Override
+    protected boolean isProjectCapable(IProject project) {
+        return project.getFolder(ISETCoreConstants.PROJECT_DIRECTORY_BULKLOAD).exists();
     }
 
 }

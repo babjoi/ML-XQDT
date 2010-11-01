@@ -10,13 +10,13 @@
  *******************************************************************************/
 package org.eclipse.wst.xquery.set.internal.ui.handlers;
 
-import java.io.OutputStream;
-
 import org.eclipse.core.commands.AbstractHandler;
 import org.eclipse.core.commands.ExecutionEvent;
 import org.eclipse.core.commands.ExecutionException;
+import org.eclipse.core.expressions.EvaluationContext;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResource;
+import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
@@ -29,48 +29,77 @@ import org.eclipse.jface.dialogs.IDialogConstants;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.text.TextSelection;
 import org.eclipse.jface.viewers.ISelection;
+import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.IEditorPart;
-import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.PlatformUI;
-import org.eclipse.ui.console.ConsolePlugin;
-import org.eclipse.ui.console.IConsole;
-import org.eclipse.ui.console.IConsoleConstants;
-import org.eclipse.ui.console.MessageConsole;
 import org.eclipse.ui.handlers.HandlerUtil;
+import org.eclipse.wst.xquery.set.core.SETNature;
 import org.eclipse.wst.xquery.set.ui.SETUIPlugin;
 
 public abstract class SETCoreSDKCommandHandler extends AbstractHandler {
 
-    private IProject fProject;
-
     public Object execute(ExecutionEvent event) throws ExecutionException {
-        fProject = getProjectFromEvent(event);
-        if (fProject == null) {
+        IProject project = getProjectFromEvent(event);
+        if (project == null) {
             showError();
             return null;
         }
 
-        MessageConsole console = activateConsole();
-        Job job = createHandlerJob(console.newMessageStream());
+        Job job = createHandlerJob(project);
         if (job == null) {
             return null;
         }
-        addJobChangeListeners(job);
+        addJobChangeListeners(project, job);
         job.schedule();
 
         return null;
+    }
+
+    @Override
+    public void setEnabled(Object evaluationContext) {
+        if (evaluationContext instanceof EvaluationContext) {
+            setBaseEnabled(shouldEnable((EvaluationContext)evaluationContext));
+            return;
+        }
+
+        setBaseEnabled(false);
+    }
+
+    private boolean shouldEnable(EvaluationContext evaluationContext) {
+        Object obj = (evaluationContext).getVariable("selection");
+        if (obj instanceof IStructuredSelection) {
+            IStructuredSelection sel = (IStructuredSelection)obj;
+            Object element = sel.getFirstElement();
+            if (element instanceof IAdaptable) {
+                Object res = ((IAdaptable)element).getAdapter(IResource.class);
+                if (res != null) {
+                    try {
+                        IProject project = ((IResource)res).getProject();
+                        return project.hasNature(SETNature.NATURE_ID) && isProjectCapable(project);
+                    } catch (CoreException e) {
+                        // do nothing, will return false
+                    }
+                }
+            }
+        }
+
+        return false;
+    }
+
+    protected boolean isProjectCapable(IProject project) {
+        return true;
     }
 
     //
     // abstract methods
     //
 
-    abstract protected String getLabel();
+    abstract protected String getLabel(IProject project);
 
-    abstract protected Job createHandlerJob(OutputStream output);
+    abstract protected Job createHandlerJob(IProject project);
 
     //
     // implementation
@@ -101,40 +130,6 @@ public abstract class SETCoreSDKCommandHandler extends AbstractHandler {
         return project;
     }
 
-    private MessageConsole activateConsole() {
-        String consoleName = getProjectActionLabel();
-        MessageConsole console = findLastConsole();
-        if (console == null) {
-            console = new MessageConsole(consoleName, null);
-            ConsolePlugin.getDefault().getConsoleManager().addConsoles(new IConsole[] { console });
-        } else {
-            console.clearConsole();
-        }
-        Display.getCurrent().syncExec(new Runnable() {
-            public void run() {
-                try {
-                    PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage()
-                            .showView(IConsoleConstants.ID_CONSOLE_VIEW);
-                } catch (PartInitException pie) {
-                    // Don't fail if we can't show the console
-                }
-            }
-        });
-
-        return console;
-    }
-
-    private MessageConsole findLastConsole() {
-        String stringToFind = "Project: " + getProject().getName();
-        IConsole[] consoles = ConsolePlugin.getDefault().getConsoleManager().getConsoles();
-        for (IConsole console : consoles) {
-            if (console.getName().contains(stringToFind) && console instanceof MessageConsole) {
-                return (MessageConsole)console;
-            }
-        }
-        return null;
-    }
-
     private void showError() {
         Shell shell = Display.getCurrent().getActiveShell();
         ErrorDialog.openError(shell, "action.getText()" + " Error", "An error occurred while performing action \""
@@ -142,12 +137,12 @@ public abstract class SETCoreSDKCommandHandler extends AbstractHandler {
                 "The Sausalito project could not be determined"));
     }
 
-    protected void addJobChangeListeners(Job job) {
-        job.addJobChangeListener(createSuccessListener());
-        job.addJobChangeListener(createWarningListener());
+    protected void addJobChangeListeners(IProject project, Job job) {
+        job.addJobChangeListener(createSuccessListener(project));
+        job.addJobChangeListener(createWarningListener(project));
     }
 
-    protected IJobChangeListener createSuccessListener() {
+    protected IJobChangeListener createSuccessListener(final IProject project) {
         JobChangeAdapter successListener = new JobChangeAdapter() {
             @Override
             public void done(IJobChangeEvent event) {
@@ -156,8 +151,8 @@ public abstract class SETCoreSDKCommandHandler extends AbstractHandler {
                     Display.getDefault().syncExec(new Runnable() {
                         public void run() {
                             MessageDialog md = new MessageDialog(Display.getDefault().getActiveShell(),
-                                    getProjectActionLabel(), null, getSuccessMessage(), MessageDialog.INFORMATION,
-                                    new String[] { IDialogConstants.OK_LABEL }, 0);
+                                    getProjectActionLabel(project), null, getSuccessMessage(project),
+                                    MessageDialog.INFORMATION, new String[] { IDialogConstants.OK_LABEL }, 0);
                             md.open();
                         }
                     });
@@ -167,7 +162,7 @@ public abstract class SETCoreSDKCommandHandler extends AbstractHandler {
         return successListener;
     }
 
-    protected IJobChangeListener createWarningListener() {
+    protected IJobChangeListener createWarningListener(final IProject project) {
         JobChangeAdapter successListener = new JobChangeAdapter() {
             @Override
             public void done(IJobChangeEvent event) {
@@ -176,13 +171,13 @@ public abstract class SETCoreSDKCommandHandler extends AbstractHandler {
                     Display.getDefault().syncExec(new Runnable() {
                         public void run() {
                             StringBuilder message = new StringBuilder();
-                            message.append(getWarningMessage());
+                            message.append(getWarningMessage(project));
                             // SETCoreSDKCommandJob sends warnings only when the message is non-empty
                             message.append("\n\n");
                             message.append(result.getMessage());
 
                             MessageDialog md = new MessageDialog(Display.getDefault().getActiveShell(),
-                                    getProjectActionLabel(), null, message.toString(), MessageDialog.WARNING,
+                                    getProjectActionLabel(project), null, message.toString(), MessageDialog.WARNING,
                                     new String[] { IDialogConstants.OK_LABEL }, 0);
                             md.open();
                         }
@@ -193,20 +188,16 @@ public abstract class SETCoreSDKCommandHandler extends AbstractHandler {
         return successListener;
     }
 
-    protected String getSuccessMessage() {
-        return getLabel() + " for project \"" + getProject().getName() + "\" finished succesfully.";
+    protected String getSuccessMessage(IProject project) {
+        return getLabel(project) + " for project \"" + project.getName() + "\" finished succesfully.";
     }
 
-    protected String getWarningMessage() {
-        return getLabel() + " for project \"" + getProject().getName() + "\" finished with warnings.";
+    protected String getWarningMessage(IProject project) {
+        return getLabel(project) + " for project \"" + project.getName() + "\" finished with warnings.";
     }
 
-    private String getProjectActionLabel() {
-        return getLabel() + " (Project: " + getProject().getName() + ")";
-    }
-
-    protected IProject getProject() {
-        return fProject;
+    private String getProjectActionLabel(IProject project) {
+        return getLabel(project) + " (Project: " + project.getName() + ")";
     }
 
 }

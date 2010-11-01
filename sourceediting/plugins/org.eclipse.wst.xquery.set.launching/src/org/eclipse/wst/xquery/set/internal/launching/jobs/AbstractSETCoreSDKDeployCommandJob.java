@@ -10,13 +10,12 @@
  *******************************************************************************/
 package org.eclipse.wst.xquery.set.internal.launching.jobs;
 
-import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
 import org.eclipse.wst.xquery.set.launching.deploy.DeployInfo;
 
-abstract public class AbstractSETCoreSDKDeployCommandJob extends SETCoreSDKCommandJob {
+abstract public class AbstractSETCoreSDKDeployCommandJob extends AbstractSETCoreSDKCommandJob {
 
     protected static enum DeployType {
         DEPLOY_PROJECT("project"), DEPLOY_DATA("data");
@@ -35,8 +34,8 @@ abstract public class AbstractSETCoreSDKDeployCommandJob extends SETCoreSDKComma
 
     protected DeployInfo fInfo;
 
-    public AbstractSETCoreSDKDeployCommandJob(String name, DeployInfo info, OutputStream output) {
-        super(name, info.getProject().getProject(), output);
+    public AbstractSETCoreSDKDeployCommandJob(String name, DeployInfo info) {
+        super(name, info.getProject().getProject());
         fInfo = info;
     }
 

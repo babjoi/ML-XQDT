@@ -75,8 +75,10 @@ public class ZorbaInstall extends XQDTInterpreterInstall implements ISemanticVal
         }
 
         if (getInstallLocation().getPath().lastSegment().contains("sausastore")) {
-            String value = zorbaHome.toOSString();
-            addVariableIfNotProvided(newVars, "SAUSALITO_HOME", value);
+            addVariableIfNotProvided(newVars, "SAUSALITO_HOME", zorbaHome.toOSString());
+
+            IPath modulesPath = zorbaHome.append("modules");
+            addVariableIfNotProvided(newVars, "MODULES_PATH", modulesPath.toOSString());
         }
 
         super.setEnvironmentVariables(newVars.toArray(new EnvironmentVariable[newVars.size()]));

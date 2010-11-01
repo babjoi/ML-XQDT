@@ -10,18 +10,29 @@
  *******************************************************************************/
 package org.eclipse.wst.xquery.set.internal.ui.handlers;
 
-import java.io.OutputStream;
-
+import org.eclipse.core.resources.IProject;
+import org.eclipse.core.runtime.IPath;
+import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.jobs.Job;
+import org.eclipse.wst.xquery.set.core.ISETCoreConstants;
 import org.eclipse.wst.xquery.set.internal.launching.jobs.SETDeleteDataJob;
 
 public class SETDeleteDataCommandHandler extends SETCoreSDKCommandHandler {
 
-    protected String getLabel() {
+    protected String getLabel(IProject project) {
         return "Delete Data";
     }
 
-    protected Job createHandlerJob(OutputStream output) {
-        return new SETDeleteDataJob(getProject(), output);
+    protected Job createHandlerJob(IProject project) {
+        return new SETDeleteDataJob(project);
     }
+
+    @Override
+    protected boolean isProjectCapable(IProject project) {
+        IPath path = new Path(ISETCoreConstants.PROJECT_DIRECTORY_TEST)
+                .append(ISETCoreConstants.PROJECT_DIRECTORY_DATA).append(
+                        ISETCoreConstants.PROJECT_DIRECTORY_COLLECTIONS);
+        return project.getFolder(path).exists();
+    }
+
 }

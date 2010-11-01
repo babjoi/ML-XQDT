@@ -10,20 +10,23 @@
  *******************************************************************************/
 package org.eclipse.wst.xquery.set.internal.launching.jobs;
 
-import java.io.OutputStream;
-
 import org.eclipse.wst.xquery.set.core.utils.SETProjectConfigUtil;
 import org.eclipse.wst.xquery.set.launching.deploy.DeployInfo;
 
 public class SETDeployProjectJob extends AbstractSETCoreSDKDeployCommandJob {
 
-    public SETDeployProjectJob(DeployInfo info, OutputStream output) {
-        super("Deploying project: \"" + info.getProject().getElementName() + "\"...", info, output);
+    public SETDeployProjectJob(DeployInfo info) {
+        super("Deploying project: \"" + info.getProject().getElementName() + "\"...", info);
     }
 
     @Override
     protected void doActionsBeforeRun() {
         SETProjectConfigUtil.writeProjectConfig(fProject, fInfo.getProjectConfig());
+        super.doActionsBeforeRun();
+    }
+
+    protected String getCommandConsleLabel() {
+        return "Deploy project";
     }
 
     @Override

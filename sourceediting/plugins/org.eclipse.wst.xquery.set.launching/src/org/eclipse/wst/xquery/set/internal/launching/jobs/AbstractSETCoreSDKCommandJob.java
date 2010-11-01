@@ -20,6 +20,8 @@ import java.util.List;
 import java.util.Map;
 
 import org.eclipse.core.resources.IProject;
+import org.eclipse.core.resources.IResource;
+import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
@@ -30,21 +32,25 @@ import org.eclipse.dltk.core.environment.IExecutionEnvironment;
 import org.eclipse.dltk.launching.EnvironmentVariable;
 import org.eclipse.dltk.launching.IInterpreterInstall;
 import org.eclipse.dltk.launching.ScriptRuntime;
+import org.eclipse.ui.console.ConsolePlugin;
+import org.eclipse.ui.console.IConsole;
+import org.eclipse.ui.console.IConsoleManager;
+import org.eclipse.ui.console.MessageConsole;
+import org.eclipse.ui.console.MessageConsoleStream;
 import org.eclipse.wst.xquery.core.utils.ProcessStreamConsumer;
 import org.eclipse.wst.xquery.set.core.SETCorePlugin;
 
-abstract public class SETCoreSDKCommandJob extends Job {
+abstract public class AbstractSETCoreSDKCommandJob extends Job {
 
     protected IProject fProject;
     private IProgressMonitor fMonitor;
     private OutputStream fOutputStream;
 
-    public SETCoreSDKCommandJob(String name, IProject project, OutputStream output) {
+    public AbstractSETCoreSDKCommandJob(String name, IProject project) {
         super(name);
         setUser(true);
 
         fProject = project;
-        fOutputStream = output;
     }
 
     protected IStatus run(IProgressMonitor monitor) {
@@ -86,8 +92,13 @@ abstract public class SETCoreSDKCommandJob extends Job {
             // wait for the consumer to read the entire contents of the streams
             psc.join();
 
+            // refresh the project or resources
+            if (needsResourceRefresh()) {
+                refresh(monitor);
+            }
+
             if (err == 0) {
-                return reportWarning(psc.getError());
+                return checkForWarnings(psc.getError());
             }
             return reportError(psc.getError());
 
@@ -120,6 +131,47 @@ abstract public class SETCoreSDKCommandJob extends Job {
     }
 
     protected void doActionsBeforeRun() {
+        MessageConsole console = activateConsole();
+        fOutputStream = console.newMessageStream();
+    }
+
+    private MessageConsole activateConsole() {
+        String consoleName = "Project: " + fProject.getName();
+        MessageConsole console = findLastConsole();
+        IConsoleManager manager = ConsolePlugin.getDefault().getConsoleManager();
+        if (console == null) {
+            console = new MessageConsole(consoleName, null);
+            manager.addConsoles(new IConsole[] { console });
+        }
+
+        // make sure the Console View is visible
+        manager.showConsoleView(console);
+
+        // print the current command
+        MessageConsoleStream stream = console.newMessageStream();
+        try {
+            stream.write("\n-----------------------------------------\n");
+            stream.write(getCommandConsleLabel() + "\n");
+            stream.write("-----------------------------------------\n");
+
+            stream.flush();
+            stream.close();
+        } catch (IOException e) {
+            // do nothing
+        }
+
+        return console;
+    }
+
+    private MessageConsole findLastConsole() {
+        String stringToFind = "Project: " + fProject.getName();
+        IConsole[] consoles = ConsolePlugin.getDefault().getConsoleManager().getConsoles();
+        for (IConsole console : consoles) {
+            if (console instanceof MessageConsole && console.getName().contains(stringToFind)) {
+                return (MessageConsole)console;
+            }
+        }
+        return null;
     }
 
     protected void readCommandOutput(InputStream inputStream) throws IOException {
@@ -134,7 +186,29 @@ abstract public class SETCoreSDKCommandJob extends Job {
         }
     }
 
+    //
+    // abstract methods
+    //
+
     abstract protected List<String> getCommandParameters();
+
+    abstract protected String getCommandConsleLabel();
+
+    protected boolean needsResourceRefresh() {
+        return false;
+    }
+
+    protected void refresh(IProgressMonitor monitor) {
+        try {
+            fProject.refreshLocal(IResource.DEPTH_INFINITE, monitor);
+        } catch (CoreException e) {
+            // nothing to do
+        }
+    }
+
+    //
+    // implementation
+    //
 
     protected int getJobTaskSize() {
         return IProgressMonitor.UNKNOWN;
@@ -153,7 +227,7 @@ abstract public class SETCoreSDKCommandJob extends Job {
                 message));
     }
 
-    protected IStatus reportWarning(String message) {
+    protected IStatus checkForWarnings(String message) {
         if (message != null) {
             StringBuffer sb = new StringBuffer();
 

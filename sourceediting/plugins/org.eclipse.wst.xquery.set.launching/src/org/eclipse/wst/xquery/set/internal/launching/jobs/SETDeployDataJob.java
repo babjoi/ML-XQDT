@@ -10,19 +10,21 @@
  *******************************************************************************/
 package org.eclipse.wst.xquery.set.internal.launching.jobs;
 
-import java.io.OutputStream;
-
 import org.eclipse.wst.xquery.set.launching.deploy.DeployInfo;
 
 public class SETDeployDataJob extends AbstractSETCoreSDKDeployCommandJob {
 
-    public SETDeployDataJob(DeployInfo info, OutputStream output) {
-        super("Deploying data for project: \"" + info.getProject().getElementName() + "\"...", info, output);
+    public SETDeployDataJob(DeployInfo info) {
+        super("Deploying data for project: \"" + info.getProject().getElementName() + "\"...", info);
     }
 
     @Override
     protected String getJobTaskName() {
         return "Deploying data for project: " + fProject.getName();
+    }
+
+    protected String getCommandConsleLabel() {
+        return "Deploy data";
     }
 
     protected DeployType getDeployType() {

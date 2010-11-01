@@ -10,7 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wst.xquery.set.internal.launching.jobs;
 
-import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -30,24 +29,24 @@ public class SETCoreSDKMultipleCommandJob extends Job {
     private IStatus fStatus;
     private List<Job> fJobs = new ArrayList<Job>(1);
 
-    public SETCoreSDKMultipleCommandJob(DeployInfo info, OutputStream output) {
+    public SETCoreSDKMultipleCommandJob(DeployInfo info) {
         super("");
         fDeployInfo = info;
-        initJobs(output);
+        initJobs();
         setSystem(true);
     }
 
-    public void initJobs(OutputStream output) {
+    public void initJobs() {
         switch (fDeployInfo.getDeployType()) {
         case PROJECT:
-            fJobs.add(new SETDeployProjectJob(fDeployInfo, output));
+            fJobs.add(new SETDeployProjectJob(fDeployInfo));
             break;
         case DATA:
-            fJobs.add(new SETDeployDataJob(fDeployInfo, output));
+            fJobs.add(new SETDeployDataJob(fDeployInfo));
             break;
         case PROJECT_AND_DATA:
-            fJobs.add(new SETDeployProjectJob(fDeployInfo, output));
-            fJobs.add(new SETDeployDataJob(fDeployInfo, output));
+            fJobs.add(new SETDeployProjectJob(fDeployInfo));
+            fJobs.add(new SETDeployDataJob(fDeployInfo));
             break;
         }
     }

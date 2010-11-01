@@ -26,20 +26,25 @@ import org.eclipse.core.resources.IResource;
 import org.eclipse.core.resources.IResourceVisitor;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
+import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
+import org.eclipse.wst.xquery.set.core.ISETCoreConstants;
 import org.eclipse.wst.xquery.set.launching.SETLaunchingPlugin;
 
-public class SETImportDataJob extends SETCoreSDKCommandJob {
+public class SETImportDataJob extends AbstractSETCoreSDKCommandJob {
 
     public static final String MESSAGE_NOTHING_TO_DO = "The bulkloader had nothing to do";
     private static final String MESSAGE_NOTHING_TO_DO_FORMAT = MESSAGE_NOTHING_TO_DO + " for project \"%1$s\". %2$s";
-    private static final String BULKLOAD_PATH = "bulkload";
+    private static String MESSAGE_NO_XQ_FILES = "No *.xq query files were found in the \""
+            + ISETCoreConstants.PROJECT_DIRECTORY_BULKLOAD + "\" directory.";
+    private static String MESSAGE_NO_BULKLOAD_DIRECTORY = "No \"" + ISETCoreConstants.PROJECT_DIRECTORY_BULKLOAD
+            + "\" directory was found in the project root.";
 
     private String fProblemMessage = "";
 
-    public SETImportDataJob(IProject project, OutputStream output) {
-        super("Bulkloading project " + "\"" + project.getName() + "\"...", project, output);
+    public SETImportDataJob(IProject project) {
+        super("Bulkloading project " + "\"" + project.getName() + "\"...", project);
     }
 
     protected List<String> getCommandParameters() {
@@ -52,11 +57,15 @@ public class SETImportDataJob extends SETCoreSDKCommandJob {
         return params;
     }
 
+    protected String getCommandConsleLabel() {
+        return "Bulkload data";
+    }
+
     @Override
     protected int getJobTaskSize() {
-        final IFolder folder = fProject.getFolder(BULKLOAD_PATH);
+        final IFolder folder = fProject.getFolder(ISETCoreConstants.PROJECT_DIRECTORY_BULKLOAD);
         if (!folder.exists()) {
-            fProblemMessage = "No \"bulkload\" directory was found in the project root.";
+            fProblemMessage = MESSAGE_NO_BULKLOAD_DIRECTORY;
             return 0;
         }
 
@@ -83,7 +92,7 @@ public class SETImportDataJob extends SETCoreSDKCommandJob {
 
         int count = names.size();
         if (count == 0) {
-            fProblemMessage = "No *.xq query files were found in the \"bulkload\" directory.";
+            fProblemMessage = MESSAGE_NO_XQ_FILES;
         }
 
         return count;
@@ -116,6 +125,22 @@ public class SETImportDataJob extends SETCoreSDKCommandJob {
     @Override
     protected IStatus handleNoTicks() {
         final String message = String.format(MESSAGE_NOTHING_TO_DO_FORMAT, fProject.getName(), fProblemMessage);
-        return new Status(IStatus.INFO, SETLaunchingPlugin.PLUGIN_ID, message);
+        return new Status(IStatus.WARNING, SETLaunchingPlugin.PLUGIN_ID, message);
     }
+
+    @Override
+    protected boolean needsResourceRefresh() {
+        return true;
+    }
+
+    @Override
+    protected void refresh(IProgressMonitor monitor) {
+        IPath path = new org.eclipse.core.runtime.Path(ISETCoreConstants.PROJECT_DIRECTORY_TEST);
+        try {
+            fProject.getFolder(path).refreshLocal(IResource.DEPTH_INFINITE, monitor);
+        } catch (CoreException e) {
+            // nothing to do
+        }
+    }
+
 }

@@ -101,14 +101,14 @@ public class SETLaunchingPlugin extends Plugin implements IInterpreterInstallCha
     private final String CORE_SDK_NAME_PREFIX = "Sausalito CoreSDK ";
     private boolean fCoreSDKUpdated = false;
 
-    private boolean isDefaultInterpreter(IInterpreterInstall interpreter) {
+    private boolean isDefaultInterpreter(IInterpreterInstall interpreter, String nature) {
         String xml = getInterpreterPreferenceXMLString();
 
         String[] lines = xml.split("\n");
         String id = null;
         for (String line : lines) {
             // if we find the default CoreSDK interpreter reference
-            if (line.contains("<defaultInterpreter") && line.contains("nature=\"" + SETNature.NATURE_ID + "\"")) {
+            if (line.contains("<defaultInterpreter") && line.contains("nature=\"" + nature + "\"")) {
                 // get the interpreter ID
                 int searchIndex = line.indexOf("id=\"") + 4;
                 if (searchIndex > 0) {
@@ -151,10 +151,13 @@ public class SETLaunchingPlugin extends Plugin implements IInterpreterInstallCha
     }
 
     public void interpreterAdded(IInterpreterInstall interpreter) {
-        // only do this logic if a CoreSDK is added and this happened to be the default one
-        // perform this only once, the first time the default CoreSDK is added
-        if (interpreter instanceof CoreSDKInstall && !fCoreSDKUpdated && isDefaultInterpreter(interpreter)
+        // only do this logic if a CoreSDK is added and this happens to be the
+        // default one perform this only once, the first time the default CoreSDK
+        // is added
+        if (interpreter instanceof CoreSDKInstall && !fCoreSDKUpdated
+                && isDefaultInterpreter(interpreter, SETNature.NATURE_ID)
                 && interpreter.getName().startsWith(CORE_SDK_NAME_PREFIX)) {
+            System.out.println("configuring sausalito...");
             IFileHandle handle = interpreter.getInstallLocation();
 
             Path path = new Path(handle.toOSString());

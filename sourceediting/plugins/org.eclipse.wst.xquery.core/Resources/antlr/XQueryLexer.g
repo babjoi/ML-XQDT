@@ -168,6 +168,7 @@ PUBLIC                      : 'public';
 PREVIOUS                    : 'previous';
 SLIDING                     : 'sliding';
 START                       : 'start';
+SWITCH                      : 'switch';
 TRY                         : 'try';
 TUMBLING                    : 'tumbling';
 WHEN                        : 'when';

@@ -17,6 +17,7 @@ import org.eclipse.dltk.ui.editor.IScriptAnnotation;
 import org.eclipse.dltk.ui.editor.ScriptMarkerAnnotation;
 import org.eclipse.dltk.ui.text.IScriptCorrectionContext;
 import org.eclipse.dltk.ui.text.IScriptCorrectionProcessor;
+import org.eclipse.wst.xquery.set.core.ISETCoreConstants;
 
 public class ModuleDeclQuickFix implements IScriptCorrectionProcessor {
 
@@ -31,9 +32,10 @@ public class ModuleDeclQuickFix implements IScriptCorrectionProcessor {
             IMarker marker = ((ScriptMarkerAnnotation)annotation).getMarker();
             try {
                 String message = (String)marker.getAttribute(IMarker.MESSAGE);
-                IPath location = marker.getResource().getLocation();
-                String parentDir = location.segment(location.segmentCount() - 2);
-                return ("lib".equals(parentDir) || "handlers".equals(parentDir))
+                IPath location = marker.getResource().getProjectRelativePath();
+                String parentDir = location.segment(0);
+                return (ISETCoreConstants.PROJECT_DIRECTORY_LIBRARY.equals(parentDir) || ISETCoreConstants.PROJECT_DIRECTORY_HANDLER
+                        .equals(parentDir))
                         && (message.startsWith(INVALID_LOGICAL_URI) || message.startsWith(INVALID_MODULE_NAME));
             } catch (CoreException e) {
                 // TODO Auto-generated catch block

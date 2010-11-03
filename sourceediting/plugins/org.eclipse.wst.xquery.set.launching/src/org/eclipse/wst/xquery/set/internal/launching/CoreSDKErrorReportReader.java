@@ -56,19 +56,15 @@ public class CoreSDKErrorReportReader extends SemanticCheckErrorReportReader {
                         .getLogicalUri().toString();
                 String fileName = moduleResource.getName();
                 String moduleName = fileName.substring(0, fileName.lastIndexOf('.'));
-                IPath moduleLocation = moduleResource.getFullPath();
-                int pathSegment = moduleLocation.segmentCount();
-                if (pathSegment < 2) {
+                IPath moduleLocation = moduleResource.getProjectRelativePath();
+                if (!ISETCoreConstants.PROJECT_DIRECTORY_LIBRARY.equals(moduleLocation.segment(0))
+                        && !ISETCoreConstants.PROJECT_DIRECTORY_HANDLER.equals(moduleLocation.segment(0))) {
                     return oldError;
                 }
-                String enclosingFolder = moduleLocation.segment(pathSegment - 2);
-                if (enclosingFolder.equals(ISETCoreConstants.PROJECT_DIRECTORY_LIBRARY)) {
-                    moduleName = ISETCoreConstants.PROJECT_DIRECTORY_LIBRARY + "/" + moduleName;
-                } else if (!enclosingFolder.equals(ISETCoreConstants.PROJECT_DIRECTORY_HANDLER)) {
-                    return oldError;
-                }
+
                 URI projectLogicalUri = new URI(projectLogicalUriString);
-                URI expectedUri = projectLogicalUri.resolve(moduleName);
+                URI expectedUri = projectLogicalUri.resolve(moduleResource.getProjectRelativePath()
+                        .removeLastSegments(1).append(moduleName).toPortableString());
 
                 ModuleDeclaration module = SourceParserUtil.getModuleDeclaration(fModule);
                 if (module instanceof XQueryLibraryModule) {

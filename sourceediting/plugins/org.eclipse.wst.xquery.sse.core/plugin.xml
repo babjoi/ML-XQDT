@@ -15,6 +15,7 @@
    <extension
          point="org.eclipse.core.contenttype.contentTypes">
       <content-type
+            default-charset="UTF-8"
             file-extensions="xq,xql,xqy,xquery"
             id="org.eclipse.wst.xquery.sse.core.xquery"
             name="XQuery Module"

@@ -2331,10 +2331,10 @@ SimpleName = ({Letter} | "_" ) ({SimpleNameChar})*
 <TS_XMLATTLIST> {
   {QName}		{ yybegin(TS_XMLATTREQ); return XML_TAG_ATTRIBUTE_NAME; }
   "/>"			{ 
-  					endElement(); 
-					if (inXMLContent()) {
-					   yybegin(TS_XMLCONTENT);
-					} else {
+  					if (inXMLContent()) {
+  					   yybegin(TS_XMLCONTENT);
+  					} else
+  					{
 					   endXML();
 					   yybegin(popState());
 					}

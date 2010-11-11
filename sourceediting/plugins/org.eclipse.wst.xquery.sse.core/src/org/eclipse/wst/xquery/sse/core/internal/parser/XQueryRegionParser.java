@@ -267,8 +267,6 @@ public class XQueryRegionParser implements StructuredDocumentRegionParser, XQuer
         fTokenizer = getContributionTokenizer();
     }
 
-    // Methods
-
     // Implements StructuredDocumentRegionParser
 
     public void addStructuredDocumentRegionHandler(StructuredDocumentRegionHandler handler) {

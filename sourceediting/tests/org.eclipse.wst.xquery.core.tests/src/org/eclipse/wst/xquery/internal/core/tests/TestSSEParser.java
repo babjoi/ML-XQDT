@@ -25,6 +25,10 @@ import org.junit.Test;
 @SuppressWarnings("restriction")
 public class TestSSEParser implements XQueryRegions {
 
+    final static String[] G_DOLLARVAR = new String[] { DOLLAR, VARREF };
+    final static String[] G_DECLAREVAR = new String[] { KW_DECLARE, KW_VARIABLE };
+    final static String[] G_FUNCALL = new String[] { FUNCTIONNAME, LPAR };
+
     @Test
     public void testDirectContruction() {
         IStructuredDocument document = load("<a></a>");
@@ -42,6 +46,32 @@ public class TestSSEParser implements XQueryRegions {
                 XML_ATTR_QUOT, XML_ATTR_CHAR, XML_END_ATTR_VALUE, XML_TAG_CLOSE, XML_END_TAG_OPEN, XML_TAG_NAME,
                 XML_TAG_CLOSE, XML_END_TAG_OPEN, XML_TAG_NAME, XML_TAG_CLOSE });
 
+    }
+
+    @Test
+    public void testFunctionCall1() {
+        IStructuredDocument document = load("toto(())");
+        IStructuredDocumentRegion[] regions = document.getStructuredDocumentRegions();
+
+        checkRegionTypes(regions, new Object[] { G_FUNCALL, LPAR, RPAR, RPAR });
+    }
+
+    @Test
+    public void testFunctionCall2() {
+        IStructuredDocument document = load("toto(1,2)");
+        IStructuredDocumentRegion[] regions = document.getStructuredDocumentRegions();
+
+        checkRegionTypes(regions, new Object[] { G_FUNCALL, NUMERICLITERAL, COMMA, NUMERICLITERAL, RPAR });
+    }
+
+    @Test
+    public void testBug327492() {
+        IStructuredDocument document = load("declare variable $r := for $i in 1 return $i; declare variable $r external; 4");
+        IStructuredDocumentRegion[] regions = document.getStructuredDocumentRegions();
+
+        checkRegionTypes(regions, new Object[] { G_DECLAREVAR, G_DOLLARVAR, ASSIGN, KW_FOR, G_DOLLARVAR, KW_IN,
+                NUMERICLITERAL, KW_RETURN, G_DOLLARVAR, SEPARATOR, G_DECLAREVAR, G_DOLLARVAR, KW_EXTERNAL, SEPARATOR,
+                NUMERICLITERAL });
     }
 
     // Helpers

@@ -267,8 +267,6 @@ public class XQueryRegionParser implements StructuredDocumentRegionParser, XQuer
         fTokenizer = getContributionTokenizer();
     }
 
-    // Methods
-
     // Implements StructuredDocumentRegionParser
 
     public void addStructuredDocumentRegionHandler(StructuredDocumentRegionHandler handler) {
@@ -407,11 +405,13 @@ public class XQueryRegionParser implements StructuredDocumentRegionParser, XQuer
             return fCurrentStructuredDocumentRegion;
         }
 
+        // Fallback to default sdregion
         fCurrentStructuredDocumentRegion = null;
         return new XQueryStructuredDocumentRegion();
     }
 
     /**
+     * 
      * @param region
      * @return
      */
@@ -446,6 +446,12 @@ public class XQueryRegionParser implements StructuredDocumentRegionParser, XQuer
 
             final String currentType = fCurrentStructuredDocumentRegion.getType();
 
+            // Deal with case functionname( () )
+            if (region.getType() == XQueryRegions.LPAR && currentType == FUNCTIONNAME
+                    && fCurrentStructuredDocumentRegion.getNumberOfRegions() == 2) {
+                return false;
+            }
+
             String[] validRegions = IN_GROUP.get(currentType);
             if (validRegions != null && Arrays.binarySearch(validRegions, region.getType()) >= 0) {
                 return true;
@@ -467,6 +473,7 @@ public class XQueryRegionParser implements StructuredDocumentRegionParser, XQuer
 
                 return true;
             }
+
         }
 
         return false;

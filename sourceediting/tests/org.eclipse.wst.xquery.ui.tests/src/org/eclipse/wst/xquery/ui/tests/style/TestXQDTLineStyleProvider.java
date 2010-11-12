@@ -80,7 +80,7 @@ public class TestXQDTLineStyleProvider extends AbstractXQDTUITest {
 
 		ITypedRegion[] partitions = setupPartitions();
 
-		//assertTrue("No Partitions found.", partitions.length > 0);
+		assertTrue("No Partitions found.", partitions.length > 0);
 
 		ArrayList holdStyleResults = new ArrayList();
 		applyStyles(provider, partitions, holdStyleResults);

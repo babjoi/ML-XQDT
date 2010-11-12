@@ -20,12 +20,15 @@ import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 
 import org.eclipse.core.runtime.IPath;
+import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Path;
+import org.eclipse.core.runtime.Status;
 import org.eclipse.dltk.core.IBuffer;
 import org.eclipse.dltk.core.ISourceModule;
 import org.eclipse.dltk.core.ModelException;
 import org.eclipse.jface.text.BadLocationException;
 import org.eclipse.jface.text.IDocument;
+import org.eclipse.wst.xquery.core.XQDTCorePlugin;
 import org.eclipse.wst.xquery.core.utils.PathUtil;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -68,7 +71,9 @@ public class SemanticCheckErrorReportReader {
         } catch (ParserConfigurationException pce) {
             pce.printStackTrace();
         } catch (SAXException se) {
-            se.printStackTrace();
+            Status status = new Status(IStatus.ERROR, XQDTCorePlugin.PLUGIN_ID,
+                    "The interpreter returned an invalid XML error report during a semantic check validation.", se);
+            XQDTCorePlugin.getDefault().getLog().log(status);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -145,4 +150,5 @@ public class SemanticCheckErrorReportReader {
             return null;
         }
     }
+
 }

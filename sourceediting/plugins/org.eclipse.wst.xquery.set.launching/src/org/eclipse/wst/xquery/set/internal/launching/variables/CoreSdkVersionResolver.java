@@ -1,3 +1,13 @@
+/*******************************************************************************
+ * Copyright (c) 2008 28msec Inc. and others.
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ *
+ * Contributors:
+ *     Gabriel Petrovay (28msec) - initial API and implementation
+ *******************************************************************************/
 package org.eclipse.wst.xquery.set.internal.launching.variables;
 
 import java.io.BufferedReader;
@@ -25,27 +35,39 @@ public class CoreSdkVersionResolver implements IDynamicVariableResolver {
 
     private static final String SDK_VERSION_VARIABLE = "${" + SDK_VERSION_VARIABLE_NAME + "}";
 
-    public String resolveValue(IDynamicVariable variable, String argument) throws CoreException {
-        String result = doResolveValue(variable, argument);
+    private String fCachedValue = null;
 
+    public String resolveValue(IDynamicVariable variable, String argument) throws CoreException {
         if (SETLaunchingPlugin.DEBUG_VARIABLE_RESOLVING) {
-            CoreSdkLocationResolver.log(IStatus.INFO, SDK_VERSION_VARIABLE + " was resolved to: " + result, null);
+            CoreSdkLocationResolver.log(IStatus.INFO, "Starting resolving of variable " + SDK_VERSION_VARIABLE
+                    + " with default start value: null");
         }
 
-        return result;
+        boolean isCached = fCachedValue != null;
+
+        if (!isCached) {
+            fCachedValue = doResolveValue(variable, argument);
+        }
+
+        if (SETLaunchingPlugin.DEBUG_VARIABLE_RESOLVING) {
+            CoreSdkLocationResolver.log(IStatus.INFO, SDK_VERSION_VARIABLE + " was resolved to"
+                    + (isCached ? " (cached value)" : "") + ": " + fCachedValue);
+        }
+
+        return fCachedValue;
     }
 
     private String doResolveValue(IDynamicVariable variable, String argument) throws CoreException {
         if (SETLaunchingPlugin.DEBUG_VARIABLE_RESOLVING) {
             CoreSdkLocationResolver.log(IStatus.INFO, "Starting resolving of variable " + SDK_VERSION_VARIABLE
-                    + " with default start value: \"\"", null);
+                    + " with default start value: \"\"");
         }
 
         String result = "";
         String coreSdk = CoreSdkLocationResolver.resolve();
         if (coreSdk == null || coreSdk.equals("")) {
             if (SETLaunchingPlugin.DEBUG_VARIABLE_RESOLVING) {
-                CoreSdkLocationResolver.log(IStatus.INFO, "Could not find a valid Sausalito CoreSDK.", null);
+                CoreSdkLocationResolver.log(IStatus.INFO, "Could not find a valid Sausalito CoreSDK.");
             }
             return "";
         }
@@ -53,7 +75,7 @@ public class CoreSdkVersionResolver implements IDynamicVariableResolver {
         String executable = CoreSdkExecNameResolver.resolve(CoreSdkExecNameResolver.SAUSALITO_SCRIPT_VARIABLE_NAME);
         if (executable == null || executable.equals("")) {
             if (SETLaunchingPlugin.DEBUG_VARIABLE_RESOLVING) {
-                CoreSdkLocationResolver.log(IStatus.INFO, "Could not find a valid Sausalito CoreSDK.", null);
+                CoreSdkLocationResolver.log(IStatus.INFO, "Could not find a valid Sausalito CoreSDK.");
             }
             return "";
         }
@@ -62,8 +84,7 @@ public class CoreSdkVersionResolver implements IDynamicVariableResolver {
                 executable);
 
         if (SETLaunchingPlugin.DEBUG_VARIABLE_RESOLVING) {
-            CoreSdkLocationResolver
-                    .log(IStatus.INFO, "Using Sausalito executable at: " + scriptPath.toOSString(), null);
+            CoreSdkLocationResolver.log(IStatus.INFO, "Using Sausalito executable at: " + scriptPath.toOSString());
         }
 
         ProcessBuilder pb = new ProcessBuilder(scriptPath.toOSString());
@@ -85,21 +106,20 @@ public class CoreSdkVersionResolver implements IDynamicVariableResolver {
             });
 
             if (SETLaunchingPlugin.DEBUG_VARIABLE_RESOLVING) {
-                CoreSdkLocationResolver.log(IStatus.INFO, "Executing command for retrieving the version", null);
+                CoreSdkLocationResolver.log(IStatus.INFO, "Executing command for retrieving the version");
             }
             reader.start();
 
             int code = p.waitFor();
             if (SETLaunchingPlugin.DEBUG_VARIABLE_RESOLVING) {
-                CoreSdkLocationResolver.log(IStatus.INFO, "Version retrieving command exited with status: " + code,
-                        null);
+                CoreSdkLocationResolver.log(IStatus.INFO, "Version retrieving command exited with status: " + code);
             }
 
             String version = null;
             for (String line : lines) {
                 if (line.startsWith(VERSION_PREFIX)) {
                     if (SETLaunchingPlugin.DEBUG_VARIABLE_RESOLVING) {
-                        CoreSdkLocationResolver.log(IStatus.INFO, "Found version line: " + line, null);
+                        CoreSdkLocationResolver.log(IStatus.INFO, "Found version line: " + line);
                     }
                     version = line.substring(VERSION_PREFIX.length(), line.lastIndexOf(')'));
                     break;
@@ -108,11 +128,13 @@ public class CoreSdkVersionResolver implements IDynamicVariableResolver {
             if (version != null) {
                 if (SETLaunchingPlugin.DEBUG_VARIABLE_RESOLVING) {
                     CoreSdkLocationResolver.log(IStatus.INFO,
-                            "Did not find a version number by executing the Sausalito script", null);
+                            "Did not find a version number by executing the Sausalito script");
                 }
                 result = version;
             }
-            CoreSdkLocationResolver.log(IStatus.INFO, "Found version: " + result, null);
+            if (SETLaunchingPlugin.DEBUG_VARIABLE_RESOLVING) {
+                CoreSdkLocationResolver.log(IStatus.INFO, "Found version: " + result);
+            }
 
         } catch (Exception e) {
             CoreSdkLocationResolver.log(IStatus.ERROR,

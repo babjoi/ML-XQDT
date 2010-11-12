@@ -26,6 +26,7 @@ import org.eclipse.wst.xquery.debug.dbgp.client.IDbgpTranslator;
 import org.eclipse.wst.xquery.launching.TranslatableDebuggingEngineRunner;
 import org.eclipse.wst.xquery.set.debug.core.SETDebugCorePlugin;
 import org.eclipse.wst.xquery.set.debug.debugger.translator.SETDbgpTranslator;
+import org.eclipse.wst.xquery.set.internal.launching.CoreSdkRunner;
 
 public class CoreSdkDebuggerRunner extends TranslatableDebuggingEngineRunner {
 
@@ -103,6 +104,22 @@ public class CoreSdkDebuggerRunner extends TranslatableDebuggingEngineRunner {
         cmdLine.add(ports);
 
         return cmdLine.toArray(new String[cmdLine.size()]);
+    }
+
+    @Override
+    protected String[] getEnvironmentVariablesAsStrings(InterpreterConfig config) {
+        String[] env = super.getEnvironmentVariablesAsStrings(config);
+
+        // don't give the user a chance to provide SAUSALITO_TOOLS set to false
+        List<String> newEnv = new ArrayList<String>(env.length);
+        for (String var : env) {
+            if (var.startsWith(CoreSdkRunner.SAUSALITO_TOOLS + "=")) {
+                continue;
+            }
+            newEnv.add(var);
+        }
+        newEnv.add(CoreSdkRunner.SAUSALITO_TOOLS + "=true");
+        return newEnv.toArray(new String[newEnv.size()]);
     }
 
     @Override

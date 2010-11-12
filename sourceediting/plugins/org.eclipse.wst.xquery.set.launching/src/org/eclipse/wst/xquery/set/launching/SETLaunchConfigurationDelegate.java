@@ -30,6 +30,7 @@ import org.eclipse.debug.core.ILaunchConfiguration;
 import org.eclipse.debug.core.model.IProcess;
 import org.eclipse.dltk.core.environment.IEnvironment;
 import org.eclipse.dltk.launching.AbstractScriptLaunchConfigurationDelegate;
+import org.eclipse.swt.browser.Browser;
 import org.eclipse.swt.custom.BusyIndicator;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.wst.xquery.set.core.SETNature;
@@ -96,7 +97,10 @@ public class SETLaunchConfigurationDelegate extends AbstractScriptLaunchConfigur
 
             // open the browser
             monitor.subTask("Opening the browser");
-            SETLaunchUtil.openBrowser(launch);
+
+            Browser browserId = SETLaunchUtil.openBrowser(launch);
+            server.setBrowser(browserId);
+
             if (monitor.isCanceled()) {
                 return;
             }

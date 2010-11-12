@@ -11,6 +11,7 @@
 package org.eclipse.wst.xquery.sse.core.internal.parser;
 
 import org.eclipse.wst.sse.core.internal.provisional.text.IStructuredDocumentRegion;
+import org.eclipse.wst.sse.core.internal.provisional.text.IStructuredTextReParser;
 import org.eclipse.wst.sse.core.internal.text.StructuredDocumentReParser;
 
 /**
@@ -28,11 +29,15 @@ public class XQueryReParser extends StructuredDocumentReParser {
 
     @Override
     protected void findDirtyStart(int start) {
+        // TODO: do better.
+
         dirtyStart = fStructuredDocument.getRegionAtCharacterOffset(0);
     }
 
     @Override
     protected IStructuredDocumentRegion findDirtyEnd(int end) {
+        // TODO: do better
+
         IStructuredDocumentRegion result = fStructuredDocument.getRegionAtCharacterOffset(end);
         while (result.getNext() != null) {
             result = result.getNext();
@@ -40,6 +45,11 @@ public class XQueryReParser extends StructuredDocumentReParser {
 
         dirtyEnd = result;
         return dirtyEnd;
+    }
+
+    @Override
+    public IStructuredTextReParser newInstance() {
+        return new XQueryReParser();
     }
 
 }

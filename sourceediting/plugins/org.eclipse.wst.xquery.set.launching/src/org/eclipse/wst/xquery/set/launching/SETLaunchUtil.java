@@ -20,7 +20,6 @@ import org.eclipse.debug.core.ILaunch;
 import org.eclipse.debug.core.ILaunchConfiguration;
 import org.eclipse.dltk.launching.ScriptLaunchConfigurationConstants;
 import org.eclipse.swt.SWT;
-import org.eclipse.swt.browser.Browser;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.IEditorReference;
@@ -35,10 +34,10 @@ import org.eclipse.wst.xquery.set.debug.core.ISETLaunchConfigurationConstants;
 @SuppressWarnings("restriction")
 public class SETLaunchUtil {
 
-    public static Browser openBrowser(ILaunch launch) {
+    public static IWebBrowser openBrowser(ILaunch launch) {
         final String startPage, host;
         // this id is needed for testing
-        final Browser[] theBrowser = { null };
+        final IWebBrowser[] theBrowser = { null };
         final int port;
         try {
             ILaunchConfiguration config = launch.getLaunchConfiguration();
@@ -73,7 +72,7 @@ public class SETLaunchUtil {
                                 | IWorkbenchBrowserSupport.NAVIGATION_BAR | IWorkbenchBrowserSupport.STATUS
                                 | SWT.MOZILLA, "SausalitoBrowser", browserTitle.toString(), browserTitle.toString());
                     }
-                    //theBrowser[0] = browser;
+                    theBrowser[0] = browser;
                     browser.openURL(url);
                 } catch (MalformedURLException e) {
                     e.printStackTrace();

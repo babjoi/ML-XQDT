@@ -23,7 +23,7 @@ import org.eclipse.debug.core.ILaunchConfigurationWorkingCopy;
 import org.eclipse.debug.core.IStreamListener;
 import org.eclipse.debug.core.model.IProcess;
 import org.eclipse.debug.core.model.IStreamMonitor;
-import org.eclipse.swt.browser.Browser;
+import org.eclipse.ui.browser.IWebBrowser;
 import org.eclipse.wst.xquery.set.debug.core.ISETLaunchConfigurationConstants;
 
 public class Server implements IStreamListener {
@@ -35,7 +35,7 @@ public class Server implements IStreamListener {
     private String fHost;
     private int fPort;
 
-    private Browser fBrowser;
+    private IWebBrowser fBrowser;
 
     private ILaunch fLaunch;
 
@@ -62,11 +62,11 @@ public class Server implements IStreamListener {
         fHost = host;
     }
 
-    public Browser getBrowser() {
+    public IWebBrowser getBrowser() {
         return fBrowser;
     }
 
-    public void setBrowser(Browser browser) {
+    public void setBrowser(IWebBrowser browser) {
         fBrowser = browser;
     }
 

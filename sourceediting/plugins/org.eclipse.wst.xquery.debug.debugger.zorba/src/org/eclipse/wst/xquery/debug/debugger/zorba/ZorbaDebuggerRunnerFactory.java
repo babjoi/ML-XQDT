@@ -13,11 +13,12 @@ package org.eclipse.wst.xquery.debug.debugger.zorba;
 import org.eclipse.dltk.launching.IInterpreterInstall;
 import org.eclipse.dltk.launching.IInterpreterRunner;
 import org.eclipse.dltk.launching.IInterpreterRunnerFactory;
+import org.eclipse.wst.xquery.internal.launching.zorba.ZorbaRunnerConfigurator;
 
 public class ZorbaDebuggerRunnerFactory implements IInterpreterRunnerFactory {
 
     public IInterpreterRunner createRunner(IInterpreterInstall install) {
-        return new ZorbaDebuggerRunner(install);
+        return new ZorbaDebuggerRunner(install, new ZorbaRunnerConfigurator(install));
     }
 
 }

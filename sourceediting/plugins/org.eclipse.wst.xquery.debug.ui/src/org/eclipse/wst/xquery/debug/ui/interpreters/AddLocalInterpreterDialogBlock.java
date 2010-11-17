@@ -189,6 +189,10 @@ public class AddLocalInterpreterDialogBlock extends AbstractAddInterpreterDialog
         } else {
             fInterpreterNameField.setText(install.getName());
             fInterpreterLocationField.setText(install.getRawInstallLocation().toOSString());
+            if (install.getId().startsWith("default")) {
+                fInterpreterNameField.getTextControl().setEditable(false);
+                fInterpreterLocationField.getTextControl().setEditable(false);
+            }
             String interpreterArgs = install.getInterpreterArgs();
             if (interpreterArgs != null) {
                 fInterpreterArgsField.setText(interpreterArgs);

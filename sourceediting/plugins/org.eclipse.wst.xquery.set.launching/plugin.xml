@@ -67,7 +67,7 @@
          point="org.eclipse.dltk.launching.interpreterInstalls">
       <interpreterInstall
             home="${sdk_location}/bin/${sausalito_script_exec}"
-            id="defaultSausalitoCoreSDK"
+            id="defaultCoreSDKInstall"
             interpreterInstallType="org.eclipse.wst.xquery.set.launching.CoreSDKInstallType"
             name="Sausalito CoreSDK ${sdk_version}">
       </interpreterInstall>

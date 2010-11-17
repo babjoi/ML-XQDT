@@ -10,30 +10,27 @@
  *******************************************************************************/
 package org.eclipse.wst.xquery.internal.launching.zorba;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-
 import org.eclipse.dltk.launching.AbstractInterpreterRunner;
 import org.eclipse.dltk.launching.IInterpreterInstall;
 import org.eclipse.dltk.launching.InterpreterConfig;
 
 public class ZorbaRunner extends AbstractInterpreterRunner {
 
-    private static List<String> DEFAULT_ARGS = Arrays.asList(new String[] { "-f", "-q" });
+    private ZorbaRunnerConfigurator fConfigurator;
 
-    protected ZorbaRunner(IInterpreterInstall install) {
+    protected ZorbaRunner(IInterpreterInstall install, ZorbaRunnerConfigurator configurator) {
         super(install);
+        fConfigurator = configurator;
     }
 
     protected String[] renderCommandLine(InterpreterConfig config) {
         String[] cmdLine = super.renderCommandLine(config);
-        List<String> newCmdLine = new ArrayList<String>(Arrays.asList(cmdLine));
-
-        int index = newCmdLine.size() - config.getScriptArgs().size() - 1;
-        newCmdLine.addAll(index, DEFAULT_ARGS);
-
-        return newCmdLine.toArray(new String[newCmdLine.size()]);
+        return fConfigurator.renderCommandLine(config, cmdLine);
     }
 
+    @Override
+    protected String[] getEnvironmentVariablesAsStrings(InterpreterConfig config) {
+        String[] env = super.getEnvironmentVariablesAsStrings(config);
+        return fConfigurator.addInternalVarsToRunnerEnv(config, env);
+    }
 }

@@ -202,6 +202,11 @@ public class SETNewProjectWizardFirstPage extends ProjectWizardFirstPage {
 
         public void dialogFieldChanged(DialogField field) {
             boolean hasChanged = false;
+            try {
+                System.out.println(field.getClass().getSimpleName() + " -- " + field.getLabelControl(null).getText());
+            } catch (Exception e) {
+                System.out.println(field.getClass().getSimpleName());
+            }
             if (field == fNewRadioButton) {
                 fProjectUriText.setText(getSampleProjectUri());
                 hasChanged = true;

@@ -44,8 +44,10 @@ public class XQDTInterpretersBlock extends InterpretersBlock {
         }
 
         if (goodTypes.size() == 0) {
-            XQDTDebugUIPlugin.getDefault().getLog().log(
-                    new Status(IStatus.ERROR, XQDTDebugUIPlugin.PLUGIN_ID,
+            XQDTDebugUIPlugin
+                    .getDefault()
+                    .getLog()
+                    .log(new Status(IStatus.ERROR, XQDTDebugUIPlugin.PLUGIN_ID,
                             "No IInterpreterInstallType definition can be associated with this environment: "
                                     + environment.getClass().getName() + ". In order to associate an "
                                     + IInterpreterInstallType.class.getName() + " with a particular "
@@ -55,8 +57,8 @@ public class XQDTInterpretersBlock extends InterpretersBlock {
             return null;
         }
 
-        GenericAddInterpreterDialog dialog = new GenericAddInterpreterDialog(this, getShell(), goodTypes
-                .toArray(new IInterpreterInstallType[goodTypes.size()]), standin);
+        GenericAddInterpreterDialog dialog = new GenericAddInterpreterDialog(this, getShell(),
+                goodTypes.toArray(new IInterpreterInstallType[goodTypes.size()]), standin);
         dialog.setEnvironment(environment);
         return dialog;
     }

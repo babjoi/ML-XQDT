@@ -37,7 +37,7 @@ public class XQDTEditorPerspective implements IPerspectiveFactory {
     protected void addFolders(IPageLayout layout) {
         IFolderLayout leftFolder = layout.createFolder("left", IPageLayout.LEFT, (float)0.2, layout.getEditorArea()); //$NON-NLS-1$
         leftFolder.addView("org.eclipse.dltk.ui.ScriptExplorer"); //$NON-NLS-1$
-        leftFolder.addView("org.eclipse.dltk.testing.ResultView"); //$NON-NLS-1$
+        //leftFolder.addView("org.eclipse.dltk.testing.ResultView"); //$NON-NLS-1$
         leftFolder.addPlaceholder("org.eclipse.dltk.ui.TypeHierarchy"); //$NON-NLS-1$
         leftFolder.addPlaceholder(IPageLayout.ID_BOOKMARKS);
 

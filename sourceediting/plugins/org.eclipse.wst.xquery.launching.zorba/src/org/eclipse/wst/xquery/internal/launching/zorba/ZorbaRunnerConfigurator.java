@@ -77,9 +77,7 @@ public class ZorbaRunnerConfigurator {
             envList.add(var);
         }
 
-        env = envList.toArray(new String[envList.size()]);
-
-        return null;
+        return envList.toArray(new String[envList.size()]);
     }
 
 }

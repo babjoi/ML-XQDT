@@ -50,7 +50,7 @@ public class CoreSDKErrorReportReader extends SemanticCheckErrorReportReader {
 
     private SemanticCheckError processError(SemanticCheckError oldError) {
         try {
-            if ("XQST0088".equals(oldError.getErrorCode())) {
+            if ("XQST0059".equals(oldError.getErrorCode())) {
                 IResource moduleResource = fModule.getResource();
                 String projectLogicalUriString = SETProjectConfigUtil.readProjectConfig(moduleResource.getProject())
                         .getLogicalUri().toString();
@@ -63,8 +63,14 @@ public class CoreSDKErrorReportReader extends SemanticCheckErrorReportReader {
                 }
 
                 URI projectLogicalUri = new URI(projectLogicalUriString);
-                URI expectedUri = projectLogicalUri.resolve(moduleResource.getProjectRelativePath()
-                        .removeLastSegments(1).append(moduleName).toPortableString());
+                URI expectedUri;
+                if (ISETCoreConstants.PROJECT_DIRECTORY_HANDLER.equals(moduleLocation.segment(0))) {
+                    expectedUri = projectLogicalUri.resolve(moduleName);
+                } else {
+                    assert ISETCoreConstants.PROJECT_DIRECTORY_LIBRARY.equals(moduleLocation.segment(0));
+                    expectedUri = projectLogicalUri.resolve(moduleResource.getProjectRelativePath()
+                            .removeLastSegments(1).append(moduleName).toPortableString());
+                }
 
                 ModuleDeclaration module = SourceParserUtil.getModuleDeclaration(fModule);
                 if (module instanceof XQueryLibraryModule) {

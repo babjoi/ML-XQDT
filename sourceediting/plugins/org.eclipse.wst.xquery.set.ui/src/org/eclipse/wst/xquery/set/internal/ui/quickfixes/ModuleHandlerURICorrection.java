@@ -53,11 +53,14 @@ public class ModuleHandlerURICorrection implements IScriptCompletionProposal {
             if (lURI.charAt(lURI.length() - 1) != '/') {
                 lURI += '/';
             }
-            /*
-             * if ("lib".equals(parentDir)) { lURI += "lib/"; } fNewUri = lURI + moduleName;
-             */
-            location = location.removeLastSegments(1).append(moduleName);
-            fNewUri = lURI + location.toPortableString();
+
+            if ("handlers".equals(parentDir)) {
+                fNewUri = lURI + moduleName;
+            } else {
+                location = location.removeLastSegments(1).append(moduleName);
+                fNewUri = lURI + location.toPortableString();
+            }
+
             fStart = (Integer)marker.getAttribute("charStart");
             fLength = (Integer)marker.getAttribute("charEnd") - fStart;
             assert fLength >= 0;

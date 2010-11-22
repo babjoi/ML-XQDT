@@ -39,9 +39,8 @@ public class SETAddCoreSDKDialog extends AddScriptInterpreterDialog {
         if (fEditedInterpreter != null && fEditedInterpreter.getId().startsWith("default")) {
             if (!fEditedInterpreter.getInstallLocation().toOSString().equals(getInterpreterPath())) {
                 return new Status(IStatus.ERROR, SETDebugUIPlugin.PLUGIN_ID,
-                        "It is not allowed to change the path of the CoreSDK that is shipped with Sausalito Tools.");
+                        "The path to the default Sausalito CoreSDK configuration cannot be changed.");
             }
-
         }
         return super.validateInterpreterLocation();
     }

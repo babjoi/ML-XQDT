@@ -124,7 +124,8 @@ public abstract class AbstractInterpreterEnvironmentVariablesBlock implements Se
 
         fVariablesViewer = new TreeViewer(comp);
         gd = new GridData(GridData.FILL_BOTH);
-        gd.heightHint = 6;
+        gd.heightHint = 140;
+        gd.widthHint = 410;
         fVariablesViewer.getControl().setLayoutData(gd);
         fEnvironmentVariablesContentProvider = new EnvironmentVariableContentProvider();
         fVariablesViewer.setContentProvider(fEnvironmentVariablesContentProvider);

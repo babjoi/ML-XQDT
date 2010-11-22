@@ -12,6 +12,7 @@ package org.eclipse.wst.xquery.debug.ui.interpreters;
 
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Path;
+import org.eclipse.core.runtime.Status;
 import org.eclipse.debug.ui.StringVariableSelectionDialog;
 import org.eclipse.dltk.compiler.util.Util;
 import org.eclipse.dltk.core.environment.IEnvironment;
@@ -37,6 +38,7 @@ import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Label;
+import org.eclipse.wst.xquery.debug.ui.XQDTDebugUIPlugin;
 
 @SuppressWarnings("restriction")
 public class AddLocalInterpreterDialogBlock extends AbstractAddInterpreterDialogBlock implements
@@ -72,13 +74,19 @@ public class AddLocalInterpreterDialogBlock extends AbstractAddInterpreterDialog
         fInterpreterLocationField.setLabelText(InterpretersMessages.addInterpreterDialog_InterpreterExecutableName);
         fInterpreterLocationField.setButtonLabel(InterpretersMessages.addInterpreterDialog_browse1);
         fInterpreterLocationField.doFillIntoGrid(parent, numColumns);
-        ((GridData)fInterpreterLocationField.getTextControl(null).getLayoutData()).widthHint = convertWidthInCharsToPixels(50);
+        GridData gdf = (GridData)fInterpreterLocationField.getTextControl(null).getLayoutData();
+        gdf.widthHint = 300;
+        gdf.horizontalAlignment = SWT.FILL;
+        gdf.grabExcessHorizontalSpace = true;
+        ((GridData)fInterpreterLocationField.getChangeControl(null).getLayoutData()).horizontalAlignment = SWT.NONE;
 
         fInterpreterArgsField = new StringDialogField();
         fInterpreterArgsField.setLabelText(InterpretersMessages.AddInterpreterDialog_iArgs);
         fInterpreterArgsField.doFillIntoGrid(parent, numColumns - 1);
+        ((GridData)fInterpreterArgsField.getTextControl(null).getLayoutData()).widthHint = 300;
+
         Button button = new Button(parent, SWT.PUSH);
-        button.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false));
+        button.setLayoutData(new GridData(convertWidthInCharsToPixels(15), SWT.DEFAULT));
         button.setText("Variables...");
         button.addSelectionListener(new SelectionAdapter() {
             @Override
@@ -122,6 +130,13 @@ public class AddLocalInterpreterDialogBlock extends AbstractAddInterpreterDialog
     }
 
     protected IStatus validateInterpreterLocation() {
+        if (fEditedInterpreter != null && fEditedInterpreter.getId().startsWith("default")) {
+            if (!fEditedInterpreter.getInstallLocation().toOSString().equals(getInterpreterLocation())) {
+                return new Status(IStatus.ERROR, XQDTDebugUIPlugin.PLUGIN_ID,
+                        "The path to the default Zorba configuration cannot be changed.");
+            }
+        }
+
         IEnvironment selectedEnv = fAddInterpreterDialog.getEnvironment();
         String locationName = getInterpreterLocation();
         IStatus s = null;
@@ -155,6 +170,7 @@ public class AddLocalInterpreterDialogBlock extends AbstractAddInterpreterDialog
                 }
             }
         }
+
         return s;
     }
 
@@ -189,10 +205,6 @@ public class AddLocalInterpreterDialogBlock extends AbstractAddInterpreterDialog
         } else {
             fInterpreterNameField.setText(install.getName());
             fInterpreterLocationField.setText(install.getRawInstallLocation().toOSString());
-            if (install.getId().startsWith("default")) {
-                fInterpreterNameField.getTextControl().setEditable(false);
-                fInterpreterLocationField.getTextControl().setEditable(false);
-            }
             String interpreterArgs = install.getInterpreterArgs();
             if (interpreterArgs != null) {
                 fInterpreterArgsField.setText(interpreterArgs);

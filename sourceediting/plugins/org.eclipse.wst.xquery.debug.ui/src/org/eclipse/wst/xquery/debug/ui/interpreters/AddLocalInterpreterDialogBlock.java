@@ -133,7 +133,7 @@ public class AddLocalInterpreterDialogBlock extends AbstractAddInterpreterDialog
         if (fEditedInterpreter != null && fEditedInterpreter.getId().startsWith("default")) {
             if (!fEditedInterpreter.getInstallLocation().toOSString().equals(getInterpreterLocation())) {
                 return new Status(IStatus.ERROR, XQDTDebugUIPlugin.PLUGIN_ID,
-                        "The path to the default Zorba configuration cannot be changed.");
+                        "The name and the path of the default Zorba configuration cannot be changed.");
             }
         }
 

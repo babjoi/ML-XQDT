@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2008, 2009 28msec Inc. and others.
+ * Copyright (c) 2008 28msec Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -35,7 +35,7 @@ public class XQDTInterpretersBlock extends InterpretersBlock {
         ArrayList<IInterpreterInstallType> goodTypes = new ArrayList<IInterpreterInstallType>();
         for (IInterpreterInstallType type : types) {
             if (type instanceof IEnvironmentAwareInterpreterInstallType) {
-                if (((IEnvironmentAwareInterpreterInstallType)type).getEnvironment() == environment) {
+                if (environment == ((IEnvironmentAwareInterpreterInstallType)type).getEnvironment()) {
                     goodTypes.add(type);
                 }
             } else if (environment == EnvironmentManager.getLocalEnvironment()) {

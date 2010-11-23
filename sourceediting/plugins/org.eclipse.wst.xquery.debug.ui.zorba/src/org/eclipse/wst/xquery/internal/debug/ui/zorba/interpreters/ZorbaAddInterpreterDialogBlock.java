@@ -10,11 +10,11 @@
  *******************************************************************************/
 package org.eclipse.wst.xquery.internal.debug.ui.zorba.interpreters;
 
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
-
-import org.eclipse.core.runtime.IPath;
-import org.eclipse.core.runtime.Path;
+import org.eclipse.core.runtime.IStatus;
+import org.eclipse.core.runtime.Status;
+import org.eclipse.dltk.core.environment.IFileHandle;
+import org.eclipse.wst.xquery.core.utils.ProcessStreamConsumer;
+import org.eclipse.wst.xquery.debug.ui.XQDTDebugUIPlugin;
 import org.eclipse.wst.xquery.debug.ui.interpreters.AbstractInterpreterEnvironmentVariablesBlock;
 import org.eclipse.wst.xquery.debug.ui.interpreters.AddLocalInterpreterDialogBlock;
 import org.eclipse.wst.xquery.debug.ui.interpreters.LocalInterpreterEnvironmentVariablesBlock;
@@ -22,46 +22,67 @@ import org.eclipse.wst.xquery.debug.ui.zorba.ZorbaDebugUIPlugin;
 
 public class ZorbaAddInterpreterDialogBlock extends AddLocalInterpreterDialogBlock {
 
-    @Override
-    @SuppressWarnings("restriction")
-    public void setFocus() {
-        fInterpreterLocationField.setFocus();
-    }
+    private static final String DEFAULT_CHANGE_ERROR_MESSAGE = "The name and the path of the default Zorba configuration cannot be changed.";
 
-    public String generateInterpreterName(String location) {
+    @Override
+    public String generateInterpreterName(IFileHandle interpreterFile) {
         String genName = null;
 
-        ProcessBuilder pb = new ProcessBuilder(location, "--version");
+        ProcessBuilder pb = new ProcessBuilder(interpreterFile.toOSString(), "--version");
         try {
             Process p = pb.start();
-            BufferedReader br = new BufferedReader(new InputStreamReader(p.getInputStream()));
-            String line = br.readLine();
-            String version = line.substring(line.indexOf(':') + 2);
-            genName = "Zorba " + version;
+            ProcessStreamConsumer psc = new ProcessStreamConsumer(p);
+            psc.start();
+            p.waitFor();
+
+            String[] lines = psc.getOutput().split("\n");
+            for (String line : lines) {
+                if (line.matches("Zorba XQuery Engine, Version: .*")) {
+                    line = line.replace("Zorba XQuery Engine, Version: ", "Zorba ");
+                    genName = line;
+                    break;
+                }
+            }
         } catch (Exception e) {
             if (ZorbaDebugUIPlugin.DEBUG) {
                 e.printStackTrace();
             }
-            IPath path = new Path(location);
-            if (path.segmentCount() > 0) {
-                genName = path.lastSegment();
-            }
+            Status status = new Status(
+                    IStatus.ERROR,
+                    XQDTDebugUIPlugin.PLUGIN_ID,
+                    "Could not determine Zorba version for the interpreter name generation. Using the executable name as default.",
+                    e);
+            XQDTDebugUIPlugin.getDefault().getLog().log(status);
         }
 
-        // Add number if interpreter with such name already exists.
-        String pName = genName;
-        if (pName != null) {
-            int index = 0;
-            while (!validateGeneratedName(pName)) {
-                pName = genName + "(" + String.valueOf(++index) //$NON-NLS-1$
-                        + ")"; //$NON-NLS-1$
-            }
-        }
-        return pName;
+        return genName;
     }
 
     @Override
     protected AbstractInterpreterEnvironmentVariablesBlock createEnvironmentVariablesBlock() {
         return new LocalInterpreterEnvironmentVariablesBlock(fAddInterpreterDialog);
+    }
+
+    @Override
+    protected IStatus validateInterpreterLocation() {
+        if (fEditedInterpreter != null && fEditedInterpreter.getId().startsWith("default")) {
+            if (!fEditedInterpreter.getInstallLocation().toOSString().equals(getInterpreterLocation())
+                    || !fEditedInterpreter.getName().equals(getInterpreterName())) {
+                return new Status(IStatus.ERROR, XQDTDebugUIPlugin.PLUGIN_ID, DEFAULT_CHANGE_ERROR_MESSAGE);
+            }
+        }
+
+        return super.validateInterpreterLocation();
+    }
+
+    @Override
+    protected IStatus validateInterpreterName() {
+        if (fEditedInterpreter != null && fEditedInterpreter.getId().startsWith("default")) {
+            if (!fEditedInterpreter.getName().equals(getInterpreterName())) {
+                return new Status(IStatus.ERROR, XQDTDebugUIPlugin.PLUGIN_ID, DEFAULT_CHANGE_ERROR_MESSAGE);
+            }
+        }
+
+        return super.validateInterpreterName();
     }
 }

@@ -12,7 +12,6 @@ package org.eclipse.wst.xquery.debug.ui.interpreters;
 
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Path;
-import org.eclipse.core.runtime.Status;
 import org.eclipse.debug.ui.StringVariableSelectionDialog;
 import org.eclipse.dltk.compiler.util.Util;
 import org.eclipse.dltk.core.environment.IEnvironment;
@@ -38,11 +37,9 @@ import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Label;
-import org.eclipse.wst.xquery.debug.ui.XQDTDebugUIPlugin;
 
 @SuppressWarnings("restriction")
-public class AddLocalInterpreterDialogBlock extends AbstractAddInterpreterDialogBlock implements
-        IInterpreterNameProvider {
+public class AddLocalInterpreterDialogBlock extends AbstractAddInterpreterDialogBlock {
 
     protected StringDialogField fInterpreterNameField;
     protected StringButtonDialogField fInterpreterLocationField;
@@ -63,7 +60,7 @@ public class AddLocalInterpreterDialogBlock extends AbstractAddInterpreterDialog
         int numColumns = 3;
 
         fInterpreterNameField = new StringDialogField();
-        fInterpreterNameField.setLabelText(InterpretersMessages.addInterpreterDialog_InterpreterEnvironmentName);
+        fInterpreterNameField.setLabelText(getInterpreterNameLabelText());
         fInterpreterNameField.doFillIntoGrid(parent, numColumns);
 
         fInterpreterLocationField = new StringButtonDialogField(new IStringButtonAdapter() {
@@ -71,7 +68,7 @@ public class AddLocalInterpreterDialogBlock extends AbstractAddInterpreterDialog
                 browseForInstallation();
             }
         });
-        fInterpreterLocationField.setLabelText(InterpretersMessages.addInterpreterDialog_InterpreterExecutableName);
+        fInterpreterLocationField.setLabelText(getInterpreterLocationLabelText());
         fInterpreterLocationField.setButtonLabel(InterpretersMessages.addInterpreterDialog_browse1);
         fInterpreterLocationField.doFillIntoGrid(parent, numColumns);
         GridData gdf = (GridData)fInterpreterLocationField.getTextControl(null).getLayoutData();
@@ -80,25 +77,27 @@ public class AddLocalInterpreterDialogBlock extends AbstractAddInterpreterDialog
         gdf.grabExcessHorizontalSpace = true;
         ((GridData)fInterpreterLocationField.getChangeControl(null).getLayoutData()).horizontalAlignment = SWT.NONE;
 
-        fInterpreterArgsField = new StringDialogField();
-        fInterpreterArgsField.setLabelText(InterpretersMessages.AddInterpreterDialog_iArgs);
-        fInterpreterArgsField.doFillIntoGrid(parent, numColumns - 1);
-        ((GridData)fInterpreterArgsField.getTextControl(null).getLayoutData()).widthHint = 300;
+        if (needsArguments()) {
+            fInterpreterArgsField = new StringDialogField();
+            fInterpreterArgsField.setLabelText(InterpretersMessages.AddInterpreterDialog_iArgs);
+            fInterpreterArgsField.doFillIntoGrid(parent, numColumns - 1);
+            ((GridData)fInterpreterArgsField.getTextControl(null).getLayoutData()).widthHint = 300;
 
-        Button button = new Button(parent, SWT.PUSH);
-        button.setLayoutData(new GridData(convertWidthInCharsToPixels(15), SWT.DEFAULT));
-        button.setText("Variables...");
-        button.addSelectionListener(new SelectionAdapter() {
-            @Override
-            public void widgetSelected(SelectionEvent e) {
-                StringVariableSelectionDialog dialog = new StringVariableSelectionDialog(getShell());
-                dialog.open();
-                String variable = dialog.getVariableExpression();
-                if (variable != null) {
-                    fInterpreterArgsField.getTextControl(null).insert(variable);
+            Button button = new Button(parent, SWT.PUSH);
+            button.setLayoutData(new GridData(convertWidthInCharsToPixels(15), SWT.DEFAULT));
+            button.setText("Variables...");
+            button.addSelectionListener(new SelectionAdapter() {
+                @Override
+                public void widgetSelected(SelectionEvent e) {
+                    StringVariableSelectionDialog dialog = new StringVariableSelectionDialog(getShell());
+                    dialog.open();
+                    String variable = dialog.getVariableExpression();
+                    if (variable != null) {
+                        fInterpreterArgsField.getTextControl(null).insert(variable);
+                    }
                 }
-            }
-        });
+            });
+        }
 
         fEnvironmentVariablesBlock = createEnvironmentVariablesBlock();
         if (fEnvironmentVariablesBlock != null) {
@@ -113,6 +112,18 @@ public class AddLocalInterpreterDialogBlock extends AbstractAddInterpreterDialog
             gd.horizontalSpan = numColumns;
             block.setLayoutData(gd);
         }
+    }
+
+    protected String getInterpreterNameLabelText() {
+        return InterpretersMessages.addInterpreterDialog_InterpreterEnvironmentName;
+    }
+
+    protected String getInterpreterLocationLabelText() {
+        return InterpretersMessages.addInterpreterDialog_InterpreterExecutableName;
+    }
+
+    protected boolean needsArguments() {
+        return true;
     }
 
     protected AbstractInterpreterEnvironmentVariablesBlock createEnvironmentVariablesBlock() {
@@ -130,14 +141,6 @@ public class AddLocalInterpreterDialogBlock extends AbstractAddInterpreterDialog
     }
 
     protected IStatus validateInterpreterLocation() {
-        if (fEditedInterpreter != null && fEditedInterpreter.getId().startsWith("default")) {
-            if (!fEditedInterpreter.getInstallLocation().toOSString().equals(getInterpreterLocation())
-                    || !fEditedInterpreter.getName().equals(getInterpreterName())) {
-                return new Status(IStatus.ERROR, XQDTDebugUIPlugin.PLUGIN_ID,
-                        "The name and the path of the default Zorba configuration cannot be changed.");
-            }
-        }
-
         IEnvironment selectedEnv = fAddInterpreterDialog.getEnvironment();
         String locationName = getInterpreterLocation();
         IStatus s = null;
@@ -165,10 +168,11 @@ public class AddLocalInterpreterDialogBlock extends AbstractAddInterpreterDialog
             String name = getInterpreterName();
             if ((name == null || name.length() == 0) && file != null) {
                 // auto-generate interpreter name
-                String pName = generateInterpreterName(file.toOSString());
-                if (pName != null) {
-                    fInterpreterNameField.setText(pName);
+                String pName = doGenerateInterpreterName(file);
+                if (pName == null) {
+                    pName = file.getName();
                 }
+                fInterpreterNameField.setText(pName);
             }
         }
 
@@ -184,7 +188,10 @@ public class AddLocalInterpreterDialogBlock extends AbstractAddInterpreterDialog
     }
 
     protected String getInterpreterArguments() {
-        return fInterpreterArgsField.getText().trim();
+        if (fInterpreterArgsField != null) {
+            return fInterpreterArgsField.getText().trim();
+        }
+        return "";
     }
 
     protected void browseForInstallation() {
@@ -202,7 +209,9 @@ public class AddLocalInterpreterDialogBlock extends AbstractAddInterpreterDialog
         if (install == null) {
             fInterpreterNameField.setText(Util.EMPTY_STRING);
             fInterpreterLocationField.setText(Util.EMPTY_STRING);
-            fInterpreterArgsField.setText(Util.EMPTY_STRING);
+            if (fInterpreterArgsField != null) {
+                fInterpreterArgsField.setText(Util.EMPTY_STRING);
+            }
         } else {
             fInterpreterNameField.setText(install.getName());
             fInterpreterLocationField.setText(install.getRawInstallLocation().toOSString());
@@ -274,11 +283,7 @@ public class AddLocalInterpreterDialogBlock extends AbstractAddInterpreterDialog
 
     @Override
     public void setFocus() {
-        fInterpreterNameField.setFocus();
-    }
-
-    public String generateInterpreterName(String location) {
-        return null;
+        fInterpreterLocationField.setFocus();
     }
 
     protected boolean validateGeneratedName(String name) {
@@ -292,6 +297,29 @@ public class AddLocalInterpreterDialogBlock extends AbstractAddInterpreterDialog
             }
         }
         return true;
+    }
+
+    private String doGenerateInterpreterName(IFileHandle interpreterFile) {
+        String genName = generateInterpreterName(interpreterFile);
+        if (genName == null) {
+            genName = getDefaultInterpreterName(interpreterFile);
+        }
+        String pName = genName;
+        if (pName != null) {
+            int index = 0;
+            while (!validateGeneratedName(pName)) {
+                pName = genName + " (" + String.valueOf(++index) + ")"; //$NON-NLS-1$ $NON-NLS-2$
+            }
+        }
+        return pName;
+    }
+
+    protected String generateInterpreterName(IFileHandle interpreterFile) {
+        return null;
+    }
+
+    protected String getDefaultInterpreterName(IFileHandle interpreterFile) {
+        return interpreterFile.getName();
     }
 
 }

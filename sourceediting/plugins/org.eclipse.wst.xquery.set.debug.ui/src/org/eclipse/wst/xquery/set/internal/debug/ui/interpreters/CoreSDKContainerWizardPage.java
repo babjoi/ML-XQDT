@@ -13,7 +13,7 @@ package org.eclipse.wst.xquery.set.internal.debug.ui.interpreters;
 import org.eclipse.dltk.internal.debug.ui.interpreters.AbstractInterpreterContainerWizardPage;
 import org.eclipse.wst.xquery.set.core.SETNature;
 
-public class SETCoreSDKContainerWizardPage extends AbstractInterpreterContainerWizardPage {
+public class CoreSDKContainerWizardPage extends AbstractInterpreterContainerWizardPage {
 
     public String getScriptNature() {
         return SETNature.NATURE_ID;

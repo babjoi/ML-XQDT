@@ -12,15 +12,11 @@ package org.eclipse.wst.xquery.set.internal.debug.ui.interpreters;
 
 import org.eclipse.dltk.internal.debug.ui.interpreters.InterpretersBlock;
 import org.eclipse.dltk.internal.debug.ui.interpreters.ScriptInterpreterPreferencePage;
-import org.eclipse.wst.xquery.set.ui.ISETUIConstants;
 
-public class SETCoreSDKPreferencePage extends ScriptInterpreterPreferencePage {
+public class CoreSDKPreferencePage extends ScriptInterpreterPreferencePage {
 
-    public static final String PAGE_ID = ISETUIConstants.ID_INTEREPRTERS_PREFERENCE_PAGE;
-
-    @Override
     public InterpretersBlock createInterpretersBlock() {
-        return new SETCoreSDKBlock();
+        return new CoreSDKBlock();
     }
 
 }

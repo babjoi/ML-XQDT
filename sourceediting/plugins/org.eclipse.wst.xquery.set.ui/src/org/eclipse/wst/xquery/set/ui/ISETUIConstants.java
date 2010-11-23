@@ -13,4 +13,5 @@ package org.eclipse.wst.xquery.set.ui;
 public interface ISETUIConstants {
 
     public static final String ID_INTEREPRTERS_PREFERENCE_PAGE = "org.eclipse.wst.xquery.set.preferences.interpreters";
+
 }

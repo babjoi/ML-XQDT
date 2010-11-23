@@ -37,12 +37,12 @@ public class SETAddCoreSDKDialog extends AddScriptInterpreterDialog {
     @Override
     protected IStatus validateInterpreterLocation() {
         if (fEditedInterpreter != null && fEditedInterpreter.getId().startsWith("default")) {
-            if (!fEditedInterpreter.getInstallLocation().toOSString().equals(getInterpreterPath())) {
+            if (!fEditedInterpreter.getInstallLocation().toOSString().equals(getInterpreterPath())
+                    || !fEditedInterpreter.getName().equals(getInterpreterName())) {
                 return new Status(IStatus.ERROR, SETDebugUIPlugin.PLUGIN_ID,
                         "The name and the path of the default Sausalito CoreSDK configuration cannot be changed.");
             }
         }
         return super.validateInterpreterLocation();
     }
-
 }

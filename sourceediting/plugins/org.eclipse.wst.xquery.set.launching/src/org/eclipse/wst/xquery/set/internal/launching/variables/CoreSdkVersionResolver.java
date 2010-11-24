@@ -10,12 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wst.xquery.set.internal.launching.variables;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.util.ArrayList;
-import java.util.List;
-
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IStatus;
@@ -24,12 +18,13 @@ import org.eclipse.core.runtime.Status;
 import org.eclipse.core.variables.IDynamicVariable;
 import org.eclipse.core.variables.IDynamicVariableResolver;
 import org.eclipse.core.variables.VariablesPlugin;
+import org.eclipse.wst.xquery.core.utils.ProcessStreamConsumer;
 import org.eclipse.wst.xquery.set.launching.ISETLaunchingConstants;
 import org.eclipse.wst.xquery.set.launching.SETLaunchingPlugin;
 
 public class CoreSdkVersionResolver implements IDynamicVariableResolver {
 
-    private static final String VERSION_PREFIX = "Sausalito Core SDK, (ver. ";
+    private static final String VERSION_LINE_PREFIX = "Sausalito Core SDK";
 
     public static final String SDK_VERSION_VARIABLE_NAME = "sdk_version";
 
@@ -63,7 +58,6 @@ public class CoreSdkVersionResolver implements IDynamicVariableResolver {
                     + " with default start value: \"\"");
         }
 
-        String result = "";
         String coreSdk = CoreSdkLocationResolver.resolve();
         if (coreSdk == null || coreSdk.equals("")) {
             if (SETLaunchingPlugin.DEBUG_VARIABLE_RESOLVING) {
@@ -87,61 +81,54 @@ public class CoreSdkVersionResolver implements IDynamicVariableResolver {
             CoreSdkLocationResolver.log(IStatus.INFO, "Using Sausalito executable at: " + scriptPath.toOSString());
         }
 
-        ProcessBuilder pb = new ProcessBuilder(scriptPath.toOSString());
+        String version = readVersionFromProcess(scriptPath.toOSString());
+        if (version == null) {
+            version = "";
+        }
+        return version;
+    }
+
+    private String readVersionFromProcess(String execPath) {
+        String version = null;
         try {
-            final Process p = pb.start();
-            final List<String> lines = new ArrayList<String>();
-            Thread reader = new Thread(new Runnable() {
-                public void run() {
-                    BufferedReader br = new BufferedReader(new InputStreamReader(p.getInputStream()));
-                    try {
-                        String line = br.readLine();
-                        while (line != null) {
-                            lines.add(line + "\n");
-                            line = br.readLine();
-                        }
-                    } catch (IOException e) {
-                    }
-                }
-            });
-
+            ProcessBuilder pb = new ProcessBuilder(execPath);
             if (SETLaunchingPlugin.DEBUG_VARIABLE_RESOLVING) {
-                CoreSdkLocationResolver.log(IStatus.INFO, "Executing command for retrieving the version");
+                CoreSdkLocationResolver.log(IStatus.INFO, "Executing '" + execPath
+                        + "' for retrieving the CoreSDK version");
             }
-            reader.start();
-
+            Process p = pb.start();
+            ProcessStreamConsumer psc = new ProcessStreamConsumer(p);
+            psc.start();
             int code = p.waitFor();
             if (SETLaunchingPlugin.DEBUG_VARIABLE_RESOLVING) {
                 CoreSdkLocationResolver.log(IStatus.INFO, "Version retrieving command exited with status: " + code);
             }
-
-            String version = null;
+            String[] lines = psc.getOutput().split("\n");
             for (String line : lines) {
-                if (line.startsWith(VERSION_PREFIX)) {
+                if (line.startsWith(VERSION_LINE_PREFIX)) {
                     if (SETLaunchingPlugin.DEBUG_VARIABLE_RESOLVING) {
                         CoreSdkLocationResolver.log(IStatus.INFO, "Found version line: " + line);
                     }
-                    version = line.substring(VERSION_PREFIX.length(), line.lastIndexOf(')'));
+                    line = line.replaceAll(VERSION_LINE_PREFIX + ".*ver. ", "");
+                    line = line.replace(")", "");
+                    version = line;
                     break;
                 }
             }
-            if (version != null) {
-                if (SETLaunchingPlugin.DEBUG_VARIABLE_RESOLVING) {
-                    CoreSdkLocationResolver.log(IStatus.INFO,
-                            "Did not find a version number by executing the Sausalito script");
-                }
-                result = version;
-            }
-            if (SETLaunchingPlugin.DEBUG_VARIABLE_RESOLVING) {
-                CoreSdkLocationResolver.log(IStatus.INFO, "Found version: " + result);
-            }
-
         } catch (Exception e) {
-            CoreSdkLocationResolver.log(IStatus.ERROR,
-                    "An exception was thrown while trying to retrieve the Sausalito CoreSDK version", e);
+            Status status = new Status(
+                    IStatus.ERROR,
+                    SETLaunchingPlugin.PLUGIN_ID,
+                    "Could not determine Sausalito version for the CoreSDK name generation. Using the script name as default.",
+                    e);
+            SETLaunchingPlugin.log(status);
         }
 
-        return result;
+        if (SETLaunchingPlugin.DEBUG_VARIABLE_RESOLVING) {
+            CoreSdkLocationResolver.log(IStatus.INFO, "Found version: " + version);
+        }
+
+        return version;
     }
 
     public static String resolve() {

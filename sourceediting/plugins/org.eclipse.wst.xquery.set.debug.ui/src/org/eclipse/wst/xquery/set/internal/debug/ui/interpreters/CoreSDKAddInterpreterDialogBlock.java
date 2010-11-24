@@ -13,10 +13,9 @@ package org.eclipse.wst.xquery.set.internal.debug.ui.interpreters;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.dltk.core.environment.IFileHandle;
-import org.eclipse.wst.xquery.core.utils.ProcessStreamConsumer;
 import org.eclipse.wst.xquery.debug.ui.XQDTDebugUIPlugin;
 import org.eclipse.wst.xquery.debug.ui.interpreters.AddLocalInterpreterDialogBlock;
-import org.eclipse.wst.xquery.set.debug.ui.SETDebugUIPlugin;
+import org.eclipse.wst.xquery.set.internal.launching.variables.CoreSdkVersionResolver;
 
 public class CoreSDKAddInterpreterDialogBlock extends AddLocalInterpreterDialogBlock {
 
@@ -24,32 +23,9 @@ public class CoreSDKAddInterpreterDialogBlock extends AddLocalInterpreterDialogB
 
     @Override
     public String generateInterpreterName(IFileHandle interpreterFile) {
-        String genName = null;
-        try {
-            ProcessBuilder pb = new ProcessBuilder(interpreterFile.toOSString());
-            Process p = pb.start();
-            ProcessStreamConsumer psc = new ProcessStreamConsumer(p);
-            psc.start();
-            p.waitFor();
-            String[] lines = psc.getOutput().split("\n");
-            for (String line : lines) {
-                if (line.matches("Sausalito Core SDK.*")) {
-                    line = line.replace("Sausalito Core SDK, (ver. ", "Sausalito CoreSDK ");
-                    line = line.replace(")", "");
-                    genName = line;
-                    break;
-                }
-            }
-        } catch (Exception e) {
-            Status status = new Status(
-                    IStatus.ERROR,
-                    SETDebugUIPlugin.PLUGIN_ID,
-                    "Could not determine Sausalito version for the CoreSDK name generation. Using the script name as default.",
-                    e);
-            SETDebugUIPlugin.log(status);
-        }
-
-        return genName;
+        String version = CoreSdkVersionResolver.resolve();
+        String genName = getDefaultInterpreterName(interpreterFile) + " " + version;
+        return genName.trim();
     }
 
     @Override

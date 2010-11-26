@@ -6,7 +6,7 @@
 	<artifactId>org.eclipse.wst.xquery.zorba.core.tests</artifactId>
 	<version>0.8.0-SNAPSHOT</version>
 	<packaging>eclipse-test-plugin</packaging>
-	<name>XQDT Zorba Core Test Plug-in</name>
+	<name>Zorba Core Test Plug-in</name>
 
 	<parent>
 		<groupId>org.eclipse.wst.xquery</groupId>

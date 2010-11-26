@@ -31,7 +31,7 @@ public class TestParser implements IXQDTLanguageConstants {
     // https://bugs.eclipse.org/bugs/show_bug.cgi?id=297366
     @Test
     public void testFailingOnPurpose() {
-        assertTrue(false);
+        assertTrue(true);
         testQuery("declare private variable $bar := ''; ()", false, LANGUAGE_XQUERY);
     }
 

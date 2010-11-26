@@ -18,5 +18,4 @@ import org.junit.runners.Suite.SuiteClasses;
 @RunWith(Suite.class)
 @SuiteClasses({ TestParser.class })
 public class ZorbaCoreTestSuite {
-
 }

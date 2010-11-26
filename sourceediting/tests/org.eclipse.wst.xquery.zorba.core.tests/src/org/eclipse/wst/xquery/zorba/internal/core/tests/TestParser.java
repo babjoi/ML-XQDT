@@ -10,6 +10,8 @@
  *******************************************************************************/
 package org.eclipse.wst.xquery.zorba.internal.core.tests;
 
+import static org.junit.Assert.assertTrue;
+
 import org.antlr.runtime.ANTLRStringStream;
 import org.antlr.runtime.RecognitionException;
 import org.eclipse.wst.xquery.core.IXQDTLanguageConstants;
@@ -28,7 +30,8 @@ public class TestParser implements IXQDTLanguageConstants {
 
     // https://bugs.eclipse.org/bugs/show_bug.cgi?id=297366
     @Test
-    public void testBug297366_1() {
+    public void testFailingOnPurpose() {
+        assertTrue(false);
         testQuery("declare private variable $bar := ''; ()", false, LANGUAGE_XQUERY);
     }
 

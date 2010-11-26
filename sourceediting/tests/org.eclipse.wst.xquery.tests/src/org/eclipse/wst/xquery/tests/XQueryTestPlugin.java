@@ -16,18 +16,18 @@ import org.osgi.framework.BundleContext;
 /**
  * The activator class controls the plug-in life cycle
  */
-public class XQueryTestsPlugin extends Plugin {
+public class XQueryTestPlugin extends Plugin {
 
 	// The plug-in ID
 	public static final String PLUGIN_ID = "org.eclipse.wst.xquery.tests";
 
 	// The shared instance
-	private static XQueryTestsPlugin plugin;
+	private static XQueryTestPlugin plugin;
 	
 	/**
 	 * The constructor
 	 */
-	public XQueryTestsPlugin() {
+	public XQueryTestPlugin() {
 	}
 
 	/*
@@ -53,7 +53,7 @@ public class XQueryTestsPlugin extends Plugin {
 	 *
 	 * @return the shared instance
 	 */
-	public static XQueryTestsPlugin getDefault() {
+	public static XQueryTestPlugin getDefault() {
 		return plugin;
 	}
 

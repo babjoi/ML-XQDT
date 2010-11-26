@@ -16,18 +16,18 @@ import org.osgi.framework.BundleContext;
 /**
  * The activator class controls the plug-in life cycle
  */
-public class XQDTCoreTestsPlugin extends Plugin {
+public class XQDTCoreTestPlugin extends Plugin {
 
     // The plug-in ID
     public static final String PLUGIN_ID = "org.eclipse.wst.xquery.core.tests";
 
     // The shared instance
-    private static XQDTCoreTestsPlugin plugin;
+    private static XQDTCoreTestPlugin plugin;
 
     /**
      * The constructor
      */
-    public XQDTCoreTestsPlugin() {
+    public XQDTCoreTestPlugin() {
     }
 
     /*
@@ -55,7 +55,7 @@ public class XQDTCoreTestsPlugin extends Plugin {
      * 
      * @return the shared instance
      */
-    public static XQDTCoreTestsPlugin getDefault() {
+    public static XQDTCoreTestPlugin getDefault() {
         return plugin;
     }
 

@@ -3,10 +3,10 @@
 		xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 
 	<modelVersion>4.0.0</modelVersion>
-	<artifactId>org.eclipse.wst.xquery.core.tests</artifactId>
+	<artifactId>org.eclipse.wst.xquery.zorba.core.tests</artifactId>
 	<version>0.8.0-SNAPSHOT</version>
 	<packaging>eclipse-test-plugin</packaging>
-	<name>XQDT Core Test Plug-in</name>
+	<name>XQDT Zorba Core Test Plug-in</name>
 
 	<parent>
 		<groupId>org.eclipse.wst.xquery</groupId>
@@ -23,8 +23,8 @@
 				<version>${tycho-version}</version>
 				<configuration>
 					<useUIHarness>true</useUIHarness>
-					<testSuite>org.eclipse.wst.xquery.core.tests</testSuite>
-					<testClass>org.eclipse.wst.xquery.core.tests.XQDTCoreTestSuite</testClass>
+					<testSuite>org.eclipse.wst.xquery.zorba.core.tests</testSuite>
+					<testClass>org.eclipse.wst.xquery.zorba.core.tests.ZorbaCoreTestSuite</testClass>
 				</configuration>
 			</plugin>
 		</plugins>

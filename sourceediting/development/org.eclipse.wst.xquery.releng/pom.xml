@@ -40,6 +40,7 @@
 		<module>../../plugins/org.eclipse.wst.xquery.debug.ui.zorba</module>
 		<module>../../plugins/org.eclipse.wst.xquery.ui.zorba</module>
 		<module>../../features/org.eclipse.wst.xquery.zorba.feature</module>
+		<module>../../tests/org.eclipse.wst.xquery.zorba.core.tests</module>
 		
 		<!-- Set Support -->
 		<module>../../plugins/org.eclipse.wst.xquery.set</module>
@@ -97,7 +98,7 @@
 				</plugin>
 				<plugin>
 			        <groupId>org.apache.maven.plugins</groupId>
-			        <artifactId>maven-pmd-plugin</artifactId>
+			        <artifactId> </artifactId>
 			        <version>2.5</version>
 			        <configuration>
 			          <linkXref>false</linkXref>

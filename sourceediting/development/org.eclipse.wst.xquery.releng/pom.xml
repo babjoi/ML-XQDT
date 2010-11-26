@@ -40,6 +40,7 @@
 		<module>../../plugins/org.eclipse.wst.xquery.debug.ui.zorba</module>
 		<module>../../plugins/org.eclipse.wst.xquery.ui.zorba</module>
 		<module>../../features/org.eclipse.wst.xquery.zorba.feature</module>
+		<module>../../tests/org.eclipse.wst.xquery.zorba.core.tests</module>
 		
 		<!-- Set Support -->
 		<module>../../plugins/org.eclipse.wst.xquery.set</module>

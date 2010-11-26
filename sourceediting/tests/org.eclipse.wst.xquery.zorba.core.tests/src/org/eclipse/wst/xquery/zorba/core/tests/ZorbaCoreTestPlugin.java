@@ -11,7 +11,6 @@
 package org.eclipse.wst.xquery.zorba.core.tests;
 
 import org.eclipse.core.runtime.Plugin;
-import org.osgi.framework.BundleActivator;
 import org.osgi.framework.BundleContext;
 
 /**

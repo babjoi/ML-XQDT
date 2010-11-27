@@ -274,8 +274,7 @@ public class SETDbgpTranslator extends DbgpWorkingThread implements IDbgpTransla
             List<Variable> variables = payload.getGlobalVariables();
             if (contextID == null) {
                 variables.addAll(payload.getLocalVariables());
-            }
-            if (contextID.equals("0")) {
+            } else if (contextID.equals("0")) {
                 variables = payload.getLocalVariables();
             }
 

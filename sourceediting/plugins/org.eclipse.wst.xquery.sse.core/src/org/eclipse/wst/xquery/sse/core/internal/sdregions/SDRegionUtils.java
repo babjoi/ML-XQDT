@@ -52,7 +52,7 @@ public class SDRegionUtils {
      */
     final public static int search(ITextRegionList regions, int start, String type) {
         for (int i = start; i < regions.size(); i++) {
-            if (regions.get(i).getType() == type) {
+            if (regions.get(i).getType().equals(type)) {
                 return i;
             }
         }

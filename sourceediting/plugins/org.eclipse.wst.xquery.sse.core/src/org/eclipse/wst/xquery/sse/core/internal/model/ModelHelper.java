@@ -42,7 +42,7 @@ public class ModelHelper {
      * Test structured document region type against given type.
      */
     public static boolean sameRegionType(IStructuredDocumentRegion region, String type) {
-        return region != null && region.getType() == type;
+        return region != null && region.getType().equals(type);
     }
 
 }

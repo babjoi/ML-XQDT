@@ -86,7 +86,7 @@ import org.eclipse.wst.xquery.sse.core.internal.parser.XQueryTokenizer;
 import org.eclipse.wst.xquery.sse.ui.XQDTSSEUIPlugin;
 import org.eclipse.wst.xquery.sse.ui.internal.XQDTEditorUIPreferenceInitializer;
 import org.eclipse.wst.xquery.sse.ui.internal.XQDTUIMessages;
-import org.eclipse.wst.xquery.sse.ui.internal.restrictions.ColorHelper;
+import org.eclipse.wst.xquery.sse.ui.internal.restrictions.XQDTColorHelper;
 import org.eclipse.wst.xquery.sse.ui.internal.style.XQDTLineStyleProvider;
 
 /**
@@ -382,15 +382,15 @@ public class XQDTSyntaxColoringPage extends PreferencePage implements IWorkbench
                     Object o = ((IStructuredSelection)fStylesViewer.getSelection()).getFirstElement();
                     String namedStyle = o.toString();
                     String prefString = getOverlayStore().getString(namedStyle);
-                    String[] stylePrefs = ColorHelper.unpackStylePreferences(prefString);
+                    String[] stylePrefs = XQDTColorHelper.unpackStylePreferences(prefString);
                     if (stylePrefs != null) {
                         String oldValue = stylePrefs[0];
                         // open color dialog to get new color
-                        String newValue = ColorHelper.toRGBString(fColorSelector.getColorValue());
+                        String newValue = XQDTColorHelper.toRGBString(fColorSelector.getColorValue());
 
                         if (!newValue.equals(oldValue)) {
                             stylePrefs[0] = newValue;
-                            String newPrefString = ColorHelper.packStylePreferences(stylePrefs);
+                            String newPrefString = XQDTColorHelper.packStylePreferences(stylePrefs);
                             getOverlayStore().setValue(namedStyle, newPrefString);
                             applyStyles();
                             fText.redraw();
@@ -407,13 +407,13 @@ public class XQDTSyntaxColoringPage extends PreferencePage implements IWorkbench
                 Object o = ((IStructuredSelection)fStylesViewer.getSelection()).getFirstElement();
                 String namedStyle = o.toString();
                 String prefString = getOverlayStore().getString(namedStyle);
-                String[] stylePrefs = ColorHelper.unpackStylePreferences(prefString);
+                String[] stylePrefs = XQDTColorHelper.unpackStylePreferences(prefString);
                 if (stylePrefs != null) {
                     String oldValue = stylePrefs[2];
                     String newValue = String.valueOf(fBold.getSelection());
                     if (!newValue.equals(oldValue)) {
                         stylePrefs[2] = newValue;
-                        String newPrefString = ColorHelper.packStylePreferences(stylePrefs);
+                        String newPrefString = XQDTColorHelper.packStylePreferences(stylePrefs);
                         getOverlayStore().setValue(namedStyle, newPrefString);
                         applyStyles();
                         fText.redraw();
@@ -429,13 +429,13 @@ public class XQDTSyntaxColoringPage extends PreferencePage implements IWorkbench
                 Object o = ((IStructuredSelection)fStylesViewer.getSelection()).getFirstElement();
                 String namedStyle = o.toString();
                 String prefString = getOverlayStore().getString(namedStyle);
-                String[] stylePrefs = ColorHelper.unpackStylePreferences(prefString);
+                String[] stylePrefs = XQDTColorHelper.unpackStylePreferences(prefString);
                 if (stylePrefs != null) {
                     String oldValue = stylePrefs[3];
                     String newValue = String.valueOf(fItalic.getSelection());
                     if (!newValue.equals(oldValue)) {
                         stylePrefs[3] = newValue;
-                        String newPrefString = ColorHelper.packStylePreferences(stylePrefs);
+                        String newPrefString = XQDTColorHelper.packStylePreferences(stylePrefs);
                         getOverlayStore().setValue(namedStyle, newPrefString);
                         applyStyles();
                         fText.redraw();
@@ -451,13 +451,13 @@ public class XQDTSyntaxColoringPage extends PreferencePage implements IWorkbench
                 Object o = ((IStructuredSelection)fStylesViewer.getSelection()).getFirstElement();
                 String namedStyle = o.toString();
                 String prefString = getOverlayStore().getString(namedStyle);
-                String[] stylePrefs = ColorHelper.unpackStylePreferences(prefString);
+                String[] stylePrefs = XQDTColorHelper.unpackStylePreferences(prefString);
                 if (stylePrefs != null) {
                     String oldValue = stylePrefs[4];
                     String newValue = String.valueOf(fStrike.getSelection());
                     if (!newValue.equals(oldValue)) {
                         stylePrefs[4] = newValue;
-                        String newPrefString = ColorHelper.packStylePreferences(stylePrefs);
+                        String newPrefString = XQDTColorHelper.packStylePreferences(stylePrefs);
                         getOverlayStore().setValue(namedStyle, newPrefString);
                         applyStyles();
                         fText.redraw();
@@ -473,13 +473,13 @@ public class XQDTSyntaxColoringPage extends PreferencePage implements IWorkbench
                 Object o = ((IStructuredSelection)fStylesViewer.getSelection()).getFirstElement();
                 String namedStyle = o.toString();
                 String prefString = getOverlayStore().getString(namedStyle);
-                String[] stylePrefs = ColorHelper.unpackStylePreferences(prefString);
+                String[] stylePrefs = XQDTColorHelper.unpackStylePreferences(prefString);
                 if (stylePrefs != null) {
                     String oldValue = stylePrefs[5];
                     String newValue = String.valueOf(fUnderline.getSelection());
                     if (!newValue.equals(oldValue)) {
                         stylePrefs[5] = newValue;
-                        String newPrefString = ColorHelper.packStylePreferences(stylePrefs);
+                        String newPrefString = XQDTColorHelper.packStylePreferences(stylePrefs);
                         getOverlayStore().setValue(namedStyle, newPrefString);
                         applyStyles();
                         fText.redraw();
@@ -610,10 +610,10 @@ public class XQDTSyntaxColoringPage extends PreferencePage implements IWorkbench
         if (namedStyle != null && fOverlayStore != null) {
             // note: "namedStyle" *is* the preference key
             String prefString = getOverlayStore().getString(namedStyle);
-            String[] stylePrefs = ColorHelper.unpackStylePreferences(prefString);
+            String[] stylePrefs = XQDTColorHelper.unpackStylePreferences(prefString);
             if (stylePrefs != null) {
-                RGB foreground = ColorHelper.toRGB(stylePrefs[0]);
-                RGB background = ColorHelper.toRGB(stylePrefs[1]);
+                RGB foreground = XQDTColorHelper.toRGB(stylePrefs[0]);
+                RGB background = XQDTColorHelper.toRGB(stylePrefs[1]);
 
                 int fontModifier = SWT.NORMAL;
 

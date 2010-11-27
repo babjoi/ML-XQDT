@@ -111,12 +111,12 @@ public class XQDTTemplateCompletionProcessor extends TemplateCompletionProcessor
         String[] ids;
 
         // Is this a logical context type ID?
-        if (contextTypeId == XQDTTemplateContexTypeIDs.PROLOG12) {
+        if (contextTypeId.equals(XQDTTemplateContexTypeIDs.PROLOG12)) {
             ids = new String[] { XQDTTemplateContexTypeIDs.PROLOG1, XQDTTemplateContexTypeIDs.PROLOG2 };
-        } else if (contextTypeId == XQDTTemplateContexTypeIDs.ALL) {
+        } else if (contextTypeId.equals(XQDTTemplateContexTypeIDs.ALL)) {
             ids = new String[] { XQDTTemplateContexTypeIDs.PROLOG1, XQDTTemplateContexTypeIDs.PROLOG2,
                     XQDTTemplateContexTypeIDs.EXPR };
-        } else if (contextTypeId == XQDTTemplateContexTypeIDs.ALL_BUT_PROLOG1) {
+        } else if (contextTypeId.equals(XQDTTemplateContexTypeIDs.ALL_BUT_PROLOG1)) {
             ids = new String[] { XQDTTemplateContexTypeIDs.PROLOG2, XQDTTemplateContexTypeIDs.EXPR };
         } else {
             ids = new String[] { contextTypeId };

@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2010 IBM Corporation and others.
+ * Copyright (c) 2010 28msec Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -12,12 +12,13 @@
 package org.eclipse.wst.xquery.sse.ui.internal.restrictions;
 
 import org.eclipse.swt.graphics.RGB;
+import org.eclipse.wst.sse.ui.internal.preferences.ui.ColorHelper;
 
 /**
  * Class that groups the restricted access to
  * <code>org.eclipse.wst.sse.ui.internal.preferences.ui.ColorHelper</code>.
  */
-public class ColorHelper extends org.eclipse.wst.sse.ui.internal.preferences.ui.ColorHelper {
+public class XQDTColorHelper extends ColorHelper {
 
     public static RGB toRGB(String anRGBString) {
         return org.eclipse.wst.sse.ui.internal.preferences.ui.ColorHelper.toRGB(anRGBString);

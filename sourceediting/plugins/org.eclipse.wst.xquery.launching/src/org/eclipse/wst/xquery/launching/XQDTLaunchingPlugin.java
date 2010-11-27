@@ -42,11 +42,11 @@ public class XQDTLaunchingPlugin extends Plugin {
      * The constructor
      */
     public XQDTLaunchingPlugin() {
-        plugin = this;
     }
 
     public void start(BundleContext context) throws Exception {
         super.start(context);
+        plugin = this;
 
         DLTKCore.addElementChangedListener(fBuildPathListener, ElementChangedEvent.POST_CHANGE);
     }

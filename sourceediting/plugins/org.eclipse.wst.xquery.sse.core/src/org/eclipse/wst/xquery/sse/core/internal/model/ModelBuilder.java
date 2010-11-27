@@ -2734,7 +2734,7 @@ public class ModelBuilder {
 
     /** Move to the structured document region of the given type */
     protected void moveToSDRegion(String type) {
-        while (currentSDRegion != null && currentSDRegion.getType() != type) {
+        while (currentSDRegion != null && currentSDRegion.getType().equals(type)) {
             nextSDRegion();
         }
     }
@@ -2918,7 +2918,7 @@ public class ModelBuilder {
 
         public boolean accept(String type) {
             for (int i = 0; i < regionType.length; i++) {
-                if (type == regionType[i]) {
+                if (type.equals(regionType[i])) {
                     return true;
                 }
             }
@@ -2956,7 +2956,7 @@ public class ModelBuilder {
 
         public boolean accept(String type) {
             for (int i = 0; i < regionType.length; i++) {
-                if (type == regionType[i]) {
+                if (type.equals(regionType[i])) {
                     return true;
                 }
             }

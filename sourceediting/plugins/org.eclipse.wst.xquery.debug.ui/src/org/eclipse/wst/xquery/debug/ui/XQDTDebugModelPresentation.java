@@ -25,7 +25,7 @@ public class XQDTDebugModelPresentation extends ScriptDebugModelPresentation {
     public String getEditorId(IEditorInput input, Object element) {
         String editorId = EditorUtility.getEditorID(input, element);
         if (editorId == null) {
-            editorId = IXQDTUIPluginConstants.XQDT_EDITOR_ID;
+            editorId = IXQDTUIPluginConstants.ID_XQDT_EDITOR;
         }
 
         return editorId;

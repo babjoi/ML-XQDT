@@ -240,8 +240,7 @@ public class ZorbaDbgpTranslator extends DbgpWorkingThread implements IDbgpTrans
             List<Variable> variables = payload.getGlobalVariables();
             if (contextID == null) {
                 variables.addAll(payload.getLocalVariables());
-            }
-            if (contextID.equals("0")) {
+            } else if (contextID.equals("0")) {
                 variables = payload.getLocalVariables();
             }
 

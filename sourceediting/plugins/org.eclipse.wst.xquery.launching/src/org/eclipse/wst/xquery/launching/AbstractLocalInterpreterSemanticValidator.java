@@ -11,7 +11,10 @@
  *******************************************************************************/
 package org.eclipse.wst.xquery.launching;
 
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IStatus;
@@ -46,16 +49,23 @@ public abstract class AbstractLocalInterpreterSemanticValidator implements ISema
     }
 
     public List<SemanticCheckError> check(ISourceModule module) throws CoreException {
-        IExecutionEnvironment exeEnv = fInterpreterInstall.getExecEnvironment();
+        IExecutionEnvironment execEnv = fInterpreterInstall.getExecEnvironment();
+        Map<String, String> mainEnv = execEnv.getEnvironmentVariables(true);
+        EnvironmentVariable[] interpreterEnv = fInterpreterInstall.getEnvironmentVariables();
 
         String[] cmdLine = buildCommandLine(module);
-        EnvironmentVariable[] environmentVariables = fInterpreterInstall.getEnvironmentVariables();
         String[] vars = null;
-        if (environmentVariables != null && environmentVariables.length > 0) {
-            vars = new String[environmentVariables.length];
-            for (int i = 0; i < environmentVariables.length; i++) {
-                vars[i] = environmentVariables[i].toString();
+        if (interpreterEnv != null && interpreterEnv.length > 0) {
+            for (EnvironmentVariable variable : interpreterEnv) {
+                mainEnv.put(variable.getName(), variable.getValue());
             }
+        }
+        if (mainEnv.size() > 0) {
+            List<String> varList = new ArrayList<String>(mainEnv.size());
+            for (String var : mainEnv.keySet()) {
+                varList.add(var + "=" + mainEnv.get(var));
+            }
+            vars = varList.toArray(new String[0]);
         }
 
         if (XQDTLaunchingPlugin.DEBUG_SEMANTIC_CHECK) {
@@ -66,7 +76,7 @@ public abstract class AbstractLocalInterpreterSemanticValidator implements ISema
             log(IStatus.INFO, sb.toString(), null);
         }
 
-        Process p = exeEnv.exec(cmdLine, null, vars);
+        Process p = execEnv.exec(cmdLine, null, vars);
 
         if (p == null) {
             abort("Could not invoke the Semantic Validator");
@@ -157,4 +167,23 @@ public abstract class AbstractLocalInterpreterSemanticValidator implements ISema
         XQDTLaunchingPlugin.log(new Status(severity, XQDTLaunchingPlugin.PLUGIN_ID, message, t));
     }
 
+    public static void main(String[] args) throws IOException, InterruptedException {
+        List<String> cmd = new ArrayList<String>();
+        cmd.add("C:\\Users\\Gabriel\\Work\\28msec\\sausalito\\builds\\debug10\\dist\\bin\\sausalito.bat");
+        cmd.add("test");
+        cmd.add("code");
+        cmd.add("-f");
+        cmd.add("C:\\Users\\Gabriel\\runtime-com.28msec.sausalito.product\\def\\handlers\\default.xq");
+        cmd.add("-x");
+        ProcessBuilder pb = new ProcessBuilder(cmd);
+        pb.environment().put("SAUSALITO_TOOLS", "true");
+        Process p = pb.start();
+        ProcessStreamConsumer psc = new ProcessStreamConsumer(p);
+        psc.start();
+        int i = p.waitFor();
+        System.out.println(i);
+        System.out.println("Err:" + psc.getError());
+        System.out.println("Out:" + psc.getOutput());
+
+    }
 }

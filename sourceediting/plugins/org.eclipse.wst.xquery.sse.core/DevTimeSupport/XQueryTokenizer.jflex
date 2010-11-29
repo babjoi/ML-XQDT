@@ -15,8 +15,7 @@ import java.io.CharArrayReader;
 import java.io.IOException; 
 import java.util.Stack; 
  
-import org.eclipse.wst.sse.core.internal.provisional.text.ITextRegion;
-import org.eclipse.wst.sse.core.internal.util.Debug;
+import org.eclipse.wst.sse.core.internal.provisional.text.ITextRegion; 
 import org.eclipse.wst.sse.core.utils.StringUtils;  
 import org.eclipse.wst.xquery.sse.core.internal.regions.XQueryRegions;
 
@@ -40,6 +39,8 @@ import org.eclipse.wst.xquery.sse.core.internal.regions.XQueryRegions;
 %eof}
 
 %{
+	final private static boolean DEBUG = false;
+
 	// Expression context constants. Must be negative to avoid conflicting with lexical states
 	 
 	final private static int EXPR = -1;
@@ -149,7 +150,7 @@ import org.eclipse.wst.xquery.sse.core.internal.regions.XQueryRegions;
 
 	/** Print out string */
 	private final void dump(String s) {
-		if (Debug.debugTokenizer) {
+		if (DEBUG) {
 			System.out.println(s + " (" + yychar + "-" + //$NON-NLS-2$//$NON-NLS-1$
 				(yylength() + yychar) + "):\'" +//$NON-NLS-1$
 					StringUtils.escape(yytext()) + "\'");//$NON-NLS-1$
@@ -158,6 +159,9 @@ import org.eclipse.wst.xquery.sse.core.internal.regions.XQueryRegions;
 	
 	/** Push given state */
 	private final void pushState(int state) {
+	  if (DEBUG)
+	    System.out.println("pushState " + state);
+	
 	  states.push(state);
 	}
 	
@@ -168,6 +172,9 @@ import org.eclipse.wst.xquery.sse.core.internal.regions.XQueryRegions;
 	 
 	/** Pop state  */
 	private final int popState() {
+	  if (DEBUG)
+	    System.out.println("popState " + (states.empty() ? "YYINITIAL" : states.peek()));
+
 	  return states.empty() ? YYINITIAL : states.pop();
 	}
 	
@@ -239,10 +246,21 @@ import org.eclipse.wst.xquery.sse.core.internal.regions.XQueryRegions;
 		    return endExprSingle();
 	
 	      case MODULE:
-	        // Terminate parsing..
+	        // Terminating parsing.. 
 	        yybegin(TS_SINK);
 	        return context;
 	
+	 	  case INVARDECLINIT:
+		 	// Terminating a global variable initialization
+		 	yybegin(TS_PROLOG2);
+		 	return context;
+		 	
+		  case INBLOCKVARDECLINIT:
+	      	// Terminating a block variable initialization
+	      	yybegin(TS_BLOCKVARDECLOPT);
+	      	return context;
+	    
+	    
 		  case WHEREEXPR:
 		  case ORDEREXPR:
 		  case FLCLAUSEEXPR:
@@ -250,9 +268,9 @@ import org.eclipse.wst.xquery.sse.core.internal.regions.XQueryRegions;
 		  case IFTHENEXPR:
 		  case XUREPLACE:
 		  case XUREPLACETARGET:
-		  case INVARDECLINIT:
 		  case CURLYEXPR: 
 		  case SXWHILE:
+		  case PAREXPR:
 		  default:
 		    // Continue analyzing the same expression. The caller will be responsible for moving to a new lexical state.
 		    return context; 
@@ -289,12 +307,19 @@ import org.eclipse.wst.xquery.sse.core.internal.regions.XQueryRegions;
 	    case GROUPBY: // Expecting a new grouping spec
 	      yybegin(TS_GCVARNAME);
 	      break;
-	    
+	      
+	    case PAREXPR:
 	    case EXPR:
 	    case CURLYEXPR:
+	      yybegin(TS_EXPRSINGLE);
+	      break;
+	    
 	    case YYINITIAL:
 	    default:
-	      // Just keep going..
+	       // Parsing a complex ExprSingle. Terminating it.
+	      // endExprSingle(); TODO: Not sure about that.
+	    
+	      // And then just keep going..
 	      yybegin(TS_EXPRSINGLE);
 	      
 	  }
@@ -304,26 +329,8 @@ import org.eclipse.wst.xquery.sse.core.internal.regions.XQueryRegions;
 	
 	/** Received ";" */
 	final private String semicolon()
-	{
-	  final int context = peekState();
-	  switch (context)
-	  {
-	    case INVARDECLINIT:
-	      // Terminate global variable initialization
-	      popState();
-	      yybegin(TS_PROLOG2);
-	      break;
-	    case INBLOCKVARDECLINIT:
-	      // Terminate a block variable initialization
-	      popState();
-	      yybegin(TS_BLOCKVARDECLOPT);
-	      break;
-	    default:
-	      // Terminate apply expression.. Keep going..
-	      yybegin(TS_EXPROPT);
-	  }
-	    
-	  return SEPARATOR;
+	{  
+	   return SEPARATOR;
 	}
 	
 	/** Received "return" */
@@ -930,7 +937,7 @@ import org.eclipse.wst.xquery.sse.core.internal.regions.XQueryRegions;
     }
     
     public void reset(java.io.Reader in, int newOffset) {
-	  if (Debug.debugTokenizer) {
+	  if (DEBUG) {
 		System.out.println("resetting tokenizer");//$NON-NLS-1$
 	  }
 	  
@@ -1894,9 +1901,16 @@ SimpleName = ({Letter} | "_" ) ({SimpleNameChar})*
   "//" 							{ yybegin(TS_STEPEXPR); return PATH_SLASHSLASH; }
 }
 
-<TS_ENDPRIMARY, TS_SINGLETYPEQMOREND, TS_ENDAXISSTEP, TS_OPTSTEPEXPR, TS_ENDEXPRSINGLE,TS_ENDVARREF,TS_GCAFTERVARNAME,TS_GCENDGROUPINGSPEC> {
+<TS_ENDPRIMARY, TS_SINGLETYPEQMOREND, TS_ENDAXISSTEP, TS_OPTSTEPEXPR, TS_ENDEXPRSINGLE, TS_ENDVARREF, TS_GCAFTERVARNAME, TS_GCENDGROUPINGSPEC> {
   ","							{ return comma();  } 
-  ";"							{ return semicolon();  }    
+}
+
+<TS_ENDPRIMARY, TS_ENDAXISSTEP, TS_OPTSTEPEXPR, TS_ENDEXPRSINGLE,TS_ENDVARREF,TS_GCAFTERVARNAME,TS_GCENDGROUPINGSPEC> {
+  ";"							{ endExprSingle();  return semicolon();  } 
+}
+
+<TS_SINGLETYPEQMOREND> {
+  ";"							{ return semicolon();  }
 }
 
 <TS_ENDVARREF> {
@@ -2331,10 +2345,10 @@ SimpleName = ({Letter} | "_" ) ({SimpleNameChar})*
 <TS_XMLATTLIST> {
   {QName}		{ yybegin(TS_XMLATTREQ); return XML_TAG_ATTRIBUTE_NAME; }
   "/>"			{ 
-  					endElement(); 
-					if (inXMLContent()) {
-					   yybegin(TS_XMLCONTENT);
-					} else {
+  					if (inXMLContent()) {
+  					   yybegin(TS_XMLCONTENT);
+  					} else
+  					{
 					   endXML();
 					   yybegin(popState());
 					}
@@ -2521,7 +2535,7 @@ SimpleName = ({Letter} | "_" ) ({SimpleNameChar})*
  
 
 . {
-	if (Debug.debugTokenizer)
+	if (DEBUG)
 		System.out.println("!!!unexpected!!!: \"" + yytext() + "\":" + //$NON-NLS-2$//$NON-NLS-1$
 			yychar + "-" + (yychar + yylength()));//$NON-NLS-1$
 	recover(TS_EXPR);

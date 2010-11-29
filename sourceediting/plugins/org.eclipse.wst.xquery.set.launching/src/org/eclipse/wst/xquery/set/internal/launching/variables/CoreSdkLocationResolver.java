@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2008, 2009 28msec Inc. and others.
+ * Copyright (c) 2008 28msec Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -34,26 +34,35 @@ import org.osgi.framework.Bundle;
 public class CoreSdkLocationResolver implements IDynamicVariableResolver {
 
     public static final String SDK_LOCATION_VARIABLE_NAME = "sdk_location";
-
     private static final String SDK_LOCATION_VARIABLE = "${" + SDK_LOCATION_VARIABLE_NAME + "}";
-
     private static final String WIN_DIR_NAME_PREFIX = "Sausalito-CoreSDK";
 
-    public String resolveValue(IDynamicVariable variable, String argument) throws CoreException {
-        String result = findStrategies();
+    private static final boolean DEBUG = XQDTLaunchingPlugin.DEBUG_AUTOMATIC_PROCESSOR_DETECTION
+            || SETLaunchingPlugin.DEBUG_VARIABLE_RESOLVING;
 
-        if (SETLaunchingPlugin.DEBUG_VARIABLE_RESOLVING) {
-            log(IStatus.INFO, SDK_LOCATION_VARIABLE + " was resolved to: " + result, null);
+    private String fCachedValue = null;
+
+    public String resolveValue(IDynamicVariable variable, String argument) throws CoreException {
+        if (DEBUG) {
+            log(IStatus.INFO, "Starting resolving of variable " + SDK_LOCATION_VARIABLE
+                    + " with default start value: null");
         }
 
-        return result;
+        boolean isCached = fCachedValue != null;
+
+        if (!isCached) {
+            fCachedValue = findStrategies();
+        }
+
+        if (DEBUG) {
+            log(IStatus.INFO, SDK_LOCATION_VARIABLE + " was resolved to" + (isCached ? " (cached value)" : "") + ": "
+                    + fCachedValue);
+        }
+
+        return fCachedValue;
     }
 
     private String findStrategies() {
-        if (SETLaunchingPlugin.DEBUG_VARIABLE_RESOLVING) {
-            log(IStatus.INFO, "Starting resolving of variable " + SDK_LOCATION_VARIABLE
-                    + " with default start value: null", null);
-        }
         String result = null;
 
         // I. first search for the shipped Sausalito CoreSDK
@@ -62,8 +71,8 @@ public class CoreSdkLocationResolver implements IDynamicVariableResolver {
         if (result != null) {
             return result;
         }
-        if (XQDTLaunchingPlugin.DEBUG_AUTOMATIC_PROCESSOR_DETECTION || SETLaunchingPlugin.DEBUG_VARIABLE_RESOLVING) {
-            log(IStatus.INFO, "No shipped Sausalito CoreSDK was found.", null);
+        if (DEBUG) {
+            log(IStatus.INFO, "No shipped Sausalito CoreSDK was found.");
         }
 
         // II. if no CoreSDK is shipped (for some platforms)
@@ -72,8 +81,8 @@ public class CoreSdkLocationResolver implements IDynamicVariableResolver {
         if (result != null) {
             return result;
         }
-        if (XQDTLaunchingPlugin.DEBUG_AUTOMATIC_PROCESSOR_DETECTION || SETLaunchingPlugin.DEBUG_VARIABLE_RESOLVING) {
-            log(IStatus.INFO, "No installed Sausalito CoreSDK was found.", null);
+        if (DEBUG) {
+            log(IStatus.INFO, "No installed Sausalito CoreSDK was found.");
         }
 
         return result;
@@ -95,44 +104,54 @@ public class CoreSdkLocationResolver implements IDynamicVariableResolver {
 
         Bundle[] bundles = Platform.getBundles(fragment, null);
         if (bundles == null || bundles.length == 0) {
-            if (XQDTLaunchingPlugin.DEBUG_AUTOMATIC_PROCESSOR_DETECTION || SETLaunchingPlugin.DEBUG_VARIABLE_RESOLVING) {
+            if (DEBUG) {
                 log(IStatus.INFO, "Could not find plug-in fragment: " + fragment
-                        + ". No default Sausalito CoreSDK will be configured.", null);
+                        + ". No default Sausalito CoreSDK will be configured.");
             }
             return null;
         }
-        if (XQDTLaunchingPlugin.DEBUG_AUTOMATIC_PROCESSOR_DETECTION || SETLaunchingPlugin.DEBUG_VARIABLE_RESOLVING) {
-            log(IStatus.INFO, "Found Sausalito CoreSDK plug-in fragment: " + fragment, null);
+        if (DEBUG) {
+            log(IStatus.INFO, "Found Sausalito CoreSDK plug-in fragment: " + fragment);
         }
 
         Bundle bundle = bundles[0];
         URL coreSdkUrl = FileLocator.find(bundle, new Path("coresdk"), null);
         if (coreSdkUrl == null) {
-            if (XQDTLaunchingPlugin.DEBUG_AUTOMATIC_PROCESSOR_DETECTION || SETLaunchingPlugin.DEBUG_VARIABLE_RESOLVING) {
+            if (DEBUG) {
                 log(IStatus.INFO, "Could not find the \"coresdk\" directory in plug-in fragment: " + fragment
-                        + ". No default Sausalito CoreSDK will be configured.", null);
+                        + ". No default Sausalito CoreSDK will be configured.");
             }
             return null;
         }
+
         try {
             coreSdkUrl = FileLocator.toFileURL(coreSdkUrl);
         } catch (IOException ioe) {
-            log(IStatus.ERROR, "Cound not retrieve the Eclipse bundle location: " + fragment, ioe);
+            log(IStatus.ERROR, "Cound not resolve the Sausalito CoreSDK in fragment: " + fragment, ioe);
             return null;
         }
 
         IPath coreSdkPath = new Path(coreSdkUrl.getPath());
+        if (DEBUG) {
+            log(IStatus.INFO, "Found Sausalito CoreSDK directory: " + coreSdkUrl);
+        }
 
         if (isScriptIn(coreSdkPath)) {
+            if (DEBUG) {
+                log(IStatus.INFO, "The Sausalito CoreSDK directory is valid: " + coreSdkUrl);
+            }
             return coreSdkPath.toOSString();
+        }
+        if (DEBUG) {
+            log(IStatus.INFO, "The Sausalito CoreSDK directory is invalid: " + coreSdkUrl);
         }
 
         return null;
     }
 
     private String findInstalledCoreSDK() {
-        if (XQDTLaunchingPlugin.DEBUG_AUTOMATIC_PROCESSOR_DETECTION || SETLaunchingPlugin.DEBUG_VARIABLE_RESOLVING) {
-            log(IStatus.INFO, "Trying to find an installed CoreSDK version", null);
+        if (DEBUG) {
+            log(IStatus.INFO, "Trying to find an installed CoreSDK version");
         }
         String os = Platform.getOS();
         IPath possiblePath = null;
@@ -154,10 +173,10 @@ public class CoreSdkLocationResolver implements IDynamicVariableResolver {
     }
 
     private IPath getLatestFromProgramFiles(File programFiles) {
-        if (XQDTLaunchingPlugin.DEBUG_AUTOMATIC_PROCESSOR_DETECTION || SETLaunchingPlugin.DEBUG_VARIABLE_RESOLVING) {
+        if (DEBUG) {
             log(IStatus.INFO,
                     "Searching for the latest installed CoreSDK version in Program Files. The installation must start with: "
-                            + WIN_DIR_NAME_PREFIX, null);
+                            + WIN_DIR_NAME_PREFIX);
         }
         IPath result = null;
 
@@ -173,25 +192,25 @@ public class CoreSdkLocationResolver implements IDynamicVariableResolver {
             if (candidates.size() == 0) {
                 if (XQDTLaunchingPlugin.DEBUG_AUTOMATIC_PROCESSOR_DETECTION
                         || SETLaunchingPlugin.DEBUG_VARIABLE_RESOLVING) {
-                    log(IStatus.INFO, "No candidate installs found.", null);
+                    log(IStatus.INFO, "No candidate installs found.");
                 }
                 result = null;
             } else if (candidates.size() == 1) {
                 if (XQDTLaunchingPlugin.DEBUG_AUTOMATIC_PROCESSOR_DETECTION
                         || SETLaunchingPlugin.DEBUG_VARIABLE_RESOLVING) {
-                    log(IStatus.INFO, "Found one install candidate: " + candidates.get(0), null);
+                    log(IStatus.INFO, "Found one install candidate: " + candidates.get(0));
                 }
                 result = new Path(programFiles.getPath()).append(candidates.get(0));
             } else {
                 if (XQDTLaunchingPlugin.DEBUG_AUTOMATIC_PROCESSOR_DETECTION
                         || SETLaunchingPlugin.DEBUG_VARIABLE_RESOLVING) {
-                    log(IStatus.INFO, "Found " + candidates.size() + " install candidate.", null);
+                    log(IStatus.INFO, "Found " + candidates.size() + " install candidate.");
                 }
                 String candidate = candidates.get(0);
                 for (String newCandidate : candidates) {
                     if (XQDTLaunchingPlugin.DEBUG_AUTOMATIC_PROCESSOR_DETECTION
                             || SETLaunchingPlugin.DEBUG_VARIABLE_RESOLVING) {
-                        log(IStatus.INFO, "Found candidate install: " + newCandidate, null);
+                        log(IStatus.INFO, "Found candidate install: " + newCandidate);
                     }
                     if (candidate.compareTo(newCandidate) < 0) {
                         candidate = newCandidate;
@@ -200,7 +219,7 @@ public class CoreSdkLocationResolver implements IDynamicVariableResolver {
                 result = new Path(programFiles.getAbsolutePath()).append(candidate);
                 if (XQDTLaunchingPlugin.DEBUG_AUTOMATIC_PROCESSOR_DETECTION
                         || SETLaunchingPlugin.DEBUG_VARIABLE_RESOLVING) {
-                    log(IStatus.INFO, "Chose install: " + result.toString(), null);
+                    log(IStatus.INFO, "Chose install: " + result.toString());
                 }
             }
 
@@ -211,8 +230,8 @@ public class CoreSdkLocationResolver implements IDynamicVariableResolver {
     }
 
     private boolean isScriptIn(IPath coreSdkPath) {
-        if (XQDTLaunchingPlugin.DEBUG_AUTOMATIC_PROCESSOR_DETECTION || SETLaunchingPlugin.DEBUG_VARIABLE_RESOLVING) {
-            log(IStatus.INFO, "Checking path: " + coreSdkPath.toOSString(), null);
+        if (DEBUG) {
+            log(IStatus.INFO, "Validating Sausalito CoreSDK location: " + coreSdkPath.toOSString());
         }
 
         if (coreSdkPath == null) {
@@ -226,7 +245,7 @@ public class CoreSdkLocationResolver implements IDynamicVariableResolver {
 
         File scrptFile = scriptPath.toFile();
         if (!scrptFile.exists()) {
-            log(IStatus.ERROR, "Could not find the Sausalito script at location: " + coreSdkPath.toOSString(), null);
+            log(IStatus.ERROR, "Could not find the Sausalito script at location: " + coreSdkPath.toOSString());
             return false;
         }
 
@@ -248,10 +267,14 @@ public class CoreSdkLocationResolver implements IDynamicVariableResolver {
         return executable;
     }
 
-    public static IStatus log(int severity, String message, Throwable t) {
+    static IStatus log(int severity, String message, Throwable t) {
         Status status = new Status(severity, SETLaunchingPlugin.PLUGIN_ID, message, t);
         SETLaunchingPlugin.log(status);
         return status;
+    }
+
+    static IStatus log(int severity, String message) {
+        return log(severity, message, null);
     }
 
 }

@@ -18,7 +18,7 @@ import org.eclipse.wst.xquery.internal.core.XQDTContentType;
 
 public class SETLanguageToolkit extends AbstractLanguageToolkit {
 
-    protected static SETLanguageToolkit sToolkit = new SETLanguageToolkit();
+    private static SETLanguageToolkit sToolkit = new SETLanguageToolkit();
 
     public String getLanguageContentType() {
         return XQDTContentType.XQUERY_CONTENT_TYPE;

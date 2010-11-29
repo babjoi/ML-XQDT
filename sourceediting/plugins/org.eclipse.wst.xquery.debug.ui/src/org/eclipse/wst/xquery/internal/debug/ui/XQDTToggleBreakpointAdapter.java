@@ -28,6 +28,7 @@ import org.eclipse.jface.text.IDocument;
 import org.eclipse.jface.text.ITextSelection;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.IStructuredSelection;
+import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.osgi.util.NLS;
 import org.eclipse.ui.IWorkbenchPart;
 import org.eclipse.ui.texteditor.IDocumentProvider;
@@ -84,10 +85,10 @@ public class XQDTToggleBreakpointAdapter extends ScriptToggleBreakpointAdapter {
                 }
             }
         }
-//        if (function != null) {
-//            toggleMethodBreakpoints(part, new StructuredSelection(new Object[] { function, document, line }));
-//            return;
-//        }
+        if (function != null) {
+            toggleMethodBreakpoints(part, new StructuredSelection(new Object[] { function, document, line }));
+            return;
+        }
 
         toggleLineBreakpoints(part, selection);
     }

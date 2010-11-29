@@ -97,7 +97,7 @@
          point="org.eclipse.ui.preferencePages">
       <page
             category="org.eclipse.wst.xquery.set.preferences"
-            class="org.eclipse.wst.xquery.set.internal.debug.ui.interpreters.SETCoreSDKPreferencePage"
+            class="org.eclipse.wst.xquery.set.internal.debug.ui.interpreters.CoreSDKPreferencePage"
             id="org.eclipse.wst.xquery.set.preferences.interpreters"
             name="CoreSDK">
       </page>
@@ -111,7 +111,7 @@
    <extension
          point="org.eclipse.dltk.ui.buildpathContainerPage">
       <buildpathContainerPage
-            class="org.eclipse.wst.xquery.set.internal.debug.ui.interpreters.SETCoreSDKContainerWizardPage"
+            class="org.eclipse.wst.xquery.set.internal.debug.ui.interpreters.CoreSDKContainerWizardPage"
             id="org.eclipse.wst.xquery.set.launching.INTERPRETER_CONTAINER"
             name="Sausalito CoreSDK Libraries"
             nature="org.eclipse.wst.xquery.set.core.nature">
@@ -129,6 +129,13 @@
          point="org.eclipse.wst.xquery.set.launching.retryHandler">
       <retryHandler
             class="org.eclipse.wst.xquery.set.internal.debug.ui.launcher.SETLaunchRetryHandler"></retryHandler>
+   </extension>
+   <extension
+         point="org.eclipse.wst.xquery.debug.ui.interpreterInstallTypeAddDialogBlock">
+      <addDialogBlock
+            class="org.eclipse.wst.xquery.set.internal.debug.ui.interpreters.CoreSDKAddInterpreterDialogBlock"
+            interpreterInstallTypeID="org.eclipse.wst.xquery.set.launching.CoreSDKInstallType">
+      </addDialogBlock>
    </extension>
 
 </plugin>

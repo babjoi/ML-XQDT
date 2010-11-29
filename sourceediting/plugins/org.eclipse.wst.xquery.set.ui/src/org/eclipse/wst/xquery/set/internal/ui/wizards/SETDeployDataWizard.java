@@ -10,20 +10,10 @@
  *******************************************************************************/
 package org.eclipse.wst.xquery.set.internal.ui.wizards;
 
-import org.eclipse.core.runtime.IStatus;
-import org.eclipse.core.runtime.jobs.IJobChangeEvent;
-import org.eclipse.core.runtime.jobs.Job;
-import org.eclipse.core.runtime.jobs.JobChangeAdapter;
 import org.eclipse.dltk.core.IScriptProject;
 import org.eclipse.jface.wizard.Wizard;
-import org.eclipse.swt.SWT;
-import org.eclipse.swt.widgets.Display;
-import org.eclipse.swt.widgets.MessageBox;
-import org.eclipse.swt.widgets.Shell;
-import org.eclipse.wst.xquery.set.internal.launching.jobs.SETDeployDataJob;
 import org.eclipse.wst.xquery.set.launching.deploy.DeployInfo;
 import org.eclipse.wst.xquery.set.launching.deploy.DeployManager;
-import org.eclipse.wst.xquery.set.launching.deploy.Deployer;
 
 public class SETDeployDataWizard extends Wizard {
 
@@ -47,39 +37,39 @@ public class SETDeployDataWizard extends Wizard {
     @Override
     public boolean performFinish() {
         final DeployInfo info = fDeployPage.getDeployInfo();
-        boolean useCache = fDeployPage.cacheCredentials();
+        if (fDeployPage.cacheCredentials()) {
+            DeployManager.getInstance().cacheDeployInfo(info);
+        }
 
-        final Deployer deployer = DeployManager.getInstance().getDeployer(info, useCache);
-
-        deployer.addJobChangeListener(new JobChangeAdapter() {
-
-            @Override
-            public void done(IJobChangeEvent event) {
-                Job job = event.getJob();
-                IStatus status = job.getResult();
-                if (job instanceof SETDeployDataJob) {
-                    if (status.isOK()) {
-                        displayMessageBox("The data for project \"" + info.getProject().getElementName()
-                                + "\" was succesfully deployed into the application \"" + info.getApplicationName()
-                                + "\"", true);
-                    }
-                }
-            }
-
-            private void displayMessageBox(final String message, final boolean isSuccess) {
-                Display.getDefault().syncExec(new Runnable() {
-
-                    public void run() {
-                        MessageBox mb = new MessageBox(new Shell(Display.getDefault().getActiveShell()),
-                                (isSuccess ? SWT.ICON_INFORMATION : SWT.ICON_ERROR) | SWT.OK);
-                        mb.setMessage(message);
-                        mb.open();
-                    }
-                });
-
-            }
-        });
-        deployer.execute();
+//        deployer.addJobChangeListener(new JobChangeAdapter() {
+//
+//            @Override
+//            public void done(IJobChangeEvent event) {
+//                Job job = event.getJob();
+//                IStatus status = job.getResult();
+//                if (job instanceof SETDeployDataJob) {
+//                    if (status.isOK()) {
+//                        displayMessageBox("The data for project \"" + info.getProject().getElementName()
+//                                + "\" was succesfully deployed into the application \"" + info.getApplicationName()
+//                                + "\"", true);
+//                    }
+//                }
+//            }
+//
+//            private void displayMessageBox(final String message, final boolean isSuccess) {
+//                Display.getDefault().syncExec(new Runnable() {
+//
+//                    public void run() {
+//                        MessageBox mb = new MessageBox(new Shell(Display.getDefault().getActiveShell()),
+//                                (isSuccess ? SWT.ICON_INFORMATION : SWT.ICON_ERROR) | SWT.OK);
+//                        mb.setMessage(message);
+//                        mb.open();
+//                    }
+//                });
+//
+//            }
+//        });
+//        deployer.schedule();
 
         return true;
     }

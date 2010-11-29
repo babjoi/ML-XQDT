@@ -20,6 +20,8 @@ public interface ISETCoreConstants {
     public static final String PROJECT_DIRECTORY_EXTERNAL = "external";
     public static final String PROJECT_DIRECTORY_PUBLIC = "public";
     public static final String PROJECT_DIRECTORY_TEST = "test";
+    public static final String PROJECT_DIRECTORY_DATA = "data";
+    public static final String PROJECT_DIRECTORY_COLLECTIONS = "collections";
 
     // project files
     public static final String PROJECT_FILE_CONFIG = "sausalito.xml";

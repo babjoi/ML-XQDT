@@ -58,7 +58,7 @@ public class XQDTEditor extends ScriptEditor {
     }
 
     public String getEditorId() {
-        return IXQDTUIPluginConstants.XQDT_EDITOR_ID;
+        return IXQDTUIPluginConstants.ID_XQDT_EDITOR;
     }
 
     public IDLTKLanguageToolkit getLanguageToolkit() {

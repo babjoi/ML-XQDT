@@ -22,7 +22,7 @@ import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Shell;
 
-public abstract class AbstractAddInterpreterDialogBlock implements IInterpreterNameProvider {
+public abstract class AbstractAddInterpreterDialogBlock {
 
     protected IAddInterpreterDialogRequestor fRequestor;
 
@@ -87,14 +87,14 @@ public abstract class AbstractAddInterpreterDialogBlock implements IInterpreterN
 
     abstract protected String getInterpreterLocation();
 
-    public void setFocus() {
-    }
-
     public void createFieldListeners() {
     }
 
     protected int convertWidthInCharsToPixels(int chars) {
         return fAddInterpreterDialog.convertWidthInCharsToPixels(chars);
+    }
+
+    public void setFocus() {
     }
 
 }

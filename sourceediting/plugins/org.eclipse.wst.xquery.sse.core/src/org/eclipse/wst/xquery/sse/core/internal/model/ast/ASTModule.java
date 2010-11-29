@@ -172,7 +172,7 @@ public class ASTModule extends ASTParentNode {
 
     @Override
     public void staticCheck(IStructuredDocument document, IValidator validator, IReporter reporter) {
-        // ModuleDecl: The URILiteral must be of nonzero length [err:XQST0088]
+        // ModuleDecl: The URILiteral must be of nonzero length [err:XQST0059]
         String moduleNS = getModuleNamespace();
 
         if (moduleNS != null && moduleNS.length() == 0) {

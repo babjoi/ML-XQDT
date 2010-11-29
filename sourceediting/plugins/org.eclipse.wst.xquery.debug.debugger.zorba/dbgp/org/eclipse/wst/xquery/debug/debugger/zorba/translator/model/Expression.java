@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2008, 2009 28msec Inc. and others.
+ * Copyright (c) 2010 28msec Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -79,15 +79,23 @@ public class Expression {
 
     @Override
     public boolean equals(Object obj) {
-        if (obj == null)
+        if (obj == null) {
             return false;
+        }
 
         if (obj instanceof Variable) {
             Variable var = (Variable)obj;
-            if (fExpr != null && fExpr.equals(var.fExpr))
+            if (fExpr != null && fExpr.equals(var.fExpr)) {
                 return true;
+            }
         }
         return false;
+    }
+
+    @Override
+    public int hashCode() {
+        assert false : "hashCode not designed";
+        return 28;
     }
 
 }

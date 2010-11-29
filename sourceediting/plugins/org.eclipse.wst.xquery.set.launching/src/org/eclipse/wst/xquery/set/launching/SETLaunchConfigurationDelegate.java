@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2008, 2009 28msec Inc. and others.
+ * Copyright (c) 2008 28msec Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -32,6 +32,7 @@ import org.eclipse.dltk.core.environment.IEnvironment;
 import org.eclipse.dltk.launching.AbstractScriptLaunchConfigurationDelegate;
 import org.eclipse.swt.custom.BusyIndicator;
 import org.eclipse.swt.widgets.Display;
+import org.eclipse.ui.browser.IWebBrowser;
 import org.eclipse.wst.xquery.set.core.SETNature;
 import org.eclipse.wst.xquery.set.internal.launching.server.Server;
 import org.eclipse.wst.xquery.set.internal.launching.server.ServerManager;
@@ -40,6 +41,7 @@ public class SETLaunchConfigurationDelegate extends AbstractScriptLaunchConfigur
 
     private final static Object fLock = new Object();
 
+    @Override
     public void launch(final ILaunchConfiguration configuration, final String mode, final ILaunch launch,
             IProgressMonitor monitor) throws CoreException {
 
@@ -77,6 +79,8 @@ public class SETLaunchConfigurationDelegate extends AbstractScriptLaunchConfigur
                 }
             } while (retry);
 
+            doPreLaunchActions(configuration, mode, launch, monitor);
+
             // from now on cancelling monitors must also unregister the
             // socket, server and project from the server manager 
 
@@ -96,7 +100,10 @@ public class SETLaunchConfigurationDelegate extends AbstractScriptLaunchConfigur
 
             // open the browser
             monitor.subTask("Opening the browser");
-            SETLaunchUtil.openBrowser(launch);
+
+            IWebBrowser browser = SETLaunchUtil.openBrowser(launch);
+            server.setBrowser(browser);
+
             if (monitor.isCanceled()) {
                 return;
             }
@@ -104,6 +111,37 @@ public class SETLaunchConfigurationDelegate extends AbstractScriptLaunchConfigur
         } finally {
             monitor.done();
         }
+    }
+
+    private void doPreLaunchActions(ILaunchConfiguration configuration, String mode, ILaunch launch,
+            IProgressMonitor monitor) {
+//        try {
+//            boolean bulkload = configuration.getAttribute(ISETLaunchConfigurationConstants.ATTR_XQDT_SET_BULKLOAD_DATA,
+//                    false);
+//            if (bulkload) {
+//                SETImportDataJob job = new SETImportDataJob(getProject(configuration));
+//                job.addJobChangeListener(new JobChangeAdapter() {
+//                    @Override
+//                    public void done(IJobChangeEvent event) {
+//                        synchronized (SETLaunchConfigurationDelegate.this) {
+//                            SETLaunchConfigurationDelegate.this.notify();
+//                        }
+//                    }
+//                });
+//                job.setSystem(true);
+//                job.setUser(false);
+//                synchronized (this) {
+//                    this.wait();
+//                }
+//                System.out.println("unlocked");
+//            }
+//        } catch (CoreException ce) {
+//            Status status = new Status(IStatus.ERROR, SETLaunchingPlugin.PLUGIN_ID,
+//                    "Error while bulkloading project during launch.", ce);
+//            SETLaunchingPlugin.log(status);
+//        } catch (InterruptedException ie) {
+//            ie.printStackTrace();
+//        }
     }
 
     private ISETLaunchRetryHandler getRetryHandler() {
@@ -186,31 +224,12 @@ public class SETLaunchConfigurationDelegate extends AbstractScriptLaunchConfigur
         return Status.OK_STATUS;
     }
 
-//    private boolean tryOtherSocket(Server server) {
-//        Shell shell = Display.getDefault().getActiveShell();
-//        BusySocketDialog dialog = new BusySocketDialog(shell, server);
-//        if (dialog.open() == TrayDialog.OK) {
-//            server.setHost(dialog.getHost());
-//            server.setPort(dialog.getPort());
-//            return true;
-//        }
-//
-//        return false;
-//    }
-
     private void checkLaunchPostconditions(ILaunch launch, Server server, IProgressMonitor monitor)
             throws CoreException {
         try {
             monitor.beginTask("Checking postconditions for the Sausalito CoreSDK server launch", 10);
 
             final IProject project = server.getProject();
-
-//            try {
-//                // give the other thread a chance to start the process
-//                Thread.sleep(3000);
-//
-//            } catch (InterruptedException ie) {
-//            }
 
             // make sure there is only one process in this lunch
             final IProcess process = server.getProcess();
@@ -277,62 +296,11 @@ public class SETLaunchConfigurationDelegate extends AbstractScriptLaunchConfigur
         return;
     }
 
-    @Override
     public String getLanguageId() {
         return SETNature.NATURE_ID;
     }
 
-//    @Override
-//    protected InterpreterConfig createInterpreterConfig(ILaunchConfiguration configuration, ILaunch launch)
-//            throws CoreException {
-//        IScriptProject scriptProject = AbstractScriptLaunchConfigurationDelegate.getScriptProject(configuration);
-//        IEnvironment scriptEnvironment = EnvironmentManager.getEnvironment(scriptProject);
-//
-//        InterpreterConfig config = new InterpreterConfig();
-//        config.setEnvironment(scriptEnvironment);
-//
-//        // Script arguments
-//        String[] scriptArgs = getScriptArguments(configuration);
-//        config.addScriptArgs(scriptArgs);
-//
-//        // Interpreter argument
-//        String[] interpreterArgs = getInterpreterArguments(configuration);
-//        config.addInterpreterArgs(interpreterArgs);
-//
-//        // Environment
-//        // config.addEnvVars(DebugPlugin.getDefault().getLaunchManager()
-//        // .getNativeEnvironmentCasePreserved());
-//        final boolean append = configuration.getAttribute(ILaunchManager.ATTR_APPEND_ENVIRONMENT_VARIABLES, true);
-//        @SuppressWarnings("unchecked")
-//        final Map<String, String> configEnv = configuration.getAttribute(ILaunchManager.ATTR_ENVIRONMENT_VARIABLES,
-//                (Map)null);
-//        // build base environment
-//        final Map<String, String> env = new HashMap<String, String>();
-//        if (append || configEnv == null) {
-//            Map<String, String> envVars = scriptEnvironment.getEnvironmentVariables(false);
-//            if (envVars != null) {
-//                env.putAll(envVars);
-//            }
-//        }
-//        if (configEnv != null) {
-//            for (Map.Entry<String, String> entry : configEnv.entrySet()) {
-//                final String key = entry.getKey();
-//                String value = entry.getValue();
-//                if (value != null) {
-//                    value = VariablesPlugin.getDefault().getStringVariableManager().performStringSubstitution(value);
-//                }
-//                env.put(key, value);
-//            }
-//            /*
-//             * TODO for win32 override values in case-insensitive way like in
-//             * org.eclipse.debug.internal.core.LaunchManager#getEnvironment(...)
-//             */
-//        }
-//        config.addEnvVars(env);
-//
-//        return config;
-//    }
-
+    @Override
     protected String getScriptLaunchPath(ILaunchConfiguration configuration, IEnvironment scriptEnvironment)
             throws CoreException {
         // Sausalito is not based on a script that will be launched.

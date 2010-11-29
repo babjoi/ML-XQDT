@@ -32,7 +32,6 @@ import org.eclipse.wst.xquery.debug.debugger.zorba.translator.communication.Sock
 import org.eclipse.wst.xquery.debug.debugger.zorba.translator.messages.AbstractCommandMessage;
 import org.eclipse.wst.xquery.debug.debugger.zorba.translator.messages.AbstractMessage;
 import org.eclipse.wst.xquery.debug.debugger.zorba.translator.messages.AbstractReplyMessage;
-import org.eclipse.wst.xquery.debug.debugger.zorba.translator.messages.ClearMessage;
 import org.eclipse.wst.xquery.debug.debugger.zorba.translator.messages.CommandNotImplementedException;
 import org.eclipse.wst.xquery.debug.debugger.zorba.translator.messages.EvaluateMessage;
 import org.eclipse.wst.xquery.debug.debugger.zorba.translator.messages.EvaluatedMessage;
@@ -100,8 +99,8 @@ public class ZorbaDebuggerEngine extends DbgpTermination implements IDebuggerEng
                             fireObjectTerminated(se);
                         }
                     } catch (ProtocolException pe) {
-                        ZorbaDebuggerPlugin.getDefault().getLog().log(
-                                new Status(IStatus.ERROR, ZorbaDebuggerPlugin.PLUGIN_ID, pe.getMessage(), pe));
+                        ZorbaDebuggerPlugin.getDefault().getLog()
+                                .log(new Status(IStatus.ERROR, ZorbaDebuggerPlugin.PLUGIN_ID, pe.getMessage(), pe));
                     }
                 }
             } catch (Exception e) {
@@ -402,17 +401,6 @@ public class ZorbaDebuggerEngine extends DbgpTermination implements IDebuggerEng
         // }
         // if(!hasBreakpoints)
         // return;
-
-        AbstractReplyMessage reply = sendCommand(message);
-        handleReply(reply);
-    }
-
-    public void clearBreakpoint(IBreakpoint breakpoint) {
-        // if (!(breakpoint instanceof XQueryLineBreakpoint))
-        // return;
-
-        ClearMessage message = (ClearMessage)MessageFactory.buildCommand(ICommandSets.COMMAND_CLEAR);
-        message.addBreakpointId(Math.abs(breakpoint.hashCode()));
 
         AbstractReplyMessage reply = sendCommand(message);
         handleReply(reply);

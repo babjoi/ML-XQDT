@@ -19,7 +19,7 @@ public class DeployManager {
 
     private static DeployManager instance;
 
-    private Map<IScriptProject, Deployer> fProjectDeployers = new HashMap<IScriptProject, Deployer>();
+    private Map<IScriptProject, DeployInfo> fProjectDeploys = new HashMap<IScriptProject, DeployInfo>();
 
     private DeployManager() {
     }
@@ -31,31 +31,31 @@ public class DeployManager {
         return instance;
     }
 
-    public Deployer getDeployer(DeployInfo info, boolean useCache) {
-        Deployer deployer = fProjectDeployers.get(info.getProject());
+//    public DeployInfo getDeployer(DeployInfo info, boolean useCache) {
+//        DeployInfo info = fProjectDeploys.get(info.getProject());
+//
+//        if (deployer != null) {
+//            if (useCache) {
+//                deployer.setDeployInfo(info);
+//            } else {
+//                fProjectDeployers.remove(info.getProject());
+//            }
+//            deployer.initJobs();
+//        } else {
+//            deployer = new DeployerJob(info);
+//            if (useCache) {
+//                fProjectDeployers.put(info.getProject(), deployer);
+//            }
+//        }
+//
+//        return deployer;
+//    }
 
-        if (deployer != null) {
-            if (useCache) {
-                deployer.setDeployInfo(info);
-            } else {
-                fProjectDeployers.remove(info.getProject());
-            }
-            deployer.initJobs();
-        } else {
-            deployer = new Deployer(info);
-            if (useCache) {
-                fProjectDeployers.put(info.getProject(), deployer);
-            }
-        }
-
-        return deployer;
+    public void cacheDeployInfo(DeployInfo info) {
+        fProjectDeploys.put(info.getProject(), info);
     }
 
     public DeployInfo getCachedDeployInfo(IScriptProject project) {
-        Deployer deployer = fProjectDeployers.get(project);
-        if (deployer != null) {
-            return deployer.getDeployInfo();
-        }
-        return null;
+        return fProjectDeploys.get(project);
     }
 }

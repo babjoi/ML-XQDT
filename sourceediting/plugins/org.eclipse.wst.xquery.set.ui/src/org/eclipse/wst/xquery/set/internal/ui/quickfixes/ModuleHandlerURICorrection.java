@@ -41,8 +41,8 @@ public class ModuleHandlerURICorrection implements IScriptCompletionProposal {
             IMarker marker = ((ScriptMarkerAnnotation)annotation).getMarker();
             ISourceModule module = annotation.getSourceModule();
             IFile file = (IFile)module.getResource();
-            IPath location = file.getLocation();
-            String parentDir = location.segment(location.segmentCount() - 2);
+            IPath location = file.getProjectRelativePath();
+            String parentDir = location.segment(0);
 
             IProject project = file.getProject();
             SETProjectConfig projectConfig = SETProjectConfigUtil.readProjectConfig(project);
@@ -53,10 +53,14 @@ public class ModuleHandlerURICorrection implements IScriptCompletionProposal {
             if (lURI.charAt(lURI.length() - 1) != '/') {
                 lURI += '/';
             }
-            if ("lib".equals(parentDir)) {
-                lURI += "lib/";
+
+            if ("handlers".equals(parentDir)) {
+                fNewUri = lURI + moduleName;
+            } else {
+                location = location.removeLastSegments(1).append(moduleName);
+                fNewUri = lURI + location.toPortableString();
             }
-            fNewUri = lURI + moduleName;
+
             fStart = (Integer)marker.getAttribute("charStart");
             fLength = (Integer)marker.getAttribute("charEnd") - fStart;
             assert fLength >= 0;

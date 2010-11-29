@@ -410,6 +410,7 @@ pm_Expr
 p_ExprSingle
         : p_FLWORExpr
         | p_QuantifiedExpr
+        | p_SwitchExpr
         | p_TypeswitchExpr
         | p_IfExpr
         | p_TryCatchExpr
@@ -859,9 +860,9 @@ p_DirAttributeList
 
 //[121] /* ws: explicit */ - resolved through the XMLLexer
 p_DirAttributeValue
-        : (QUOT (ESCAPE_QUOT | pm_QuotAttrValueContent)* QUOT)
+        : (QUOT (ESCAPE_QUOT | APOS | pm_QuotAttrValueContent)* QUOT)
                 -> ^(DirAttributeValue pm_QuotAttrValueContent*)
-        | (APOS (ESCAPE_APOS | pm_AposAttrValueContent)* APOS)
+        | (APOS (ESCAPE_APOS | QUOT | pm_AposAttrValueContent)* APOS)
                 -> ^(DirAttributeValue pm_AposAttrValueContent*)
         ;
 
@@ -934,9 +935,9 @@ pm_CommonContent
 // This is needed in order to switch the lexer from
 // XML back to XQuery
 p_ElemEnclosedExpr
-        :   LBRACKET
-            ({pushXQueryLexer();} pm_Expr {popLexer();})
-            RBRACKET 
+        :   LBRACKET {pushXQueryLexer();}
+            pm_Expr
+            RBRACKET {popLexer();}
         ;
 // *************************************************
 
@@ -1302,7 +1303,7 @@ p_NCName
         // XQuery 1.0 keywords
         | ANCESTOR | ANCESTOR_OR_SELF | AND | AS | ASCENDING | AT | ATTRIBUTE | BASE_URI | BOUNDARY_SPACE | BY | CASE | CAST | CASTABLE | CHILD | COLLATION | COMMENT | CONSTRUCTION | COPY_NAMESPACES | DECLARE | DEFAULT | DESCENDANT | DESCENDANT_OR_SELF | DESCENDING | DIV | DOCUMENT | DOCUMENT_NODE | ELEMENT | ELSE | EMPTY | EMPTY_SEQUENCE | ENCODING | EQ | EVERY | EXCEPT | EXTERNAL | FOLLOWING | FOLLOWING_SIBLING | FOR | FUNCTION | GE | GREATEST | GT | IDIV | IF | IMPORT | IN | INHERIT | INSTANCE | INTERSECT | IS | ITEM | LAX | LE | LEAST | LET | LT | MOD | MODULE | NAMESPACE | NE | NO_INHERIT | NO_PRESERVE | NODE | OF | OPTION | OR | ORDER | ORDERED | ORDERING | PARENT | PRECEDING | PRECEDING_SIBLING | PRESERVE | PROCESSING_INSTRUCTION | RETURN | SATISFIES | SCHEMA | SCHEMA_ATTRIBUTE | SCHEMA_ELEMENT | SELF | SOME | STABLE | STRICT | STRIP | TEXT | THEN | TO | TREAT | TYPESWITCH | UNION | UNORDERED | VALIDATE | VARIABLE | VERSION | WHERE | XQUERY
         // XQuery 1.1 keywords
-        | CATCH | CONTEXT | COUNT   | DECIMAL_FORMAT | DECIMAL_SEPARATOR | DIGIT | END | GROUP | GROUPING_SEPARATOR | INFINITY | MINUS_SIGN | NAMESPACE_NODE | NAN | NEXT | ONLY | OUTER | PATTERN_SEPARATOR | PERCENT | PER_MILLE | PREVIOUS | PRIVATE | PUBLIC | SLIDING | START | TRY | TUMBLING | WHEN | WINDOW | ZERO_DIGIT
+        | CATCH | CONTEXT | COUNT | DECIMAL_FORMAT | DECIMAL_SEPARATOR | DIGIT | END | GROUP | GROUPING_SEPARATOR | INFINITY | MINUS_SIGN | NAMESPACE_NODE | NAN | NEXT | ONLY | OUTER | PATTERN_SEPARATOR | PERCENT | PER_MILLE | PREVIOUS | PRIVATE | PUBLIC | SLIDING | START | SWITCH | TRY | TUMBLING | WHEN | WINDOW | ZERO_DIGIT
         // XQuery Update 1.0 keywords
         | AFTER | BEFORE | COPY | DELETE | FIRST |INSERT | INTO | LAST | MODIFY | NODES | RENAME | REPLACE | REVALIDATION | SKIP | UPDATING | VALUE | WITH
         // XQuery Scripting 1.0 keywords
@@ -1321,7 +1322,7 @@ p_FNCName
         // XQuery 1.0 keywords
         | ANCESTOR | ANCESTOR_OR_SELF | AND | AS | ASCENDING | AT | BASE_URI | BOUNDARY_SPACE | BY | CASE | CAST | CASTABLE | CHILD | COLLATION | CONSTRUCTION | COPY_NAMESPACES | DECLARE | DEFAULT | DESCENDANT | DESCENDANT_OR_SELF | DESCENDING | DIV | DOCUMENT | ELSE | EMPTY | ENCODING | EQ | EVERY | EXCEPT | EXTERNAL | FOLLOWING | FOLLOWING_SIBLING | FOR | FUNCTION | GE | GREATEST | GT | IDIV | IMPORT | IN | INHERIT | INSTANCE | INTERSECT | IS | LAX | LE | LEAST | LET | LT | MOD | MODULE | NAMESPACE | NE | NO_INHERIT | NO_PRESERVE | OF | OPTION | OR | ORDER | ORDERED | ORDERING | PARENT | PRECEDING | PRECEDING_SIBLING | PRESERVE | RETURN | SATISFIES | SCHEMA | SELF | SOME | STABLE | STRICT | STRIP | THEN | TO | TREAT | UNION | UNORDERED | VALIDATE | VARIABLE | VERSION | WHERE | XQUERY
         // XQuery 1.1 keywords
-        | CATCH | CONTEXT | COUNT   | DECIMAL_FORMAT | DECIMAL_SEPARATOR | DIGIT | END | GROUP | GROUPING_SEPARATOR | INFINITY | MINUS_SIGN | NAN | NEXT | ONLY | OUTER | PATTERN_SEPARATOR | PERCENT | PER_MILLE | PREVIOUS | PRIVATE | PUBLIC | SLIDING | START | TRY | TUMBLING | WHEN | WINDOW | ZERO_DIGIT
+        | CATCH | CONTEXT | COUNT | DECIMAL_FORMAT | DECIMAL_SEPARATOR | DIGIT | END | GROUP | GROUPING_SEPARATOR | INFINITY | MINUS_SIGN | NAN | NEXT | ONLY | OUTER | PATTERN_SEPARATOR | PERCENT | PER_MILLE | PREVIOUS | PRIVATE | PUBLIC | SLIDING | START | TRY | TUMBLING | WHEN | WINDOW | ZERO_DIGIT
         // XQuery Update 1.0 keywords
         | AFTER | BEFORE | COPY | DELETE | FIRST |INSERT | INTO | LAST | MODIFY | NODES | RENAME | REPLACE | REVALIDATION | SKIP | UPDATING | VALUE | WITH
         // XQuery Scripting 1.0 keywords
@@ -1463,6 +1464,26 @@ p_WhileExpr
 //[161]
 p_WhileBody
         : p_Block
+        ;
+
+
+// **************************************
+// XQuery 1.1 Productions
+// http://www.w3.org/TR/xquery-11/
+// **************************************
+//[71]
+p_SwitchExpr
+        : k+=SWITCH LPAREN pm_Expr RPAREN p_SwitchCaseClause+ k+=DEFAULT k+=RETURN p_ExprSingle {ak($k);}
+        ;
+
+//[72]
+p_SwitchCaseClause
+        : (k+=CASE p_SwitchCaseOperand)+ k+=RETURN p_ExprSingle {ak($k);}
+        ;
+
+//[73]
+p_SwitchCaseOperand
+        : p_ExprSingle
         ;
 
 

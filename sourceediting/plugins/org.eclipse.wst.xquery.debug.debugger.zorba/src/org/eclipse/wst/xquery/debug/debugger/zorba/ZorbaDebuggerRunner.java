@@ -12,9 +12,6 @@ package org.eclipse.wst.xquery.debug.debugger.zorba;
 
 import java.io.File;
 import java.net.InetAddress;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IStatus;
@@ -28,18 +25,32 @@ import org.eclipse.dltk.launching.debug.DbgpConnectionConfig;
 import org.eclipse.wst.xquery.debug.core.XQDTDebugCorePlugin;
 import org.eclipse.wst.xquery.debug.dbgp.client.IDbgpTranslator;
 import org.eclipse.wst.xquery.debug.debugger.zorba.translator.ZorbaDbgpTranslator;
+import org.eclipse.wst.xquery.internal.launching.zorba.ZorbaRunnerConfigurator;
 import org.eclipse.wst.xquery.launching.TranslatableDebuggingEngineRunner;
 
 public class ZorbaDebuggerRunner extends TranslatableDebuggingEngineRunner {
-
-    private static List<String> DEFAULT_ARGS = Arrays.asList(new String[] { "-f", "-q" });
 
     private static final String NO_LOGO_KEY = "--no-logo";
     private static final String DEBUG_SERVER_KEY = "--debug-server";
     private static final String PORTS_KEY = "-p";
 
-    public ZorbaDebuggerRunner(IInterpreterInstall install) {
+    private ZorbaRunnerConfigurator fConfigurator;
+
+    public ZorbaDebuggerRunner(IInterpreterInstall install, ZorbaRunnerConfigurator configurator) {
         super(install);
+        fConfigurator = configurator;
+    }
+
+    @Override
+    protected String[] renderCommandLine(InterpreterConfig config) {
+        String[] cmdLine = super.renderCommandLine(config);
+        return fConfigurator.renderCommandLine(config, cmdLine);
+    }
+
+    @Override
+    protected String[] getEnvironmentVariablesAsStrings(InterpreterConfig config) {
+        String[] env = super.getEnvironmentVariablesAsStrings(config);
+        return fConfigurator.addInternalVarsToRunnerEnv(config, env);
     }
 
     protected String getDebugPreferenceQualifier() {
@@ -56,17 +67,6 @@ public class ZorbaDebuggerRunner extends TranslatableDebuggingEngineRunner {
 
     protected String getLogFileNamePreferenceKey() {
         return ZorbaDebuggerConstants.LOG_FILE_NAME;
-    }
-
-    @Override
-    protected String[] renderCommandLine(InterpreterConfig config) {
-        String[] cmdLine = super.renderCommandLine(config);
-        List<String> newCmdLine = new ArrayList<String>(Arrays.asList(cmdLine));
-
-        int index = newCmdLine.size() - config.getScriptArgs().size() - 1;
-        newCmdLine.addAll(index, DEFAULT_ARGS);
-
-        return newCmdLine.toArray(new String[newCmdLine.size()]);
     }
 
     protected InterpreterConfig addEngineConfig(InterpreterConfig config, PreferencesLookupDelegate delegate,
@@ -99,8 +99,8 @@ public class ZorbaDebuggerRunner extends TranslatableDebuggingEngineRunner {
             return new ZorbaDbgpTranslator(project, InetAddress.getByName(dbgpConfig.getHost()), dbgpConfig.getPort(),
                     dbgpConfig.getSessionId(), file.toURI(), ports);
         } catch (Exception e) {
-            ZorbaDebuggerPlugin.getDefault().getLog().log(
-                    new Status(IStatus.ERROR, ZorbaDebuggerPlugin.PLUGIN_ID, e.getMessage(), e));
+            ZorbaDebuggerPlugin.getDefault().getLog()
+                    .log(new Status(IStatus.ERROR, ZorbaDebuggerPlugin.PLUGIN_ID, e.getMessage(), e));
             return null;
         }
     }

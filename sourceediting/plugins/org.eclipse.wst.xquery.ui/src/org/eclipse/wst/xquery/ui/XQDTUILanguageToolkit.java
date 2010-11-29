@@ -21,8 +21,6 @@ import org.eclipse.wst.xquery.internal.ui.text.XQDTSimpleSourceViewerConfigurati
 
 public class XQDTUILanguageToolkit extends AbstractDLTKUILanguageToolkit {
 
-    private static final String INTERPRETERS_PREFERENCE_PAGE_ID = "org.eclipse.wst.xquery.preferences.interpreters"; //$NON-NLS-1$
-
     private static XQDTUILanguageToolkit sToolkit = null;
 
     public IPreferenceStore getPreferenceStore() {
@@ -34,12 +32,13 @@ public class XQDTUILanguageToolkit extends AbstractDLTKUILanguageToolkit {
     }
 
     public String getInterpreterPreferencePage() {
-        return INTERPRETERS_PREFERENCE_PAGE_ID;
+        return IXQDTUIPluginConstants.ID_INTEREPRTERS_PREFERENCE_PAGE;
     }
 
     public static IDLTKUILanguageToolkit getInstance() {
-        if (sToolkit == null)
+        if (sToolkit == null) {
             sToolkit = new XQDTUILanguageToolkit();
+        }
         return sToolkit;
     }
 

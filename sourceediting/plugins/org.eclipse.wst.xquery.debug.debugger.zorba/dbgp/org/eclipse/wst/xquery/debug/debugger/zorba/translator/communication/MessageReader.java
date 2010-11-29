@@ -47,11 +47,7 @@ public class MessageReader {
             throw new MessageFormatException();
         }
 
-        int oneByte = fInputStream.read() & 0xFF;
-        if (oneByte == -1) {
-            throw new MessageFormatException();
-        }
-        int flags = oneByte;
+        int flags = fInputStream.read() & 0xFF;
         boolean isReply = (flags & 0x80) != 0;
 
         if (isReply) {

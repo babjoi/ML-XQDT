@@ -14,9 +14,12 @@ import java.net.MalformedURLException;
 import java.net.URL;
 
 import org.eclipse.core.runtime.CoreException;
+import org.eclipse.core.runtime.IStatus;
+import org.eclipse.core.runtime.Status;
 import org.eclipse.debug.core.ILaunch;
 import org.eclipse.debug.core.ILaunchConfiguration;
 import org.eclipse.dltk.launching.ScriptLaunchConfigurationConstants;
+import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.IEditorReference;
@@ -31,8 +34,10 @@ import org.eclipse.wst.xquery.set.debug.core.ISETLaunchConfigurationConstants;
 @SuppressWarnings("restriction")
 public class SETLaunchUtil {
 
-    public static void openBrowser(ILaunch launch) {
+    public static IWebBrowser openBrowser(ILaunch launch) {
         final String startPage, host;
+        // this id is needed for testing
+        final IWebBrowser[] theBrowser = { null };
         final int port;
         try {
             ILaunchConfiguration config = launch.getLaunchConfiguration();
@@ -40,9 +45,10 @@ public class SETLaunchUtil {
             host = config.getAttribute(ISETLaunchConfigurationConstants.ATTR_XQDT_SET_HOST, "127.0.0.1");
             port = config.getAttribute(ISETLaunchConfigurationConstants.ATTR_XQDT_SET_PORT, 8080);
         } catch (CoreException ce) {
-            // TODO Auto-generated catch block
-            ce.printStackTrace();
-            return;
+            Status status = new Status(IStatus.ERROR, SETLaunchingPlugin.PLUGIN_ID,
+                    "An error occured while preparing to open the browser", ce);
+            SETLaunchingPlugin.getDefault().getLog().log(status);
+            return null;
         }
 
         Display.getDefault().syncExec(new Runnable() {
@@ -63,9 +69,10 @@ public class SETLaunchUtil {
 
                         String browserTitle = "Sausalito: " + url.toString();
                         browser = browserSupport.createBrowser(IWorkbenchBrowserSupport.LOCATION_BAR
-                                | IWorkbenchBrowserSupport.NAVIGATION_BAR | IWorkbenchBrowserSupport.STATUS,
-                                "SausalitoBrowser", browserTitle.toString(), browserTitle.toString());
+                                | IWorkbenchBrowserSupport.NAVIGATION_BAR | IWorkbenchBrowserSupport.STATUS
+                                | SWT.MOZILLA, "SausalitoBrowser", browserTitle.toString(), browserTitle.toString());
                     }
+                    theBrowser[0] = browser;
                     browser.openURL(url);
                 } catch (MalformedURLException e) {
                     e.printStackTrace();
@@ -74,6 +81,8 @@ public class SETLaunchUtil {
                 }
             }
         });
+
+        return theBrowser[0];
     }
 
     public static void bringBrowserOnTop() {

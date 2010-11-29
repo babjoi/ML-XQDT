@@ -27,7 +27,7 @@ public class ModelHelper {
      * Test whether the given region type is a ignorable white space (whitespace and comments)
      */
     public static boolean isIgnorableWhitespace(String type) {
-        return type == XQueryRegions.WHITE_SPACE || type == XQueryRegions.XQUERY_COMMENT;
+        return type.equals(XQueryRegions.WHITE_SPACE) || type.equals(XQueryRegions.XQUERY_COMMENT);
     }
 
     /** Skip white spaces and XQuery comments */
@@ -42,7 +42,7 @@ public class ModelHelper {
      * Test structured document region type against given type.
      */
     public static boolean sameRegionType(IStructuredDocumentRegion region, String type) {
-        return region != null && region.getType() == type;
+        return region != null && region.getType().equals(type);
     }
 
 }

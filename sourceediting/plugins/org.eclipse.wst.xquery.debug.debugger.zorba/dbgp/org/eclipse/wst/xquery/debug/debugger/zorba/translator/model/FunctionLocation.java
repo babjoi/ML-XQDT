@@ -56,4 +56,9 @@ public class FunctionLocation {
         return fFileName + " (" + fFunctionName + ")";
     }
 
+    @Override
+    public int hashCode() {
+        assert false : "hashCode not designed";
+        return 28;
+    }
 }

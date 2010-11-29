@@ -40,7 +40,7 @@ import org.eclipse.wst.xquery.sse.core.internal.regions.XQueryRegions;
  */
 public class DefaultXQDTPartitionFormatter {
 
-    public static DefaultXQDTPartitionFormatter SINGLETON = new DefaultXQDTPartitionFormatter();
+    public final static DefaultXQDTPartitionFormatter SINGLETON = new DefaultXQDTPartitionFormatter();
 
     // Constructors
 

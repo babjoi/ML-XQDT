@@ -21,7 +21,7 @@ import org.eclipse.core.runtime.IExtensionRegistry;
 import org.eclipse.core.runtime.Platform;
 import org.eclipse.swt.graphics.RGB;
 import org.eclipse.wst.xquery.sse.ui.XQDTSSEUIPlugin;
-import org.eclipse.wst.xquery.sse.ui.internal.restrictions.ColorHelper;
+import org.eclipse.wst.xquery.sse.ui.internal.restrictions.XQDTColorHelper;
 
 /**
  * Class that reads the contributions to the <code>colorSchemes</code> extension point of the XQuery
@@ -104,7 +104,7 @@ public class XQDTColorSchemeRegistry {
         RGB color = new RGB(0, 0, 0);
         String rgbStr = style.getAttribute(ATTR_COLOR);
         if (rgbStr != null) {
-            color = ColorHelper.toRGB(rgbStr);
+            color = XQDTColorHelper.toRGB(rgbStr);
             if (color == null) {
                 rgbStr = "#FFFFFF";
             }

@@ -74,7 +74,7 @@ public class ZorbaRbktTestSuite implements IXQDTLanguageConstants {
     public static Map<String, Object[]> files() {
         Map<String, Object[]> map = new TreeMap<String, Object[]>(String.CASE_INSENSITIVE_ORDER);
 
-        File dir = new File(1 + QUERY_DIR_PATH);
+        File dir = new File(QUERY_DIR_PATH);
         recursive(dir, map, "");
 
         assertTrue("Can not find the Zorba test queries under: \"" + dir.getAbsolutePath()

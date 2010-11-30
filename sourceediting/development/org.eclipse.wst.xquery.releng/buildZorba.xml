@@ -35,6 +35,10 @@
 	</target>
 	
 	<target name="download.zorba.tests" depends="does.svnant.exist">
+		<echo>Deleting the existing Zorba rbkt checkout...</echo>
+		<delete dir="downloads/zorba_test_queries" failonerror="false" />
+		
+		<echo>Checking out Zorba rbkt tests...</echo>
 		<svn javahl="false" svnkit="false">
 			<checkout url="http://zorba.svn.sourceforge.net/svnroot/zorba/trunk/zorba/test/rbkt/Queries/zorba/" destpath="downloads/zorba_test_queries" />
 		</svn>

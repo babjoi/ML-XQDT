@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ /*******************************************************************************
+ * Copyright (c) 2010 28msec Inc. and others.
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ *
+ * Contributors:
+ *     Gabriel Petrovay (28msec) - initial API and implementation
+ *******************************************************************************/
+-->
+<project name="Build Zorba" default="download.zorba.tests">
+
+	<property name="svnant.lib.dir" location="lib/svnant"/>
+	
+	<path id="svnant.classpath">
+		<fileset dir="${svnant.lib.dir}">     
+			<include name="**/*.jar" />
+		</fileset>
+	</path>
+	
+	<typedef resource="org/tigris/subversion/svnant/svnantlib.xml" classpathref="svnant.classpath" />
+	
+	<target name="tool-availability">
+		<available 	resource="org/tigris/subversion/svnant/svnantlib.xml"
+					classpathref="svnant.classpath"
+					property="available.svnant" />
+		<echo message="SVN-ANT is available = ${available.svnant}"/>
+	</target>
+
+	<target name="does.svnant.exist" depends="tool-availability">
+		<fail unless="available.svnant" message="SVN-ANT is not available, cannot perform tagging or checkout/export svn ant task." />
+	</target>
+	
+	<target name="download.zorba.tests" depends="does.svnant.exist">
+		<svn javahl="false" svnkit="false">
+			<checkout url="http://zorba.svn.sourceforge.net/svnroot/zorba/trunk/zorba/test/rbkt/Queries/zorba/" destpath="downloads/zorba_test_queries" />
+		</svn>
+	</target>	
+	
+</project>

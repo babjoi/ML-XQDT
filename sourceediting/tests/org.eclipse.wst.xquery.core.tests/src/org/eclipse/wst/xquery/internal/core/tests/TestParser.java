@@ -19,7 +19,6 @@ import org.eclipse.wst.xquery.internal.core.parser.antlr.XQueryLexer;
 import org.eclipse.wst.xquery.internal.core.parser.antlr.XQueryParser;
 import org.junit.Test;
 
-@SuppressWarnings("restriction")
 public class TestParser implements IXQDTLanguageConstants {
 
     // *****************************************************

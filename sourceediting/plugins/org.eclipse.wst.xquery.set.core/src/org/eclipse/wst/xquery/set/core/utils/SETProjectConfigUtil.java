@@ -30,8 +30,11 @@ import javax.xml.transform.stream.StreamResult;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.IPath;
+import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Path;
+import org.eclipse.core.runtime.Status;
 import org.eclipse.wst.xquery.set.core.ISETCoreConstants;
+import org.eclipse.wst.xquery.set.core.SETCorePlugin;
 import org.eclipse.wst.xquery.set.core.SETProjectConfig;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -93,7 +96,9 @@ public class SETProjectConfigUtil {
         } catch (ParserConfigurationException pce) {
             pce.printStackTrace();
         } catch (SAXException se) {
-            se.printStackTrace();
+            IStatus status = new Status(IStatus.ERROR, SETCorePlugin.PLUGIN_ID,
+                    "An error ocured while trying to read the project sausalito.xml configuration.", se);
+            SETCorePlugin.getDefault().getLog().log(status);
         } catch (IOException e) {
             e.printStackTrace();
         }

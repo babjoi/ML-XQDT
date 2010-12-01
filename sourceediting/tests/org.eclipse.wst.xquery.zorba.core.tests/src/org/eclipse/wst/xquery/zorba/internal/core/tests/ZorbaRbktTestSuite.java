@@ -74,17 +74,19 @@ public class ZorbaRbktTestSuite implements IXQDTLanguageConstants {
     public static Map<String, Object[]> files() {
         Map<String, Object[]> map = new TreeMap<String, Object[]>(String.CASE_INSENSITIVE_ORDER);
 
+        System.err.println("----------------------------> Start traversing in: " + new File(".").getAbsolutePath());
         File dir = new File(QUERY_DIR_PATH);
         try {
             recursive(dir, map, "");
         } catch (Exception e) {
+            System.err.println("----------------------------> Aha!!!!!!!!!!!!!!!!!!!!!! Caught "
+                    + e.getClass().getSimpleName() + " exception:" + e.getMessage());
             assertTrue(
                     "Aha!!!!!!!!!!!!!!!!!!!!!! Caught " + e.getClass().getSimpleName() + " exception:" + e.getMessage(),
                     false);
         }
 
-        System.out.println("----------------------------> " + new File(".").getAbsolutePath());
-        System.err.println("----------------------------> " + new File(".").getAbsolutePath());
+        System.err.println("++++++++++++++++++++++++++++> done traversing");
         assertTrue("Can not find the Zorba test queries under: \"" + dir.getAbsolutePath()
                 + "\". Are you sure that the following file provides an Ant build step on Hudson: "
                 + "sourceediting/development/org.eclipse.wst.xquery.releng/buildZorba.xml ?", map.size() > 0);

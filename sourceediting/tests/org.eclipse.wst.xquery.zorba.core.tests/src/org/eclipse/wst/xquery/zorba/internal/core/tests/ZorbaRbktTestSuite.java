@@ -74,16 +74,12 @@ public class ZorbaRbktTestSuite implements IXQDTLanguageConstants {
     public static Map<String, Object[]> files() {
         Map<String, Object[]> map = new TreeMap<String, Object[]>(String.CASE_INSENSITIVE_ORDER);
 
-        System.err.println("----------------------------> Start traversing in: " + new File(".").getAbsolutePath());
         File dir = new File(QUERY_DIR_PATH);
         try {
             recursive(dir, map, "");
         } catch (Exception e) {
-            System.err.println("----------------------------> Aha!!!!!!!!!!!!!!!!!!!!!! Caught "
-                    + e.getClass().getSimpleName() + " exception:" + e.getMessage());
-            assertTrue(
-                    "Aha!!!!!!!!!!!!!!!!!!!!!! Caught " + e.getClass().getSimpleName() + " exception:" + e.getMessage(),
-                    false);
+            assertTrue("Caught " + e.getClass().getCanonicalName()
+                    + " exception while traversing the Zorba rbkt test directory structure: " + e.getMessage(), false);
         }
 
         System.err.println("++++++++++++++++++++++++++++> done traversing");
@@ -95,20 +91,15 @@ public class ZorbaRbktTestSuite implements IXQDTLanguageConstants {
     }
 
     private static void recursive(File testDir, Map<String, Object[]> map, String relativeName) {
-        System.out.println("----------------------------> Traversing: " + testDir.getAbsolutePath());
         System.err.println("----------------------------> Traversing: " + testDir.getAbsolutePath());
 
         File[] files = testDir.listFiles();
-        assertNotNull("Aha!!!!!!!!!!!!!!!!!!!!!! files should not be null", files);
         if (files == null) {
-            System.err.println("----------------------------> Why exit here? " + files);
             return;
         }
-        System.err.println("----------------------------> Children: " + files.length);
         for (File file : files) {
-            System.err.println("----------------------------> Child: " + file.getName());
             if (isIgnored(file.getName())) {
-                return;
+                continue;
             }
             if (file.isDirectory()) {
                 recursive(file, map, relativeName + file.getName() + "/");
@@ -128,9 +119,9 @@ public class ZorbaRbktTestSuite implements IXQDTLanguageConstants {
 
     private static boolean isIgnored(String name) {
         if (".svn".equals(name)) {
-            return false;
+            return true;
         }
-        return true;
+        return false;
     }
 
     // *****************************************************

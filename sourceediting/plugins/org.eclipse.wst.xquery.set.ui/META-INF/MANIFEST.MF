@@ -24,8 +24,12 @@ Eclipse-LazyStart: true
 Bundle-RequiredExecutionEnvironment: J2SE-1.5
 Bundle-ActivationPolicy: lazy
 Export-Package: org.eclipse.wst.xquery.set.internal.ui;x-internal:=true,
+ org.eclipse.wst.xquery.set.internal.ui.dialogs,
+ org.eclipse.wst.xquery.set.internal.ui.filters,
  org.eclipse.wst.xquery.set.internal.ui.handlers,
  org.eclipse.wst.xquery.set.internal.ui.preferences;x-internal:=true,
+ org.eclipse.wst.xquery.set.internal.ui.propertytesters,
+ org.eclipse.wst.xquery.set.internal.ui.quickfixes,
  org.eclipse.wst.xquery.set.internal.ui.util;x-internal:=true,
  org.eclipse.wst.xquery.set.internal.ui.wizards;x-internal:=true,
  org.eclipse.wst.xquery.set.ui

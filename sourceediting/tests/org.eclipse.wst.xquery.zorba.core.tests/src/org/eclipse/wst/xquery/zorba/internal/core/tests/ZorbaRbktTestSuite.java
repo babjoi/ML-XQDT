@@ -83,6 +83,7 @@ public class ZorbaRbktTestSuite implements IXQDTLanguageConstants {
                     false);
         }
 
+        System.out.println("----------------------------> " + new File(".").getAbsolutePath());
         assertTrue("Can not find the Zorba test queries under: \"" + dir.getAbsolutePath()
                 + "\". Are you sure that the following file provides an Ant build step on Hudson: "
                 + "sourceediting/development/org.eclipse.wst.xquery.releng/buildZorba.xml ?", map.size() > 0);
@@ -91,6 +92,8 @@ public class ZorbaRbktTestSuite implements IXQDTLanguageConstants {
     }
 
     private static void recursive(File testDir, Map<String, Object[]> map, String relativeName) {
+        System.out.println("----------------------------> Traversing: " + testDir.getAbsolutePath());
+
         File[] files = testDir.listFiles();
         assertNotNull("Aha!!!!!!!!!!!!!!!!!!!!!! files should not be null", files);
         if (files == null) {

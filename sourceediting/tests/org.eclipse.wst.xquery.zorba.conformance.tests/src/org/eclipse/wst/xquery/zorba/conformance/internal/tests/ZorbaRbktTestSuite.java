@@ -85,7 +85,7 @@ public class ZorbaRbktTestSuite implements IXQDTLanguageConstants {
         assertTrue("Can not find the Zorba test queries under: \"" + dir.getAbsolutePath()
                 + "\". Are you sure that the following file provides an Ant build step on Hudson: "
                 + "sourceediting/development/org.eclipse.wst.xquery.releng/buildZorba.xml ?", map.size() > 0);
-
+        map.clear();
         return map;
     }
 

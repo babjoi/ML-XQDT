@@ -23,6 +23,7 @@
 				<artifactId>maven-osgi-test-plugin</artifactId>
 				<version>${tycho-version}</version>
 				<configuration>
+					<useUIThread>false</useUIThread>
 					<testSuite>org.eclipse.wst.xquery.zorba.conformance.tests</testSuite>
 					<testClass>org.eclipse.wst.xquery.zorba.conformance.tests.ZorbaConformanceTestSuite</testClass>
 				</configuration>

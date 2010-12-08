@@ -16,18 +16,18 @@ import org.osgi.framework.BundleContext;
 /**
  * The activator class controls the plug-in life cycle
  */
-public class ZorbaConformanceeTestPlugin extends Plugin {
+public class ZorbaConformanceTestPlugin extends Plugin {
 
     // The plug-in ID
     public static final String PLUGIN_ID = "org.eclipse.wst.xquery..zorba.core.tests";
 
     // The shared instance
-    private static ZorbaConformanceeTestPlugin plugin;
+    private static ZorbaConformanceTestPlugin plugin;
 
     /**
      * The constructor
      */
-    public ZorbaConformanceeTestPlugin() {
+    public ZorbaConformanceTestPlugin() {
     }
 
     /*
@@ -55,7 +55,7 @@ public class ZorbaConformanceeTestPlugin extends Plugin {
      * 
      * @return the shared instance
      */
-    public static ZorbaConformanceeTestPlugin getDefault() {
+    public static ZorbaConformanceTestPlugin getDefault() {
         return plugin;
     }
 

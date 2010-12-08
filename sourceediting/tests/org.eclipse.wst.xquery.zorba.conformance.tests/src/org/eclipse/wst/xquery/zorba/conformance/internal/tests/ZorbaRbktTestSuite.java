@@ -32,14 +32,16 @@ import org.eclipse.wst.xquery.internal.core.parser.antlr.XQueryLexer;
 import org.eclipse.wst.xquery.internal.core.parser.antlr.XQueryParser;
 import org.eclipse.wst.xquery.zorba.conformance.tests.LabeledParameterized;
 import org.eclipse.wst.xquery.zorba.conformance.tests.LabeledParameterized.LabeledParameters;
+import org.eclipse.wst.xquery.zorba.conformance.tests.ZorbaConformanceTestPlugin;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
 @RunWith(LabeledParameterized.class)
 public class ZorbaRbktTestSuite implements IXQDTLanguageConstants {
 
-    private String fXqFile, fSpecFile;
-    private static String QUERY_DIR_PATH = "downloads" + File.separator + "zorba_test_queries";
+    protected String fXqFile, fSpecFile;
+
+    private static final String QUERY_DIR_PATH = "downloads" + File.separator + "zorba_test_queries";
 
     public ZorbaRbktTestSuite(String fXqFile, String specFile) {
         this.fXqFile = fXqFile;
@@ -80,14 +82,15 @@ public class ZorbaRbktTestSuite implements IXQDTLanguageConstants {
                     + " exception while traversing the Zorba rbkt test directory structure: " + e.getMessage(), false);
         }
 
-        assertTrue("Can not find the Zorba test queries under: \"" + dir.getAbsolutePath()
+        assertTrue("Can not find the test queries under: \"" + dir.getAbsolutePath()
                 + "\". Are you sure that the following file provides an Ant build step on Hudson: "
-                + "sourceediting/development/org.eclipse.wst.xquery.releng/buildZorba.xml ?", map.size() > 0);
-        map.clear();
+                + "sourceediting/tests/" + ZorbaConformanceTestPlugin.getDefault().getBundle().getBundleId()
+                + "/ant/conformanceTestDownload.xml ?", map.size() > 0);
+
         return map;
     }
 
-    private static void recursive(File testDir, Map<String, Object[]> map, String relativeName) {
+    protected static void recursive(File testDir, Map<String, Object[]> map, String relativeName) {
         File[] files = testDir.listFiles();
         if (files == null) {
             return;
@@ -112,7 +115,7 @@ public class ZorbaRbktTestSuite implements IXQDTLanguageConstants {
         }
     }
 
-    private static boolean isIgnored(String name) {
+    protected static boolean isIgnored(String name) {
         if (".svn".equals(name)) {
             return true;
         }
@@ -122,7 +125,7 @@ public class ZorbaRbktTestSuite implements IXQDTLanguageConstants {
     // *****************************************************
     // *****************************************************
 
-    private String readFile(File file) {
+    protected String readFile(File file) {
         StringBuffer sb = new StringBuffer();
         try {
             BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(file)));
@@ -137,7 +140,7 @@ public class ZorbaRbktTestSuite implements IXQDTLanguageConstants {
         return sb.toString();
     }
 
-    private void testQuery(String query, boolean valid, int languageLevel) {
+    protected void testQuery(String query, boolean valid, int languageLevel) {
         XQueryParser parser = prepareParser("parser_unit_tests.xq", query.toCharArray());
         parser.setLanguageLevel(languageLevel);
         try {
@@ -153,7 +156,7 @@ public class ZorbaRbktTestSuite implements IXQDTLanguageConstants {
         }
     }
 
-    private XQueryParser prepareParser(String fileName, char[] source) {
+    protected XQueryParser prepareParser(String fileName, char[] source) {
         ANTLRStringStream inputStream = new ANTLRStringStream(source, source.length);
         XQueryLexer lexer = new XQueryLexer(inputStream);
         NewLazyTokenStream tokenStream = new NewLazyTokenStream(lexer);

@@ -39,9 +39,7 @@ import org.junit.runner.RunWith;
 public class SETRbktTestSuite implements IXQDTLanguageConstants {
 
     private String fXqFile, fSpecFile;
-    private static String QUERY_DIR_PATH = ".." + File.separator + ".." + File.separator + "development"
-            + File.separator + "org.eclipse.wst.xquery.releng" + File.separator + "downloads" + File.separator
-            + "sausalito_test_queries";
+    private static String QUERY_DIR_PATH = "downloads" + File.separator + "sausalito_test_queries";
 
     public SETRbktTestSuite(String fXqFile, String specFile) {
         this.fXqFile = fXqFile;

@@ -39,9 +39,7 @@ import org.junit.runner.RunWith;
 public class ZorbaRbktTestSuite implements IXQDTLanguageConstants {
 
     private String fXqFile, fSpecFile;
-    private static String QUERY_DIR_PATH = ".." + File.separator + ".." + File.separator + "development"
-            + File.separator + "org.eclipse.wst.xquery.releng" + File.separator + "downloads" + File.separator
-            + "zorba_test_queries";
+    private static String QUERY_DIR_PATH = "downloads" + File.separator + "zorba_test_queries";
 
     public ZorbaRbktTestSuite(String fXqFile, String specFile) {
         this.fXqFile = fXqFile;

@@ -16,7 +16,6 @@ import java.io.File;
 import java.util.Map;
 import java.util.TreeMap;
 
-import org.eclipse.wst.xquery.core.IXQDTLanguageConstants;
 import org.eclipse.wst.xquery.set.conformance.tests.SETConformanceTestPlugin;
 import org.eclipse.wst.xquery.zorba.conformance.internal.tests.ZorbaRbktTestSuite;
 import org.eclipse.wst.xquery.zorba.conformance.tests.LabeledParameterized;
@@ -24,7 +23,7 @@ import org.eclipse.wst.xquery.zorba.conformance.tests.LabeledParameterized.Label
 import org.junit.runner.RunWith;
 
 @RunWith(LabeledParameterized.class)
-public class SETRbktTestSuite extends ZorbaRbktTestSuite implements IXQDTLanguageConstants {
+public class SETRbktTestSuite extends ZorbaRbktTestSuite {
 
     private static final String QUERY_DIR_PATH = "downloads" + File.separator + "sausalito_test_queries";
 

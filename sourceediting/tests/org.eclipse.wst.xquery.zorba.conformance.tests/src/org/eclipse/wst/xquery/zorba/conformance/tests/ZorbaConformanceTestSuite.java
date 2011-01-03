@@ -10,14 +10,13 @@
  *******************************************************************************/
 package org.eclipse.wst.xquery.zorba.conformance.tests;
 
-import org.eclipse.wst.xquery.zorba.conformance.internal.tests.ZorbaDummyTestSuite;
+import org.eclipse.wst.xquery.zorba.conformance.internal.tests.ZorbaRbktTestSuite;
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 import org.junit.runners.Suite.SuiteClasses;
 
 @RunWith(Suite.class)
-//@SuiteClasses({ ZorbaRbktTestSuite.class })
-@SuiteClasses({ ZorbaDummyTestSuite.class })
+@SuiteClasses({ ZorbaRbktTestSuite.class })
 public class ZorbaConformanceTestSuite {
 
 }

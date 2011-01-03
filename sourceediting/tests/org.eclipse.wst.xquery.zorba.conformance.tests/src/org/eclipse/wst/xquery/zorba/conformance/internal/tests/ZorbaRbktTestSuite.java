@@ -21,7 +21,6 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.Map;
-import java.util.TreeMap;
 
 import org.antlr.runtime.ANTLRStringStream;
 import org.antlr.runtime.RecognitionException;
@@ -32,7 +31,6 @@ import org.eclipse.wst.xquery.internal.core.parser.antlr.XQueryLexer;
 import org.eclipse.wst.xquery.internal.core.parser.antlr.XQueryParser;
 import org.eclipse.wst.xquery.zorba.conformance.tests.LabeledParameterized;
 import org.eclipse.wst.xquery.zorba.conformance.tests.LabeledParameterized.LabeledParameters;
-import org.eclipse.wst.xquery.zorba.conformance.tests.ZorbaConformanceTestPlugin;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
@@ -72,61 +70,10 @@ public class ZorbaRbktTestSuite implements IXQDTLanguageConstants {
 
     @LabeledParameters
     public static Map<String, Object[]> files() {
-        Map<String, Object[]> map = new TreeMap<String, Object[]>(String.CASE_INSENSITIVE_ORDER);
-
-        File dir = new File(QUERY_DIR_PATH);
-        try {
-            recursive(dir, map, "");
-        } catch (Exception e) {
-            assertTrue("Caught " + e.getClass().getCanonicalName()
-                    + " exception while traversing the Zorba rbkt test directory structure: " + e.getMessage(), false);
-        }
-
-        assertTrue("Can not find the test queries under: \"" + dir.getAbsolutePath()
-                + "\". Are you sure that the following file provides an Ant build step on Hudson: "
-                + "sourceediting/tests/" + ZorbaConformanceTestPlugin.getDefault().getBundle().getBundleId()
-                + "/ant/conformanceTestDownload.xml ?", map.size() > 0);
-
-        // TODO: Remove this once multiple plug-ins can be tested even with failing tests.
-        //       Currently the first failing plug-in will fail the test build.
-        map.clear();
-
-        return map;
+        TestFileCollector collector = new ZorbaTestFileCollector();
+        return collector.collectTestFiles(QUERY_DIR_PATH);
     }
 
-    protected static void recursive(File testDir, Map<String, Object[]> map, String relativeName) {
-        File[] files = testDir.listFiles();
-        if (files == null) {
-            return;
-        }
-        for (File file : files) {
-            if (isIgnored(file.getName())) {
-                continue;
-            }
-            if (file.isDirectory()) {
-                recursive(file, map, relativeName + file.getName() + "/");
-            } else {
-                if (file.getName().endsWith(".xq")) {
-                    String name = relativeName + file.getName();
-                    String path = file.getAbsolutePath();
-                    String spec = path.substring(0, path.length() - 3) + ".spec";
-                    if (!(new File(spec).exists())) {
-                        spec = null;
-                    }
-                    map.put(name, new Object[] { path, spec });
-                }
-            }
-        }
-    }
-
-    protected static boolean isIgnored(String name) {
-        if (".svn".equals(name)) {
-            return true;
-        }
-        return false;
-    }
-
-    // *****************************************************
     // *****************************************************
 
     protected String readFile(File file) {

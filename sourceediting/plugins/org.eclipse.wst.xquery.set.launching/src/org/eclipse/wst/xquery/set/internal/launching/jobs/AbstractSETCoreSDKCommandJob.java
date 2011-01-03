@@ -19,6 +19,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import org.eclipse.core.resources.IContainer;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.runtime.CoreException;
@@ -38,6 +39,7 @@ import org.eclipse.ui.console.IConsoleManager;
 import org.eclipse.ui.console.MessageConsole;
 import org.eclipse.ui.console.MessageConsoleStream;
 import org.eclipse.wst.xquery.core.utils.ProcessStreamConsumer;
+import org.eclipse.wst.xquery.set.core.ISETCoreConstants;
 import org.eclipse.wst.xquery.set.core.SETCorePlugin;
 
 abstract public class AbstractSETCoreSDKCommandJob extends Job {
@@ -194,13 +196,58 @@ abstract public class AbstractSETCoreSDKCommandJob extends Job {
 
     abstract protected String getCommandConsleLabel();
 
+    /**
+     * Override if this job should refresh the project resource. If only specific resources in the
+     * project must be refreshed, you must also override <code>resourcesToRefresh()</code>.
+     * 
+     * @return <code>true</code> if this job should perform a refresh on the project resource.
+     */
     protected boolean needsResourceRefresh() {
         return false;
     }
 
+    /**
+     * Returns a string array of names of the top-most resources in the project that must be
+     * refreshed.
+     * 
+     * Override if this job should refresh only specific resources in the project. The default
+     * implementation returns <code>null</code>. This means that, if refreshing is enabled, the
+     * entire project will be refreshed with the exception of the 'test' project directory.
+     * 
+     * @return A string array of names of the top-most resources in a project that must be
+     *         refreshed.
+     */
+    protected String[] resourcesToRefresh() {
+        return null;
+    }
+
     protected void refresh(IProgressMonitor monitor) {
         try {
-            fProject.refreshLocal(IResource.DEPTH_INFINITE, monitor);
+            fProject.refreshLocal(IResource.DEPTH_ONE, monitor);
+
+            // which resources should we refresh?
+            String[] resourceNames = resourcesToRefresh();
+
+            // none specified, so refresh the entire project
+            if (resourceNames == null) {
+                for (IResource resource : fProject.members()) {
+                    // refresh only containers, but not the test directory because
+                    // this might contain too many resources
+                    if (resource instanceof IContainer
+                            && !resource.getName().equals(ISETCoreConstants.PROJECT_DIRECTORY_TEST)) {
+                        resource.refreshLocal(IResource.DEPTH_INFINITE, monitor);
+                    }
+                }
+            }
+            // some specified, so refresh only the specified ones
+            else {
+                for (String name : resourceNames) {
+                    IResource resource = fProject.findMember(name);
+                    if (resource != null) {
+                        resource.refreshLocal(IResource.DEPTH_INFINITE, monitor);
+                    }
+                }
+            }
         } catch (CoreException e) {
             // nothing to do
         }

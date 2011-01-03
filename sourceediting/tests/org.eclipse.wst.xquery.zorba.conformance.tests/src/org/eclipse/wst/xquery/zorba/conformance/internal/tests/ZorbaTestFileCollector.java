@@ -63,9 +63,9 @@ public class ZorbaTestFileCollector extends TestFileCollector {
         // now ignore tests with problems; all have a TODO link to the corresponding bug
 
         // TODO: Tracked by: https://bugs.launchpad.net/sausalito/+bug/697024
-//        if ("syntax-error-01.xq".equals(name)) {
-//            return true;
-//        }
+        if ("syntax-error-01.xq".equals(name)) {
+            return true;
+        }
         // TODO: Tracked by: https://bugs.launchpad.net/sausalito/+bug/697021
         if ("annotations".equals(name) || "introsp-fn-annot-1.xq".equals(name)) {
             return true;

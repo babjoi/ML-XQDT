@@ -80,26 +80,26 @@ public class ZorbaRbktTestSuite implements IXQDTLanguageConstants {
     // *****************************************************
 
     protected boolean isIgnored(String file) {
-        // TODO: Tracked by: https://bugs.launchpad.net/sausalito/+bug/697024
-        if (file.endsWith("syntax-error-01.xq")) {
-            return false;
-        }
-        // TODO: Tracked by: https://bugs.launchpad.net/sausalito/+bug/697021
-        if (file.contains("annotations") || file.endsWith("introsp-fn-annot-1.xq")) {
-            return false;
-        }
-        // TODO: Tracked by: https://bugs.launchpad.net/sausalito/+bug/696713
-        if (file.contains("fulltext")) {
-            return false;
-        }
-        // TODO: Tracked by: https://bugs.launchpad.net/sausalito/+bug/696717
-        if (file.contains("allowing-empty") || file.endsWith("gflwor04.xq") || file.endsWith("gflwor05.xq")) {
-            return false;
-        }
-        // TODO: Tracked by: https://bugs.launchpad.net/sausalito/+bug/696716
-        if (file.contains("HigherOrder")) {
-            return false;
-        }
+//        // TODO: Tracked by: https://bugs.launchpad.net/sausalito/+bug/697024
+//        if (file.endsWith("syntax-error-01.xq")) {
+//            return false;
+//        }
+//        // TODO: Tracked by: https://bugs.launchpad.net/sausalito/+bug/697021
+//        if (file.contains("annotations") || file.endsWith("introsp-fn-annot-1.xq")) {
+//            return false;
+//        }
+//        // TODO: Tracked by: https://bugs.launchpad.net/sausalito/+bug/696713
+//        if (file.contains("fulltext")) {
+//            return false;
+//        }
+//        // TODO: Tracked by: https://bugs.launchpad.net/sausalito/+bug/696717
+//        if (file.contains("allowing-empty") || file.endsWith("gflwor04.xq") || file.endsWith("gflwor05.xq")) {
+//            return false;
+//        }
+//        // TODO: Tracked by: https://bugs.launchpad.net/sausalito/+bug/696716
+//        if (file.contains("HigherOrder")) {
+//            return false;
+//        }
 
         return true;
     }

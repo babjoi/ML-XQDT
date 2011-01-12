@@ -18,19 +18,20 @@ import org.eclipse.text.edits.TextEdit;
 import org.eclipse.wst.sse.core.internal.provisional.text.IStructuredDocumentRegion;
 import org.eclipse.wst.sse.core.internal.provisional.text.ITextRegion;
 import org.eclipse.wst.xquery.sse.core.internal.model.ModelHelper;
-import org.eclipse.wst.xquery.sse.core.internal.model.ast.ASTBindingClause;
-import org.eclipse.wst.xquery.sse.core.internal.model.ast.ASTClause;
-import org.eclipse.wst.xquery.sse.core.internal.model.ast.ASTContextItem;
-import org.eclipse.wst.xquery.sse.core.internal.model.ast.ASTExprSingleClause;
-import org.eclipse.wst.xquery.sse.core.internal.model.ast.ASTFLWOR;
-import org.eclipse.wst.xquery.sse.core.internal.model.ast.ASTFunctionDecl;
-import org.eclipse.wst.xquery.sse.core.internal.model.ast.ASTLiteral;
-import org.eclipse.wst.xquery.sse.core.internal.model.ast.ASTModule;
-import org.eclipse.wst.xquery.sse.core.internal.model.ast.ASTOperator;
-import org.eclipse.wst.xquery.sse.core.internal.model.ast.ASTParentherized;
-import org.eclipse.wst.xquery.sse.core.internal.model.ast.ASTVarDecl;
-import org.eclipse.wst.xquery.sse.core.internal.model.ast.ASTVarRef;
+import org.eclipse.wst.xquery.sse.core.internal.model.ast.IASTFLWOR;
+import org.eclipse.wst.xquery.sse.core.internal.model.ast.IASTFunctionDecl;
 import org.eclipse.wst.xquery.sse.core.internal.model.ast.IASTNode;
+import org.eclipse.wst.xquery.sse.core.internal.model.ast.impl.ASTBindingClause;
+import org.eclipse.wst.xquery.sse.core.internal.model.ast.impl.ASTClause;
+import org.eclipse.wst.xquery.sse.core.internal.model.ast.impl.ASTContextItem;
+import org.eclipse.wst.xquery.sse.core.internal.model.ast.impl.ASTExprSingleClause;
+import org.eclipse.wst.xquery.sse.core.internal.model.ast.impl.ASTFunctionDecl;
+import org.eclipse.wst.xquery.sse.core.internal.model.ast.impl.ASTLiteral;
+import org.eclipse.wst.xquery.sse.core.internal.model.ast.impl.ASTModule;
+import org.eclipse.wst.xquery.sse.core.internal.model.ast.impl.ASTOperator;
+import org.eclipse.wst.xquery.sse.core.internal.model.ast.impl.ASTParentherized;
+import org.eclipse.wst.xquery.sse.core.internal.model.ast.impl.ASTVarDecl;
+import org.eclipse.wst.xquery.sse.core.internal.model.ast.impl.ASTVarRef;
 import org.eclipse.wst.xquery.sse.core.internal.regions.XQueryRegions;
 
 /**
@@ -92,7 +93,7 @@ public class DefaultXQDTPartitionFormatter {
                 formatVarDecl((ASTVarDecl)node, edit, prefs);
                 break;
             case IASTNode.FLWOR:
-                formatFLWOR((ASTFLWOR)node, edit, prefs);
+                formatFLWOR((IASTFLWOR)node, edit, prefs);
                 break;
             case IASTNode.VARREF:
                 formatVarRef((ASTVarRef)node, edit, prefs);
@@ -173,7 +174,7 @@ public class DefaultXQDTPartitionFormatter {
         normalizeWhitespace(sdregion, edit, 0, prefs.getLineSeparatorCount(), prefs.getTrailingWhitespaceLength());
     }
 
-    protected void formatFLWOR(ASTFLWOR node, TextEdit edit, XQDTStructuredFormatPreferences prefs) {
+    protected void formatFLWOR(IASTFLWOR node, TextEdit edit, XQDTStructuredFormatPreferences prefs) {
         // Default formatting
         // for/let $fffds as xs:type in ...,
         //         $ff  in ...
@@ -435,7 +436,7 @@ public class DefaultXQDTPartitionFormatter {
         edit.addChild(new InsertEdit(sdregion.getStart(), prefs.getIndent()));
     }
 
-    IStructuredDocumentRegion formatFunctionParams(IStructuredDocumentRegion region, ASTFunctionDecl node,
+    IStructuredDocumentRegion formatFunctionParams(IStructuredDocumentRegion region, IASTFunctionDecl node,
             TextEdit edit, XQDTStructuredFormatPreferences prefs) {
         do {
             IStructuredDocumentRegion next = skipComment(region.getNext());

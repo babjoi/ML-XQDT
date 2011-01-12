@@ -17,50 +17,52 @@ import org.eclipse.wst.sse.core.internal.provisional.text.ITextRegion;
 import org.eclipse.wst.sse.core.internal.provisional.text.ITextRegionList;
 import org.eclipse.wst.xquery.core.IXQDTLanguageConstants;
 import org.eclipse.wst.xquery.sse.core.internal.XQueryMessages;
-import org.eclipse.wst.xquery.sse.core.internal.model.ast.ASTApply;
-import org.eclipse.wst.xquery.sse.core.internal.model.ast.ASTBindingClause;
-import org.eclipse.wst.xquery.sse.core.internal.model.ast.ASTClause;
-import org.eclipse.wst.xquery.sse.core.internal.model.ast.ASTCompAttrConstructor;
-import org.eclipse.wst.xquery.sse.core.internal.model.ast.ASTCompCommentConstructor;
-import org.eclipse.wst.xquery.sse.core.internal.model.ast.ASTCompDocConstructor;
-import org.eclipse.wst.xquery.sse.core.internal.model.ast.ASTCompElemConstructor;
-import org.eclipse.wst.xquery.sse.core.internal.model.ast.ASTCompPIConstructor;
-import org.eclipse.wst.xquery.sse.core.internal.model.ast.ASTCompTextConstructor;
-import org.eclipse.wst.xquery.sse.core.internal.model.ast.ASTContextItem;
-import org.eclipse.wst.xquery.sse.core.internal.model.ast.ASTExprSingleClause;
-import org.eclipse.wst.xquery.sse.core.internal.model.ast.ASTExtension;
-import org.eclipse.wst.xquery.sse.core.internal.model.ast.ASTFLWOR;
-import org.eclipse.wst.xquery.sse.core.internal.model.ast.ASTFunctionCall;
-import org.eclipse.wst.xquery.sse.core.internal.model.ast.ASTFunctionDecl;
-import org.eclipse.wst.xquery.sse.core.internal.model.ast.ASTIf;
-import org.eclipse.wst.xquery.sse.core.internal.model.ast.ASTKindTest;
-import org.eclipse.wst.xquery.sse.core.internal.model.ast.ASTLiteral;
-import org.eclipse.wst.xquery.sse.core.internal.model.ast.ASTModule;
-import org.eclipse.wst.xquery.sse.core.internal.model.ast.ASTNameTest;
-import org.eclipse.wst.xquery.sse.core.internal.model.ast.ASTNamespaceDecl;
 import org.eclipse.wst.xquery.sse.core.internal.model.ast.ASTNodeFactory;
-import org.eclipse.wst.xquery.sse.core.internal.model.ast.ASTOperator;
-import org.eclipse.wst.xquery.sse.core.internal.model.ast.ASTOrderByClause;
-import org.eclipse.wst.xquery.sse.core.internal.model.ast.ASTParentherized;
-import org.eclipse.wst.xquery.sse.core.internal.model.ast.ASTPath;
-import org.eclipse.wst.xquery.sse.core.internal.model.ast.ASTQuantified;
-import org.eclipse.wst.xquery.sse.core.internal.model.ast.ASTSequenceType;
-import org.eclipse.wst.xquery.sse.core.internal.model.ast.ASTSingleType;
-import org.eclipse.wst.xquery.sse.core.internal.model.ast.ASTStep;
-import org.eclipse.wst.xquery.sse.core.internal.model.ast.ASTTypeswitch;
-import org.eclipse.wst.xquery.sse.core.internal.model.ast.ASTValidate;
-import org.eclipse.wst.xquery.sse.core.internal.model.ast.ASTVarDecl;
-import org.eclipse.wst.xquery.sse.core.internal.model.ast.ASTVarRef;
+import org.eclipse.wst.xquery.sse.core.internal.model.ast.IASTApply;
+import org.eclipse.wst.xquery.sse.core.internal.model.ast.IASTBindingClause;
+import org.eclipse.wst.xquery.sse.core.internal.model.ast.IASTClause;
+import org.eclipse.wst.xquery.sse.core.internal.model.ast.IASTCompAttrConstructor;
+import org.eclipse.wst.xquery.sse.core.internal.model.ast.IASTCompCommentConstructor;
+import org.eclipse.wst.xquery.sse.core.internal.model.ast.IASTCompDocConstructor;
+import org.eclipse.wst.xquery.sse.core.internal.model.ast.IASTCompElemConstructor;
+import org.eclipse.wst.xquery.sse.core.internal.model.ast.IASTCompPIConstructor;
+import org.eclipse.wst.xquery.sse.core.internal.model.ast.IASTCompTextConstructor;
+import org.eclipse.wst.xquery.sse.core.internal.model.ast.IASTContextItem;
+import org.eclipse.wst.xquery.sse.core.internal.model.ast.IASTDelete;
+import org.eclipse.wst.xquery.sse.core.internal.model.ast.IASTDirAttribute;
+import org.eclipse.wst.xquery.sse.core.internal.model.ast.IASTDirElement;
+import org.eclipse.wst.xquery.sse.core.internal.model.ast.IASTExprSingleClause;
+import org.eclipse.wst.xquery.sse.core.internal.model.ast.IASTExtension;
+import org.eclipse.wst.xquery.sse.core.internal.model.ast.IASTFLWOR;
+import org.eclipse.wst.xquery.sse.core.internal.model.ast.IASTFunctionDecl;
+import org.eclipse.wst.xquery.sse.core.internal.model.ast.IASTIf;
+import org.eclipse.wst.xquery.sse.core.internal.model.ast.IASTInsert;
+import org.eclipse.wst.xquery.sse.core.internal.model.ast.IASTKindTest;
+import org.eclipse.wst.xquery.sse.core.internal.model.ast.IASTLiteral;
+import org.eclipse.wst.xquery.sse.core.internal.model.ast.IASTModule;
+import org.eclipse.wst.xquery.sse.core.internal.model.ast.IASTNameTest;
+import org.eclipse.wst.xquery.sse.core.internal.model.ast.IASTNamespaceDecl;
 import org.eclipse.wst.xquery.sse.core.internal.model.ast.IASTNode;
-import org.eclipse.wst.xquery.sse.core.internal.model.ast.update.ASTDelete;
-import org.eclipse.wst.xquery.sse.core.internal.model.ast.update.ASTInsert;
-import org.eclipse.wst.xquery.sse.core.internal.model.ast.update.ASTRename;
-import org.eclipse.wst.xquery.sse.core.internal.model.ast.update.ASTReplace;
-import org.eclipse.wst.xquery.sse.core.internal.model.ast.update.ASTTransform;
-import org.eclipse.wst.xquery.sse.core.internal.model.ast.xml.ASTDirAttribute;
-import org.eclipse.wst.xquery.sse.core.internal.model.ast.xml.ASTDirComment;
-import org.eclipse.wst.xquery.sse.core.internal.model.ast.xml.ASTDirElement;
-import org.eclipse.wst.xquery.sse.core.internal.model.ast.xml.ASTDirPI;
+import org.eclipse.wst.xquery.sse.core.internal.model.ast.IASTOperator;
+import org.eclipse.wst.xquery.sse.core.internal.model.ast.IASTOrderByClause;
+import org.eclipse.wst.xquery.sse.core.internal.model.ast.IASTParentherized;
+import org.eclipse.wst.xquery.sse.core.internal.model.ast.IASTPath;
+import org.eclipse.wst.xquery.sse.core.internal.model.ast.IASTQuantified;
+import org.eclipse.wst.xquery.sse.core.internal.model.ast.IASTRename;
+import org.eclipse.wst.xquery.sse.core.internal.model.ast.IASTReplace;
+import org.eclipse.wst.xquery.sse.core.internal.model.ast.IASTSequenceType;
+import org.eclipse.wst.xquery.sse.core.internal.model.ast.IASTSingleType;
+import org.eclipse.wst.xquery.sse.core.internal.model.ast.IASTStep;
+import org.eclipse.wst.xquery.sse.core.internal.model.ast.IASTTransform;
+import org.eclipse.wst.xquery.sse.core.internal.model.ast.IASTTypeSwitch;
+import org.eclipse.wst.xquery.sse.core.internal.model.ast.IASTValidate;
+import org.eclipse.wst.xquery.sse.core.internal.model.ast.IASTVarDecl;
+import org.eclipse.wst.xquery.sse.core.internal.model.ast.IASTVarRef;
+import org.eclipse.wst.xquery.sse.core.internal.model.ast.impl.ASTOperator;
+import org.eclipse.wst.xquery.sse.core.internal.model.ast.impl.IASTFunctionCall;
+import org.eclipse.wst.xquery.sse.core.internal.model.ast.impl.ImplASTNodeFactory;
+import org.eclipse.wst.xquery.sse.core.internal.model.ast.impl.xml.ASTDirComment;
+import org.eclipse.wst.xquery.sse.core.internal.model.ast.impl.xml.ASTDirPI;
 import org.eclipse.wst.xquery.sse.core.internal.regions.XQueryRegions;
 import org.eclipse.wst.xquery.sse.core.internal.sdregions.ModuleDeclStructuredDocumentRegion;
 import org.eclipse.wst.xquery.sse.core.internal.sdregions.SDRegionUtils;
@@ -117,42 +119,42 @@ public class ModelBuilder {
     protected Stack<Boolean> isValidLanguage;
 
     // Some filters...
-    final protected OperatorFilter sequenceFilter = new OperatorFilter(new int[] { ASTOperator.OP_COMMA },
+    final protected OperatorFilter sequenceFilter = new OperatorFilter(new int[] { IASTOperator.OP_COMMA },
             new String[] { XQueryRegions.COMMA });
 
-    final protected OperatorFilter orFilter = new OperatorFilter(new int[] { ASTOperator.OP_OR },
+    final protected OperatorFilter orFilter = new OperatorFilter(new int[] { IASTOperator.OP_OR },
             new String[] { XQueryRegions.OP_OR });
 
-    final protected OperatorFilter andFilter = new OperatorFilter(new int[] { ASTOperator.OP_AND },
+    final protected OperatorFilter andFilter = new OperatorFilter(new int[] { IASTOperator.OP_AND },
             new String[] { XQueryRegions.OP_AND });
 
-    final protected OperatorFilter comparisonFilter = new OperatorFilter(new int[] { ASTOperator.OP_EQ,
-            ASTOperator.OP_NEQ, ASTOperator.OP_LT, ASTOperator.OP_LTE, ASTOperator.OP_GT, ASTOperator.OP_GTE,
-            ASTOperator.OP_GEQ, ASTOperator.OP_GNEQ, ASTOperator.OP_GLT, ASTOperator.OP_GLTE, ASTOperator.OP_GGT,
-            ASTOperator.OP_GGTE, ASTOperator.OP_IS, ASTOperator.OP_AFTER, ASTOperator.OP_BEFORE }, new String[] {
+    final protected OperatorFilter comparisonFilter = new OperatorFilter(new int[] { IASTOperator.OP_EQ,
+            IASTOperator.OP_NEQ, IASTOperator.OP_LT, IASTOperator.OP_LTE, IASTOperator.OP_GT, IASTOperator.OP_GTE,
+            IASTOperator.OP_GEQ, IASTOperator.OP_GNEQ, IASTOperator.OP_GLT, IASTOperator.OP_GLTE, IASTOperator.OP_GGT,
+            IASTOperator.OP_GGTE, IASTOperator.OP_IS, IASTOperator.OP_AFTER, IASTOperator.OP_BEFORE }, new String[] {
             XQueryRegions.OP_EQ, XQueryRegions.OP_NEQ, XQueryRegions.OP_LT, XQueryRegions.OP_LTE, XQueryRegions.OP_GT,
             XQueryRegions.OP_GTE, XQueryRegions.OP_GEQ, XQueryRegions.OP_GNEQ, XQueryRegions.OP_GLT,
             XQueryRegions.OP_GLTE, XQueryRegions.OP_GGT, XQueryRegions.OP_GGTE, XQueryRegions.OP_IS,
             XQueryRegions.OP_AFTER, XQueryRegions.OP_BEFORE });
 
-    final protected OperatorFilter rangeFilter = new OperatorFilter(new int[] { ASTOperator.OP_TO },
+    final protected OperatorFilter rangeFilter = new OperatorFilter(new int[] { IASTOperator.OP_TO },
             new String[] { XQueryRegions.OP_TO });
 
-    final protected OperatorFilter additiveFilter = new OperatorFilter(new int[] { ASTOperator.OP_PLUS,
-            ASTOperator.OP_MINUS }, new String[] { XQueryRegions.OP_PLUS, XQueryRegions.OP_MINUS });
+    final protected OperatorFilter additiveFilter = new OperatorFilter(new int[] { IASTOperator.OP_PLUS,
+            IASTOperator.OP_MINUS }, new String[] { XQueryRegions.OP_PLUS, XQueryRegions.OP_MINUS });
 
-    final protected OperatorFilter multiplicativeFilter = new OperatorFilter(new int[] { ASTOperator.OP_MULTIPLY,
-            ASTOperator.OP_DIV, ASTOperator.OP_IDIV, ASTOperator.OP_MOD }, new String[] { XQueryRegions.OP_MULTIPLY,
+    final protected OperatorFilter multiplicativeFilter = new OperatorFilter(new int[] { IASTOperator.OP_MULTIPLY,
+            IASTOperator.OP_DIV, IASTOperator.OP_IDIV, IASTOperator.OP_MOD }, new String[] { XQueryRegions.OP_MULTIPLY,
             XQueryRegions.OP_DIV, XQueryRegions.OP_IDIV, XQueryRegions.OP_MOD });
 
-    final protected OperatorFilter unionFilter = new OperatorFilter(new int[] { ASTOperator.OP_UNION },
+    final protected OperatorFilter unionFilter = new OperatorFilter(new int[] { IASTOperator.OP_UNION },
             new String[] { XQueryRegions.OP_UNION });
 
-    final protected OperatorFilter intersectExceptFilter = new OperatorFilter(new int[] { ASTOperator.OP_INTERSECT,
-            ASTOperator.OP_EXCEPT }, new String[] { XQueryRegions.OP_INTERSECT, XQueryRegions.OP_EXCEPT });
+    final protected OperatorFilter intersectExceptFilter = new OperatorFilter(new int[] { IASTOperator.OP_INTERSECT,
+            IASTOperator.OP_EXCEPT }, new String[] { XQueryRegions.OP_INTERSECT, XQueryRegions.OP_EXCEPT });
 
-    final protected OperatorFilter relativePathFilter = new OperatorFilter(new int[] { ASTOperator.PATH_SLASH,
-            ASTOperator.PATH_SLASHSLASH, }, new String[] { XQueryRegions.PATH_SLASH, XQueryRegions.PATH_SLASHSLASH });
+    final protected OperatorFilter relativePathFilter = new OperatorFilter(new int[] { IASTOperator.PATH_SLASH,
+            IASTOperator.PATH_SLASHSLASH, }, new String[] { XQueryRegions.PATH_SLASH, XQueryRegions.PATH_SLASHSLASH });
 
     final protected RegionFilter stepFilter = new RegionFilter(new String[] { XQueryRegions.PATH_ABBREVATTRIBUTE,
             XQueryRegions.PATH_ABBREVPARENT, XQueryRegions.PATH_ANCESTOR, XQueryRegions.PATH_ANCESTOR_OR_SELF,
@@ -201,7 +203,7 @@ public class ModelBuilder {
     // Constructor
 
     protected ModelBuilder() {
-        nodeFactory = new ASTNodeFactory(); // TODO: extension point
+        nodeFactory = new ImplASTNodeFactory(); // TODO: extension point
 
     }
 
@@ -228,7 +230,7 @@ public class ModelBuilder {
      *            the top-level AST node. Might be null for new document
      * @see {@link IXQDTLanguageConstants}
      */
-    public ASTModule reparseQuery(ASTModule module, IStructuredDocumentRegion region, int offset, int length,
+    public IASTModule reparseQuery(IASTModule module, IStructuredDocumentRegion region, int offset, int length,
             int language) {
         currentSDRegion = (XQueryStructuredDocumentRegion)region;
         previousSDRegion = null;
@@ -268,7 +270,7 @@ public class ModelBuilder {
     }
 
     /** Reparse <tt>VersionDecl?</tt> */
-    protected void reparseVersionDecl(ASTModule module) {
+    protected void reparseVersionDecl(IASTModule module) {
         if (sameRegionType(XQueryRegions.KW_XQUERY)) {
             final VersionDeclStructuredDocumentRegion vdregion = (VersionDeclStructuredDocumentRegion)currentSDRegion;
             module.setVersionRegion(vdregion.getVersion());
@@ -281,7 +283,7 @@ public class ModelBuilder {
     /**
      * Reparse <tt>(LibraryModule | MainModule)</tt>
      */
-    protected void reparseLibraryOrModule(ASTModule module) {
+    protected void reparseLibraryOrModule(IASTModule module) {
         if (sameRegionType(XQueryRegions.KW_MODULE)) {
             reparseLibraryModule(module);
         } else {
@@ -292,7 +294,7 @@ public class ModelBuilder {
     /**
      * Reparse <tt>Prolog QueryBody</tt>
      */
-    protected void reparseMainModule(ASTModule module) {
+    protected void reparseMainModule(IASTModule module) {
         final int last = reparseProlog(module);
         module.removeChildASTNodesAfter(last);
 
@@ -302,7 +304,7 @@ public class ModelBuilder {
     /**
      * Reparse <tt>ModuleDecl Prolog</tt>
      */
-    protected void reparseLibraryModule(ASTModule module) {
+    protected void reparseLibraryModule(IASTModule module) {
         reparseModuleDecl(module);
 
         final int last = reparseProlog(module);
@@ -312,7 +314,7 @@ public class ModelBuilder {
     /**
      * Reparse <tt>"module" "namespace" NCName "=" URILiteral Separator</tt>
      */
-    protected void reparseModuleDecl(ASTModule module) {
+    protected void reparseModuleDecl(IASTModule module) {
         if (overlap()) {
             final ModuleDeclStructuredDocumentRegion moduleDeclRegion = (ModuleDeclStructuredDocumentRegion)currentSDRegion;
 
@@ -328,7 +330,7 @@ public class ModelBuilder {
      * 
      * @return the number of prolog declaration
      */
-    protected int reparseProlog(ASTModule node) {
+    protected int reparseProlog(IASTModule node) {
         int from = reparseProlog1(node);
         return reparseProlog2(node, from);
     }
@@ -339,7 +341,7 @@ public class ModelBuilder {
      * 
      * @return the number of prolog 1 declarations
      */
-    protected int reparseProlog1(ASTModule module) {
+    protected int reparseProlog1(IASTModule module) {
         int count = 0; // number of global declarations
 
         while (currentSDRegion != null) {
@@ -351,7 +353,7 @@ public class ModelBuilder {
 
                     if (type2 == XQueryRegions.KW_NAMESPACE) {
                         IASTNode oldDecl = module.getChildASTNodeAt(count);
-                        ASTNamespaceDecl newDecl = reparseNamespaceDecl(oldDecl);
+                        IASTNamespaceDecl newDecl = reparseNamespaceDecl(oldDecl);
                         module.setChildASTNodeAt(count++, newDecl);
                     } else if (type2 == XQueryRegions.KW_BOUNDARY_SPACE || type2 == XQueryRegions.KW_DEFAULT
                             || type2 == XQueryRegions.KW_BASEURI || type2 == XQueryRegions.KW_CONSTRUCTION
@@ -386,8 +388,8 @@ public class ModelBuilder {
     /**
      * Reparse <tt>NamespaceDecl	   ::=   	"declare" "namespace" NCName "=" URILiteral</tt>
      */
-    protected ASTNamespaceDecl reparseNamespaceDecl(IASTNode decl) {
-        ASTNamespaceDecl nsdecl = asNamespaceDecl(decl);
+    protected IASTNamespaceDecl reparseNamespaceDecl(IASTNode decl) {
+        IASTNamespaceDecl nsdecl = asNamespaceDecl(decl);
         nsdecl.setFirstStructuredDocumentRegion(currentSDRegion);
         nextSDRegion();
         return nsdecl;
@@ -396,7 +398,7 @@ public class ModelBuilder {
     /**
      * Reparse <tt>"declare" "default" ("element" | "function") "namespace" URILiteral</tt>
      */
-    protected void reparseDefaultNSDecl(ASTModule node) {
+    protected void reparseDefaultNSDecl(IASTModule node) {
         nextSDRegion();
     }
 
@@ -407,7 +409,7 @@ public class ModelBuilder {
      *            last global declaration position.
      * @return
      */
-    protected int reparseProlog2(ASTModule module, int from) {
+    protected int reparseProlog2(IASTModule module, int from) {
         while (sameRegionType(XQueryRegions.KW_DECLARE)) {
             ITextRegion region2 = getTextRegion(1);
             if (region2 != null) {
@@ -416,10 +418,10 @@ public class ModelBuilder {
                 IASTNode oldDecl = module.getChildASTNodeAt(from);
 
                 if (type2 == XQueryRegions.KW_VARIABLE) {
-                    ASTVarDecl newDecl = reparseVarDecl(oldDecl);
+                    IASTVarDecl newDecl = reparseVarDecl(oldDecl);
                     module.setVariableDecl(from++, newDecl.getName(), newDecl);
                 } else if (type2 == XQueryRegions.KW_FUNCTION) {
-                    ASTFunctionDecl newDecl = reparseFunctionDecl(oldDecl);
+                    IASTFunctionDecl newDecl = reparseFunctionDecl(oldDecl);
                     module.setFunctionDecl(from++, newDecl.getName(), newDecl);
                 } else if (type2 == XQueryRegions.KW_OPTION) {
                     reparseOptionDecl(module);
@@ -446,7 +448,7 @@ public class ModelBuilder {
     /**
      * Reparse <tt>"declare" "option" QName StringLiteral</tt>
      */
-    protected void reparseOptionDecl(ASTModule node) {
+    protected void reparseOptionDecl(IASTModule node) {
         nextSDRegion();
     }
 
@@ -461,8 +463,8 @@ public class ModelBuilder {
      * <tt>"declare" ("simple"? | "updating") "function" QName "(" ParamList? ")" ("as" SequenceType)? (EnclosedExpr | "external"))
      *      | ("declare" "sequential" "function" QName "(" ParamList? ")" ("as" SequenceType)? (Block | "external"))
      */
-    protected ASTFunctionDecl reparseFunctionDecl(IASTNode node) {
-        ASTFunctionDecl decl = asFunctionDecl(node);
+    protected IASTFunctionDecl reparseFunctionDecl(IASTNode node) {
+        IASTFunctionDecl decl = asFunctionDecl(node);
         decl.setFirstStructuredDocumentRegion(currentSDRegion);
 
         nextSDRegion(); // "declare" .... "function"
@@ -585,7 +587,7 @@ public class ModelBuilder {
      * 
      * @return true is no syntax error have been raised.
      */
-    protected boolean reparseParamListOpt(ASTFunctionDecl decl) {
+    protected boolean reparseParamListOpt(IASTFunctionDecl decl) {
         if (sameRegionType(XQueryRegions.RPAR)) {
             return true;
         }
@@ -619,7 +621,7 @@ public class ModelBuilder {
     /**
      * Reparse <tt>"$" QName TypeDeclaration?</tt>
      */
-    protected boolean reparseParam(ASTFunctionDecl decl, int index) {
+    protected boolean reparseParam(IASTFunctionDecl decl, int index) {
         decl.setParamName(index, currentSDRegion);
 
         if (currentSDRegion.getNumberOfRegions() == 1) {
@@ -640,8 +642,8 @@ public class ModelBuilder {
      * @param index
      *            of the variable declaration in the module
      */
-    protected ASTVarDecl reparseVarDecl(IASTNode node) {
-        ASTVarDecl decl = asVarDecl(node);
+    protected IASTVarDecl reparseVarDecl(IASTNode node) {
+        IASTVarDecl decl = asVarDecl(node);
         decl.setFirstStructuredDocumentRegion(currentSDRegion);
 
         nextSDRegion(); // "declare" ... "variable"
@@ -688,7 +690,7 @@ public class ModelBuilder {
     /**
      * Reparse <tt>QueryBody	   ::=   	Expr</tt>
      */
-    protected void reparseQueryBody(ASTModule module) {
+    protected void reparseQueryBody(IASTModule module) {
         IASTNode oldBody = module.getQueryBody();
         IASTNode newBody = reparseExpr(oldBody);
         module.setQueryBody(newBody);
@@ -713,7 +715,7 @@ public class ModelBuilder {
      * @return
      */
     protected IASTNode reparseApplyExpr(IASTNode expr) {
-        ASTApply apply = asApply(expr);
+        IASTApply apply = asApply(expr);
 
         int index = 0;
         do {
@@ -792,7 +794,7 @@ public class ModelBuilder {
     protected IASTNode reparseTransformExpr(IASTNode node) {
         final IStructuredDocumentRegion first = currentSDRegion;
 
-        ASTTransform transform = asTransformExpr(node);
+        IASTTransform transform = asTransformExpr(node);
 
         nextSDRegion(); // 'copy'
 
@@ -854,7 +856,7 @@ public class ModelBuilder {
     protected IASTNode reparseRenameExpr(IASTNode node) {
         final IStructuredDocumentRegion first = currentSDRegion;
 
-        ASTRename renameExpr = asRenameExpr(node);
+        IASTRename renameExpr = asRenameExpr(node);
 
         nextSDRegion(); // "rename" "node"
 
@@ -886,7 +888,7 @@ public class ModelBuilder {
     protected IASTNode reparseReplaceExpr(IASTNode node) {
         final IStructuredDocumentRegion first = currentSDRegion;
 
-        ASTReplace replaceExpr = asReplaceExpr(node);
+        IASTReplace replaceExpr = asReplaceExpr(node);
 
         nextSDRegion(); // "replace" ("value" "of")? "node"
 
@@ -917,7 +919,7 @@ public class ModelBuilder {
     protected IASTNode reparseDeleteExpr(IASTNode node) {
         final IStructuredDocumentRegion first = currentSDRegion;
 
-        ASTDelete deleteExpr = asDeleteExpr(node);
+        IASTDelete deleteExpr = asDeleteExpr(node);
 
         nextSDRegion(); // "delete" ("node" | "nodes")
 
@@ -939,7 +941,7 @@ public class ModelBuilder {
     protected IASTNode reparseInsertExpr(IASTNode node) {
         final IStructuredDocumentRegion first = currentSDRegion;
 
-        ASTInsert insertExpr = asInsertExpr(node);
+        IASTInsert insertExpr = asInsertExpr(node);
 
         nextSDRegion(); // "insert" ("node" | "nodes")
 
@@ -970,7 +972,7 @@ public class ModelBuilder {
      * Reparse <tt>"if" "(" Expr ")" "then" ExprSingle "else" ExprSingle</tt>
      */
     protected IASTNode reparseIfExpr(IASTNode expr) {
-        ASTIf ifexpr = asIf(expr);
+        IASTIf ifexpr = asIf(expr);
 
         nextSDRegion(); // "if"
         nextSDRegion(); // ( (always there)
@@ -1015,7 +1017,7 @@ public class ModelBuilder {
      * <tt>"typeswitch" "(" Expr ")" CaseClause+ "default" ("$" VarName)? "return" ExprSingle</tt>
      */
     protected IASTNode reparseTypeSwitch(IASTNode expr) {
-        ASTTypeswitch typeswitch = asTypeswitch(expr);
+        IASTTypeSwitch typeswitch = asTypeswitch(expr);
 
         nextSDRegion(); // typeswitch
         nextSDRegion(); // ( (always there)
@@ -1061,7 +1063,7 @@ public class ModelBuilder {
     /**
      * Reparse <tt>("case" ("$" VarName "as")? SequenceType "return" ExprSingle)+</tt>
      */
-    protected boolean reparseCaseClauses(ASTTypeswitch typeswitch) {
+    protected boolean reparseCaseClauses(IASTTypeSwitch typeswitch) {
         int index = 0;
         while (sameRegionType(XQueryRegions.KW_CASE)) {
             nextSDRegion(); // case
@@ -1122,10 +1124,10 @@ public class ModelBuilder {
      * <tt>("some" | "every") "$" VarName TypeDeclaration? "in" ExprSingle ("," "$" VarName TypeDeclaration? "in" ExprSingle)* "satisfies" ExprSingle</tt>
      */
     protected IASTNode reparseQuantifiedExpr(IASTNode expr) {
-        ASTQuantified quantified = asQuantified(expr);
+        IASTQuantified quantified = asQuantified(expr);
 
-        ASTClause oldClause = quantified.getBindingClause();
-        ASTBindingClause newClause = reparseForLetQuantifyClause(oldClause);
+        IASTClause oldClause = quantified.getBindingClause();
+        IASTBindingClause newClause = reparseForLetQuantifyClause(oldClause);
         quantified.setBindingClause(newClause);
 
         if (sameRegionType(XQueryRegions.KW_SATIFIES)) {
@@ -1144,13 +1146,13 @@ public class ModelBuilder {
      * Reparse <tt>(ForClause | LetClause)+ WhereClause? OrderByClause? "return" ExprSingle</tt>
      */
     protected IASTNode reparseFLWORExpr(IASTNode expr) {
-        ASTFLWOR flwor = asFLWOR(expr);
+        IASTFLWOR flwor = asFLWOR(expr);
         flwor.setFirstStructuredDocumentRegion(currentSDRegion);
 
         int index = 0;
         do {
-            ASTClause oldClause = flwor.getClause(index);
-            ASTClause newClause = reparseForLetQuantifyClause(oldClause);
+            IASTClause oldClause = flwor.getClause(index);
+            IASTClause newClause = reparseForLetQuantifyClause(oldClause);
             flwor.setClause(index++, newClause);
 
             if (!sameRegionType(forLetFilter)) {
@@ -1161,7 +1163,7 @@ public class ModelBuilder {
         // WhereClause
         if (sameRegionType(XQueryRegions.KW_WHERE)) {
             IASTNode oldWhere = flwor.getClause(index);
-            ASTClause newWhere = reparseWhereClause(oldWhere);
+            IASTClause newWhere = reparseWhereClause(oldWhere);
             flwor.setClause(index++, newWhere);
         }
 
@@ -1187,8 +1189,8 @@ public class ModelBuilder {
     /**
      * Reparse <tt>(("order" "by") | ("stable" "order" "by")) OrderSpecList</tt>
      */
-    protected ASTClause reparseOrderByClause(IASTNode node) {
-        ASTOrderByClause clause = asOrderByClause(node);
+    protected IASTClause reparseOrderByClause(IASTNode node) {
+        IASTOrderByClause clause = asOrderByClause(node);
         clause.setClauseType(IASTNode.ORDERBYCLAUSE);
         reparseOrderSpecList(clause);
         return clause;
@@ -1197,8 +1199,8 @@ public class ModelBuilder {
     /**
      * Reparse <tt>"where" ExprSingle</tt>
      */
-    protected ASTClause reparseWhereClause(IASTNode node) {
-        ASTExprSingleClause clause = asExprSingleClause(node);
+    protected IASTClause reparseWhereClause(IASTNode node) {
+        IASTExprSingleClause clause = asExprSingleClause(node);
         clause.setClauseType(IASTNode.WHERECLAUSE);
         clause.setFirstStructuredDocumentRegion(currentSDRegion);
 
@@ -1219,7 +1221,7 @@ public class ModelBuilder {
     /**
      * Reparse <tt>OrderSpec ("," OrderSpec)*</tt>
      */
-    protected void reparseOrderSpecList(ASTOrderByClause clause) {
+    protected void reparseOrderSpecList(IASTOrderByClause clause) {
         int index = 0;
         while (currentSDRegion != null) {
             reparseOrderSpec(clause, index);
@@ -1235,7 +1237,7 @@ public class ModelBuilder {
     /**
      * Reparse <tt>ExprSingle OrderModifier</tt>
      */
-    protected void reparseOrderSpec(ASTOrderByClause clause, int index) {
+    protected void reparseOrderSpec(IASTOrderByClause clause, int index) {
         IASTNode oldOrderExpr = clause.getOrderSpecExpr(index);
         clause.setOrderSpecExpr(index, reparseExprSingle(oldOrderExpr));
         reparseOrderModifier(clause, index);
@@ -1247,7 +1249,7 @@ public class ModelBuilder {
      * 
      * @param index
      */
-    protected void reparseOrderModifier(ASTOrderByClause clause, int index) {
+    protected void reparseOrderModifier(IASTOrderByClause clause, int index) {
         if (sameRegionType(XQueryRegions.KW_ASCENDING) || sameRegionType(XQueryRegions.KW_DESCENDING)) {
             nextSDRegion();
         }
@@ -1270,8 +1272,8 @@ public class ModelBuilder {
      * <tt>"let" "$" VarName TypeDeclaration? ":=" ExprSingle ("," "$" VarName TypeDeclaration? ":=" ExprSingle)*</tt>
      * <tt>("some" | "every") "$" VarName TypeDeclaration? "in" ExprSingle ("," "$" VarName TypeDeclaration? "in" ExprSingle)*</tt>
      */
-    protected ASTBindingClause reparseForLetQuantifyClause(IASTNode node) {
-        ASTBindingClause clause = asBindingClause(node);
+    protected IASTBindingClause reparseForLetQuantifyClause(IASTNode node) {
+        IASTBindingClause clause = asBindingClause(node);
         clause.setFirstStructuredDocumentRegion(currentSDRegion);
 
         final String clauseType = currentSDRegion.getType();
@@ -1339,7 +1341,7 @@ public class ModelBuilder {
      * 
      * @param index
      */
-    protected void reparsePositionalVarOpt(ASTBindingClause clause, int index) {
+    protected void reparsePositionalVarOpt(IASTBindingClause clause, int index) {
         if (sameRegionType(XQueryRegions.KW_AT)) {
             nextSDRegion(); // 'at'
 
@@ -1367,7 +1369,7 @@ public class ModelBuilder {
      */
     public IASTNode reparseSingleType(IASTNode node) {
         if (sameRegionType(XQueryRegions.ST_ATOMICTYPE)) {
-            ASTSingleType type = asSingleType(node);
+            IASTSingleType type = asSingleType(node);
 
             type.setFirstStructuredDocumentRegion(currentSDRegion);
             nextSDRegion(); // AtomicType
@@ -1386,7 +1388,7 @@ public class ModelBuilder {
      */
     protected IASTNode reparseSequenceType(IASTNode node) {
         if (sameRegionType(sequenceTypeFilter)) {
-            ASTSequenceType type = asSequenceType(node);
+            IASTSequenceType type = asSequenceType(node);
 
             type.setFirstStructuredDocumentRegion(currentSDRegion);
             nextSDRegion();
@@ -1456,7 +1458,7 @@ public class ModelBuilder {
      * Reparse <tt>TreatExpr ( "instance" "of" SequenceType )?</tt>
      */
     protected IASTNode reparseInstanceOfExpr(IASTNode node) {
-        ASTOperator operator = asOperator(node, ASTOperator.OP_INSTANCEOF);
+        ASTOperator operator = asOperator(node, IASTOperator.OP_INSTANCEOF);
 
         IASTNode oldOperand = operator.getChildASTNodeAt(0);
         IASTNode newOperand = reparseTreatExpr(oldOperand);
@@ -1481,7 +1483,7 @@ public class ModelBuilder {
      * Reparse <tt>CastableExpr ( "treat" "as" SequenceType )?</tt>
      */
     protected IASTNode reparseTreatExpr(IASTNode node) {
-        ASTOperator operator = asOperator(node, ASTOperator.OP_TREATAS);
+        ASTOperator operator = asOperator(node, IASTOperator.OP_TREATAS);
 
         IASTNode oldOperand = operator.getChildASTNodeAt(0);
         IASTNode newOperand = reparseCastableExpr(oldOperand);
@@ -1506,7 +1508,7 @@ public class ModelBuilder {
      * Reparse <tt>CastExpr ( "castable" "as" SingleType )?</tt>
      */
     protected IASTNode reparseCastableExpr(IASTNode node) {
-        ASTOperator operator = asOperator(node, ASTOperator.OP_CASTABLEAS);
+        ASTOperator operator = asOperator(node, IASTOperator.OP_CASTABLEAS);
 
         IASTNode oldOperand = operator.getChildASTNodeAt(0);
         IASTNode newOperand = reparseCastAsExpr(oldOperand);
@@ -1531,7 +1533,7 @@ public class ModelBuilder {
      * Reparse <tt>UnaryExpr ( "cast" "as" SingleType )?</tt>
      */
     protected IASTNode reparseCastAsExpr(IASTNode node) {
-        ASTOperator operator = asOperator(node, ASTOperator.OP_CASTAS);
+        ASTOperator operator = asOperator(node, IASTOperator.OP_CASTAS);
 
         IASTNode oldOperand = operator.getChildASTNodeAt(0);
         IASTNode newOperand = reparseUnaryExpr(oldOperand);
@@ -1587,7 +1589,7 @@ public class ModelBuilder {
     protected IASTNode reparseExtensionExpr(IASTNode node) {
         // TODO: handle white spaces properly.
 
-        ASTExtension extension = asExtension(node);
+        IASTExtension extension = asExtension(node);
 
         int index = 0;
         while (sameRegionType(XQueryRegions.LPRAGMA)) {
@@ -1651,7 +1653,7 @@ public class ModelBuilder {
      * Reparse <tt>"validate" ValidationMode? "{" Expr "}"</tt>
      */
     protected IASTNode reparseValidateExpr(IASTNode node) {
-        ASTValidate validate = asValidate(node);
+        IASTValidate validate = asValidate(node);
 
         nextSDRegion(); // validate
 
@@ -1667,7 +1669,7 @@ public class ModelBuilder {
     /**
      * Reparse <tt>("lax" | "strict")?</tt>
      */
-    protected void reparseValidationModeOpt(ASTValidate node) {
+    protected void reparseValidationModeOpt(IASTValidate node) {
         if (sameRegionType(XQueryRegions.KW_LAX) || sameRegionType(XQueryRegions.KW_STRICT)) {
             nextSDRegion();
         }
@@ -1677,7 +1679,7 @@ public class ModelBuilder {
      * Reparse <tt>("/" RelativePathExpr?) | ("//" RelativePathExpr) | RelativePathExpr</tt>
      */
     protected IASTNode reparsePathExpr(IASTNode node) {
-        ASTPath path = asPath(node);
+        IASTPath path = asPath(node);
 
         if (sameRegionType(XQueryRegions.PATH_SLASH)) {
             nextSDRegion(); // '/'
@@ -1724,7 +1726,7 @@ public class ModelBuilder {
      * Reparse <tt>(PrimaryExpr | AxisStep) PredicateList</tt>
      */
     protected IASTNode reparseStepExpr(IASTNode node) {
-        ASTStep step = asStep(node);
+        IASTStep step = asStep(node);
         IASTNode primary = null;
 
         if (sameRegionType(XQueryRegions.NUMERICLITERAL) // Literal
@@ -1781,7 +1783,7 @@ public class ModelBuilder {
      * 
      * @return true when an axis step has been parsed (even partially)
      */
-    protected boolean reparseAxisStep(ASTStep step) {
+    protected boolean reparseAxisStep(IASTStep step) {
         boolean nonvoid = false;
 
         if (sameRegionType(stepFilter)) {
@@ -1824,7 +1826,7 @@ public class ModelBuilder {
      */
     protected IASTNode reparseKindTest(IASTNode node) {
         if (sameRegionType(kindTestFilter)) {
-            ASTKindTest test = asKindTest(node);
+            IASTKindTest test = asKindTest(node);
             test.setFirstStructuredDocumentRegion(currentSDRegion);
             nextSDRegion(); // the kind test
             return test;
@@ -1839,7 +1841,7 @@ public class ModelBuilder {
      * Reparse <tt>QName | Wildcard</tt>
      */
     protected IASTNode reparseNameTest(IASTNode node) {
-        ASTNameTest test = asNameTest(node);
+        IASTNameTest test = asNameTest(node);
 
         test.setFirstStructuredDocumentRegion(currentSDRegion);
         nextSDRegion();
@@ -1851,7 +1853,7 @@ public class ModelBuilder {
      * Reparse <tt>"document" "{" Expr "}"</tt>
      */
     protected IASTNode reparseCompDocConstructor(IASTNode node) {
-        ASTCompDocConstructor constructor = asCompDocConstructor(node);
+        IASTCompDocConstructor constructor = asCompDocConstructor(node);
         return reparseCompTextDocComment(constructor);
     }
 
@@ -1859,7 +1861,7 @@ public class ModelBuilder {
      * Reparse <tt>"comment" "{" Expr "}"</tt>
      */
     protected IASTNode reparseCompCommentConstructor(IASTNode node) {
-        ASTCompCommentConstructor constructor = asCompCommentConstructor(node);
+        IASTCompCommentConstructor constructor = asCompCommentConstructor(node);
         return reparseCompTextDocComment(constructor);
     }
 
@@ -1867,7 +1869,7 @@ public class ModelBuilder {
      * Reparse <tt>"text" "{" Expr "}"</tt>
      */
     protected IASTNode reparseCompTextConstructor(IASTNode node) {
-        ASTCompTextConstructor constructor = asCompTextConstructor(node);
+        IASTCompTextConstructor constructor = asCompTextConstructor(node);
         return reparseCompTextDocComment(constructor);
     }
 
@@ -1886,7 +1888,7 @@ public class ModelBuilder {
      * Reparse <tt>"attribute" (QName | ("{" Expr "}")) "{" Expr? "}"</tt>
      */
     protected IASTNode reparseCompAttrConstructor(IASTNode node) {
-        ASTCompAttrConstructor constructor = asCompAttrConstructor(node);
+        IASTCompAttrConstructor constructor = asCompAttrConstructor(node);
         return reparseCompElemAttrPI(constructor, XQueryRegions.QNAME);
     }
 
@@ -1894,7 +1896,7 @@ public class ModelBuilder {
      * Reparse <tt>element" (QName | ("{" Expr "}")) "{" ContentExpr? "}"</tt>
      */
     protected IASTNode reparseCompElementConstructor(IASTNode node) {
-        ASTCompElemConstructor constructor = asCompElemConstructor(node);
+        IASTCompElemConstructor constructor = asCompElemConstructor(node);
         return reparseCompElemAttrPI(constructor, XQueryRegions.QNAME);
     }
 
@@ -1902,7 +1904,7 @@ public class ModelBuilder {
      * Reparse <tt>"processing-instruction" (NCName | ("{" Expr "}")) "{" Expr? "}"</tt>
      */
     protected IASTNode reparseCompPIConstructor(IASTNode node) {
-        ASTCompPIConstructor constructor = asCompPIConstructor(node);
+        IASTCompPIConstructor constructor = asCompPIConstructor(node);
         return reparseCompElemAttrPI(constructor, XQueryRegions.NCNAME);
     }
 
@@ -1967,7 +1969,7 @@ public class ModelBuilder {
      */
     protected IASTNode reparseDirElemConstructor(IASTNode expr) {
         // TODO
-        ASTDirElement element = asDirElement(expr);
+        IASTDirElement element = asDirElement(expr);
 
         String tagName = currentSDRegion.getText(currentSDRegion.getLastRegion());
         element.setTagName(tagName);
@@ -1994,7 +1996,7 @@ public class ModelBuilder {
     /**
      * Reparse <tt>(DirectConstructor | CDataSection | CommonContent | ElementContentChar )*</tt>
      */
-    protected void reparseDirElemContentStar(ASTDirElement element) {
+    protected void reparseDirElemContentStar(IASTDirElement element) {
         // TODO
         int index = 0;
         while (currentSDRegion != null) {
@@ -2074,7 +2076,7 @@ public class ModelBuilder {
     /**
      * Reparse <tt>(S (QName S? "=" S? DirAttributeValue)?)*</tt>
      */
-    protected void reparseDirAttributeList(ASTDirElement element) {
+    protected void reparseDirAttributeList(IASTDirElement element) {
         // TODO
         while (currentSDRegion != null) {
             if (!sameRegionType(XQueryRegions.XML_TAG_ATTRIBUTE_NAME)) {
@@ -2082,7 +2084,7 @@ public class ModelBuilder {
             }
 
             String attrName = currentSDRegion.getText().trim();
-            ASTDirAttribute attr = (ASTDirAttribute)element.getAttributeNode(attrName);
+            IASTDirAttribute attr = (IASTDirAttribute)element.getAttributeNode(attrName);
             if (attr == null) {
                 attr = nodeFactory.newDirAttribute();
                 attr.setName(attrName);
@@ -2100,7 +2102,7 @@ public class ModelBuilder {
      * Reparse
      * <tt>('"' (EscapeQuot | QuotAttrValueContent)* '"') | ("'" (EscapeApos | AposAttrValueContent)* "'")</tt>
      */
-    protected void reparseDirAttributeValue(ASTDirAttribute attr) {
+    protected void reparseDirAttributeValue(IASTDirAttribute attr) {
         // TODO
         final String escapeType = sameRegionType(XQueryRegions.XML_ATTR_QUOT) ? XQueryRegions.XML_ESCAPE_QUOT
                 : XQueryRegions.XML_ESCAPE_APOS;
@@ -2128,7 +2130,7 @@ public class ModelBuilder {
      * Reparse <tt>(EscapeQuot | QuotAttrValueContent)*</tt> or
      * <tt>(EscapeApos | AposAttrValueContent)*</tt>
      */
-    protected void reparseDirAttributeValue(ASTDirAttribute attr, String escapeType) {
+    protected void reparseDirAttributeValue(IASTDirAttribute attr, String escapeType) {
         // TODO
         int index = 0;
         while (currentSDRegion != null) {
@@ -2173,7 +2175,7 @@ public class ModelBuilder {
         // TODO
         nextSDRegion(); // QName "("
 
-        ASTFunctionCall fc = asFunctionCall(expr);
+        IASTFunctionCall fc = asFunctionCall(expr);
         int index = 0;
 
         // No parameters?
@@ -2203,7 +2205,7 @@ public class ModelBuilder {
      * Reparse <tt>"."</tt>
      */
     protected IASTNode reparseContextItemExpr(IASTNode node) {
-        ASTContextItem item = asContextItem(node);
+        IASTContextItem item = asContextItem(node);
         item.setFirstStructuredDocumentRegion(currentSDRegion);
         item.setLastStructuredDocumentRegion(currentSDRegion);
 
@@ -2216,7 +2218,7 @@ public class ModelBuilder {
      * Reparse <tt>"(" Expr? ")"</tt>
      */
     protected IASTNode reparseParentherizeExpr(IASTNode node) {
-        ASTParentherized expr = asParentherized(node);
+        IASTParentherized expr = asParentherized(node);
         expr.setFirstStructuredDocumentRegion(currentSDRegion);
 
         nextSDRegion(); // "("
@@ -2245,7 +2247,7 @@ public class ModelBuilder {
      * reparse <tt>NumericLiteral | StringLiteral</tt>
      */
     protected IASTNode reparseLiteral(IASTNode expr) {
-        ASTLiteral literal = asLiteral(expr);
+        IASTLiteral literal = asLiteral(expr);
 
         literal.setFirstStructuredDocumentRegion(currentSDRegion);
         literal.setLastStructuredDocumentRegion(currentSDRegion);
@@ -2258,11 +2260,11 @@ public class ModelBuilder {
      * reparse <tt>"$" VarName</tt>
      */
     protected IASTNode reparseVarRef(IASTNode expr) {
-        ASTVarRef varRef;
+        IASTVarRef varRef;
         if (expr == null || expr.getType() != IASTNode.VARREF) {
             varRef = nodeFactory.newVarRef();
         } else {
-            varRef = (ASTVarRef)expr;
+            varRef = (IASTVarRef)expr;
         }
 
         varRef.setFirstStructuredDocumentRegion(currentSDRegion);
@@ -2360,317 +2362,317 @@ public class ModelBuilder {
 
     // Helpers
 
-    /** Gets AST node as {@link ASTApply} */
-    protected ASTApply asApply(IASTNode node) {
+    /** Gets AST node as {@link IASTApply} */
+    protected IASTApply asApply(IASTNode node) {
         if (node != null && node.getType() == IASTNode.APPLY) {
-            return (ASTApply)node;
+            return (IASTApply)node;
         }
 
         return nodeFactory.newApply();
     }
 
-    /** Gets AST node as {@link ASTLiteral} */
-    protected ASTLiteral asLiteral(IASTNode node) {
+    /** Gets AST node as {@link IASTLiteral} */
+    protected IASTLiteral asLiteral(IASTNode node) {
         if (node != null && node.getType() == IASTNode.LITERAL) {
-            return (ASTLiteral)node;
+            return (IASTLiteral)node;
         }
 
         return nodeFactory.newLiteral();
     }
 
-    /** Gets AST node as {@link ASTIf} */
-    protected ASTStep asStep(IASTNode node) {
+    /** Gets AST node as {@link IASTIf} */
+    protected IASTStep asStep(IASTNode node) {
         if (node != null && node.getType() == IASTNode.STEP) {
-            return (ASTStep)node;
+            return (IASTStep)node;
         }
 
         return nodeFactory.newStep();
     }
 
-    /** Gets AST node as {@link ASTIf} */
-    protected ASTIf asIf(IASTNode node) {
+    /** Gets AST node as {@link IASTIf} */
+    protected IASTIf asIf(IASTNode node) {
         if (node != null && node.getType() == IASTNode.IF) {
-            return (ASTIf)node;
+            return (IASTIf)node;
         }
 
         return nodeFactory.newIf();
     }
 
-    /** Gets AST node as {@link ASTValidate} */
-    protected ASTValidate asValidate(IASTNode node) {
+    /** Gets AST node as {@link IASTValidate} */
+    protected IASTValidate asValidate(IASTNode node) {
         if (node != null && node.getType() == IASTNode.VALIDATE) {
-            return (ASTValidate)node;
+            return (IASTValidate)node;
         }
 
         return nodeFactory.newValidate();
     }
 
-    /** Gets AST node as {@link ASTExtension} */
-    protected ASTExtension asExtension(IASTNode node) {
+    /** Gets AST node as {@link IASTExtension} */
+    protected IASTExtension asExtension(IASTNode node) {
         if (node != null && node.getType() == IASTNode.EXTENSION) {
-            return (ASTExtension)node;
+            return (IASTExtension)node;
         }
 
         return nodeFactory.newExtension();
     }
 
-    /** Gets AST node as {@link ASTCompPIConstructor} */
-    protected ASTCompPIConstructor asCompPIConstructor(IASTNode node) {
+    /** Gets AST node as {@link IASTCompPIConstructor} */
+    protected IASTCompPIConstructor asCompPIConstructor(IASTNode node) {
         if (node != null && node.getType() == IASTNode.COMPPICONSTRUCTOR) {
-            return (ASTCompPIConstructor)node;
+            return (IASTCompPIConstructor)node;
         }
 
         return nodeFactory.newCompPIConstructor();
     }
 
-    /** Gets AST node as {@link ASTCompDocConstructor} */
-    protected ASTCompDocConstructor asCompDocConstructor(IASTNode node) {
+    /** Gets AST node as {@link IASTCompDocConstructor} */
+    protected IASTCompDocConstructor asCompDocConstructor(IASTNode node) {
 
         if (node != null && node.getType() == IASTNode.COMPDOCCONSTRUCTOR) {
-            return (ASTCompDocConstructor)node;
+            return (IASTCompDocConstructor)node;
         }
 
         return nodeFactory.newCompDocConstructor();
     }
 
-    /** Gets AST node as {@link ASTCompElemConstructor} */
-    protected ASTCompElemConstructor asCompElemConstructor(IASTNode node) {
+    /** Gets AST node as {@link IASTCompElemConstructor} */
+    protected IASTCompElemConstructor asCompElemConstructor(IASTNode node) {
         if (node != null && node.getType() == IASTNode.COMPPICONSTRUCTOR) {
-            return (ASTCompElemConstructor)node;
+            return (IASTCompElemConstructor)node;
         }
 
         return nodeFactory.newCompElemConstructor();
     }
 
-    /** Gets AST node as {@link ASTCompTextConstructor} */
-    protected ASTCompTextConstructor asCompTextConstructor(IASTNode node) {
+    /** Gets AST node as {@link IASTCompTextConstructor} */
+    protected IASTCompTextConstructor asCompTextConstructor(IASTNode node) {
         if (node != null && node.getType() == IASTNode.COMPTEXTCONSTRUCTOR) {
-            return (ASTCompTextConstructor)node;
+            return (IASTCompTextConstructor)node;
         }
 
         return nodeFactory.newCompTextConstructor();
     }
 
-    /** Gets AST node as {@link ASTCompCommentConstructor} */
-    protected ASTCompCommentConstructor asCompCommentConstructor(IASTNode node) {
+    /** Gets AST node as {@link IASTCompCommentConstructor} */
+    protected IASTCompCommentConstructor asCompCommentConstructor(IASTNode node) {
         if (node != null && node.getType() == IASTNode.COMPTEXTCONSTRUCTOR) {
-            return (ASTCompCommentConstructor)node;
+            return (IASTCompCommentConstructor)node;
         }
 
         return nodeFactory.newCompCommentConstructor();
     }
 
-    /** Gets AST node as {@link ASTCompAttrConstructor} */
-    protected ASTCompAttrConstructor asCompAttrConstructor(IASTNode node) {
+    /** Gets AST node as {@link IASTCompAttrConstructor} */
+    protected IASTCompAttrConstructor asCompAttrConstructor(IASTNode node) {
         if (node != null && node.getType() == IASTNode.COMPATTRCONSTRUCTOR) {
-            return (ASTCompAttrConstructor)node;
+            return (IASTCompAttrConstructor)node;
         }
 
         return nodeFactory.newCompAttrConstructor();
     }
 
-    /** Gets AST node as {@link ASTSingleType} */
-    protected ASTSingleType asSingleType(IASTNode node) {
+    /** Gets AST node as {@link IASTSingleType} */
+    protected IASTSingleType asSingleType(IASTNode node) {
         if (node != null && node.getType() == IASTNode.SINGLETYPE) {
-            return (ASTSingleType)node;
+            return (IASTSingleType)node;
         }
 
         return nodeFactory.newSingleType();
     }
 
-    /** Gets AST node as {@link ASTIf} */
-    protected ASTContextItem asContextItem(IASTNode node) {
+    /** Gets AST node as {@link IASTIf} */
+    protected IASTContextItem asContextItem(IASTNode node) {
         if (node != null && node.getType() == IASTNode.CONTEXTITEM) {
-            return (ASTContextItem)node;
+            return (IASTContextItem)node;
         }
 
         return nodeFactory.newContextItem();
     }
 
-    /** Gets AST node as {@link ASTIf} */
-    protected ASTParentherized asParentherized(IASTNode node) {
+    /** Gets AST node as {@link IASTIf} */
+    protected IASTParentherized asParentherized(IASTNode node) {
         if (node != null && node.getType() == IASTNode.PARENTHERIZED) {
-            return (ASTParentherized)node;
+            return (IASTParentherized)node;
         }
 
         return nodeFactory.newParentherized();
     }
 
-    /** Gets AST node as {@link ASTNameTest} */
-    protected ASTNameTest asNameTest(IASTNode node) {
+    /** Gets AST node as {@link IASTNameTest} */
+    protected IASTNameTest asNameTest(IASTNode node) {
         if (node != null && node.getType() == IASTNode.NAMETEST) {
-            return (ASTNameTest)node;
+            return (IASTNameTest)node;
         }
 
         return nodeFactory.newNameTest();
     }
 
-    /** Gets AST node as {@link ASTKindTest} */
-    protected ASTKindTest asKindTest(IASTNode node) {
+    /** Gets AST node as {@link IASTKindTest} */
+    protected IASTKindTest asKindTest(IASTNode node) {
         if (node != null && node.getType() == IASTNode.KINDTEST) {
-            return (ASTKindTest)node;
+            return (IASTKindTest)node;
         }
 
         return nodeFactory.newKindTest();
     }
 
-    /** Gets AST node as {@link ASTPath} */
-    protected ASTPath asPath(IASTNode node) {
+    /** Gets AST node as {@link IASTPath} */
+    protected IASTPath asPath(IASTNode node) {
         if (node != null && node.getType() == IASTNode.PATH) {
-            return (ASTPath)node;
+            return (IASTPath)node;
         }
 
         return nodeFactory.newPath();
     }
 
-    /** Gets AST node as {@link ASTInsert} */
-    protected ASTInsert asInsertExpr(IASTNode node) {
+    /** Gets AST node as {@link IASTInsert} */
+    protected IASTInsert asInsertExpr(IASTNode node) {
         if (node != null && node.getType() == IASTNode.XUINSERT) {
-            return (ASTInsert)node;
+            return (IASTInsert)node;
         }
 
         return nodeFactory.newInsertExpr();
     }
 
-    /** Gets AST node as {@link ASTDelete} */
-    protected ASTDelete asDeleteExpr(IASTNode node) {
+    /** Gets AST node as {@link IASTDelete} */
+    protected IASTDelete asDeleteExpr(IASTNode node) {
         if (node != null && node.getType() == IASTNode.XUDELETE) {
-            return (ASTDelete)node;
+            return (IASTDelete)node;
         }
 
         return nodeFactory.newDeleteExpr();
     }
 
-    /** Gets AST node as {@link ASTReplace} */
-    protected ASTReplace asReplaceExpr(IASTNode node) {
+    /** Gets AST node as {@link IASTReplace} */
+    protected IASTReplace asReplaceExpr(IASTNode node) {
         if (node != null && node.getType() == IASTNode.XUREPLACE) {
-            return (ASTReplace)node;
+            return (IASTReplace)node;
         }
 
         return nodeFactory.newReplaceExpr();
     }
 
-    /** Gets AST node as {@link ASTRename} */
-    protected ASTRename asRenameExpr(IASTNode node) {
+    /** Gets AST node as {@link IASTRename} */
+    protected IASTRename asRenameExpr(IASTNode node) {
         if (node != null && node.getType() == IASTNode.XURENAME) {
-            return (ASTRename)node;
+            return (IASTRename)node;
         }
 
         return nodeFactory.newRenameExpr();
     }
 
-    /** Gets AST node as {@link ASTTransform} */
-    protected ASTTransform asTransformExpr(IASTNode node) {
+    /** Gets AST node as {@link IASTTransform} */
+    protected IASTTransform asTransformExpr(IASTNode node) {
         if (node != null && node.getType() == IASTNode.XUTRANSFORM) {
-            return (ASTTransform)node;
+            return (IASTTransform)node;
         }
 
         return nodeFactory.newTransformExpr();
     }
 
-    /** Gets AST node as {@link ASTNamespaceDecl} */
-    protected ASTNamespaceDecl asNamespaceDecl(IASTNode node) {
+    /** Gets AST node as {@link IASTNamespaceDecl} */
+    protected IASTNamespaceDecl asNamespaceDecl(IASTNode node) {
         if (node != null && node.getType() == IASTNode.NAMESPACEDECL) {
-            return (ASTNamespaceDecl)node;
+            return (IASTNamespaceDecl)node;
         }
 
         return nodeFactory.newNamespaceDecl();
     }
 
-    /** Gets AST node as {@link ASTQuantified} */
-    protected ASTQuantified asQuantified(IASTNode node) {
+    /** Gets AST node as {@link IASTQuantified} */
+    protected IASTQuantified asQuantified(IASTNode node) {
         if (node != null && node.getType() == IASTNode.IF) {
-            return (ASTQuantified)node;
+            return (IASTQuantified)node;
         }
 
         return nodeFactory.newQuantified();
     }
 
-    /** Gets AST node as {@link ASTTypeswitch} */
-    protected ASTTypeswitch asTypeswitch(IASTNode node) {
+    /** Gets AST node as {@link IASTTypeSwitch} */
+    protected IASTTypeSwitch asTypeswitch(IASTNode node) {
         if (node != null && node.getType() == IASTNode.TYPESWITCH) {
-            return (ASTTypeswitch)node;
+            return (IASTTypeSwitch)node;
         }
 
         return nodeFactory.newTypeswitch();
     }
 
-    /** Gets AST node as {@link ASTSequenceType} */
-    protected ASTSequenceType asSequenceType(IASTNode node) {
+    /** Gets AST node as {@link IASTSequenceType} */
+    protected IASTSequenceType asSequenceType(IASTNode node) {
         if (node != null && node.getType() == IASTNode.SEQUENCETYPE) {
-            return (ASTSequenceType)node;
+            return (IASTSequenceType)node;
         }
 
         return nodeFactory.newSequenceType();
     }
 
-    /** Gets AST node as {@link ASTFunctionCall} */
-    protected ASTFunctionCall asFunctionCall(IASTNode node) {
+    /** Gets AST node as {@link IASTFunctionCall} */
+    protected IASTFunctionCall asFunctionCall(IASTNode node) {
         if (node != null && node.getType() == IASTNode.FUNCTIONCALL) {
-            return (ASTFunctionCall)node;
+            return (IASTFunctionCall)node;
         }
 
         return nodeFactory.newFunctionCall();
     }
 
-    /** Gets AST node as {@link ASTFLWOR} */
-    protected ASTFLWOR asFLWOR(IASTNode expr) {
+    /** Gets AST node as {@link IASTFLWOR} */
+    protected IASTFLWOR asFLWOR(IASTNode expr) {
         if (expr != null && expr.getType() == IASTNode.FLWOR) {
-            return (ASTFLWOR)expr;
+            return (IASTFLWOR)expr;
         }
 
         return nodeFactory.newFLOWR();
     }
 
-    /** Gets AST node as {@link ASTBindingClause} */
-    protected ASTBindingClause asBindingClause(IASTNode node) {
-        if (node instanceof ASTBindingClause) {
-            return (ASTBindingClause)node;
+    /** Gets AST node as {@link IASTBindingClause} */
+    protected IASTBindingClause asBindingClause(IASTNode node) {
+        if (node instanceof IASTBindingClause) {
+            return (IASTBindingClause)node;
         }
 
         return nodeFactory.newBindingClause();
     }
 
-    /** Gets AST node as {@link ASTExprSingleClause} */
-    protected ASTExprSingleClause asExprSingleClause(IASTNode node) {
-        if (node instanceof ASTExprSingleClause) {
-            return (ASTExprSingleClause)node;
+    /** Gets AST node as {@link IASTExprSingleClause} */
+    protected IASTExprSingleClause asExprSingleClause(IASTNode node) {
+        if (node instanceof IASTExprSingleClause) {
+            return (IASTExprSingleClause)node;
         }
 
         return nodeFactory.newExprSingleClause();
     }
 
-    /** Gets AST node as {@link ASTOrderByClause} */
-    protected ASTOrderByClause asOrderByClause(IASTNode node) {
-        if (node instanceof ASTOrderByClause) {
-            return (ASTOrderByClause)node;
+    /** Gets AST node as {@link IASTOrderByClause} */
+    protected IASTOrderByClause asOrderByClause(IASTNode node) {
+        if (node instanceof IASTOrderByClause) {
+            return (IASTOrderByClause)node;
         }
 
         return nodeFactory.newOrderByClause();
     }
 
-    /** Gets AST node as {@link ASTDirElement} */
-    protected ASTDirElement asDirElement(IASTNode node) {
+    /** Gets AST node as {@link IASTDirElement} */
+    protected IASTDirElement asDirElement(IASTNode node) {
         if (node != null && node.getType() == IASTNode.DIRELEMENT) {
-            return (ASTDirElement)node;
+            return (IASTDirElement)node;
         }
 
         return nodeFactory.newDirElement();
     }
 
-    /** Gets AST node as {@link ASTFunctionDecl} */
-    protected ASTFunctionDecl asFunctionDecl(IASTNode node) {
+    /** Gets AST node as {@link IASTFunctionDecl} */
+    protected IASTFunctionDecl asFunctionDecl(IASTNode node) {
         if (node != null && node.getType() == IASTNode.FUNCTIONDECL) {
-            return (ASTFunctionDecl)node;
+            return (IASTFunctionDecl)node;
         }
 
         return nodeFactory.newFunctionDecl();
     }
 
-    /** Gets AST node as {@link ASTVarDecl} */
-    protected ASTVarDecl asVarDecl(IASTNode node) {
+    /** Gets AST node as {@link IASTVarDecl} */
+    protected IASTVarDecl asVarDecl(IASTNode node) {
         if (node != null && node.getType() == IASTNode.VARDECL) {
-            return (ASTVarDecl)node;
+            return (IASTVarDecl)node;
         }
 
         return nodeFactory.newVariableDecl();
@@ -2858,13 +2860,13 @@ public class ModelBuilder {
 
         // TODO: optimize (or wait for java 7)
         if (regionType == XQueryRegions.OP_OR) {
-            return ASTOperator.OP_OR;
+            return IASTOperator.OP_OR;
         } else if (regionType == XQueryRegions.OP_AND) {
-            return ASTOperator.OP_AND;
+            return IASTOperator.OP_AND;
         } else if (regionType == XQueryRegions.COMMA) {
-            return ASTOperator.OP_COMMA;
+            return IASTOperator.OP_COMMA;
         } else if (regionType == XQueryRegions.OP_TO) {
-            return ASTOperator.OP_TO;
+            return IASTOperator.OP_TO;
         } else {
             return -1;
         }

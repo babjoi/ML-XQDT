@@ -35,7 +35,7 @@ import org.eclipse.wst.xquery.core.IXQDTCorePreferences;
 import org.eclipse.wst.xquery.core.IXQDTLanguageConstants;
 import org.eclipse.wst.xquery.core.XQDTCorePlugin;
 import org.eclipse.wst.xquery.sse.core.internal.ValidationHelper;
-import org.eclipse.wst.xquery.sse.core.internal.model.ast.ASTModule;
+import org.eclipse.wst.xquery.sse.core.internal.model.ast.IASTModule;
 import org.eclipse.wst.xquery.sse.core.internal.model.ast.IASTNode;
 import org.eclipse.wst.xquery.sse.core.internal.sdregions.XQueryStructuredDocumentRegion;
 
@@ -52,7 +52,7 @@ public class XQueryStructuredModel extends AbstractStructuredModel implements IS
     final protected ModelBuilder builder;
 
     /** Root AST node (module) */
-    private ASTModule module;
+    private IASTModule module;
 
     /** Current language */
     protected int language;
@@ -120,7 +120,7 @@ public class XQueryStructuredModel extends AbstractStructuredModel implements IS
     }
 
     /** Gets module managed by this model */
-    public ASTModule getModule() {
+    public IASTModule getModule() {
         return module;
     }
 

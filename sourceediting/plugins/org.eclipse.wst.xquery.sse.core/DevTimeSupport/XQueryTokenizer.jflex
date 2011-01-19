@@ -1810,8 +1810,6 @@ SimpleName = ({Letter} | "_" ) ({SimpleNameChar})*
   
   "@"											{  yybegin(TS_NODETEST); return PATH_ABBREVATTRIBUTE; }
   
-  
-   
   // Primary Expr
 
   {StringLiteral} 				{ yybegin(TS_ENDPRIMARY); return STRINGLITERAL; } 
@@ -1822,6 +1820,7 @@ SimpleName = ({Letter} | "_" ) ({SimpleNameChar})*
  
   "("							{ pushState(TS_ENDPRIMARY); pushState(PAREXPR); yybegin(TS_EXPROPT); return LPAR; }
   
+  ".."							{ yybegin(TS_ENDPRIMARY); return PATH_ABBREVPARENT; }
   "."							{ yybegin(TS_ENDPRIMARY); return PATH_CONTEXTITEM; }
   
  

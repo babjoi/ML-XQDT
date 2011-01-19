@@ -74,6 +74,31 @@ public class TestSSEParser implements XQueryRegions {
                 NUMERICLITERAL });
     }
 
+    @Test
+    public void testBug334825() {
+        IStructuredDocument document = load("a[1][1]");
+        IStructuredDocumentRegion[] regions = document.getStructuredDocumentRegions();
+
+        checkRegionTypes(regions, new Object[] { PATH_NAMETEST, LSQUARE, NUMERICLITERAL, RSQUARE, LSQUARE,
+                NUMERICLITERAL, RSQUARE });
+    }
+
+    @Test
+    public void testBug334830() {
+        IStructuredDocument document = load("..");
+        IStructuredDocumentRegion[] regions = document.getStructuredDocumentRegions();
+
+        checkRegionTypes(regions, new Object[] { PATH_ABBREVPARENT });
+    }
+
+    @Test
+    public void testUnionOperator() {
+        IStructuredDocument document = load(".|@*");
+        IStructuredDocumentRegion[] regions = document.getStructuredDocumentRegions();
+
+        checkRegionTypes(regions, new Object[] { PATH_CONTEXTITEM, OP_PIPE, PATH_ABBREVATTRIBUTE, PATH_NAMETEST });
+    }
+
     // Helpers
 
     /**

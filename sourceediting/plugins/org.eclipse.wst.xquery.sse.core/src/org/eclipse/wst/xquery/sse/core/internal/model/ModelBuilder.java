@@ -147,8 +147,8 @@ public class ModelBuilder {
             IASTOperator.OP_DIV, IASTOperator.OP_IDIV, IASTOperator.OP_MOD }, new String[] { XQueryRegions.OP_MULTIPLY,
             XQueryRegions.OP_DIV, XQueryRegions.OP_IDIV, XQueryRegions.OP_MOD });
 
-    final protected OperatorFilter unionFilter = new OperatorFilter(new int[] { IASTOperator.OP_UNION },
-            new String[] { XQueryRegions.OP_UNION });
+    final protected OperatorFilter unionFilter = new OperatorFilter(new int[] { IASTOperator.OP_UNION,
+            IASTOperator.OP_UNION }, new String[] { XQueryRegions.OP_UNION, XQueryRegions.OP_PIPE });
 
     final protected OperatorFilter intersectExceptFilter = new OperatorFilter(new int[] { IASTOperator.OP_INTERSECT,
             IASTOperator.OP_EXCEPT }, new String[] { XQueryRegions.OP_INTERSECT, XQueryRegions.OP_EXCEPT });
@@ -156,12 +156,14 @@ public class ModelBuilder {
     final protected OperatorFilter relativePathFilter = new OperatorFilter(new int[] { IASTOperator.PATH_SLASH,
             IASTOperator.PATH_SLASHSLASH, }, new String[] { XQueryRegions.PATH_SLASH, XQueryRegions.PATH_SLASHSLASH });
 
-    final protected RegionFilter stepFilter = new RegionFilter(new String[] { XQueryRegions.PATH_ABBREVATTRIBUTE,
-            XQueryRegions.PATH_ABBREVPARENT, XQueryRegions.PATH_ANCESTOR, XQueryRegions.PATH_ANCESTOR_OR_SELF,
-            XQueryRegions.PATH_ATTRIBUTE, XQueryRegions.PATH_CHILD, XQueryRegions.PATH_DESCENDANT,
-            XQueryRegions.PATH_DESCENDANT_OR_SELF, XQueryRegions.PATH_FOLLOWING, XQueryRegions.PATH_FOLLOWING_SIBLING,
-            XQueryRegions.PATH_PARENT, XQueryRegions.PATH_PRECEDING, XQueryRegions.PATH_PRECEDING_SIBLING,
-            XQueryRegions.PATH_SELF });
+    final protected RegionFilter axisFilter = new RegionFilter(new String[] { XQueryRegions.PATH_ANCESTOR,
+            XQueryRegions.PATH_ANCESTOR_OR_SELF, XQueryRegions.PATH_ATTRIBUTE, XQueryRegions.PATH_CHILD,
+            XQueryRegions.PATH_DESCENDANT, XQueryRegions.PATH_DESCENDANT_OR_SELF, XQueryRegions.PATH_FOLLOWING,
+            XQueryRegions.PATH_FOLLOWING_SIBLING, XQueryRegions.PATH_PARENT, XQueryRegions.PATH_PRECEDING,
+            XQueryRegions.PATH_PRECEDING_SIBLING, XQueryRegions.PATH_SELF });
+
+    final protected RegionFilter abbrevStepFilter = new RegionFilter(new String[] { XQueryRegions.PATH_ABBREVATTRIBUTE,
+            XQueryRegions.PATH_ABBREVPARENT });
 
     final protected RegionFilter kindTestFilter = new RegionFilter(new String[] { XQueryRegions.KT_ANYKIND,
             XQueryRegions.KT_ATTRIBUTE, XQueryRegions.KT_COMMENT, XQueryRegions.KT_DOCUMENTNODE,
@@ -1685,7 +1687,7 @@ public class ModelBuilder {
             nextSDRegion(); // '/'
 
             IASTNode oldRelPath = path.getRelativePath();
-            IASTNode newRelPath = reparseRelativePathExpr(oldRelPath);
+            IASTNode newRelPath = reparseRelativePathExprOpt(oldRelPath);
             path.setRelativePath(newRelPath);
         } else {
             final boolean slashslash = sameRegionType(XQueryRegions.PATH_SLASHSLASH);
@@ -1711,6 +1713,15 @@ public class ModelBuilder {
         }
 
         return path;
+    }
+
+    /**
+     * Reparse <tt>RelativePathExpr?</tt>
+     * 
+     * @return a {@link ASTOperator} or null when failing parsing a relative path
+     */
+    protected IASTNode reparseRelativePathExprOpt(IASTNode expr) {
+        return reparseOperatorStar(expr, relativePathFilter, relativePathContinuation);
     }
 
     /**
@@ -1761,7 +1772,8 @@ public class ModelBuilder {
         } else if (sameRegionType(XQueryRegions.KW_PI)) {
             primary = reparseCompPIConstructor(step.getPrimaryExpr());
         } else {
-            if (!reparseAxisStep(step)) {
+            step = reparseAxisStep(step);
+            if (step == null) {
                 return null;
             }
         }
@@ -1783,26 +1795,30 @@ public class ModelBuilder {
      * 
      * @return true when an axis step has been parsed (even partially)
      */
-    protected boolean reparseAxisStep(IASTStep step) {
-        boolean nonvoid = false;
+    protected IASTStep reparseAxisStep(IASTStep step) {
+        boolean parseNodeTest = true;
 
-        if (sameRegionType(stepFilter)) {
-            nextSDRegion(); // Axis name
-            nonvoid = true;
+        if (sameRegionType(XQueryRegions.PATH_ABBREVATTRIBUTE)) {
+            nextSDRegion(); // '@'
+        } else if (sameRegionType(XQueryRegions.PATH_ABBREVPARENT)) {
+            nextSDRegion(); // '..' 
+            parseNodeTest = false;
+        } else if (sameRegionType(axisFilter)) {
+            nextSDRegion(); // Axis name 
         }
 
-        IASTNode oldNodeTest = step.getNodeTest();
-        IASTNode newNodeTest = reparseNodeTest(oldNodeTest);
+        if (parseNodeTest) {
+            IASTNode oldNodeTest = step.getNodeTest();
+            IASTNode newNodeTest = reparseNodeTest(oldNodeTest);
 
-        if (newNodeTest == null && nonvoid) {
-            reportError(XQueryMessages.errorXQSE_MissingNodeTest_UI_);
+            if (newNodeTest == null) {
+                reportError(XQueryMessages.errorXQSE_MissingNodeTest_UI_);
+            }
+
+            step.setNodeTest(newNodeTest);
         }
 
-        nonvoid |= newNodeTest != null;
-
-        step.setNodeTest(newNodeTest);
-
-        return nonvoid;
+        return step;
     }
 
     /**
@@ -2276,16 +2292,23 @@ public class ModelBuilder {
     /**
      * Reparse <tt>("[" Expr "]")*</tt>
      */
-    protected IASTNode reparsePredicateList(IASTNode expr) {
-        nextSDRegion(); // [
+    protected void reparsePredicateList(IASTStep step) {
+        while (currentSDRegion != null) {
+            if (!sameRegionType(XQueryRegions.LSQUARE)) {
+                return;
+            }
 
-        IASTNode predicate = reparseExpr(expr);
+            nextSDRegion(); // [
 
-        if (checkAndReport(XQueryRegions.RSQUARE, XQueryMessages.errorXQSE_MissingRSquare_UI_)) {
+            reparseExpr(null); // TODO: reuse 
+
+            if (!checkAndReport(XQueryRegions.RSQUARE, XQueryMessages.errorXQSE_MissingRSquare_UI_)) {
+                // Abort parsing
+                return;
+
+            }
             nextSDRegion(); // ']'
         }
-
-        return predicate;
     }
 
     // Reparse operator helpers

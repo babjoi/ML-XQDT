@@ -48,7 +48,7 @@ public class SETLaunchConfigurationDelegate extends AbstractScriptLaunchConfigur
         try {
 //            if (mode.equals(ILaunchManager.DEBUG_MODE)) {
 //                throw new CoreException(new Status(IStatus.ERROR, SETLaunchingPlugin.PLUGIN_ID,
-//                        "The Sausalito Debugger is not available in this version of Sausalito Eclipse Tools."));
+//                        "The Sausalito Debugger is not available in this version of Sausalito Tools for Eclipse."));
 //            }
 
             monitor.beginTask("Starting the Sausalito CoreSDK Server", 10);

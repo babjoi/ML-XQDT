@@ -12,9 +12,12 @@ package org.eclipse.wst.xquery.core.tests;
 
 import org.eclipse.wst.xquery.internal.core.tests.TestParser;
 import org.eclipse.wst.xquery.internal.core.tests.TestSSEParser;
+import org.junit.runner.RunWith;
+import org.junit.runners.Suite;
 import org.junit.runners.Suite.SuiteClasses;
 
+@RunWith(Suite.class)
 @SuiteClasses({ TestParser.class, TestSSEParser.class })
-public class XQDTCoreTestSuite extends AbstractXQDTTestSuite {
+public class XQDTCoreTestSuite {
 
 }

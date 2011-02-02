@@ -144,6 +144,16 @@ public interface IASTNode {
     public List<IMessage> getErrorMessages();
 
     /**
+     * Accepts the given visitor on a visit of the current node.
+     * 
+     * @param visitor
+     *            the visitor object
+     * @exception IllegalArgumentException
+     *                if the visitor is null
+     */
+    public void accept(ASTVisitor visitor);
+
+    /**
      * Recursively perform static checking
      * 
      * @param document

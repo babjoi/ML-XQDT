@@ -14,6 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.eclipse.core.resources.IProject;
+import org.eclipse.wst.xquery.set.core.ISETCoreConstants;
 
 public class SETCreateDocJob extends AbstractSETCoreSDKCommandJob {
 
@@ -40,5 +41,10 @@ public class SETCreateDocJob extends AbstractSETCoreSDKCommandJob {
     @Override
     protected boolean needsResourceRefresh() {
         return true;
+    }
+
+    @Override
+    protected String[] resourcesToRefresh() {
+        return new String[] { ISETCoreConstants.PROJECT_DIRECTORY_DOC };
     }
 }

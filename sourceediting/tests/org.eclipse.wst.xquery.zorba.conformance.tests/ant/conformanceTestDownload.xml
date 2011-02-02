@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ /*******************************************************************************
+ * Copyright (c) 2010 28msec Inc. and others.
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ *
+ * Contributors:
+ *     Gabriel Petrovay (28msec) - initial API and implementation
+ *******************************************************************************/
+-->
+<project name="Sausalito Conformance Test Download" default="all">
+
+	<property name="cwd" location="${basedir}/.."/>
+	<property name="downloadDir" location="${cwd}/downloads" />
+	<property name="svnant.lib.dir" location="${cwd}/lib/svnant"/>
+
+	<!-- *********************************************************** -->
+	
+	<target name="init">
+		<echo>Deleting the downloads directory...</echo>
+		<delete dir="${downloadDir}" failonerror="false" quiet="true" />
+		
+		<echo>Creating the downloads directory...</echo>
+		<mkdir dir="${downloadDir}" />
+	</target>
+	
+	<!-- *********************************************************** -->
+
+	<target name="download.svnant">
+		<echo>Downloading svnant...</echo>
+		<get dest="${downloadDir}/svnant-1.3.0.zip" src="http://subclipse.tigris.org/files/documents/906/46267/svnant-1.3.0.zip"/>
+		<unzip src="${downloadDir}/svnant-1.3.0.zip" dest="${downloadDir}/svnant-1.3.0" />		
+	</target>	
+	
+	<typedef resource="org/tigris/subversion/svnant/svnantlib.xml">
+		<classpath>
+			<fileset dir="${svnant.lib.dir}">     
+				<include name="**/*.jar" />
+			</fileset>
+		</classpath>
+	</typedef>
+	
+	<!-- *********************************************************** -->
+
+	<target name="checkout.zorba.tests">
+		<delete dir="${downloadDir}/zorba_test_queries" failonerror="false" quiet="true" />
+		<svn javahl="false" svnkit="false">
+			<checkout url="http://zorba.svn.sourceforge.net/svnroot/zorba/trunk/zorba/test/rbkt/Queries/zorba/" destpath="${downloadDir}/zorba_test_queries" />
+		</svn>
+	</target>
+	
+	<target name="download.zorba.tests">
+		<echo>Checking out Zorba rbkt tests...</echo>
+		<retry retrycount="3">
+			<antcall target="checkout.zorba.tests"></antcall>
+		</retry>
+	</target>	
+
+	<!-- *********************************************************** -->
+
+	<target name="all" depends="init,download.zorba.tests">
+	
+	</target>
+	
+</project>

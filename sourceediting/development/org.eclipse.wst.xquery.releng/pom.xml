@@ -9,7 +9,7 @@
 	<packaging>pom</packaging>
 
 	<properties>
-		<tycho-version>0.9.0</tycho-version>
+		<tycho-version>0.10.0</tycho-version>
 	</properties>
  
 	<modules>
@@ -40,7 +40,6 @@
 		<module>../../plugins/org.eclipse.wst.xquery.debug.ui.zorba</module>
 		<module>../../plugins/org.eclipse.wst.xquery.ui.zorba</module>
 		<module>../../features/org.eclipse.wst.xquery.zorba.feature</module>
-		<module>../../tests/org.eclipse.wst.xquery.zorba.core.tests</module>
 		
 		<!-- Set Support -->
 		<module>../../plugins/org.eclipse.wst.xquery.set</module>

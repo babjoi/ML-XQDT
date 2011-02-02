@@ -1,7 +1,7 @@
 /*******************************************************************************
  * Copyright (c) 2010 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
- * are made available under the terms of the Eclipse Public License v1.0
+ * are made available under the terms of the Eclipse public abstract License v1.0
  * which accompanies this distribution, and is available at
  * http://www.eclipse.org/legal/epl-v10.html
  *
@@ -10,287 +10,203 @@
  *******************************************************************************/
 package org.eclipse.wst.xquery.sse.core.internal.model.ast;
 
-import org.eclipse.wst.xquery.sse.core.internal.model.ast.update.ASTDelete;
-import org.eclipse.wst.xquery.sse.core.internal.model.ast.update.ASTInsert;
-import org.eclipse.wst.xquery.sse.core.internal.model.ast.update.ASTRename;
-import org.eclipse.wst.xquery.sse.core.internal.model.ast.update.ASTReplace;
-import org.eclipse.wst.xquery.sse.core.internal.model.ast.update.ASTTransform;
-import org.eclipse.wst.xquery.sse.core.internal.model.ast.xml.ASTDirAttribute;
-import org.eclipse.wst.xquery.sse.core.internal.model.ast.xml.ASTDirElement;
+import org.eclipse.wst.xquery.sse.core.internal.model.ast.impl.IASTFunctionCall;
 
 /**
- * XQuery AST node factory
- * 
- * TODO: eclipse extension point.
+ * Factory for XQuery AST nodes.
  * 
  * @author <a href="villard@us.ibm.com">Lionel Villard</a>
  */
-public class ASTNodeFactory {
+public abstract class ASTNodeFactory {
 
-	/**
-	 * @return
-	 */
-	public ASTModule newModule() {
-		return new ASTModule();
-	}
+    /**
+     * @return
+     */
+    public abstract IASTModule newModule();
 
-	/**
-	 * @return
-	 */
-	public ASTLiteral newLiteral() {
-		return new ASTLiteral();
-	}
+    /**
+     * @return
+     */
+    public abstract IASTLiteral newLiteral();
 
-	/**
-	 * @return
-	 */
-	public ASTVarRef newVarRef() {
-		return new ASTVarRef();
-	}
+    /**
+     * @return
+     */
+    public abstract IASTVarRef newVarRef();
 
-	/**
-	 * @return
-	 */
-	public ASTFLWOR newFLOWR() {
-		return new ASTFLWOR();
-	}
+    /**
+     * @return
+     */
+    public abstract IASTFLWOR newFLOWR();
 
-	/**
-	 * @return
-	 */
-	public ASTSequenceType newSequenceType() {
-		return new ASTSequenceType();
-	}
+    /**
+     * @return
+     */
+    public abstract IASTSequenceType newSequenceType();
 
-	/**
-	 * @return
-	 */
-	public ASTFunctionCall newFunctionCall() {
-		return new ASTFunctionCall();
-	}
+    /**
+     * @return
+     */
+    public abstract IASTFunctionCall newFunctionCall();
 
-	/**
-	 * @return
-	 */
-	public ASTFunctionDecl newFunctionDecl() {
-		return new ASTFunctionDecl();
-	}
+    /**
+     * @return
+     */
+    public abstract IASTFunctionDecl newFunctionDecl();
 
-	/**
-	 * @return
-	 */
-	public ASTDirElement newDirElement() {
-		return new ASTDirElement();
-	}
+    /**
+     * @return
+     */
+    public abstract IASTDirElement newDirElement();
 
-	/**
-	 * @return
-	 */
-	public ASTDirAttribute newDirAttribute() {
-		return new ASTDirAttribute();
-	}
+    /**
+     * @return
+     */
+    public abstract IASTDirAttribute newDirAttribute();
 
-	/**
-	 * @return
-	 */
-	public ASTVarDecl newVariableDecl() {
-		return new ASTVarDecl();
-	}
+    /**
+     * @return
+     */
+    public abstract IASTVarDecl newVariableDecl();
 
-	/**
-	 * @return
-	 */
-	public ASTIf newIf() {
-		return new ASTIf();
-	}
+    /**
+     * @return
+     */
+    public abstract IASTIf newIf();
 
-	/**
-	 * @return
-	 */
-	public ASTTypeswitch newTypeswitch() {
-		return new ASTTypeswitch();
-	}
+    /**
+     * @return
+     */
+    public abstract IASTTypeSwitch newTypeswitch();
 
-	/**
-	 * @return
-	 */
-	public ASTQuantified newQuantified() {
-		return new ASTQuantified();
-	}
+    /**
+     * @return
+     */
+    public abstract IASTQuantified newQuantified();
 
-	/**
-	 * @return
-	 */
-	public ASTNamespaceDecl newNamespaceDecl() {
-		return new ASTNamespaceDecl();
-	}
+    /**
+     * @return
+     */
+    public abstract IASTNamespaceDecl newNamespaceDecl();
 
-	/**
-	 * @return
-	 */
-	public ASTApply newApply() {
-		return new ASTApply();
-	}
+    /**
+     * @return
+     */
+    public abstract IASTApply newApply();
 
-	/**
-	 * @return
-	 */
-	public ASTBindingClause newBindingClause() {
-		return new ASTBindingClause();
-	}
+    /**
+     * @return
+     */
+    public abstract IASTBindingClause newBindingClause();
 
-	/**
-	 * @return
-	 */
-	public ASTExprSingleClause newExprSingleClause() {
-		return new ASTExprSingleClause();
-	}
+    /**
+     * @return
+     */
+    public abstract IASTExprSingleClause newExprSingleClause();
 
-	/**
-	 * @return
-	 */
-	public ASTOrderByClause newOrderByClause() {
-		return new ASTOrderByClause();
-	}
+    /**
+     * @return
+     */
+    public abstract IASTOrderByClause newOrderByClause();
 
-	/**
-	 * @return
-	 */
-	public ASTInsert newInsertExpr() {
-		return new ASTInsert();
-	}
+    /**
+     * @return
+     */
+    public abstract IASTInsert newInsertExpr();
 
-	/**
-	 * @return
-	 */
-	public ASTDelete newDeleteExpr() {
-		return new ASTDelete();
-	}
+    /**
+     * @return
+     */
+    public abstract IASTDelete newDeleteExpr();
 
-	/**
-	 * @return
-	 */
-	public ASTReplace newReplaceExpr() {
-		return new ASTReplace();
-	}
+    /**
+     * @return
+     */
+    public abstract IASTReplace newReplaceExpr();
 
-	/**
-	 * @return
-	 */
-	public ASTRename newRenameExpr() {
-		return new ASTRename();
-	}
+    /**
+     * @return
+     */
+    public abstract IASTRename newRenameExpr();
 
-	/**
-	 * @return
-	 */
-	public ASTTransform newTransformExpr() {
-		return new ASTTransform();
-	}
+    /**
+     * @return
+     */
+    public abstract IASTTransform newTransformExpr();
 
-	/**
-	 * @return
-	 */
-	public ASTNameTest newNameTest() {
-		return new ASTNameTest();
-	}
+    /**
+     * @return
+     */
+    public abstract IASTNameTest newNameTest();
 
-	/**
-	 * @return
-	 */
-	public ASTPath newPath() {
-		return new ASTPath();
-	}
+    /**
+     * @return
+     */
+    public abstract IASTPath newPath();
 
-	/**
-	 * @return
-	 */
-	public ASTStep newStep() {
-		return new ASTStep();
-	}
+    /**
+     * @return
+     */
+    public abstract IASTStep newStep();
 
-	/**
-	 * @return
-	 */
-	public ASTKindTest newKindTest() {
-		return new ASTKindTest();
-	}
+    /**
+     * @return
+     */
+    public abstract IASTKindTest newKindTest();
 
-	/**
-	 * @return
-	 */
-	public ASTParentherized newParentherized() {
-		return new ASTParentherized();
-	}
+    /**
+     * @return
+     */
+    public abstract IASTParentherized newParentherized();
 
-	/**
-	 * @return
-	 */
-	public ASTContextItem newContextItem() {
-		return new ASTContextItem();
-	}
+    /**
+     * @return
+     */
+    public abstract IASTContextItem newContextItem();
 
-	/**
-	 * @return
-	 */
-	public ASTSingleType newSingleType() {
-		return new ASTSingleType();
-	}
+    /**
+     * @return
+     */
+    public abstract IASTSingleType newSingleType();
 
-	/**
-	 * @return
-	 */
-	public ASTCompPIConstructor newCompPIConstructor() {
-		return new ASTCompPIConstructor();
-	}
+    /**
+     * @return
+     */
+    public abstract IASTCompPIConstructor newCompPIConstructor();
 
-	/**
-	 * @return
-	 */
-	public ASTCompDocConstructor newCompDocConstructor() {
-		return new ASTCompDocConstructor();
-	}
+    /**
+     * @return
+     */
+    public abstract IASTCompDocConstructor newCompDocConstructor();
 
-	/**
-	 * @return
-	 */
-	public ASTCompElemConstructor newCompElemConstructor() {
-		return new ASTCompElemConstructor();
-	}
+    /**
+     * @return
+     */
+    public abstract IASTCompElemConstructor newCompElemConstructor();
 
-	/**
-	 * @return
-	 */
-	public ASTCompTextConstructor newCompTextConstructor() {
-		return new ASTCompTextConstructor();
-	}
+    /**
+     * @return
+     */
+    public abstract IASTCompTextConstructor newCompTextConstructor();
 
-	/**
-	 * @return
-	 */
-	public ASTCompCommentConstructor newCompCommentConstructor() {
-		return new ASTCompCommentConstructor();
-	}
+    /**
+     * @return
+     */
+    public abstract IASTCompCommentConstructor newCompCommentConstructor();
 
-	/**
-	 * @return
-	 */
-	public ASTCompAttrConstructor newCompAttrConstructor() {
-		return new ASTCompAttrConstructor();
-	}
+    /**
+     * @return
+     */
+    public abstract IASTCompAttrConstructor newCompAttrConstructor();
 
-	/**
-	 * @return
-	 */
-	public ASTExtension newExtension() {
-		return new ASTExtension();
-	}
+    /**
+     * @return
+     */
+    public abstract IASTExtension newExtension();
 
-	/**
-	 * @return
-	 */
-	public ASTValidate newValidate() {
-		return new ASTValidate();
-	}
+    /**
+     * @return
+     */
+    public abstract IASTValidate newValidate();
 
 }

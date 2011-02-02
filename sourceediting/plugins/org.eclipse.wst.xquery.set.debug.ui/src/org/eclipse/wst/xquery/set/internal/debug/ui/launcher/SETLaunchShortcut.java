@@ -162,6 +162,9 @@ public class SETLaunchShortcut extends AbstractScriptLaunchShortcut {
         }
 
         SETProjectConfig config = SETProjectConfigUtil.readProjectConfig(project);
+        if (config == null) {
+            return;
+        }
         String startPage = config.getStartPage();
         if (startPage == null) {
             startPage = SETEditProjectConfigDialog.getHandlerFunctionStartPage(project, getShell());

@@ -82,18 +82,24 @@ public interface IASTNode {
     public IASTNode getASTParent();
 
     /**
+     * Set the child node at the given index.
+     * 
      * @param index
      * @param newChild
      */
     public void setChildASTNodeAt(int index, IASTNode newChild);
 
     /**
+     * Get the child node at the given index.
+     * 
      * @param i
-     * @return
+     *            an index
+     * @return The child AST node or null if none at the given index.
      */
     public IASTNode getChildASTNodeAt(int i);
 
     /**
+     * 
      * @param index
      */
     public void removeChildASTNodesAfter(int index);

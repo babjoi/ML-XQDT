@@ -13,6 +13,7 @@ package org.eclipse.wst.xquery.sse.core.internal.model.ast.impl;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.eclipse.wst.xquery.sse.core.internal.model.ast.ASTHelper;
 import org.eclipse.wst.xquery.sse.core.internal.model.ast.IASTNode;
 
 /**

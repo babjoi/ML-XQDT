@@ -17,6 +17,7 @@ import org.eclipse.wst.validation.internal.provisional.core.IReporter;
 import org.eclipse.wst.validation.internal.provisional.core.IValidator;
 import org.eclipse.wst.xquery.sse.core.internal.XQueryMessages;
 import org.eclipse.wst.xquery.sse.core.internal.model.ModelHelper;
+import org.eclipse.wst.xquery.sse.core.internal.model.ast.ASTHelper;
 import org.eclipse.wst.xquery.sse.core.internal.model.ast.IASTVarRef;
 
 /**

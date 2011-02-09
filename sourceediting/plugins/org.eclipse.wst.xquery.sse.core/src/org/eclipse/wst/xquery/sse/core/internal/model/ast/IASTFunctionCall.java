@@ -8,9 +8,8 @@
  * Contributors:
  *     IBM Corporation - initial API and implementation
  *******************************************************************************/
-package org.eclipse.wst.xquery.sse.core.internal.model.ast.impl;
+package org.eclipse.wst.xquery.sse.core.internal.model.ast;
 
-import org.eclipse.wst.xquery.sse.core.internal.model.ast.IASTNode;
 
 /**
  * 

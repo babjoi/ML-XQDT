@@ -19,6 +19,7 @@ import org.eclipse.wst.sse.core.internal.provisional.text.ITextRegion;
 import org.eclipse.wst.validation.internal.provisional.core.IReporter;
 import org.eclipse.wst.validation.internal.provisional.core.IValidator;
 import org.eclipse.wst.xquery.sse.core.internal.XQueryMessages;
+import org.eclipse.wst.xquery.sse.core.internal.model.ast.ASTHelper;
 import org.eclipse.wst.xquery.sse.core.internal.model.ast.IASTFunctionDecl;
 import org.eclipse.wst.xquery.sse.core.internal.model.ast.IASTModule;
 import org.eclipse.wst.xquery.sse.core.internal.model.ast.IASTNode;

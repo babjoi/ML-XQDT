@@ -14,6 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.eclipse.wst.sse.core.internal.provisional.text.IStructuredDocumentRegion;
+import org.eclipse.wst.xquery.sse.core.internal.model.ast.ASTHelper;
 import org.eclipse.wst.xquery.sse.core.internal.model.ast.IASTFunctionDecl;
 import org.eclipse.wst.xquery.sse.core.internal.model.ast.IASTNode;
 

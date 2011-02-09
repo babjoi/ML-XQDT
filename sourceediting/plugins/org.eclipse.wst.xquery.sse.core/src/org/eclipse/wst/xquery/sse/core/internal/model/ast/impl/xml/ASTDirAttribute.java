@@ -19,10 +19,10 @@ import org.eclipse.wst.validation.internal.provisional.core.IMessage;
 import org.eclipse.wst.validation.internal.provisional.core.IReporter;
 import org.eclipse.wst.validation.internal.provisional.core.IValidator;
 import org.eclipse.wst.xml.core.internal.document.AttrImpl;
+import org.eclipse.wst.xquery.sse.core.internal.model.ast.ASTHelper;
 import org.eclipse.wst.xquery.sse.core.internal.model.ast.ASTVisitor;
 import org.eclipse.wst.xquery.sse.core.internal.model.ast.IASTDirAttribute;
 import org.eclipse.wst.xquery.sse.core.internal.model.ast.IASTNode;
-import org.eclipse.wst.xquery.sse.core.internal.model.ast.impl.ASTHelper;
 import org.w3c.dom.Node;
 
 /**

@@ -14,9 +14,12 @@ import org.eclipse.wst.xquery.sse.core.internal.model.ast.ASTNodeFactory;
 import org.eclipse.wst.xquery.sse.core.internal.model.ast.IASTDelete;
 import org.eclipse.wst.xquery.sse.core.internal.model.ast.IASTDirAttribute;
 import org.eclipse.wst.xquery.sse.core.internal.model.ast.IASTDirElement;
+import org.eclipse.wst.xquery.sse.core.internal.model.ast.IASTFunctionCall;
 import org.eclipse.wst.xquery.sse.core.internal.model.ast.IASTInsert;
 import org.eclipse.wst.xquery.sse.core.internal.model.ast.IASTNameTest;
 import org.eclipse.wst.xquery.sse.core.internal.model.ast.IASTNamespaceDecl;
+import org.eclipse.wst.xquery.sse.core.internal.model.ast.IASTNode;
+import org.eclipse.wst.xquery.sse.core.internal.model.ast.IASTOperator;
 import org.eclipse.wst.xquery.sse.core.internal.model.ast.IASTOrderByClause;
 import org.eclipse.wst.xquery.sse.core.internal.model.ast.IASTRename;
 import org.eclipse.wst.xquery.sse.core.internal.model.ast.IASTReplace;
@@ -30,7 +33,9 @@ import org.eclipse.wst.xquery.sse.core.internal.model.ast.impl.update.ASTRename;
 import org.eclipse.wst.xquery.sse.core.internal.model.ast.impl.update.ASTReplace;
 import org.eclipse.wst.xquery.sse.core.internal.model.ast.impl.update.ASTTransform;
 import org.eclipse.wst.xquery.sse.core.internal.model.ast.impl.xml.ASTDirAttribute;
+import org.eclipse.wst.xquery.sse.core.internal.model.ast.impl.xml.ASTDirComment;
 import org.eclipse.wst.xquery.sse.core.internal.model.ast.impl.xml.ASTDirElement;
+import org.eclipse.wst.xquery.sse.core.internal.model.ast.impl.xml.ASTDirPI;
 
 /**
  * XQuery AST node factory
@@ -306,4 +311,20 @@ public class ImplASTNodeFactory extends ASTNodeFactory {
     public IASTValidate newValidate() {
         return new ASTValidate();
     }
+
+    @Override
+    public IASTOperator newOperator(int operatorType) {
+        return new ASTOperator(operatorType);
+    }
+
+    @Override
+    public IASTNode newDirPI() {
+        return new ASTDirPI();
+    }
+
+    @Override
+    public IASTNode newDirComment() {
+        return new ASTDirComment();
+    }
+
 }

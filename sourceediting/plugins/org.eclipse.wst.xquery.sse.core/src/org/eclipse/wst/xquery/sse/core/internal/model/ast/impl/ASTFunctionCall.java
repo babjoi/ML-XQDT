@@ -10,6 +10,8 @@
  *******************************************************************************/
 package org.eclipse.wst.xquery.sse.core.internal.model.ast.impl;
 
+import org.eclipse.wst.xquery.sse.core.internal.model.ast.IASTFunctionCall;
+
 /**
  * 
  * @author <a href="villard@us.ibm.com">Lionel Villard</a>

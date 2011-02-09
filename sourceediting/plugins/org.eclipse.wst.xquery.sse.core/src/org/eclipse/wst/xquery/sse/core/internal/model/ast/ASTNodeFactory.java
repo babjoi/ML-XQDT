@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wst.xquery.sse.core.internal.model.ast;
 
-import org.eclipse.wst.xquery.sse.core.internal.model.ast.impl.IASTFunctionCall;
-
 /**
  * Factory for XQuery AST nodes.
  * 
@@ -208,5 +206,21 @@ public abstract class ASTNodeFactory {
      * @return
      */
     public abstract IASTValidate newValidate();
+
+    /**
+     * @param operatorType
+     * @return
+     */
+    public abstract IASTOperator newOperator(int operatorType);
+
+    /**
+     * @return
+     */
+    public abstract IASTNode newDirPI();
+
+    /**
+     * @return
+     */
+    public abstract IASTNode newDirComment();
 
 }

@@ -177,6 +177,14 @@ public class XQDTTemplateCompletionProcessor extends TemplateCompletionProcessor
         return matches.toArray(new ICompletionProposal[matches.size()]);
     }
 
+    @Override
+    protected int getRelevance(Template template, String prefix) {
+        if (template.getPattern().startsWith(prefix)) {
+            return 90;
+        }
+        return 0;
+    }
+
     // Helpers
 
     private TemplateStore getTemplateStore() {

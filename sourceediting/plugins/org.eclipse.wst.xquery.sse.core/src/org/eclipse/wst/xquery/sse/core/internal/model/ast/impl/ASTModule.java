@@ -164,28 +164,6 @@ public class ASTModule extends ASTParentNode implements IASTModule {
     /*
      * (non-Javadoc)
      * 
-     * @see org.eclipse.wst.xquery.sse.core.internal.model.ast.impl.IASTModule#setFunctionDecl(int,
-     * java.lang.String, org.eclipse.wst.xquery.sse.core.internal.model.ast.impl.ASTFunctionDecl)
-     */
-    public void setFunctionDecl(int index, String name, IASTFunctionDecl decl) {
-        setChildASTNodeAt(index, decl);
-        functionDecls.put(name, decl);
-    }
-
-    /*
-     * (non-Javadoc)
-     * 
-     * @see org.eclipse.wst.xquery.sse.core.internal.model.ast.impl.IASTModule#setVariableDecl(int,
-     * java.lang.String, org.eclipse.wst.xquery.sse.core.internal.model.ast.impl.ASTVarDecl)
-     */
-    public void setVariableDecl(int index, String name, IASTVarDecl decl) {
-        setChildASTNodeAt(index, decl);
-        variableDecls.put(name, decl);
-    }
-
-    /*
-     * (non-Javadoc)
-     * 
      * @see
      * org.eclipse.wst.xquery.sse.core.internal.model.ast.impl.IASTModule#getVariableDecl(java.lang
      * .String)
@@ -212,6 +190,19 @@ public class ASTModule extends ASTParentNode implements IASTModule {
      */
     public void setQueryBody(IASTNode expr) {
         queryBody = expr;
+    }
+
+    @Override
+    public void setChildASTNodeAt(int index, IASTNode newChild) {
+        super.setChildASTNodeAt(index, newChild);
+
+        if (newChild.getType() == IASTNode.FUNCTIONDECL) {
+            functionDecls.put(((ASTFunctionDecl)newChild).getName(), (IASTFunctionDecl)newChild);
+        }
+        if (newChild.getType() == IASTNode.VARDECL) {
+            variableDecls.put(((ASTVarDecl)newChild).getName(), (IASTVarDecl)newChild);
+        }
+
     }
 
     // Overrides

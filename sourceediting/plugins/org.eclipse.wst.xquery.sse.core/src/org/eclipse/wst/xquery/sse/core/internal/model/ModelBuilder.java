@@ -275,7 +275,7 @@ public class ModelBuilder {
             module.setVersionRegion(vdregion.getVersion());
             module.setEncodingRegion(vdregion.getEncoding());
 
-            nextSDRegion();
+            nextSDRegion(); // Skip VersionDecl
         }
     }
 
@@ -418,10 +418,10 @@ public class ModelBuilder {
 
                 if (type2 == XQueryRegions.KW_VARIABLE) {
                     IASTVarDecl newDecl = reparseVarDecl(oldDecl);
-                    module.setVariableDecl(from++, newDecl.getName(), newDecl);
+                    module.setChildASTNodeAt(from++, newDecl);
                 } else if (type2 == XQueryRegions.KW_FUNCTION) {
                     IASTFunctionDecl newDecl = reparseFunctionDecl(oldDecl);
-                    module.setFunctionDecl(from++, newDecl.getName(), newDecl);
+                    module.setChildASTNodeAt(from++, newDecl);
                 } else if (type2 == XQueryRegions.KW_OPTION) {
                     reparseOptionDecl(module);
                 } else {
@@ -2185,32 +2185,42 @@ public class ModelBuilder {
      * Reparse <tt>QName "(" (ExprSingle ("," ExprSingle)*)? ")"</tt>
      */
     protected IASTNode reparseFunctionCall(IASTNode expr) {
-        // TODO
-        nextSDRegion(); // QName "("
-
         IASTFunctionCall fc = asFunctionCall(expr);
+        fc.setFirstStructuredDocumentRegion(currentSDRegion);
+
+        nextSDRegion(); // QName "(" (already checked by caller)
+
         int index = 0;
 
         // No parameters?
         if (sameRegionType(XQueryRegions.RPAR)) {
             nextSDRegion(); // ')'
         } else {
+            // Parse parameters
+
             do {
-                IASTNode value = reparseExprSingle(null); // todo reuse param
+                IASTNode oldValue = fc.getChildASTNodeAt(index);
+                IASTNode value = reparseExprSingle(oldValue);
                 fc.setChildASTNodeAt(index++, value);
 
                 if (sameRegionType(XQueryRegions.RPAR)) {
-                    nextSDRegion();
+                    // Done parsing parameters
+                    fc.setLastStructuredDocumentRegion(currentSDRegion);
+
+                    nextSDRegion(); // ')'
                     break;
                 }
 
-                // Must be a comma
-                nextSDRegion(); // ','
+                if (!checkAndReport(XQueryRegions.COMMA, XQueryMessages.errorXQSE_MissingCommaOrRPar_UI_)) {
+                    break; // Interrupt function parsing. 
+                }
 
+                // This is a comma
+                nextSDRegion(); // ','
             } while (currentSDRegion != null);
         }
-        fc.removeChildASTNodesAfter(index);
 
+        fc.removeChildASTNodesAfter(index); // Make sure there is no other left over parameters
         return fc;
     }
 
@@ -2231,22 +2241,22 @@ public class ModelBuilder {
      * Reparse <tt>"(" Expr? ")"</tt>
      */
     protected IASTNode reparseParentherizeExpr(IASTNode node) {
+        // Try reusing node
         IASTParentherized expr = asParentherized(node);
         expr.setFirstStructuredDocumentRegion(currentSDRegion);
 
-        nextSDRegion(); // "("
+        // We know that's a "(" we skip
+        nextSDRegion();
 
         if (!sameRegionType(XQueryRegions.RPAR)) {
+            // Reparse non-empty parentherize expression
+
             IASTNode oldExpr = expr.getExpr();
             IASTNode newExpr = reparseExpr(oldExpr);
             expr.setExpr(newExpr);
-
-            if (newExpr == null) {
-                reportError(XQueryMessages.errorXQSE_MissingExprSingle_UI_);
-                return expr;
-            }
         }
 
+        // We should be on ")" now
         expr.setLastStructuredDocumentRegion(currentSDRegion);
 
         if (checkAndReport(XQueryRegions.RPAR, XQueryMessages.errorXQSE_MissingRPar_UI_)) {

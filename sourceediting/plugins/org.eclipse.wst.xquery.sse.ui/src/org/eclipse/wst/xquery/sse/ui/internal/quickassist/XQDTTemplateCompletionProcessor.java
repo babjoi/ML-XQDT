@@ -168,7 +168,9 @@ public class XQDTTemplateCompletionProcessor extends TemplateCompletionProcessor
 
             final int relevance = getRelevance(template, prefix);
             if (relevance > 0) {
-                matches.add(createProposal(template, context, (IRegion)region, relevance));
+                ICompletionProposal proposal = createProposal(template, context, (IRegion)region, relevance);
+
+                matches.add(proposal);
             }
         }
 

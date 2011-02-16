@@ -18,8 +18,11 @@ import org.eclipse.text.edits.TextEdit;
 import org.eclipse.wst.sse.core.internal.provisional.text.IStructuredDocumentRegion;
 import org.eclipse.wst.sse.core.internal.provisional.text.ITextRegion;
 import org.eclipse.wst.xquery.sse.core.internal.model.ModelHelper;
+import org.eclipse.wst.xquery.sse.core.internal.model.ast.ASTVisitor;
 import org.eclipse.wst.xquery.sse.core.internal.model.ast.IASTFLWOR;
 import org.eclipse.wst.xquery.sse.core.internal.model.ast.IASTFunctionDecl;
+import org.eclipse.wst.xquery.sse.core.internal.model.ast.IASTModule;
+import org.eclipse.wst.xquery.sse.core.internal.model.ast.IASTNamespaceDecl;
 import org.eclipse.wst.xquery.sse.core.internal.model.ast.IASTNode;
 import org.eclipse.wst.xquery.sse.core.internal.model.ast.impl.ASTBindingClause;
 import org.eclipse.wst.xquery.sse.core.internal.model.ast.impl.ASTClause;
@@ -39,9 +42,17 @@ import org.eclipse.wst.xquery.sse.core.internal.regions.XQueryRegions;
  * 
  * @author <a href="villard@us.ibm.com">Lionel Villard</a>
  */
-public class DefaultXQDTPartitionFormatter {
+public class DefaultXQDTPartitionFormatter extends ASTVisitor {
 
     public final static DefaultXQDTPartitionFormatter SINGLETON = new DefaultXQDTPartitionFormatter();
+
+    // State
+
+    /** Current set of edits */
+    protected TextEdit edit;
+
+    /** Formatting preferences */
+    protected XQDTStructuredFormatPreferences prefs;
 
     // Constructors
 
@@ -65,6 +76,11 @@ public class DefaultXQDTPartitionFormatter {
             normalizeWhitespace(first, edit, 0, 0, 0);
         }
 
+        this.edit = edit;
+        this.prefs = prefs;
+
+        //   node.accept(this);
+
         formatNode(node, edit, prefs);
     }
 
@@ -76,6 +92,7 @@ public class DefaultXQDTPartitionFormatter {
      * @param prefs
      */
     protected void formatNode(IASTNode node, TextEdit edit, XQDTStructuredFormatPreferences prefs) {
+
         // TODO:a visitor pattern could be of a help here... Wait for DLTK/SSE integration.
 
         if (node != null) {
@@ -500,6 +517,18 @@ public class DefaultXQDTPartitionFormatter {
             XQDTStructuredFormatPreferences prefs) {
         normalizeWhitespace(region, edit, 0, 0, 1);
         return skipComment(region.getNext());
+    }
+
+    @Override
+    public boolean visit(IASTModule module) {
+        return true;
+    }
+
+    @Override
+    public boolean visit(IASTNamespaceDecl node) {
+        IStructuredDocumentRegion region = node.getFirstStructuredDocumentRegion();
+        normalizeWhitespace(region, edit, 1, 0, 1);
+        return super.visit(node);
     }
 
     // Utility methods..

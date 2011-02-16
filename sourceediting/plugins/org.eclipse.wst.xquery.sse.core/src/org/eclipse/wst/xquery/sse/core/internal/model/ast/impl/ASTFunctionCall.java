@@ -10,6 +10,7 @@
  *******************************************************************************/
 package org.eclipse.wst.xquery.sse.core.internal.model.ast.impl;
 
+import org.eclipse.wst.xquery.sse.core.internal.model.ast.ASTVisitor;
 import org.eclipse.wst.xquery.sse.core.internal.model.ast.IASTFunctionCall;
 
 /**
@@ -18,14 +19,22 @@ import org.eclipse.wst.xquery.sse.core.internal.model.ast.IASTFunctionCall;
  */
 public class ASTFunctionCall extends ASTParentNode implements IASTFunctionCall {
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.eclipse.wst.xquery.sse.core.internal.model.ast.ASTNode#getType()
-	 */
-	@Override
-	public int getType() {
-		return FUNCTIONCALL;
-	}
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.eclipse.wst.xquery.sse.core.internal.model.ast.ASTNode#getType()
+     */
+    @Override
+    public int getType() {
+        return FUNCTIONCALL;
+    }
 
+    @Override
+    protected void accept0(ASTVisitor visitor) {
+        boolean children = visitor.visit(this);
+        if (children) {
+            acceptChildren(visitor);
+        }
+        visitor.endVisit(this);
+    }
 }

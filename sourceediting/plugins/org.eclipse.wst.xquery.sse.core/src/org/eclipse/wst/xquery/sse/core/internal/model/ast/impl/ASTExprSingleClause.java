@@ -13,6 +13,7 @@ package org.eclipse.wst.xquery.sse.core.internal.model.ast.impl;
 import org.eclipse.wst.sse.core.internal.provisional.text.IStructuredDocument;
 import org.eclipse.wst.validation.internal.provisional.core.IReporter;
 import org.eclipse.wst.validation.internal.provisional.core.IValidator;
+import org.eclipse.wst.xquery.sse.core.internal.model.ast.ASTVisitor;
 import org.eclipse.wst.xquery.sse.core.internal.model.ast.IASTExprSingleClause;
 import org.eclipse.wst.xquery.sse.core.internal.model.ast.IASTNode;
 
@@ -49,6 +50,15 @@ public class ASTExprSingleClause extends ASTClause implements IASTExprSingleClau
     }
 
     // Overrides
+
+    @Override
+    protected void accept0(ASTVisitor visitor) {
+        boolean children = visitor.visit(this);
+        if (children) {
+            acceptChildren(visitor);
+        }
+        visitor.endVisit(this);
+    }
 
     @Override
     public void staticCheck(IStructuredDocument document, IValidator validator, IReporter reporter) {

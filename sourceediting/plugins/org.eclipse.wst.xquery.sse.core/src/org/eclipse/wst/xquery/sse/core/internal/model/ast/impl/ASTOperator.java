@@ -10,6 +10,7 @@
  *******************************************************************************/
 package org.eclipse.wst.xquery.sse.core.internal.model.ast.impl;
 
+import org.eclipse.wst.xquery.sse.core.internal.model.ast.ASTVisitor;
 import org.eclipse.wst.xquery.sse.core.internal.model.ast.IASTOperator;
 
 /**
@@ -19,36 +20,44 @@ import org.eclipse.wst.xquery.sse.core.internal.model.ast.IASTOperator;
  */
 public class ASTOperator extends ASTParentNode implements IASTOperator {
 
-	// Constants
+    // Constants
 
-	/** Operator Type */
-	protected int operatorType;
+    /** Operator Type */
+    protected int operatorType;
 
-	// Constructors
+    // Constructors
 
-	public ASTOperator(int operatorType) {
-		this.operatorType = operatorType;
-	}
+    public ASTOperator(int operatorType) {
+        this.operatorType = operatorType;
+    }
 
-	public ASTOperator() {
-	}
+    public ASTOperator() {
+    }
 
-	// Methods
+    // Methods
 
-	public int getOperatorType() {
-		return operatorType;
-	}
+    public int getOperatorType() {
+        return operatorType;
+    }
 
-	public void setOperatorType(int type) {
-		this.operatorType = type;
+    public void setOperatorType(int type) {
+        this.operatorType = type;
 
-	}
+    }
 
-	// Override
+    // Override
 
-	@Override
-	public int getType() {
-		return OPERATOR;
-	}
+    @Override
+    public int getType() {
+        return OPERATOR;
+    }
 
+    @Override
+    protected void accept0(ASTVisitor visitor) {
+        boolean children = visitor.visit(this);
+        if (children) {
+            acceptChildren(visitor);
+        }
+        visitor.endVisit(this);
+    }
 }

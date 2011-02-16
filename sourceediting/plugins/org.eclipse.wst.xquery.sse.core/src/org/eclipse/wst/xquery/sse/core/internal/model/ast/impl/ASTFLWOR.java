@@ -17,6 +17,7 @@ import org.eclipse.wst.sse.core.internal.provisional.text.IStructuredDocumentReg
 import org.eclipse.wst.validation.internal.provisional.core.IReporter;
 import org.eclipse.wst.validation.internal.provisional.core.IValidator;
 import org.eclipse.wst.xquery.sse.core.internal.model.ast.ASTHelper;
+import org.eclipse.wst.xquery.sse.core.internal.model.ast.ASTVisitor;
 import org.eclipse.wst.xquery.sse.core.internal.model.ast.IASTBindingClause;
 import org.eclipse.wst.xquery.sse.core.internal.model.ast.IASTClause;
 import org.eclipse.wst.xquery.sse.core.internal.model.ast.IASTFLWOR;
@@ -128,6 +129,15 @@ public class ASTFLWOR extends ASTParentNode implements IASTFLWOR {
         }
 
         super.getInScopeVariables(vars, child);
+    }
+
+    @Override
+    protected void accept0(ASTVisitor visitor) {
+        boolean children = visitor.visit(this);
+        if (children) {
+            acceptChildren(visitor);
+        }
+        visitor.endVisit(this);
     }
 
     @Override

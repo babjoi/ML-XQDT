@@ -20,6 +20,7 @@ import org.eclipse.wst.validation.internal.provisional.core.IReporter;
 import org.eclipse.wst.validation.internal.provisional.core.IValidator;
 import org.eclipse.wst.xquery.sse.core.internal.XQueryMessages;
 import org.eclipse.wst.xquery.sse.core.internal.model.ast.ASTHelper;
+import org.eclipse.wst.xquery.sse.core.internal.model.ast.ASTVisitor;
 import org.eclipse.wst.xquery.sse.core.internal.model.ast.IASTFunctionDecl;
 import org.eclipse.wst.xquery.sse.core.internal.model.ast.IASTModule;
 import org.eclipse.wst.xquery.sse.core.internal.model.ast.IASTNode;
@@ -203,6 +204,19 @@ public class ASTModule extends ASTParentNode implements IASTModule {
             variableDecls.put(((ASTVarDecl)newChild).getName(), (IASTVarDecl)newChild);
         }
 
+    }
+
+    @Override
+    protected void accept0(ASTVisitor visitor) {
+        boolean children = visitor.visit(this);
+        if (children) {
+            acceptChildren(visitor); // declaration
+
+            if (queryBody != null) {
+                acceptChild(visitor, queryBody);
+            }
+        }
+        visitor.endVisit(this);
     }
 
     // Overrides

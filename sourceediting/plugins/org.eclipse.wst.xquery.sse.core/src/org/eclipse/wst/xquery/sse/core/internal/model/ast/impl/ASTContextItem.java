@@ -10,6 +10,7 @@
  *******************************************************************************/
 package org.eclipse.wst.xquery.sse.core.internal.model.ast.impl;
 
+import org.eclipse.wst.xquery.sse.core.internal.model.ast.ASTVisitor;
 import org.eclipse.wst.xquery.sse.core.internal.model.ast.IASTContextItem;
 
 /**
@@ -26,4 +27,10 @@ public class ASTContextItem extends ASTNode implements IASTContextItem {
         return CONTEXTITEM;
     }
 
+    @Override
+    protected void accept0(ASTVisitor visitor) {
+        visitor.visit(this);
+
+        visitor.endVisit(this);
+    }
 }

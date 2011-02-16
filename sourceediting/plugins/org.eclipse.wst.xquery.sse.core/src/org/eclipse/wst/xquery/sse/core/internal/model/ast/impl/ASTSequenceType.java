@@ -10,6 +10,7 @@
  *******************************************************************************/
 package org.eclipse.wst.xquery.sse.core.internal.model.ast.impl;
 
+import org.eclipse.wst.xquery.sse.core.internal.model.ast.ASTVisitor;
 import org.eclipse.wst.xquery.sse.core.internal.model.ast.IASTSequenceType;
 
 /**
@@ -29,4 +30,10 @@ public class ASTSequenceType extends ASTNode implements IASTSequenceType {
         return SEQUENCETYPE;
     }
 
+    @Override
+    protected void accept0(ASTVisitor visitor) {
+        visitor.visit(this);
+
+        visitor.endVisit(this);
+    }
 }

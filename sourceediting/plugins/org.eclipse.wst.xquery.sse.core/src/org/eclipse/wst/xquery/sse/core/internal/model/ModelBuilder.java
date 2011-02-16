@@ -760,6 +760,7 @@ public class ModelBuilder {
      * @return an AST node or null if no expression single have been parsed.
      */
     protected IASTNode reparseExprSingle(IASTNode expr) {
+
         IASTNode newExpr = null;
         if (sameRegionType(forLetFilter)) {
             newExpr = reparseFLWORExpr(expr);
@@ -782,6 +783,8 @@ public class ModelBuilder {
         } else {
             newExpr = reparseOrExpr(expr);
         }
+
+        newExpr.setLastStructuredDocumentRegion(previousSDRegion);
 
         return newExpr;
     }
@@ -1272,6 +1275,7 @@ public class ModelBuilder {
      * <tt>("some" | "every") "$" VarName TypeDeclaration? "in" ExprSingle ("," "$" VarName TypeDeclaration? "in" ExprSingle)*</tt>
      */
     protected IASTBindingClause reparseForLetQuantifyClause(IASTNode node) {
+        // Try reusing node..
         IASTBindingClause clause = asBindingClause(node);
         clause.setFirstStructuredDocumentRegion(currentSDRegion);
 
@@ -1291,7 +1295,6 @@ public class ModelBuilder {
         do {
 
             if (checkAndReport(XQueryRegions.DOLLAR, XQueryMessages.errorXQSE_MissingVarName_UI_)) {
-
                 clause.setBindingVariable(index, currentSDRegion);
 
                 if (nextSDRegion()) {
@@ -1329,6 +1332,8 @@ public class ModelBuilder {
             }
 
         } while (currentSDRegion != null);
+
+        clause.setLastStructuredDocumentRegion(previousSDRegion);
 
         return clause;
     }

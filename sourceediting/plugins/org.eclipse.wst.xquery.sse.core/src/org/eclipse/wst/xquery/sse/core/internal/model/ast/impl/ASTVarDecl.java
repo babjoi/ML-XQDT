@@ -11,6 +11,7 @@
 package org.eclipse.wst.xquery.sse.core.internal.model.ast.impl;
 
 import org.eclipse.wst.sse.core.internal.provisional.text.IStructuredDocumentRegion;
+import org.eclipse.wst.xquery.sse.core.internal.model.ast.ASTVisitor;
 import org.eclipse.wst.xquery.sse.core.internal.model.ast.IASTNode;
 import org.eclipse.wst.xquery.sse.core.internal.model.ast.IASTVarDecl;
 import org.eclipse.wst.xquery.sse.core.internal.regions.XQueryRegions;
@@ -92,4 +93,10 @@ public class ASTVarDecl extends ASTNode implements IASTVarDecl {
         return VARDECL;
     }
 
+    @Override
+    protected void accept0(ASTVisitor visitor) {
+        visitor.visit(this);
+
+        visitor.endVisit(this);
+    }
 }

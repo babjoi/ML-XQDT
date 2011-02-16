@@ -15,6 +15,7 @@ import java.util.List;
 
 import org.eclipse.wst.sse.core.internal.provisional.text.IStructuredDocumentRegion;
 import org.eclipse.wst.xquery.sse.core.internal.model.ast.ASTHelper;
+import org.eclipse.wst.xquery.sse.core.internal.model.ast.ASTVisitor;
 import org.eclipse.wst.xquery.sse.core.internal.model.ast.IASTFunctionDecl;
 import org.eclipse.wst.xquery.sse.core.internal.model.ast.IASTNode;
 
@@ -135,6 +136,17 @@ public class ASTFunctionDecl extends ASTNode implements IASTFunctionDecl {
     @Override
     public int getType() {
         return FUNCTIONDECL;
+    }
+
+    @Override
+    protected void accept0(ASTVisitor visitor) {
+        boolean children = visitor.visit(this);
+        if (children) {
+            if (body != null) {
+                acceptChild(visitor, body);
+            }
+        }
+        visitor.endVisit(this);
     }
 
     @Override

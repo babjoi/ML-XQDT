@@ -162,7 +162,7 @@ public abstract class ASTNode implements IASTNode {
      * @param visitor
      *            the visitor object
      */
-    protected void accept0(ASTVisitor visitor) { // TODO: should be abstract
+    protected void accept0(ASTVisitor visitor) {
 
     }
 

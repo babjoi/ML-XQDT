@@ -13,7 +13,6 @@ package org.eclipse.wst.xquery.sse.core.internal.document;
 
 import org.eclipse.wst.sse.core.internal.provisional.text.ITextRegion;
 import org.eclipse.wst.sse.core.internal.text.rules.StructuredTextPartitioner;
-import org.eclipse.wst.xquery.sse.core.internal.regions.XQueryRegions;
 import org.eclipse.wst.xquery.sse.core.text.IXQDTPartitions;
 
 /**
@@ -40,13 +39,15 @@ public class XQDTDocumentPartitioner extends StructuredTextPartitioner implement
     public String getPartitionType(ITextRegion region, int offset) {
         String result = null;
 
-        if (region.getType().equals(XQueryRegions.STRINGLITERAL)) {
-            result = XQUERY_STRING;
-        } else if (region.getType().equals(XQueryRegions.XQUERY_COMMENT)) {
-            result = XQUERY_COMMENT;
-        } else {
-            result = super.getPartitionType(region, offset);
-        }
+        // Disable partitionning until figure out how to clear annotations
+
+//        if (region.getType().equals(XQueryRegions.STRINGLITERAL)) {
+//            result = XQUERY_STRING;
+//        } else if (region.getType().equals(XQueryRegions.XQUERY_COMMENT)) {
+//            result = XQUERY_COMMENT;
+//        } else {
+        result = super.getPartitionType(region, offset);
+        // }
 
         return result;
     }

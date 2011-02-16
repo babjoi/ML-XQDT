@@ -10,6 +10,7 @@
  *******************************************************************************/
 package org.eclipse.wst.xquery.sse.core.internal.model.ast.impl;
 
+import org.eclipse.wst.xquery.sse.core.internal.model.ast.ASTVisitor;
 import org.eclipse.wst.xquery.sse.core.internal.model.ast.IASTNode;
 import org.eclipse.wst.xquery.sse.core.internal.model.ast.IASTStep;
 
@@ -20,42 +21,51 @@ import org.eclipse.wst.xquery.sse.core.internal.model.ast.IASTStep;
  */
 public class ASTStep extends ASTParentNode implements IASTStep {
 
-	// Methods
+    // Methods
 
-	/**
-	 * @return
-	 */
-	public IASTNode getPrimaryExpr() {
-		return getChildASTNodeAt(0);
-	}
+    /**
+     * @return
+     */
+    public IASTNode getPrimaryExpr() {
+        return getChildASTNodeAt(0);
+    }
 
-	/**
-	 * @param primary
-	 */
-	public void setPrimaryExpr(IASTNode node) {
-		setChildASTNodeAt(0, node);
+    /**
+     * @param primary
+     */
+    public void setPrimaryExpr(IASTNode node) {
+        setChildASTNodeAt(0, node);
 
-	}
+    }
 
-	/**
-	 * @return
-	 */
-	public IASTNode getNodeTest() {
-		return getChildASTNodeAt(0);
-	}
+    /**
+     * @return
+     */
+    public IASTNode getNodeTest() {
+        return getChildASTNodeAt(0);
+    }
 
-	/**
-	 * @param node
-	 */
-	public void setNodeTest(IASTNode node) {
-		setChildASTNodeAt(0, node);
-	}
+    /**
+     * @param node
+     */
+    public void setNodeTest(IASTNode node) {
+        setChildASTNodeAt(0, node);
+    }
 
-	// Overrides
+    // Overrides
 
-	@Override
-	public int getType() {
-		return STEP;
-	}
+    @Override
+    public int getType() {
+        return STEP;
+    }
+
+    @Override
+    protected void accept0(ASTVisitor visitor) {
+        boolean children = visitor.visit(this);
+        if (children) {
+            acceptChildren(visitor);
+        }
+        visitor.endVisit(this);
+    }
 
 }

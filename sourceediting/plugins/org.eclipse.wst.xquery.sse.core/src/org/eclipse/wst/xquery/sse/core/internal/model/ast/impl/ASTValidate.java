@@ -10,6 +10,7 @@
  *******************************************************************************/
 package org.eclipse.wst.xquery.sse.core.internal.model.ast.impl;
 
+import org.eclipse.wst.xquery.sse.core.internal.model.ast.ASTVisitor;
 import org.eclipse.wst.xquery.sse.core.internal.model.ast.IASTValidate;
 
 /**
@@ -19,11 +20,19 @@ import org.eclipse.wst.xquery.sse.core.internal.model.ast.IASTValidate;
  */
 public class ASTValidate extends ASTParentNode implements IASTValidate {
 
-	// Overrides
+    // Overrides
 
-	@Override
-	public int getType() {
-		return VALIDATE;
-	}
+    @Override
+    public int getType() {
+        return VALIDATE;
+    }
 
+    @Override
+    protected void accept0(ASTVisitor visitor) {
+        boolean children = visitor.visit(this);
+        if (children) {
+            acceptChildren(visitor);
+        }
+        visitor.endVisit(this);
+    }
 }

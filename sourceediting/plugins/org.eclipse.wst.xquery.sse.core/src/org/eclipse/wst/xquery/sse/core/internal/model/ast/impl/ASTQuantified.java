@@ -13,6 +13,7 @@ package org.eclipse.wst.xquery.sse.core.internal.model.ast.impl;
 import java.util.List;
 
 import org.eclipse.wst.sse.core.internal.provisional.text.IStructuredDocumentRegion;
+import org.eclipse.wst.xquery.sse.core.internal.model.ast.ASTVisitor;
 import org.eclipse.wst.xquery.sse.core.internal.model.ast.IASTBindingClause;
 import org.eclipse.wst.xquery.sse.core.internal.model.ast.IASTNode;
 import org.eclipse.wst.xquery.sse.core.internal.model.ast.IASTQuantified;
@@ -64,6 +65,15 @@ public class ASTQuantified extends ASTParentNode implements IASTQuantified {
     @Override
     public int getType() {
         return QUANTIFIED;
+    }
+
+    @Override
+    protected void accept0(ASTVisitor visitor) {
+        boolean children = visitor.visit(this);
+        if (children) {
+            acceptChildren(visitor);
+        }
+        visitor.endVisit(this);
     }
 
     @Override

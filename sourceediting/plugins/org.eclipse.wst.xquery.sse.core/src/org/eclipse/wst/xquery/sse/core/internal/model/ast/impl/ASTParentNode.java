@@ -13,47 +13,60 @@ package org.eclipse.wst.xquery.sse.core.internal.model.ast.impl;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.eclipse.wst.xquery.sse.core.internal.model.ast.ASTHelper;
+import org.eclipse.wst.xquery.sse.core.internal.model.ast.ASTVisitor;
 import org.eclipse.wst.xquery.sse.core.internal.model.ast.IASTNode;
 
 /**
  * AST Node accepting child nodes
  * 
  * @author <a href="villard@us.ibm.com">Lionel Villard</a>
- */ 
+ */
 public abstract class ASTParentNode extends ASTNode {
 
-	// State
+    // State
 
-	/** List of child nodes */
-	protected List<IASTNode> children;
+    /** List of child nodes */
+    protected List<IASTNode> children;
 
-	// Constructor
+    // Constructor
 
-	protected ASTParentNode() {
-		children = new ArrayList<IASTNode>(3);
-	}
+    protected ASTParentNode() {
+        children = new ArrayList<IASTNode>(3);
+    }
 
-	// Overrides
+    // Methods
 
-	@Override
-	public void removeChildASTNodesAfter(int index) {
-		ASTHelper.removeAfter(children, index);
-	}
+    /**
+     * Accepts the given visitor on the list of child nodes
+     */
+    protected void acceptChildren(ASTVisitor visitor) {
+        final int size = children.size();
+        for (int i = 0; i < size; i++) {
+            children.get(i).accept(visitor);
+        }
+    }
 
-	@Override
-	public void setChildASTNodeAt(int index, IASTNode newChild) {
-		ASTHelper.setChildASTNodeAt(children, this, index, newChild);
-	}
+    // Overrides
 
-	@Override
-	public IASTNode getChildASTNodeAt(int i) {
-		return ASTHelper.getChildASTNodeAt(children, i);
-	}
+    @Override
+    public void removeChildASTNodesAfter(int index) {
+        ASTHelper.removeAfter(children, index);
+    }
 
-	@Override
-	public int getChildASTNodesCount() {
-		return ASTHelper.getChildASTNodesCount(children);
-	} 
+    @Override
+    public void setChildASTNodeAt(int index, IASTNode newChild) {
+        ASTHelper.setChildASTNodeAt(children, this, index, newChild);
+    }
 
-	
+    @Override
+    public IASTNode getChildASTNodeAt(int i) {
+        return ASTHelper.getChildASTNodeAt(children, i);
+    }
+
+    @Override
+    public int getChildASTNodesCount() {
+        return ASTHelper.getChildASTNodesCount(children);
+    }
+
 }

@@ -10,6 +10,7 @@
  *******************************************************************************/
 package org.eclipse.wst.xquery.sse.core.internal.model.ast.impl;
 
+import org.eclipse.wst.xquery.sse.core.internal.model.ast.ASTVisitor;
 import org.eclipse.wst.xquery.sse.core.internal.model.ast.IASTCompAttrConstructor;
 
 /**
@@ -19,11 +20,20 @@ import org.eclipse.wst.xquery.sse.core.internal.model.ast.IASTCompAttrConstructo
  */
 public class ASTCompAttrConstructor extends ASTParentNode implements IASTCompAttrConstructor {
 
-	// Overrides
+    // Overrides
 
-	@Override
-	public int getType() {
-		return COMPATTRCONSTRUCTOR;
-	}
+    @Override
+    public int getType() {
+        return COMPATTRCONSTRUCTOR;
+    }
 
+    @Override
+    protected void accept0(ASTVisitor visitor) {
+        boolean children = visitor.visit(this);
+        if (children) {
+            acceptChildren(visitor);
+
+        }
+        visitor.endVisit(this);
+    }
 }

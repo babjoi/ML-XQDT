@@ -10,6 +10,7 @@
  *******************************************************************************/
 package org.eclipse.wst.xquery.sse.core.internal.model.ast.impl;
 
+import org.eclipse.wst.xquery.sse.core.internal.model.ast.ASTVisitor;
 import org.eclipse.wst.xquery.sse.core.internal.model.ast.IASTSingleType;
 
 /**
@@ -28,4 +29,10 @@ public class ASTSingleType extends ASTNode implements IASTSingleType {
         return SINGLETYPE;
     }
 
+    @Override
+    protected void accept0(ASTVisitor visitor) {
+        visitor.visit(this);
+
+        visitor.endVisit(this);
+    }
 }

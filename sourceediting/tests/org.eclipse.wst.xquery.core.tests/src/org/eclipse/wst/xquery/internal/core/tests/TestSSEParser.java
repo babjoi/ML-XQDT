@@ -18,7 +18,7 @@ import org.junit.Assert;
 import org.junit.Test;
 
 /**
- * SSE parser/tokenizer tests
+ * SSE tokenizer tests
  * 
  * @author <a href="villard@us.ibm.com">Lionel Villard</a>
  */

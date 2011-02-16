@@ -18,6 +18,7 @@ import org.eclipse.wst.sse.core.internal.provisional.text.IStructuredDocumentReg
 import org.eclipse.wst.validation.internal.provisional.core.IMessage;
 import org.eclipse.wst.validation.internal.provisional.core.IReporter;
 import org.eclipse.wst.validation.internal.provisional.core.IValidator;
+import org.eclipse.wst.xquery.sse.core.internal.model.ast.ASTHelper;
 import org.eclipse.wst.xquery.sse.core.internal.model.ast.ASTVisitor;
 import org.eclipse.wst.xquery.sse.core.internal.model.ast.IASTNode;
 
@@ -161,7 +162,7 @@ public abstract class ASTNode implements IASTNode {
      * @param visitor
      *            the visitor object
      */
-    protected void accept0(ASTVisitor visitor) { // TODO: should be abstract
+    protected void accept0(ASTVisitor visitor) {
 
     }
 

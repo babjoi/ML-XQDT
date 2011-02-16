@@ -10,6 +10,7 @@
  *******************************************************************************/
 package org.eclipse.wst.xquery.sse.core.internal.model.ast.impl;
 
+import org.eclipse.wst.xquery.sse.core.internal.model.ast.ASTVisitor;
 import org.eclipse.wst.xquery.sse.core.internal.model.ast.IASTIf;
 import org.eclipse.wst.xquery.sse.core.internal.model.ast.IASTNode;
 
@@ -69,6 +70,15 @@ public class ASTIf extends ASTParentNode implements IASTIf {
     @Override
     public int getType() {
         return IF;
+    }
+
+    @Override
+    protected void accept0(ASTVisitor visitor) {
+        boolean children = visitor.visit(this);
+        if (children) {
+            acceptChildren(visitor);
+        }
+        visitor.endVisit(this);
     }
 
 }

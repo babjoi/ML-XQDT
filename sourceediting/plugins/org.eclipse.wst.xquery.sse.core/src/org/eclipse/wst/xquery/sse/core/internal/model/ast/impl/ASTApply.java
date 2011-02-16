@@ -10,20 +10,29 @@
  *******************************************************************************/
 package org.eclipse.wst.xquery.sse.core.internal.model.ast.impl;
 
+import org.eclipse.wst.xquery.sse.core.internal.model.ast.ASTVisitor;
 import org.eclipse.wst.xquery.sse.core.internal.model.ast.IASTApply;
 
 /**
  * XQuery Scripting <em>apply</em> expression
- *
+ * 
  * @author <a href="villard@us.ibm.com">Lionel Villard</a>
  */
 public class ASTApply extends ASTParentNode implements IASTApply {
 
-	// Overrides
-	
-	@Override
-	public int getType() {
-		return APPLY;
-	}
+    // Overrides
+
+    @Override
+    public int getType() {
+        return APPLY;
+    }
+
+    @Override
+    protected void accept0(ASTVisitor visitor) {
+        if (visitor.visit(this)) {
+            acceptChildren(visitor);
+        }
+        visitor.endVisit(this);
+    }
 
 }

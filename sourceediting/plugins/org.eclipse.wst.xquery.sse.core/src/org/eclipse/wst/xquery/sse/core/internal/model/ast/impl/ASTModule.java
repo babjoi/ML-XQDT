@@ -19,6 +19,8 @@ import org.eclipse.wst.sse.core.internal.provisional.text.ITextRegion;
 import org.eclipse.wst.validation.internal.provisional.core.IReporter;
 import org.eclipse.wst.validation.internal.provisional.core.IValidator;
 import org.eclipse.wst.xquery.sse.core.internal.XQueryMessages;
+import org.eclipse.wst.xquery.sse.core.internal.model.ast.ASTHelper;
+import org.eclipse.wst.xquery.sse.core.internal.model.ast.ASTVisitor;
 import org.eclipse.wst.xquery.sse.core.internal.model.ast.IASTFunctionDecl;
 import org.eclipse.wst.xquery.sse.core.internal.model.ast.IASTModule;
 import org.eclipse.wst.xquery.sse.core.internal.model.ast.IASTNode;
@@ -163,28 +165,6 @@ public class ASTModule extends ASTParentNode implements IASTModule {
     /*
      * (non-Javadoc)
      * 
-     * @see org.eclipse.wst.xquery.sse.core.internal.model.ast.impl.IASTModule#setFunctionDecl(int,
-     * java.lang.String, org.eclipse.wst.xquery.sse.core.internal.model.ast.impl.ASTFunctionDecl)
-     */
-    public void setFunctionDecl(int index, String name, IASTFunctionDecl decl) {
-        setChildASTNodeAt(index, decl);
-        functionDecls.put(name, decl);
-    }
-
-    /*
-     * (non-Javadoc)
-     * 
-     * @see org.eclipse.wst.xquery.sse.core.internal.model.ast.impl.IASTModule#setVariableDecl(int,
-     * java.lang.String, org.eclipse.wst.xquery.sse.core.internal.model.ast.impl.ASTVarDecl)
-     */
-    public void setVariableDecl(int index, String name, IASTVarDecl decl) {
-        setChildASTNodeAt(index, decl);
-        variableDecls.put(name, decl);
-    }
-
-    /*
-     * (non-Javadoc)
-     * 
      * @see
      * org.eclipse.wst.xquery.sse.core.internal.model.ast.impl.IASTModule#getVariableDecl(java.lang
      * .String)
@@ -211,6 +191,32 @@ public class ASTModule extends ASTParentNode implements IASTModule {
      */
     public void setQueryBody(IASTNode expr) {
         queryBody = expr;
+    }
+
+    @Override
+    public void setChildASTNodeAt(int index, IASTNode newChild) {
+        super.setChildASTNodeAt(index, newChild);
+
+        if (newChild.getType() == IASTNode.FUNCTIONDECL) {
+            functionDecls.put(((ASTFunctionDecl)newChild).getName(), (IASTFunctionDecl)newChild);
+        }
+        if (newChild.getType() == IASTNode.VARDECL) {
+            variableDecls.put(((ASTVarDecl)newChild).getName(), (IASTVarDecl)newChild);
+        }
+
+    }
+
+    @Override
+    protected void accept0(ASTVisitor visitor) {
+        boolean children = visitor.visit(this);
+        if (children) {
+            acceptChildren(visitor); // declaration
+
+            if (queryBody != null) {
+                acceptChild(visitor, queryBody);
+            }
+        }
+        visitor.endVisit(this);
     }
 
     // Overrides

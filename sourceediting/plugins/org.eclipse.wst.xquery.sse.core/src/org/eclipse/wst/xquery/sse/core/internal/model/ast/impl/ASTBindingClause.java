@@ -17,6 +17,8 @@ import org.eclipse.wst.sse.core.internal.provisional.text.IStructuredDocument;
 import org.eclipse.wst.sse.core.internal.provisional.text.IStructuredDocumentRegion;
 import org.eclipse.wst.validation.internal.provisional.core.IReporter;
 import org.eclipse.wst.validation.internal.provisional.core.IValidator;
+import org.eclipse.wst.xquery.sse.core.internal.model.ast.ASTHelper;
+import org.eclipse.wst.xquery.sse.core.internal.model.ast.ASTVisitor;
 import org.eclipse.wst.xquery.sse.core.internal.model.ast.IASTBindingClause;
 import org.eclipse.wst.xquery.sse.core.internal.model.ast.IASTNode;
 
@@ -137,6 +139,12 @@ public class ASTBindingClause extends ASTClause implements IASTBindingClause {
     }
 
     // Overrides
+
+    @Override
+    protected void accept0(ASTVisitor visitor) {
+        visitor.visit(this);
+        visitor.endVisit(this);
+    }
 
     @Override
     protected void getInScopeVariables(List<String> vars, IASTNode child) {

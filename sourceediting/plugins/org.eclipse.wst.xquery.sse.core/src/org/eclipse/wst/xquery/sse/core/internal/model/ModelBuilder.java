@@ -34,6 +34,7 @@ import org.eclipse.wst.xquery.sse.core.internal.model.ast.IASTDirElement;
 import org.eclipse.wst.xquery.sse.core.internal.model.ast.IASTExprSingleClause;
 import org.eclipse.wst.xquery.sse.core.internal.model.ast.IASTExtension;
 import org.eclipse.wst.xquery.sse.core.internal.model.ast.IASTFLWOR;
+import org.eclipse.wst.xquery.sse.core.internal.model.ast.IASTFunctionCall;
 import org.eclipse.wst.xquery.sse.core.internal.model.ast.IASTFunctionDecl;
 import org.eclipse.wst.xquery.sse.core.internal.model.ast.IASTIf;
 import org.eclipse.wst.xquery.sse.core.internal.model.ast.IASTInsert;
@@ -58,11 +59,7 @@ import org.eclipse.wst.xquery.sse.core.internal.model.ast.IASTTypeSwitch;
 import org.eclipse.wst.xquery.sse.core.internal.model.ast.IASTValidate;
 import org.eclipse.wst.xquery.sse.core.internal.model.ast.IASTVarDecl;
 import org.eclipse.wst.xquery.sse.core.internal.model.ast.IASTVarRef;
-import org.eclipse.wst.xquery.sse.core.internal.model.ast.impl.ASTOperator;
-import org.eclipse.wst.xquery.sse.core.internal.model.ast.impl.IASTFunctionCall;
 import org.eclipse.wst.xquery.sse.core.internal.model.ast.impl.ImplASTNodeFactory;
-import org.eclipse.wst.xquery.sse.core.internal.model.ast.impl.xml.ASTDirComment;
-import org.eclipse.wst.xquery.sse.core.internal.model.ast.impl.xml.ASTDirPI;
 import org.eclipse.wst.xquery.sse.core.internal.regions.XQueryRegions;
 import org.eclipse.wst.xquery.sse.core.internal.sdregions.ModuleDeclStructuredDocumentRegion;
 import org.eclipse.wst.xquery.sse.core.internal.sdregions.SDRegionUtils;
@@ -278,7 +275,7 @@ public class ModelBuilder {
             module.setVersionRegion(vdregion.getVersion());
             module.setEncodingRegion(vdregion.getEncoding());
 
-            nextSDRegion();
+            nextSDRegion(); // Skip VersionDecl
         }
     }
 
@@ -421,10 +418,10 @@ public class ModelBuilder {
 
                 if (type2 == XQueryRegions.KW_VARIABLE) {
                     IASTVarDecl newDecl = reparseVarDecl(oldDecl);
-                    module.setVariableDecl(from++, newDecl.getName(), newDecl);
+                    module.setChildASTNodeAt(from++, newDecl);
                 } else if (type2 == XQueryRegions.KW_FUNCTION) {
                     IASTFunctionDecl newDecl = reparseFunctionDecl(oldDecl);
-                    module.setFunctionDecl(from++, newDecl.getName(), newDecl);
+                    module.setChildASTNodeAt(from++, newDecl);
                 } else if (type2 == XQueryRegions.KW_OPTION) {
                     reparseOptionDecl(module);
                 } else {
@@ -763,6 +760,7 @@ public class ModelBuilder {
      * @return an AST node or null if no expression single have been parsed.
      */
     protected IASTNode reparseExprSingle(IASTNode expr) {
+
         IASTNode newExpr = null;
         if (sameRegionType(forLetFilter)) {
             newExpr = reparseFLWORExpr(expr);
@@ -785,6 +783,8 @@ public class ModelBuilder {
         } else {
             newExpr = reparseOrExpr(expr);
         }
+
+        newExpr.setLastStructuredDocumentRegion(previousSDRegion);
 
         return newExpr;
     }
@@ -1275,6 +1275,7 @@ public class ModelBuilder {
      * <tt>("some" | "every") "$" VarName TypeDeclaration? "in" ExprSingle ("," "$" VarName TypeDeclaration? "in" ExprSingle)*</tt>
      */
     protected IASTBindingClause reparseForLetQuantifyClause(IASTNode node) {
+        // Try reusing node..
         IASTBindingClause clause = asBindingClause(node);
         clause.setFirstStructuredDocumentRegion(currentSDRegion);
 
@@ -1294,7 +1295,6 @@ public class ModelBuilder {
         do {
 
             if (checkAndReport(XQueryRegions.DOLLAR, XQueryMessages.errorXQSE_MissingVarName_UI_)) {
-
                 clause.setBindingVariable(index, currentSDRegion);
 
                 if (nextSDRegion()) {
@@ -1332,6 +1332,8 @@ public class ModelBuilder {
             }
 
         } while (currentSDRegion != null);
+
+        clause.setLastStructuredDocumentRegion(previousSDRegion);
 
         return clause;
     }
@@ -1460,7 +1462,7 @@ public class ModelBuilder {
      * Reparse <tt>TreatExpr ( "instance" "of" SequenceType )?</tt>
      */
     protected IASTNode reparseInstanceOfExpr(IASTNode node) {
-        ASTOperator operator = asOperator(node, IASTOperator.OP_INSTANCEOF);
+        IASTOperator operator = asOperator(node, IASTOperator.OP_INSTANCEOF);
 
         IASTNode oldOperand = operator.getChildASTNodeAt(0);
         IASTNode newOperand = reparseTreatExpr(oldOperand);
@@ -1485,7 +1487,7 @@ public class ModelBuilder {
      * Reparse <tt>CastableExpr ( "treat" "as" SequenceType )?</tt>
      */
     protected IASTNode reparseTreatExpr(IASTNode node) {
-        ASTOperator operator = asOperator(node, IASTOperator.OP_TREATAS);
+        IASTOperator operator = asOperator(node, IASTOperator.OP_TREATAS);
 
         IASTNode oldOperand = operator.getChildASTNodeAt(0);
         IASTNode newOperand = reparseCastableExpr(oldOperand);
@@ -1510,7 +1512,7 @@ public class ModelBuilder {
      * Reparse <tt>CastExpr ( "castable" "as" SingleType )?</tt>
      */
     protected IASTNode reparseCastableExpr(IASTNode node) {
-        ASTOperator operator = asOperator(node, IASTOperator.OP_CASTABLEAS);
+        IASTOperator operator = asOperator(node, IASTOperator.OP_CASTABLEAS);
 
         IASTNode oldOperand = operator.getChildASTNodeAt(0);
         IASTNode newOperand = reparseCastAsExpr(oldOperand);
@@ -1535,7 +1537,7 @@ public class ModelBuilder {
      * Reparse <tt>UnaryExpr ( "cast" "as" SingleType )?</tt>
      */
     protected IASTNode reparseCastAsExpr(IASTNode node) {
-        ASTOperator operator = asOperator(node, IASTOperator.OP_CASTAS);
+        IASTOperator operator = asOperator(node, IASTOperator.OP_CASTAS);
 
         IASTNode oldOperand = operator.getChildASTNodeAt(0);
         IASTNode newOperand = reparseUnaryExpr(oldOperand);
@@ -1718,7 +1720,7 @@ public class ModelBuilder {
     /**
      * Reparse <tt>RelativePathExpr?</tt>
      * 
-     * @return a {@link ASTOperator} or null when failing parsing a relative path
+     * @return a {@link IASTOperator} or null when failing parsing a relative path
      */
     protected IASTNode reparseRelativePathExprOpt(IASTNode expr) {
         return reparseOperatorStar(expr, relativePathFilter, relativePathContinuation);
@@ -1727,7 +1729,7 @@ public class ModelBuilder {
     /**
      * Reparse <tt>StepExpr (("/" | "//") StepExpr)*</tt>
      * 
-     * @return a {@link ASTOperator} or null when failing parsing a relative path
+     * @return a {@link IASTOperator} or null when failing parsing a relative path
      */
     protected IASTNode reparseRelativePathExpr(IASTNode expr) {
         return reparseOperatorStar(expr, relativePathFilter, relativePathContinuation);
@@ -1968,7 +1970,7 @@ public class ModelBuilder {
         // TODO: 
 
         nextSDRegion(); // only one region for the PI
-        return new ASTDirPI();
+        return nodeFactory.newDirPI();
     }
 
     /**
@@ -1977,7 +1979,7 @@ public class ModelBuilder {
     protected IASTNode reparseDirCommentConstructor(IASTNode expr) {
         // TODO
         nextSDRegion(); // only one region for the comment
-        return new ASTDirComment();
+        return nodeFactory.newDirComment();
     }
 
     /**
@@ -2188,32 +2190,42 @@ public class ModelBuilder {
      * Reparse <tt>QName "(" (ExprSingle ("," ExprSingle)*)? ")"</tt>
      */
     protected IASTNode reparseFunctionCall(IASTNode expr) {
-        // TODO
-        nextSDRegion(); // QName "("
-
         IASTFunctionCall fc = asFunctionCall(expr);
+        fc.setFirstStructuredDocumentRegion(currentSDRegion);
+
+        nextSDRegion(); // QName "(" (already checked by caller)
+
         int index = 0;
 
         // No parameters?
         if (sameRegionType(XQueryRegions.RPAR)) {
             nextSDRegion(); // ')'
         } else {
+            // Parse parameters
+
             do {
-                IASTNode value = reparseExprSingle(null); // todo reuse param
+                IASTNode oldValue = fc.getChildASTNodeAt(index);
+                IASTNode value = reparseExprSingle(oldValue);
                 fc.setChildASTNodeAt(index++, value);
 
                 if (sameRegionType(XQueryRegions.RPAR)) {
-                    nextSDRegion();
+                    // Done parsing parameters
+                    fc.setLastStructuredDocumentRegion(currentSDRegion);
+
+                    nextSDRegion(); // ')'
                     break;
                 }
 
-                // Must be a comma
-                nextSDRegion(); // ','
+                if (!checkAndReport(XQueryRegions.COMMA, XQueryMessages.errorXQSE_MissingCommaOrRPar_UI_)) {
+                    break; // Interrupt function parsing. 
+                }
 
+                // This is a comma
+                nextSDRegion(); // ','
             } while (currentSDRegion != null);
         }
-        fc.removeChildASTNodesAfter(index);
 
+        fc.removeChildASTNodesAfter(index); // Make sure there is no other left over parameters
         return fc;
     }
 
@@ -2234,22 +2246,22 @@ public class ModelBuilder {
      * Reparse <tt>"(" Expr? ")"</tt>
      */
     protected IASTNode reparseParentherizeExpr(IASTNode node) {
+        // Try reusing node
         IASTParentherized expr = asParentherized(node);
         expr.setFirstStructuredDocumentRegion(currentSDRegion);
 
-        nextSDRegion(); // "("
+        // We know that's a "(" we skip
+        nextSDRegion();
 
         if (!sameRegionType(XQueryRegions.RPAR)) {
+            // Reparse non-empty parentherize expression
+
             IASTNode oldExpr = expr.getExpr();
             IASTNode newExpr = reparseExpr(oldExpr);
             expr.setExpr(newExpr);
-
-            if (newExpr == null) {
-                reportError(XQueryMessages.errorXQSE_MissingExprSingle_UI_);
-                return expr;
-            }
         }
 
+        // We should be on ")" now
         expr.setLastStructuredDocumentRegion(currentSDRegion);
 
         if (checkAndReport(XQueryRegions.RPAR, XQueryMessages.errorXQSE_MissingRPar_UI_)) {
@@ -2332,7 +2344,7 @@ public class ModelBuilder {
         int operatorType = getOperatorType();
         nextSDRegion(); // skip operator
 
-        ASTOperator operator = asOperator(expr, operatorType);
+        IASTOperator operator = asOperator(expr, operatorType);
         operator.setChildASTNodeAt(0, newChild);
         operator.setFirstStructuredDocumentRegion(newChild.getFirstStructuredDocumentRegion());
 
@@ -2372,7 +2384,7 @@ public class ModelBuilder {
         int operatorType = getOperatorType();
         nextSDRegion(); // skip operator
 
-        ASTOperator operator = asOperator(expr, operatorType);
+        IASTOperator operator = asOperator(expr, operatorType);
         operator.setChildASTNodeAt(0, newChild);
 
         oldChild = operator.getChildASTNodeAt(1);
@@ -2811,32 +2823,18 @@ public class ModelBuilder {
     }
 
     /**
-     * Gets AST operator
-     * 
-     * @param expr
-     * @return
-     */
-    protected ASTOperator asOperator(IASTNode expr) {
-        if (expr != null && expr.getType() == IASTNode.OPERATOR) {
-            return (ASTOperator)expr;
-        }
-
-        return new ASTOperator();
-
-    }
-
-    /**
      * Gets AST operator of the given type
      * 
      * @param expr
      * @return
      */
-    protected ASTOperator asOperator(IASTNode expr, int operatorType) {
-        ASTOperator operator = asOperator(expr);
-        if (operator.getOperatorType() == operatorType) {
-            return operator;
+    protected IASTOperator asOperator(IASTNode expr, int operatorType) {
+        if (expr != null && expr.getType() == IASTNode.OPERATOR
+                && ((IASTOperator)expr).getOperatorType() == operatorType) {
+            return (IASTOperator)expr;
         }
-        return new ASTOperator(operatorType);
+
+        return nodeFactory.newOperator(operatorType);
     }
 
     /**
@@ -2848,7 +2846,7 @@ public class ModelBuilder {
      */
     protected IASTNode getFirstOperand(IASTNode expr, OperatorFilter filter) {
         if (expr != null && expr.getType() == IASTNode.OPERATOR) {
-            final ASTOperator operator = (ASTOperator)expr;
+            final IASTOperator operator = (IASTOperator)expr;
             if (filter.accept(operator.getType()) && operator.getChildASTNodesCount() >= 1) {
                 return operator.getChildASTNodeAt(0);
             }
@@ -2865,7 +2863,7 @@ public class ModelBuilder {
      */
     protected IASTNode getFirstOperand(IASTNode expr) {
         if (expr.getType() == IASTNode.OPERATOR) {
-            final ASTOperator operator = (ASTOperator)expr;
+            final IASTOperator operator = (IASTOperator)expr;
             if (operator.getChildASTNodesCount() >= 1) {
                 return operator.getChildASTNodeAt(0);
             }

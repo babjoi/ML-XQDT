@@ -10,6 +10,7 @@
  *******************************************************************************/
 package org.eclipse.wst.xquery.sse.core.internal.model.ast.impl;
 
+import org.eclipse.wst.xquery.sse.core.internal.model.ast.ASTVisitor;
 import org.eclipse.wst.xquery.sse.core.internal.model.ast.IASTNode;
 import org.eclipse.wst.xquery.sse.core.internal.model.ast.IASTPath;
 
@@ -20,27 +21,35 @@ import org.eclipse.wst.xquery.sse.core.internal.model.ast.IASTPath;
  */
 public class ASTPath extends ASTParentNode implements IASTPath {
 
-	// Overrides
+    // Overrides
 
-	@Override
-	public int getType() {
-		return PATH;
-	}
+    @Override
+    public int getType() {
+        return PATH;
+    }
 
-	// Methods
+    // Methods
 
-	/**
-	 * @return
-	 */
-	public IASTNode getRelativePath() {
-		return getChildASTNodeAt(0);
-	}
+    /**
+     * @return
+     */
+    public IASTNode getRelativePath() {
+        return getChildASTNodeAt(0);
+    }
 
-	/**
-	 * @param node
-	 */
-	public void setRelativePath(IASTNode node) {
-		setChildASTNodeAt(0, node);
-	}
+    /**
+     * @param node
+     */
+    public void setRelativePath(IASTNode node) {
+        setChildASTNodeAt(0, node);
+    }
 
+    @Override
+    protected void accept0(ASTVisitor visitor) {
+        boolean children = visitor.visit(this);
+        if (children) {
+            acceptChildren(visitor);
+        }
+        visitor.endVisit(this);
+    }
 }

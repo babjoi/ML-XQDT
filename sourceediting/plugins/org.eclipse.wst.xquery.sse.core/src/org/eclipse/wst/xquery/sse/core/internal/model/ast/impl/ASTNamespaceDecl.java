@@ -10,6 +10,7 @@
  *******************************************************************************/
 package org.eclipse.wst.xquery.sse.core.internal.model.ast.impl;
 
+import org.eclipse.wst.xquery.sse.core.internal.model.ast.ASTVisitor;
 import org.eclipse.wst.xquery.sse.core.internal.model.ast.IASTNamespaceDecl;
 
 /**
@@ -33,6 +34,13 @@ public class ASTNamespaceDecl extends ASTNode implements IASTNamespaceDecl {
     @Override
     public int getType() {
         return NAMESPACEDECL;
+    }
+
+    @Override
+    protected void accept0(ASTVisitor visitor) {
+        visitor.visit(this);
+
+        visitor.endVisit(this);
     }
 
 }

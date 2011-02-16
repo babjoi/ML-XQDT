@@ -14,7 +14,11 @@ import org.eclipse.wst.sse.core.internal.provisional.text.ITextRegion;
 import org.eclipse.wst.xquery.sse.core.internal.sdregions.ModuleDeclStructuredDocumentRegion;
 
 /**
- * XQuery module declaration
+ * XQuery module declaration.
+ * 
+ * <p>
+ * Prolog declarations are represented as child nodes. See {@link #getQueryBody()} and
+ * {@link #setQueryBody(IASTNode)} for getting and setting the query body
  * 
  * @author <a href="villard@us.ibm.com">Lionel Villard</a>
  */
@@ -44,22 +48,6 @@ public interface IASTModule extends IASTNode {
      * @return
      */
     public IASTFunctionDecl getFunctionDecl(String name);
-
-    /**
-     * Add new function declaration of the given name. Silently replace any existing declarations of
-     * the same name
-     * 
-     * @param name
-     * @param decl
-     */
-    public void setFunctionDecl(int index, String name, IASTFunctionDecl decl);
-
-    /**
-     * Add a new variable declaration
-     * 
-     * @param region
-     */
-    public void setVariableDecl(int index, String name, IASTVarDecl decl);
 
     /**
      * Get the variable of the given name, or null if none exist

@@ -8,11 +8,16 @@
  * Contributors:
  *     IBM Corporation - initial API and implementation
  *******************************************************************************/
-package org.eclipse.wst.xquery.sse.core.internal.model.ast.impl;
-
-import org.eclipse.wst.xquery.sse.core.internal.model.ast.IASTNode;
+package org.eclipse.wst.xquery.sse.core.internal.model.ast;
 
 /**
+ * Represents a XQuery function call.
+ * 
+ * <p>
+ * Parameters are stored as child nodes
+ * 
+ * <p>
+ * The first sd region correspond to 'funcname' '(' and the last sd region to ')'
  * 
  * @author <a href="villard@us.ibm.com">Lionel Villard</a>
  */

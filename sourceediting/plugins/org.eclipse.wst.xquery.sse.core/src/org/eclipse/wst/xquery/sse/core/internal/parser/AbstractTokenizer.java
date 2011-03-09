@@ -10,6 +10,7 @@
  *******************************************************************************/
 package org.eclipse.wst.xquery.sse.core.internal.parser;
 
+import org.apache.xerces.util.XML11Char;
 
 /**
  * Base class for {@link XQueryTokenizer}
@@ -18,25 +19,30 @@ package org.eclipse.wst.xquery.sse.core.internal.parser;
  */
 public abstract class AbstractTokenizer implements ITokenizer {
 
-	// State
+    // State
 
-	final protected XQueryParserRegionFactory regionFactory;
+    final protected XQueryParserRegionFactory regionFactory;
 
-	// Constructor
+    // Constructor
 
-	protected AbstractTokenizer() {
-		regionFactory = createRegionFactory();
-	}
-	
-	// Methods
-	
-	/**
-	 * Gets the factory to create region.
-	 */
-	protected XQueryParserRegionFactory createRegionFactory()
-	{
-		return new XQueryParserRegionFactory();
-	}
+    protected AbstractTokenizer() {
+        regionFactory = createRegionFactory();
+    }
 
-	 
+    // Methods
+
+    /**
+     * Gets the factory to create region.
+     */
+    protected XQueryParserRegionFactory createRegionFactory() {
+        return new XQueryParserRegionFactory();
+    }
+
+    /**
+     * Whether the given character is a valid NCName character
+     */
+    protected boolean isNCNameChar(int c) {
+        return XML11Char.isXML11NCName(c);
+    }
+
 }

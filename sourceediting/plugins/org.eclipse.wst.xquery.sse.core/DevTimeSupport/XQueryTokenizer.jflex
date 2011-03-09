@@ -539,6 +539,30 @@ import org.eclipse.wst.xquery.sse.core.internal.regions.XQueryRegions;
 		zzMarkedPos = zzCurrentPos;
 	}
 	
+	/** Parse an undefined region until finding a separator */
+	final private void parseUndefinedRegion() throws IOException {
+		yyadvance(); // skip first undefined char
+		
+		int c;
+		while (!isEOF()) {
+			c = yyadvance();
+
+			if (isEOF())
+			{
+				zzMarkedPos = zzCurrentPos;
+				return;
+			}
+
+			if (!isNCNameChar(c)) {
+				zzMarkedPos = zzCurrentPos;
+				return;
+			}
+		}
+		
+		zzMarkedPos = zzCurrentPos;
+	}
+	
+	
 	/**
      * Skip XQuery comments and white spaces and try matching the given token
      * 
@@ -1366,13 +1390,13 @@ SimpleName = ({Letter} | "_" ) ({SimpleNameChar})*
   {StringLiteral} 	{ yybegin(TS_XQUERYVERSIONSEPARATOR); return STRINGLITERAL; }
   ";"				{ recover(TS_LIBRARYORMAIN); return SEPARATOR; }
   {S}*				{ return WHITE_SPACE; }
-  .					{ retry(TS_XQUERYVERSIONSEPARATOR); return UNDEFINED; }
+  .					{ retry(TS_XQUERYVERSIONSEPARATOR); parseUndefinedRegion(); return UNDEFINED; }
 }
 
 <TS_XQUERYVERSIONSEPARATOR, TS_XQUERYENCODING> {	
   ";" 				{ yybegin(TS_LIBRARYORMAIN); return SEPARATOR; }
   {S}*				{ return WHITE_SPACE; }
-  .					{ retry(TS_LIBRARYORMAIN); return UNDEFINED; }
+  .					{ retry(TS_LIBRARYORMAIN); parseUndefinedRegion();  return UNDEFINED; }
 }
  
 // Handle separator (Restore stacked state)
@@ -1380,7 +1404,7 @@ SimpleName = ({Letter} | "_" ) ({SimpleNameChar})*
 	";" 					{ restoreState(); return SEPARATOR; } 
 	{S}*					{ return WHITE_SPACE; }
 	"(:"					{ parseXQueryComment(); return XQUERY_COMMENT;}
-    .						{ recover(popState()); return UNDEFINED; }
+    .						{ recover(popState()); parseUndefinedRegion();  return UNDEFINED; }
 }
 
 // Handle "namespace" NCName "=" URILiteral  (Restore stacked state)
@@ -2515,7 +2539,10 @@ SimpleName = ({Letter} | "_" ) ({SimpleNameChar})*
 		    	    return LPAR; 
 		    }
 
-<TS_SINK> . { return UNDEFINED; }
+<TS_SINK> . { 
+				parseUndefinedRegion();	
+				return UNDEFINED; 
+			}
 
  
 
@@ -2537,6 +2564,7 @@ SimpleName = ({Letter} | "_" ) ({SimpleNameChar})*
 	if (DEBUG)
 		System.out.println("!!!unexpected!!!: \"" + yytext() + "\":" + //$NON-NLS-2$//$NON-NLS-1$
 			yychar + "-" + (yychar + yylength()));//$NON-NLS-1$
+	parseUndefinedRegion();
 	recover(TS_EXPR);
 	return UNDEFINED;
 }

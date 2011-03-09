@@ -59,24 +59,6 @@
    </extension>
    <extension
          point="org.eclipse.ui.editors.templates">
-      <contextType
-            class="org.eclipse.jface.text.templates.TemplateContextType"
-            id="org.eclipse.wst.xquery.sse.ui.contextType.prolog1"
-            name="Prolog Part 1"
-            registryId="org.eclipse.wst.xquery.sse.ui.contextTypeRegistry">
-      </contextType>
-      <contextType
-            class="org.eclipse.jface.text.templates.TemplateContextType"
-            id="org.eclipse.wst.xquery.sse.ui.contextType.prolog2"
-            name="Prolog Part 2"
-            registryId="org.eclipse.wst.xquery.sse.ui.contextTypeRegistry">
-      </contextType>
-      <contextType
-            class="org.eclipse.jface.text.templates.TemplateContextType"
-            id="org.eclipse.wst.xquery.sse.ui.contextType.expr"
-            name="Expression"
-            registryId="org.eclipse.wst.xquery.sse.ui.contextTypeRegistry">
-      </contextType>
        <include
             file="templates/templates.xml"
             translations="templates/templates.properties">
@@ -92,6 +74,11 @@
       <contextTypeRegistry
             id="org.eclipse.wst.xquery.sse.ui.contextTypeRegistry">
       </contextTypeRegistry>
+      <contextType
+            class="org.eclipse.wst.xquery.sse.ui.internal.quickassist.XQDTTemplateContextType"
+            id="org.eclipse.wst.xquery.sse.ui.contextType.expr"
+            registryId="org.eclipse.wst.xquery.sse.ui.contextTypeRegistry">
+      </contextType>
    </extension>
    <extension
          point="org.eclipse.core.runtime.preferences">
@@ -445,6 +432,35 @@
                 underline="false">
           </style>
        </scheme>
+    </extension>
+    <extension
+          point="org.eclipse.wst.sse.ui.completionProposal">
+       <proposalCategory
+             id="org.eclipse.wst.xquery.sse.ui.proposal.keyword"
+             name="Keyword Proposals">
+       </proposalCategory>
+       <proposalCategory
+             id="org.eclipse.wst.xquery.sse.ui.proposal.template"
+             name="Template Proposals">
+       </proposalCategory>
+       <proposalComputer
+             activate="false"
+             categoryId="org.eclipse.wst.xquery.sse.ui.proposal.keyword"
+             class="org.eclipse.wst.xquery.sse.ui.internal.quickassist.KeywordCompletionProposalComputer"
+             id="org.eclipse.wst.xquery.sse.ui.proposalComputer.keyword">
+          <contentType
+                id="org.eclipse.wst.xquery.sse.core.xquery">
+          </contentType>
+       </proposalComputer>
+       <proposalComputer
+             activate="false"
+             categoryId="org.eclipse.wst.xquery.sse.ui.proposal.template"
+             class="org.eclipse.wst.xquery.sse.ui.internal.quickassist.TemplateCompletionProposalComputer"
+             id="org.eclipse.wst.xquery.sse.ui.proposalComputer.template">
+          <contentType
+                id="org.eclipse.wst.xquery.sse.core.xquery">
+          </contentType>
+       </proposalComputer>
     </extension>
 
 </plugin>

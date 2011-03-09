@@ -20,18 +20,17 @@ import org.eclipse.jface.text.ITextSelection;
 import org.eclipse.jface.text.ITextViewer;
 import org.eclipse.jface.text.Region;
 import org.eclipse.jface.text.contentassist.ICompletionProposal;
+import org.eclipse.jface.text.templates.DocumentTemplateContext;
 import org.eclipse.jface.text.templates.Template;
 import org.eclipse.jface.text.templates.TemplateCompletionProcessor;
 import org.eclipse.jface.text.templates.TemplateContext;
 import org.eclipse.jface.text.templates.TemplateContextType;
+import org.eclipse.jface.text.templates.TemplateException;
 import org.eclipse.jface.text.templates.TemplateProposal;
 import org.eclipse.jface.text.templates.persistence.TemplateStore;
 import org.eclipse.swt.graphics.Image;
-import org.eclipse.wst.sse.core.StructuredModelManager;
 import org.eclipse.wst.sse.core.internal.provisional.text.IStructuredDocument;
-import org.eclipse.wst.xquery.sse.core.internal.model.XQueryStructuredModel;
-import org.eclipse.wst.xquery.sse.core.internal.model.ast.IASTNode;
-import org.eclipse.wst.xquery.sse.core.internal.sdregions.XQueryStructuredDocumentRegion;
+import org.eclipse.wst.sse.core.internal.provisional.text.IStructuredDocumentRegion;
 import org.eclipse.wst.xquery.sse.ui.XQDTSSEUIPlugin;
 import org.eclipse.wst.xquery.sse.ui.internal.preferences.XQDTTemplatePreferencePage;
 
@@ -49,56 +48,27 @@ import org.eclipse.wst.xquery.sse.ui.internal.preferences.XQDTTemplatePreference
  */
 public class XQDTTemplateCompletionProcessor extends TemplateCompletionProcessor {
 
-    // State
-
-    /** Context type ID */
-    protected String contextTypeID;
-
     // Methods
 
     /**
-     * Gets the context the given node lives in
+     * Test is the template matches the prefix and context
      */
-    protected TemplateContextType getContextType(IASTNode node) {
-        if (node != null) {
-            final IASTNode prev = node.getPreviousASTNodeSibling();
-            if (prev != null) {
-                switch (prev.getType()) {
-                case IASTNode.VARDECL:
-                case IASTNode.FUNCTIONDECL:
-                    return XQDTTemplateContexTypeIDs.ALL_BUT_PROLOG1_TCT;
-                }
-            }
-        }
-
-        // Coudn't figure out context => could be in any
-        return XQDTTemplateContexTypeIDs.ALL_TCT;
+    protected boolean isMatching(String prefix, Template template, TemplateContext context) {
+        return template.getName().startsWith(prefix) && template.matches(prefix, context.getContextType().getId());
     }
 
     // Overrides
 
+    /*
+     * (non-Javadoc)
+     * 
+     * @see
+     * org.eclipse.jface.text.templates.TemplateCompletionProcessor#getContextType(org.eclipse.jface
+     * .text.ITextViewer, org.eclipse.jface.text.IRegion)
+     */
     @Override
     protected TemplateContextType getContextType(ITextViewer viewer, IRegion region) {
-        final IStructuredDocument document = (IStructuredDocument)viewer.getDocument();
-        final XQueryStructuredDocumentRegion sdregion = (XQueryStructuredDocumentRegion)document
-                .getRegionAtCharacterOffset(region.getOffset());
-
-        if (sdregion != null) {
-
-            final XQueryStructuredModel model = (XQueryStructuredModel)StructuredModelManager.getModelManager()
-                    .getModelForRead(document);
-
-            final IASTNode node = model.getASTNode(sdregion);
-
-            TemplateContextType tct = getContextType(node);
-
-            model.releaseFromRead();
-
-            return tct;
-        }
-
-        // Coudn't figure out context => allow all
-        return XQDTTemplateContexTypeIDs.ALL_TCT;
+        return new XQDTTemplateContextType();
     }
 
     @Override
@@ -108,33 +78,15 @@ public class XQDTTemplateCompletionProcessor extends TemplateCompletionProcessor
 
     @Override
     protected Template[] getTemplates(String contextTypeId) {
-        String[] ids;
-
-        // Is this a logical context type ID?
-        if (contextTypeId.equals(XQDTTemplateContexTypeIDs.PROLOG12)) {
-            ids = new String[] { XQDTTemplateContexTypeIDs.PROLOG1, XQDTTemplateContexTypeIDs.PROLOG2 };
-        } else if (contextTypeId.equals(XQDTTemplateContexTypeIDs.ALL)) {
-            ids = new String[] { XQDTTemplateContexTypeIDs.PROLOG1, XQDTTemplateContexTypeIDs.PROLOG2,
-                    XQDTTemplateContexTypeIDs.EXPR };
-        } else if (contextTypeId.equals(XQDTTemplateContexTypeIDs.ALL_BUT_PROLOG1)) {
-            ids = new String[] { XQDTTemplateContexTypeIDs.PROLOG2, XQDTTemplateContexTypeIDs.EXPR };
-        } else {
-            ids = new String[] { contextTypeId };
-        }
-
         final TemplateStore store = getTemplateStore();
         if (store != null) {
             List<Template> templates = new ArrayList<Template>();
-
-            for (int i = 0; i < ids.length; i++) {
-                Template[] t = store.getTemplates(ids[i]);
-                if (t != null) {
-                    for (int j = 0; j < t.length; j++) {
-                        templates.add(t[j]);
-                    }
+            Template[] t = store.getTemplates();
+            if (t != null) {
+                for (int j = 0; j < t.length; j++) {
+                    templates.add(t[j]);
                 }
             }
-
             Template[] array = new Template[templates.size()];
             return templates.toArray(array);
         }
@@ -142,8 +94,10 @@ public class XQDTTemplateCompletionProcessor extends TemplateCompletionProcessor
         return null;
     }
 
+    @SuppressWarnings({ "unchecked", "rawtypes" })
     @Override
     public ICompletionProposal[] computeCompletionProposals(ITextViewer viewer, int offset) {
+
         ITextSelection selection = (ITextSelection)viewer.getSelectionProvider().getSelection();
 
         // adjust offset to end of normalized selection
@@ -162,29 +116,46 @@ public class XQDTTemplateCompletionProcessor extends TemplateCompletionProcessor
 
         Template[] templates = getTemplates(context.getContextType().getId());
 
-        List<ICompletionProposal> matches = new ArrayList<ICompletionProposal>();
+        List matches = new ArrayList();
         for (int i = 0; i < templates.length; i++) {
             Template template = templates[i];
-
-            final int relevance = getRelevance(template, prefix);
-            if (relevance > 0) {
-                ICompletionProposal proposal = createProposal(template, context, (IRegion)region, relevance);
-
-                matches.add(proposal);
+            try {
+                context.getContextType().validate(template.getPattern());
+            } catch (TemplateException e) {
+                continue;
+            }
+            if (isMatching(prefix, template, context)) {
+                matches.add(createProposal(template, context, (IRegion)region, getRelevance(template, prefix)));
             }
         }
 
         Collections.sort(matches, fgProposalComparator);
 
-        return matches.toArray(new ICompletionProposal[matches.size()]);
+        return (ICompletionProposal[])matches.toArray(new ICompletionProposal[matches.size()]);
     }
 
     @Override
-    protected int getRelevance(Template template, String prefix) {
-        if (template.getPattern().startsWith(prefix)) {
-            return 90;
+    protected TemplateContext createContext(ITextViewer viewer, IRegion region) {
+        TemplateContextType contextType = getContextType(viewer, region);
+        if (contextType != null) {
+            IStructuredDocument document = (IStructuredDocument)viewer.getDocument();
+
+            // Compute position to include previous keyword
+            int offset = region.getOffset();
+            int length = region.getLength();
+
+            IStructuredDocumentRegion sdregion = document.getRegionAtCharacterOffset(offset);
+            if (sdregion != null && sdregion.getPrevious() != null) {
+                String token = sdregion.getPrevious().getText().trim();
+                if (token.equals("declare") || token.equals("import") || token.equals("module")) {
+                    offset = sdregion.getPrevious().getStart();
+                    length += sdregion.getPrevious().getLength();
+                }
+            }
+
+            return new DocumentTemplateContext(contextType, document, offset, length);
         }
-        return 0;
+        return null;
     }
 
     // Helpers
@@ -193,12 +164,14 @@ public class XQDTTemplateCompletionProcessor extends TemplateCompletionProcessor
         return XQDTSSEUIPlugin.getDefault().getTemplateStore();
     }
 
-    private static final class ProposalComparator implements Comparator<ICompletionProposal> {
-        public int compare(ICompletionProposal o1, ICompletionProposal o2) {
+    @SuppressWarnings("rawtypes")
+    private static final class ProposalComparator implements Comparator {
+        public int compare(Object o1, Object o2) {
             return ((TemplateProposal)o2).getRelevance() - ((TemplateProposal)o1).getRelevance();
         }
     }
 
-    private static final Comparator<ICompletionProposal> fgProposalComparator = new ProposalComparator();
+    @SuppressWarnings("rawtypes")
+    private static final Comparator fgProposalComparator = new ProposalComparator();
 
 }

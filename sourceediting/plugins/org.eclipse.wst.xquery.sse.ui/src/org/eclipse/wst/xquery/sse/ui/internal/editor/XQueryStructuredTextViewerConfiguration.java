@@ -11,17 +11,16 @@
  *******************************************************************************/
 package org.eclipse.wst.xquery.sse.ui.internal.editor;
 
-import org.eclipse.jface.text.contentassist.IContentAssistProcessor;
+import org.eclipse.jface.text.contentassist.IContentAssistant;
 import org.eclipse.jface.text.formatter.IContentFormatter;
 import org.eclipse.jface.text.formatter.MultiPassContentFormatter;
 import org.eclipse.jface.text.source.ISourceViewer;
 import org.eclipse.wst.sse.ui.StructuredTextViewerConfiguration;
+import org.eclipse.wst.sse.ui.internal.contentassist.StructuredContentAssistant;
 import org.eclipse.wst.sse.ui.internal.format.StructuredFormattingStrategy;
 import org.eclipse.wst.sse.ui.internal.provisional.style.LineStyleProvider;
 import org.eclipse.wst.xquery.sse.core.text.IXQDTPartitions;
 import org.eclipse.wst.xquery.sse.ui.internal.formatter.XQDTFormatter;
-import org.eclipse.wst.xquery.sse.ui.internal.quickassist.XQDTTemplateCompletionProcessor;
-import org.eclipse.wst.xquery.sse.ui.internal.quickassist.XQDTVariableContentAssistProcessor;
 import org.eclipse.wst.xquery.sse.ui.internal.style.XQDTLineStyleProvider;
 
 /**
@@ -34,9 +33,6 @@ public class XQueryStructuredTextViewerConfiguration extends StructuredTextViewe
     /** Cached XQuery line style provider */
     final private LineStyleProvider[] lineStyleProvider;
 
-    /** Cached XQuery content assist processors */
-    final private IContentAssistProcessor[] contentAssistProcessor;
-
     /** List of configured content types */
     final private String[] contentTypes;
 
@@ -45,10 +41,6 @@ public class XQueryStructuredTextViewerConfiguration extends StructuredTextViewe
     public XQueryStructuredTextViewerConfiguration() {
         lineStyleProvider = new LineStyleProvider[1];
         lineStyleProvider[0] = new XQDTLineStyleProvider();
-
-        contentAssistProcessor = new IContentAssistProcessor[2];
-        contentAssistProcessor[0] = new XQDTVariableContentAssistProcessor();
-        contentAssistProcessor[1] = new XQDTTemplateCompletionProcessor();
 
         contentTypes = new String[3];
         contentTypes[0] = IXQDTPartitions.XQUERY_DEFAULT;
@@ -69,11 +61,6 @@ public class XQueryStructuredTextViewerConfiguration extends StructuredTextViewe
     }
 
     @Override
-    protected IContentAssistProcessor[] getContentAssistProcessors(ISourceViewer sourceViewer, String partitionType) {
-        return contentAssistProcessor;
-    }
-
-    @Override
     public IContentFormatter getContentFormatter(ISourceViewer sourceViewer) {
         IContentFormatter formatter = super.getContentFormatter(sourceViewer);
 
@@ -83,6 +70,13 @@ public class XQueryStructuredTextViewerConfiguration extends StructuredTextViewe
         }
 
         return formatter;
+    }
+
+    @Override
+    public IContentAssistant getContentAssistant(ISourceViewer sourceViewer) {
+        StructuredContentAssistant assistant = (StructuredContentAssistant)super.getContentAssistant(sourceViewer);
+        assistant.enableAutoInsert(true);
+        return assistant;
     }
 
 }

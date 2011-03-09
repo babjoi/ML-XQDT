@@ -8,9 +8,6 @@
  * Contributors:
  *     Gabriel Petrovay (28msec) - initial API and implementation
  *******************************************************************************/
-/**
- * 
- */
 package org.eclipse.wst.xquery.core.codeassist;
 
 import java.util.ArrayList;
@@ -19,8 +16,18 @@ import java.util.List;
 import org.eclipse.wst.xquery.core.IXQDTLanguageConstants;
 import org.eclipse.wst.xquery.core.utils.LanguageUtil;
 
+/**
+ * Collection of utility methods related to XQuery keywords
+ */
 public class XQDTKeywords implements IXQDTKeywords {
 
+    /**
+     * Finds the list of keywords matching the given prefix.
+     * 
+     * @param prefix
+     * @param languageLevel
+     * @see {@link IXQDTLanguageConstants}
+     */
     public static String[] findByPrefix(String prefix, int languageLevel) {
         List<String> result = new ArrayList<String>();
         if (LanguageUtil.isLanguage(languageLevel, IXQDTLanguageConstants.LANGUAGE_XQUERY)) {

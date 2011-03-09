@@ -15,6 +15,9 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
+import org.eclipse.jface.text.AbstractReusableInformationControlCreator;
+import org.eclipse.jface.text.DefaultInformationControl;
+import org.eclipse.jface.text.IInformationControl;
 import org.eclipse.jface.text.IRegion;
 import org.eclipse.jface.text.ITextSelection;
 import org.eclipse.jface.text.ITextViewer;
@@ -29,6 +32,7 @@ import org.eclipse.jface.text.templates.TemplateException;
 import org.eclipse.jface.text.templates.TemplateProposal;
 import org.eclipse.jface.text.templates.persistence.TemplateStore;
 import org.eclipse.swt.graphics.Image;
+import org.eclipse.swt.widgets.Shell;
 import org.eclipse.wst.sse.core.internal.provisional.text.IStructuredDocument;
 import org.eclipse.wst.sse.core.internal.provisional.text.IStructuredDocumentRegion;
 import org.eclipse.wst.xquery.sse.ui.XQDTSSEUIPlugin;
@@ -158,6 +162,15 @@ public class XQDTTemplateCompletionProcessor extends TemplateCompletionProcessor
         return null;
     }
 
+    @Override
+    protected ICompletionProposal createProposal(Template template, TemplateContext context, IRegion region,
+            int relevance) {
+        TemplateProposal proposal = new TemplateProposal(template, context, region, getImage(template), relevance);
+        proposal.setInformationControlCreator(new DefaultPresenterControlCreator());
+        return proposal;
+
+    }
+
     // Helpers
 
     private TemplateStore getTemplateStore() {
@@ -173,5 +186,16 @@ public class XQDTTemplateCompletionProcessor extends TemplateCompletionProcessor
 
     @SuppressWarnings("rawtypes")
     private static final Comparator fgProposalComparator = new ProposalComparator();
+
+    // Inner class
+
+    /**
+     * Default control creator for the information control replacer.
+     */
+    private static class DefaultPresenterControlCreator extends AbstractReusableInformationControlCreator {
+        public IInformationControl doCreateInformationControl(Shell shell) {
+            return new DefaultInformationControl(shell, true);
+        }
+    }
 
 }

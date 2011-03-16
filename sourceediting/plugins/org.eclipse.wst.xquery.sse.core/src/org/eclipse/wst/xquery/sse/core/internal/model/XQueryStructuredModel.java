@@ -34,6 +34,7 @@ import org.eclipse.wst.validation.internal.provisional.core.IMessage;
 import org.eclipse.wst.xquery.core.IXQDTCorePreferences;
 import org.eclipse.wst.xquery.core.IXQDTLanguageConstants;
 import org.eclipse.wst.xquery.core.XQDTCorePlugin;
+import org.eclipse.wst.xquery.sse.core.XQDTSSECorePlugin;
 import org.eclipse.wst.xquery.sse.core.internal.ValidationHelper;
 import org.eclipse.wst.xquery.sse.core.internal.model.ast.IASTModule;
 import org.eclipse.wst.xquery.sse.core.internal.model.ast.IASTNode;
@@ -222,7 +223,7 @@ public class XQueryStructuredModel extends AbstractStructuredModel implements IS
         ModelBuilder modelBuilder = null;
 
         IExtensionRegistry registry = Platform.getExtensionRegistry();
-        IExtensionPoint point = registry.getExtensionPoint("org.eclipse.wst.xquery.sse.core", "modelBuilder");
+        IExtensionPoint point = registry.getExtensionPoint(XQDTSSECorePlugin.PLUGIN_ID, "modelBuilder");
         IExtension[] extensions = point.getExtensions();
         if (extensions.length > 0) {
             IConfigurationElement[] elements = extensions[0].getConfigurationElements();

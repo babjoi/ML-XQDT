@@ -20,7 +20,7 @@ import org.osgi.framework.BundleContext;
 public class XQDTSSECorePlugin extends Plugin {
 
     // The plug-in ID
-    public static final String PLUGIN_ID = "org.eclipse.wst.xquery.core.sse";
+    public static final String PLUGIN_ID = "org.eclipse.wst.xquery.sse.core";
 
     // The shared instance
     private static XQDTSSECorePlugin plugin;

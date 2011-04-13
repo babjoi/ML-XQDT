@@ -39,21 +39,21 @@ import org.eclipse.wst.xquery.sse.core.internal.regions.XQueryRegions;
 %eof}
 
 %{
-	final private static boolean DEBUG = false;
+    final private static boolean DEBUG = false;
 
-	// Expression context constants. Must be negative to avoid conflicting with lexical states
-	 
-	final private static int EXPR = -1;
-	final private static int MODULE = -2; // In a module (top-level) 
-	final private static int WHEREEXPR = -3; // In where ExprSingle
-	final private static int RETURNEXPR = -4; // In return ExprSingle 
-	final private static int ORDEREXPR = -5;  // In OrderSpec ExprSingle
-	final private static int FLCLAUSEEXPR = -6; // In in or := ExprSingle
-	final private static int FLWORFOR = -7; 
-	final private static int FLWORLET = -8; 
-	final private static int PREDICATEEXPR = -9; // Within a predicate 
-	
-	// Within an expression between "(" and ")": Parentherize/Function call/Test condition/Typeswitch operand. 
+    // Expression context constants. Must be negative to avoid conflicting with lexical states
+     
+    final private static int EXPR = -1;
+    final private static int MODULE = -2; // In a module (top-level) 
+    final private static int WHEREEXPR = -3; // In where ExprSingle
+    final private static int RETURNEXPR = -4; // In return ExprSingle 
+    final private static int ORDEREXPR = -5;  // In OrderSpec ExprSingle
+    final private static int FLCLAUSEEXPR = -6; // In in or := ExprSingle
+    final private static int FLWORFOR = -7; 
+    final private static int FLWORLET = -8; 
+    final private static int PREDICATEEXPR = -9; // Within a predicate 
+    
+    // Within an expression between "(" and ")": Parentherize/Function call/Test condition/Typeswitch operand. 
     // This state is always preceded by the following state when closing this expression  
     final private static int PAREXPR = -10; 
     
@@ -63,31 +63,31 @@ import org.eclipse.wst.xquery.sse.core.internal.regions.XQueryRegions;
     
     final private static int INVARDECLINIT = -12;
     
-	final private static int IF = -13;  
-	final private static int IFTHENEXPR = -14; // In the if then expr 
-	final private static int IFELSEEXPR = -15; // In the if else expr 
-	final private static int QUANTIFIED = -16;
-	final private static int QUANTIFIEDINEXPR = -17;
-	final private static int QUANTIFIEDSATIFIESEXPR = -18;
-	final private static int TYPESWITCH = -19;  
-	final private static int TYPESWITCHDEFAULT = -20; // in default typeswitch ExprSingle 
-	
-	// XQuery Update Facility 1.0
-	    
-	final private static int XUDELETE = -21;  
-	final private static int XUREPLACE = -22;
-	final private static int XURENAME = -23;
-	final private static int XUTRANSFORM = -24;
-	final private static int XUTRANSFORMASSIGN = -25; // In copy := assignment
-	final private static int XUMODIFYEXPR = -26; // In the modify expression
-	final private static int XURETURNEXPR = -27; // In the return expression
-	final private static int XUDELETETARGET = -28; 
-	final private static int XUREPLACETARGET = -29;
-	final private static int XUREPLACESRC = -30;
+    final private static int IF = -13;  
+    final private static int IFTHENEXPR = -14; // In the if then expr 
+    final private static int IFELSEEXPR = -15; // In the if else expr 
+    final private static int QUANTIFIED = -16;
+    final private static int QUANTIFIEDINEXPR = -17;
+    final private static int QUANTIFIEDSATIFIESEXPR = -18;
+    final private static int TYPESWITCH = -19;  
+    final private static int TYPESWITCHDEFAULT = -20; // in default typeswitch ExprSingle 
+    
+    // XQuery Update Facility 1.0
+        
+    final private static int XUDELETE = -21;  
+    final private static int XUREPLACE = -22;
+    final private static int XURENAME = -23;
+    final private static int XUTRANSFORM = -24;
+    final private static int XUTRANSFORMASSIGN = -25; // In copy := assignment
+    final private static int XUMODIFYEXPR = -26; // In the modify expression
+    final private static int XURETURNEXPR = -27; // In the return expression
+    final private static int XUDELETETARGET = -28; 
+    final private static int XUREPLACETARGET = -29;
+    final private static int XUREPLACESRC = -30;
     final private static int XUNEWNAMEEXPR = -31;
-	final private static int XUINSERTTARGET = -32;
-	final private static int XUINSERT = -33; 
-	final private static int XUSOURCE = -34;
+    final private static int XUINSERTTARGET = -32;
+    final private static int XUINSERT = -33; 
+    final private static int XUSOURCE = -34;
     
     
     // XQuery Scripting Extension 1.0
@@ -143,427 +143,425 @@ import org.eclipse.wst.xquery.sse.core.internal.regions.XQueryRegions;
     
     // Methods
 
-	public void setParser(XQueryRegionParser parser)
-	{
-	  this.parser = parser;
-	}
+    public void setParser(XQueryRegionParser parser)
+    {
+      this.parser = parser;
+    }
 
-	/** Print out string */
-	private final void dump(String s) {
-		if (DEBUG) {
-			System.out.println(s + " (" + yychar + "-" + //$NON-NLS-2$//$NON-NLS-1$
-				(yylength() + yychar) + "):\'" +//$NON-NLS-1$
-					StringUtils.escape(yytext()) + "\'");//$NON-NLS-1$
-		}
-	}
-	
-	/** Push given state */
-	private final void pushState(int state) {
-	  if (DEBUG)
-	    System.out.println("pushState " + state);
-	
-	  states.push(state);
-	}
-	
-	/** Push current state */
-	private final void pushCurrentState() {
-	  states.push(yystate());
-	}
-	 
-	/** Pop state  */
-	private final int popState() {
-	  if (DEBUG)
-	    System.out.println("popState " + (states.empty() ? "YYINITIAL" : states.peek()));
+    /** Print out string */
+    private final void dump(String s) {
+        if (DEBUG) {
+            System.out.println(s + " (" + yychar + "-" + //$NON-NLS-2$//$NON-NLS-1$
+                (yylength() + yychar) + "):\'" +//$NON-NLS-1$
+                    StringUtils.escape(yytext()) + "\'");//$NON-NLS-1$
+        }
+    }
+    
+    /** Push given state */
+    private final void pushState(int state) {
+      if (DEBUG)
+        System.out.println("pushState " + state);
+    
+      states.push(state);
+    }
+    
+    /** Push current state */
+    private final void pushCurrentState() {
+      states.push(yystate());
+    }
+     
+    /** Pop state  */
+    private final int popState() {
+      if (DEBUG)
+        System.out.println("popState " + (states.empty() ? "YYINITIAL" : states.peek()));
 
-	  return states.empty() ? YYINITIAL : states.pop();
-	}
-	
-	/** Peek at state */
-	private final int peekState() {
-	  return states.empty() ? YYINITIAL : states.peek();
-	}
-	
-	/** Check state on given state matches one of expected. If not, mark current token with recovery state  */
-	private final void check(int top, int... expected) {
-	  for (int state : expected)
-	    if (state == top)
-	      return;
-	      
-	   recoveryState = top; // Will show an error
-	}
-	
-	
-	/** Check state on top of the stack is the expected ones. If not, mark current token with recovery state  */
-	private final void checkTop(int... expected) {
-	  check(peekState(), expected);
-	}
-	
-	/** Pop state and check that it matches at least one of the given state  */
-	private final void popAndCheck(int... states) {
-	  check(popState());
-	} 
-	
-	/** Start or continue FLWOR clause */
-	final private void flowr(int type)
-	{
-		// Start FLWOR clause only if not already in such clause
-		if (peekState() != FLWORFOR && peekState() != FLWORLET)
-		{ 
-		  pushState(type);
-		}
-	}
-	
-	/** 
-	 * Received a token terminating ExprSingle.
-	 *
-	 * Depending on the context, either :
-	 * - recursively terminate outer ExprSingle (for instance when the terminating ExprSingle is within the context of a For Return expression)
-	 *   in this case the state stack will be reduced accordingly
-	 * - continue parsing the same outer expression single. Only the sub-expression type is popped from the state stack
-	 *
-	 * yybegin(TS_EXPRSINGLE) should always be called after pushing the context expression on the stack.
-	 */
-	final private int endExprSingle()
-	{
-		final int context = popState();
-		switch (context)
-		{
-		  // Cases where the outer expression must also be terminated.
-		
-		  case RETURNEXPR: 
-		  case IFELSEEXPR: 
-		  case QUANTIFIEDSATIFIESEXPR: 
-		  case TYPESWITCHDEFAULT: 
-		  case XUINSERTTARGET: 
-		  case XUDELETETARGET: 
-		  case XUREPLACESRC: 
-		  case XUNEWNAMEEXPR: 
-		  case XURETURNEXPR: 
-		  case SXASSIGNRHS: 
-		  case SXEXITEXPRSINGLE: 
-		  case GROUPBY: // treated as an expression single 
-		    popState();
-		    return endExprSingle();
-	
-	      case MODULE:
-	        // Terminating parsing.. 
-	        yybegin(TS_SINK);
-	        return context;
-	
-	 	  case INVARDECLINIT:
-		 	// Terminating a global variable initialization
-		 	yybegin(TS_PROLOG2);
-		 	return context;
-		 	
-		  case INBLOCKVARDECLINIT:
-	      	// Terminating a block variable initialization
-	      	yybegin(TS_BLOCKVARDECLOPT);
-	      	return context;
-	    
-	    
-		  case WHEREEXPR:
-		  case ORDEREXPR:
-		  case FLCLAUSEEXPR:
-		  case PREDICATEEXPR:
-		  case IFTHENEXPR:
-		  case XUREPLACE:
-		  case XUREPLACETARGET:
-		  case CURLYEXPR: 
-		  case SXWHILE:
-		  case PAREXPR:
-		  default:
-		    // Continue analyzing the same expression. The caller will be responsible for moving to a new lexical state.
-		    return context; 
-		} 
-	} 
-	
-	/** Received "," */
-	final private String comma()
-	{
-	  final int context = peekState();
-	  switch (context)
-	  {
-	    case FLCLAUSEEXPR: // Expecting a new variable declaration
-	      popState();
-	      yybegin(peekState() == FLWORFOR ? TS_FORCLAUSE : TS_LETCLAUSE); 
-	      break;
-	   
-	   case QUANTIFIEDINEXPR:     // Expecting a new variable declaration
-	      popState();
-	      yybegin(TS_QUANTIFIEDEXPR);
-	      break;
-	     
-	   case XUTRANSFORMASSIGN: 
-	     popState();
-	     yybegin(TS_TRANSFORMEXPR);
-	      break;
-	        	    
-	   case INBLOCKVARDECLINIT:
-	      // Expecting a new block variable declaration
-	      popState();
-	      yybegin(TS_BLOCKVARNAME);
-	      break;
-	      
-	    case GROUPBY: // Expecting a new grouping spec
-	      yybegin(TS_GCVARNAME);
-	      break;
-	      
-	    case PAREXPR:
-	    case EXPR:
-	    case CURLYEXPR:
-	      yybegin(TS_EXPRSINGLE);
-	      break;
-	    
-	    case YYINITIAL:
-	    default:
-	       // Parsing a complex ExprSingle. Terminating it.
-	      // endExprSingle(); TODO: Not sure about that.
-	    
-	      // And then just keep going..
-	      yybegin(TS_EXPRSINGLE);
-	      
-	  }
-	  
-	  return COMMA;
-	} 
-	
-	/** Received ";" */
-	final private String semicolon()
-	{  
-	   return SEPARATOR;
-	}
-	
-	/** Received "return" */
-	final private String returnkw()
-	{
-	  final int context = endExprSingle();
-	  switch (context)
-	  {
-	    case FLCLAUSEEXPR:
-	    case WHEREEXPR:
-	    case ORDEREXPR:
-	      checkTop(FLWORFOR, FLWORLET);
-  		  pushState(RETURNEXPR);  
-  		  yybegin(TS_EXPRSINGLE); 
-  		  break;
-  		case XUMODIFYEXPR:
-  		  checkTop(XUTRANSFORM);
-  		  pushState(XURETURNEXPR);  
-  		  yybegin(TS_EXPRSINGLE); 
-  		  break;
-  		
-	  }
-	  
-	  return KW_RETURN;
-	}
-	 
-	
-	/** Start XML section */
-	private void startXML()
-	{
-	  elementDepths.push(0);
-	}
-	
-	/** End XML section */
-	private void endXML()
-	{
-	  elementDepths.pop();
-	}
-	
-	/** Receive notification of the beginning of an XML element */
-	private void startElement()
-	{
-	  if (!elementDepths.empty())
-		elementDepths.setTop(elementDepths.peek() + 1);
-	} 
-	
-	/** Receive notification of the end of an XML element */
-	private void endElement()
-	{
-		if (!elementDepths.empty())
-		  elementDepths.setTop(elementDepths.peek() - 1);
-	} 
-	
-	/** Tell whether or not it within an element content */
-	private boolean inXMLContent()
-	{
-		if (!elementDepths.empty())
-			return elementDepths.peek() > 0;
-			
-		return false;
-	}
-	
-	/** Start sequence type */
-	private void startSequenceType()
-	{
-	  sequenceType.push(true);
-	}
-	
-	/** Start kind test */
-	private void startKindTest()
-	{
-	  sequenceType.push(false);
-	}
-	 
-	/** End sequence type or kind test */
-	private boolean endSTOrKT()
-	{
-	  if (!sequenceType.isEmpty())
-	     return sequenceType.pop();
-	  return false;
-	}
-	
-	/** Whether parsing a sequence type */
-	private boolean inSequenceType()
-	{
-	  return sequenceType.isEmpty() ? false : sequenceType.peek();
-	}
-	 
-	 
-	/** Restore tokenizer state with the value stored on top of the stack */
-	private void restoreState()
-	{
-		final int state = popState();
-		if (state <= -1)
-		{
-		 	// The query is not valid... recover by going by to the initial state (for now)
-		 	//recoveryState = state; // An error message will be shown
-		 	yybegin(YYINITIAL); // TODO: can we do better than that?
-		}
-		else
-		  yybegin(state);
-	}
-	 
-	/** 
-	 * Try recovering from an invalid token by parsing again from another lexical state
-	 */
-	private void retry(int nextState)
-	{
-		if (nextState != zzLexicalState)
-		{
-		  drop = true;
-		  droppedState = zzLexicalState; 
-		  
-		  yypushback(yylength()); 
-		  yybegin(nextState);
-		}
-	    
-	}
-	
-	/** 
-	 * Recover from an invalid token
-	 */
-	private void recover(int nextState)
-	{
-		recoveryState = zzLexicalState;
-		yybegin(nextState);
-	}
-	 
-	/** Parse pragma content */
-	final private void parsePragmaContent() throws IOException
-	{
-	  // The current char must be a space ({S}).
-	  // Search for #)
-	  int c;
-	  while (!isEOF())
-	  {
-	     c = yyadvance();
-	     if (isEOF())
-	       return;
-	     if (c == '#')
-	     {
-	       c = yyadvance();
-	       if (isEOF()) return;
-	       
-	       if (c == ')') 
-	       {
-	          // found it. Push 2 characters back. 
-	          zzMarkedPos = zzCurrentPos - 2;
-	          return;
-	       }
-	     }
-	  }
-	  
-	}
-	
-	/** Parse XQuery comment */
-	final private void parseXQueryComment() throws IOException {
-		// The current char must be '('
-		// Search for :), ignoring nesting comments
+      return states.empty() ? YYINITIAL : states.pop();
+    }
+    
+    /** Peek at state */
+    private final int peekState() {
+      return states.empty() ? YYINITIAL : states.peek();
+    }
+    
+    /** Check state on given state matches one of expected. If not, mark current token with recovery state  */
+    private final void check(int top, int... expected) {
+      for (int state : expected)
+        if (state == top)
+          return;
+          
+       recoveryState = top; // Will show an error
+    }
+    
+    
+    /** Check state on top of the stack is the expected ones. If not, mark current token with recovery state  */
+    private final void checkTop(int... expected) {
+      check(peekState(), expected);
+    }
+    
+    /** Pop state and check that it matches at least one of the given state  */
+    private final void popAndCheck(int... states) {
+      check(popState());
+    } 
+    
+    /** Start or continue FLWOR clause */
+    final private void flowr(int type)
+    {
+        // Start FLWOR clause only if not already in such clause
+        if (peekState() != FLWORFOR && peekState() != FLWORLET)
+        { 
+          pushState(type);
+        }
+    }
+    
+    /** 
+     * Received a token terminating ExprSingle.
+     *
+     * Depending on the context, either :
+     * - recursively terminate outer ExprSingle (for instance when the terminating ExprSingle is within the context of a For Return expression)
+     *   in this case the state stack will be reduced accordingly
+     * - continue parsing the same outer expression single. Only the sub-expression type is popped from the state stack
+     *
+     * yybegin(TS_EXPRSINGLE) should always be called after pushing the context expression on the stack.
+     */
+    final private int endExprSingle()
+    {
+        final int context = popState();
+        switch (context)
+        {
+          // Cases where the outer expression must also be terminated.
+        
+          case RETURNEXPR: 
+          case IFELSEEXPR: 
+          case QUANTIFIEDSATIFIESEXPR: 
+          case TYPESWITCHDEFAULT: 
+          case XUINSERTTARGET: 
+          case XUDELETETARGET: 
+          case XUREPLACESRC: 
+          case XUNEWNAMEEXPR: 
+          case XURETURNEXPR: 
+          case SXASSIGNRHS: 
+          case SXEXITEXPRSINGLE: 
+          case GROUPBY: // treated as an expression single 
+            popState();
+            return endExprSingle();
+    
+          case MODULE:
+            // Terminating parsing.. 
+            yybegin(TS_SINK);
+            return context;
+    
+           case INVARDECLINIT:
+             // Terminating a global variable initialization
+             yybegin(TS_PROLOG2);
+             return context;
+             
+          case INBLOCKVARDECLINIT:
+              // Terminating a block variable initialization
+              yybegin(TS_BLOCKVARDECLOPT);
+              return context;
+        
+        
+          case WHEREEXPR:
+          case ORDEREXPR:
+          case FLCLAUSEEXPR:
+          case PREDICATEEXPR:
+          case IFTHENEXPR:
+          case XUREPLACE:
+          case XUREPLACETARGET:
+          case CURLYEXPR: 
+          case SXWHILE:
+          case PAREXPR:
+          default:
+            // Continue analyzing the same expression. The caller will be responsible for moving to a new lexical state.
+            return context; 
+        } 
+    } 
+    
+    /** Received "," */
+    final private String comma()
+    {
+      final int context = peekState();
+      switch (context)
+      {
+        case FLCLAUSEEXPR: // Expecting a new variable declaration
+          popState();
+          yybegin(peekState() == FLWORFOR ? TS_FORCLAUSE : TS_LETCLAUSE); 
+          break;
+       
+       case QUANTIFIEDINEXPR:     // Expecting a new variable declaration
+          popState();
+          yybegin(TS_QUANTIFIEDEXPR);
+          break;
+         
+       case XUTRANSFORMASSIGN: 
+         popState();
+         yybegin(TS_TRANSFORMEXPR);
+          break;
+                    
+       case INBLOCKVARDECLINIT:
+          // Expecting a new block variable declaration
+          popState();
+          yybegin(TS_BLOCKVARNAME);
+          break;
+          
+        case GROUPBY: // Expecting a new grouping spec
+          yybegin(TS_GCVARNAME);
+          break;
+          
+        case PAREXPR:
+        case EXPR:
+        case CURLYEXPR:
+          yybegin(TS_EXPRSINGLE);
+          break;
+        
+        case YYINITIAL:
+        default:
+           // Parsing a complex ExprSingle. Terminating it.
+          // endExprSingle(); TODO: Not sure about that.
+        
+          // And then just keep going..
+          yybegin(TS_EXPRSINGLE);
+          
+      }
+      
+      return COMMA;
+    } 
+    
+    /** Received ";" */
+    final private String semicolon()
+    {  
+       return SEPARATOR;
+    }
+    
+    /** Received "return" */
+    final private String returnkw() {
+        final int context = endExprSingle();
 
-		yyadvance(); // skip '('
-		yyadvance(); // skip ':'
-		
-		int c;
-		int nesting = 0;
-		while (!isEOF()) {
-			c = yyadvance();
+        switch (context) {
+            case FLCLAUSEEXPR:
+            case WHEREEXPR:
+            case ORDEREXPR:
+                checkTop(FLWORFOR, FLWORLET);
+                pushState(RETURNEXPR);  
+                yybegin(TS_EXPRSINGLE); 
+                break;
+            case XUMODIFYEXPR:
+                checkTop(XUTRANSFORM);
+                pushState(XURETURNEXPR);  
+                yybegin(TS_EXPRSINGLE); 
+                break;
+        }
 
-			if (isEOF())
-			{
-				zzMarkedPos = zzCurrentPos;
-				return;
-			}
+        return KW_RETURN;
+    }
+     
+    
+    /** Start XML section */
+    private void startXML()
+    {
+      elementDepths.push(0);
+    }
+    
+    /** End XML section */
+    private void endXML()
+    {
+      elementDepths.pop();
+    }
+    
+    /** Receive notification of the beginning of an XML element */
+    private void startElement()
+    {
+      if (!elementDepths.empty())
+        elementDepths.setTop(elementDepths.peek() + 1);
+    } 
+    
+    /** Receive notification of the end of an XML element */
+    private void endElement()
+    {
+        if (!elementDepths.empty())
+          elementDepths.setTop(elementDepths.peek() - 1);
+    } 
+    
+    /** Tell whether or not it within an element content */
+    private boolean inXMLContent()
+    {
+        if (!elementDepths.empty())
+            return elementDepths.peek() > 0;
+            
+        return false;
+    }
+    
+    /** Start sequence type */
+    private void startSequenceType()
+    {
+      sequenceType.push(true);
+    }
+    
+    /** Start kind test */
+    private void startKindTest()
+    {
+      sequenceType.push(false);
+    }
+     
+    /** End sequence type or kind test */
+    private boolean endSTOrKT()
+    {
+      if (!sequenceType.isEmpty())
+         return sequenceType.pop();
+      return false;
+    }
+    
+    /** Whether parsing a sequence type */
+    private boolean inSequenceType()
+    {
+      return sequenceType.isEmpty() ? false : sequenceType.peek();
+    }
+     
+     
+    /** Restore tokenizer state with the value stored on top of the stack */
+    private void restoreState()
+    {
+        final int state = popState();
+        if (state <= -1)
+        {
+             // The query is not valid... recover by going by to the initial state (for now)
+             //recoveryState = state; // An error message will be shown
+             yybegin(YYINITIAL); // TODO: can we do better than that?
+        }
+        else
+          yybegin(state);
+    }
+     
+    /** 
+     * Try recovering from an invalid token by parsing again from another lexical state
+     */
+    private void retry(int nextState)
+    {
+        if (nextState != zzLexicalState)
+        {
+          drop = true;
+          droppedState = zzLexicalState; 
+          
+          yypushback(yylength()); 
+          yybegin(nextState);
+        }
+        
+    }
+    
+    /** 
+     * Recover from an invalid token
+     */
+    private void recover(int nextState)
+    {
+        recoveryState = zzLexicalState;
+        yybegin(nextState);
+    }
+     
+    /** Parse pragma content */
+    final private void parsePragmaContent() throws IOException
+    {
+      // The current char must be a space ({S}).
+      // Search for #)
+      int c;
+      while (!isEOF())
+      {
+         c = yyadvance();
+         if (isEOF())
+           return;
+         if (c == '#')
+         {
+           c = yyadvance();
+           if (isEOF()) return;
+           
+           if (c == ')') 
+           {
+              // found it. Push 2 characters back. 
+              zzMarkedPos = zzCurrentPos - 2;
+              return;
+           }
+         }
+      }
+      
+    }
+    
+    /** Parse XQuery comment */
+    final private void parseXQueryComment() throws IOException {
+        // The current char must be '('
+        // Search for :), ignoring nesting comments
 
-			if (c == ':') {
-				c = yyadvance();
-				if (isEOF())
-				{
-					zzMarkedPos = zzCurrentPos;
-					return;
-				}
+        yyadvance(); // skip '('
+        yyadvance(); // skip ':'
+        
+        int c;
+        int nesting = 0;
+        while (!isEOF()) {
+            c = yyadvance();
 
-				if (c == ')') {
-					if (nesting == 0)
-					{
-						// Found the end
-						zzMarkedPos = zzCurrentPos;
-						return;
-					}
+            if (isEOF())
+            {
+                zzMarkedPos = zzCurrentPos;
+                return;
+            }
 
-					nesting--;
-				}
-			} else if (c == '(') {
-				c = yyadvance();
-				if (isEOF())
-				{
-					zzMarkedPos = zzCurrentPos;
-					return;
-				}
+            if (c == ':') {
+                c = yyadvance();
+                if (isEOF())
+                {
+                    zzMarkedPos = zzCurrentPos;
+                    return;
+                }
 
-				if (c == ':')
-					nesting++;
-			}
-		}
-		
-		zzMarkedPos = zzCurrentPos;
-	}
-	
-	/** Parse an undefined region until finding a separator */
-	final private void parseUndefinedRegion() throws IOException {
-		yyadvance(); // skip first undefined char
-		
-		int c;
-		while (!isEOF()) {
-			c = yyadvance();
+                if (c == ')') {
+                    if (nesting == 0)
+                    {
+                        // Found the end
+                        zzMarkedPos = zzCurrentPos;
+                        return;
+                    }
 
-			if (isEOF())
-			{
-				zzMarkedPos = zzCurrentPos;
-				return;
-			}
+                    nesting--;
+                }
+            } else if (c == '(') {
+                c = yyadvance();
+                if (isEOF())
+                {
+                    zzMarkedPos = zzCurrentPos;
+                    return;
+                }
 
-			if (!isNCNameChar(c)) {
-				zzMarkedPos = zzCurrentPos;
-				return;
-			}
-		}
-		
-		zzMarkedPos = zzCurrentPos;
-	}
-	
-	
-	/**
+                if (c == ':')
+                    nesting++;
+            }
+        }
+        
+        zzMarkedPos = zzCurrentPos;
+    }
+    
+    /** Parse an undefined region until finding a separator */
+    final private void parseUndefinedRegion() throws IOException {
+        yyadvance(); // skip first undefined char
+        
+        int c;
+        while (!isEOF()) {
+            c = yyadvance();
+
+            if (isEOF())
+            {
+                zzMarkedPos = zzCurrentPos;
+                return;
+            }
+
+            if (!isNCNameChar(c)) {
+                zzMarkedPos = zzCurrentPos;
+                return;
+            }
+        }
+        
+        zzMarkedPos = zzCurrentPos;
+    }
+    
+    
+    /**
      * Skip XQuery comments and white spaces and try matching the given token
      * 
      * @throws IOException
@@ -575,7 +573,7 @@ import org.eclipse.wst.xquery.sse.core.internal.regions.XQueryRegions;
         
         boolean match = false;
         if (skipWhitespace()) 
-       		match = match(token);
+            match = match(token);
            
         zzCurrentPos = savedCurrentPos;
         zzMarkedPos = savedMarkedPos;
@@ -600,7 +598,7 @@ import org.eclipse.wst.xquery.sse.core.internal.regions.XQueryRegions;
                     zzCurrentPos -= 2;
                     parseXQueryComment();
                 } else {
-                	zzCurrentPos -= 2; // Point to '('
+                    zzCurrentPos -= 2; // Point to '('
                    return true;
                 }
             } else if (isWhitespace(c)) {
@@ -643,47 +641,47 @@ import org.eclipse.wst.xquery.sse.core.internal.regions.XQueryRegions;
      * @throws IOException
      */
     protected String lookahead(String token, int pushState, int nextState, String regionName) throws IOException {
-    	if (skipAndMatch(token))
-    	{
-    	    if (pushState != NULL)
-    	      pushState(pushState);
-    		yybegin(nextState);
-    		return regionName;
-    	}
-    	
-    	yybegin(TS_ENDAXISSTEP);
-    	return PATH_NAMETEST;
+        if (skipAndMatch(token))
+        {
+            if (pushState != NULL)
+              pushState(pushState);
+            yybegin(nextState);
+            return regionName;
+        }
+        
+        yybegin(TS_ENDAXISSTEP);
+        return PATH_NAMETEST;
     }
     
     /** 'for' '$' look ahead */
     protected String lookAheadForClause() throws IOException {
-    	if (skipAndMatch("$"))
-  		{
-  		  flowr(FLWORFOR); 
-  		  yybegin(TS_FORCLAUSE); 
-  		  return KW_FOR;
-  		} 
-  		
-  		yybegin(TS_ENDAXISSTEP);
-    	return PATH_NAMETEST;
+        if (skipAndMatch("$"))
+          {
+            flowr(FLWORFOR); 
+            yybegin(TS_FORCLAUSE); 
+            return KW_FOR;
+          } 
+          
+          yybegin(TS_ENDAXISSTEP);
+        return PATH_NAMETEST;
     }
     
     /** 'let' '$' look ahead */
     protected String lookAheadLetClause() throws IOException {
-    	if (skipAndMatch("$"))
-  		{
-  		  flowr(FLWORLET); 
-  		  yybegin(TS_LETCLAUSE); 
-  		  return KW_LET;
-  		} 
-  		
-  		yybegin(TS_ENDAXISSTEP);
-    	return PATH_NAMETEST;
+        if (skipAndMatch("$"))
+          {
+            flowr(FLWORLET); 
+            yybegin(TS_LETCLAUSE); 
+            return KW_LET;
+          } 
+          
+          yybegin(TS_ENDAXISSTEP);
+        return PATH_NAMETEST;
     }
     
     /** Look for the non-separator token after 'declare' and set the lexer in the proper state */
     protected String lookaheadDeclare(boolean declare)  throws IOException {
-    	int savedCurrentPos = zzCurrentPos;
+        int savedCurrentPos = zzCurrentPos;
         int savedMarkedPos = zzMarkedPos;
         zzCurrentPos = zzMarkedPos;
         
@@ -692,141 +690,141 @@ import org.eclipse.wst.xquery.sse.core.internal.regions.XQueryRegions;
         String expectedToken = null; 
         if (skipWhitespace()) 
         {
-        	// Identify the token to match.
-        	
-        	int c = yyadvance();
-        	switch (c)
-        	{
-        		case 'a': // assignable
-        	  		expectedToken = "ssignable";
-        	  		nextState = TS_DECLVARSX;
-        	      	break;
-        		case 'b': // boundary-space, base-uri
-        	  		c = yyadvance();
-        	    	switch (c)
-        	   	 	{
-        	    		case 'a':
-        	    			expectedToken = "se-uri";
-        	    			nextState = TS_BASEURI;
-        	    			break;
-        	     		case 'o': 
-        	     			expectedToken = "undary-space";
-        	     			nextState = TS_BOUNDARYSPACE;
-        	      			break;
-        	    	}
-        	    	break;
-        	  	case 'c': // copy-namespaces, construction
-        	    	c = yyadvance(); 
-        	    	if (c == 'o')
-        	    	{
-        	    		c = yyadvance();
-	        	    	switch (c)
-        	    		{
-        	    			case 'p':
-        	    				expectedToken = "y-namespaces";
-        	    				nextState = TS_COPYNAMESPACES;
-        	    				break;
-        	     			case 'n': 
-        	     				expectedToken = "struction";
-        	     				nextState = TS_DECLCONST;
-        	      				break;
-        	   	 		}
-        	    		break;
-        	    	}
-        	    	break;
-        	  case 'd': // default
-        	  		expectedToken = "efault";
-        	  		nextState = TS_DECLAREDEFAULT;
-        	      	break;
-        	  case 'f': // function
-        	  		expectedToken = "unction";
-        	  		nextState = TS_DECLFUNCTION;
-        	      	break;
-        	  case 'n': // namespace
-        	  		expectedToken = "amespace";
-        	  		nextState = TS_NAMESPACEKEYWORD;
-        	      	break;
-        	  case 'm': // module
-        	  		expectedToken = "odule";
-        	  		nextState = TS_IMPORTMODULE;
-        	      	break;
-        	  case 'o': // option, ordering
-        	    	c = yyadvance();
-        	    	switch (c)
-        	   	 	{
-        	    		case 'p':
-        	    			expectedToken = "tion";
-        	    			nextState = TS_DECLAREDEFAULT;
-        	    			break;
-        	     		case 'r': 
-        	     			expectedToken = "dering";
-        	     			nextState = TS_ORDERING;
-        	      			break;
-        	    	}
-        	    	break;
-        	  case 'r': // revalidation
-        	  		expectedToken = "evalidation";
-        	     	nextState = TS_DECLREVAL;
-        	      	break;
-        	  case 's': // simple/sequential/schema
-        	  		c = yyadvance();
-        	    	switch (c)
-        	   	 	{ 
-        	    		case 'c':
-        	    			expectedToken = "hema";
-        	    			nextState = TS_IMPORTSCHEMA;
-        	    			break;
-        	    		case 'e':
-        	    			expectedToken = "quential";
-        	    			nextState = TS_DECLFUNCTION;
-        	    			break;
-        	     		case 'i': 
-        	     			expectedToken = "mple";
-        	     			nextState = TS_DECLFUNCTION;
-        	      			break;
-        	    	}
-        	    	break;
-        	  case 'v': // variable
-        	  		expectedToken = "ariable";
-        	  		nextState = TS_DECLVAR;
-        	      	break;
-        	  case 'u': // unassignable, updating
-        	  		c = yyadvance();
-        	    	switch (c)
-        	   	 	{
-        	    		case 'n':
-        	    			expectedToken = "assignable";
-        	    			nextState = TS_DECLVARSX;
-        	    			break;
-        	     		case 'p': 
-        	     			expectedToken = "dating";
-        	     			nextState = TS_DECLFUNCTION;
-        	      			break;
-        	    	}
-        	    	break; 
-        	}
-        	
+            // Identify the token to match.
+            
+            int c = yyadvance();
+            switch (c)
+            {
+                case 'a': // assignable
+                      expectedToken = "ssignable";
+                      nextState = TS_DECLVARSX;
+                      break;
+                case 'b': // boundary-space, base-uri
+                      c = yyadvance();
+                    switch (c)
+                        {
+                        case 'a':
+                            expectedToken = "se-uri";
+                            nextState = TS_BASEURI;
+                            break;
+                         case 'o': 
+                             expectedToken = "undary-space";
+                             nextState = TS_BOUNDARYSPACE;
+                              break;
+                    }
+                    break;
+                  case 'c': // copy-namespaces, construction
+                    c = yyadvance(); 
+                    if (c == 'o')
+                    {
+                        c = yyadvance();
+                        switch (c)
+                        {
+                            case 'p':
+                                expectedToken = "y-namespaces";
+                                nextState = TS_COPYNAMESPACES;
+                                break;
+                             case 'n': 
+                                 expectedToken = "struction";
+                                 nextState = TS_DECLCONST;
+                                  break;
+                            }
+                        break;
+                    }
+                    break;
+              case 'd': // default
+                      expectedToken = "efault";
+                      nextState = TS_DECLAREDEFAULT;
+                      break;
+              case 'f': // function
+                      expectedToken = "unction";
+                      nextState = TS_DECLFUNCTION;
+                      break;
+              case 'n': // namespace
+                      expectedToken = "amespace";
+                      nextState = TS_NAMESPACEKEYWORD;
+                      break;
+              case 'm': // module
+                      expectedToken = "odule";
+                      nextState = TS_IMPORTMODULE;
+                      break;
+              case 'o': // option, ordering
+                    c = yyadvance();
+                    switch (c)
+                        {
+                        case 'p':
+                            expectedToken = "tion";
+                            nextState = TS_DECLAREDEFAULT;
+                            break;
+                         case 'r': 
+                             expectedToken = "dering";
+                             nextState = TS_ORDERING;
+                              break;
+                    }
+                    break;
+              case 'r': // revalidation
+                      expectedToken = "evalidation";
+                     nextState = TS_DECLREVAL;
+                      break;
+              case 's': // simple/sequential/schema
+                      c = yyadvance();
+                    switch (c)
+                        { 
+                        case 'c':
+                            expectedToken = "hema";
+                            nextState = TS_IMPORTSCHEMA;
+                            break;
+                        case 'e':
+                            expectedToken = "quential";
+                            nextState = TS_DECLFUNCTION;
+                            break;
+                         case 'i': 
+                             expectedToken = "mple";
+                             nextState = TS_DECLFUNCTION;
+                              break;
+                    }
+                    break;
+              case 'v': // variable
+                      expectedToken = "ariable";
+                    nextState = TS_DECLVAR;
+                    break;
+              case 'u': // unassignable, updating
+                    c = yyadvance();
+                    switch (c)
+                     {
+                        case 'n':
+                            expectedToken = "assignable";
+                            nextState = TS_DECLVARSX;
+                            break;
+                         case 'p': 
+                             expectedToken = "dating";
+                             nextState = TS_DECLFUNCTION;
+                            break;
+                    }
+                    break; 
+            }
+            
         }
         
         
         String regionType = declare ? KW_DECLARE : KW_IMPORT;
         boolean match = false; 
         if (expectedToken != null)
-        	match = match(expectedToken);
+            match = match(expectedToken);
         
         if (match)
         {
-         	if (nextState == TS_NAMESPACEKEYWORD)
-        	{
-        	   // Special case for declare namespace
-        	   pushState(TS_PROLOG1); 
-        	   pushState(TS_SEPARATOR);
-        	}
+             if (nextState == TS_NAMESPACEKEYWORD)
+            {
+               // Special case for declare namespace
+               pushState(TS_PROLOG1); 
+               pushState(TS_SEPARATOR);
+            }
         }
         else
         {
-         	nextState = TS_ENDAXISSTEP;
-        	regionType = PATH_NAMETEST;
+             nextState = TS_ENDAXISSTEP;
+            regionType = PATH_NAMETEST;
         }
         
        
@@ -837,12 +835,12 @@ import org.eclipse.wst.xquery.sse.core.internal.regions.XQueryRegions;
         
          
         yybegin(nextState);
-    	return regionType;
+        return regionType;
     }
     
     /** Look for an occurrence indicator after sequence type */
     protected String lookaheadOccurrenceIndicator(boolean atomicType)  throws IOException {
-    	int savedCurrentPos = zzCurrentPos;
+        int savedCurrentPos = zzCurrentPos;
         int savedMarkedPos = zzMarkedPos;
         zzCurrentPos = zzMarkedPos;
         
@@ -857,20 +855,20 @@ import org.eclipse.wst.xquery.sse.core.internal.regions.XQueryRegions;
         
         if (isOI)
         {
-        	yybegin(TS_OCCINDICATOR); 
-        	if (atomicType)
-        	{
-        		startSequenceType();
-        		regionType = ST_ATOMICTYPE;
-        	}
-        	else
-        	{ 
-        		regionType = ST_RPAR; 
-        	}
+            yybegin(TS_OCCINDICATOR); 
+            if (atomicType)
+            {
+                startSequenceType();
+                regionType = ST_ATOMICTYPE;
+            }
+            else
+            { 
+                regionType = ST_RPAR; 
+            }
         }
         else
         {
-          	endSTOrKT();
+              endSTOrKT();
             restoreState(); 
             regionType = ST_RPAR; 
         }
@@ -885,7 +883,7 @@ import org.eclipse.wst.xquery.sse.core.internal.regions.XQueryRegions;
     
     /** Sequence type lookahead: fallback to atomic type. */
     protected String lookaheadSeqType(boolean start, int nextState, String regionType) throws IOException {
-    	int savedCurrentPos = zzCurrentPos;
+        int savedCurrentPos = zzCurrentPos;
         int savedMarkedPos = zzMarkedPos;
         zzCurrentPos = zzMarkedPos;
          
@@ -894,92 +892,89 @@ import org.eclipse.wst.xquery.sse.core.internal.regions.XQueryRegions;
         {
            int c = yyadvance();
            
-           if (c == '(')
-           {
-           		// This is a sequence type. Nothing to do
-           }
-           else
-           {
-               	// This is an atomic type. Is the current character an occurence indicator?
-           	   	if (c == '?' || c == '*' || c == '+')
-           		{
-           			start = true;
-           			nextState = TS_OCCINDICATOR;
-           			regionType = ST_ATOMICTYPE;
-           		}
-           		else
-           		{
-           		  	restore = true; 
-           		  	start = false;
-           		  	regionType = ST_ATOMICTYPE;
-           		}
-           	}
+           if (c == '(') {
+                // This is a sequence type. Nothing to do
+           } else {
+                // This is an atomic type. Is the current character an occurence indicator?
+                if (c == '?' || c == '*' || c == '+')
+                {
+                    start = true;
+                    nextState = TS_OCCINDICATOR;
+                    regionType = ST_ATOMICTYPE;
+                }
+                else
+                {
+                    restore = true; 
+                    start = false;
+                    regionType = ST_ATOMICTYPE;
+                }
+            }
         }
          
-    	 // restore lexer position   
+         // restore lexer position   
         zzCurrentPos = savedCurrentPos;
         zzMarkedPos = savedMarkedPos;
-    	
-    	if (start)
-    		startSequenceType();
-    	if (restore)
-    		restoreState();
-    	else
-    		yybegin(nextState);
-    	return regionType;
+        
+        if (start)
+            startSequenceType();
+        if (restore)
+            restoreState();
+        else
+            yybegin(nextState);
+        return regionType;
     }
-    	 
-	
-	// Overrides 
-	
-	public final boolean isEOF() {
-		return zzAtEOF;
-	}
-	
-	 
+         
+    
+    // Overrides 
+    
+    public final boolean isEOF() {
+        return zzAtEOF;
+    }
+    
+     
     public final int getOffset() {
-	  return yychar;
+      return yychar;
     } 
     
     public void reset(char[] charArray) {
-	  reset(new CharArrayReader(charArray), 0);
+      reset(new CharArrayReader(charArray), 0);
     }
     
     public void reset(char[] charArray, int newOffset) {
-	  reset(new CharArrayReader(charArray), newOffset);
+      reset(new CharArrayReader(charArray), newOffset);
     }
     
     public void reset(java.io.InputStream in) {
-	  reset(new java.io.InputStreamReader(in), 0);
+      reset(new java.io.InputStreamReader(in), 0);
     }
     public void reset(java.io.InputStream in, int newOffset) {
       reset(new java.io.InputStreamReader(in), newOffset);
     }
 
     public void reset(java.io.Reader in) {
-	  reset(in, 0);
+      reset(in, 0);
     }
     
     public void reset(java.io.Reader in, int newOffset) {
-	  if (DEBUG) {
-		System.out.println("resetting tokenizer");//$NON-NLS-1$
-	  }
-	  
-	  yyreset(in);
-	  
-	  states.reset(); 
-	  elementDepths.reset();
-	  zzStartRead = newOffset; 
-	  recoveryState = -1;  
-	  pushState(MODULE);  
-	  
-	  try
-	  {
-	    cacheNextToken();
-	  } catch (IOException e)
-	  {
-	    zzAtEOF = true;
-	  }
+      if (DEBUG) {
+        System.out.println("resetting tokenizer");//$NON-NLS-1$
+      }
+      
+      yyreset(in);
+      
+      states.reset(); 
+      elementDepths.reset();
+      zzStartRead = newOffset; 
+      recoveryState = -1;  
+      pushState(MODULE);  
+      
+      try
+      {
+        cacheNextToken();
+      } catch (IOException e)
+      {
+        zzAtEOF = true;
+      }
     }
     
     public String getLookAheadToken()
@@ -987,84 +982,82 @@ import org.eclipse.wst.xquery.sse.core.internal.regions.XQueryRegions;
        return nextToken;
     }
     
-	  /**
-	   * Gets the next input character.
-	   *
-	   * @return      the next character of the input stream, EOF if the
-	   *              end of the stream is reached.
-	   * @exception   IOException  if any I/O-Error occurs
-	   */
-	   private int yyadvance() throws java.io.IOException {
-	
-	    /* standard case */
-	    if (zzCurrentPos < zzEndRead) return zzBuffer[zzCurrentPos++];
-	
-	    /* if the eof is reached, we don't need to work hard */ 
-	    if (zzAtEOF) return YYEOF;
-	
-	    /* otherwise: need to refill the buffer */
-	    boolean eof = zzRefill();
-	     
-	    if (eof)
-	    {
-	       zzAtEOF = true; 
-	       return YYEOF;
-	    }
-	    return zzBuffer[zzCurrentPos++];
-	  }
+      /**
+       * Gets the next input character.
+       *
+       * @return      the next character of the input stream, EOF if the
+       *              end of the stream is reached.
+       * @exception   IOException  if any I/O-Error occurs
+       */
+       private int yyadvance() throws java.io.IOException {
+    
+        /* standard case */
+        if (zzCurrentPos < zzEndRead) return zzBuffer[zzCurrentPos++];
+    
+        /* if the eof is reached, we don't need to work hard */ 
+        if (zzAtEOF) return YYEOF;
+    
+        /* otherwise: need to refill the buffer */
+        boolean eof = zzRefill();
+         
+        if (eof)
+        {
+           zzAtEOF = true; 
+           return YYEOF;
+        }
+        return zzBuffer[zzCurrentPos++];
+      }
     
     
     /**
      * user method
-	 *
-	 * Converts the raw context String returned by the primGetNextToken()
-	 * method into a full ITextRegion by pulling in values for the
-	 * current offset within the scanning text.
-	 *
-	 * Returns null when EOF is encountered and attaches intermittently
-	 * discovered whitespace onto the end of useful regions.
-	 *
-	 */
-	public final ITextRegion getNextToken() throws IOException {
-	  if (nextToken == null)
-	    return null;
-	  
-	  final String token = nextToken;
-	  final int start = yychar;
-	  final int textLength = yylength();
-	  int length = textLength;
-	  int lstate = recoveryState;
-	  
-	  recoveryState = -1;
-	  drop = false; 
-	   
-	  // Load next token 
-	  cacheNextToken();
-	  
-	  // Collapse white spaces (can never be dropped)
-	  if (nextToken == WHITE_SPACE)
-	  {
-	    length += yylength();
-	   	cacheNextToken();
-	  }
-	  
-	   if (drop)
-	  {
-	     // Show error on previous token.
-	     lstate = droppedState;
-	  }
-	  
-	  return regionFactory.createToken(token, start, textLength, length, lstate);
-	}
-	
-	final private void cacheNextToken() throws IOException {
-	  do
-	  {
-	    nextToken = primGetNextToken(); 
-	  } while (yylength() == 0 && !isEOF()); // Keep going if nothing has been consumed due to a "retry"
-	}
+     *
+     * Converts the raw context String returned by the primGetNextToken()
+     * method into a full ITextRegion by pulling in values for the
+     * current offset within the scanning text.
+     *
+     * Returns null when EOF is encountered and attaches intermittently
+     * discovered whitespace onto the end of useful regions.
+     *
+     */
+    public final ITextRegion getNextToken() throws IOException {
+      if (nextToken == null)
+        return null;
+      
+      final String token = nextToken;
+      final int start = yychar;
+      final int textLength = yylength();
+      int length = textLength;
+      int lstate = recoveryState;
+      
+      recoveryState = -1;
+      drop = false; 
+       
+      // Load next token 
+      cacheNextToken();
+      
+      // Collapse white spaces (can never be dropped)
+      if (nextToken == WHITE_SPACE)
+      {
+        length += yylength();
+        cacheNextToken();
+      }
+      
+       if (drop)
+      {
+         // Show error on previous token.
+         lstate = droppedState;
+      }
+      
+      return regionFactory.createToken(token, start, textLength, length, lstate);
+    }
+    
+    final private void cacheNextToken() throws IOException {
+        do {
+            nextToken = primGetNextToken(); 
+        } while (yylength() == 0 && !isEOF()); // Keep going if nothing has been consumed due to a "retry"
+    }
 
-	
 %}
 
 
@@ -1121,7 +1114,7 @@ Letter          = ({BaseChar} | {Ideographic})
 BaseChar        = [\u0041-\u005A\u0061-\u007A\u00C0-\u00D6\u00D8-\u00F6\u00F8-\u00FF\u0100-\u0131\u0134-\u013E\u0141-\u0148\u014A-\u017E\u0180-\u01C3\u01CD-\u01F0\u01F4-\u01F5\u01FA-\u0217\u0250-\u02A8\u02BB-\u02C1\u0386\u0388-\u038A\u038C\u038E-\u03A1\u03A3-\u03CE\u03D0-\u03D6\u03DA\u03DC\u03DE\u03E0\u03E2-\u03F3\u0401-\u040C\u040E-\u044F\u0451-\u045C\u045E-\u0481\u0490-\u04C4\u04C7-\u04C8\u04CB-\u04CC\u04D0-\u04EB\u04EE-\u04F5\u04F8-\u04F9\u0531-\u0556\u0559\u0561-\u0586\u05D0-\u05EA\u05F0-\u05F2\u0621-\u063A\u0641-\u064A\u0671-\u06B7\u06BA-\u06BE\u06C0-\u06CE\u06D0-\u06D3\u06D5\u06E5-\u06E6\u0905-\u0939\u093D\u0958-\u0961\u0985-\u098C\u098F-\u0990\u0993-\u09A8\u09AA-\u09B0\u09B2\u09B6-\u09B9\u09DC-\u09DD\u09DF-\u09E1\u09F0-\u09F1\u0A05-\u0A0A\u0A0F-\u0A10\u0A13-\u0A28\u0A2A-\u0A30\u0A32-\u0A33\u0A35-\u0A36\u0A38-\u0A39\u0A59-\u0A5C\u0A5E\u0A72-\u0A74\u0A85-\u0A8B\u0A8D\u0A8F-\u0A91\u0A93-\u0AA8\u0AAA-\u0AB0\u0AB2-\u0AB3\u0AB5-\u0AB9\u0ABD\u0AE0\u0B05-\u0B0C\u0B0F-\u0B10\u0B13-\u0B28\u0B2A-\u0B30\u0B32-\u0B33\u0B36-\u0B39\u0B3D\u0B5C-\u0B5D\u0B5F-\u0B61\u0B85-\u0B8A\u0B8E-\u0B90\u0B92-\u0B95\u0B99-\u0B9A\u0B9C\u0B9E-\u0B9F\u0BA3-\u0BA4\u0BA8-\u0BAA\u0BAE-\u0BB5\u0BB7-\u0BB9\u0C05-\u0C0C\u0C0E-\u0C10\u0C12-\u0C28\u0C2A-\u0C33\u0C35-\u0C39\u0C60-\u0C61\u0C85-\u0C8C\u0C8E-\u0C90\u0C92-\u0CA8\u0CAA-\u0CB3\u0CB5-\u0CB9\u0CDE\u0CE0-\u0CE1\u0D05-\u0D0C\u0D0E-\u0D10\u0D12-\u0D28\u0D2A-\u0D39\u0D60-\u0D61\u0E01-\u0E2E\u0E30\u0E32-\u0E33\u0E40-\u0E45\u0E81-\u0E82\u0E84\u0E87-\u0E88\u0E8A\u0E8D\u0E94-\u0E97\u0E99-\u0E9F\u0EA1-\u0EA3\u0EA5\u0EA7\u0EAA-\u0EAB\u0EAD-\u0EAE\u0EB0\u0EB2-\u0EB3\u0EBD\u0EC0-\u0EC4\u0F40-\u0F47\u0F49-\u0F69\u10A0-\u10C5\u10D0-\u10F6\u1100\u1102-\u1103\u1105-\u1107\u1109\u110B-\u110C\u110E-\u1112\u113C\u113E\u1140\u114C\u114E\u1150\u1154-\u1155\u1159\u115F-\u1161\u1163\u1165\u1167\u1169\u116D-\u116E\u1172-\u1173\u1175\u119E\u11A8\u11AB\u11AE-\u11AF\u11B7-\u11B8\u11BA\u11BC-\u11C2\u11EB\u11F0\u11F9\u1E00-\u1E9B\u1EA0-\u1EF9\u1F00-\u1F15\u1F18-\u1F1D\u1F20-\u1F45\u1F48-\u1F4D\u1F50-\u1F57\u1F59\u1F5B\u1F5D\u1F5F-\u1F7D\u1F80-\u1FB4\u1FB6-\u1FBC\u1FBE\u1FC2-\u1FC4\u1FC6-\u1FCC\u1FD0-\u1FD3\u1FD6-\u1FDB\u1FE0-\u1FEC\u1FF2-\u1FF4\u1FF6-\u1FFC\u2126\u212A-\u212B\u212E\u2180-\u2182\u3041-\u3094\u30A1-\u30FA\u3105-\u312C\uAC00-\uD7A3]
 Ideographic     = [\u4E00-\u9FA5\u3007\u3021-\u3029]
 CombiningChar   = [\u0300-\u0345\u0360-\u0361\u0483-\u0486\u0591-\u05A1\u05A3-\u05B9\u05BB-\u05BD\u05BF\u05C1-\u05C2\u05C4\u064B-\u0652\u0670\u06D6-\u06DC\u06DD-\u06DF\u06E0-\u06E4\u06E7-\u06E8\u06EA-\u06ED\u0901-\u0903\u093C\u093E-\u094C\u094D\u0951-\u0954\u0962-\u0963\u0981-\u0983\u09BC\u09BE\u09BF\u09C0-\u09C4\u09C7-\u09C8\u09CB-\u09CD\u09D7\u09E2-\u09E3\u0A02\u0A3C\u0A3E\u0A3F\u0A40-\u0A42\u0A47-\u0A48\u0A4B-\u0A4D\u0A70-\u0A71\u0A81-\u0A83\u0ABC\u0ABE-\u0AC5\u0AC7-\u0AC9\u0ACB-\u0ACD\u0B01-\u0B03\u0B3C\u0B3E-\u0B43\u0B47-\u0B48\u0B4B-\u0B4D\u0B56-\u0B57\u0B82-\u0B83\u0BBE-\u0BC2\u0BC6-\u0BC8\u0BCA-\u0BCD\u0BD7\u0C01-\u0C03\u0C3E-\u0C44\u0C46-\u0C48\u0C4A-\u0C4D\u0C55-\u0C56\u0C82-\u0C83\u0CBE-\u0CC4\u0CC6-\u0CC8\u0CCA-\u0CCD\u0CD5-\u0CD6\u0D02-\u0D03\u0D3E-\u0D43\u0D46-\u0D48\u0D4A-\u0D4D\u0D57\u0E31\u0E34-\u0E3A\u0E47-\u0E4E\u0EB1\u0EB4-\u0EB9\u0EBB-\u0EBC\u0EC8-\u0ECD\u0F18-\u0F19\u0F35\u0F37\u0F39\u0F3E\u0F3F\u0F71-\u0F84\u0F86-\u0F8B\u0F90-\u0F95\u0F97\u0F99-\u0FAD\u0FB1-\u0FB7\u0FB9\u20D0-\u20DC\u20E1\u302A-\u302F\u3099\u309A]
-Digit           =  [\u0030-\u0039\u0660-\u0669\u06F0-\u06F9\u0966-\u096F\u09E6-\u09EF\u0A66-\u0A6F\u0AE6-\u0AEF\u0B66-\u0B6F\u0BE7-\u0BEF\u0C66-\u0C6F\u0CE6-\u0CEF\u0D66-\u0D6F\u0E50-\u0E59\u0ED0-\u0ED9\u0F20-\u0F29]
+Digit           = [\u0030-\u0039\u0660-\u0669\u06F0-\u06F9\u0966-\u096F\u09E6-\u09EF\u0A66-\u0A6F\u0AE6-\u0AEF\u0B66-\u0B6F\u0BE7-\u0BEF\u0C66-\u0C6F\u0CE6-\u0CEF\u0D66-\u0D6F\u0E50-\u0E59\u0ED0-\u0ED9\u0F20-\u0F29]
 Extender        = [\u00B7\u02D0\u02D1\u0387\u0640\u0E46\u0EC6\u3005\u3031-\u3035\u309D-\u309E\u30FC-\u30FE]
 
 // *** Character and Entity references ***
@@ -1326,7 +1319,6 @@ SimpleName      = ({Letter} | "_" ) ({SimpleNameChar})*
 %state TS_SAT_ATTRIBUTEDECLARATION
 %state TS_SAT_RPAR
 
-
 // XQuery Update Facility 1.0 (Candidate Recommentation)
 
 %state TS_DECLREVAL
@@ -1364,7 +1356,7 @@ SimpleName      = ({Letter} | "_" ) ({SimpleNameChar})*
   
 %%
 
-// Prolog
+// *** Prolog ***
 
 // "xquery" "version" StringLiteral ("encoding" StringLiteral)? Separator
 

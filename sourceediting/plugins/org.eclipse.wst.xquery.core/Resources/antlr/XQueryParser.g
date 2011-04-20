@@ -47,6 +47,7 @@ Setter;
 NamespaceDecls;               // container
 NamespaceDecl;
 Imports;                      // container
+FTOptionDecls;                // container
 SchemaImport;
 SchemaPrefix;
 NamespaceName;                // container
@@ -162,12 +163,13 @@ p_ModuleDecl
 // The SEMICOLON was pushed back in all the Prolog declarations
 // in order to be contained by the declaration trees.
 pm_Prolog
-        : ((dnd+=pm_DefaultNamespaceDecl | s+=p_Setter | nd+=pm_NamespaceDecl | i+=p_Import))* od=pg_OrderedDecl
+        : ((dnd+=pm_DefaultNamespaceDecl | s+=p_Setter | nd+=pm_NamespaceDecl | i+=p_Import | fto+=pm_FTOptionDecl))* od=pg_OrderedDecl
                 ->  ^(Prolog
                                 ^(DefaultNamespaceDecls $dnd*)
                                 ^(Setters $s*)
                                 ^(NamespaceDecls $nd*)
                                 ^(Imports $i*)
+                                ^(FTOptionDecls $fto*)
                                 ^(OrderedDecls $od*)
                         )
         ;
@@ -291,6 +293,11 @@ pm_ModuleImport
                 -> ^(ModuleImport ^(NamespaceName $nn?) $us ^(AtHints $ah*))
         ;
 
+//[24] Full Text 1.0
+pm_FTOptionDecl
+        : k+=DECLARE k+=FT_OPTION p_FTMatchOptions SEMICOLON {ak($k);}
+        ;
+    
 //[26]
 pm_VarDecl
         : k+=DECLARE pg_PrivateVarOption vdt=pg_VarDeclType DOLLAR qn=p_QName td=p_TypeDeclaration? ((BIND es=p_ExprSingle) | (k+=EXTERNAL (BIND des=p_ExprSingle)?)) SEMICOLON {ak($k);}
@@ -443,8 +450,9 @@ p_IntermediateClause
         ;
 
 //[43]
+//[35] Full Text 1.0
 p_ForClause
-        : k+=FOR DOLLAR p_VarName p_TypeDeclaration? p_PositionalVar? k+=IN p_ExprSingle (COMMA DOLLAR p_VarName p_TypeDeclaration? p_PositionalVar? k+=IN p_ExprSingle)* {ak($k);}
+        : k+=FOR DOLLAR p_VarName p_TypeDeclaration? p_PositionalVar? p_FTScoreVar? k+=IN p_ExprSingle (COMMA DOLLAR p_VarName p_TypeDeclaration? p_PositionalVar? p_FTScoreVar? k+=IN p_ExprSingle)* {ak($k);}
         ;
 
 //[44]
@@ -452,9 +460,15 @@ p_PositionalVar
         : ka=AT {ak($ka);} DOLLAR p_VarName
         ;
 
+//[37] Full Text 1.0
+p_FTScoreVar
+        : ks=SCORE {ak($ks);} DOLLAR p_VarName
+        ;
+
 //[45]
+//[38] Full Text 1.0
 p_LetClause
-        : kl=LET {ak($kl);} DOLLAR p_VarName p_TypeDeclaration? BIND p_ExprSingle (COMMA DOLLAR p_VarName p_TypeDeclaration? BIND p_ExprSingle)*
+        : kl=LET {ak($kl);} ( (DOLLAR p_VarName p_TypeDeclaration?) | p_FTScoreVar ) BIND p_ExprSingle (COMMA ( (DOLLAR p_VarName p_TypeDeclaration?) | p_FTScoreVar? ) BIND p_ExprSingle)*
         ;
 
 //[46]
@@ -577,13 +591,19 @@ p_AndExpr
         ;
 
 //[71]
+//[50] Full Text 1.0
 p_ComparisonExpr
-        :   p_RangeExpr ( (p_ValueComp | p_GeneralComp | p_NodeComp) p_RangeExpr )?
+        :   p_FTContainsExpr ( (p_ValueComp | p_GeneralComp | p_NodeComp) p_FTContainsExpr )?
+        ;
+
+//[51] Full Text 1.0
+p_FTContainsExpr
+        :   p_RangeExpr ( k+=CONTAINS k+=TEXT {ak($k);} p_FTSelection p_FTIgnoreOption? )?
         ;
 
 //[72]
 p_RangeExpr
-        :   p_AdditiveExpr ( k=TO {ak($k);} p_AdditiveExpr )?
+        :   p_AdditiveExpr ( kt=TO {ak($kt);} p_AdditiveExpr )?
         ;
 
 //[73]
@@ -1161,12 +1181,230 @@ p_TypeName
 //[167]
 //URILiteral       ::=      StringLiteral
 
-//[168]
+//[144] Full Text 1.0
+p_FTSelection
+        : p_FTOr p_FTPosFilter*
+        ;
+
+//[145] Full Text 1.0
+p_FTWeight
+        : kw=WEIGHT {ak($kw);} LBRACKET pm_Expr RBRACKET
+        ;
+
+//[146] Full Text 1.0
+p_FTOr
+        : p_FTAnd ( ko=FTOR {ak($ko);} p_FTAnd )*
+        ;
+
+//[147] Full Text 1.0
+p_FTAnd
+        : p_FTMildNot ( ka=FTAND {ak($ka);} p_FTMildNot )*
+        ;
+
+//[148] Full Text 1.0
+p_FTMildNot
+        : p_FTUnaryNot ( k+=NOT k+=IN {ak($k);} p_FTUnaryNot )*
+        ;
+
+//[149] Full Text 1.0
+p_FTUnaryNot
+        : ( kn=FTNOT {ak($kn);} )? p_FTPrimaryWithOptions
+        ;
+
+//[150] Full Text 1.0
+p_FTPrimaryWithOptions
+        : p_FTPrimary p_FTMatchOptions? p_FTWeight?
+        ;
+
+
+
+//[168] Full Text 1.0
 //Prefix       ::=      NCName
 
-//[169]
+//[169] Full Text 1.0
 p_TryCatchExpr
         : p_TryClause p_CatchClause+
+        ;
+
+//[151] Full Text 1.0
+p_FTPrimary
+        : (p_FTWords p_FTTimes?)
+        | (LPAREN p_FTSelection RPAREN)
+// disabled: see below 
+//        | p_FTExtensionSelection
+        ;
+
+//[152] Full Text 1.0
+p_FTWords
+        : p_FTWordsValue p_FTAnyallOption?
+        ;
+
+//[153] Full Text 1.0
+p_FTWordsValue
+        : p_StringLiteral
+        | (LBRACKET pm_Expr RBRACKET)
+        ;
+
+// disabled because of an error:
+//   [java] error(211): XQueryParser.g:1248:30: [fatal] rule p_FTExtensionSelection has non-LL(*) decision due to recursive rule invocations reachable from alts 1,2.  Resolve by left-factoring or using syntactic predicates or using backtrack=true option.
+//   [java] warning(200): XQueryParser.g:1248:30: Decision can match input such as "LBRACKET FOR {AND, CAST..CASTABLE, DIV, EQ, EXCEPT, GE, GT..IDIV, INSTANCE..IS, LE, LT..MOD, NE, OR, TO..TREAT, UNION, CONTAINS, LPAREN, RBRACKET..LSQUARE, EQUAL, NOTEQUAL, COMMA, STAR..SLASH_SLASH, COLON, SEMICOLON..VBAR}" using multiple alternatives: 1, 2
+//   [java] As a result, alternative(s) 2 were disabled for that input
+// line 1248 is: L_Pragma+ LBRACKET p_FTSelection? LBRACKET
+//[154] Full Text 1.0
+//p_FTExtensionSelection
+//        : L_Pragma+ LBRACKET p_FTSelection? LBRACKET
+//        ;
+
+//[155] Full Text 1.0
+p_FTAnyallOption
+        : ( (k+=ANY k+=WORD?) | (k+=ALL WORDS?) | k+=PHRASE ) {ak($k);}
+        ;
+
+//[156] Full Text 1.0
+p_FTTimes
+        : k+=OCCURS p_FTRange k+=TIMES {ak($k);}
+        ;
+
+//[157] Full Text 1.0
+p_FTRange
+        : ( (k+=EXACTLY p_AdditiveExpr)
+        |   (k+=AT k+=LEAST p_AdditiveExpr)
+        |   (k+=AT k+=MOST p_AdditiveExpr)
+        |   (k+=FROM p_AdditiveExpr k+=TO p_AdditiveExpr) ) {ak($k);}
+        ;
+
+//[158] Full Text 1.0
+p_FTPosFilter
+        : p_FTOrder | p_FTWindow | p_FTDistance | p_FTScope | p_FTContent
+        ;
+
+//[159] Full Text 1.0
+p_FTOrder
+        : ko=ORDERED {ak($ko);}
+        ;
+
+//[160] Full Text 1.0
+p_FTWindow
+        : kw=WINDOW {ak($kw);} p_AdditiveExpr p_FTUnit
+        ;
+
+//[161] Full Text 1.0
+p_FTDistance
+        : kd=DISTANCE {ak($kd);} p_FTRange p_FTUnit
+        ;
+
+//[162] Full Text 1.0
+p_FTUnit
+        : ( k+=WORDS | k+=SENTENCES | k+=PARAGRAPHS ) {ak($k);}
+        ;
+
+//[163] Full Text 1.0
+p_FTScope
+        : (k+=SAME | k+=DIFFERENT) {ak($k);} p_FTBigUnit
+        ;
+
+//[164] Full Text 1.0
+p_FTBigUnit
+        : ( k+=SENTENCE | k+=PARAGRAPH ) {ak($k);}
+        ;
+
+//[165] Full Text 1.0
+p_FTContent
+        : ( (k+=AT k+=START) | (k+=AT k+=END) | (k+=ENTIRE k+=CONTENT) ) {ak($k);}
+        ;
+
+//[166] Full Text 1.0
+p_FTMatchOptions
+        : (ku=USING {ak($ku);} p_FTMatchOption)+
+        ;
+
+//[167] Full Text 1.0
+p_FTMatchOption
+        : p_FTLanguageOption
+        | p_FTWildCardOption
+        | p_FTThesaurusOption
+        | p_FTStemOption
+        | p_FTCaseOption
+        | p_FTDiacriticsOption
+        | p_FTStopWordOption
+        | p_FTExtensionOption
+        ;
+
+//[168] Full Text 1.0
+p_FTCaseOption
+        : ( (k+=CASE k+=INSENSITIVE)
+        |   (k+=CASE k+=SENSITIVE)
+        |   k+=LOWERCASE
+        |   k+=UPPERCASE ) {ak($k);}
+        ;
+
+//[169] Full Text 1.0
+p_FTDiacriticsOption
+        : ( (k+=DIACRITICS k+=INSENSITIVE)
+        |   (k+=DIACRITICS k+=SENSITIVE) ) {ak($k);}
+        ;
+
+//[170] Full Text 1.0
+p_FTStemOption
+        : ( k+=STEMMING | (k+=NO k+=STEMMING) ) {ak($k);}
+        ;
+
+//[171] Full Text 1.0
+p_FTThesaurusOption
+        : ( (k+=THESAURUS (p_FTThesaurusID | k+=DEFAULT))
+        |   (k+=THESAURUS LPAREN (p_FTThesaurusID | k+=DEFAULT) (COMMA p_FTThesaurusID)* RPAREN)
+        |   (k+=NO k+=THESAURUS) ) {ak($k);}
+        ;
+
+//[172] Full Text 1.0
+p_FTThesaurusID
+        : k+=AT p_StringLiteral (k+=RELATIONSHIP p_StringLiteral)? (p_FTLiteralRange k+=LEVELS)? {ak($k);}
+        ;
+
+//[173] Full Text 1.0
+p_FTLiteralRange
+        : ( (k+=EXACTLY L_IntegerLiteral)
+        |   (k+=AT k+=LEAST L_IntegerLiteral)
+        |   (k+=AT k+=MOST L_IntegerLiteral)
+        |   (k+=FROM L_IntegerLiteral TO L_IntegerLiteral) ) {ak($k);}
+        ;
+
+//[174] Full Text 1.0
+p_FTStopWordOption
+        : ( (k+=STOP k+=WORDS p_FTStopWords p_FTStopWordsInclExcl*)
+        |   (k+=STOP k+=WORDS k+=DEFAULT p_FTStopWordsInclExcl*)
+        |   (k+=NO k+=STOP k+=WORDS) ) {ak($k);}
+        ;
+
+//[175] Full Text 1.0
+p_FTStopWords
+        : (ka=AT {ak(ka);} p_StringLiteral)
+        | (LPAREN p_StringLiteral (COMMA p_StringLiteral)* RPAREN)
+        ;
+
+//[176] Full Text 1.0
+p_FTStopWordsInclExcl
+        : ( (k+=UNION | k+=EXCEPT) p_FTStopWords ) {ak($k);}
+        ;
+
+//[177] Full Text 1.0
+p_FTLanguageOption
+        : kl=LANGUAGE {ak(kl);} p_StringLiteral
+        ;
+
+//[178] Full Text 1.0
+p_FTWildCardOption
+        : ( k+=WILDCARDS | (k+=NO k+=WILDCARDS) ) {ak($k);}
+        ;
+
+//[179] Full Text 1.0
+p_FTExtensionOption
+        : ko=OPTION {ak(ko);} p_QName p_StringLiteral
+        ;
+
+//[180] Full Text 1.0
+p_FTIgnoreOption
+        : k+=WITHOUT k+=CONTENT {ak($k);} p_UnionExpr
         ;
 
 //[170]
@@ -1306,12 +1544,14 @@ p_NCName
         | CATCH | CONTEXT | COUNT | DECIMAL_FORMAT | DECIMAL_SEPARATOR | DIGIT | END | GROUP | GROUPING_SEPARATOR | INFINITY | MINUS_SIGN | NAMESPACE_NODE | NAN | NEXT | ONLY | OUTER | PATTERN_SEPARATOR | PERCENT | PER_MILLE | PREVIOUS | PRIVATE | PUBLIC | SLIDING | START | SWITCH | TRY | TUMBLING | WHEN | WINDOW | ZERO_DIGIT
         // XQuery Update 1.0 keywords
         | AFTER | BEFORE | COPY | DELETE | FIRST |INSERT | INTO | LAST | MODIFY | NODES | RENAME | REPLACE | REVALIDATION | SKIP | UPDATING | VALUE | WITH
+        // XQuery Full Text 1.0 keywords
+        | ALL | ANY | CONTAINS | CONTENT | DIACRITICS | DIFFERENT | DISTANCE | ENTIRE | EXACTLY | FROM | FT_OPTION | FTAND | FTNOT | FTOR | INSENSITIVE | LANGUAGE | LEVELS | LOWERCASE | MOST | NO | NOT | OCCURS | PARAGRAPH | PARAGRAPHS | PHRASE | RELATIONSHIP | SAME | SCORE | SENSITIVE | SENTENCE | SENTENCES | STEMMING | STOP | THESAURUS | TIMES | UPPERCASE | USING | WEIGHT | WILDCARDS | WITHOUT | WORD | WORDS
         // XQuery Scripting 1.0 keywords
         | BLOCK | CONSTANT | EXIT | SEQUENTIAL | SET | SIMPLE | WHILE
         // Zorba keywords
-        | EVAL | USING
+        | EVAL
         // Zorba DDL keywords
-        | APPEND_ONLY | AUTOMATICALLY | CHECK | COLLECTION | CONSTRAINT | CONST | EQUALITY | EXPLICITLY | FOREACH | FOREIGN | FROM | INDEX | INTEGRITY | KEY | MAINTAINED | MUTABLE | NON | ON | QUEUE | RANGE | READ_ONLY | UNIQUE
+        | APPEND_ONLY | AUTOMATICALLY | CHECK | COLLECTION | CONSTRAINT | CONST | EQUALITY | EXPLICITLY | FOREACH | FOREIGN | INDEX | INTEGRITY | KEY | MAINTAINED | MUTABLE | NON | ON | QUEUE | RANGE | READ_ONLY | UNIQUE
         // Mark Logic keywords
         | BINARY
         // entity references
@@ -1325,12 +1565,14 @@ p_FNCName
         | CATCH | CONTEXT | COUNT | DECIMAL_FORMAT | DECIMAL_SEPARATOR | DIGIT | END | GROUP | GROUPING_SEPARATOR | INFINITY | MINUS_SIGN | NAN | NEXT | ONLY | OUTER | PATTERN_SEPARATOR | PERCENT | PER_MILLE | PREVIOUS | PRIVATE | PUBLIC | SLIDING | START | TRY | TUMBLING | WHEN | WINDOW | ZERO_DIGIT
         // XQuery Update 1.0 keywords
         | AFTER | BEFORE | COPY | DELETE | FIRST |INSERT | INTO | LAST | MODIFY | NODES | RENAME | REPLACE | REVALIDATION | SKIP | UPDATING | VALUE | WITH
+        // XQuery Full Text 1.0 keywords
+        | ALL | ANY | CONTAINS | CONTENT | DIACRITICS | DIFFERENT | DISTANCE | ENTIRE | EXACTLY | FROM | FT_OPTION | FTAND | FTNOT | FTOR | INSENSITIVE | LANGUAGE | LEVELS | LOWERCASE | MOST | NO | NOT | OCCURS | PARAGRAPH | PARAGRAPHS | PHRASE | RELATIONSHIP | SAME | SCORE | SENSITIVE | SENTENCE | SENTENCES | STEMMING | STOP | THESAURUS | TIMES | UPPERCASE | USING | WEIGHT | WILDCARDS | WITHOUT | WORD | WORDS
         // XQuery Scripting 1.0 keywords
         | BLOCK | CONSTANT | EXIT | SEQUENTIAL | SET | SIMPLE
         // Zorba keywords
-        | EVAL | USING
+        | EVAL
         // Zorba DDL keywords
-        | APPEND_ONLY | AUTOMATICALLY | CHECK | COLLECTION | CONSTRAINT | CONST | EQUALITY | EXPLICITLY | FOREACH | FOREIGN | FROM | INDEX | INTEGRITY | KEY | MAINTAINED | MUTABLE | NON | ON | QUEUE | RANGE | READ_ONLY | UNIQUE
+        | APPEND_ONLY | AUTOMATICALLY | CHECK | COLLECTION | CONSTRAINT | CONST | EQUALITY | EXPLICITLY | FOREACH | FOREIGN | INDEX | INTEGRITY | KEY | MAINTAINED | MUTABLE | NON | ON | QUEUE | RANGE | READ_ONLY | UNIQUE
         // Mark Logic keywords
         | BINARY
         // entity references

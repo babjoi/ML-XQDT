@@ -45,13 +45,13 @@ public interface IXQDTKeywords {
 
     /**
      * Keywords added by the XQuery Full Text 1.0 specification (not including the already existing
-     * ones in XQuery 1.0)
+     * ones above)
      */
-    public static final String[] FULLTEXT_KEYWORDS = { "all", "any", "content", "diacritics", "different", "distance",
-            "end", "entire", "exactly", "from", "ft-option", "ftand", "ftcontains", "ftnot", "ftor", "insensitive",
-            "language", "least", "levels", "lowercase", "most", "not", "occurs", "paragraph", "paragraphs", "phrase",
-            "relationship", "same", "score", "sensitive", "sentence", "sentences", "start", "stemming", "stop",
-            "thesaurus", "times", "uppercase", "weight", "wildcards", "window", "with", "without", "word", "words" };
+    public static final String[] KEYWORDS_XQUERY_FULLTEXT = { "all", "any", "contains", "content", "diacritics",
+            "different", "distance", "entire", "exactly", "from", "ft_option", "ftand", "ftnot", "ftor", "insensitive",
+            "language", "levels", "lowercase", "most", "no", "not", "occurs", "paragraph", "paragraphs", "phrase",
+            "relationship", "same", "score", "sensitive", "sentence", "sentences", "stemming", "stop", "thesaurus",
+            "times", "uppercase", "using", "weight", "wildcards", "without", "word", "words" };
 
     /**
      * Keywords added by the XQuery Scripting 1.0 specification (not including the already existing
@@ -65,8 +65,8 @@ public interface IXQDTKeywords {
      * XQuery 1.0, XQuery Update 1.0, XQuery Scripting 1.0)
      */
     public static final String[] KEYWORDS_ZORBA = { "append_only", "automatically", "check", "collection",
-            "constraint", "const", "equality", "eval", "foreach", "foreign", "from", "index", "integrity", "key",
-            "maintained", "manually", "mutable", "non", "on", "queue", "range", "read-only", "unique", "using" };
+            "constraint", "const", "equality", "eval", "foreach", "foreign", "index", "integrity", "key", "maintained",
+            "manually", "mutable", "non", "on", "queue", "range", "read-only", "unique" };
 
     /**
      * Keywords added by the MarkLogic XQuery extensions

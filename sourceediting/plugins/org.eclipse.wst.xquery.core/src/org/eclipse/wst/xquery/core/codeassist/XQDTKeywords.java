@@ -36,6 +36,11 @@ public class XQDTKeywords implements IXQDTKeywords {
                     result.add(KEYWORDS_XQUERY_11[i]);
                 }
             }
+            for (int i = 0; i < KEYWORDS_XQUERY_FULLTEXT.length; i++) {
+                if (KEYWORDS_XQUERY_FULLTEXT[i].startsWith(prefix)) {
+                    result.add(KEYWORDS_XQUERY_FULLTEXT[i]);
+                }
+            }
             if (LanguageUtil.isLanguage(languageLevel, IXQDTLanguageConstants.LANGUAGE_XQUERY_UPDATE)) {
                 for (int i = 0; i < KEYWORDS_XQUERY_UPDATE.length; i++) {
                     if (KEYWORDS_XQUERY_UPDATE[i].startsWith(prefix)) {

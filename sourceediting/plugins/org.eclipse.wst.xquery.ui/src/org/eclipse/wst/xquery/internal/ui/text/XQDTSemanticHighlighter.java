@@ -29,7 +29,9 @@ public class XQDTSemanticHighlighter extends AbstractSemanticHighlighter {
                     .getModuleDeclaration((org.eclipse.dltk.core.ISourceModule)modelElem);
             if (xqModule != null) {
                 for (Position p : ((XQueryModule)xqModule).getKeywords()) {
-                    addPosition(p.offset, p.offset + p.length, 0);
+                    // TODO: changes because of the DLTK 3.0 API change
+                    // review the empty string passed (before it was 0)
+                    addPosition(p.offset, p.offset + p.length, "");
                 }
                 return true;
             }
@@ -37,7 +39,7 @@ public class XQDTSemanticHighlighter extends AbstractSemanticHighlighter {
         return false;
     }
 
-    public static SemanticHighlighting[] getSemanticHighlightings() {
+    public SemanticHighlighting[] getSemanticHighlightings() {
         return new SemanticHighlighting[] { new XQDTSemanticHighlighting(IXQDTColorConstants.XQDT_KEYWORD,
                 PreferencesMessages.DLTKEditorPreferencePage_keywords) };
     }

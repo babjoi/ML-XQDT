@@ -137,8 +137,8 @@
 
 	<repositories>
 		<repository>
-			<id>dltk2.0</id>
-			<url>http://download.eclipse.org/technology/dltk/updates-dev/2.0/</url>
+			<id>dltk3.0</id>
+			<url>http://download.eclipse.org/technology/dltk/updates-dev/3.0/</url>
 			<layout>p2</layout>
 		</repository>
 		<repository>

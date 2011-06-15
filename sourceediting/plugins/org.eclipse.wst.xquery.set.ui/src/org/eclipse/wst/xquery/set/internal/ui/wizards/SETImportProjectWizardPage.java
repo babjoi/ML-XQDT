@@ -48,6 +48,7 @@ import org.eclipse.dltk.launching.InterpreterStandin;
 import org.eclipse.dltk.launching.ScriptRuntime;
 import org.eclipse.dltk.launching.ScriptRuntime.DefaultInterpreterEntry;
 import org.eclipse.dltk.ui.wizards.BuildpathsBlock;
+import org.eclipse.dltk.utils.ResourceUtil;
 import org.eclipse.jface.dialogs.ErrorDialog;
 import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.jface.wizard.WizardPage;
@@ -398,7 +399,7 @@ public class SETImportProjectWizardPage extends WizardPage implements IDialogFie
 
         // add the Sausalito nature to the project
         monitor.setTaskName("Configuring Sausalito project...");
-        BuildpathsBlock.addScriptNature(project, new SubProgressMonitor(monitor, 300), SETNature.NATURE_ID);
+        ResourceUtil.addNature(project, monitor, SETNature.NATURE_ID);
 
         checkMonitor(monitor);
 

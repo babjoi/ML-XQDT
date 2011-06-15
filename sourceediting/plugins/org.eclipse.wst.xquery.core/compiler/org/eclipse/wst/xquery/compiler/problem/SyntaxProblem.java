@@ -11,7 +11,7 @@
 package org.eclipse.wst.xquery.compiler.problem;
 
 import org.eclipse.dltk.compiler.problem.DefaultProblem;
-import org.eclipse.dltk.compiler.problem.IProblem;
+import org.eclipse.dltk.compiler.problem.IProblemIdentifier;
 import org.eclipse.dltk.compiler.problem.ProblemSeverities;
 
 public class SyntaxProblem extends DefaultProblem {
@@ -26,7 +26,7 @@ public class SyntaxProblem extends DefaultProblem {
 
     public SyntaxProblem(String originatingFileName, String message, int startPosition, int endPosition, int line,
             int column) {
-        super(originatingFileName, message, IProblem.Syntax, new String[0], ProblemSeverities.Error, startPosition,
-                endPosition, line, column);
+        super(originatingFileName, message, IProblemIdentifier.NULL, new String[0], ProblemSeverities.Error,
+                startPosition, endPosition, line, column);
     }
 }

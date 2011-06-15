@@ -65,7 +65,7 @@ public class XQDTEditor extends ScriptEditor {
         return XQDTLanguageToolkit.getDefault();
     }
 
-    protected IPreferenceStore getScriptPreferenceStore() {
+    public IPreferenceStore getScriptPreferenceStore() {
         return XQDTUIPlugin.getDefault().getPreferenceStore();
     }
 

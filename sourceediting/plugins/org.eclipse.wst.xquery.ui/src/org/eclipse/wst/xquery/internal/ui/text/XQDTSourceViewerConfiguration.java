@@ -10,7 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wst.xquery.internal.ui.text;
 
-import org.eclipse.dltk.internal.ui.editor.ScriptSourceViewer;
 import org.eclipse.dltk.ui.text.AbstractScriptScanner;
 import org.eclipse.dltk.ui.text.IColorManager;
 import org.eclipse.dltk.ui.text.ScriptCorrectionAssistant;
@@ -26,7 +25,6 @@ import org.eclipse.jface.text.IAutoEditStrategy;
 import org.eclipse.jface.text.IDocument;
 import org.eclipse.jface.text.contentassist.ContentAssistant;
 import org.eclipse.jface.text.contentassist.IContentAssistProcessor;
-import org.eclipse.jface.text.information.IInformationPresenter;
 import org.eclipse.jface.text.presentation.IPresentationReconciler;
 import org.eclipse.jface.text.presentation.PresentationReconciler;
 import org.eclipse.jface.text.quickassist.IQuickAssistAssistant;
@@ -83,11 +81,6 @@ public class XQDTSourceViewerConfiguration extends ScriptSourceViewerConfigurati
 
     protected ContentAssistPreference getContentAssistPreference() {
         return XQDTContentAssistPreference.getDefault();
-    }
-
-    @Override
-    public IInformationPresenter getOutlinePresenter(ScriptSourceViewer viewer, boolean doCodeResolve) {
-        return null;
     }
 
     @Override

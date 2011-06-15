@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wst.xquery.internal.ui.text;
 
-import org.eclipse.dltk.ui.editor.highlighting.ISemanticHighlighter;
-import org.eclipse.dltk.ui.editor.highlighting.SemanticHighlighting;
 import org.eclipse.dltk.ui.text.ScriptSourceViewerConfiguration;
 import org.eclipse.dltk.ui.text.ScriptTextTools;
 import org.eclipse.jface.preference.IPreferenceStore;
@@ -45,28 +43,33 @@ public class XQDTTextTools extends ScriptTextTools {
         return fPartitionScanner;
     }
 
-    @Override
-    public SemanticHighlighting[] getSemanticHighlightings() {
-        if (!USE_SEMANTIC_HL) {
-            return super.getSemanticHighlightings();
-        }
-        return XQDTSemanticHighlighter.getSemanticHighlightings();
-    }
+    // TODO: changes because of the DLTK 3.0 API change
+    // review and adapt 
+//    @Override
+//    public SemanticHighlighting[] getSemanticHighlightings() {
+//        if (!USE_SEMANTIC_HL) {
+//            return super.getSemanticHighlightings();
+//        }
+//        return XQDTSemanticHighlighter.getSemanticHighlightings();
+//    }
 
-    @Override
-    public ISemanticHighlighter getSemanticPositionUpdater() {
-        if (!USE_SEMANTIC_HL) {
-            return super.getSemanticPositionUpdater();
-        }
-
-        return new XQDTSemanticHighlighter();
-    }
+    // TODO: changes because of the DLTK 3.0 API change
+    // review and adapt 
+//    @Override
+//    public ISemanticHighlighter getSemanticPositionUpdater() {
+//        if (!USE_SEMANTIC_HL) {
+//            return super.getSemanticPositionUpdater();
+//        }
+//
+//        return new XQDTSemanticHighlighter();
+//    }
 
     @Override
     public IDocumentPartitioner createDocumentPartitioner() {
         IPartitionTokenScanner scaner = getPartitionScanner();
-        if (scaner == null)
+        if (scaner == null) {
             return null;
+        }
 
         return new XQDTPartitioner(scaner, IXQDTPartitions.XQDT_LEGAL_PARTITION_TYPES);
     }

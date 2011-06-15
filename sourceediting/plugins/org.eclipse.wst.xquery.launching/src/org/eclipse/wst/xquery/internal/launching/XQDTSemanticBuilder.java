@@ -16,9 +16,6 @@ import org.eclipse.core.resources.IMarker;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.dltk.compiler.problem.DefaultProblem;
-import org.eclipse.dltk.compiler.problem.IProblem;
-import org.eclipse.dltk.compiler.problem.IProblemReporter;
-import org.eclipse.dltk.compiler.problem.ProblemCollector;
 import org.eclipse.dltk.core.DLTKCore;
 import org.eclipse.dltk.core.IBuildpathEntry;
 import org.eclipse.dltk.core.IModelElement;
@@ -43,16 +40,18 @@ public class XQDTSemanticBuilder implements IBuildParticipant {
                 return;
             }
 
-            IProblemReporter reporter = context.getProblemReporter();
-            if (reporter instanceof ProblemCollector) {
-                ProblemCollector pc = (ProblemCollector)reporter;
-                List<IProblem> problems = pc.getErrors();
-                for (IProblem problem : problems) {
-                    if (problem.getID() == IProblem.Syntax) {
-                        return;
-                    }
-                }
-            }
+            // TODO: disabled due to DLTK 3.0 API change
+            // review and add equivalent logic
+//            IProblemReporter reporter = context.getProblemReporter();
+//            if (reporter instanceof ProblemCollector) {
+//                ProblemCollector pc = (ProblemCollector)reporter;
+//                List<IProblem> problems = pc.getErrors();
+//                for (IProblem problem : problems) {
+//                    if (problem.getID() == IProblem.Syntax) {
+//                        return;
+//                    }
+//                }
+//            }
 
             List<SemanticCheckError> errors = check(source);
             if (errors != null) {
@@ -84,7 +83,7 @@ public class XQDTSemanticBuilder implements IBuildParticipant {
         marker.setAttribute(IMarker.PRIORITY, IMarker.PRIORITY_NORMAL);
         marker.setAttribute(IMarker.CHAR_START, error.getSourceStart());
         marker.setAttribute(IMarker.CHAR_END, error.getSourceEnd());
-        if (error.getID() != 0) {
+        if (error.getID() != null) {
             marker.setAttribute(IScriptModelMarker.ID, error.getID());
         }
     }

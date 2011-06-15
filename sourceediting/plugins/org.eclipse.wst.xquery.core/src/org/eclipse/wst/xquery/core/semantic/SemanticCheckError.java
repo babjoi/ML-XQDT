@@ -11,6 +11,7 @@
 package org.eclipse.wst.xquery.core.semantic;
 
 import org.eclipse.dltk.compiler.problem.IProblem;
+import org.eclipse.dltk.compiler.problem.IProblemIdentifier;
 
 public class SemanticCheckError implements IProblem {
 
@@ -20,7 +21,6 @@ public class SemanticCheckError implements IProblem {
     private int fLineNumber;
     private int fSourceStart;
     private int fSourceEnd;
-    private int id = 0;
 
     public SemanticCheckError(String fileName, String errorCode, String description, int line) {
         this(fileName, errorCode, description, line, -1, -1);
@@ -41,10 +41,6 @@ public class SemanticCheckError implements IProblem {
 
     public String[] getArguments() {
         return new String[0];
-    }
-
-    public int getID() {
-        return id;
     }
 
     public String getErrorCode() {
@@ -89,6 +85,14 @@ public class SemanticCheckError implements IProblem {
 
     public void setSourceStart(int sourceStart) {
         fSourceStart = sourceStart;
+    }
+
+    public boolean isTask() {
+        return false;
+    }
+
+    public IProblemIdentifier getID() {
+        return null;
     }
 
 }

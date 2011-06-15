@@ -142,8 +142,8 @@
 			<layout>p2</layout>
 		</repository>
 		<repository>
-			<id>galileo</id>
-			<url>http://download.eclipse.org/releases/galileo/</url>
+			<id>indigo</id>
+			<url>http://download.eclipse.org/releases/indigo/</url>
 			<layout>p2</layout>
 		</repository>
 		<repository>

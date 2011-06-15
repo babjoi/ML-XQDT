@@ -25,6 +25,9 @@ public class ZorbaDebuggerPlugin extends AbstractUIPlugin {
     // The shared instance
     private static ZorbaDebuggerPlugin plugin;
 
+    // The shared instance
+    private static ZorbaDbgpLogListener fLogListener;
+
     public static final boolean DEBUG_DEBUGGER_ENGINE = Boolean.valueOf(
             Platform.getDebugOption(PLUGIN_ID + "/debug/debuggerEngine")).booleanValue();
     public static final boolean DEBUG_ZORBA_DEBUG_PROTOCOL = Boolean.valueOf(
@@ -46,6 +49,7 @@ public class ZorbaDebuggerPlugin extends AbstractUIPlugin {
     public void start(BundleContext context) throws Exception {
         super.start(context);
         plugin = this;
+        Platform.addLogListener(getLogListener());
     }
 
     /*
@@ -54,6 +58,7 @@ public class ZorbaDebuggerPlugin extends AbstractUIPlugin {
      * @see org.eclipse.ui.plugin.AbstractUIPlugin#stop(org.osgi.framework.BundleContext)
      */
     public void stop(BundleContext context) throws Exception {
+        Platform.removeLogListener(getLogListener());
         plugin = null;
         super.stop(context);
     }
@@ -67,4 +72,10 @@ public class ZorbaDebuggerPlugin extends AbstractUIPlugin {
         return plugin;
     }
 
+    public static ZorbaDbgpLogListener getLogListener() {
+        if (fLogListener == null) {
+            fLogListener = new ZorbaDbgpLogListener();
+        }
+        return fLogListener;
+    }
 }

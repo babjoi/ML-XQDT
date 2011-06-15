@@ -82,6 +82,9 @@ public class ZorbaDebuggerRunner extends TranslatableDebuggingEngineRunner {
 
         config.setProperty(ZorbaDebuggerConstants.DEBUGGING_ENGINE_SERVER_PORTS, ports);
 
+        DbgpConnectionConfig dbgpConfig = DbgpConnectionConfig.load(config);
+        newConfig.addEnvVar("DBGP_IDEKEY", dbgpConfig.getSessionId());
+
         return newConfig;
     }
 

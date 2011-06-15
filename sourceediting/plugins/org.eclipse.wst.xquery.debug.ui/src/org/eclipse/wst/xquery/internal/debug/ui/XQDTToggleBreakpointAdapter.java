@@ -10,8 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wst.xquery.internal.debug.ui;
 
-import java.util.Iterator;
-
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
@@ -23,12 +21,10 @@ import org.eclipse.dltk.debug.ui.DLTKDebugUIPlugin;
 import org.eclipse.dltk.debug.ui.breakpoints.BreakpointUtils;
 import org.eclipse.dltk.debug.ui.breakpoints.Messages;
 import org.eclipse.dltk.debug.ui.breakpoints.ScriptToggleBreakpointAdapter;
-import org.eclipse.jface.text.BadLocationException;
 import org.eclipse.jface.text.IDocument;
 import org.eclipse.jface.text.ITextSelection;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.IStructuredSelection;
-import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.osgi.util.NLS;
 import org.eclipse.ui.IWorkbenchPart;
 import org.eclipse.ui.texteditor.IDocumentProvider;
@@ -64,31 +60,31 @@ public class XQDTToggleBreakpointAdapter extends ScriptToggleBreakpointAdapter {
             return;
         }
 
-        ISelection newSel = translateToMembers(part, selection);
-        IMethod function = null;
-        if (newSel instanceof IStructuredSelection) {
-            IStructuredSelection strucSelection = (IStructuredSelection)newSel;
-            for (Iterator<?> i = strucSelection.iterator(); i.hasNext();) {
-                Object thing = i.next();
-                if (thing instanceof IMethod) {
-                    IMethod member = (IMethod)thing;
-                    int offset = member.getSourceRange().getOffset();
-                    int functionLine = BREAKPOINT_LINE_NOT_FOUND;
-                    try {
-                        functionLine = document.getLineOfOffset(offset) + 1;
-                    } catch (BadLocationException e) {
-                    }
-                    if (line == functionLine) {
-                        function = (IMethod)thing;
-                        break;
-                    }
-                }
-            }
-        }
-        if (function != null) {
-            toggleMethodBreakpoints(part, new StructuredSelection(new Object[] { function, document, line }));
-            return;
-        }
+//        ISelection newSel = translateToMembers(part, selection);
+//        IMethod function = null;
+//        if (newSel instanceof IStructuredSelection) {
+//            IStructuredSelection strucSelection = (IStructuredSelection)newSel;
+//            for (Iterator<?> i = strucSelection.iterator(); i.hasNext();) {
+//                Object thing = i.next();
+//                if (thing instanceof IMethod) {
+//                    IMethod member = (IMethod)thing;
+//                    int offset = member.getSourceRange().getOffset();
+//                    int functionLine = BREAKPOINT_LINE_NOT_FOUND;
+//                    try {
+//                        functionLine = document.getLineOfOffset(offset) + 1;
+//                    } catch (BadLocationException e) {
+//                    }
+//                    if (line == functionLine) {
+//                        function = (IMethod)thing;
+//                        break;
+//                    }
+//                }
+//            }
+//        }
+//        if (function != null) {
+//            toggleMethodBreakpoints(part, new StructuredSelection(new Object[] { function, document, line }));
+//            return;
+//        }
 
         toggleLineBreakpoints(part, selection);
     }

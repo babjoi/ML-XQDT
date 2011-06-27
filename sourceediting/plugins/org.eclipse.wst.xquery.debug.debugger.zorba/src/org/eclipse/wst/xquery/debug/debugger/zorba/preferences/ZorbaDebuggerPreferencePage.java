@@ -27,12 +27,6 @@ public class ZorbaDebuggerPreferencePage extends AbstractConfigurationBlockPrope
     static final PreferenceKey LOG_FILE_NAME = new PreferenceKey(ZorbaDebuggerPlugin.PLUGIN_ID,
             ZorbaDebuggerConstants.LOG_FILE_NAME);
 
-    static final PreferenceKey ENGINE_NEEDS_DBGP_TRANSLATOR = new PreferenceKey(ZorbaDebuggerPlugin.PLUGIN_ID,
-            ZorbaDebuggerConstants.DEBUGGING_ENGINE_NEEDS_DBGP_TRANSLATOR);
-
-    static final PreferenceKey ENGINE_SERVER_PORTS = new PreferenceKey(ZorbaDebuggerPlugin.PLUGIN_ID,
-            ZorbaDebuggerConstants.DEBUGGING_ENGINE_SERVER_PORTS);
-
     private static final String PREFERENCE_PAGE_ID = "org.eclipse.wst.xquery.preferences.debug.engines.zorba";
     private static final String PROPERTY_PAGE_ID = "org.eclipse.wst.xquery.properties.debug.engines.zorba";
 
@@ -70,7 +64,7 @@ public class ZorbaDebuggerPreferencePage extends AbstractConfigurationBlockPrope
     }
 
     private PreferenceKey[] getKeys() {
-        return new PreferenceKey[] { LOG_ENABLE, LOG_FILE_NAME, ENGINE_NEEDS_DBGP_TRANSLATOR, ENGINE_SERVER_PORTS };
+        return new PreferenceKey[] { LOG_ENABLE, LOG_FILE_NAME };
     }
 
 }

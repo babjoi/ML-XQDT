@@ -21,17 +21,9 @@ public final class SETDebuggerConstants {
     public static final String LOG_ENABLE_KEY = "debugging_engine_log_enable";
     public static final String LOG_FILE_NAME = "log_file_name";
 
-    public static final String DEBUGGING_ENGINE_NEEDS_DBGP_TRANSLATOR = "debugging_engine_needs_dbgp_translator";
-    public static final String DEBUGGING_ENGINE_SERVER_PORTS = "debugging_engine_server_ports";
-
-    public static final int SERVER_COMMAND_PORT = 8028;
-    public static final int SERVER_EVENT_PORT = 9028;
-
     public static void initalizeDefaults(IPreferenceStore store) {
         store.setDefault(LOG_ENABLE_KEY, Util.EMPTY_STRING);
         store.setDefault(LOG_FILE_NAME, Util.EMPTY_STRING);
-        store.setDefault(DEBUGGING_ENGINE_NEEDS_DBGP_TRANSLATOR, true);
-        store.setDefault(DEBUGGING_ENGINE_SERVER_PORTS, SERVER_COMMAND_PORT + ":" + SERVER_EVENT_PORT);
 
         store.setDefault(DLTKDebugPreferenceConstants.PREF_DBGP_SHOW_SCOPE_GLOBAL, true);
         store.setDefault(DLTKDebugPreferenceConstants.PREF_DBGP_SHOW_SCOPE_CLASS, false);

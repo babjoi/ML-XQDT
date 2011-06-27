@@ -17,12 +17,6 @@ public class SETDebuggerPreferencePage extends
     static final PreferenceKey LOG_FILE_NAME = new PreferenceKey(SETDebuggerPlugin.PLUGIN_ID,
             SETDebuggerConstants.LOG_FILE_NAME);
 
-    static final PreferenceKey ENGINE_NEEDS_DBGP_TRANSLATOR = new PreferenceKey(SETDebuggerPlugin.PLUGIN_ID,
-            SETDebuggerConstants.DEBUGGING_ENGINE_NEEDS_DBGP_TRANSLATOR);
-
-    static final PreferenceKey ENGINE_SERVER_PORTS = new PreferenceKey(SETDebuggerPlugin.PLUGIN_ID,
-            SETDebuggerConstants.DEBUGGING_ENGINE_SERVER_PORTS);
-
     private static final String PREFERENCE_PAGE_ID = "org.eclipse.wst.xquery.set.preferences.debug.engines.sausalito";
     private static final String PROPERTY_PAGE_ID = "org.eclipse.wst.xquery.set.properties.debug.engines.sausalito";
 
@@ -56,7 +50,7 @@ public class SETDebuggerPreferencePage extends
     }
 
     private PreferenceKey[] getKeys() {
-        return new PreferenceKey[] { LOG_ENABLE, LOG_FILE_NAME, ENGINE_NEEDS_DBGP_TRANSLATOR, ENGINE_SERVER_PORTS };
+        return new PreferenceKey[] { LOG_ENABLE, LOG_FILE_NAME };
     }
 
 }

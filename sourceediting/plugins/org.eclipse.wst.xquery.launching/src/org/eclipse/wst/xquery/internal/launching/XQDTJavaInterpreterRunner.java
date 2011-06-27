@@ -11,10 +11,10 @@
 package org.eclipse.wst.xquery.internal.launching;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import org.eclipse.dltk.launching.AbstractInterpreterRunner;
-import org.eclipse.dltk.launching.IInterpreterInstall;
 import org.eclipse.dltk.launching.InterpreterConfig;
 
 public class XQDTJavaInterpreterRunner extends AbstractInterpreterRunner {
@@ -22,31 +22,27 @@ public class XQDTJavaInterpreterRunner extends AbstractInterpreterRunner {
     private static final String JAVA_EXEC = "java";
     private static final String JAVA_CP_ARG = "-cp";
 
-    protected XQDTJavaInterpreterRunner(IInterpreterInstall install) {
+    protected XQDTJavaInterpreterRunner(XQDTJavaInterpreterInstall install) {
         super(install);
     }
 
     protected String[] renderCommandLine(InterpreterConfig config) {
-        IInterpreterInstall interpreter = getInstall();
-
-        List<String> interpreterOwnArgs = new ArrayList<String>();
-        for (String arg : interpreter.getInterpreterArguments()) {
-            interpreterOwnArgs.add(arg);
-        }
-        // remove the main class argument
-        String mainClass = interpreterOwnArgs.remove(0);
+        // it must be of Java type since it was passed through the constructor
+        XQDTJavaInterpreterInstall interpreter = (XQDTJavaInterpreterInstall)getInstall();
 
         // start building the command line
         final List<String> items = new ArrayList<String>();
 
         // add the java executable and classpath option
         items.add(JAVA_EXEC);
-        items.add(JAVA_CP_ARG);
+        items.addAll(Arrays.asList(interpreter.getJavaArgs().split(" ")));
 
         // add the path to the jar file 
+        items.add(JAVA_CP_ARG);
         items.add(interpreter.getInstallLocation().toOSString());
+
         // add the main class 
-        items.add(mainClass);
+        items.add(interpreter.getMainClass());
 
         // add the launch config interpreter arguments
         for (Object arg : config.getInterpreterArgs()) {
@@ -54,9 +50,7 @@ public class XQDTJavaInterpreterRunner extends AbstractInterpreterRunner {
         }
 
         // add the interpreter install arguments
-        if (interpreterOwnArgs != null) {
-            items.addAll(interpreterOwnArgs);
-        }
+        items.addAll(Arrays.asList(interpreter.getJavaInterpreterArgs().split(" ")));
 
         String queryFile = interpreter.getEnvironment().convertPathToString(config.getScriptFilePath());
 

@@ -10,6 +10,9 @@
  *******************************************************************************/
 package org.eclipse.wst.xquery.internal.ui.text;
 
+import org.eclipse.dltk.ui.editor.highlighting.ISemanticHighlightingUpdater;
+import org.eclipse.dltk.ui.editor.highlighting.SemanticHighlighting;
+import org.eclipse.dltk.ui.text.IColorManager;
 import org.eclipse.dltk.ui.text.ScriptSourceViewerConfiguration;
 import org.eclipse.dltk.ui.text.ScriptTextTools;
 import org.eclipse.jface.preference.IPreferenceStore;
@@ -25,6 +28,8 @@ public class XQDTTextTools extends ScriptTextTools {
     public static final boolean USE_SEMANTIC_HL = true;
 
     private IPartitionTokenScanner fPartitionScanner;
+
+    private IColorManager fColorManager;
 
     public XQDTTextTools(boolean autoDisposeOnDisplayDispose) {
         super(IXQDTPartitions.XQDT_PARTITIONING, IXQDTPartitions.XQDT_LEGAL_PARTITION_TYPES,
@@ -43,26 +48,22 @@ public class XQDTTextTools extends ScriptTextTools {
         return fPartitionScanner;
     }
 
-    // TODO: changes because of the DLTK 3.0 API change
-    // review and adapt 
-//    @Override
-//    public SemanticHighlighting[] getSemanticHighlightings() {
-//        if (!USE_SEMANTIC_HL) {
-//            return super.getSemanticHighlightings();
-//        }
-//        return XQDTSemanticHighlighter.getSemanticHighlightings();
-//    }
+    @Override
+    public SemanticHighlighting[] getSemanticHighlightings() {
+        if (!USE_SEMANTIC_HL) {
+            return super.getSemanticHighlightings();
+        }
+        return new XQDTSemanticHighlighter().getSemanticHighlightings();
+    }
 
-    // TODO: changes because of the DLTK 3.0 API change
-    // review and adapt 
-//    @Override
-//    public ISemanticHighlighter getSemanticPositionUpdater() {
-//        if (!USE_SEMANTIC_HL) {
-//            return super.getSemanticPositionUpdater();
-//        }
-//
-//        return new XQDTSemanticHighlighter();
-//    }
+    @Override
+    public ISemanticHighlightingUpdater getSemanticPositionUpdater(String nature) {
+        if (!USE_SEMANTIC_HL) {
+            return super.getSemanticPositionUpdater(nature);
+        }
+
+        return new XQDTSemanticHighlighter();
+    }
 
     @Override
     public IDocumentPartitioner createDocumentPartitioner() {

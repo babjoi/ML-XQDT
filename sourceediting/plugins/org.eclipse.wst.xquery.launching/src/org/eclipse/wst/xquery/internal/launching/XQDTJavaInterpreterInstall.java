@@ -17,6 +17,10 @@ import org.eclipse.wst.xquery.launching.XQDTInterpreterInstall;
 
 public class XQDTJavaInterpreterInstall extends XQDTInterpreterInstall {
 
+    private String fJavaArgs;
+    private String fMainClass;
+    private String fInterpreterArgs;
+
     public XQDTJavaInterpreterInstall(IInterpreterInstallType type, String id) {
         super(type, id);
     }
@@ -28,5 +32,39 @@ public class XQDTJavaInterpreterInstall extends XQDTInterpreterInstall {
         }
 
         return null;
+    }
+
+    public String getMainClass() {
+        return fMainClass;
+    }
+
+    public String getJavaArgs() {
+        return fJavaArgs;
+    }
+
+    public String getJavaInterpreterArgs() {
+        return fInterpreterArgs;
+    }
+
+    @Override
+    public String getInterpreterArgs() {
+        return (fJavaArgs == null ? "" : fJavaArgs) + "|" + (fMainClass == null ? "" : fMainClass) + "|"
+                + (fInterpreterArgs == null ? "" : fInterpreterArgs);
+    }
+
+    @Override
+    public void setInterpreterArgs(String args) {
+        String[] splits = args.split("\\|");
+        if (splits.length == 3) {
+            fJavaArgs = splits[0];
+            fMainClass = splits[1];
+            fInterpreterArgs = splits[2];
+        }
+    }
+
+    @Override
+    public void setInterpreterArguments(String[] args) {
+        // TODO Auto-generated method stub
+        super.setInterpreterArguments(args);
     }
 }

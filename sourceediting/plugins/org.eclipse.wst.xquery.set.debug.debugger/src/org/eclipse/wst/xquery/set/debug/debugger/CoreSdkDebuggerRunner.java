@@ -1,7 +1,5 @@
 package org.eclipse.wst.xquery.set.debug.debugger;
 
-import java.io.File;
-import java.net.InetAddress;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -17,18 +15,14 @@ import org.eclipse.debug.core.IDebugEventSetListener;
 import org.eclipse.debug.core.ILaunch;
 import org.eclipse.debug.core.model.IDebugTarget;
 import org.eclipse.debug.core.model.IProcess;
-import org.eclipse.dltk.core.IScriptProject;
 import org.eclipse.dltk.core.PreferencesLookupDelegate;
+import org.eclipse.dltk.launching.DebuggingEngineRunner;
 import org.eclipse.dltk.launching.IInterpreterInstall;
 import org.eclipse.dltk.launching.InterpreterConfig;
-import org.eclipse.dltk.launching.debug.DbgpConnectionConfig;
-import org.eclipse.wst.xquery.debug.dbgp.client.IDbgpTranslator;
-import org.eclipse.wst.xquery.launching.TranslatableDebuggingEngineRunner;
 import org.eclipse.wst.xquery.set.debug.core.SETDebugCorePlugin;
-import org.eclipse.wst.xquery.set.debug.debugger.translator.SETDbgpTranslator;
 import org.eclipse.wst.xquery.set.internal.launching.CoreSdkRunner;
 
-public class CoreSdkDebuggerRunner extends TranslatableDebuggingEngineRunner {
+public class CoreSdkDebuggerRunner extends DebuggingEngineRunner {
 
     private static final String DEBUG_SERVER_KEY = "-ds";
     private static final String PORTS_KEY = "-p";
@@ -53,36 +47,17 @@ public class CoreSdkDebuggerRunner extends TranslatableDebuggingEngineRunner {
         return SETDebuggerConstants.LOG_FILE_NAME;
     }
 
-    protected IDbgpTranslator getDbgpTranslator(InterpreterConfig config, IScriptProject project) {
-        DbgpConnectionConfig dbgpConfig = DbgpConnectionConfig.load(config);
-        File file = new File(config.getScriptFilePath().toOSString());
-        String ports = (String)config.getProperty(SETDebuggerConstants.DEBUGGING_ENGINE_SERVER_PORTS);
-
-        try {
-            return new SETDbgpTranslator(project, InetAddress.getByName(dbgpConfig.getHost()), dbgpConfig.getPort(),
-                    dbgpConfig.getSessionId(), file.toURI(), ports);
-        } catch (Exception e) {
-            SETDebuggerPlugin.getDefault().getLog()
-                    .log(new Status(IStatus.ERROR, SETDebuggerPlugin.PLUGIN_ID, e.getMessage(), e));
-            return null;
-        }
-    }
-
-    protected boolean needsDbgpTranslator(PreferencesLookupDelegate delegate) {
-        return delegate.getBoolean(getDebuggingEnginePreferenceQualifier(),
-                SETDebuggerConstants.DEBUGGING_ENGINE_NEEDS_DBGP_TRANSLATOR);
-    }
-
     protected InterpreterConfig addEngineConfig(InterpreterConfig config, PreferencesLookupDelegate delegate,
             ILaunch launch) throws CoreException {
         InterpreterConfig newConfig = (InterpreterConfig)config.clone();
 
-        String ports = delegate.getString(getDebuggingEnginePreferenceQualifier(),
-                SETDebuggerConstants.DEBUGGING_ENGINE_SERVER_PORTS);
-        if (!ports.equals("")) {
-            config.setProperty(SETDebuggerConstants.DEBUGGING_ENGINE_SERVER_PORTS, ports);
-            newConfig.setProperty(SETDebuggerConstants.DEBUGGING_ENGINE_SERVER_PORTS, ports);
-        }
+        // TODO: Addapt to new debugger
+//        String ports = delegate.getString(getDebuggingEnginePreferenceQualifier(),
+//                SETDebuggerConstants.DEBUGGING_ENGINE_SERVER_PORTS);
+//        if (!ports.equals("")) {
+//            config.setProperty(SETDebuggerConstants.DEBUGGING_ENGINE_SERVER_PORTS, ports);
+//            newConfig.setProperty(SETDebuggerConstants.DEBUGGING_ENGINE_SERVER_PORTS, ports);
+//        }
 
         return newConfig;
     }
@@ -99,9 +74,10 @@ public class CoreSdkDebuggerRunner extends TranslatableDebuggingEngineRunner {
         cmdLine.add(path);
 
         cmdLine.add(DEBUG_SERVER_KEY);
-        String ports = (String)config.getProperty(SETDebuggerConstants.DEBUGGING_ENGINE_SERVER_PORTS);
+        // TODO: Adapt to new debugger
+//        String ports = (String)config.getProperty(SETDebuggerConstants.DEBUGGING_ENGINE_SERVER_PORTS);
         cmdLine.add(PORTS_KEY);
-        cmdLine.add(ports);
+//        cmdLine.add(ports);
 
         return cmdLine.toArray(new String[cmdLine.size()]);
     }

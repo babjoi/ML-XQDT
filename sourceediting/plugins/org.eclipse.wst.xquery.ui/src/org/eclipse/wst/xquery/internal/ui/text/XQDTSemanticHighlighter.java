@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2008, 2009 28msec Inc. and others.
+ * Copyright (c) 2008 28msec Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -29,9 +29,7 @@ public class XQDTSemanticHighlighter extends AbstractSemanticHighlighter {
                     .getModuleDeclaration((org.eclipse.dltk.core.ISourceModule)modelElem);
             if (xqModule != null) {
                 for (Position p : ((XQueryModule)xqModule).getKeywords()) {
-                    // TODO: changes because of the DLTK 3.0 API change
-                    // review the empty string passed (before it was 0)
-                    addPosition(p.offset, p.offset + p.length, "");
+                    addPosition(p.offset, p.offset + p.length, IXQDTColorConstants.XQDT_KEYWORD);
                 }
                 return true;
             }

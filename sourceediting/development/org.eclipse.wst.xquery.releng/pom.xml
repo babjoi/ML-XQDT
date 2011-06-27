@@ -33,7 +33,6 @@
 		<module>../../features/org.eclipse.wst.xquery.marklogic.feature</module>
 		
 		<!-- Zorba Support -->
-		<module>../../plugins/com.google.gson</module>
 		<module>../../plugins/org.eclipse.wst.xquery.zorba</module>
 		<module>../../plugins/org.eclipse.wst.xquery.launching.zorba</module>
 		<module>../../plugins/org.eclipse.wst.xquery.debug.debugger.zorba</module>

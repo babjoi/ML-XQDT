@@ -18,6 +18,7 @@ import java.util.Stack;
 import java.util.List;
 import java.util.ArrayList;
 
+@SuppressWarnings("unused")
 public class StringLexer extends XQDTLexer {
     public static final int INDEX=221;
     public static final int L_CDataSection=7;

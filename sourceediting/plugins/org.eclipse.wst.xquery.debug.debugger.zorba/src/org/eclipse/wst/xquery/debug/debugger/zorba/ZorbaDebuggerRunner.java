@@ -10,25 +10,17 @@
  *******************************************************************************/
 package org.eclipse.wst.xquery.debug.debugger.zorba;
 
-import java.io.File;
-import java.net.InetAddress;
-
 import org.eclipse.core.runtime.CoreException;
-import org.eclipse.core.runtime.IStatus;
-import org.eclipse.core.runtime.Status;
 import org.eclipse.debug.core.ILaunch;
-import org.eclipse.dltk.core.IScriptProject;
 import org.eclipse.dltk.core.PreferencesLookupDelegate;
+import org.eclipse.dltk.launching.DebuggingEngineRunner;
 import org.eclipse.dltk.launching.IInterpreterInstall;
 import org.eclipse.dltk.launching.InterpreterConfig;
 import org.eclipse.dltk.launching.debug.DbgpConnectionConfig;
 import org.eclipse.wst.xquery.debug.core.XQDTDebugCorePlugin;
-import org.eclipse.wst.xquery.debug.dbgp.client.IDbgpTranslator;
-import org.eclipse.wst.xquery.debug.debugger.zorba.translator.ZorbaDbgpTranslator;
 import org.eclipse.wst.xquery.internal.launching.zorba.ZorbaRunnerConfigurator;
-import org.eclipse.wst.xquery.launching.TranslatableDebuggingEngineRunner;
 
-public class ZorbaDebuggerRunner extends TranslatableDebuggingEngineRunner {
+public class ZorbaDebuggerRunner extends DebuggingEngineRunner {
 
     private static final String NO_LOGO_KEY = "--no-logo";
     private static final String DEBUG_SERVER_KEY = "--debug-server";
@@ -75,37 +67,19 @@ public class ZorbaDebuggerRunner extends TranslatableDebuggingEngineRunner {
 
         newConfig.addInterpreterArg(NO_LOGO_KEY);
         newConfig.addInterpreterArg(DEBUG_SERVER_KEY);
-        newConfig.addInterpreterArg(PORTS_KEY);
-        String ports = delegate.getString(getDebuggingEnginePreferenceQualifier(),
-                ZorbaDebuggerConstants.DEBUGGING_ENGINE_SERVER_PORTS);
-        newConfig.addInterpreterArg(ports);
 
-        config.setProperty(ZorbaDebuggerConstants.DEBUGGING_ENGINE_SERVER_PORTS, ports);
+        // TODO: addapt to new debugger
+        newConfig.addInterpreterArg(PORTS_KEY);
+//        String ports = delegate.getString(getDebuggingEnginePreferenceQualifier(),
+//                ZorbaDebuggerConstants.DEBUGGING_ENGINE_SERVER_PORTS);
+//        newConfig.addInterpreterArg(ports);
+//
+//        config.setProperty(ZorbaDebuggerConstants.DEBUGGING_ENGINE_SERVER_PORTS, ports);
 
         DbgpConnectionConfig dbgpConfig = DbgpConnectionConfig.load(config);
         newConfig.addEnvVar("DBGP_IDEKEY", dbgpConfig.getSessionId());
 
         return newConfig;
-    }
-
-    protected boolean needsDbgpTranslator(PreferencesLookupDelegate delegate) {
-        return delegate.getBoolean(getDebuggingEnginePreferenceQualifier(),
-                ZorbaDebuggerConstants.DEBUGGING_ENGINE_NEEDS_DBGP_TRANSLATOR);
-    }
-
-    protected IDbgpTranslator getDbgpTranslator(InterpreterConfig config, IScriptProject project) {
-        DbgpConnectionConfig dbgpConfig = DbgpConnectionConfig.load(config);
-        File file = new File(config.getScriptFilePath().toOSString());
-        String ports = (String)config.getProperty(ZorbaDebuggerConstants.DEBUGGING_ENGINE_SERVER_PORTS);
-
-        try {
-            return new ZorbaDbgpTranslator(project, InetAddress.getByName(dbgpConfig.getHost()), dbgpConfig.getPort(),
-                    dbgpConfig.getSessionId(), file.toURI(), ports);
-        } catch (Exception e) {
-            ZorbaDebuggerPlugin.getDefault().getLog()
-                    .log(new Status(IStatus.ERROR, ZorbaDebuggerPlugin.PLUGIN_ID, e.getMessage(), e));
-            return null;
-        }
     }
 
 }

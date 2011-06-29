@@ -23,8 +23,9 @@ import org.eclipse.wst.xquery.internal.launching.zorba.ZorbaRunnerConfigurator;
 public class ZorbaDebuggerRunner extends DebuggingEngineRunner {
 
     private static final String NO_LOGO_KEY = "--no-logo";
-    private static final String DEBUG_SERVER_KEY = "--debug-server";
-    private static final String PORTS_KEY = "-p";
+    private static final String DEBUG_KEY = "--debug";
+    private static final String DEBUG_HOST_KEY = "--debug-host";
+    private static final String DEBUG_PORT_KEY = "--debug-port";
 
     private ZorbaRunnerConfigurator fConfigurator;
 
@@ -66,17 +67,16 @@ public class ZorbaDebuggerRunner extends DebuggingEngineRunner {
         InterpreterConfig newConfig = (InterpreterConfig)config.clone();
 
         newConfig.addInterpreterArg(NO_LOGO_KEY);
-        newConfig.addInterpreterArg(DEBUG_SERVER_KEY);
-
-        // TODO: addapt to new debugger
-        newConfig.addInterpreterArg(PORTS_KEY);
-//        String ports = delegate.getString(getDebuggingEnginePreferenceQualifier(),
-//                ZorbaDebuggerConstants.DEBUGGING_ENGINE_SERVER_PORTS);
-//        newConfig.addInterpreterArg(ports);
-//
-//        config.setProperty(ZorbaDebuggerConstants.DEBUGGING_ENGINE_SERVER_PORTS, ports);
+        newConfig.addInterpreterArg(DEBUG_KEY);
 
         DbgpConnectionConfig dbgpConfig = DbgpConnectionConfig.load(config);
+
+        newConfig.addInterpreterArg(DEBUG_HOST_KEY);
+        newConfig.addInterpreterArg(dbgpConfig.getHost());
+
+        newConfig.addInterpreterArg(DEBUG_PORT_KEY);
+        newConfig.addInterpreterArg(dbgpConfig.getPort() + "");
+
         newConfig.addEnvVar("DBGP_IDEKEY", dbgpConfig.getSessionId());
 
         return newConfig;

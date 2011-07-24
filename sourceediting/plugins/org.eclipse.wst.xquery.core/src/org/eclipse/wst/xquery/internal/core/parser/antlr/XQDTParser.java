@@ -95,6 +95,10 @@ public class XQDTParser extends Parser implements IXQDTLanguageConstants {
     }
 
     public void popLexer() {
+        if (fLexerStack.size() == 0) {
+            return;
+        }
+
         XQDTLexer oldLexer = (XQDTLexer)fStream.getTokenSource();
         XQDTLexer newLexer = fLexerStack.remove(fLexerStack.size() - 1);
         fStream.setTokenSource(newLexer);

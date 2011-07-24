@@ -274,6 +274,7 @@ public class XQDTCommonTreeVisitor implements NodeVisitor {
         XQDTCommonTree child = node.getChild(0);
         switch (child.getType()) {
         case XQueryParser.AtomicType:
+        case XQueryParser.AtomicOrUnionType:
             type = readQNameString(child.getChild(0));
             if (type == null) {
                 return null;

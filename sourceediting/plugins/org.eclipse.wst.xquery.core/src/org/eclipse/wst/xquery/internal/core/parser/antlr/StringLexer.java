@@ -1,4 +1,4 @@
-// $ANTLR 3.1.2 StringLexer.g 2011-04-15 18:44:25
+// $ANTLR 3.2 Sep 23, 2009 12:02:23 StringLexer.g 2011-07-24 13:08:42
 
 /*******************************************************************************
  * Copyright (c) 2008, 2009 28msec Inc. and others.
@@ -18,7 +18,6 @@ import java.util.Stack;
 import java.util.List;
 import java.util.ArrayList;
 
-@SuppressWarnings("unused")
 public class StringLexer extends XQDTLexer {
     public static final int INDEX=221;
     public static final int L_CDataSection=7;

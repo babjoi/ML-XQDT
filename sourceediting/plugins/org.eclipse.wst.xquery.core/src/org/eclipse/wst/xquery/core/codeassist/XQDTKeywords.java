@@ -31,9 +31,9 @@ public class XQDTKeywords implements IXQDTKeywords {
     public static String[] findByPrefix(String prefix, int languageLevel) {
         List<String> result = new ArrayList<String>();
         if (LanguageUtil.isLanguage(languageLevel, IXQDTLanguageConstants.LANGUAGE_XQUERY)) {
-            for (int i = 0; i < KEYWORDS_XQUERY_11.length; i++) {
-                if (KEYWORDS_XQUERY_11[i].startsWith(prefix)) {
-                    result.add(KEYWORDS_XQUERY_11[i]);
+            for (int i = 0; i < KEYWORDS_XQUERY.length; i++) {
+                if (KEYWORDS_XQUERY[i].startsWith(prefix)) {
+                    result.add(KEYWORDS_XQUERY[i]);
                 }
             }
             for (int i = 0; i < KEYWORDS_XQUERY_FULLTEXT.length; i++) {

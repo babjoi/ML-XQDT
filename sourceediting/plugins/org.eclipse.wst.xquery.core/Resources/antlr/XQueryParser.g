@@ -84,6 +84,7 @@ EmptySequenceTest;            // container
 KindTest;
 ItemTest;                     // container
 AtomicType;
+AtomicOrUnionType;
 
 StringLiteral;
 ElementContentChar;
@@ -657,7 +658,7 @@ p_UnaryExpr
 // XQueryParser.g:599:3: Decision can match input such as "VALIDATE" using multiple alternatives: 1, 2
 // "validate + validate { 1 }" is wrongly reported as incorrect code (missing LBRACKET at '+')
 p_ValueExpr
-        : p_ValidateExpr
+        : (VALIDATE p_ValidationMode LBRACKET) => p_ValidateExpr
         | p_PathExpr
         | p_ExtensionExpr
         ;

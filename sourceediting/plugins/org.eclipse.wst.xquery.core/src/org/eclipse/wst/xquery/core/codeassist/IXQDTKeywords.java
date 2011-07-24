@@ -13,7 +13,7 @@ package org.eclipse.wst.xquery.core.codeassist;
 /**
  * List of XQuery keywords
  */
-public interface IXQDTKeywords30 {
+public interface IXQDTKeywords {
 
     /**
      * Keywords present in the XQuery 3.0 specification

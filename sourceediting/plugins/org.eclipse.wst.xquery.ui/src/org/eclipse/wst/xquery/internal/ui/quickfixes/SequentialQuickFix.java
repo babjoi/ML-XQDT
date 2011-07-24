@@ -43,9 +43,9 @@ public class SequentialQuickFix implements IScriptCorrectionProcessor {
             try {
                 String message = (String)markerAnnotation.getMarker().getAttribute("message");
                 if (message.startsWith(XUST0001A)) {
-                    context.addProposal(new AddSequentialKeywordCorrection(markerAnnotation));
+//                    context.addProposal(new AddSequentialKeywordCorrection(markerAnnotation));
                 } else if (message.startsWith(XUST0001B)) {
-                    context.addProposal(new AddSequentialKeywordCorrection(markerAnnotation));
+//                    context.addProposal(new AddSequentialKeywordCorrection(markerAnnotation));
                 }
             } catch (CoreException e) {
                 // TODO Auto-generated catch block

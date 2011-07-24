@@ -141,7 +141,8 @@ VARIABLE                    : 'variable';
 VERSION                     : 'version';
 WHERE                       : 'where';
 XQUERY                      : 'xquery';
-// XQuery 1.1 (only additional keywords only)
+// XQuery 3.0 (only additional keywords only)
+ALLOWING                    : 'allowing';
 CATCH                       : 'catch';
 CONTEXT                     : 'context';
 COUNT                       : 'count';
@@ -157,20 +158,17 @@ MINUS_SIGN                  : 'minus-sign';
 NAMESPACE_NODE              : 'namespace-node';
 NAN                         : 'NaN';
 NEXT                        : 'next';
-NONDETERMINISTIC            : 'nondeterministic';
 ONLY                        : 'only';
-OUTER                       : 'outer';
 PATTERN_SEPARATOR           : 'pattern-separator';
 PERCENT                     : 'percent';
 PER_MILLE                   : 'per-mille';
-PRIVATE                     : 'private';
-PUBLIC                      : 'public';
 PREVIOUS                    : 'previous';
 SLIDING                     : 'sliding';
 START                       : 'start';
 SWITCH                      : 'switch';
 TRY                         : 'try';
 TUMBLING                    : 'tumbling';
+TYPE                        : 'type';
 WHEN                        : 'when';
 WINDOW                      : 'window';
 ZERO_DIGIT                  : 'zero-digit';
@@ -235,39 +233,25 @@ WILDCARDS                   : 'wildcards';
 WITHOUT                     : 'without';
 WORD                        : 'word';
 WORDS                       : 'words';
-// XQuery Scripting Extensions 1.0 (only additional keywords only)
-BLOCK                       : 'block';
-CONSTANT                    : 'constant';
+// new XQuery Scripting proposal (only additional keywords only)
+BREAK                       : 'break';
+CONTINUE                    : 'continue';
 EXIT                        : 'exit';
+LOOP                        : 'loop';
 RETURNING                   : 'returning';
-SEQUENTIAL                  : 'sequential';
-SET                         : 'set';
-SIMPLE                      : 'simple';
 WHILE                       : 'while';
 // Zorba XQuery Extensions
 EVAL                        : 'eval';
 // Zorba DDL Extensions (only additional keywords only)
-APPEND_ONLY                 : 'append-only';
-AUTOMATICALLY               : 'automatically';
 CHECK                       : 'check';
 COLLECTION                  : 'collection';
 CONSTRAINT                  : 'constraint';
-CONST                       : 'const';
-EQUALITY                    : 'equality';
 FOREACH                     : 'foreach';
 FOREIGN                     : 'foreign';
 INDEX                       : 'index';
 INTEGRITY                   : 'integrity';
 KEY                         : 'key';
-MAINTAINED                  : 'maintained';
-MANUALLY                    : 'manually';
-MUTABLE                     : 'mutable';
-NON                         : 'non';
 ON                          : 'on';
-QUEUE                       : 'queue';
-RANGE                       : 'range';
-READ_ONLY                   : 'read-only';
-UNIQUE                      : 'unique';
 // MarkLogic
 BINARY                      : 'binary';
 
@@ -291,6 +275,8 @@ RSQUARE                 : ']';
 EQUAL                   : '=';
 BIND                    : ':=';
 NOTEQUAL                : '!=';
+ANN_PERCENT             : '%';
+HASH                    : '#';
 AMP                     : '&' ;
 COMMA                   : ',';
 QUESTION                : '?';

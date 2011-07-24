@@ -1,4 +1,4 @@
-// $ANTLR 3.2 Sep 23, 2009 12:02:23 XQueryLexer.g 2011-07-24 13:08:41
+// $ANTLR 3.2 Sep 23, 2009 12:02:23 XQueryLexer.g 2011-07-24 14:46:23
 
 /*******************************************************************************
  * Copyright (c) 2008, 2009 28msec Inc. and others.
@@ -20,300 +20,286 @@ import java.util.List;
 import java.util.ArrayList;
 
 public class XQueryLexer extends XQDTLexer {
-    public static final int INDEX=221;
+    public static final int INDEX=213;
     public static final int L_CDataSection=7;
-    public static final int MINUS=252;
-    public static final int NAMESPACE_NODE=124;
-    public static final int END=119;
-    public static final int INTO=150;
-    public static final int PATTERN_SEPARATOR=130;
-    public static final int GREATER_GREATER=258;
-    public static final int RENAME=154;
+    public static final int MINUS=238;
+    public static final int NAMESPACE_NODE=125;
+    public static final int HASH=232;
+    public static final int END=120;
+    public static final int INTO=148;
+    public static final int PATTERN_SEPARATOR=129;
+    public static final int GREATER_GREATER=244;
+    public static final int RENAME=152;
     public static final int INSTANCE=63;
-    public static final int CONTENT=164;
-    public static final int STOP=193;
+    public static final int CONTENT=162;
+    public static final int STOP=191;
     public static final int LAX=67;
     public static final int IMPORT=60;
-    public static final int BINARY=233;
-    public static final int ON=228;
-    public static final int DOT=261;
-    public static final int CONSTRAINT=216;
-    public static final int Letter=283;
+    public static final int BINARY=217;
+    public static final int ON=216;
+    public static final int CONTINUE=202;
+    public static final int DOT=247;
+    public static final int CONSTRAINT=210;
+    public static final int Letter=269;
     public static final int ORDER=82;
     public static final int CASTABLE=28;
-    public static final int DIACRITICS=165;
-    public static final int CONSTANT=204;
-    public static final int DETERMINISTIC=117;
-    public static final int EMPTY_CLOSE_TAG=265;
+    public static final int DIACRITICS=163;
+    public static final int DETERMINISTIC=118;
+    public static final int EMPTY_CLOSE_TAG=251;
     public static final int TYPESWITCH=104;
     public static final int MODULE=73;
     public static final int ESCAPE_RBRACKET=11;
-    public static final int AMP=247;
-    public static final int RPAREN=238;
+    public static final int AMP=233;
+    public static final int RPAREN=222;
     public static final int VERSION=109;
-    public static final int XML_COMMENT_START=271;
-    public static final int EXACTLY=169;
-    public static final int FTNOT=173;
+    public static final int XML_COMMENT_START=257;
+    public static final int EXACTLY=167;
+    public static final int FTNOT=171;
     public static final int DECLARE=34;
     public static final int BOUNDARY_SPACE=24;
-    public static final int CLOSE_TAG=266;
-    public static final int NONDETERMINISTIC=127;
-    public static final int OCCURS=182;
+    public static final int CLOSE_TAG=252;
+    public static final int OCCURS=180;
     public static final int UNION=105;
     public static final int STRIP=99;
-    public static final int RANGE=230;
-    public static final int GROUPING_SEPARATOR=121;
-    public static final int HexLetter=284;
-    public static final int WHEN=141;
-    public static final int SAME=187;
+    public static final int GROUPING_SEPARATOR=122;
+    public static final int HexLetter=270;
+    public static final int WHEN=139;
+    public static final int SAME=185;
     public static final int DESCENDING=38;
     public static final int DOCUMENT_NODE=41;
     public static final int ANCESTOR_OR_SELF=17;
-    public static final int MUTABLE=226;
-    public static final int SMALLER_SMALLER=257;
-    public static final int ANY=162;
-    public static final int RELATIONSHIP=186;
-    public static final int CATCH=112;
-    public static final int ATTR_SIGN=275;
+    public static final int SMALLER_SMALLER=243;
+    public static final int ANY=160;
+    public static final int RELATIONSHIP=184;
+    public static final int CATCH=113;
+    public static final int ATTR_SIGN=261;
     public static final int GE=55;
-    public static final int SU=288;
-    public static final int WORD=201;
+    public static final int SU=274;
+    public static final int WORD=199;
     public static final int ELSE=43;
-    public static final int PRAGMA_START=269;
-    public static final int EVAL=211;
-    public static final int SENSITIVE=189;
+    public static final int PRAGMA_START=255;
+    public static final int EVAL=207;
     public static final int L_ElementContentChar=6;
+    public static final int SENSITIVE=187;
     public static final int SELF=95;
-    public static final int DISTANCE=167;
-    public static final int COUNT=114;
+    public static final int ALLOWING=112;
+    public static final int DISTANCE=165;
+    public static final int COUNT=115;
     public static final int TEXT=100;
-    public static final int COLON=263;
+    public static final int COLON=249;
     public static final int PARENT=85;
-    public static final int SET=208;
-    public static final int SCORE=188;
-    public static final int FTOR=174;
-    public static final int UNIQUE=232;
-    public static final int FOREACH=219;
-    public static final int PUBLIC=134;
-    public static final int PERCENT=131;
-    public static final int Digit=285;
+    public static final int FTOR=172;
+    public static final int SCORE=186;
+    public static final int FOREACH=211;
+    public static final int TYPE=138;
+    public static final int PERCENT=130;
+    public static final int Digit=271;
+    public static final int ANN_PERCENT=231;
     public static final int EXTERNAL=50;
     public static final int EMPTY_SEQUENCE=45;
-    public static final int LAST=151;
-    public static final int COLLECTION=215;
-    public static final int DOT_DOT=262;
-    public static final int AUTOMATICALLY=213;
+    public static final int LAST=149;
+    public static final int COLLECTION=209;
+    public static final int DOT_DOT=248;
     public static final int L_CharRef=9;
     public static final int CAST=27;
-    public static final int DECIMAL_SEPARATOR=116;
-    public static final int LBRACKET=240;
+    public static final int DECIMAL_SEPARATOR=117;
+    public static final int LBRACKET=224;
     public static final int MOD=72;
     public static final int EXCEPT=49;
-    public static final int QUESTION=249;
+    public static final int QUESTION=235;
     public static final int OR=81;
-    public static final int AFTER=144;
-    public static final int S=287;
-    public static final int SMALLEREQ=255;
-    public static final int BLOCK=203;
+    public static final int AFTER=142;
+    public static final int S=273;
+    public static final int SMALLEREQ=241;
     public static final int BY=25;
     public static final int SCHEMA_ELEMENT=94;
-    public static final int INFINITY=122;
-    public static final int WEIGHT=198;
-    public static final int TUMBLING=140;
+    public static final int INFINITY=123;
+    public static final int WEIGHT=196;
+    public static final int TUMBLING=137;
     public static final int NO_INHERIT=76;
-    public static final int LPAREN=237;
-    public static final int UPPERCASE=196;
+    public static final int LPAREN=221;
+    public static final int UPPERCASE=194;
     public static final int PRECEDING_SIBLING=87;
-    public static final int L_DecimalLiteral=293;
-    public static final int EXIT=205;
-    public static final int PI_START=273;
-    public static final int APOS=278;
-    public static final int SKIP=157;
-    public static final int STEMMING=192;
-    public static final int FROM=170;
-    public static final int DELETE=147;
-    public static final int TIMES=195;
+    public static final int L_DecimalLiteral=279;
+    public static final int EXIT=203;
+    public static final int PI_START=259;
+    public static final int APOS=264;
+    public static final int SKIP=155;
+    public static final int STEMMING=190;
+    public static final int FROM=168;
+    public static final int DELETE=145;
+    public static final int TIMES=193;
     public static final int EMPTY=44;
     public static final int ASCENDING=20;
-    public static final int QUEUE=229;
-    public static final int WHILE=210;
+    public static final int WHILE=206;
     public static final int ESCAPE_QUOT=13;
     public static final int ONLY=128;
-    public static final int SENTENCES=191;
-    public static final int APOS_ER=235;
+    public static final int SENTENCES=189;
+    public static final int APOS_ER=219;
     public static final int NE=75;
     public static final int COMMENT=31;
-    public static final int RETURNING=206;
-    public static final int L_AnyChar=296;
-    public static final int RSQUARE=243;
+    public static final int RETURNING=205;
+    public static final int L_AnyChar=282;
+    public static final int RSQUARE=227;
     public static final int ESCAPE_APOS=12;
-    public static final int NCNameChar=281;
-    public static final int EQUALITY=218;
-    public static final int ENTIRE=168;
-    public static final int WITH=160;
+    public static final int NCNameChar=267;
+    public static final int ENTIRE=166;
+    public static final int WITH=158;
     public static final int IN=61;
     public static final int SOME=96;
-    public static final int MOST=179;
-    public static final int NEXT=126;
+    public static final int MOST=177;
+    public static final int NEXT=127;
     public static final int RETURN=90;
     public static final int LET=70;
     public static final int IF=59;
     public static final int NODE=78;
-    public static final int PER_MILLE=132;
+    public static final int PER_MILLE=131;
     public static final int FOR=53;
-    public static final int CHARREF_HEX=277;
+    public static final int CHARREF_HEX=263;
     public static final int PRESERVE=88;
     public static final int DEFAULT=35;
     public static final int L_AposAttrContentChar=5;
-    public static final int LEVELS=177;
-    public static final int BEFORE=145;
+    public static final int LEVELS=175;
+    public static final int BEFORE=143;
     public static final int ATTRIBUTE=22;
     public static final int CHILD=29;
-    public static final int Digits=286;
+    public static final int Digits=272;
     public static final int CDATA_START=14;
-    public static final int TRY=139;
-    public static final int NOT=181;
+    public static final int TRY=136;
+    public static final int NOT=179;
     public static final int OPTION=80;
-    public static final int L_DirCommentConstructor=290;
-    public static final int COMMA=248;
-    public static final int CONST=217;
+    public static final int L_DirCommentConstructor=276;
+    public static final int COMMA=234;
     public static final int ELEMENT=42;
-    public static final int INSENSITIVE=175;
+    public static final int INSENSITIVE=173;
     public static final int AS=19;
     public static final int DOCUMENT=40;
     public static final int ENCODING=46;
-    public static final int NAN=125;
+    public static final int NAN=126;
     public static final int TREAT=103;
     public static final int NAMESPACE=74;
     public static final int LEAST=69;
     public static final int THEN=101;
-    public static final int PI_END=274;
-    public static final int GREATEREQ=256;
-    public static final int WORDS=202;
-    public static final int FOREIGN=220;
-    public static final int PARAGRAPHS=184;
-    public static final int NCNameStartChar=280;
-    public static final int PRIVATE=133;
+    public static final int PI_END=260;
+    public static final int GREATEREQ=242;
+    public static final int WORDS=200;
+    public static final int FOREIGN=212;
+    public static final int PARAGRAPHS=182;
+    public static final int NCNameStartChar=266;
     public static final int AND=18;
     public static final int BASE_URI=23;
     public static final int TO=102;
     public static final int FUNCTION=54;
-    public static final int L_Pragma=289;
-    public static final int READ_ONLY=231;
-    public static final int LANGUAGE=176;
-    public static final int RBRACKET=241;
+    public static final int L_Pragma=275;
+    public static final int LANGUAGE=174;
+    public static final int RBRACKET=225;
     public static final int LE=68;
-    public static final int LOWERCASE=178;
+    public static final int LOWERCASE=176;
     public static final int SCHEMA=92;
     public static final int CONSTRUCTION=32;
-    public static final int WILDCARDS=199;
-    public static final int PLUS=251;
-    public static final int L_DoubleLiteral=294;
-    public static final int DIFFERENT=166;
-    public static final int NON=227;
+    public static final int WILDCARDS=197;
+    public static final int PLUS=237;
+    public static final int L_DoubleLiteral=280;
+    public static final int DIFFERENT=164;
     public static final int INTERSECT=64;
     public static final int AT=21;
     public static final int L_QuotAttrContentChar=4;
-    public static final int LSQUARE=242;
+    public static final int LSQUARE=226;
     public static final int GREATEST=56;
-    public static final int MAINTAINED=224;
-    public static final int APPEND_ONLY=212;
     public static final int EQ=47;
+    public static final int LOOP=204;
     public static final int LT=71;
     public static final int ESCAPE_LBRACKET=10;
     public static final int OF=79;
-    public static final int DOLLAR=239;
-    public static final int WINDOW=142;
+    public static final int DOLLAR=223;
+    public static final int WINDOW=140;
     public static final int FOLLOWING=51;
     public static final int CASE=26;
     public static final int CDATA_END=15;
     public static final int DESCENDANT_OR_SELF=37;
-    public static final int EQUAL=244;
-    public static final int SEMICOLON=267;
-    public static final int THESAURUS=194;
-    public static final int KEY=223;
-    public static final int CHECK=214;
-    public static final int SIMPLE=209;
-    public static final int FIRST=148;
-    public static final int FTAND=172;
+    public static final int EQUAL=228;
+    public static final int SEMICOLON=253;
+    public static final int THESAURUS=192;
+    public static final int KEY=215;
+    public static final int CHECK=208;
+    public static final int BREAK=201;
+    public static final int FIRST=146;
+    public static final int FTAND=170;
     public static final int DIV=39;
-    public static final int PARAGRAPH=183;
-    public static final int ALL=161;
-    public static final int FT_OPTION=171;
-    public static final int INSERT=149;
-    public static final int REVALIDATION=156;
-    public static final int QUOT=279;
+    public static final int PARAGRAPH=181;
+    public static final int ALL=159;
+    public static final int FT_OPTION=169;
+    public static final int INSERT=147;
+    public static final int REVALIDATION=154;
+    public static final int QUOT=265;
     public static final int WHERE=110;
-    public static final int PREVIOUS=135;
-    public static final int COPY=146;
-    public static final int AMP_ER=234;
-    public static final int WITHOUT=200;
-    public static final int USING=197;
+    public static final int PREVIOUS=132;
+    public static final int COPY=144;
+    public static final int AMP_ER=218;
+    public static final int WITHOUT=198;
+    public static final int USING=195;
     public static final int EVERY=48;
     public static final int SCHEMA_ATTRIBUTE=93;
     public static final int XQUERY=111;
-    public static final int CONTEXT=113;
-    public static final int INTEGRITY=222;
-    public static final int SLIDING=136;
-    public static final int PRAGMA_END=270;
+    public static final int CONTEXT=114;
+    public static final int INTEGRITY=214;
+    public static final int SLIDING=133;
+    public static final int PRAGMA_END=256;
     public static final int IDIV=58;
-    public static final int UPDATING=158;
+    public static final int UPDATING=156;
     public static final int SATISFIES=91;
     public static final int DESCENDANT=36;
-    public static final int VALUE=159;
-    public static final int NOTEQUAL=246;
+    public static final int VALUE=157;
+    public static final int NOTEQUAL=230;
     public static final int STRICT=98;
-    public static final int COLON_COLON=264;
+    public static final int COLON_COLON=250;
     public static final int L_PredefinedEntityRef=8;
-    public static final int L_IntegerLiteral=292;
+    public static final int L_IntegerLiteral=278;
     public static final int FOLLOWING_SIBLING=52;
-    public static final int CHARREF_DEC=276;
+    public static final int CHARREF_DEC=262;
     public static final int STABLE=97;
-    public static final int DECIMAL_FORMAT=115;
-    public static final int START=137;
-    public static final int GROUP=120;
+    public static final int DECIMAL_FORMAT=116;
+    public static final int START=134;
+    public static final int GROUP=121;
     public static final int VALIDATE=107;
-    public static final int CONTAINS=163;
+    public static final int CONTAINS=161;
     public static final int PRECEDING=86;
-    public static final int VBAR=268;
-    public static final int GREATER=254;
-    public static final int MINUS_SIGN=123;
-    public static final int ZERO_DIGIT=143;
+    public static final int VBAR=254;
+    public static final int GREATER=240;
+    public static final int MINUS_SIGN=124;
+    public static final int ZERO_DIGIT=141;
     public static final int ORDERING=84;
     public static final int COPY_NAMESPACES=33;
-    public static final int DIGIT=118;
+    public static final int DIGIT=119;
     public static final int NO_PRESERVE=77;
     public static final int UNORDERED=106;
-    public static final int OUTER=129;
-    public static final int L_NCName=282;
-    public static final int SENTENCE=190;
+    public static final int L_NCName=268;
+    public static final int SENTENCE=188;
     public static final int INHERIT=62;
-    public static final int SLASH=259;
-    public static final int SWITCH=138;
-    public static final int L_DirPIConstructor=291;
+    public static final int SLASH=245;
+    public static final int SWITCH=135;
+    public static final int L_DirPIConstructor=277;
     public static final int IS=65;
-    public static final int REPLACE=155;
+    public static final int REPLACE=153;
     public static final int GT=57;
-    public static final int NO=180;
-    public static final int PHRASE=185;
+    public static final int NO=178;
+    public static final int PHRASE=183;
     public static final int ITEM=66;
     public static final int ORDERED=83;
     public static final int PROCESSING_INSTRUCTION=89;
     public static final int COLLATION=30;
-    public static final int SLASH_SLASH=260;
-    public static final int SEQUENTIAL=207;
+    public static final int SLASH_SLASH=246;
     public static final int ANCESTOR=16;
-    public static final int SMALLER=253;
-    public static final int MANUALLY=225;
-    public static final int NODES=153;
+    public static final int SMALLER=239;
+    public static final int NODES=151;
     public static final int EOF=-1;
     public static final int VARIABLE=108;
-    public static final int MODIFY=152;
-    public static final int STAR=250;
-    public static final int QUOT_ER=236;
-    public static final int L_Comment=295;
-    public static final int BIND=245;
-    public static final int XML_COMMENT_END=272;
+    public static final int MODIFY=150;
+    public static final int STAR=236;
+    public static final int QUOT_ER=220;
+    public static final int L_Comment=281;
+    public static final int BIND=229;
+    public static final int XML_COMMENT_END=258;
 
     // dummy list for warning elimination
     List<Stack<Object>> dummy = new ArrayList<Stack<Object>>();
@@ -2348,13 +2334,34 @@ public class XQueryLexer extends XQDTLexer {
     }
     // $ANTLR end "XQUERY"
 
+    // $ANTLR start "ALLOWING"
+    public final void mALLOWING() throws RecognitionException {
+        try {
+            int _type = ALLOWING;
+            int _channel = DEFAULT_TOKEN_CHANNEL;
+            // XQueryLexer.g:145:29: ( 'allowing' )
+            // XQueryLexer.g:145:31: 'allowing'
+            {
+            match("allowing"); 
+
+
+            }
+
+            state.type = _type;
+            state.channel = _channel;
+        }
+        finally {
+        }
+    }
+    // $ANTLR end "ALLOWING"
+
     // $ANTLR start "CATCH"
     public final void mCATCH() throws RecognitionException {
         try {
             int _type = CATCH;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XQueryLexer.g:145:29: ( 'catch' )
-            // XQueryLexer.g:145:31: 'catch'
+            // XQueryLexer.g:146:29: ( 'catch' )
+            // XQueryLexer.g:146:31: 'catch'
             {
             match("catch"); 
 
@@ -2374,8 +2381,8 @@ public class XQueryLexer extends XQDTLexer {
         try {
             int _type = CONTEXT;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XQueryLexer.g:146:29: ( 'context' )
-            // XQueryLexer.g:146:31: 'context'
+            // XQueryLexer.g:147:29: ( 'context' )
+            // XQueryLexer.g:147:31: 'context'
             {
             match("context"); 
 
@@ -2395,8 +2402,8 @@ public class XQueryLexer extends XQDTLexer {
         try {
             int _type = COUNT;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XQueryLexer.g:147:29: ( 'count' )
-            // XQueryLexer.g:147:31: 'count'
+            // XQueryLexer.g:148:29: ( 'count' )
+            // XQueryLexer.g:148:31: 'count'
             {
             match("count"); 
 
@@ -2416,8 +2423,8 @@ public class XQueryLexer extends XQDTLexer {
         try {
             int _type = DECIMAL_FORMAT;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XQueryLexer.g:148:29: ( 'decimal-format' )
-            // XQueryLexer.g:148:31: 'decimal-format'
+            // XQueryLexer.g:149:29: ( 'decimal-format' )
+            // XQueryLexer.g:149:31: 'decimal-format'
             {
             match("decimal-format"); 
 
@@ -2437,8 +2444,8 @@ public class XQueryLexer extends XQDTLexer {
         try {
             int _type = DECIMAL_SEPARATOR;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XQueryLexer.g:149:29: ( 'decimal-separator' )
-            // XQueryLexer.g:149:31: 'decimal-separator'
+            // XQueryLexer.g:150:29: ( 'decimal-separator' )
+            // XQueryLexer.g:150:31: 'decimal-separator'
             {
             match("decimal-separator"); 
 
@@ -2458,8 +2465,8 @@ public class XQueryLexer extends XQDTLexer {
         try {
             int _type = DETERMINISTIC;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XQueryLexer.g:150:29: ( 'deterministic' )
-            // XQueryLexer.g:150:31: 'deterministic'
+            // XQueryLexer.g:151:29: ( 'deterministic' )
+            // XQueryLexer.g:151:31: 'deterministic'
             {
             match("deterministic"); 
 
@@ -2479,8 +2486,8 @@ public class XQueryLexer extends XQDTLexer {
         try {
             int _type = DIGIT;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XQueryLexer.g:151:29: ( 'digit' )
-            // XQueryLexer.g:151:31: 'digit'
+            // XQueryLexer.g:152:29: ( 'digit' )
+            // XQueryLexer.g:152:31: 'digit'
             {
             match("digit"); 
 
@@ -2500,8 +2507,8 @@ public class XQueryLexer extends XQDTLexer {
         try {
             int _type = END;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XQueryLexer.g:152:29: ( 'end' )
-            // XQueryLexer.g:152:31: 'end'
+            // XQueryLexer.g:153:29: ( 'end' )
+            // XQueryLexer.g:153:31: 'end'
             {
             match("end"); 
 
@@ -2521,8 +2528,8 @@ public class XQueryLexer extends XQDTLexer {
         try {
             int _type = GROUP;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XQueryLexer.g:153:29: ( 'group' )
-            // XQueryLexer.g:153:31: 'group'
+            // XQueryLexer.g:154:29: ( 'group' )
+            // XQueryLexer.g:154:31: 'group'
             {
             match("group"); 
 
@@ -2542,8 +2549,8 @@ public class XQueryLexer extends XQDTLexer {
         try {
             int _type = GROUPING_SEPARATOR;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XQueryLexer.g:154:29: ( 'grouping-separator' )
-            // XQueryLexer.g:154:31: 'grouping-separator'
+            // XQueryLexer.g:155:29: ( 'grouping-separator' )
+            // XQueryLexer.g:155:31: 'grouping-separator'
             {
             match("grouping-separator"); 
 
@@ -2563,8 +2570,8 @@ public class XQueryLexer extends XQDTLexer {
         try {
             int _type = INFINITY;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XQueryLexer.g:155:29: ( 'infinity' )
-            // XQueryLexer.g:155:31: 'infinity'
+            // XQueryLexer.g:156:29: ( 'infinity' )
+            // XQueryLexer.g:156:31: 'infinity'
             {
             match("infinity"); 
 
@@ -2584,8 +2591,8 @@ public class XQueryLexer extends XQDTLexer {
         try {
             int _type = MINUS_SIGN;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XQueryLexer.g:156:29: ( 'minus-sign' )
-            // XQueryLexer.g:156:31: 'minus-sign'
+            // XQueryLexer.g:157:29: ( 'minus-sign' )
+            // XQueryLexer.g:157:31: 'minus-sign'
             {
             match("minus-sign"); 
 
@@ -2605,8 +2612,8 @@ public class XQueryLexer extends XQDTLexer {
         try {
             int _type = NAMESPACE_NODE;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XQueryLexer.g:157:29: ( 'namespace-node' )
-            // XQueryLexer.g:157:31: 'namespace-node'
+            // XQueryLexer.g:158:29: ( 'namespace-node' )
+            // XQueryLexer.g:158:31: 'namespace-node'
             {
             match("namespace-node"); 
 
@@ -2626,8 +2633,8 @@ public class XQueryLexer extends XQDTLexer {
         try {
             int _type = NAN;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XQueryLexer.g:158:29: ( 'NaN' )
-            // XQueryLexer.g:158:31: 'NaN'
+            // XQueryLexer.g:159:29: ( 'NaN' )
+            // XQueryLexer.g:159:31: 'NaN'
             {
             match("NaN"); 
 
@@ -2647,8 +2654,8 @@ public class XQueryLexer extends XQDTLexer {
         try {
             int _type = NEXT;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XQueryLexer.g:159:29: ( 'next' )
-            // XQueryLexer.g:159:31: 'next'
+            // XQueryLexer.g:160:29: ( 'next' )
+            // XQueryLexer.g:160:31: 'next'
             {
             match("next"); 
 
@@ -2662,27 +2669,6 @@ public class XQueryLexer extends XQDTLexer {
         }
     }
     // $ANTLR end "NEXT"
-
-    // $ANTLR start "NONDETERMINISTIC"
-    public final void mNONDETERMINISTIC() throws RecognitionException {
-        try {
-            int _type = NONDETERMINISTIC;
-            int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XQueryLexer.g:160:29: ( 'nondeterministic' )
-            // XQueryLexer.g:160:31: 'nondeterministic'
-            {
-            match("nondeterministic"); 
-
-
-            }
-
-            state.type = _type;
-            state.channel = _channel;
-        }
-        finally {
-        }
-    }
-    // $ANTLR end "NONDETERMINISTIC"
 
     // $ANTLR start "ONLY"
     public final void mONLY() throws RecognitionException {
@@ -2705,34 +2691,13 @@ public class XQueryLexer extends XQDTLexer {
     }
     // $ANTLR end "ONLY"
 
-    // $ANTLR start "OUTER"
-    public final void mOUTER() throws RecognitionException {
-        try {
-            int _type = OUTER;
-            int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XQueryLexer.g:162:29: ( 'outer' )
-            // XQueryLexer.g:162:31: 'outer'
-            {
-            match("outer"); 
-
-
-            }
-
-            state.type = _type;
-            state.channel = _channel;
-        }
-        finally {
-        }
-    }
-    // $ANTLR end "OUTER"
-
     // $ANTLR start "PATTERN_SEPARATOR"
     public final void mPATTERN_SEPARATOR() throws RecognitionException {
         try {
             int _type = PATTERN_SEPARATOR;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XQueryLexer.g:163:29: ( 'pattern-separator' )
-            // XQueryLexer.g:163:31: 'pattern-separator'
+            // XQueryLexer.g:162:29: ( 'pattern-separator' )
+            // XQueryLexer.g:162:31: 'pattern-separator'
             {
             match("pattern-separator"); 
 
@@ -2752,8 +2717,8 @@ public class XQueryLexer extends XQDTLexer {
         try {
             int _type = PERCENT;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XQueryLexer.g:164:29: ( 'percent' )
-            // XQueryLexer.g:164:31: 'percent'
+            // XQueryLexer.g:163:29: ( 'percent' )
+            // XQueryLexer.g:163:31: 'percent'
             {
             match("percent"); 
 
@@ -2773,8 +2738,8 @@ public class XQueryLexer extends XQDTLexer {
         try {
             int _type = PER_MILLE;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XQueryLexer.g:165:29: ( 'per-mille' )
-            // XQueryLexer.g:165:31: 'per-mille'
+            // XQueryLexer.g:164:29: ( 'per-mille' )
+            // XQueryLexer.g:164:31: 'per-mille'
             {
             match("per-mille"); 
 
@@ -2789,55 +2754,13 @@ public class XQueryLexer extends XQDTLexer {
     }
     // $ANTLR end "PER_MILLE"
 
-    // $ANTLR start "PRIVATE"
-    public final void mPRIVATE() throws RecognitionException {
-        try {
-            int _type = PRIVATE;
-            int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XQueryLexer.g:166:29: ( 'private' )
-            // XQueryLexer.g:166:31: 'private'
-            {
-            match("private"); 
-
-
-            }
-
-            state.type = _type;
-            state.channel = _channel;
-        }
-        finally {
-        }
-    }
-    // $ANTLR end "PRIVATE"
-
-    // $ANTLR start "PUBLIC"
-    public final void mPUBLIC() throws RecognitionException {
-        try {
-            int _type = PUBLIC;
-            int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XQueryLexer.g:167:29: ( 'public' )
-            // XQueryLexer.g:167:31: 'public'
-            {
-            match("public"); 
-
-
-            }
-
-            state.type = _type;
-            state.channel = _channel;
-        }
-        finally {
-        }
-    }
-    // $ANTLR end "PUBLIC"
-
     // $ANTLR start "PREVIOUS"
     public final void mPREVIOUS() throws RecognitionException {
         try {
             int _type = PREVIOUS;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XQueryLexer.g:168:29: ( 'previous' )
-            // XQueryLexer.g:168:31: 'previous'
+            // XQueryLexer.g:165:29: ( 'previous' )
+            // XQueryLexer.g:165:31: 'previous'
             {
             match("previous"); 
 
@@ -2857,8 +2780,8 @@ public class XQueryLexer extends XQDTLexer {
         try {
             int _type = SLIDING;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XQueryLexer.g:169:29: ( 'sliding' )
-            // XQueryLexer.g:169:31: 'sliding'
+            // XQueryLexer.g:166:29: ( 'sliding' )
+            // XQueryLexer.g:166:31: 'sliding'
             {
             match("sliding"); 
 
@@ -2878,8 +2801,8 @@ public class XQueryLexer extends XQDTLexer {
         try {
             int _type = START;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XQueryLexer.g:170:29: ( 'start' )
-            // XQueryLexer.g:170:31: 'start'
+            // XQueryLexer.g:167:29: ( 'start' )
+            // XQueryLexer.g:167:31: 'start'
             {
             match("start"); 
 
@@ -2899,8 +2822,8 @@ public class XQueryLexer extends XQDTLexer {
         try {
             int _type = SWITCH;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XQueryLexer.g:171:29: ( 'switch' )
-            // XQueryLexer.g:171:31: 'switch'
+            // XQueryLexer.g:168:29: ( 'switch' )
+            // XQueryLexer.g:168:31: 'switch'
             {
             match("switch"); 
 
@@ -2920,8 +2843,8 @@ public class XQueryLexer extends XQDTLexer {
         try {
             int _type = TRY;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XQueryLexer.g:172:29: ( 'try' )
-            // XQueryLexer.g:172:31: 'try'
+            // XQueryLexer.g:169:29: ( 'try' )
+            // XQueryLexer.g:169:31: 'try'
             {
             match("try"); 
 
@@ -2941,8 +2864,8 @@ public class XQueryLexer extends XQDTLexer {
         try {
             int _type = TUMBLING;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XQueryLexer.g:173:29: ( 'tumbling' )
-            // XQueryLexer.g:173:31: 'tumbling'
+            // XQueryLexer.g:170:29: ( 'tumbling' )
+            // XQueryLexer.g:170:31: 'tumbling'
             {
             match("tumbling"); 
 
@@ -2957,13 +2880,34 @@ public class XQueryLexer extends XQDTLexer {
     }
     // $ANTLR end "TUMBLING"
 
+    // $ANTLR start "TYPE"
+    public final void mTYPE() throws RecognitionException {
+        try {
+            int _type = TYPE;
+            int _channel = DEFAULT_TOKEN_CHANNEL;
+            // XQueryLexer.g:171:29: ( 'type' )
+            // XQueryLexer.g:171:31: 'type'
+            {
+            match("type"); 
+
+
+            }
+
+            state.type = _type;
+            state.channel = _channel;
+        }
+        finally {
+        }
+    }
+    // $ANTLR end "TYPE"
+
     // $ANTLR start "WHEN"
     public final void mWHEN() throws RecognitionException {
         try {
             int _type = WHEN;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XQueryLexer.g:174:29: ( 'when' )
-            // XQueryLexer.g:174:31: 'when'
+            // XQueryLexer.g:172:29: ( 'when' )
+            // XQueryLexer.g:172:31: 'when'
             {
             match("when"); 
 
@@ -2983,8 +2927,8 @@ public class XQueryLexer extends XQDTLexer {
         try {
             int _type = WINDOW;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XQueryLexer.g:175:29: ( 'window' )
-            // XQueryLexer.g:175:31: 'window'
+            // XQueryLexer.g:173:29: ( 'window' )
+            // XQueryLexer.g:173:31: 'window'
             {
             match("window"); 
 
@@ -3004,8 +2948,8 @@ public class XQueryLexer extends XQDTLexer {
         try {
             int _type = ZERO_DIGIT;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XQueryLexer.g:176:29: ( 'zero-digit' )
-            // XQueryLexer.g:176:31: 'zero-digit'
+            // XQueryLexer.g:174:29: ( 'zero-digit' )
+            // XQueryLexer.g:174:31: 'zero-digit'
             {
             match("zero-digit"); 
 
@@ -3025,8 +2969,8 @@ public class XQueryLexer extends XQDTLexer {
         try {
             int _type = AFTER;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XQueryLexer.g:178:29: ( 'after' )
-            // XQueryLexer.g:178:31: 'after'
+            // XQueryLexer.g:176:29: ( 'after' )
+            // XQueryLexer.g:176:31: 'after'
             {
             match("after"); 
 
@@ -3046,8 +2990,8 @@ public class XQueryLexer extends XQDTLexer {
         try {
             int _type = BEFORE;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XQueryLexer.g:179:29: ( 'before' )
-            // XQueryLexer.g:179:31: 'before'
+            // XQueryLexer.g:177:29: ( 'before' )
+            // XQueryLexer.g:177:31: 'before'
             {
             match("before"); 
 
@@ -3067,8 +3011,8 @@ public class XQueryLexer extends XQDTLexer {
         try {
             int _type = COPY;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XQueryLexer.g:180:29: ( 'copy' )
-            // XQueryLexer.g:180:31: 'copy'
+            // XQueryLexer.g:178:29: ( 'copy' )
+            // XQueryLexer.g:178:31: 'copy'
             {
             match("copy"); 
 
@@ -3088,8 +3032,8 @@ public class XQueryLexer extends XQDTLexer {
         try {
             int _type = DELETE;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XQueryLexer.g:181:29: ( 'delete' )
-            // XQueryLexer.g:181:31: 'delete'
+            // XQueryLexer.g:179:29: ( 'delete' )
+            // XQueryLexer.g:179:31: 'delete'
             {
             match("delete"); 
 
@@ -3109,8 +3053,8 @@ public class XQueryLexer extends XQDTLexer {
         try {
             int _type = FIRST;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XQueryLexer.g:182:29: ( 'first' )
-            // XQueryLexer.g:182:31: 'first'
+            // XQueryLexer.g:180:29: ( 'first' )
+            // XQueryLexer.g:180:31: 'first'
             {
             match("first"); 
 
@@ -3130,8 +3074,8 @@ public class XQueryLexer extends XQDTLexer {
         try {
             int _type = INSERT;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XQueryLexer.g:183:29: ( 'insert' )
-            // XQueryLexer.g:183:31: 'insert'
+            // XQueryLexer.g:181:29: ( 'insert' )
+            // XQueryLexer.g:181:31: 'insert'
             {
             match("insert"); 
 
@@ -3151,8 +3095,8 @@ public class XQueryLexer extends XQDTLexer {
         try {
             int _type = INTO;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XQueryLexer.g:184:29: ( 'into' )
-            // XQueryLexer.g:184:31: 'into'
+            // XQueryLexer.g:182:29: ( 'into' )
+            // XQueryLexer.g:182:31: 'into'
             {
             match("into"); 
 
@@ -3172,8 +3116,8 @@ public class XQueryLexer extends XQDTLexer {
         try {
             int _type = LAST;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XQueryLexer.g:185:29: ( 'last' )
-            // XQueryLexer.g:185:31: 'last'
+            // XQueryLexer.g:183:29: ( 'last' )
+            // XQueryLexer.g:183:31: 'last'
             {
             match("last"); 
 
@@ -3193,8 +3137,8 @@ public class XQueryLexer extends XQDTLexer {
         try {
             int _type = MODIFY;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XQueryLexer.g:186:29: ( 'modify' )
-            // XQueryLexer.g:186:31: 'modify'
+            // XQueryLexer.g:184:29: ( 'modify' )
+            // XQueryLexer.g:184:31: 'modify'
             {
             match("modify"); 
 
@@ -3214,8 +3158,8 @@ public class XQueryLexer extends XQDTLexer {
         try {
             int _type = NODES;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XQueryLexer.g:187:29: ( 'nodes' )
-            // XQueryLexer.g:187:31: 'nodes'
+            // XQueryLexer.g:185:29: ( 'nodes' )
+            // XQueryLexer.g:185:31: 'nodes'
             {
             match("nodes"); 
 
@@ -3235,8 +3179,8 @@ public class XQueryLexer extends XQDTLexer {
         try {
             int _type = RENAME;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XQueryLexer.g:188:29: ( 'rename' )
-            // XQueryLexer.g:188:31: 'rename'
+            // XQueryLexer.g:186:29: ( 'rename' )
+            // XQueryLexer.g:186:31: 'rename'
             {
             match("rename"); 
 
@@ -3256,8 +3200,8 @@ public class XQueryLexer extends XQDTLexer {
         try {
             int _type = REPLACE;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XQueryLexer.g:189:29: ( 'replace' )
-            // XQueryLexer.g:189:31: 'replace'
+            // XQueryLexer.g:187:29: ( 'replace' )
+            // XQueryLexer.g:187:31: 'replace'
             {
             match("replace"); 
 
@@ -3277,8 +3221,8 @@ public class XQueryLexer extends XQDTLexer {
         try {
             int _type = REVALIDATION;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XQueryLexer.g:190:29: ( 'revalidation' )
-            // XQueryLexer.g:190:31: 'revalidation'
+            // XQueryLexer.g:188:29: ( 'revalidation' )
+            // XQueryLexer.g:188:31: 'revalidation'
             {
             match("revalidation"); 
 
@@ -3298,8 +3242,8 @@ public class XQueryLexer extends XQDTLexer {
         try {
             int _type = SKIP;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XQueryLexer.g:191:29: ( 'skip' )
-            // XQueryLexer.g:191:31: 'skip'
+            // XQueryLexer.g:189:29: ( 'skip' )
+            // XQueryLexer.g:189:31: 'skip'
             {
             match("skip"); 
 
@@ -3319,8 +3263,8 @@ public class XQueryLexer extends XQDTLexer {
         try {
             int _type = UPDATING;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XQueryLexer.g:192:29: ( 'updating' )
-            // XQueryLexer.g:192:31: 'updating'
+            // XQueryLexer.g:190:29: ( 'updating' )
+            // XQueryLexer.g:190:31: 'updating'
             {
             match("updating"); 
 
@@ -3340,8 +3284,8 @@ public class XQueryLexer extends XQDTLexer {
         try {
             int _type = VALUE;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XQueryLexer.g:193:29: ( 'value' )
-            // XQueryLexer.g:193:31: 'value'
+            // XQueryLexer.g:191:29: ( 'value' )
+            // XQueryLexer.g:191:31: 'value'
             {
             match("value"); 
 
@@ -3361,8 +3305,8 @@ public class XQueryLexer extends XQDTLexer {
         try {
             int _type = WITH;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XQueryLexer.g:194:29: ( 'with' )
-            // XQueryLexer.g:194:31: 'with'
+            // XQueryLexer.g:192:29: ( 'with' )
+            // XQueryLexer.g:192:31: 'with'
             {
             match("with"); 
 
@@ -3382,8 +3326,8 @@ public class XQueryLexer extends XQDTLexer {
         try {
             int _type = ALL;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XQueryLexer.g:196:29: ( 'all' )
-            // XQueryLexer.g:196:31: 'all'
+            // XQueryLexer.g:194:29: ( 'all' )
+            // XQueryLexer.g:194:31: 'all'
             {
             match("all"); 
 
@@ -3403,8 +3347,8 @@ public class XQueryLexer extends XQDTLexer {
         try {
             int _type = ANY;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XQueryLexer.g:197:29: ( 'any' )
-            // XQueryLexer.g:197:31: 'any'
+            // XQueryLexer.g:195:29: ( 'any' )
+            // XQueryLexer.g:195:31: 'any'
             {
             match("any"); 
 
@@ -3424,8 +3368,8 @@ public class XQueryLexer extends XQDTLexer {
         try {
             int _type = CONTAINS;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XQueryLexer.g:198:29: ( 'contains' )
-            // XQueryLexer.g:198:31: 'contains'
+            // XQueryLexer.g:196:29: ( 'contains' )
+            // XQueryLexer.g:196:31: 'contains'
             {
             match("contains"); 
 
@@ -3445,8 +3389,8 @@ public class XQueryLexer extends XQDTLexer {
         try {
             int _type = CONTENT;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XQueryLexer.g:199:29: ( 'content' )
-            // XQueryLexer.g:199:31: 'content'
+            // XQueryLexer.g:197:29: ( 'content' )
+            // XQueryLexer.g:197:31: 'content'
             {
             match("content"); 
 
@@ -3466,8 +3410,8 @@ public class XQueryLexer extends XQDTLexer {
         try {
             int _type = DIACRITICS;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XQueryLexer.g:200:29: ( 'diacritics' )
-            // XQueryLexer.g:200:31: 'diacritics'
+            // XQueryLexer.g:198:29: ( 'diacritics' )
+            // XQueryLexer.g:198:31: 'diacritics'
             {
             match("diacritics"); 
 
@@ -3487,8 +3431,8 @@ public class XQueryLexer extends XQDTLexer {
         try {
             int _type = DIFFERENT;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XQueryLexer.g:201:29: ( 'different' )
-            // XQueryLexer.g:201:31: 'different'
+            // XQueryLexer.g:199:29: ( 'different' )
+            // XQueryLexer.g:199:31: 'different'
             {
             match("different"); 
 
@@ -3508,8 +3452,8 @@ public class XQueryLexer extends XQDTLexer {
         try {
             int _type = DISTANCE;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XQueryLexer.g:202:29: ( 'distance' )
-            // XQueryLexer.g:202:31: 'distance'
+            // XQueryLexer.g:200:29: ( 'distance' )
+            // XQueryLexer.g:200:31: 'distance'
             {
             match("distance"); 
 
@@ -3529,8 +3473,8 @@ public class XQueryLexer extends XQDTLexer {
         try {
             int _type = ENTIRE;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XQueryLexer.g:203:29: ( 'entire' )
-            // XQueryLexer.g:203:31: 'entire'
+            // XQueryLexer.g:201:29: ( 'entire' )
+            // XQueryLexer.g:201:31: 'entire'
             {
             match("entire"); 
 
@@ -3550,8 +3494,8 @@ public class XQueryLexer extends XQDTLexer {
         try {
             int _type = EXACTLY;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XQueryLexer.g:204:29: ( 'exactly' )
-            // XQueryLexer.g:204:31: 'exactly'
+            // XQueryLexer.g:202:29: ( 'exactly' )
+            // XQueryLexer.g:202:31: 'exactly'
             {
             match("exactly"); 
 
@@ -3571,8 +3515,8 @@ public class XQueryLexer extends XQDTLexer {
         try {
             int _type = FROM;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XQueryLexer.g:205:29: ( 'from' )
-            // XQueryLexer.g:205:31: 'from'
+            // XQueryLexer.g:203:29: ( 'from' )
+            // XQueryLexer.g:203:31: 'from'
             {
             match("from"); 
 
@@ -3592,8 +3536,8 @@ public class XQueryLexer extends XQDTLexer {
         try {
             int _type = FT_OPTION;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XQueryLexer.g:206:29: ( 'ft-option' )
-            // XQueryLexer.g:206:31: 'ft-option'
+            // XQueryLexer.g:204:29: ( 'ft-option' )
+            // XQueryLexer.g:204:31: 'ft-option'
             {
             match("ft-option"); 
 
@@ -3613,8 +3557,8 @@ public class XQueryLexer extends XQDTLexer {
         try {
             int _type = FTAND;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XQueryLexer.g:207:29: ( 'ftand' )
-            // XQueryLexer.g:207:31: 'ftand'
+            // XQueryLexer.g:205:29: ( 'ftand' )
+            // XQueryLexer.g:205:31: 'ftand'
             {
             match("ftand"); 
 
@@ -3634,8 +3578,8 @@ public class XQueryLexer extends XQDTLexer {
         try {
             int _type = FTNOT;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XQueryLexer.g:208:29: ( 'ftnot' )
-            // XQueryLexer.g:208:31: 'ftnot'
+            // XQueryLexer.g:206:29: ( 'ftnot' )
+            // XQueryLexer.g:206:31: 'ftnot'
             {
             match("ftnot"); 
 
@@ -3655,8 +3599,8 @@ public class XQueryLexer extends XQDTLexer {
         try {
             int _type = FTOR;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XQueryLexer.g:209:29: ( 'ftor' )
-            // XQueryLexer.g:209:31: 'ftor'
+            // XQueryLexer.g:207:29: ( 'ftor' )
+            // XQueryLexer.g:207:31: 'ftor'
             {
             match("ftor"); 
 
@@ -3676,8 +3620,8 @@ public class XQueryLexer extends XQDTLexer {
         try {
             int _type = INSENSITIVE;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XQueryLexer.g:210:29: ( 'insensitive' )
-            // XQueryLexer.g:210:31: 'insensitive'
+            // XQueryLexer.g:208:29: ( 'insensitive' )
+            // XQueryLexer.g:208:31: 'insensitive'
             {
             match("insensitive"); 
 
@@ -3697,8 +3641,8 @@ public class XQueryLexer extends XQDTLexer {
         try {
             int _type = LANGUAGE;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XQueryLexer.g:211:29: ( 'language' )
-            // XQueryLexer.g:211:31: 'language'
+            // XQueryLexer.g:209:29: ( 'language' )
+            // XQueryLexer.g:209:31: 'language'
             {
             match("language"); 
 
@@ -3718,8 +3662,8 @@ public class XQueryLexer extends XQDTLexer {
         try {
             int _type = LEVELS;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XQueryLexer.g:212:29: ( 'levels' )
-            // XQueryLexer.g:212:31: 'levels'
+            // XQueryLexer.g:210:29: ( 'levels' )
+            // XQueryLexer.g:210:31: 'levels'
             {
             match("levels"); 
 
@@ -3739,8 +3683,8 @@ public class XQueryLexer extends XQDTLexer {
         try {
             int _type = LOWERCASE;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XQueryLexer.g:213:29: ( 'lowercase' )
-            // XQueryLexer.g:213:31: 'lowercase'
+            // XQueryLexer.g:211:29: ( 'lowercase' )
+            // XQueryLexer.g:211:31: 'lowercase'
             {
             match("lowercase"); 
 
@@ -3760,8 +3704,8 @@ public class XQueryLexer extends XQDTLexer {
         try {
             int _type = MOST;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XQueryLexer.g:214:29: ( 'most' )
-            // XQueryLexer.g:214:31: 'most'
+            // XQueryLexer.g:212:29: ( 'most' )
+            // XQueryLexer.g:212:31: 'most'
             {
             match("most"); 
 
@@ -3781,8 +3725,8 @@ public class XQueryLexer extends XQDTLexer {
         try {
             int _type = NO;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XQueryLexer.g:215:29: ( 'no' )
-            // XQueryLexer.g:215:31: 'no'
+            // XQueryLexer.g:213:29: ( 'no' )
+            // XQueryLexer.g:213:31: 'no'
             {
             match("no"); 
 
@@ -3802,8 +3746,8 @@ public class XQueryLexer extends XQDTLexer {
         try {
             int _type = NOT;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XQueryLexer.g:216:29: ( 'not' )
-            // XQueryLexer.g:216:31: 'not'
+            // XQueryLexer.g:214:29: ( 'not' )
+            // XQueryLexer.g:214:31: 'not'
             {
             match("not"); 
 
@@ -3823,8 +3767,8 @@ public class XQueryLexer extends XQDTLexer {
         try {
             int _type = OCCURS;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XQueryLexer.g:217:29: ( 'occurs' )
-            // XQueryLexer.g:217:31: 'occurs'
+            // XQueryLexer.g:215:29: ( 'occurs' )
+            // XQueryLexer.g:215:31: 'occurs'
             {
             match("occurs"); 
 
@@ -3844,8 +3788,8 @@ public class XQueryLexer extends XQDTLexer {
         try {
             int _type = PARAGRAPH;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XQueryLexer.g:218:29: ( 'paragraph' )
-            // XQueryLexer.g:218:31: 'paragraph'
+            // XQueryLexer.g:216:29: ( 'paragraph' )
+            // XQueryLexer.g:216:31: 'paragraph'
             {
             match("paragraph"); 
 
@@ -3865,8 +3809,8 @@ public class XQueryLexer extends XQDTLexer {
         try {
             int _type = PARAGRAPHS;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XQueryLexer.g:219:29: ( 'paragraphs' )
-            // XQueryLexer.g:219:31: 'paragraphs'
+            // XQueryLexer.g:217:29: ( 'paragraphs' )
+            // XQueryLexer.g:217:31: 'paragraphs'
             {
             match("paragraphs"); 
 
@@ -3886,8 +3830,8 @@ public class XQueryLexer extends XQDTLexer {
         try {
             int _type = PHRASE;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XQueryLexer.g:220:29: ( 'phrase' )
-            // XQueryLexer.g:220:31: 'phrase'
+            // XQueryLexer.g:218:29: ( 'phrase' )
+            // XQueryLexer.g:218:31: 'phrase'
             {
             match("phrase"); 
 
@@ -3907,8 +3851,8 @@ public class XQueryLexer extends XQDTLexer {
         try {
             int _type = RELATIONSHIP;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XQueryLexer.g:221:29: ( 'relationship' )
-            // XQueryLexer.g:221:31: 'relationship'
+            // XQueryLexer.g:219:29: ( 'relationship' )
+            // XQueryLexer.g:219:31: 'relationship'
             {
             match("relationship"); 
 
@@ -3928,8 +3872,8 @@ public class XQueryLexer extends XQDTLexer {
         try {
             int _type = SAME;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XQueryLexer.g:222:29: ( 'same' )
-            // XQueryLexer.g:222:31: 'same'
+            // XQueryLexer.g:220:29: ( 'same' )
+            // XQueryLexer.g:220:31: 'same'
             {
             match("same"); 
 
@@ -3949,8 +3893,8 @@ public class XQueryLexer extends XQDTLexer {
         try {
             int _type = SCORE;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XQueryLexer.g:223:29: ( 'score' )
-            // XQueryLexer.g:223:31: 'score'
+            // XQueryLexer.g:221:29: ( 'score' )
+            // XQueryLexer.g:221:31: 'score'
             {
             match("score"); 
 
@@ -3970,8 +3914,8 @@ public class XQueryLexer extends XQDTLexer {
         try {
             int _type = SENSITIVE;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XQueryLexer.g:224:29: ( 'sensitive' )
-            // XQueryLexer.g:224:31: 'sensitive'
+            // XQueryLexer.g:222:29: ( 'sensitive' )
+            // XQueryLexer.g:222:31: 'sensitive'
             {
             match("sensitive"); 
 
@@ -3991,8 +3935,8 @@ public class XQueryLexer extends XQDTLexer {
         try {
             int _type = SENTENCE;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XQueryLexer.g:225:29: ( 'sentence' )
-            // XQueryLexer.g:225:31: 'sentence'
+            // XQueryLexer.g:223:29: ( 'sentence' )
+            // XQueryLexer.g:223:31: 'sentence'
             {
             match("sentence"); 
 
@@ -4012,8 +3956,8 @@ public class XQueryLexer extends XQDTLexer {
         try {
             int _type = SENTENCES;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XQueryLexer.g:226:29: ( 'sentences' )
-            // XQueryLexer.g:226:31: 'sentences'
+            // XQueryLexer.g:224:29: ( 'sentences' )
+            // XQueryLexer.g:224:31: 'sentences'
             {
             match("sentences"); 
 
@@ -4033,8 +3977,8 @@ public class XQueryLexer extends XQDTLexer {
         try {
             int _type = STEMMING;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XQueryLexer.g:227:29: ( 'stemming' )
-            // XQueryLexer.g:227:31: 'stemming'
+            // XQueryLexer.g:225:29: ( 'stemming' )
+            // XQueryLexer.g:225:31: 'stemming'
             {
             match("stemming"); 
 
@@ -4054,8 +3998,8 @@ public class XQueryLexer extends XQDTLexer {
         try {
             int _type = STOP;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XQueryLexer.g:228:29: ( 'stop' )
-            // XQueryLexer.g:228:31: 'stop'
+            // XQueryLexer.g:226:29: ( 'stop' )
+            // XQueryLexer.g:226:31: 'stop'
             {
             match("stop"); 
 
@@ -4075,8 +4019,8 @@ public class XQueryLexer extends XQDTLexer {
         try {
             int _type = THESAURUS;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XQueryLexer.g:229:29: ( 'thesaurus' )
-            // XQueryLexer.g:229:31: 'thesaurus'
+            // XQueryLexer.g:227:29: ( 'thesaurus' )
+            // XQueryLexer.g:227:31: 'thesaurus'
             {
             match("thesaurus"); 
 
@@ -4096,8 +4040,8 @@ public class XQueryLexer extends XQDTLexer {
         try {
             int _type = TIMES;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XQueryLexer.g:230:29: ( 'times' )
-            // XQueryLexer.g:230:31: 'times'
+            // XQueryLexer.g:228:29: ( 'times' )
+            // XQueryLexer.g:228:31: 'times'
             {
             match("times"); 
 
@@ -4117,8 +4061,8 @@ public class XQueryLexer extends XQDTLexer {
         try {
             int _type = UPPERCASE;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XQueryLexer.g:231:29: ( 'uppercase' )
-            // XQueryLexer.g:231:31: 'uppercase'
+            // XQueryLexer.g:229:29: ( 'uppercase' )
+            // XQueryLexer.g:229:31: 'uppercase'
             {
             match("uppercase"); 
 
@@ -4138,8 +4082,8 @@ public class XQueryLexer extends XQDTLexer {
         try {
             int _type = USING;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XQueryLexer.g:232:29: ( 'using' )
-            // XQueryLexer.g:232:31: 'using'
+            // XQueryLexer.g:230:29: ( 'using' )
+            // XQueryLexer.g:230:31: 'using'
             {
             match("using"); 
 
@@ -4159,8 +4103,8 @@ public class XQueryLexer extends XQDTLexer {
         try {
             int _type = WEIGHT;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XQueryLexer.g:233:29: ( 'weight' )
-            // XQueryLexer.g:233:31: 'weight'
+            // XQueryLexer.g:231:29: ( 'weight' )
+            // XQueryLexer.g:231:31: 'weight'
             {
             match("weight"); 
 
@@ -4180,8 +4124,8 @@ public class XQueryLexer extends XQDTLexer {
         try {
             int _type = WILDCARDS;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XQueryLexer.g:234:29: ( 'wildcards' )
-            // XQueryLexer.g:234:31: 'wildcards'
+            // XQueryLexer.g:232:29: ( 'wildcards' )
+            // XQueryLexer.g:232:31: 'wildcards'
             {
             match("wildcards"); 
 
@@ -4201,8 +4145,8 @@ public class XQueryLexer extends XQDTLexer {
         try {
             int _type = WITHOUT;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XQueryLexer.g:235:29: ( 'without' )
-            // XQueryLexer.g:235:31: 'without'
+            // XQueryLexer.g:233:29: ( 'without' )
+            // XQueryLexer.g:233:31: 'without'
             {
             match("without"); 
 
@@ -4222,8 +4166,8 @@ public class XQueryLexer extends XQDTLexer {
         try {
             int _type = WORD;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XQueryLexer.g:236:29: ( 'word' )
-            // XQueryLexer.g:236:31: 'word'
+            // XQueryLexer.g:234:29: ( 'word' )
+            // XQueryLexer.g:234:31: 'word'
             {
             match("word"); 
 
@@ -4243,8 +4187,8 @@ public class XQueryLexer extends XQDTLexer {
         try {
             int _type = WORDS;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XQueryLexer.g:237:29: ( 'words' )
-            // XQueryLexer.g:237:31: 'words'
+            // XQueryLexer.g:235:29: ( 'words' )
+            // XQueryLexer.g:235:31: 'words'
             {
             match("words"); 
 
@@ -4259,15 +4203,15 @@ public class XQueryLexer extends XQDTLexer {
     }
     // $ANTLR end "WORDS"
 
-    // $ANTLR start "BLOCK"
-    public final void mBLOCK() throws RecognitionException {
+    // $ANTLR start "BREAK"
+    public final void mBREAK() throws RecognitionException {
         try {
-            int _type = BLOCK;
+            int _type = BREAK;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XQueryLexer.g:239:29: ( 'block' )
-            // XQueryLexer.g:239:31: 'block'
+            // XQueryLexer.g:237:29: ( 'break' )
+            // XQueryLexer.g:237:31: 'break'
             {
-            match("block"); 
+            match("break"); 
 
 
             }
@@ -4278,17 +4222,17 @@ public class XQueryLexer extends XQDTLexer {
         finally {
         }
     }
-    // $ANTLR end "BLOCK"
+    // $ANTLR end "BREAK"
 
-    // $ANTLR start "CONSTANT"
-    public final void mCONSTANT() throws RecognitionException {
+    // $ANTLR start "CONTINUE"
+    public final void mCONTINUE() throws RecognitionException {
         try {
-            int _type = CONSTANT;
+            int _type = CONTINUE;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XQueryLexer.g:240:29: ( 'constant' )
-            // XQueryLexer.g:240:31: 'constant'
+            // XQueryLexer.g:238:29: ( 'continue' )
+            // XQueryLexer.g:238:31: 'continue'
             {
-            match("constant"); 
+            match("continue"); 
 
 
             }
@@ -4299,15 +4243,15 @@ public class XQueryLexer extends XQDTLexer {
         finally {
         }
     }
-    // $ANTLR end "CONSTANT"
+    // $ANTLR end "CONTINUE"
 
     // $ANTLR start "EXIT"
     public final void mEXIT() throws RecognitionException {
         try {
             int _type = EXIT;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XQueryLexer.g:241:29: ( 'exit' )
-            // XQueryLexer.g:241:31: 'exit'
+            // XQueryLexer.g:239:29: ( 'exit' )
+            // XQueryLexer.g:239:31: 'exit'
             {
             match("exit"); 
 
@@ -4322,13 +4266,34 @@ public class XQueryLexer extends XQDTLexer {
     }
     // $ANTLR end "EXIT"
 
+    // $ANTLR start "LOOP"
+    public final void mLOOP() throws RecognitionException {
+        try {
+            int _type = LOOP;
+            int _channel = DEFAULT_TOKEN_CHANNEL;
+            // XQueryLexer.g:240:29: ( 'loop' )
+            // XQueryLexer.g:240:31: 'loop'
+            {
+            match("loop"); 
+
+
+            }
+
+            state.type = _type;
+            state.channel = _channel;
+        }
+        finally {
+        }
+    }
+    // $ANTLR end "LOOP"
+
     // $ANTLR start "RETURNING"
     public final void mRETURNING() throws RecognitionException {
         try {
             int _type = RETURNING;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XQueryLexer.g:242:29: ( 'returning' )
-            // XQueryLexer.g:242:31: 'returning'
+            // XQueryLexer.g:241:29: ( 'returning' )
+            // XQueryLexer.g:241:31: 'returning'
             {
             match("returning"); 
 
@@ -4343,76 +4308,13 @@ public class XQueryLexer extends XQDTLexer {
     }
     // $ANTLR end "RETURNING"
 
-    // $ANTLR start "SEQUENTIAL"
-    public final void mSEQUENTIAL() throws RecognitionException {
-        try {
-            int _type = SEQUENTIAL;
-            int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XQueryLexer.g:243:29: ( 'sequential' )
-            // XQueryLexer.g:243:31: 'sequential'
-            {
-            match("sequential"); 
-
-
-            }
-
-            state.type = _type;
-            state.channel = _channel;
-        }
-        finally {
-        }
-    }
-    // $ANTLR end "SEQUENTIAL"
-
-    // $ANTLR start "SET"
-    public final void mSET() throws RecognitionException {
-        try {
-            int _type = SET;
-            int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XQueryLexer.g:244:29: ( 'set' )
-            // XQueryLexer.g:244:31: 'set'
-            {
-            match("set"); 
-
-
-            }
-
-            state.type = _type;
-            state.channel = _channel;
-        }
-        finally {
-        }
-    }
-    // $ANTLR end "SET"
-
-    // $ANTLR start "SIMPLE"
-    public final void mSIMPLE() throws RecognitionException {
-        try {
-            int _type = SIMPLE;
-            int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XQueryLexer.g:245:29: ( 'simple' )
-            // XQueryLexer.g:245:31: 'simple'
-            {
-            match("simple"); 
-
-
-            }
-
-            state.type = _type;
-            state.channel = _channel;
-        }
-        finally {
-        }
-    }
-    // $ANTLR end "SIMPLE"
-
     // $ANTLR start "WHILE"
     public final void mWHILE() throws RecognitionException {
         try {
             int _type = WHILE;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XQueryLexer.g:246:29: ( 'while' )
-            // XQueryLexer.g:246:31: 'while'
+            // XQueryLexer.g:242:29: ( 'while' )
+            // XQueryLexer.g:242:31: 'while'
             {
             match("while"); 
 
@@ -4432,8 +4334,8 @@ public class XQueryLexer extends XQDTLexer {
         try {
             int _type = EVAL;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XQueryLexer.g:248:29: ( 'eval' )
-            // XQueryLexer.g:248:31: 'eval'
+            // XQueryLexer.g:244:29: ( 'eval' )
+            // XQueryLexer.g:244:31: 'eval'
             {
             match("eval"); 
 
@@ -4448,55 +4350,13 @@ public class XQueryLexer extends XQDTLexer {
     }
     // $ANTLR end "EVAL"
 
-    // $ANTLR start "APPEND_ONLY"
-    public final void mAPPEND_ONLY() throws RecognitionException {
-        try {
-            int _type = APPEND_ONLY;
-            int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XQueryLexer.g:250:29: ( 'append-only' )
-            // XQueryLexer.g:250:31: 'append-only'
-            {
-            match("append-only"); 
-
-
-            }
-
-            state.type = _type;
-            state.channel = _channel;
-        }
-        finally {
-        }
-    }
-    // $ANTLR end "APPEND_ONLY"
-
-    // $ANTLR start "AUTOMATICALLY"
-    public final void mAUTOMATICALLY() throws RecognitionException {
-        try {
-            int _type = AUTOMATICALLY;
-            int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XQueryLexer.g:251:29: ( 'automatically' )
-            // XQueryLexer.g:251:31: 'automatically'
-            {
-            match("automatically"); 
-
-
-            }
-
-            state.type = _type;
-            state.channel = _channel;
-        }
-        finally {
-        }
-    }
-    // $ANTLR end "AUTOMATICALLY"
-
     // $ANTLR start "CHECK"
     public final void mCHECK() throws RecognitionException {
         try {
             int _type = CHECK;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XQueryLexer.g:252:29: ( 'check' )
-            // XQueryLexer.g:252:31: 'check'
+            // XQueryLexer.g:246:29: ( 'check' )
+            // XQueryLexer.g:246:31: 'check'
             {
             match("check"); 
 
@@ -4516,8 +4376,8 @@ public class XQueryLexer extends XQDTLexer {
         try {
             int _type = COLLECTION;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XQueryLexer.g:253:29: ( 'collection' )
-            // XQueryLexer.g:253:31: 'collection'
+            // XQueryLexer.g:247:29: ( 'collection' )
+            // XQueryLexer.g:247:31: 'collection'
             {
             match("collection"); 
 
@@ -4537,8 +4397,8 @@ public class XQueryLexer extends XQDTLexer {
         try {
             int _type = CONSTRAINT;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XQueryLexer.g:254:29: ( 'constraint' )
-            // XQueryLexer.g:254:31: 'constraint'
+            // XQueryLexer.g:248:29: ( 'constraint' )
+            // XQueryLexer.g:248:31: 'constraint'
             {
             match("constraint"); 
 
@@ -4553,55 +4413,13 @@ public class XQueryLexer extends XQDTLexer {
     }
     // $ANTLR end "CONSTRAINT"
 
-    // $ANTLR start "CONST"
-    public final void mCONST() throws RecognitionException {
-        try {
-            int _type = CONST;
-            int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XQueryLexer.g:255:29: ( 'const' )
-            // XQueryLexer.g:255:31: 'const'
-            {
-            match("const"); 
-
-
-            }
-
-            state.type = _type;
-            state.channel = _channel;
-        }
-        finally {
-        }
-    }
-    // $ANTLR end "CONST"
-
-    // $ANTLR start "EQUALITY"
-    public final void mEQUALITY() throws RecognitionException {
-        try {
-            int _type = EQUALITY;
-            int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XQueryLexer.g:256:29: ( 'equality' )
-            // XQueryLexer.g:256:31: 'equality'
-            {
-            match("equality"); 
-
-
-            }
-
-            state.type = _type;
-            state.channel = _channel;
-        }
-        finally {
-        }
-    }
-    // $ANTLR end "EQUALITY"
-
     // $ANTLR start "FOREACH"
     public final void mFOREACH() throws RecognitionException {
         try {
             int _type = FOREACH;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XQueryLexer.g:257:29: ( 'foreach' )
-            // XQueryLexer.g:257:31: 'foreach'
+            // XQueryLexer.g:249:29: ( 'foreach' )
+            // XQueryLexer.g:249:31: 'foreach'
             {
             match("foreach"); 
 
@@ -4621,8 +4439,8 @@ public class XQueryLexer extends XQDTLexer {
         try {
             int _type = FOREIGN;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XQueryLexer.g:258:29: ( 'foreign' )
-            // XQueryLexer.g:258:31: 'foreign'
+            // XQueryLexer.g:250:29: ( 'foreign' )
+            // XQueryLexer.g:250:31: 'foreign'
             {
             match("foreign"); 
 
@@ -4642,8 +4460,8 @@ public class XQueryLexer extends XQDTLexer {
         try {
             int _type = INDEX;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XQueryLexer.g:259:29: ( 'index' )
-            // XQueryLexer.g:259:31: 'index'
+            // XQueryLexer.g:251:29: ( 'index' )
+            // XQueryLexer.g:251:31: 'index'
             {
             match("index"); 
 
@@ -4663,8 +4481,8 @@ public class XQueryLexer extends XQDTLexer {
         try {
             int _type = INTEGRITY;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XQueryLexer.g:260:29: ( 'integrity' )
-            // XQueryLexer.g:260:31: 'integrity'
+            // XQueryLexer.g:252:29: ( 'integrity' )
+            // XQueryLexer.g:252:31: 'integrity'
             {
             match("integrity"); 
 
@@ -4684,8 +4502,8 @@ public class XQueryLexer extends XQDTLexer {
         try {
             int _type = KEY;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XQueryLexer.g:261:29: ( 'key' )
-            // XQueryLexer.g:261:31: 'key'
+            // XQueryLexer.g:253:29: ( 'key' )
+            // XQueryLexer.g:253:31: 'key'
             {
             match("key"); 
 
@@ -4700,97 +4518,13 @@ public class XQueryLexer extends XQDTLexer {
     }
     // $ANTLR end "KEY"
 
-    // $ANTLR start "MAINTAINED"
-    public final void mMAINTAINED() throws RecognitionException {
-        try {
-            int _type = MAINTAINED;
-            int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XQueryLexer.g:262:29: ( 'maintained' )
-            // XQueryLexer.g:262:31: 'maintained'
-            {
-            match("maintained"); 
-
-
-            }
-
-            state.type = _type;
-            state.channel = _channel;
-        }
-        finally {
-        }
-    }
-    // $ANTLR end "MAINTAINED"
-
-    // $ANTLR start "MANUALLY"
-    public final void mMANUALLY() throws RecognitionException {
-        try {
-            int _type = MANUALLY;
-            int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XQueryLexer.g:263:29: ( 'manually' )
-            // XQueryLexer.g:263:31: 'manually'
-            {
-            match("manually"); 
-
-
-            }
-
-            state.type = _type;
-            state.channel = _channel;
-        }
-        finally {
-        }
-    }
-    // $ANTLR end "MANUALLY"
-
-    // $ANTLR start "MUTABLE"
-    public final void mMUTABLE() throws RecognitionException {
-        try {
-            int _type = MUTABLE;
-            int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XQueryLexer.g:264:29: ( 'mutable' )
-            // XQueryLexer.g:264:31: 'mutable'
-            {
-            match("mutable"); 
-
-
-            }
-
-            state.type = _type;
-            state.channel = _channel;
-        }
-        finally {
-        }
-    }
-    // $ANTLR end "MUTABLE"
-
-    // $ANTLR start "NON"
-    public final void mNON() throws RecognitionException {
-        try {
-            int _type = NON;
-            int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XQueryLexer.g:265:29: ( 'non' )
-            // XQueryLexer.g:265:31: 'non'
-            {
-            match("non"); 
-
-
-            }
-
-            state.type = _type;
-            state.channel = _channel;
-        }
-        finally {
-        }
-    }
-    // $ANTLR end "NON"
-
     // $ANTLR start "ON"
     public final void mON() throws RecognitionException {
         try {
             int _type = ON;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XQueryLexer.g:266:29: ( 'on' )
-            // XQueryLexer.g:266:31: 'on'
+            // XQueryLexer.g:254:29: ( 'on' )
+            // XQueryLexer.g:254:31: 'on'
             {
             match("on"); 
 
@@ -4805,97 +4539,13 @@ public class XQueryLexer extends XQDTLexer {
     }
     // $ANTLR end "ON"
 
-    // $ANTLR start "QUEUE"
-    public final void mQUEUE() throws RecognitionException {
-        try {
-            int _type = QUEUE;
-            int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XQueryLexer.g:267:29: ( 'queue' )
-            // XQueryLexer.g:267:31: 'queue'
-            {
-            match("queue"); 
-
-
-            }
-
-            state.type = _type;
-            state.channel = _channel;
-        }
-        finally {
-        }
-    }
-    // $ANTLR end "QUEUE"
-
-    // $ANTLR start "RANGE"
-    public final void mRANGE() throws RecognitionException {
-        try {
-            int _type = RANGE;
-            int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XQueryLexer.g:268:29: ( 'range' )
-            // XQueryLexer.g:268:31: 'range'
-            {
-            match("range"); 
-
-
-            }
-
-            state.type = _type;
-            state.channel = _channel;
-        }
-        finally {
-        }
-    }
-    // $ANTLR end "RANGE"
-
-    // $ANTLR start "READ_ONLY"
-    public final void mREAD_ONLY() throws RecognitionException {
-        try {
-            int _type = READ_ONLY;
-            int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XQueryLexer.g:269:29: ( 'read-only' )
-            // XQueryLexer.g:269:31: 'read-only'
-            {
-            match("read-only"); 
-
-
-            }
-
-            state.type = _type;
-            state.channel = _channel;
-        }
-        finally {
-        }
-    }
-    // $ANTLR end "READ_ONLY"
-
-    // $ANTLR start "UNIQUE"
-    public final void mUNIQUE() throws RecognitionException {
-        try {
-            int _type = UNIQUE;
-            int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XQueryLexer.g:270:29: ( 'unique' )
-            // XQueryLexer.g:270:31: 'unique'
-            {
-            match("unique"); 
-
-
-            }
-
-            state.type = _type;
-            state.channel = _channel;
-        }
-        finally {
-        }
-    }
-    // $ANTLR end "UNIQUE"
-
     // $ANTLR start "BINARY"
     public final void mBINARY() throws RecognitionException {
         try {
             int _type = BINARY;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XQueryLexer.g:272:29: ( 'binary' )
-            // XQueryLexer.g:272:31: 'binary'
+            // XQueryLexer.g:256:29: ( 'binary' )
+            // XQueryLexer.g:256:31: 'binary'
             {
             match("binary"); 
 
@@ -4915,8 +4565,8 @@ public class XQueryLexer extends XQDTLexer {
         try {
             int _type = AMP_ER;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XQueryLexer.g:275:9: ( 'amp' )
-            // XQueryLexer.g:275:11: 'amp'
+            // XQueryLexer.g:259:9: ( 'amp' )
+            // XQueryLexer.g:259:11: 'amp'
             {
             match("amp"); 
 
@@ -4936,8 +4586,8 @@ public class XQueryLexer extends XQDTLexer {
         try {
             int _type = APOS_ER;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XQueryLexer.g:276:9: ( 'apos' )
-            // XQueryLexer.g:276:11: 'apos'
+            // XQueryLexer.g:260:9: ( 'apos' )
+            // XQueryLexer.g:260:11: 'apos'
             {
             match("apos"); 
 
@@ -4957,8 +4607,8 @@ public class XQueryLexer extends XQDTLexer {
         try {
             int _type = QUOT_ER;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XQueryLexer.g:277:9: ( 'quot' )
-            // XQueryLexer.g:277:11: 'quot'
+            // XQueryLexer.g:261:9: ( 'quot' )
+            // XQueryLexer.g:261:11: 'quot'
             {
             match("quot"); 
 
@@ -4978,8 +4628,8 @@ public class XQueryLexer extends XQDTLexer {
         try {
             int _type = LPAREN;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XQueryLexer.g:284:25: ( '(' )
-            // XQueryLexer.g:284:27: '('
+            // XQueryLexer.g:268:25: ( '(' )
+            // XQueryLexer.g:268:27: '('
             {
             match('('); 
 
@@ -4998,8 +4648,8 @@ public class XQueryLexer extends XQDTLexer {
         try {
             int _type = RPAREN;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XQueryLexer.g:285:25: ( ')' )
-            // XQueryLexer.g:285:27: ')'
+            // XQueryLexer.g:269:25: ( ')' )
+            // XQueryLexer.g:269:27: ')'
             {
             match(')'); 
 
@@ -5018,8 +4668,8 @@ public class XQueryLexer extends XQDTLexer {
         try {
             int _type = DOLLAR;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XQueryLexer.g:286:25: ( '$' )
-            // XQueryLexer.g:286:27: '$'
+            // XQueryLexer.g:270:25: ( '$' )
+            // XQueryLexer.g:270:27: '$'
             {
             match('$'); 
 
@@ -5038,8 +4688,8 @@ public class XQueryLexer extends XQDTLexer {
         try {
             int _type = LBRACKET;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XQueryLexer.g:287:25: ( '{' )
-            // XQueryLexer.g:287:27: '{'
+            // XQueryLexer.g:271:25: ( '{' )
+            // XQueryLexer.g:271:27: '{'
             {
             match('{'); 
 
@@ -5058,8 +4708,8 @@ public class XQueryLexer extends XQDTLexer {
         try {
             int _type = RBRACKET;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XQueryLexer.g:288:25: ( '}' )
-            // XQueryLexer.g:288:27: '}'
+            // XQueryLexer.g:272:25: ( '}' )
+            // XQueryLexer.g:272:27: '}'
             {
             match('}'); 
 
@@ -5078,8 +4728,8 @@ public class XQueryLexer extends XQDTLexer {
         try {
             int _type = LSQUARE;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XQueryLexer.g:289:25: ( '[' )
-            // XQueryLexer.g:289:27: '['
+            // XQueryLexer.g:273:25: ( '[' )
+            // XQueryLexer.g:273:27: '['
             {
             match('['); 
 
@@ -5098,8 +4748,8 @@ public class XQueryLexer extends XQDTLexer {
         try {
             int _type = RSQUARE;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XQueryLexer.g:290:25: ( ']' )
-            // XQueryLexer.g:290:27: ']'
+            // XQueryLexer.g:274:25: ( ']' )
+            // XQueryLexer.g:274:27: ']'
             {
             match(']'); 
 
@@ -5118,8 +4768,8 @@ public class XQueryLexer extends XQDTLexer {
         try {
             int _type = EQUAL;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XQueryLexer.g:291:25: ( '=' )
-            // XQueryLexer.g:291:27: '='
+            // XQueryLexer.g:275:25: ( '=' )
+            // XQueryLexer.g:275:27: '='
             {
             match('='); 
 
@@ -5138,8 +4788,8 @@ public class XQueryLexer extends XQDTLexer {
         try {
             int _type = BIND;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XQueryLexer.g:292:25: ( ':=' )
-            // XQueryLexer.g:292:27: ':='
+            // XQueryLexer.g:276:25: ( ':=' )
+            // XQueryLexer.g:276:27: ':='
             {
             match(":="); 
 
@@ -5159,8 +4809,8 @@ public class XQueryLexer extends XQDTLexer {
         try {
             int _type = NOTEQUAL;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XQueryLexer.g:293:25: ( '!=' )
-            // XQueryLexer.g:293:27: '!='
+            // XQueryLexer.g:277:25: ( '!=' )
+            // XQueryLexer.g:277:27: '!='
             {
             match("!="); 
 
@@ -5175,13 +4825,53 @@ public class XQueryLexer extends XQDTLexer {
     }
     // $ANTLR end "NOTEQUAL"
 
+    // $ANTLR start "ANN_PERCENT"
+    public final void mANN_PERCENT() throws RecognitionException {
+        try {
+            int _type = ANN_PERCENT;
+            int _channel = DEFAULT_TOKEN_CHANNEL;
+            // XQueryLexer.g:278:25: ( '%' )
+            // XQueryLexer.g:278:27: '%'
+            {
+            match('%'); 
+
+            }
+
+            state.type = _type;
+            state.channel = _channel;
+        }
+        finally {
+        }
+    }
+    // $ANTLR end "ANN_PERCENT"
+
+    // $ANTLR start "HASH"
+    public final void mHASH() throws RecognitionException {
+        try {
+            int _type = HASH;
+            int _channel = DEFAULT_TOKEN_CHANNEL;
+            // XQueryLexer.g:279:25: ( '#' )
+            // XQueryLexer.g:279:27: '#'
+            {
+            match('#'); 
+
+            }
+
+            state.type = _type;
+            state.channel = _channel;
+        }
+        finally {
+        }
+    }
+    // $ANTLR end "HASH"
+
     // $ANTLR start "AMP"
     public final void mAMP() throws RecognitionException {
         try {
             int _type = AMP;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XQueryLexer.g:294:25: ( '&' )
-            // XQueryLexer.g:294:27: '&'
+            // XQueryLexer.g:280:25: ( '&' )
+            // XQueryLexer.g:280:27: '&'
             {
             match('&'); 
 
@@ -5200,8 +4890,8 @@ public class XQueryLexer extends XQDTLexer {
         try {
             int _type = COMMA;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XQueryLexer.g:295:25: ( ',' )
-            // XQueryLexer.g:295:27: ','
+            // XQueryLexer.g:281:25: ( ',' )
+            // XQueryLexer.g:281:27: ','
             {
             match(','); 
 
@@ -5220,8 +4910,8 @@ public class XQueryLexer extends XQDTLexer {
         try {
             int _type = QUESTION;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XQueryLexer.g:296:25: ( '?' )
-            // XQueryLexer.g:296:27: '?'
+            // XQueryLexer.g:282:25: ( '?' )
+            // XQueryLexer.g:282:27: '?'
             {
             match('?'); 
 
@@ -5240,8 +4930,8 @@ public class XQueryLexer extends XQDTLexer {
         try {
             int _type = STAR;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XQueryLexer.g:297:25: ( '*' )
-            // XQueryLexer.g:297:27: '*'
+            // XQueryLexer.g:283:25: ( '*' )
+            // XQueryLexer.g:283:27: '*'
             {
             match('*'); 
 
@@ -5260,8 +4950,8 @@ public class XQueryLexer extends XQDTLexer {
         try {
             int _type = PLUS;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XQueryLexer.g:298:25: ( '+' )
-            // XQueryLexer.g:298:27: '+'
+            // XQueryLexer.g:284:25: ( '+' )
+            // XQueryLexer.g:284:27: '+'
             {
             match('+'); 
 
@@ -5280,8 +4970,8 @@ public class XQueryLexer extends XQDTLexer {
         try {
             int _type = MINUS;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XQueryLexer.g:299:25: ( '-' )
-            // XQueryLexer.g:299:27: '-'
+            // XQueryLexer.g:285:25: ( '-' )
+            // XQueryLexer.g:285:27: '-'
             {
             match('-'); 
 
@@ -5300,8 +4990,8 @@ public class XQueryLexer extends XQDTLexer {
         try {
             int _type = SMALLER;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XQueryLexer.g:300:25: ( '<' )
-            // XQueryLexer.g:300:27: '<'
+            // XQueryLexer.g:286:25: ( '<' )
+            // XQueryLexer.g:286:27: '<'
             {
             match('<'); 
 
@@ -5320,8 +5010,8 @@ public class XQueryLexer extends XQDTLexer {
         try {
             int _type = GREATER;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XQueryLexer.g:301:25: ( '>' )
-            // XQueryLexer.g:301:27: '>'
+            // XQueryLexer.g:287:25: ( '>' )
+            // XQueryLexer.g:287:27: '>'
             {
             match('>'); 
 
@@ -5340,8 +5030,8 @@ public class XQueryLexer extends XQDTLexer {
         try {
             int _type = SMALLEREQ;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XQueryLexer.g:302:25: ( '<=' )
-            // XQueryLexer.g:302:27: '<='
+            // XQueryLexer.g:288:25: ( '<=' )
+            // XQueryLexer.g:288:27: '<='
             {
             match("<="); 
 
@@ -5361,8 +5051,8 @@ public class XQueryLexer extends XQDTLexer {
         try {
             int _type = GREATEREQ;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XQueryLexer.g:303:25: ( '>=' )
-            // XQueryLexer.g:303:27: '>='
+            // XQueryLexer.g:289:25: ( '>=' )
+            // XQueryLexer.g:289:27: '>='
             {
             match(">="); 
 
@@ -5382,8 +5072,8 @@ public class XQueryLexer extends XQDTLexer {
         try {
             int _type = SMALLER_SMALLER;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XQueryLexer.g:304:25: ( '<<' )
-            // XQueryLexer.g:304:27: '<<'
+            // XQueryLexer.g:290:25: ( '<<' )
+            // XQueryLexer.g:290:27: '<<'
             {
             match("<<"); 
 
@@ -5403,8 +5093,8 @@ public class XQueryLexer extends XQDTLexer {
         try {
             int _type = GREATER_GREATER;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XQueryLexer.g:305:25: ( '>>' )
-            // XQueryLexer.g:305:27: '>>'
+            // XQueryLexer.g:291:25: ( '>>' )
+            // XQueryLexer.g:291:27: '>>'
             {
             match(">>"); 
 
@@ -5424,8 +5114,8 @@ public class XQueryLexer extends XQDTLexer {
         try {
             int _type = SLASH;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XQueryLexer.g:306:25: ( '/' )
-            // XQueryLexer.g:306:27: '/'
+            // XQueryLexer.g:292:25: ( '/' )
+            // XQueryLexer.g:292:27: '/'
             {
             match('/'); 
 
@@ -5444,8 +5134,8 @@ public class XQueryLexer extends XQDTLexer {
         try {
             int _type = SLASH_SLASH;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XQueryLexer.g:307:25: ( '//' )
-            // XQueryLexer.g:307:27: '//'
+            // XQueryLexer.g:293:25: ( '//' )
+            // XQueryLexer.g:293:27: '//'
             {
             match("//"); 
 
@@ -5465,8 +5155,8 @@ public class XQueryLexer extends XQDTLexer {
         try {
             int _type = DOT;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XQueryLexer.g:308:25: ( '.' )
-            // XQueryLexer.g:308:27: '.'
+            // XQueryLexer.g:294:25: ( '.' )
+            // XQueryLexer.g:294:27: '.'
             {
             match('.'); 
 
@@ -5485,8 +5175,8 @@ public class XQueryLexer extends XQDTLexer {
         try {
             int _type = DOT_DOT;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XQueryLexer.g:309:25: ( '..' )
-            // XQueryLexer.g:309:27: '..'
+            // XQueryLexer.g:295:25: ( '..' )
+            // XQueryLexer.g:295:27: '..'
             {
             match(".."); 
 
@@ -5506,8 +5196,8 @@ public class XQueryLexer extends XQDTLexer {
         try {
             int _type = COLON;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XQueryLexer.g:310:25: ( ':' )
-            // XQueryLexer.g:310:27: ':'
+            // XQueryLexer.g:296:25: ( ':' )
+            // XQueryLexer.g:296:27: ':'
             {
             match(':'); 
 
@@ -5526,8 +5216,8 @@ public class XQueryLexer extends XQDTLexer {
         try {
             int _type = COLON_COLON;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XQueryLexer.g:311:25: ( '::' )
-            // XQueryLexer.g:311:27: '::'
+            // XQueryLexer.g:297:25: ( '::' )
+            // XQueryLexer.g:297:27: '::'
             {
             match("::"); 
 
@@ -5547,8 +5237,8 @@ public class XQueryLexer extends XQDTLexer {
         try {
             int _type = EMPTY_CLOSE_TAG;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XQueryLexer.g:312:25: ( '/>' )
-            // XQueryLexer.g:312:27: '/>'
+            // XQueryLexer.g:298:25: ( '/>' )
+            // XQueryLexer.g:298:27: '/>'
             {
             match("/>"); 
 
@@ -5568,8 +5258,8 @@ public class XQueryLexer extends XQDTLexer {
         try {
             int _type = CLOSE_TAG;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XQueryLexer.g:313:25: ( '</' )
-            // XQueryLexer.g:313:27: '</'
+            // XQueryLexer.g:299:25: ( '</' )
+            // XQueryLexer.g:299:27: '</'
             {
             match("</"); 
 
@@ -5589,8 +5279,8 @@ public class XQueryLexer extends XQDTLexer {
         try {
             int _type = SEMICOLON;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XQueryLexer.g:314:25: ( ';' )
-            // XQueryLexer.g:314:27: ';'
+            // XQueryLexer.g:300:25: ( ';' )
+            // XQueryLexer.g:300:27: ';'
             {
             match(';'); 
 
@@ -5609,8 +5299,8 @@ public class XQueryLexer extends XQDTLexer {
         try {
             int _type = VBAR;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XQueryLexer.g:315:25: ( '|' )
-            // XQueryLexer.g:315:27: '|'
+            // XQueryLexer.g:301:25: ( '|' )
+            // XQueryLexer.g:301:27: '|'
             {
             match('|'); 
 
@@ -5629,8 +5319,8 @@ public class XQueryLexer extends XQDTLexer {
         try {
             int _type = PRAGMA_START;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XQueryLexer.g:316:25: ( '(#' )
-            // XQueryLexer.g:316:27: '(#'
+            // XQueryLexer.g:302:25: ( '(#' )
+            // XQueryLexer.g:302:27: '(#'
             {
             match("(#"); 
 
@@ -5650,8 +5340,8 @@ public class XQueryLexer extends XQDTLexer {
         try {
             int _type = PRAGMA_END;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XQueryLexer.g:317:25: ( '#)' )
-            // XQueryLexer.g:317:27: '#)'
+            // XQueryLexer.g:303:25: ( '#)' )
+            // XQueryLexer.g:303:27: '#)'
             {
             match("#)"); 
 
@@ -5671,8 +5361,8 @@ public class XQueryLexer extends XQDTLexer {
         try {
             int _type = XML_COMMENT_START;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XQueryLexer.g:318:25: ( '<!--' )
-            // XQueryLexer.g:318:27: '<!--'
+            // XQueryLexer.g:304:25: ( '<!--' )
+            // XQueryLexer.g:304:27: '<!--'
             {
             match("<!--"); 
 
@@ -5692,8 +5382,8 @@ public class XQueryLexer extends XQDTLexer {
         try {
             int _type = XML_COMMENT_END;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XQueryLexer.g:319:25: ( '-->' )
-            // XQueryLexer.g:319:27: '-->'
+            // XQueryLexer.g:305:25: ( '-->' )
+            // XQueryLexer.g:305:27: '-->'
             {
             match("-->"); 
 
@@ -5713,8 +5403,8 @@ public class XQueryLexer extends XQDTLexer {
         try {
             int _type = PI_START;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XQueryLexer.g:320:25: ( '<?' )
-            // XQueryLexer.g:320:27: '<?'
+            // XQueryLexer.g:306:25: ( '<?' )
+            // XQueryLexer.g:306:27: '<?'
             {
             match("<?"); 
 
@@ -5734,8 +5424,8 @@ public class XQueryLexer extends XQDTLexer {
         try {
             int _type = PI_END;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XQueryLexer.g:321:25: ( '?>' )
-            // XQueryLexer.g:321:27: '?>'
+            // XQueryLexer.g:307:25: ( '?>' )
+            // XQueryLexer.g:307:27: '?>'
             {
             match("?>"); 
 
@@ -5755,8 +5445,8 @@ public class XQueryLexer extends XQDTLexer {
         try {
             int _type = ATTR_SIGN;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XQueryLexer.g:322:25: ( '@' )
-            // XQueryLexer.g:322:27: '@'
+            // XQueryLexer.g:308:25: ( '@' )
+            // XQueryLexer.g:308:27: '@'
             {
             match('@'); 
 
@@ -5775,8 +5465,8 @@ public class XQueryLexer extends XQDTLexer {
         try {
             int _type = CHARREF_DEC;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XQueryLexer.g:323:25: ( '&#' )
-            // XQueryLexer.g:323:27: '&#'
+            // XQueryLexer.g:309:25: ( '&#' )
+            // XQueryLexer.g:309:27: '&#'
             {
             match("&#"); 
 
@@ -5796,8 +5486,8 @@ public class XQueryLexer extends XQDTLexer {
         try {
             int _type = CHARREF_HEX;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XQueryLexer.g:324:25: ( '&#x' )
-            // XQueryLexer.g:324:27: '&#x'
+            // XQueryLexer.g:310:25: ( '&#x' )
+            // XQueryLexer.g:310:27: '&#x'
             {
             match("&#x"); 
 
@@ -5817,8 +5507,8 @@ public class XQueryLexer extends XQDTLexer {
         try {
             int _type = APOS;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XQueryLexer.g:325:25: ( '\\'' )
-            // XQueryLexer.g:325:27: '\\''
+            // XQueryLexer.g:311:25: ( '\\'' )
+            // XQueryLexer.g:311:27: '\\''
             {
             match('\''); 
 
@@ -5837,8 +5527,8 @@ public class XQueryLexer extends XQDTLexer {
         try {
             int _type = QUOT;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XQueryLexer.g:326:25: ( '\"' )
-            // XQueryLexer.g:326:27: '\"'
+            // XQueryLexer.g:312:25: ( '\"' )
+            // XQueryLexer.g:312:27: '\"'
             {
             match('\"'); 
 
@@ -5857,11 +5547,11 @@ public class XQueryLexer extends XQDTLexer {
         try {
             int _type = L_NCName;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XQueryLexer.g:330:9: ( NCNameStartChar ( NCNameChar )* )
-            // XQueryLexer.g:330:13: NCNameStartChar ( NCNameChar )*
+            // XQueryLexer.g:316:9: ( NCNameStartChar ( NCNameChar )* )
+            // XQueryLexer.g:316:13: NCNameStartChar ( NCNameChar )*
             {
             mNCNameStartChar(); 
-            // XQueryLexer.g:330:29: ( NCNameChar )*
+            // XQueryLexer.g:316:29: ( NCNameChar )*
             loop1:
             do {
                 int alt1=2;
@@ -5874,7 +5564,7 @@ public class XQueryLexer extends XQDTLexer {
 
                 switch (alt1) {
             	case 1 :
-            	    // XQueryLexer.g:330:29: NCNameChar
+            	    // XQueryLexer.g:316:29: NCNameChar
             	    {
             	    mNCNameChar(); 
 
@@ -5900,7 +5590,7 @@ public class XQueryLexer extends XQDTLexer {
     // $ANTLR start "Letter"
     public final void mLetter() throws RecognitionException {
         try {
-            // XQueryLexer.g:333:29: ( 'a' .. 'z' | 'A' .. 'Z' )
+            // XQueryLexer.g:319:29: ( 'a' .. 'z' | 'A' .. 'Z' )
             // XQueryLexer.g:
             {
             if ( (input.LA(1)>='A' && input.LA(1)<='Z')||(input.LA(1)>='a' && input.LA(1)<='z') ) {
@@ -5924,7 +5614,7 @@ public class XQueryLexer extends XQDTLexer {
     // $ANTLR start "HexLetter"
     public final void mHexLetter() throws RecognitionException {
         try {
-            // XQueryLexer.g:334:29: ( 'a' .. 'f' | 'A' .. 'F' )
+            // XQueryLexer.g:320:29: ( 'a' .. 'f' | 'A' .. 'F' )
             // XQueryLexer.g:
             {
             if ( (input.LA(1)>='A' && input.LA(1)<='F')||(input.LA(1)>='a' && input.LA(1)<='f') ) {
@@ -5948,8 +5638,8 @@ public class XQueryLexer extends XQDTLexer {
     // $ANTLR start "Digit"
     public final void mDigit() throws RecognitionException {
         try {
-            // XQueryLexer.g:335:29: ( '0' .. '9' )
-            // XQueryLexer.g:335:31: '0' .. '9'
+            // XQueryLexer.g:321:29: ( '0' .. '9' )
+            // XQueryLexer.g:321:31: '0' .. '9'
             {
             matchRange('0','9'); 
 
@@ -5964,10 +5654,10 @@ public class XQueryLexer extends XQDTLexer {
     // $ANTLR start "Digits"
     public final void mDigits() throws RecognitionException {
         try {
-            // XQueryLexer.g:336:29: ( ( Digit )+ )
-            // XQueryLexer.g:336:31: ( Digit )+
+            // XQueryLexer.g:322:29: ( ( Digit )+ )
+            // XQueryLexer.g:322:31: ( Digit )+
             {
-            // XQueryLexer.g:336:31: ( Digit )+
+            // XQueryLexer.g:322:31: ( Digit )+
             int cnt2=0;
             loop2:
             do {
@@ -5981,7 +5671,7 @@ public class XQueryLexer extends XQDTLexer {
 
                 switch (alt2) {
             	case 1 :
-            	    // XQueryLexer.g:336:31: Digit
+            	    // XQueryLexer.g:322:31: Digit
             	    {
             	    mDigit(); 
 
@@ -6009,7 +5699,7 @@ public class XQueryLexer extends XQDTLexer {
     // $ANTLR start "NCNameStartChar"
     public final void mNCNameStartChar() throws RecognitionException {
         try {
-            // XQueryLexer.g:338:29: ( Letter | '_' )
+            // XQueryLexer.g:324:29: ( Letter | '_' )
             // XQueryLexer.g:
             {
             if ( (input.LA(1)>='A' && input.LA(1)<='Z')||input.LA(1)=='_'||(input.LA(1)>='a' && input.LA(1)<='z') ) {
@@ -6033,7 +5723,7 @@ public class XQueryLexer extends XQDTLexer {
     // $ANTLR start "NCNameChar"
     public final void mNCNameChar() throws RecognitionException {
         try {
-            // XQueryLexer.g:339:29: ( Letter | Digit | '.' | '-' | '_' )
+            // XQueryLexer.g:325:29: ( Letter | Digit | '.' | '-' | '_' )
             // XQueryLexer.g:
             {
             if ( (input.LA(1)>='-' && input.LA(1)<='.')||(input.LA(1)>='0' && input.LA(1)<='9')||(input.LA(1)>='A' && input.LA(1)<='Z')||input.LA(1)=='_'||(input.LA(1)>='a' && input.LA(1)<='z') ) {
@@ -6059,10 +5749,10 @@ public class XQueryLexer extends XQDTLexer {
         try {
             int _type = S;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XQueryLexer.g:342:9: ( ( '\\t' | ' ' | '\\n' | '\\r' )+ )
-            // XQueryLexer.g:342:11: ( '\\t' | ' ' | '\\n' | '\\r' )+
+            // XQueryLexer.g:328:9: ( ( '\\t' | ' ' | '\\n' | '\\r' )+ )
+            // XQueryLexer.g:328:11: ( '\\t' | ' ' | '\\n' | '\\r' )+
             {
-            // XQueryLexer.g:342:11: ( '\\t' | ' ' | '\\n' | '\\r' )+
+            // XQueryLexer.g:328:11: ( '\\t' | ' ' | '\\n' | '\\r' )+
             int cnt3=0;
             loop3:
             do {
@@ -6115,10 +5805,10 @@ public class XQueryLexer extends XQDTLexer {
     // $ANTLR start "SU"
     public final void mSU() throws RecognitionException {
         try {
-            // XQueryLexer.g:345:9: ( ( '\\t' | ' ' | '\\n' | '\\r' )+ )
-            // XQueryLexer.g:345:11: ( '\\t' | ' ' | '\\n' | '\\r' )+
+            // XQueryLexer.g:331:9: ( ( '\\t' | ' ' | '\\n' | '\\r' )+ )
+            // XQueryLexer.g:331:11: ( '\\t' | ' ' | '\\n' | '\\r' )+
             {
-            // XQueryLexer.g:345:11: ( '\\t' | ' ' | '\\n' | '\\r' )+
+            // XQueryLexer.g:331:11: ( '\\t' | ' ' | '\\n' | '\\r' )+
             int cnt4=0;
             loop4:
             do {
@@ -6170,11 +5860,11 @@ public class XQueryLexer extends XQDTLexer {
         try {
             int _type = L_Pragma;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XQueryLexer.g:356:9: ( PRAGMA_START ( SU )? L_NCName COLON L_NCName ( SU ( options {greedy=false; } : . )* )? PRAGMA_END )
-            // XQueryLexer.g:356:11: PRAGMA_START ( SU )? L_NCName COLON L_NCName ( SU ( options {greedy=false; } : . )* )? PRAGMA_END
+            // XQueryLexer.g:342:9: ( PRAGMA_START ( SU )? L_NCName COLON L_NCName ( SU ( options {greedy=false; } : . )* )? PRAGMA_END )
+            // XQueryLexer.g:342:11: PRAGMA_START ( SU )? L_NCName COLON L_NCName ( SU ( options {greedy=false; } : . )* )? PRAGMA_END
             {
             mPRAGMA_START(); 
-            // XQueryLexer.g:356:24: ( SU )?
+            // XQueryLexer.g:342:24: ( SU )?
             int alt5=2;
             int LA5_0 = input.LA(1);
 
@@ -6183,7 +5873,7 @@ public class XQueryLexer extends XQDTLexer {
             }
             switch (alt5) {
                 case 1 :
-                    // XQueryLexer.g:356:24: SU
+                    // XQueryLexer.g:342:24: SU
                     {
                     mSU(); 
 
@@ -6195,7 +5885,7 @@ public class XQueryLexer extends XQDTLexer {
             mL_NCName(); 
             mCOLON(); 
             mL_NCName(); 
-            // XQueryLexer.g:356:52: ( SU ( options {greedy=false; } : . )* )?
+            // XQueryLexer.g:342:52: ( SU ( options {greedy=false; } : . )* )?
             int alt7=2;
             int LA7_0 = input.LA(1);
 
@@ -6204,10 +5894,10 @@ public class XQueryLexer extends XQDTLexer {
             }
             switch (alt7) {
                 case 1 :
-                    // XQueryLexer.g:356:53: SU ( options {greedy=false; } : . )*
+                    // XQueryLexer.g:342:53: SU ( options {greedy=false; } : . )*
                     {
                     mSU(); 
-                    // XQueryLexer.g:356:56: ( options {greedy=false; } : . )*
+                    // XQueryLexer.g:342:56: ( options {greedy=false; } : . )*
                     loop6:
                     do {
                         int alt6=2;
@@ -6232,7 +5922,7 @@ public class XQueryLexer extends XQDTLexer {
 
                         switch (alt6) {
                     	case 1 :
-                    	    // XQueryLexer.g:356:83: .
+                    	    // XQueryLexer.g:342:83: .
                     	    {
                     	    matchAny(); 
 
@@ -6267,14 +5957,14 @@ public class XQueryLexer extends XQDTLexer {
         try {
             int _type = L_DirCommentConstructor;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XQueryLexer.g:366:9: ( XML_COMMENT_START ( options {greedy=false; } : ( . )* ) XML_COMMENT_END )
-            // XQueryLexer.g:366:11: XML_COMMENT_START ( options {greedy=false; } : ( . )* ) XML_COMMENT_END
+            // XQueryLexer.g:352:9: ( XML_COMMENT_START ( options {greedy=false; } : ( . )* ) XML_COMMENT_END )
+            // XQueryLexer.g:352:11: XML_COMMENT_START ( options {greedy=false; } : ( . )* ) XML_COMMENT_END
             {
             mXML_COMMENT_START(); 
-            // XQueryLexer.g:366:29: ( options {greedy=false; } : ( . )* )
-            // XQueryLexer.g:366:56: ( . )*
+            // XQueryLexer.g:352:29: ( options {greedy=false; } : ( . )* )
+            // XQueryLexer.g:352:56: ( . )*
             {
-            // XQueryLexer.g:366:56: ( . )*
+            // XQueryLexer.g:352:56: ( . )*
             loop8:
             do {
                 int alt8=2;
@@ -6308,7 +5998,7 @@ public class XQueryLexer extends XQDTLexer {
 
                 switch (alt8) {
             	case 1 :
-            	    // XQueryLexer.g:366:56: .
+            	    // XQueryLexer.g:352:56: .
             	    {
             	    matchAny(); 
 
@@ -6340,11 +6030,11 @@ public class XQueryLexer extends XQDTLexer {
         try {
             int _type = L_DirPIConstructor;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XQueryLexer.g:375:9: ( PI_START ( SU )? L_NCName ( SU ( options {greedy=false; } : ( . )* ) )? PI_END )
-            // XQueryLexer.g:375:11: PI_START ( SU )? L_NCName ( SU ( options {greedy=false; } : ( . )* ) )? PI_END
+            // XQueryLexer.g:361:9: ( PI_START ( SU )? L_NCName ( SU ( options {greedy=false; } : ( . )* ) )? PI_END )
+            // XQueryLexer.g:361:11: PI_START ( SU )? L_NCName ( SU ( options {greedy=false; } : ( . )* ) )? PI_END
             {
             mPI_START(); 
-            // XQueryLexer.g:375:20: ( SU )?
+            // XQueryLexer.g:361:20: ( SU )?
             int alt9=2;
             int LA9_0 = input.LA(1);
 
@@ -6353,7 +6043,7 @@ public class XQueryLexer extends XQDTLexer {
             }
             switch (alt9) {
                 case 1 :
-                    // XQueryLexer.g:375:20: SU
+                    // XQueryLexer.g:361:20: SU
                     {
                     mSU(); 
 
@@ -6363,7 +6053,7 @@ public class XQueryLexer extends XQDTLexer {
             }
 
             mL_NCName(); 
-            // XQueryLexer.g:375:33: ( SU ( options {greedy=false; } : ( . )* ) )?
+            // XQueryLexer.g:361:33: ( SU ( options {greedy=false; } : ( . )* ) )?
             int alt11=2;
             int LA11_0 = input.LA(1);
 
@@ -6372,13 +6062,13 @@ public class XQueryLexer extends XQDTLexer {
             }
             switch (alt11) {
                 case 1 :
-                    // XQueryLexer.g:375:34: SU ( options {greedy=false; } : ( . )* )
+                    // XQueryLexer.g:361:34: SU ( options {greedy=false; } : ( . )* )
                     {
                     mSU(); 
-                    // XQueryLexer.g:375:36: ( options {greedy=false; } : ( . )* )
-                    // XQueryLexer.g:375:63: ( . )*
+                    // XQueryLexer.g:361:36: ( options {greedy=false; } : ( . )* )
+                    // XQueryLexer.g:361:63: ( . )*
                     {
-                    // XQueryLexer.g:375:63: ( . )*
+                    // XQueryLexer.g:361:63: ( . )*
                     loop10:
                     do {
                         int alt10=2;
@@ -6403,7 +6093,7 @@ public class XQueryLexer extends XQDTLexer {
 
                         switch (alt10) {
                     	case 1 :
-                    	    // XQueryLexer.g:375:63: .
+                    	    // XQueryLexer.g:361:63: .
                     	    {
                     	    matchAny(); 
 
@@ -6441,8 +6131,8 @@ public class XQueryLexer extends XQDTLexer {
         try {
             int _type = L_IntegerLiteral;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XQueryLexer.g:383:9: ( Digits )
-            // XQueryLexer.g:383:13: Digits
+            // XQueryLexer.g:369:9: ( Digits )
+            // XQueryLexer.g:369:13: Digits
             {
             mDigits(); 
 
@@ -6461,7 +6151,7 @@ public class XQueryLexer extends XQDTLexer {
         try {
             int _type = L_DecimalLiteral;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XQueryLexer.g:388:9: ( ( '.' Digits ) | ( Digits '.' ( Digit )* ) )
+            // XQueryLexer.g:374:9: ( ( '.' Digits ) | ( Digits '.' ( Digit )* ) )
             int alt13=2;
             int LA13_0 = input.LA(1);
 
@@ -6479,10 +6169,10 @@ public class XQueryLexer extends XQDTLexer {
             }
             switch (alt13) {
                 case 1 :
-                    // XQueryLexer.g:388:11: ( '.' Digits )
+                    // XQueryLexer.g:374:11: ( '.' Digits )
                     {
-                    // XQueryLexer.g:388:11: ( '.' Digits )
-                    // XQueryLexer.g:388:12: '.' Digits
+                    // XQueryLexer.g:374:11: ( '.' Digits )
+                    // XQueryLexer.g:374:12: '.' Digits
                     {
                     match('.'); 
                     mDigits(); 
@@ -6493,14 +6183,14 @@ public class XQueryLexer extends XQDTLexer {
                     }
                     break;
                 case 2 :
-                    // XQueryLexer.g:388:26: ( Digits '.' ( Digit )* )
+                    // XQueryLexer.g:374:26: ( Digits '.' ( Digit )* )
                     {
-                    // XQueryLexer.g:388:26: ( Digits '.' ( Digit )* )
-                    // XQueryLexer.g:388:27: Digits '.' ( Digit )*
+                    // XQueryLexer.g:374:26: ( Digits '.' ( Digit )* )
+                    // XQueryLexer.g:374:27: Digits '.' ( Digit )*
                     {
                     mDigits(); 
                     match('.'); 
-                    // XQueryLexer.g:388:38: ( Digit )*
+                    // XQueryLexer.g:374:38: ( Digit )*
                     loop12:
                     do {
                         int alt12=2;
@@ -6513,7 +6203,7 @@ public class XQueryLexer extends XQDTLexer {
 
                         switch (alt12) {
                     	case 1 :
-                    	    // XQueryLexer.g:388:38: Digit
+                    	    // XQueryLexer.g:374:38: Digit
                     	    {
                     	    mDigit(); 
 
@@ -6546,10 +6236,10 @@ public class XQueryLexer extends XQDTLexer {
         try {
             int _type = L_DoubleLiteral;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XQueryLexer.g:393:9: ( ( ( '.' Digits ) | ( Digits ( '.' ( Digit )* )? ) ) ( 'e' | 'E' ) ( '+' | '-' )? Digits )
-            // XQueryLexer.g:393:11: ( ( '.' Digits ) | ( Digits ( '.' ( Digit )* )? ) ) ( 'e' | 'E' ) ( '+' | '-' )? Digits
+            // XQueryLexer.g:379:9: ( ( ( '.' Digits ) | ( Digits ( '.' ( Digit )* )? ) ) ( 'e' | 'E' ) ( '+' | '-' )? Digits )
+            // XQueryLexer.g:379:11: ( ( '.' Digits ) | ( Digits ( '.' ( Digit )* )? ) ) ( 'e' | 'E' ) ( '+' | '-' )? Digits
             {
-            // XQueryLexer.g:393:11: ( ( '.' Digits ) | ( Digits ( '.' ( Digit )* )? ) )
+            // XQueryLexer.g:379:11: ( ( '.' Digits ) | ( Digits ( '.' ( Digit )* )? ) )
             int alt16=2;
             int LA16_0 = input.LA(1);
 
@@ -6567,10 +6257,10 @@ public class XQueryLexer extends XQDTLexer {
             }
             switch (alt16) {
                 case 1 :
-                    // XQueryLexer.g:393:12: ( '.' Digits )
+                    // XQueryLexer.g:379:12: ( '.' Digits )
                     {
-                    // XQueryLexer.g:393:12: ( '.' Digits )
-                    // XQueryLexer.g:393:13: '.' Digits
+                    // XQueryLexer.g:379:12: ( '.' Digits )
+                    // XQueryLexer.g:379:13: '.' Digits
                     {
                     match('.'); 
                     mDigits(); 
@@ -6581,13 +6271,13 @@ public class XQueryLexer extends XQDTLexer {
                     }
                     break;
                 case 2 :
-                    // XQueryLexer.g:393:27: ( Digits ( '.' ( Digit )* )? )
+                    // XQueryLexer.g:379:27: ( Digits ( '.' ( Digit )* )? )
                     {
-                    // XQueryLexer.g:393:27: ( Digits ( '.' ( Digit )* )? )
-                    // XQueryLexer.g:393:28: Digits ( '.' ( Digit )* )?
+                    // XQueryLexer.g:379:27: ( Digits ( '.' ( Digit )* )? )
+                    // XQueryLexer.g:379:28: Digits ( '.' ( Digit )* )?
                     {
                     mDigits(); 
-                    // XQueryLexer.g:393:35: ( '.' ( Digit )* )?
+                    // XQueryLexer.g:379:35: ( '.' ( Digit )* )?
                     int alt15=2;
                     int LA15_0 = input.LA(1);
 
@@ -6596,10 +6286,10 @@ public class XQueryLexer extends XQDTLexer {
                     }
                     switch (alt15) {
                         case 1 :
-                            // XQueryLexer.g:393:36: '.' ( Digit )*
+                            // XQueryLexer.g:379:36: '.' ( Digit )*
                             {
                             match('.'); 
-                            // XQueryLexer.g:393:40: ( Digit )*
+                            // XQueryLexer.g:379:40: ( Digit )*
                             loop14:
                             do {
                                 int alt14=2;
@@ -6612,7 +6302,7 @@ public class XQueryLexer extends XQDTLexer {
 
                                 switch (alt14) {
                             	case 1 :
-                            	    // XQueryLexer.g:393:40: Digit
+                            	    // XQueryLexer.g:379:40: Digit
                             	    {
                             	    mDigit(); 
 
@@ -6648,7 +6338,7 @@ public class XQueryLexer extends XQDTLexer {
                 recover(mse);
                 throw mse;}
 
-            // XQueryLexer.g:393:63: ( '+' | '-' )?
+            // XQueryLexer.g:379:63: ( '+' | '-' )?
             int alt17=2;
             int LA17_0 = input.LA(1);
 
@@ -6691,12 +6381,12 @@ public class XQueryLexer extends XQDTLexer {
         try {
             int _type = L_Comment;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XQueryLexer.g:398:9: ( '(:' ( options {greedy=false; } : L_Comment | . )* ':)' )
-            // XQueryLexer.g:398:11: '(:' ( options {greedy=false; } : L_Comment | . )* ':)'
+            // XQueryLexer.g:384:9: ( '(:' ( options {greedy=false; } : L_Comment | . )* ':)' )
+            // XQueryLexer.g:384:11: '(:' ( options {greedy=false; } : L_Comment | . )* ':)'
             {
             match("(:"); 
 
-            // XQueryLexer.g:398:16: ( options {greedy=false; } : L_Comment | . )*
+            // XQueryLexer.g:384:16: ( options {greedy=false; } : L_Comment | . )*
             loop18:
             do {
                 int alt18=3;
@@ -6733,14 +6423,14 @@ public class XQueryLexer extends XQDTLexer {
 
                 switch (alt18) {
             	case 1 :
-            	    // XQueryLexer.g:398:42: L_Comment
+            	    // XQueryLexer.g:384:42: L_Comment
             	    {
             	    mL_Comment(); 
 
             	    }
             	    break;
             	case 2 :
-            	    // XQueryLexer.g:398:54: .
+            	    // XQueryLexer.g:384:54: .
             	    {
             	    matchAny(); 
 
@@ -6771,8 +6461,8 @@ public class XQueryLexer extends XQDTLexer {
         try {
             int _type = L_AnyChar;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XQueryLexer.g:401:11: ( . )
-            // XQueryLexer.g:401:13: .
+            // XQueryLexer.g:387:11: ( . )
+            // XQueryLexer.g:387:13: .
             {
             matchAny(); 
 
@@ -6787,8 +6477,8 @@ public class XQueryLexer extends XQDTLexer {
     // $ANTLR end "L_AnyChar"
 
     public void mTokens() throws RecognitionException {
-        // XQueryLexer.g:1:8: ( ANCESTOR | ANCESTOR_OR_SELF | AND | AS | ASCENDING | AT | ATTRIBUTE | BASE_URI | BOUNDARY_SPACE | BY | CASE | CAST | CASTABLE | CHILD | COLLATION | COMMENT | CONSTRUCTION | COPY_NAMESPACES | DECLARE | DEFAULT | DESCENDANT | DESCENDANT_OR_SELF | DESCENDING | DIV | DOCUMENT | DOCUMENT_NODE | ELEMENT | ELSE | EMPTY | EMPTY_SEQUENCE | ENCODING | EQ | EVERY | EXCEPT | EXTERNAL | FOLLOWING | FOLLOWING_SIBLING | FOR | FUNCTION | GE | GREATEST | GT | IDIV | IF | IMPORT | IN | INHERIT | INSTANCE | INTERSECT | IS | ITEM | LAX | LE | LEAST | LET | LT | MOD | MODULE | NAMESPACE | NE | NO_INHERIT | NO_PRESERVE | NODE | OF | OPTION | OR | ORDER | ORDERED | ORDERING | PARENT | PRECEDING | PRECEDING_SIBLING | PRESERVE | PROCESSING_INSTRUCTION | RETURN | SATISFIES | SCHEMA | SCHEMA_ATTRIBUTE | SCHEMA_ELEMENT | SELF | SOME | STABLE | STRICT | STRIP | TEXT | THEN | TO | TREAT | TYPESWITCH | UNION | UNORDERED | VALIDATE | VARIABLE | VERSION | WHERE | XQUERY | CATCH | CONTEXT | COUNT | DECIMAL_FORMAT | DECIMAL_SEPARATOR | DETERMINISTIC | DIGIT | END | GROUP | GROUPING_SEPARATOR | INFINITY | MINUS_SIGN | NAMESPACE_NODE | NAN | NEXT | NONDETERMINISTIC | ONLY | OUTER | PATTERN_SEPARATOR | PERCENT | PER_MILLE | PRIVATE | PUBLIC | PREVIOUS | SLIDING | START | SWITCH | TRY | TUMBLING | WHEN | WINDOW | ZERO_DIGIT | AFTER | BEFORE | COPY | DELETE | FIRST | INSERT | INTO | LAST | MODIFY | NODES | RENAME | REPLACE | REVALIDATION | SKIP | UPDATING | VALUE | WITH | ALL | ANY | CONTAINS | CONTENT | DIACRITICS | DIFFERENT | DISTANCE | ENTIRE | EXACTLY | FROM | FT_OPTION | FTAND | FTNOT | FTOR | INSENSITIVE | LANGUAGE | LEVELS | LOWERCASE | MOST | NO | NOT | OCCURS | PARAGRAPH | PARAGRAPHS | PHRASE | RELATIONSHIP | SAME | SCORE | SENSITIVE | SENTENCE | SENTENCES | STEMMING | STOP | THESAURUS | TIMES | UPPERCASE | USING | WEIGHT | WILDCARDS | WITHOUT | WORD | WORDS | BLOCK | CONSTANT | EXIT | RETURNING | SEQUENTIAL | SET | SIMPLE | WHILE | EVAL | APPEND_ONLY | AUTOMATICALLY | CHECK | COLLECTION | CONSTRAINT | CONST | EQUALITY | FOREACH | FOREIGN | INDEX | INTEGRITY | KEY | MAINTAINED | MANUALLY | MUTABLE | NON | ON | QUEUE | RANGE | READ_ONLY | UNIQUE | BINARY | AMP_ER | APOS_ER | QUOT_ER | LPAREN | RPAREN | DOLLAR | LBRACKET | RBRACKET | LSQUARE | RSQUARE | EQUAL | BIND | NOTEQUAL | AMP | COMMA | QUESTION | STAR | PLUS | MINUS | SMALLER | GREATER | SMALLEREQ | GREATEREQ | SMALLER_SMALLER | GREATER_GREATER | SLASH | SLASH_SLASH | DOT | DOT_DOT | COLON | COLON_COLON | EMPTY_CLOSE_TAG | CLOSE_TAG | SEMICOLON | VBAR | PRAGMA_START | PRAGMA_END | XML_COMMENT_START | XML_COMMENT_END | PI_START | PI_END | ATTR_SIGN | CHARREF_DEC | CHARREF_HEX | APOS | QUOT | L_NCName | S | L_Pragma | L_DirCommentConstructor | L_DirPIConstructor | L_IntegerLiteral | L_DecimalLiteral | L_DoubleLiteral | L_Comment | L_AnyChar )
-        int alt19=274;
+        // XQueryLexer.g:1:8: ( ANCESTOR | ANCESTOR_OR_SELF | AND | AS | ASCENDING | AT | ATTRIBUTE | BASE_URI | BOUNDARY_SPACE | BY | CASE | CAST | CASTABLE | CHILD | COLLATION | COMMENT | CONSTRUCTION | COPY_NAMESPACES | DECLARE | DEFAULT | DESCENDANT | DESCENDANT_OR_SELF | DESCENDING | DIV | DOCUMENT | DOCUMENT_NODE | ELEMENT | ELSE | EMPTY | EMPTY_SEQUENCE | ENCODING | EQ | EVERY | EXCEPT | EXTERNAL | FOLLOWING | FOLLOWING_SIBLING | FOR | FUNCTION | GE | GREATEST | GT | IDIV | IF | IMPORT | IN | INHERIT | INSTANCE | INTERSECT | IS | ITEM | LAX | LE | LEAST | LET | LT | MOD | MODULE | NAMESPACE | NE | NO_INHERIT | NO_PRESERVE | NODE | OF | OPTION | OR | ORDER | ORDERED | ORDERING | PARENT | PRECEDING | PRECEDING_SIBLING | PRESERVE | PROCESSING_INSTRUCTION | RETURN | SATISFIES | SCHEMA | SCHEMA_ATTRIBUTE | SCHEMA_ELEMENT | SELF | SOME | STABLE | STRICT | STRIP | TEXT | THEN | TO | TREAT | TYPESWITCH | UNION | UNORDERED | VALIDATE | VARIABLE | VERSION | WHERE | XQUERY | ALLOWING | CATCH | CONTEXT | COUNT | DECIMAL_FORMAT | DECIMAL_SEPARATOR | DETERMINISTIC | DIGIT | END | GROUP | GROUPING_SEPARATOR | INFINITY | MINUS_SIGN | NAMESPACE_NODE | NAN | NEXT | ONLY | PATTERN_SEPARATOR | PERCENT | PER_MILLE | PREVIOUS | SLIDING | START | SWITCH | TRY | TUMBLING | TYPE | WHEN | WINDOW | ZERO_DIGIT | AFTER | BEFORE | COPY | DELETE | FIRST | INSERT | INTO | LAST | MODIFY | NODES | RENAME | REPLACE | REVALIDATION | SKIP | UPDATING | VALUE | WITH | ALL | ANY | CONTAINS | CONTENT | DIACRITICS | DIFFERENT | DISTANCE | ENTIRE | EXACTLY | FROM | FT_OPTION | FTAND | FTNOT | FTOR | INSENSITIVE | LANGUAGE | LEVELS | LOWERCASE | MOST | NO | NOT | OCCURS | PARAGRAPH | PARAGRAPHS | PHRASE | RELATIONSHIP | SAME | SCORE | SENSITIVE | SENTENCE | SENTENCES | STEMMING | STOP | THESAURUS | TIMES | UPPERCASE | USING | WEIGHT | WILDCARDS | WITHOUT | WORD | WORDS | BREAK | CONTINUE | EXIT | LOOP | RETURNING | WHILE | EVAL | CHECK | COLLECTION | CONSTRAINT | FOREACH | FOREIGN | INDEX | INTEGRITY | KEY | ON | BINARY | AMP_ER | APOS_ER | QUOT_ER | LPAREN | RPAREN | DOLLAR | LBRACKET | RBRACKET | LSQUARE | RSQUARE | EQUAL | BIND | NOTEQUAL | ANN_PERCENT | HASH | AMP | COMMA | QUESTION | STAR | PLUS | MINUS | SMALLER | GREATER | SMALLEREQ | GREATEREQ | SMALLER_SMALLER | GREATER_GREATER | SLASH | SLASH_SLASH | DOT | DOT_DOT | COLON | COLON_COLON | EMPTY_CLOSE_TAG | CLOSE_TAG | SEMICOLON | VBAR | PRAGMA_START | PRAGMA_END | XML_COMMENT_START | XML_COMMENT_END | PI_START | PI_END | ATTR_SIGN | CHARREF_DEC | CHARREF_HEX | APOS | QUOT | L_NCName | S | L_Pragma | L_DirCommentConstructor | L_DirPIConstructor | L_IntegerLiteral | L_DecimalLiteral | L_DoubleLiteral | L_Comment | L_AnyChar )
+        int alt19=260;
         alt19 = dfa19.predict(input);
         switch (alt19) {
             case 1 :
@@ -7464,1246 +7154,1148 @@ public class XQueryLexer extends XQDTLexer {
                 }
                 break;
             case 97 :
-                // XQueryLexer.g:1:772: CATCH
+                // XQueryLexer.g:1:772: ALLOWING
+                {
+                mALLOWING(); 
+
+                }
+                break;
+            case 98 :
+                // XQueryLexer.g:1:781: CATCH
                 {
                 mCATCH(); 
 
                 }
                 break;
-            case 98 :
-                // XQueryLexer.g:1:778: CONTEXT
+            case 99 :
+                // XQueryLexer.g:1:787: CONTEXT
                 {
                 mCONTEXT(); 
 
                 }
                 break;
-            case 99 :
-                // XQueryLexer.g:1:786: COUNT
+            case 100 :
+                // XQueryLexer.g:1:795: COUNT
                 {
                 mCOUNT(); 
 
                 }
                 break;
-            case 100 :
-                // XQueryLexer.g:1:792: DECIMAL_FORMAT
+            case 101 :
+                // XQueryLexer.g:1:801: DECIMAL_FORMAT
                 {
                 mDECIMAL_FORMAT(); 
 
                 }
                 break;
-            case 101 :
-                // XQueryLexer.g:1:807: DECIMAL_SEPARATOR
+            case 102 :
+                // XQueryLexer.g:1:816: DECIMAL_SEPARATOR
                 {
                 mDECIMAL_SEPARATOR(); 
 
                 }
                 break;
-            case 102 :
-                // XQueryLexer.g:1:825: DETERMINISTIC
+            case 103 :
+                // XQueryLexer.g:1:834: DETERMINISTIC
                 {
                 mDETERMINISTIC(); 
 
                 }
                 break;
-            case 103 :
-                // XQueryLexer.g:1:839: DIGIT
+            case 104 :
+                // XQueryLexer.g:1:848: DIGIT
                 {
                 mDIGIT(); 
 
                 }
                 break;
-            case 104 :
-                // XQueryLexer.g:1:845: END
+            case 105 :
+                // XQueryLexer.g:1:854: END
                 {
                 mEND(); 
 
                 }
                 break;
-            case 105 :
-                // XQueryLexer.g:1:849: GROUP
+            case 106 :
+                // XQueryLexer.g:1:858: GROUP
                 {
                 mGROUP(); 
 
                 }
                 break;
-            case 106 :
-                // XQueryLexer.g:1:855: GROUPING_SEPARATOR
+            case 107 :
+                // XQueryLexer.g:1:864: GROUPING_SEPARATOR
                 {
                 mGROUPING_SEPARATOR(); 
 
                 }
                 break;
-            case 107 :
-                // XQueryLexer.g:1:874: INFINITY
+            case 108 :
+                // XQueryLexer.g:1:883: INFINITY
                 {
                 mINFINITY(); 
 
                 }
                 break;
-            case 108 :
-                // XQueryLexer.g:1:883: MINUS_SIGN
+            case 109 :
+                // XQueryLexer.g:1:892: MINUS_SIGN
                 {
                 mMINUS_SIGN(); 
 
                 }
                 break;
-            case 109 :
-                // XQueryLexer.g:1:894: NAMESPACE_NODE
+            case 110 :
+                // XQueryLexer.g:1:903: NAMESPACE_NODE
                 {
                 mNAMESPACE_NODE(); 
 
                 }
                 break;
-            case 110 :
-                // XQueryLexer.g:1:909: NAN
+            case 111 :
+                // XQueryLexer.g:1:918: NAN
                 {
                 mNAN(); 
 
                 }
                 break;
-            case 111 :
-                // XQueryLexer.g:1:913: NEXT
+            case 112 :
+                // XQueryLexer.g:1:922: NEXT
                 {
                 mNEXT(); 
 
                 }
                 break;
-            case 112 :
-                // XQueryLexer.g:1:918: NONDETERMINISTIC
-                {
-                mNONDETERMINISTIC(); 
-
-                }
-                break;
             case 113 :
-                // XQueryLexer.g:1:935: ONLY
+                // XQueryLexer.g:1:927: ONLY
                 {
                 mONLY(); 
 
                 }
                 break;
             case 114 :
-                // XQueryLexer.g:1:940: OUTER
-                {
-                mOUTER(); 
-
-                }
-                break;
-            case 115 :
-                // XQueryLexer.g:1:946: PATTERN_SEPARATOR
+                // XQueryLexer.g:1:932: PATTERN_SEPARATOR
                 {
                 mPATTERN_SEPARATOR(); 
 
                 }
                 break;
-            case 116 :
-                // XQueryLexer.g:1:964: PERCENT
+            case 115 :
+                // XQueryLexer.g:1:950: PERCENT
                 {
                 mPERCENT(); 
 
                 }
                 break;
-            case 117 :
-                // XQueryLexer.g:1:972: PER_MILLE
+            case 116 :
+                // XQueryLexer.g:1:958: PER_MILLE
                 {
                 mPER_MILLE(); 
 
                 }
                 break;
-            case 118 :
-                // XQueryLexer.g:1:982: PRIVATE
-                {
-                mPRIVATE(); 
-
-                }
-                break;
-            case 119 :
-                // XQueryLexer.g:1:990: PUBLIC
-                {
-                mPUBLIC(); 
-
-                }
-                break;
-            case 120 :
-                // XQueryLexer.g:1:997: PREVIOUS
+            case 117 :
+                // XQueryLexer.g:1:968: PREVIOUS
                 {
                 mPREVIOUS(); 
 
                 }
                 break;
-            case 121 :
-                // XQueryLexer.g:1:1006: SLIDING
+            case 118 :
+                // XQueryLexer.g:1:977: SLIDING
                 {
                 mSLIDING(); 
 
                 }
                 break;
-            case 122 :
-                // XQueryLexer.g:1:1014: START
+            case 119 :
+                // XQueryLexer.g:1:985: START
                 {
                 mSTART(); 
 
                 }
                 break;
-            case 123 :
-                // XQueryLexer.g:1:1020: SWITCH
+            case 120 :
+                // XQueryLexer.g:1:991: SWITCH
                 {
                 mSWITCH(); 
 
                 }
                 break;
-            case 124 :
-                // XQueryLexer.g:1:1027: TRY
+            case 121 :
+                // XQueryLexer.g:1:998: TRY
                 {
                 mTRY(); 
 
                 }
                 break;
-            case 125 :
-                // XQueryLexer.g:1:1031: TUMBLING
+            case 122 :
+                // XQueryLexer.g:1:1002: TUMBLING
                 {
                 mTUMBLING(); 
 
                 }
                 break;
-            case 126 :
-                // XQueryLexer.g:1:1040: WHEN
+            case 123 :
+                // XQueryLexer.g:1:1011: TYPE
+                {
+                mTYPE(); 
+
+                }
+                break;
+            case 124 :
+                // XQueryLexer.g:1:1016: WHEN
                 {
                 mWHEN(); 
 
                 }
                 break;
-            case 127 :
-                // XQueryLexer.g:1:1045: WINDOW
+            case 125 :
+                // XQueryLexer.g:1:1021: WINDOW
                 {
                 mWINDOW(); 
 
                 }
                 break;
-            case 128 :
-                // XQueryLexer.g:1:1052: ZERO_DIGIT
+            case 126 :
+                // XQueryLexer.g:1:1028: ZERO_DIGIT
                 {
                 mZERO_DIGIT(); 
 
                 }
                 break;
-            case 129 :
-                // XQueryLexer.g:1:1063: AFTER
+            case 127 :
+                // XQueryLexer.g:1:1039: AFTER
                 {
                 mAFTER(); 
 
                 }
                 break;
-            case 130 :
-                // XQueryLexer.g:1:1069: BEFORE
+            case 128 :
+                // XQueryLexer.g:1:1045: BEFORE
                 {
                 mBEFORE(); 
 
                 }
                 break;
-            case 131 :
-                // XQueryLexer.g:1:1076: COPY
+            case 129 :
+                // XQueryLexer.g:1:1052: COPY
                 {
                 mCOPY(); 
 
                 }
                 break;
-            case 132 :
-                // XQueryLexer.g:1:1081: DELETE
+            case 130 :
+                // XQueryLexer.g:1:1057: DELETE
                 {
                 mDELETE(); 
 
                 }
                 break;
-            case 133 :
-                // XQueryLexer.g:1:1088: FIRST
+            case 131 :
+                // XQueryLexer.g:1:1064: FIRST
                 {
                 mFIRST(); 
 
                 }
                 break;
-            case 134 :
-                // XQueryLexer.g:1:1094: INSERT
+            case 132 :
+                // XQueryLexer.g:1:1070: INSERT
                 {
                 mINSERT(); 
 
                 }
                 break;
-            case 135 :
-                // XQueryLexer.g:1:1101: INTO
+            case 133 :
+                // XQueryLexer.g:1:1077: INTO
                 {
                 mINTO(); 
 
                 }
                 break;
-            case 136 :
-                // XQueryLexer.g:1:1106: LAST
+            case 134 :
+                // XQueryLexer.g:1:1082: LAST
                 {
                 mLAST(); 
 
                 }
                 break;
-            case 137 :
-                // XQueryLexer.g:1:1111: MODIFY
+            case 135 :
+                // XQueryLexer.g:1:1087: MODIFY
                 {
                 mMODIFY(); 
 
                 }
                 break;
-            case 138 :
-                // XQueryLexer.g:1:1118: NODES
+            case 136 :
+                // XQueryLexer.g:1:1094: NODES
                 {
                 mNODES(); 
 
                 }
                 break;
-            case 139 :
-                // XQueryLexer.g:1:1124: RENAME
+            case 137 :
+                // XQueryLexer.g:1:1100: RENAME
                 {
                 mRENAME(); 
 
                 }
                 break;
-            case 140 :
-                // XQueryLexer.g:1:1131: REPLACE
+            case 138 :
+                // XQueryLexer.g:1:1107: REPLACE
                 {
                 mREPLACE(); 
 
                 }
                 break;
-            case 141 :
-                // XQueryLexer.g:1:1139: REVALIDATION
+            case 139 :
+                // XQueryLexer.g:1:1115: REVALIDATION
                 {
                 mREVALIDATION(); 
 
                 }
                 break;
-            case 142 :
-                // XQueryLexer.g:1:1152: SKIP
+            case 140 :
+                // XQueryLexer.g:1:1128: SKIP
                 {
                 mSKIP(); 
 
                 }
                 break;
-            case 143 :
-                // XQueryLexer.g:1:1157: UPDATING
+            case 141 :
+                // XQueryLexer.g:1:1133: UPDATING
                 {
                 mUPDATING(); 
 
                 }
                 break;
-            case 144 :
-                // XQueryLexer.g:1:1166: VALUE
+            case 142 :
+                // XQueryLexer.g:1:1142: VALUE
                 {
                 mVALUE(); 
 
                 }
                 break;
-            case 145 :
-                // XQueryLexer.g:1:1172: WITH
+            case 143 :
+                // XQueryLexer.g:1:1148: WITH
                 {
                 mWITH(); 
 
                 }
                 break;
-            case 146 :
-                // XQueryLexer.g:1:1177: ALL
+            case 144 :
+                // XQueryLexer.g:1:1153: ALL
                 {
                 mALL(); 
 
                 }
                 break;
-            case 147 :
-                // XQueryLexer.g:1:1181: ANY
+            case 145 :
+                // XQueryLexer.g:1:1157: ANY
                 {
                 mANY(); 
 
                 }
                 break;
-            case 148 :
-                // XQueryLexer.g:1:1185: CONTAINS
+            case 146 :
+                // XQueryLexer.g:1:1161: CONTAINS
                 {
                 mCONTAINS(); 
 
                 }
                 break;
-            case 149 :
-                // XQueryLexer.g:1:1194: CONTENT
+            case 147 :
+                // XQueryLexer.g:1:1170: CONTENT
                 {
                 mCONTENT(); 
 
                 }
                 break;
-            case 150 :
-                // XQueryLexer.g:1:1202: DIACRITICS
+            case 148 :
+                // XQueryLexer.g:1:1178: DIACRITICS
                 {
                 mDIACRITICS(); 
 
                 }
                 break;
-            case 151 :
-                // XQueryLexer.g:1:1213: DIFFERENT
+            case 149 :
+                // XQueryLexer.g:1:1189: DIFFERENT
                 {
                 mDIFFERENT(); 
 
                 }
                 break;
-            case 152 :
-                // XQueryLexer.g:1:1223: DISTANCE
+            case 150 :
+                // XQueryLexer.g:1:1199: DISTANCE
                 {
                 mDISTANCE(); 
 
                 }
                 break;
-            case 153 :
-                // XQueryLexer.g:1:1232: ENTIRE
+            case 151 :
+                // XQueryLexer.g:1:1208: ENTIRE
                 {
                 mENTIRE(); 
 
                 }
                 break;
-            case 154 :
-                // XQueryLexer.g:1:1239: EXACTLY
+            case 152 :
+                // XQueryLexer.g:1:1215: EXACTLY
                 {
                 mEXACTLY(); 
 
                 }
                 break;
-            case 155 :
-                // XQueryLexer.g:1:1247: FROM
+            case 153 :
+                // XQueryLexer.g:1:1223: FROM
                 {
                 mFROM(); 
 
                 }
                 break;
-            case 156 :
-                // XQueryLexer.g:1:1252: FT_OPTION
+            case 154 :
+                // XQueryLexer.g:1:1228: FT_OPTION
                 {
                 mFT_OPTION(); 
 
                 }
                 break;
-            case 157 :
-                // XQueryLexer.g:1:1262: FTAND
+            case 155 :
+                // XQueryLexer.g:1:1238: FTAND
                 {
                 mFTAND(); 
 
                 }
                 break;
-            case 158 :
-                // XQueryLexer.g:1:1268: FTNOT
+            case 156 :
+                // XQueryLexer.g:1:1244: FTNOT
                 {
                 mFTNOT(); 
 
                 }
                 break;
-            case 159 :
-                // XQueryLexer.g:1:1274: FTOR
+            case 157 :
+                // XQueryLexer.g:1:1250: FTOR
                 {
                 mFTOR(); 
 
                 }
                 break;
-            case 160 :
-                // XQueryLexer.g:1:1279: INSENSITIVE
+            case 158 :
+                // XQueryLexer.g:1:1255: INSENSITIVE
                 {
                 mINSENSITIVE(); 
 
                 }
                 break;
-            case 161 :
-                // XQueryLexer.g:1:1291: LANGUAGE
+            case 159 :
+                // XQueryLexer.g:1:1267: LANGUAGE
                 {
                 mLANGUAGE(); 
 
                 }
                 break;
-            case 162 :
-                // XQueryLexer.g:1:1300: LEVELS
+            case 160 :
+                // XQueryLexer.g:1:1276: LEVELS
                 {
                 mLEVELS(); 
 
                 }
                 break;
-            case 163 :
-                // XQueryLexer.g:1:1307: LOWERCASE
+            case 161 :
+                // XQueryLexer.g:1:1283: LOWERCASE
                 {
                 mLOWERCASE(); 
 
                 }
                 break;
-            case 164 :
-                // XQueryLexer.g:1:1317: MOST
+            case 162 :
+                // XQueryLexer.g:1:1293: MOST
                 {
                 mMOST(); 
 
                 }
                 break;
-            case 165 :
-                // XQueryLexer.g:1:1322: NO
+            case 163 :
+                // XQueryLexer.g:1:1298: NO
                 {
                 mNO(); 
 
                 }
                 break;
-            case 166 :
-                // XQueryLexer.g:1:1325: NOT
+            case 164 :
+                // XQueryLexer.g:1:1301: NOT
                 {
                 mNOT(); 
 
                 }
                 break;
-            case 167 :
-                // XQueryLexer.g:1:1329: OCCURS
+            case 165 :
+                // XQueryLexer.g:1:1305: OCCURS
                 {
                 mOCCURS(); 
 
                 }
                 break;
-            case 168 :
-                // XQueryLexer.g:1:1336: PARAGRAPH
+            case 166 :
+                // XQueryLexer.g:1:1312: PARAGRAPH
                 {
                 mPARAGRAPH(); 
 
                 }
                 break;
-            case 169 :
-                // XQueryLexer.g:1:1346: PARAGRAPHS
+            case 167 :
+                // XQueryLexer.g:1:1322: PARAGRAPHS
                 {
                 mPARAGRAPHS(); 
 
                 }
                 break;
-            case 170 :
-                // XQueryLexer.g:1:1357: PHRASE
+            case 168 :
+                // XQueryLexer.g:1:1333: PHRASE
                 {
                 mPHRASE(); 
 
                 }
                 break;
-            case 171 :
-                // XQueryLexer.g:1:1364: RELATIONSHIP
+            case 169 :
+                // XQueryLexer.g:1:1340: RELATIONSHIP
                 {
                 mRELATIONSHIP(); 
 
                 }
                 break;
-            case 172 :
-                // XQueryLexer.g:1:1377: SAME
+            case 170 :
+                // XQueryLexer.g:1:1353: SAME
                 {
                 mSAME(); 
 
                 }
                 break;
-            case 173 :
-                // XQueryLexer.g:1:1382: SCORE
+            case 171 :
+                // XQueryLexer.g:1:1358: SCORE
                 {
                 mSCORE(); 
 
                 }
                 break;
-            case 174 :
-                // XQueryLexer.g:1:1388: SENSITIVE
+            case 172 :
+                // XQueryLexer.g:1:1364: SENSITIVE
                 {
                 mSENSITIVE(); 
 
                 }
                 break;
-            case 175 :
-                // XQueryLexer.g:1:1398: SENTENCE
+            case 173 :
+                // XQueryLexer.g:1:1374: SENTENCE
                 {
                 mSENTENCE(); 
 
                 }
                 break;
-            case 176 :
-                // XQueryLexer.g:1:1407: SENTENCES
+            case 174 :
+                // XQueryLexer.g:1:1383: SENTENCES
                 {
                 mSENTENCES(); 
 
                 }
                 break;
-            case 177 :
-                // XQueryLexer.g:1:1417: STEMMING
+            case 175 :
+                // XQueryLexer.g:1:1393: STEMMING
                 {
                 mSTEMMING(); 
 
                 }
                 break;
-            case 178 :
-                // XQueryLexer.g:1:1426: STOP
+            case 176 :
+                // XQueryLexer.g:1:1402: STOP
                 {
                 mSTOP(); 
 
                 }
                 break;
-            case 179 :
-                // XQueryLexer.g:1:1431: THESAURUS
+            case 177 :
+                // XQueryLexer.g:1:1407: THESAURUS
                 {
                 mTHESAURUS(); 
 
                 }
                 break;
-            case 180 :
-                // XQueryLexer.g:1:1441: TIMES
+            case 178 :
+                // XQueryLexer.g:1:1417: TIMES
                 {
                 mTIMES(); 
 
                 }
                 break;
-            case 181 :
-                // XQueryLexer.g:1:1447: UPPERCASE
+            case 179 :
+                // XQueryLexer.g:1:1423: UPPERCASE
                 {
                 mUPPERCASE(); 
 
                 }
                 break;
-            case 182 :
-                // XQueryLexer.g:1:1457: USING
+            case 180 :
+                // XQueryLexer.g:1:1433: USING
                 {
                 mUSING(); 
 
                 }
                 break;
-            case 183 :
-                // XQueryLexer.g:1:1463: WEIGHT
+            case 181 :
+                // XQueryLexer.g:1:1439: WEIGHT
                 {
                 mWEIGHT(); 
 
                 }
                 break;
-            case 184 :
-                // XQueryLexer.g:1:1470: WILDCARDS
+            case 182 :
+                // XQueryLexer.g:1:1446: WILDCARDS
                 {
                 mWILDCARDS(); 
 
                 }
                 break;
-            case 185 :
-                // XQueryLexer.g:1:1480: WITHOUT
+            case 183 :
+                // XQueryLexer.g:1:1456: WITHOUT
                 {
                 mWITHOUT(); 
 
                 }
                 break;
-            case 186 :
-                // XQueryLexer.g:1:1488: WORD
+            case 184 :
+                // XQueryLexer.g:1:1464: WORD
                 {
                 mWORD(); 
 
                 }
                 break;
-            case 187 :
-                // XQueryLexer.g:1:1493: WORDS
+            case 185 :
+                // XQueryLexer.g:1:1469: WORDS
                 {
                 mWORDS(); 
 
                 }
                 break;
+            case 186 :
+                // XQueryLexer.g:1:1475: BREAK
+                {
+                mBREAK(); 
+
+                }
+                break;
+            case 187 :
+                // XQueryLexer.g:1:1481: CONTINUE
+                {
+                mCONTINUE(); 
+
+                }
+                break;
             case 188 :
-                // XQueryLexer.g:1:1499: BLOCK
-                {
-                mBLOCK(); 
-
-                }
-                break;
-            case 189 :
-                // XQueryLexer.g:1:1505: CONSTANT
-                {
-                mCONSTANT(); 
-
-                }
-                break;
-            case 190 :
-                // XQueryLexer.g:1:1514: EXIT
+                // XQueryLexer.g:1:1490: EXIT
                 {
                 mEXIT(); 
 
                 }
                 break;
-            case 191 :
-                // XQueryLexer.g:1:1519: RETURNING
+            case 189 :
+                // XQueryLexer.g:1:1495: LOOP
+                {
+                mLOOP(); 
+
+                }
+                break;
+            case 190 :
+                // XQueryLexer.g:1:1500: RETURNING
                 {
                 mRETURNING(); 
 
                 }
                 break;
-            case 192 :
-                // XQueryLexer.g:1:1529: SEQUENTIAL
-                {
-                mSEQUENTIAL(); 
-
-                }
-                break;
-            case 193 :
-                // XQueryLexer.g:1:1540: SET
-                {
-                mSET(); 
-
-                }
-                break;
-            case 194 :
-                // XQueryLexer.g:1:1544: SIMPLE
-                {
-                mSIMPLE(); 
-
-                }
-                break;
-            case 195 :
-                // XQueryLexer.g:1:1551: WHILE
+            case 191 :
+                // XQueryLexer.g:1:1510: WHILE
                 {
                 mWHILE(); 
 
                 }
                 break;
-            case 196 :
-                // XQueryLexer.g:1:1557: EVAL
+            case 192 :
+                // XQueryLexer.g:1:1516: EVAL
                 {
                 mEVAL(); 
 
                 }
                 break;
-            case 197 :
-                // XQueryLexer.g:1:1562: APPEND_ONLY
-                {
-                mAPPEND_ONLY(); 
-
-                }
-                break;
-            case 198 :
-                // XQueryLexer.g:1:1574: AUTOMATICALLY
-                {
-                mAUTOMATICALLY(); 
-
-                }
-                break;
-            case 199 :
-                // XQueryLexer.g:1:1588: CHECK
+            case 193 :
+                // XQueryLexer.g:1:1521: CHECK
                 {
                 mCHECK(); 
 
                 }
                 break;
-            case 200 :
-                // XQueryLexer.g:1:1594: COLLECTION
+            case 194 :
+                // XQueryLexer.g:1:1527: COLLECTION
                 {
                 mCOLLECTION(); 
 
                 }
                 break;
-            case 201 :
-                // XQueryLexer.g:1:1605: CONSTRAINT
+            case 195 :
+                // XQueryLexer.g:1:1538: CONSTRAINT
                 {
                 mCONSTRAINT(); 
 
                 }
                 break;
-            case 202 :
-                // XQueryLexer.g:1:1616: CONST
-                {
-                mCONST(); 
-
-                }
-                break;
-            case 203 :
-                // XQueryLexer.g:1:1622: EQUALITY
-                {
-                mEQUALITY(); 
-
-                }
-                break;
-            case 204 :
-                // XQueryLexer.g:1:1631: FOREACH
+            case 196 :
+                // XQueryLexer.g:1:1549: FOREACH
                 {
                 mFOREACH(); 
 
                 }
                 break;
-            case 205 :
-                // XQueryLexer.g:1:1639: FOREIGN
+            case 197 :
+                // XQueryLexer.g:1:1557: FOREIGN
                 {
                 mFOREIGN(); 
 
                 }
                 break;
-            case 206 :
-                // XQueryLexer.g:1:1647: INDEX
+            case 198 :
+                // XQueryLexer.g:1:1565: INDEX
                 {
                 mINDEX(); 
 
                 }
                 break;
-            case 207 :
-                // XQueryLexer.g:1:1653: INTEGRITY
+            case 199 :
+                // XQueryLexer.g:1:1571: INTEGRITY
                 {
                 mINTEGRITY(); 
 
                 }
                 break;
-            case 208 :
-                // XQueryLexer.g:1:1663: KEY
+            case 200 :
+                // XQueryLexer.g:1:1581: KEY
                 {
                 mKEY(); 
 
                 }
                 break;
-            case 209 :
-                // XQueryLexer.g:1:1667: MAINTAINED
-                {
-                mMAINTAINED(); 
-
-                }
-                break;
-            case 210 :
-                // XQueryLexer.g:1:1678: MANUALLY
-                {
-                mMANUALLY(); 
-
-                }
-                break;
-            case 211 :
-                // XQueryLexer.g:1:1687: MUTABLE
-                {
-                mMUTABLE(); 
-
-                }
-                break;
-            case 212 :
-                // XQueryLexer.g:1:1695: NON
-                {
-                mNON(); 
-
-                }
-                break;
-            case 213 :
-                // XQueryLexer.g:1:1699: ON
+            case 201 :
+                // XQueryLexer.g:1:1585: ON
                 {
                 mON(); 
 
                 }
                 break;
-            case 214 :
-                // XQueryLexer.g:1:1702: QUEUE
-                {
-                mQUEUE(); 
-
-                }
-                break;
-            case 215 :
-                // XQueryLexer.g:1:1708: RANGE
-                {
-                mRANGE(); 
-
-                }
-                break;
-            case 216 :
-                // XQueryLexer.g:1:1714: READ_ONLY
-                {
-                mREAD_ONLY(); 
-
-                }
-                break;
-            case 217 :
-                // XQueryLexer.g:1:1724: UNIQUE
-                {
-                mUNIQUE(); 
-
-                }
-                break;
-            case 218 :
-                // XQueryLexer.g:1:1731: BINARY
+            case 202 :
+                // XQueryLexer.g:1:1588: BINARY
                 {
                 mBINARY(); 
 
                 }
                 break;
-            case 219 :
-                // XQueryLexer.g:1:1738: AMP_ER
+            case 203 :
+                // XQueryLexer.g:1:1595: AMP_ER
                 {
                 mAMP_ER(); 
 
                 }
                 break;
-            case 220 :
-                // XQueryLexer.g:1:1745: APOS_ER
+            case 204 :
+                // XQueryLexer.g:1:1602: APOS_ER
                 {
                 mAPOS_ER(); 
 
                 }
                 break;
-            case 221 :
-                // XQueryLexer.g:1:1753: QUOT_ER
+            case 205 :
+                // XQueryLexer.g:1:1610: QUOT_ER
                 {
                 mQUOT_ER(); 
 
                 }
                 break;
-            case 222 :
-                // XQueryLexer.g:1:1761: LPAREN
+            case 206 :
+                // XQueryLexer.g:1:1618: LPAREN
                 {
                 mLPAREN(); 
 
                 }
                 break;
-            case 223 :
-                // XQueryLexer.g:1:1768: RPAREN
+            case 207 :
+                // XQueryLexer.g:1:1625: RPAREN
                 {
                 mRPAREN(); 
 
                 }
                 break;
-            case 224 :
-                // XQueryLexer.g:1:1775: DOLLAR
+            case 208 :
+                // XQueryLexer.g:1:1632: DOLLAR
                 {
                 mDOLLAR(); 
 
                 }
                 break;
-            case 225 :
-                // XQueryLexer.g:1:1782: LBRACKET
+            case 209 :
+                // XQueryLexer.g:1:1639: LBRACKET
                 {
                 mLBRACKET(); 
 
                 }
                 break;
-            case 226 :
-                // XQueryLexer.g:1:1791: RBRACKET
+            case 210 :
+                // XQueryLexer.g:1:1648: RBRACKET
                 {
                 mRBRACKET(); 
 
                 }
                 break;
-            case 227 :
-                // XQueryLexer.g:1:1800: LSQUARE
+            case 211 :
+                // XQueryLexer.g:1:1657: LSQUARE
                 {
                 mLSQUARE(); 
 
                 }
                 break;
-            case 228 :
-                // XQueryLexer.g:1:1808: RSQUARE
+            case 212 :
+                // XQueryLexer.g:1:1665: RSQUARE
                 {
                 mRSQUARE(); 
 
                 }
                 break;
-            case 229 :
-                // XQueryLexer.g:1:1816: EQUAL
+            case 213 :
+                // XQueryLexer.g:1:1673: EQUAL
                 {
                 mEQUAL(); 
 
                 }
                 break;
-            case 230 :
-                // XQueryLexer.g:1:1822: BIND
+            case 214 :
+                // XQueryLexer.g:1:1679: BIND
                 {
                 mBIND(); 
 
                 }
                 break;
-            case 231 :
-                // XQueryLexer.g:1:1827: NOTEQUAL
+            case 215 :
+                // XQueryLexer.g:1:1684: NOTEQUAL
                 {
                 mNOTEQUAL(); 
 
                 }
                 break;
-            case 232 :
-                // XQueryLexer.g:1:1836: AMP
+            case 216 :
+                // XQueryLexer.g:1:1693: ANN_PERCENT
+                {
+                mANN_PERCENT(); 
+
+                }
+                break;
+            case 217 :
+                // XQueryLexer.g:1:1705: HASH
+                {
+                mHASH(); 
+
+                }
+                break;
+            case 218 :
+                // XQueryLexer.g:1:1710: AMP
                 {
                 mAMP(); 
 
                 }
                 break;
-            case 233 :
-                // XQueryLexer.g:1:1840: COMMA
+            case 219 :
+                // XQueryLexer.g:1:1714: COMMA
                 {
                 mCOMMA(); 
 
                 }
                 break;
-            case 234 :
-                // XQueryLexer.g:1:1846: QUESTION
+            case 220 :
+                // XQueryLexer.g:1:1720: QUESTION
                 {
                 mQUESTION(); 
 
                 }
                 break;
-            case 235 :
-                // XQueryLexer.g:1:1855: STAR
+            case 221 :
+                // XQueryLexer.g:1:1729: STAR
                 {
                 mSTAR(); 
 
                 }
                 break;
-            case 236 :
-                // XQueryLexer.g:1:1860: PLUS
+            case 222 :
+                // XQueryLexer.g:1:1734: PLUS
                 {
                 mPLUS(); 
 
                 }
                 break;
-            case 237 :
-                // XQueryLexer.g:1:1865: MINUS
+            case 223 :
+                // XQueryLexer.g:1:1739: MINUS
                 {
                 mMINUS(); 
 
                 }
                 break;
-            case 238 :
-                // XQueryLexer.g:1:1871: SMALLER
+            case 224 :
+                // XQueryLexer.g:1:1745: SMALLER
                 {
                 mSMALLER(); 
 
                 }
                 break;
-            case 239 :
-                // XQueryLexer.g:1:1879: GREATER
+            case 225 :
+                // XQueryLexer.g:1:1753: GREATER
                 {
                 mGREATER(); 
 
                 }
                 break;
-            case 240 :
-                // XQueryLexer.g:1:1887: SMALLEREQ
+            case 226 :
+                // XQueryLexer.g:1:1761: SMALLEREQ
                 {
                 mSMALLEREQ(); 
 
                 }
                 break;
-            case 241 :
-                // XQueryLexer.g:1:1897: GREATEREQ
+            case 227 :
+                // XQueryLexer.g:1:1771: GREATEREQ
                 {
                 mGREATEREQ(); 
 
                 }
                 break;
-            case 242 :
-                // XQueryLexer.g:1:1907: SMALLER_SMALLER
+            case 228 :
+                // XQueryLexer.g:1:1781: SMALLER_SMALLER
                 {
                 mSMALLER_SMALLER(); 
 
                 }
                 break;
-            case 243 :
-                // XQueryLexer.g:1:1923: GREATER_GREATER
+            case 229 :
+                // XQueryLexer.g:1:1797: GREATER_GREATER
                 {
                 mGREATER_GREATER(); 
 
                 }
                 break;
-            case 244 :
-                // XQueryLexer.g:1:1939: SLASH
+            case 230 :
+                // XQueryLexer.g:1:1813: SLASH
                 {
                 mSLASH(); 
 
                 }
                 break;
-            case 245 :
-                // XQueryLexer.g:1:1945: SLASH_SLASH
+            case 231 :
+                // XQueryLexer.g:1:1819: SLASH_SLASH
                 {
                 mSLASH_SLASH(); 
 
                 }
                 break;
-            case 246 :
-                // XQueryLexer.g:1:1957: DOT
+            case 232 :
+                // XQueryLexer.g:1:1831: DOT
                 {
                 mDOT(); 
 
                 }
                 break;
-            case 247 :
-                // XQueryLexer.g:1:1961: DOT_DOT
+            case 233 :
+                // XQueryLexer.g:1:1835: DOT_DOT
                 {
                 mDOT_DOT(); 
 
                 }
                 break;
-            case 248 :
-                // XQueryLexer.g:1:1969: COLON
+            case 234 :
+                // XQueryLexer.g:1:1843: COLON
                 {
                 mCOLON(); 
 
                 }
                 break;
-            case 249 :
-                // XQueryLexer.g:1:1975: COLON_COLON
+            case 235 :
+                // XQueryLexer.g:1:1849: COLON_COLON
                 {
                 mCOLON_COLON(); 
 
                 }
                 break;
-            case 250 :
-                // XQueryLexer.g:1:1987: EMPTY_CLOSE_TAG
+            case 236 :
+                // XQueryLexer.g:1:1861: EMPTY_CLOSE_TAG
                 {
                 mEMPTY_CLOSE_TAG(); 
 
                 }
                 break;
-            case 251 :
-                // XQueryLexer.g:1:2003: CLOSE_TAG
+            case 237 :
+                // XQueryLexer.g:1:1877: CLOSE_TAG
                 {
                 mCLOSE_TAG(); 
 
                 }
                 break;
-            case 252 :
-                // XQueryLexer.g:1:2013: SEMICOLON
+            case 238 :
+                // XQueryLexer.g:1:1887: SEMICOLON
                 {
                 mSEMICOLON(); 
 
                 }
                 break;
-            case 253 :
-                // XQueryLexer.g:1:2023: VBAR
+            case 239 :
+                // XQueryLexer.g:1:1897: VBAR
                 {
                 mVBAR(); 
 
                 }
                 break;
-            case 254 :
-                // XQueryLexer.g:1:2028: PRAGMA_START
+            case 240 :
+                // XQueryLexer.g:1:1902: PRAGMA_START
                 {
                 mPRAGMA_START(); 
 
                 }
                 break;
-            case 255 :
-                // XQueryLexer.g:1:2041: PRAGMA_END
+            case 241 :
+                // XQueryLexer.g:1:1915: PRAGMA_END
                 {
                 mPRAGMA_END(); 
 
                 }
                 break;
-            case 256 :
-                // XQueryLexer.g:1:2052: XML_COMMENT_START
+            case 242 :
+                // XQueryLexer.g:1:1926: XML_COMMENT_START
                 {
                 mXML_COMMENT_START(); 
 
                 }
                 break;
-            case 257 :
-                // XQueryLexer.g:1:2070: XML_COMMENT_END
+            case 243 :
+                // XQueryLexer.g:1:1944: XML_COMMENT_END
                 {
                 mXML_COMMENT_END(); 
 
                 }
                 break;
-            case 258 :
-                // XQueryLexer.g:1:2086: PI_START
+            case 244 :
+                // XQueryLexer.g:1:1960: PI_START
                 {
                 mPI_START(); 
 
                 }
                 break;
-            case 259 :
-                // XQueryLexer.g:1:2095: PI_END
+            case 245 :
+                // XQueryLexer.g:1:1969: PI_END
                 {
                 mPI_END(); 
 
                 }
                 break;
-            case 260 :
-                // XQueryLexer.g:1:2102: ATTR_SIGN
+            case 246 :
+                // XQueryLexer.g:1:1976: ATTR_SIGN
                 {
                 mATTR_SIGN(); 
 
                 }
                 break;
-            case 261 :
-                // XQueryLexer.g:1:2112: CHARREF_DEC
+            case 247 :
+                // XQueryLexer.g:1:1986: CHARREF_DEC
                 {
                 mCHARREF_DEC(); 
 
                 }
                 break;
-            case 262 :
-                // XQueryLexer.g:1:2124: CHARREF_HEX
+            case 248 :
+                // XQueryLexer.g:1:1998: CHARREF_HEX
                 {
                 mCHARREF_HEX(); 
 
                 }
                 break;
-            case 263 :
-                // XQueryLexer.g:1:2136: APOS
+            case 249 :
+                // XQueryLexer.g:1:2010: APOS
                 {
                 mAPOS(); 
 
                 }
                 break;
-            case 264 :
-                // XQueryLexer.g:1:2141: QUOT
+            case 250 :
+                // XQueryLexer.g:1:2015: QUOT
                 {
                 mQUOT(); 
 
                 }
                 break;
-            case 265 :
-                // XQueryLexer.g:1:2146: L_NCName
+            case 251 :
+                // XQueryLexer.g:1:2020: L_NCName
                 {
                 mL_NCName(); 
 
                 }
                 break;
-            case 266 :
-                // XQueryLexer.g:1:2155: S
+            case 252 :
+                // XQueryLexer.g:1:2029: S
                 {
                 mS(); 
 
                 }
                 break;
-            case 267 :
-                // XQueryLexer.g:1:2157: L_Pragma
+            case 253 :
+                // XQueryLexer.g:1:2031: L_Pragma
                 {
                 mL_Pragma(); 
 
                 }
                 break;
-            case 268 :
-                // XQueryLexer.g:1:2166: L_DirCommentConstructor
+            case 254 :
+                // XQueryLexer.g:1:2040: L_DirCommentConstructor
                 {
                 mL_DirCommentConstructor(); 
 
                 }
                 break;
-            case 269 :
-                // XQueryLexer.g:1:2190: L_DirPIConstructor
+            case 255 :
+                // XQueryLexer.g:1:2064: L_DirPIConstructor
                 {
                 mL_DirPIConstructor(); 
 
                 }
                 break;
-            case 270 :
-                // XQueryLexer.g:1:2209: L_IntegerLiteral
+            case 256 :
+                // XQueryLexer.g:1:2083: L_IntegerLiteral
                 {
                 mL_IntegerLiteral(); 
 
                 }
                 break;
-            case 271 :
-                // XQueryLexer.g:1:2226: L_DecimalLiteral
+            case 257 :
+                // XQueryLexer.g:1:2100: L_DecimalLiteral
                 {
                 mL_DecimalLiteral(); 
 
                 }
                 break;
-            case 272 :
-                // XQueryLexer.g:1:2243: L_DoubleLiteral
+            case 258 :
+                // XQueryLexer.g:1:2117: L_DoubleLiteral
                 {
                 mL_DoubleLiteral(); 
 
                 }
                 break;
-            case 273 :
-                // XQueryLexer.g:1:2259: L_Comment
+            case 259 :
+                // XQueryLexer.g:1:2133: L_Comment
                 {
                 mL_Comment(); 
 
                 }
                 break;
-            case 274 :
-                // XQueryLexer.g:1:2269: L_AnyChar
+            case 260 :
+                // XQueryLexer.g:1:2143: L_AnyChar
                 {
                 mL_AnyChar(); 
 
@@ -8717,379 +8309,349 @@ public class XQueryLexer extends XQDTLexer {
 
     protected DFA19 dfa19 = new DFA19(this);
     static final String DFA19_eotS =
-        "\1\uffff\30\77\1\u0098\7\uffff\1\u00a2\1\66\1\u00a5\1\uffff\1\u00a8"+
-        "\2\uffff\1\u00ac\1\u00b2\1\u00b5\1\u00b8\1\u00ba\2\uffff\1\66\5"+
-        "\uffff\1\u00c3\1\uffff\1\77\1\u00cb\1\u00cd\5\77\1\uffff\2\77\1"+
-        "\u00d6\14\77\1\u00f5\7\77\1\u0105\1\77\1\u0108\1\77\1\u010a\1\77"+
-        "\1\u0111\1\u0112\2\77\1\u011a\1\u011b\6\77\1\u0125\1\u012a\1\u012b"+
-        "\1\77\1\u012e\1\u0130\24\77\1\u0155\22\77\1\u0170\15\uffff\1\u0173"+
-        "\14\uffff\1\u0175\11\uffff\1\u0177\10\uffff\1\u0177\1\u00c3\1\uffff"+
-        "\1\77\1\u017a\1\u017b\1\77\1\uffff\1\77\1\uffff\1\77\1\u017f\3\77"+
-        "\1\u0183\2\77\1\uffff\21\77\1\u019a\11\77\1\u01a4\2\77\1\uffff\7"+
-        "\77\1\u01af\7\77\1\uffff\2\77\1\uffff\1\77\1\uffff\6\77\2\uffff"+
-        "\1\77\1\u01c3\3\77\1\u01c7\1\77\2\uffff\1\77\1\u01cc\7\77\1\uffff"+
-        "\2\77\1\u01d8\1\u01d9\2\uffff\2\77\1\uffff\1\77\1\uffff\30\77\1"+
-        "\u01fa\13\77\1\uffff\1\77\1\u0209\23\77\1\u0220\1\77\1\u0222\2\77"+
-        "\10\uffff\1\u0177\1\77\2\uffff\3\77\1\uffff\1\77\1\u022b\1\77\1"+
-        "\uffff\5\77\1\u0232\1\u0234\7\77\1\u023f\7\77\1\uffff\6\77\1\u024d"+
-        "\2\77\1\uffff\3\77\1\u0253\3\77\1\u0257\2\77\1\uffff\2\77\1\u025d"+
-        "\3\77\1\u0261\2\77\1\u0264\5\77\1\u026c\2\77\1\u026f\1\uffff\1\u0270"+
-        "\2\77\1\uffff\4\77\1\uffff\1\u0277\5\77\1\u027d\2\77\1\u0281\1\77"+
-        "\2\uffff\2\77\1\u0285\26\77\1\u029c\2\77\1\u029f\3\77\1\uffff\1"+
-        "\u02a3\4\77\1\u02a9\2\77\1\u02ac\1\77\1\u02ae\1\u02af\2\77\1\uffff"+
-        "\16\77\1\u02c0\2\77\1\u02c4\2\77\1\u02c8\1\77\1\uffff\1\77\1\uffff"+
-        "\1\77\1\u02cc\1\u02cd\3\77\1\u02d2\1\77\1\uffff\4\77\1\u02d8\1\77"+
-        "\1\uffff\1\77\1\uffff\1\u02db\1\u02dc\1\u02dd\3\77\1\u02e3\3\77"+
-        "\1\uffff\1\u02e8\6\77\1\u02ef\5\77\1\uffff\1\u02f6\3\77\1\u02fa"+
-        "\1\uffff\3\77\1\uffff\4\77\1\u0302\1\uffff\1\77\1\u0304\1\u0305"+
-        "\1\uffff\1\77\1\u0308\1\uffff\7\77\1\uffff\1\77\1\u0311\2\uffff"+
-        "\1\77\1\u0313\4\77\1\uffff\5\77\1\uffff\2\77\1\u031f\1\uffff\2\77"+
-        "\1\u0324\1\uffff\1\u0325\23\77\1\u0339\1\77\1\uffff\1\77\1\u033c"+
-        "\1\uffff\3\77\1\uffff\1\77\1\u0341\1\77\1\u0343\1\77\1\uffff\2\77"+
-        "\1\uffff\1\77\2\uffff\1\77\1\u0349\2\77\1\u034c\1\u034d\4\77\1\u0352"+
-        "\1\77\1\u0354\2\77\1\u0357\1\uffff\1\u0358\2\77\1\uffff\2\77\1\u035d"+
-        "\1\uffff\2\77\1\u0360\3\uffff\3\77\1\uffff\4\77\1\u0368\1\uffff"+
-        "\1\u0369\1\77\3\uffff\5\77\1\uffff\4\77\1\uffff\5\77\1\u037a\1\uffff"+
-        "\6\77\1\uffff\1\77\1\u0382\1\77\1\uffff\1\u0384\6\77\1\uffff\1\77"+
-        "\2\uffff\2\77\1\uffff\1\u038e\2\77\1\u0391\4\77\1\uffff\1\77\1\uffff"+
-        "\1\u0397\1\77\1\u0399\1\u039a\7\77\1\uffff\1\77\1\u03a3\2\77\2\uffff"+
-        "\1\u03a6\1\u03a7\11\77\1\u03b1\1\u03b2\1\u03b4\1\u03b5\4\77\1\uffff"+
-        "\1\77\1\u03bc\1\uffff\3\77\1\u03c0\1\uffff\1\u03c1\1\uffff\2\77"+
-        "\1\u03c4\1\u03c5\1\77\1\uffff\2\77\2\uffff\1\u03c9\3\77\1\uffff"+
-        "\1\77\1\uffff\2\77\2\uffff\1\u03d0\2\77\1\u03d3\1\uffff\1\u03d4"+
-        "\1\77\1\uffff\7\77\2\uffff\3\77\1\u03e0\3\77\1\u03e4\1\u03e5\2\77"+
-        "\1\u03e8\1\77\1\u03ea\2\77\1\uffff\4\77\1\u03f2\2\77\1\uffff\1\77"+
-        "\1\uffff\1\77\1\u03f7\1\77\1\u03f9\1\u03fa\4\77\1\uffff\1\u03ff"+
-        "\1\77\1\uffff\5\77\1\uffff\1\77\2\uffff\3\77\1\u040a\4\77\1\uffff"+
-        "\1\u040f\1\77\2\uffff\6\77\1\u0417\1\u0418\1\77\2\uffff\1\77\2\uffff"+
-        "\1\u041b\5\77\1\uffff\3\77\2\uffff\1\77\1\u0426\2\uffff\3\77\1\uffff"+
-        "\5\77\1\u042f\1\uffff\1\u0430\1\77\2\uffff\1\77\1\u0434\4\77\1\u0439"+
-        "\1\77\1\u043b\2\77\1\uffff\2\77\1\u0440\2\uffff\1\u0441\1\77\1\uffff"+
-        "\1\77\1\uffff\5\77\1\u044a\1\u044c\1\uffff\1\77\1\u044e\1\u044f"+
-        "\1\u0450\1\uffff\1\77\2\uffff\1\u0452\1\77\1\u0454\1\77\1\uffff"+
-        "\1\u0456\3\77\1\u045a\1\u045b\3\77\1\u045f\1\uffff\4\77\1\uffff"+
-        "\1\u0464\3\77\1\u0468\1\u0469\1\77\2\uffff\2\77\1\uffff\7\77\1\u0475"+
-        "\1\77\1\u0477\1\uffff\2\77\1\u047a\1\77\1\u047c\1\77\1\u047e\1\u047f"+
-        "\2\uffff\3\77\1\uffff\1\u0483\1\u0484\2\77\1\uffff\1\77\1\uffff"+
-        "\1\u0488\3\77\2\uffff\7\77\1\u0493\1\uffff\1\77\1\uffff\1\77\3\uffff"+
-        "\1\u0497\1\uffff\1\u0498\1\uffff\1\77\1\uffff\1\77\1\u049b\1\u049c"+
-        "\2\uffff\1\u049d\2\77\1\uffff\1\u04a1\3\77\1\uffff\1\u04a6\1\77"+
-        "\1\u04a9\2\uffff\1\77\1\u04ab\1\u04ac\2\77\1\u04af\1\u04b0\2\77"+
-        "\1\u04b3\1\u04b4\1\uffff\1\77\1\uffff\1\u04b6\1\77\1\uffff\1\u04b8"+
-        "\1\uffff\1\u04b9\2\uffff\1\u04ba\2\77\2\uffff\3\77\1\uffff\1\u04c0"+
-        "\1\77\1\u04c2\3\77\1\u04c7\1\u04c8\1\77\1\u04ca\1\uffff\3\77\2\uffff"+
-        "\2\77\3\uffff\1\u04d0\1\u04d1\1\77\1\uffff\1\u04d3\2\77\1\u04d6"+
-        "\1\uffff\2\77\1\uffff\1\77\2\uffff\2\77\2\uffff\2\77\2\uffff\1\u04de"+
-        "\1\uffff\1\u04df\3\uffff\1\u04e0\1\77\1\u04e2\2\77\1\uffff\1\77"+
-        "\1\uffff\4\77\2\uffff\1\77\1\uffff\4\77\1\u04ef\2\uffff\1\77\1\uffff"+
-        "\1\u04f1\1\77\1\uffff\7\77\3\uffff\1\77\1\uffff\2\77\1\u04fd\11"+
-        "\77\1\uffff\1\77\1\uffff\4\77\1\u050c\1\u050d\3\77\1\u0511\1\77"+
-        "\1\uffff\4\77\1\u0517\1\u0518\10\77\2\uffff\3\77\1\uffff\1\u0524"+
-        "\1\77\1\u0526\2\77\2\uffff\1\u0529\2\77\1\u052c\5\77\1\u0532\1\77"+
-        "\1\uffff\1\u0534\1\uffff\2\77\1\uffff\2\77\1\uffff\5\77\1\uffff"+
-        "\1\u053e\1\uffff\4\77\1\u0543\3\77\1\u0547\1\uffff\1\u0548\1\77"+
-        "\1\u054a\1\77\1\uffff\1\u054c\1\u054d\1\77\2\uffff\1\u054f\1\uffff"+
-        "\1\u0550\2\uffff\1\77\2\uffff\3\77\1\u0555\1\uffff";
+        "\1\uffff\30\77\1\u0092\7\uffff\1\u009c\1\67\1\uffff\1\u00a0\1\u00a2"+
+        "\1\uffff\1\u00a5\2\uffff\1\u00a9\1\u00af\1\u00b2\1\u00b5\1\u00b7"+
+        "\7\uffff\1\u00bf\1\uffff\1\77\1\u00c7\1\u00c9\4\77\1\uffff\2\77"+
+        "\1\u00d0\14\77\1\u00ee\7\77\1\u00fe\1\77\1\u0101\1\77\1\u0103\1"+
+        "\77\1\u010a\1\u010b\2\77\1\u0113\1\u0114\4\77\1\u011c\1\u0120\1"+
+        "\u0121\1\77\1\u0124\1\u0126\20\77\1\u0143\22\77\1\u015d\20\uffff"+
+        "\1\u0160\14\uffff\1\u0162\11\uffff\1\u0164\7\uffff\1\u0164\1\u00bf"+
+        "\1\uffff\1\77\1\u0167\1\u0168\1\77\1\uffff\1\77\1\uffff\1\u016c"+
+        "\1\77\1\u016e\3\77\1\uffff\21\77\1\u0186\11\77\1\u0190\1\77\1\uffff"+
+        "\7\77\1\u019a\7\77\1\uffff\2\77\1\uffff\1\77\1\uffff\6\77\2\uffff"+
+        "\1\77\1\u01ae\3\77\1\u01b2\1\77\2\uffff\2\77\1\u01b8\4\77\1\uffff"+
+        "\2\77\1\u01c0\2\uffff\2\77\1\uffff\1\77\1\uffff\34\77\1\uffff\1"+
+        "\77\1\u01e8\23\77\1\u01fe\1\77\1\u0200\1\77\10\uffff\1\u0164\1\77"+
+        "\2\uffff\3\77\1\uffff\1\77\1\uffff\1\u0208\5\77\1\u020e\1\u0210"+
+        "\7\77\1\u021c\7\77\1\uffff\6\77\1\u022a\2\77\1\uffff\2\77\1\u022f"+
+        "\3\77\1\u0233\2\77\1\uffff\2\77\1\u0239\3\77\1\u023d\2\77\1\u0240"+
+        "\5\77\1\u0248\2\77\1\u024b\1\uffff\1\u024c\2\77\1\uffff\2\77\1\u0251"+
+        "\2\77\1\uffff\1\u0254\2\77\1\u0257\2\77\1\u025b\1\uffff\2\77\1\u025e"+
+        "\21\77\1\u0270\2\77\1\u0273\2\77\1\u0276\4\77\1\u027c\2\77\1\u027f"+
+        "\1\u0280\1\u0281\2\77\1\uffff\1\u0285\14\77\1\u0292\2\77\1\u0296"+
+        "\2\77\1\u029a\1\77\1\uffff\1\77\1\uffff\1\u029d\1\u029e\4\77\1\u02a4"+
+        "\1\uffff\3\77\1\u02a8\1\77\1\uffff\1\77\1\uffff\1\u02ab\1\u02ac"+
+        "\1\u02ad\10\77\1\uffff\1\u02b7\6\77\1\u02be\5\77\1\uffff\1\u02c5"+
+        "\2\77\1\u02c8\1\uffff\3\77\1\uffff\4\77\1\u02d0\1\uffff\1\77\1\u02d2"+
+        "\1\u02d3\1\uffff\1\77\1\u02d6\1\uffff\7\77\1\uffff\1\77\1\u02df"+
+        "\2\uffff\1\77\1\u02e1\2\77\1\uffff\2\77\1\uffff\2\77\1\uffff\2\77"+
+        "\1\u02ea\1\uffff\1\77\1\u02ee\1\uffff\21\77\1\uffff\1\77\1\u0301"+
+        "\1\uffff\2\77\1\uffff\1\77\1\u0305\1\77\1\u0307\1\77\1\uffff\2\77"+
+        "\3\uffff\1\77\1\u030c\1\77\1\uffff\1\77\1\u030f\1\u0310\3\77\1\u0314"+
+        "\1\77\1\u0316\2\77\1\u0319\1\uffff\1\u031a\2\77\1\uffff\2\77\1\u031f"+
+        "\1\uffff\2\77\3\uffff\4\77\1\uffff\2\77\1\u0328\1\uffff\1\u0329"+
+        "\1\77\3\uffff\11\77\1\uffff\5\77\1\u033a\1\uffff\6\77\1\uffff\1"+
+        "\77\1\u0342\1\uffff\1\u0343\6\77\1\uffff\1\77\2\uffff\2\77\1\uffff"+
+        "\1\u034d\2\77\1\u0350\4\77\1\uffff\1\77\1\uffff\1\u0356\1\77\1\u0358"+
+        "\1\u0359\4\77\1\uffff\1\u035e\2\77\1\uffff\1\u0361\1\u0362\10\77"+
+        "\1\u036b\1\u036d\1\u036e\4\77\1\u0374\1\uffff\2\77\1\u0377\1\uffff"+
+        "\1\u0378\1\uffff\2\77\1\u037b\1\77\1\uffff\2\77\2\uffff\3\77\1\uffff"+
+        "\1\77\1\uffff\2\77\2\uffff\1\u0385\2\77\1\u0388\1\uffff\1\u0389"+
+        "\7\77\2\uffff\3\77\1\u0394\2\77\1\u0397\1\u0398\3\77\1\u039c\1\77"+
+        "\1\u039e\2\77\1\uffff\4\77\1\u03a6\2\77\2\uffff\1\77\1\u03aa\1\77"+
+        "\1\u03ac\1\u03ad\4\77\1\uffff\1\u03b2\1\77\1\uffff\5\77\1\uffff"+
+        "\1\77\2\uffff\4\77\1\uffff\1\u03be\1\77\2\uffff\6\77\1\u03c6\1\77"+
+        "\1\uffff\1\77\2\uffff\1\u03c9\4\77\1\uffff\2\77\2\uffff\1\77\1\u03d2"+
+        "\1\uffff\10\77\1\u03db\1\uffff\1\u03dc\1\77\2\uffff\1\77\1\u03e0"+
+        "\2\77\1\u03e3\1\u03e4\1\77\1\u03e6\2\77\1\uffff\2\77\2\uffff\1\u03eb"+
+        "\1\u03ec\1\77\1\uffff\1\77\1\uffff\5\77\1\u03f5\1\u03f7\1\uffff"+
+        "\1\77\1\u03f9\1\u03fa\1\uffff\1\77\2\uffff\1\u03fc\1\77\1\u03fe"+
+        "\1\77\1\uffff\1\u0400\3\77\1\u0404\1\u0405\5\77\1\uffff\1\u040b"+
+        "\3\77\1\u040f\1\u0410\1\77\1\uffff\2\77\1\uffff\6\77\1\u041b\1\u041c"+
+        "\1\uffff\2\77\1\u041f\1\77\1\u0421\1\77\1\u0423\1\u0424\2\uffff"+
+        "\3\77\1\uffff\1\u0428\1\u0429\2\uffff\1\77\1\uffff\1\u042b\3\77"+
+        "\2\uffff\7\77\1\u0436\1\uffff\1\77\1\uffff\1\77\2\uffff\1\u043a"+
+        "\1\uffff\1\u043b\1\uffff\1\77\1\uffff\1\77\1\u043e\1\u043f\2\uffff"+
+        "\1\u0440\1\77\1\u0443\2\77\1\uffff\1\u0447\1\77\1\u044a\2\uffff"+
+        "\1\77\1\u044c\1\u044d\2\77\1\u0450\2\77\1\u0453\1\u0454\2\uffff"+
+        "\1\u0455\1\77\1\uffff\1\u0457\1\uffff\1\u0458\2\uffff\1\u0459\2"+
+        "\77\2\uffff\1\77\1\uffff\1\u045d\1\77\1\u045f\3\77\1\u0464\1\u0465"+
+        "\1\77\1\u0467\1\uffff\3\77\2\uffff\2\77\3\uffff\1\u046d\1\77\1\uffff"+
+        "\1\u046f\1\77\1\u0471\1\uffff\2\77\1\uffff\1\77\2\uffff\2\77\1\uffff"+
+        "\2\77\3\uffff\1\u0479\3\uffff\1\u047a\2\77\1\uffff\1\77\1\uffff"+
+        "\4\77\2\uffff\1\77\1\uffff\4\77\1\u0487\1\uffff\1\77\1\uffff\1\u0489"+
+        "\1\uffff\7\77\2\uffff\2\77\1\u0493\11\77\1\uffff\1\77\1\uffff\3"+
+        "\77\1\u04a1\1\u04a2\4\77\1\uffff\4\77\1\u04ab\1\u04ac\7\77\2\uffff"+
+        "\3\77\1\u04b7\1\77\1\u04b9\2\77\2\uffff\1\u04bc\2\77\1\u04bf\4\77"+
+        "\1\u04c4\1\77\1\uffff\1\u04c6\1\uffff\2\77\1\uffff\2\77\1\uffff"+
+        "\4\77\1\uffff\1\u04cf\1\uffff\7\77\1\u04d7\1\uffff\1\u04d8\1\77"+
+        "\1\u04da\1\77\1\u04dc\1\u04dd\1\77\2\uffff\1\u04df\1\uffff\1\u04e0"+
+        "\2\uffff\1\77\2\uffff\3\77\1\u04e5\1\uffff";
     static final String DFA19_eofS =
-        "\u0556\uffff";
+        "\u04e6\uffff";
     static final String DFA19_minS =
-        "\1\0\1\146\2\141\1\145\1\154\1\151\1\145\1\144\3\141\1\143\3\141"+
-        "\1\145\1\156\1\141\1\145\1\161\1\141\2\145\1\165\1\43\7\uffff\1"+
-        "\72\1\75\1\43\1\uffff\1\76\2\uffff\1\55\1\41\1\75\1\57\1\56\2\uffff"+
-        "\1\51\5\uffff\1\56\1\uffff\1\143\2\55\1\164\1\154\1\157\1\164\1"+
-        "\160\1\uffff\1\163\1\165\1\55\1\146\1\157\1\156\1\163\1\145\1\154"+
-        "\1\143\1\141\1\143\1\145\1\160\1\143\1\55\2\141\1\154\1\156\1\162"+
-        "\1\157\2\55\1\145\1\55\1\151\1\55\1\160\2\55\1\145\1\156\2\55\1"+
-        "\167\1\144\1\156\1\151\1\164\1\155\3\55\1\164\2\55\1\164\1\143\1"+
-        "\162\1\145\1\162\1\142\1\162\1\141\1\156\1\155\1\150\1\154\1\155"+
-        "\1\141\3\151\1\155\1\170\1\145\1\55\1\145\1\160\2\155\1\151\1\144"+
-        "\1\151\1\154\1\162\1\145\1\154\1\151\1\162\1\165\1\116\1\162\1\171"+
-        "\1\145\1\11\15\uffff\1\170\13\uffff\1\55\1\11\11\uffff\1\60\10\uffff"+
-        "\1\60\1\56\1\uffff\1\145\2\55\1\145\1\uffff\1\162\1\uffff\1\145"+
-        "\1\55\1\145\1\163\1\157\1\55\1\145\1\156\1\uffff\1\157\1\143\1\141"+
-        "\1\145\1\143\1\154\1\143\1\154\1\155\1\163\1\171\1\156\1\151\1\141"+
-        "\1\143\2\145\1\55\1\151\1\143\1\146\1\164\1\165\1\155\1\145\1\164"+
-        "\1\157\1\55\1\151\1\141\1\uffff\1\162\1\154\2\145\1\143\1\164\1"+
-        "\154\1\55\1\143\1\163\1\155\1\157\1\156\1\157\1\162\1\uffff\1\141"+
-        "\1\165\1\uffff\1\166\1\uffff\1\157\3\145\1\151\1\145\2\uffff\1\155"+
-        "\1\55\1\164\1\147\1\163\1\55\1\145\2\uffff\1\145\1\55\1\164\1\165"+
-        "\1\156\1\165\1\141\1\145\1\164\1\uffff\1\151\1\145\2\55\2\uffff"+
-        "\1\151\1\145\1\uffff\1\171\1\uffff\1\145\1\165\1\141\1\164\2\143"+
-        "\1\166\1\55\1\154\1\141\1\165\1\141\1\154\2\141\1\144\1\147\1\151"+
-        "\2\145\1\162\1\146\1\163\1\165\1\55\1\145\1\142\1\151\1\155\1\160"+
-        "\1\144\1\164\2\160\1\164\1\156\1\uffff\1\141\1\55\1\145\1\142\1"+
-        "\145\1\157\1\162\1\141\1\145\1\156\2\151\1\163\1\156\1\154\1\144"+
-        "\1\150\1\144\1\147\1\144\1\145\1\55\1\157\1\55\1\165\1\164\4\uffff"+
-        "\1\55\3\uffff\1\60\1\163\2\uffff\1\156\1\151\1\162\1\uffff\1\156"+
-        "\1\55\1\155\1\uffff\1\55\1\144\1\162\1\153\1\162\2\55\1\150\1\144"+
-        "\1\153\1\141\1\145\1\164\1\141\1\55\1\164\1\141\1\155\1\165\1\145"+
-        "\1\162\1\164\1\uffff\1\164\1\162\1\145\1\141\1\155\1\145\1\55\1"+
-        "\171\1\144\1\uffff\1\162\1\154\1\171\1\55\1\160\1\162\1\164\1\55"+
-        "\1\157\1\141\1\uffff\2\164\1\55\1\160\1\144\1\164\1\55\1\164\1\160"+
-        "\1\55\2\162\1\141\1\156\1\147\1\55\1\156\1\170\1\55\1\uffff\1\55"+
-        "\1\165\1\164\1\uffff\1\154\1\162\1\154\1\146\1\uffff\1\55\1\163"+
-        "\1\164\1\141\1\142\1\163\1\55\1\156\1\162\1\55\1\145\2\uffff\1\157"+
-        "\1\162\1\55\2\162\1\156\1\147\3\145\1\151\1\145\1\141\1\145\1\155"+
-        "\1\151\1\163\1\162\1\155\1\141\1\154\1\164\1\55\1\145\1\163\1\55"+
-        "\1\155\1\145\1\55\1\151\2\145\1\uffff\1\55\1\154\1\164\1\143\1\155"+
-        "\1\55\1\151\1\143\1\55\1\154\2\55\1\141\1\164\1\uffff\1\163\1\154"+
-        "\1\163\1\156\1\165\1\144\1\164\1\162\1\147\1\144\1\145\1\141\1\151"+
+        "\1\0\1\146\2\141\1\145\1\154\1\151\1\145\1\144\1\141\1\151\1\141"+
+        "\1\143\1\141\1\145\1\141\1\145\1\156\1\141\1\145\1\161\1\141\2\145"+
+        "\1\165\1\43\7\uffff\1\72\1\75\1\uffff\1\51\1\43\1\uffff\1\76\2\uffff"+
+        "\1\55\1\41\1\75\1\57\1\56\7\uffff\1\56\1\uffff\1\143\2\55\1\154"+
+        "\1\164\1\160\1\157\1\uffff\1\163\1\165\1\55\1\146\1\145\1\156\1"+
+        "\163\1\145\1\154\1\143\1\141\1\143\1\145\1\160\1\143\1\55\2\141"+
+        "\1\154\1\156\1\162\1\157\2\55\1\145\1\55\1\151\1\55\1\160\2\55\1"+
+        "\145\1\156\2\55\1\157\1\144\1\156\1\155\3\55\1\164\2\55\1\143\1"+
+        "\162\1\145\2\162\1\154\1\155\1\150\1\154\1\155\1\141\3\151\1\170"+
+        "\1\145\1\55\1\145\1\160\2\155\1\151\1\144\1\151\1\154\1\162\1\145"+
+        "\1\154\1\151\1\162\1\165\1\116\1\162\1\171\1\157\1\11\20\uffff\1"+
+        "\170\13\uffff\1\55\1\11\11\uffff\1\60\7\uffff\1\60\1\56\1\uffff"+
+        "\1\145\2\55\1\145\1\uffff\1\162\1\uffff\1\55\1\145\1\55\1\163\1"+
+        "\145\1\156\1\uffff\1\157\2\141\1\145\1\143\1\154\1\143\1\154\1\155"+
+        "\1\163\1\171\1\156\1\151\1\141\1\143\2\145\1\55\1\151\1\143\1\146"+
+        "\1\164\1\165\1\155\1\145\1\164\1\157\1\55\1\151\1\uffff\1\162\1"+
+        "\154\2\145\1\143\1\164\1\154\1\55\1\143\1\163\1\155\1\157\1\156"+
+        "\1\157\1\162\1\uffff\1\141\1\165\1\uffff\1\166\1\uffff\1\157\3\145"+
+        "\1\151\1\145\2\uffff\1\155\1\55\1\164\1\147\1\163\1\55\1\145\2\uffff"+
+        "\1\145\1\160\1\55\1\164\1\165\1\145\1\164\1\uffff\1\151\1\145\1"+
+        "\55\2\uffff\1\151\1\145\1\uffff\1\171\1\uffff\1\165\1\141\1\164"+
+        "\2\143\1\55\1\141\1\165\1\141\1\154\2\141\1\151\2\145\1\162\1\146"+
+        "\1\163\1\145\1\142\1\151\1\155\1\160\1\144\1\164\1\160\1\164\1\156"+
+        "\1\uffff\1\141\1\55\1\145\1\142\1\145\1\157\1\162\1\141\1\145\1"+
+        "\156\2\151\1\163\1\156\1\154\1\144\1\150\1\144\1\147\1\144\1\145"+
+        "\1\55\1\157\1\55\1\164\4\uffff\1\55\3\uffff\1\60\1\163\2\uffff\1"+
+        "\156\1\151\1\167\1\uffff\1\162\1\uffff\2\55\1\144\1\162\1\153\1"+
+        "\162\2\55\1\150\1\144\1\153\1\141\1\145\1\164\1\141\1\55\1\164\1"+
+        "\141\1\155\1\165\1\145\1\162\1\164\1\uffff\1\164\1\162\1\145\1\141"+
+        "\1\155\1\145\1\55\1\171\1\144\1\uffff\1\162\1\171\1\55\1\160\1\162"+
+        "\1\164\1\55\1\157\1\141\1\uffff\2\164\1\55\1\160\1\144\1\164\1\55"+
+        "\1\164\1\160\1\55\2\162\1\141\1\156\1\147\1\55\1\156\1\170\1\55"+
+        "\1\uffff\1\55\1\165\1\164\1\uffff\1\154\1\162\1\55\1\154\1\146\1"+
+        "\uffff\1\55\2\163\1\55\1\156\1\162\1\55\1\uffff\1\157\1\162\1\55"+
+        "\1\162\1\156\1\147\3\145\1\151\2\145\1\155\1\163\1\162\1\155\1\141"+
+        "\1\154\1\164\1\163\1\55\1\155\1\145\1\55\1\151\1\145\1\55\1\154"+
+        "\1\164\1\143\1\155\1\55\1\151\1\143\3\55\1\141\1\164\1\uffff\1\55"+
+        "\1\154\1\163\1\156\1\144\1\164\1\162\1\147\1\144\1\145\1\141\1\151"+
         "\1\145\1\55\1\145\1\157\1\55\1\143\1\150\1\55\1\162\1\uffff\1\55"+
-        "\1\uffff\1\145\1\55\1\0\1\164\1\144\1\142\1\55\1\144\1\uffff\1\141"+
-        "\1\165\1\141\1\145\1\55\1\171\1\uffff\1\142\1\uffff\3\55\1\164\1"+
-        "\143\1\156\1\55\1\156\1\151\1\156\1\uffff\1\55\1\162\1\141\1\154"+
-        "\1\156\1\155\1\145\1\55\1\151\1\162\1\156\1\145\1\156\1\uffff\1"+
-        "\55\1\151\1\145\1\151\1\55\1\uffff\1\164\1\156\1\154\1\uffff\1\167"+
-        "\1\143\1\147\1\151\1\55\1\uffff\1\164\2\55\1\uffff\1\145\1\55\1"+
-        "\uffff\1\164\1\151\1\156\1\164\2\163\1\162\1\uffff\1\151\1\55\2"+
-        "\uffff\1\141\1\55\1\163\1\143\1\145\1\171\1\uffff\1\55\1\141\2\154"+
-        "\1\160\1\uffff\1\150\1\145\1\55\1\uffff\1\164\1\156\1\55\1\uffff"+
-        "\1\55\1\163\1\164\2\162\1\144\1\162\1\157\1\163\1\164\1\156\1\151"+
-        "\1\143\1\145\1\156\1\145\1\143\2\151\1\157\1\55\1\146\1\uffff\1"+
-        "\141\1\55\1\uffff\1\164\2\156\1\uffff\1\145\1\55\1\164\1\55\1\151"+
-        "\1\uffff\1\156\1\150\1\uffff\1\145\2\uffff\1\165\1\55\1\167\1\151"+
-        "\2\55\2\145\1\151\1\143\1\55\1\141\1\55\1\142\1\157\1\55\1\uffff"+
-        "\1\55\1\167\1\165\1\uffff\1\141\1\164\1\55\1\uffff\1\171\1\144\1"+
-        "\55\3\uffff\1\157\1\151\1\165\1\uffff\1\55\1\164\2\162\1\55\1\uffff"+
-        "\1\55\1\154\3\uffff\1\151\2\164\1\141\1\156\1\uffff\2\164\1\156"+
-        "\1\141\1\uffff\1\145\1\154\1\164\1\144\1\151\1\55\1\uffff\1\164"+
-        "\1\145\1\143\1\156\1\164\1\163\1\uffff\1\156\1\55\1\164\1\uffff"+
-        "\1\55\1\141\1\171\1\151\1\150\1\156\1\157\1\uffff\1\151\2\uffff"+
-        "\1\163\1\156\1\uffff\1\55\1\164\1\143\1\55\1\151\1\145\1\151\1\164"+
-        "\1\uffff\1\147\1\uffff\1\55\1\141\2\55\1\163\1\151\1\154\1\145\1"+
-        "\141\1\145\1\163\1\uffff\1\145\1\55\1\144\1\156\2\uffff\2\55\1\141"+
-        "\1\156\1\151\1\166\1\165\1\163\1\145\1\164\1\154\4\55\1\145\1\144"+
-        "\1\157\1\156\1\uffff\1\151\1\55\1\uffff\1\151\1\143\1\164\1\55\1"+
-        "\uffff\1\55\1\uffff\1\156\1\147\2\55\1\162\1\uffff\1\151\1\156\2"+
-        "\uffff\1\55\1\162\1\156\1\141\1\uffff\1\164\1\uffff\1\154\1\156"+
-        "\2\uffff\1\55\1\164\1\162\1\55\1\uffff\1\55\1\151\1\uffff\1\162"+
-        "\1\156\1\164\1\157\2\151\1\171\2\uffff\1\145\1\157\1\151\1\55\1"+
-        "\143\1\151\1\164\2\55\1\163\1\155\3\55\1\141\1\156\1\uffff\1\151"+
-        "\1\156\1\145\1\164\1\55\1\145\1\147\1\uffff\1\171\1\uffff\1\154"+
-        "\1\55\1\156\2\55\1\156\1\157\1\164\1\147\1\uffff\1\55\1\145\1\uffff"+
-        "\1\164\1\143\1\164\1\171\1\145\1\uffff\1\163\2\uffff\1\151\1\156"+
-        "\1\171\1\55\1\143\1\162\1\145\1\162\1\uffff\1\55\1\147\2\uffff\1"+
-        "\160\1\55\1\156\1\145\1\163\1\151\2\55\1\154\2\uffff\1\156\2\uffff"+
-        "\1\55\1\141\1\156\1\154\1\145\1\141\1\uffff\1\166\1\145\1\151\2"+
-        "\uffff\1\147\1\55\2\uffff\1\165\1\164\1\147\1\uffff\1\145\1\147"+
-        "\1\163\2\145\1\55\1\uffff\1\55\1\144\2\uffff\1\147\1\55\1\147\1"+
-        "\145\1\156\1\143\3\55\1\156\1\157\1\uffff\1\164\1\156\1\55\2\uffff"+
-        "\1\55\1\145\1\uffff\1\146\1\uffff\2\156\1\151\1\143\1\164\2\55\1"+
-        "\uffff\1\161\3\55\1\uffff\1\147\2\uffff\1\55\1\156\2\55\1\uffff"+
-        "\1\55\1\151\1\164\1\171\2\55\1\145\1\147\1\145\1\55\1\uffff\1\145"+
-        "\1\151\1\162\1\155\1\uffff\1\55\1\150\1\163\1\147\2\55\1\156\2\uffff"+
-        "\1\145\1\147\1\uffff\1\164\1\163\1\171\1\163\1\164\1\154\1\145\1"+
-        "\55\1\141\1\55\1\uffff\1\163\1\143\1\55\1\144\1\55\1\145\2\55\2"+
-        "\uffff\1\163\1\151\1\157\1\uffff\2\55\1\154\1\141\1\uffff\1\163"+
-        "\1\uffff\1\55\1\156\1\151\1\164\2\uffff\1\163\1\157\1\145\1\164"+
-        "\1\147\2\163\1\55\1\uffff\1\156\1\uffff\1\165\3\uffff\1\55\1\uffff"+
-        "\1\55\1\uffff\1\163\1\uffff\1\166\2\55\2\uffff\1\55\1\156\1\144"+
-        "\1\uffff\1\55\1\164\1\166\1\151\1\uffff\1\55\1\145\1\55\2\uffff"+
-        "\1\147\2\55\1\151\1\150\2\55\1\164\1\145\2\55\1\uffff\1\154\1\uffff"+
-        "\1\55\1\150\1\uffff\1\55\1\uffff\1\55\2\uffff\1\55\1\164\1\162\2"+
-        "\uffff\1\171\1\154\1\160\1\uffff\1\55\1\157\1\55\1\160\1\162\1\160"+
-        "\2\55\1\164\1\55\1\uffff\1\157\1\145\1\163\2\uffff\2\145\3\uffff"+
-        "\2\55\1\156\1\uffff\1\55\1\145\1\156\1\55\1\uffff\1\160\1\163\1"+
-        "\uffff\1\55\2\uffff\1\157\1\151\2\uffff\1\162\1\155\2\uffff\1\55"+
-        "\1\uffff\1\55\3\uffff\3\55\1\154\1\141\1\uffff\1\156\1\uffff\1\141"+
-        "\1\155\1\141\1\157\2\uffff\1\151\1\uffff\1\144\1\156\1\151\1\160"+
-        "\1\55\2\uffff\1\157\1\uffff\1\55\1\151\1\uffff\1\141\2\151\1\156"+
-        "\1\160\1\151\1\145\3\uffff\1\163\1\uffff\1\171\1\143\1\55\1\143"+
-        "\1\141\2\162\1\143\1\145\1\143\1\142\1\141\1\uffff\1\144\1\uffff"+
-        "\1\163\1\162\1\142\1\156\2\55\1\142\1\156\1\145\1\55\1\145\1\uffff"+
-        "\1\145\1\164\1\141\3\55\1\145\1\154\1\162\1\145\1\164\1\141\1\154"+
-        "\1\163\2\uffff\1\165\1\164\1\154\1\uffff\1\55\1\163\1\55\1\164\1"+
-        "\163\2\uffff\1\55\1\151\1\141\1\55\1\151\1\164\1\151\2\164\1\55"+
-        "\1\146\1\uffff\1\55\1\uffff\1\157\1\145\1\uffff\1\156\1\164\1\uffff"+
-        "\1\143\1\157\1\156\1\162\1\145\1\uffff\1\55\1\uffff\1\162\1\154"+
-        "\1\147\1\157\1\55\1\162\1\147\1\165\1\55\1\uffff\1\55\1\146\1\55"+
-        "\1\162\1\uffff\2\55\1\143\2\uffff\1\55\1\uffff\1\55\2\uffff\1\164"+
-        "\2\uffff\1\151\1\157\1\156\1\55\1\uffff";
+        "\1\uffff\1\55\1\0\1\164\1\144\1\142\1\151\1\55\1\uffff\1\165\1\141"+
+        "\1\145\1\55\1\171\1\uffff\1\142\1\uffff\3\55\1\164\1\143\1\156\1"+
+        "\162\1\156\1\151\2\156\1\uffff\1\55\1\162\1\141\1\154\1\156\1\155"+
+        "\1\145\1\55\1\151\1\162\1\156\1\145\1\156\1\uffff\1\55\1\151\1\145"+
+        "\1\55\1\uffff\1\164\1\156\1\154\1\uffff\1\167\1\143\1\147\1\151"+
+        "\1\55\1\uffff\1\164\2\55\1\uffff\1\145\1\55\1\uffff\1\164\1\151"+
+        "\1\156\1\164\2\163\1\162\1\uffff\1\151\1\55\2\uffff\1\141\1\55\1"+
+        "\163\1\143\1\uffff\1\145\1\171\1\uffff\1\55\1\160\1\uffff\1\150"+
+        "\1\145\1\55\1\uffff\1\156\1\55\1\uffff\1\163\1\164\2\162\1\144\1"+
+        "\162\1\157\1\163\1\156\1\151\1\145\1\156\1\145\1\143\2\151\1\146"+
+        "\1\uffff\1\141\1\55\1\uffff\1\164\1\156\1\uffff\1\145\1\55\1\164"+
+        "\1\55\1\151\1\uffff\1\156\1\150\3\uffff\1\165\1\55\1\167\1\uffff"+
+        "\1\151\2\55\1\145\1\151\1\143\1\55\1\141\1\55\1\142\1\157\1\55\1"+
+        "\uffff\1\55\1\167\1\165\1\uffff\1\141\1\164\1\55\1\uffff\1\171\1"+
+        "\144\3\uffff\1\157\1\151\1\165\1\156\1\uffff\2\162\1\55\1\uffff"+
+        "\1\55\1\154\3\uffff\1\151\2\164\1\141\2\164\1\156\1\165\1\141\1"+
+        "\uffff\1\145\1\154\1\164\1\144\1\151\1\55\1\uffff\1\164\1\145\1"+
+        "\143\1\156\1\164\1\163\1\uffff\1\156\1\55\1\uffff\1\55\1\141\1\171"+
+        "\1\151\1\150\1\156\1\157\1\uffff\1\151\2\uffff\1\163\1\156\1\uffff"+
+        "\1\55\1\164\1\143\1\55\1\151\1\145\1\151\1\164\1\uffff\1\147\1\uffff"+
+        "\1\55\1\141\2\55\1\163\1\141\1\145\1\163\1\uffff\1\55\1\144\1\156"+
+        "\1\uffff\2\55\1\141\1\156\1\151\1\166\1\165\1\163\1\164\1\154\3"+
+        "\55\1\145\1\144\1\157\1\151\1\55\1\uffff\1\151\1\143\1\55\1\uffff"+
+        "\1\55\1\uffff\1\156\1\147\1\55\1\162\1\uffff\1\151\1\156\2\uffff"+
+        "\1\162\1\156\1\141\1\uffff\1\164\1\uffff\1\154\1\156\2\uffff\1\55"+
+        "\1\164\1\162\1\55\1\uffff\1\55\1\151\1\162\1\156\1\164\1\147\1\151"+
+        "\1\171\2\uffff\1\145\1\157\1\151\1\55\1\143\1\151\2\55\1\163\1\145"+
+        "\1\155\3\55\1\141\1\156\1\uffff\1\151\1\156\1\145\1\164\1\55\1\145"+
+        "\1\147\2\uffff\1\154\1\55\1\156\2\55\1\156\1\157\1\164\1\147\1\uffff"+
+        "\1\55\1\145\1\uffff\1\164\1\143\1\164\1\171\1\145\1\uffff\1\163"+
+        "\2\uffff\1\151\1\143\1\162\1\145\1\uffff\1\55\1\147\2\uffff\1\160"+
+        "\1\55\1\156\1\145\1\163\1\151\1\55\1\154\1\uffff\1\156\2\uffff\1"+
+        "\55\1\141\1\156\1\145\1\141\1\uffff\1\166\1\145\2\uffff\1\147\1"+
+        "\55\1\uffff\1\165\1\164\1\147\1\145\1\147\1\163\2\145\1\55\1\uffff"+
+        "\1\55\1\144\2\uffff\1\147\1\55\1\147\1\145\4\55\1\156\1\157\1\uffff"+
+        "\1\164\1\156\2\uffff\2\55\1\145\1\uffff\1\146\1\uffff\2\156\1\151"+
+        "\1\143\1\164\2\55\1\uffff\1\161\2\55\1\uffff\1\147\2\uffff\1\55"+
+        "\1\156\2\55\1\uffff\1\55\1\151\1\164\1\171\2\55\1\145\1\147\1\145"+
+        "\1\151\1\162\1\uffff\1\55\1\150\1\163\1\147\2\55\1\156\1\uffff\1"+
+        "\145\1\147\1\uffff\1\164\2\163\1\164\1\154\1\145\2\55\1\uffff\1"+
+        "\163\1\143\1\55\1\144\1\55\1\145\2\55\2\uffff\1\163\1\151\1\157"+
+        "\1\uffff\2\55\2\uffff\1\163\1\uffff\1\55\1\156\1\151\1\164\2\uffff"+
+        "\1\163\1\157\1\145\1\164\1\147\2\163\1\55\1\uffff\1\156\1\uffff"+
+        "\1\165\2\uffff\1\55\1\uffff\1\55\1\uffff\1\163\1\uffff\1\166\2\55"+
+        "\2\uffff\1\55\1\156\1\55\1\164\1\166\1\uffff\1\55\1\145\1\55\2\uffff"+
+        "\1\147\2\55\1\151\1\150\1\55\1\164\1\145\2\55\2\uffff\1\55\1\150"+
+        "\1\uffff\1\55\1\uffff\1\55\2\uffff\1\55\1\164\1\162\2\uffff\1\160"+
+        "\1\uffff\1\55\1\157\1\55\1\160\1\162\1\160\2\55\1\164\1\55\1\uffff"+
+        "\1\157\1\145\1\163\2\uffff\2\145\3\uffff\1\55\1\156\1\uffff\1\55"+
+        "\1\145\1\55\1\uffff\1\160\1\163\1\uffff\1\55\2\uffff\1\157\1\151"+
+        "\1\uffff\1\162\1\155\3\uffff\1\55\3\uffff\2\55\1\141\1\uffff\1\156"+
+        "\1\uffff\1\141\1\155\1\141\1\157\2\uffff\1\151\1\uffff\1\144\1\156"+
+        "\1\151\1\160\1\55\1\uffff\1\157\1\uffff\1\55\1\uffff\1\141\2\151"+
+        "\1\156\1\160\1\151\1\145\2\uffff\1\163\1\143\1\55\1\143\1\141\2"+
+        "\162\1\143\1\145\1\143\1\142\1\141\1\uffff\1\144\1\uffff\1\162\1"+
+        "\142\1\156\2\55\1\142\1\156\2\145\1\uffff\1\145\1\164\1\141\3\55"+
+        "\1\145\1\154\1\162\1\145\1\141\1\154\1\163\2\uffff\1\165\1\164\1"+
+        "\154\1\55\1\163\1\55\1\164\1\163\2\uffff\1\55\1\151\1\141\1\55\1"+
+        "\164\1\151\2\164\1\55\1\146\1\uffff\1\55\1\uffff\1\157\1\145\1\uffff"+
+        "\1\156\1\164\1\uffff\1\157\1\156\1\162\1\145\1\uffff\1\55\1\uffff"+
+        "\1\162\1\154\1\147\1\157\1\162\1\147\1\165\1\55\1\uffff\1\55\1\146"+
+        "\1\55\1\162\2\55\1\143\2\uffff\1\55\1\uffff\1\55\2\uffff\1\164\2"+
+        "\uffff\1\151\1\157\1\156\1\55\1\uffff";
     static final String DFA19_maxS =
-        "\1\uffff\1\165\1\171\2\157\1\170\1\165\3\164\1\165\1\157\2\165"+
-        "\1\145\1\167\1\171\1\163\1\145\1\157\1\161\1\141\2\145\1\165\1\72"+
-        "\7\uffff\2\75\1\43\1\uffff\1\76\2\uffff\1\55\1\77\2\76\1\71\2\uffff"+
-        "\1\51\5\uffff\1\145\1\uffff\1\171\2\172\1\164\1\154\1\160\1\164"+
-        "\1\160\1\uffff\1\163\1\165\1\172\1\146\1\157\1\156\1\164\1\151\1"+
-        "\165\1\164\1\166\1\143\1\163\1\160\1\164\1\172\1\145\1\164\1\162"+
-        "\1\156\1\162\2\157\1\172\1\157\1\172\1\151\1\172\1\160\2\172\1\145"+
-        "\1\170\2\172\1\167\1\163\2\156\1\164\1\155\3\172\1\164\2\172\1\164"+
-        "\1\143\1\164\1\157\1\162\1\142\1\162\1\166\1\156\1\164\1\157\1\164"+
-        "\1\155\1\162\3\151\1\155\1\170\1\145\1\172\1\171\1\160\2\155\1\157"+
-        "\1\160\1\151\2\162\1\151\1\164\1\151\1\162\1\165\1\116\1\162\1\171"+
-        "\1\157\1\172\15\uffff\1\170\13\uffff\1\55\1\172\11\uffff\1\145\10"+
-        "\uffff\2\145\1\uffff\1\145\2\172\1\145\1\uffff\1\162\1\uffff\1\145"+
-        "\1\172\1\145\1\163\1\157\1\172\1\145\1\156\1\uffff\1\157\1\143\1"+
-        "\141\1\164\1\143\1\154\1\143\1\154\1\155\1\164\1\171\1\156\1\154"+
-        "\1\141\1\143\2\145\1\172\1\151\1\143\1\146\1\164\1\165\1\155\1\145"+
-        "\1\164\1\157\1\172\1\151\1\141\1\uffff\1\162\1\154\2\145\1\143\1"+
-        "\164\1\154\1\172\1\143\1\163\1\155\1\157\1\156\1\157\1\162\1\uffff"+
-        "\1\141\1\165\1\uffff\1\166\1\uffff\1\157\1\145\1\164\1\157\1\151"+
-        "\1\145\2\uffff\1\155\1\172\1\164\1\147\1\163\1\172\1\145\2\uffff"+
-        "\1\145\1\172\1\164\1\165\1\156\1\165\1\141\1\145\1\164\1\uffff\1"+
-        "\160\1\145\2\172\2\uffff\1\151\1\145\1\uffff\1\171\1\uffff\1\145"+
-        "\1\165\1\145\1\164\1\166\1\143\1\166\1\143\1\154\1\141\1\165\1\141"+
-        "\1\154\2\141\1\144\1\147\1\151\2\145\1\162\1\146\1\164\1\165\1\172"+
-        "\1\145\1\162\1\151\1\155\1\160\1\144\1\164\2\160\1\164\1\163\1\uffff"+
-        "\1\141\1\172\1\145\1\142\1\145\1\161\1\162\1\141\1\145\1\156\1\165"+
-        "\1\151\1\163\1\162\1\154\1\144\1\150\1\144\1\147\1\144\1\145\1\172"+
-        "\1\157\1\172\1\165\1\164\4\uffff\1\55\3\uffff\1\145\1\163\2\uffff"+
-        "\1\156\1\151\1\162\1\uffff\1\156\1\172\1\155\1\uffff\1\55\1\144"+
-        "\1\162\1\153\1\162\2\172\1\150\1\144\1\153\2\145\1\164\1\145\1\172"+
-        "\1\164\1\141\1\155\1\165\1\145\1\162\1\164\1\uffff\1\164\1\162\1"+
-        "\145\1\141\1\155\1\145\1\172\1\171\1\144\1\uffff\1\162\1\154\1\171"+
-        "\1\172\1\160\1\162\1\164\1\172\1\157\1\151\1\uffff\2\164\1\172\1"+
-        "\160\1\144\1\164\1\172\1\164\1\160\1\172\2\162\1\141\2\162\1\172"+
-        "\1\156\1\170\1\172\1\uffff\1\172\1\165\1\164\1\uffff\1\154\1\162"+
-        "\1\154\1\146\1\uffff\1\172\1\163\1\164\1\141\1\142\1\163\1\172\1"+
-        "\156\1\162\1\172\1\145\2\uffff\1\157\1\162\1\172\2\162\1\156\1\147"+
-        "\3\145\1\151\1\145\1\141\1\145\1\155\1\151\1\163\1\162\1\155\1\141"+
-        "\1\154\1\164\1\55\1\145\1\163\1\172\1\155\1\145\1\172\1\151\2\145"+
-        "\1\uffff\1\172\1\154\1\164\1\160\1\155\1\172\1\151\1\143\1\172\1"+
-        "\154\2\172\1\141\1\164\1\uffff\1\163\1\154\1\163\1\156\1\165\1\144"+
-        "\1\164\1\162\1\147\1\144\1\145\1\141\1\151\1\145\1\172\1\145\1\157"+
-        "\1\172\1\143\1\150\1\172\1\162\1\uffff\1\55\1\uffff\1\145\1\172"+
-        "\1\uffff\1\164\1\144\1\142\1\172\1\144\1\uffff\1\141\1\165\1\141"+
-        "\1\145\1\172\1\171\1\uffff\1\142\1\uffff\3\172\1\164\1\143\1\156"+
-        "\1\172\1\170\1\151\1\156\1\uffff\1\172\1\162\1\141\1\154\1\156\1"+
-        "\155\1\145\1\172\1\151\1\162\1\156\1\145\1\156\1\uffff\1\172\1\151"+
-        "\1\145\1\151\1\172\1\uffff\1\164\1\156\1\154\1\uffff\1\167\1\143"+
-        "\1\147\1\151\1\172\1\uffff\1\164\2\172\1\uffff\1\145\1\172\1\uffff"+
-        "\1\164\1\151\1\156\1\164\2\163\1\162\1\uffff\1\151\1\172\2\uffff"+
-        "\1\141\1\172\1\163\1\143\1\145\1\171\1\uffff\1\55\1\141\2\154\1"+
-        "\160\1\uffff\1\150\1\145\1\172\1\uffff\1\164\1\156\1\172\1\uffff"+
-        "\1\172\1\163\1\164\2\162\1\144\1\162\1\157\1\163\1\164\1\156\1\151"+
-        "\1\143\1\145\1\156\1\145\1\143\2\151\1\157\1\172\1\146\1\uffff\1"+
-        "\141\1\172\1\uffff\1\164\2\156\1\uffff\1\145\1\172\1\164\1\172\1"+
-        "\151\1\uffff\1\156\1\150\1\uffff\1\145\2\uffff\1\165\1\172\1\167"+
-        "\1\151\2\172\2\145\1\151\1\143\1\172\1\141\1\172\1\142\1\157\1\172"+
-        "\1\uffff\1\172\1\167\1\165\1\uffff\1\141\1\164\1\172\1\uffff\1\171"+
-        "\1\144\1\172\3\uffff\1\157\1\151\1\165\1\uffff\1\55\1\164\2\162"+
-        "\1\172\1\uffff\1\172\1\154\3\uffff\1\151\2\164\1\165\1\156\1\uffff"+
-        "\2\164\1\156\1\141\1\uffff\1\145\1\154\1\164\1\144\1\151\1\172\1"+
-        "\uffff\1\164\1\145\1\143\1\156\1\164\1\163\1\uffff\1\156\1\172\1"+
-        "\164\1\uffff\1\172\1\141\1\171\1\151\1\150\1\156\1\157\1\uffff\1"+
+        "\1\uffff\1\164\1\171\2\157\1\170\1\165\3\164\2\157\2\162\1\145"+
+        "\1\167\1\171\1\163\1\145\1\157\1\161\1\141\2\145\1\165\1\72\7\uffff"+
+        "\2\75\1\uffff\1\51\1\43\1\uffff\1\76\2\uffff\1\55\1\77\2\76\1\71"+
+        "\7\uffff\1\145\1\uffff\1\171\2\172\1\154\1\164\1\160\1\157\1\uffff"+
+        "\1\163\1\165\1\172\1\146\1\145\1\156\1\164\1\151\1\165\1\164\1\166"+
+        "\1\143\1\163\1\160\1\164\1\172\1\145\1\164\1\162\1\156\1\162\2\157"+
+        "\1\172\1\157\1\172\1\151\1\172\1\160\2\172\1\145\1\170\2\172\1\167"+
+        "\1\163\1\156\1\155\3\172\1\164\2\172\1\143\1\164\1\157\2\162\1\166"+
+        "\1\164\1\157\1\156\1\155\1\162\3\151\1\170\1\145\1\172\1\171\1\160"+
+        "\2\155\1\157\1\160\1\151\2\162\1\151\1\164\1\151\1\162\1\165\1\116"+
+        "\1\162\1\171\1\157\1\172\20\uffff\1\170\13\uffff\1\55\1\172\11\uffff"+
+        "\1\145\7\uffff\2\145\1\uffff\1\145\2\172\1\145\1\uffff\1\162\1\uffff"+
+        "\1\172\1\145\1\172\1\163\1\145\1\156\1\uffff\1\157\2\141\1\164\1"+
+        "\143\1\154\1\143\1\154\1\155\1\164\1\171\1\156\1\154\1\141\1\143"+
+        "\2\145\1\172\1\151\1\143\1\146\1\164\1\165\1\155\1\145\1\164\1\157"+
+        "\1\172\1\151\1\uffff\1\162\1\154\2\145\1\143\1\164\1\154\1\172\1"+
+        "\143\1\163\1\155\1\157\1\156\1\157\1\162\1\uffff\1\141\1\165\1\uffff"+
+        "\1\166\1\uffff\1\157\1\145\1\164\1\157\1\151\1\145\2\uffff\1\155"+
+        "\1\172\1\164\1\147\1\163\1\172\1\145\2\uffff\1\145\1\160\1\172\1"+
+        "\164\1\165\1\145\1\164\1\uffff\1\160\1\145\1\172\2\uffff\1\151\1"+
+        "\145\1\uffff\1\171\1\uffff\1\165\1\145\1\164\1\166\2\143\1\141\1"+
+        "\165\1\141\1\154\2\141\1\151\2\145\1\162\1\146\1\164\1\145\1\162"+
+        "\1\151\1\155\1\160\1\144\1\164\1\160\1\164\1\163\1\uffff\1\141\1"+
+        "\172\1\145\1\142\1\145\1\157\1\162\1\141\1\145\1\156\1\165\1\151"+
+        "\1\163\1\162\1\154\1\144\1\150\1\144\1\147\1\144\1\145\1\172\1\157"+
+        "\1\172\1\164\4\uffff\1\55\3\uffff\1\145\1\163\2\uffff\1\156\1\151"+
+        "\1\167\1\uffff\1\162\1\uffff\1\172\1\55\1\144\1\162\1\153\1\162"+
+        "\2\172\1\150\1\144\1\153\2\145\1\164\1\151\1\172\1\164\1\141\1\155"+
+        "\1\165\1\145\1\162\1\164\1\uffff\1\164\1\162\1\145\1\141\1\155\1"+
+        "\145\1\172\1\171\1\144\1\uffff\1\162\1\171\1\172\1\160\1\162\1\164"+
+        "\1\172\1\157\1\151\1\uffff\2\164\1\172\1\160\1\144\1\164\1\172\1"+
+        "\164\1\160\1\172\2\162\1\141\2\162\1\172\1\156\1\170\1\172\1\uffff"+
+        "\1\172\1\165\1\164\1\uffff\1\154\1\162\1\172\1\154\1\146\1\uffff"+
+        "\1\172\2\163\1\172\1\156\1\162\1\172\1\uffff\1\157\1\162\1\172\1"+
+        "\162\1\156\1\147\3\145\1\151\2\145\1\155\1\163\1\162\1\155\1\141"+
+        "\1\154\1\164\1\163\1\172\1\155\1\145\1\172\1\151\1\145\1\172\1\154"+
+        "\1\164\1\160\1\155\1\172\1\151\1\143\3\172\1\141\1\164\1\uffff\1"+
+        "\172\1\154\1\163\1\156\1\144\1\164\1\162\1\147\1\144\1\145\1\141"+
+        "\1\151\1\145\1\172\1\145\1\157\1\172\1\143\1\150\1\172\1\162\1\uffff"+
+        "\1\55\1\uffff\1\172\1\uffff\1\164\1\144\1\142\1\151\1\172\1\uffff"+
+        "\1\165\1\141\1\145\1\172\1\171\1\uffff\1\142\1\uffff\3\172\1\164"+
+        "\1\143\1\156\1\162\1\170\1\151\2\156\1\uffff\1\172\1\162\1\141\1"+
+        "\154\1\156\1\155\1\145\1\172\1\151\1\162\1\156\1\145\1\156\1\uffff"+
+        "\1\172\1\151\1\145\1\172\1\uffff\1\164\1\156\1\154\1\uffff\1\167"+
+        "\1\143\1\147\1\151\1\172\1\uffff\1\164\2\172\1\uffff\1\145\1\172"+
+        "\1\uffff\1\164\1\151\1\156\1\164\2\163\1\162\1\uffff\1\151\1\172"+
+        "\2\uffff\1\141\1\172\1\163\1\143\1\uffff\1\145\1\171\1\uffff\1\55"+
+        "\1\160\1\uffff\1\150\1\145\1\172\1\uffff\1\156\1\172\1\uffff\1\163"+
+        "\1\164\2\162\1\144\1\162\1\157\1\163\1\156\1\151\1\145\1\156\1\145"+
+        "\1\143\2\151\1\146\1\uffff\1\141\1\172\1\uffff\1\164\1\156\1\uffff"+
+        "\1\145\1\172\1\164\1\172\1\151\1\uffff\1\156\1\150\3\uffff\1\165"+
+        "\1\172\1\167\1\uffff\1\151\2\172\1\145\1\151\1\143\1\172\1\141\1"+
+        "\172\1\142\1\157\1\172\1\uffff\1\172\1\167\1\165\1\uffff\1\141\1"+
+        "\164\1\172\1\uffff\1\171\1\144\3\uffff\1\157\1\151\1\165\1\156\1"+
+        "\uffff\2\162\1\172\1\uffff\1\172\1\154\3\uffff\1\151\2\164\1\165"+
+        "\2\164\1\156\1\165\1\141\1\uffff\1\145\1\154\1\164\1\144\1\151\1"+
+        "\172\1\uffff\1\164\1\145\1\143\1\156\1\164\1\163\1\uffff\1\156\1"+
+        "\172\1\uffff\1\172\1\141\1\171\1\151\1\150\1\156\1\157\1\uffff\1"+
         "\151\2\uffff\1\163\1\156\1\uffff\1\172\1\164\1\143\1\172\1\151\1"+
         "\145\1\151\1\164\1\uffff\1\147\1\uffff\1\172\1\141\2\172\1\163\1"+
-        "\151\1\154\1\145\1\141\1\145\1\163\1\uffff\1\145\1\172\1\144\1\156"+
-        "\2\uffff\2\172\1\141\1\156\1\151\1\166\1\165\1\163\1\145\1\164\1"+
-        "\154\4\172\1\145\1\144\1\157\1\156\1\uffff\1\151\1\172\1\uffff\1"+
-        "\151\1\143\1\164\1\172\1\uffff\1\172\1\uffff\1\156\1\147\2\172\1"+
-        "\162\1\uffff\1\151\1\156\2\uffff\1\172\1\162\1\156\1\141\1\uffff"+
-        "\1\164\1\uffff\1\154\1\156\2\uffff\1\172\1\164\1\162\1\172\1\uffff"+
-        "\1\172\1\151\1\uffff\1\162\1\156\1\164\1\157\2\151\1\171\2\uffff"+
-        "\1\145\1\157\1\151\1\172\1\143\1\151\1\164\2\172\1\163\1\155\1\172"+
+        "\141\1\145\1\163\1\uffff\1\172\1\144\1\156\1\uffff\2\172\1\141\1"+
+        "\156\1\151\1\166\1\165\1\163\1\164\1\154\3\172\1\145\1\144\1\157"+
+        "\1\151\1\172\1\uffff\1\151\1\143\1\172\1\uffff\1\172\1\uffff\1\156"+
+        "\1\147\1\172\1\162\1\uffff\1\151\1\156\2\uffff\1\162\1\156\1\141"+
+        "\1\uffff\1\164\1\uffff\1\154\1\156\2\uffff\1\172\1\164\1\162\1\172"+
+        "\1\uffff\1\172\1\151\1\162\1\156\1\164\1\147\1\151\1\171\2\uffff"+
+        "\1\145\1\157\1\151\1\172\1\143\1\151\2\172\1\163\1\145\1\155\1\172"+
         "\1\55\1\172\1\151\1\156\1\uffff\1\151\1\156\1\145\1\164\1\172\1"+
-        "\145\1\147\1\uffff\1\171\1\uffff\1\154\1\172\1\156\2\172\1\156\1"+
-        "\157\1\164\1\147\1\uffff\1\172\1\145\1\uffff\1\164\1\143\1\164\1"+
-        "\171\1\145\1\uffff\1\163\2\uffff\1\151\1\156\1\171\1\172\1\143\1"+
-        "\162\1\145\1\162\1\uffff\1\172\1\147\2\uffff\1\160\1\55\1\156\1"+
-        "\145\1\163\1\151\2\172\1\154\2\uffff\1\156\2\uffff\1\172\1\141\1"+
-        "\156\1\154\2\145\1\uffff\1\166\1\145\1\151\2\uffff\1\147\1\172\2"+
-        "\uffff\1\165\1\164\1\147\1\uffff\1\145\1\147\1\163\2\145\1\172\1"+
-        "\uffff\1\172\1\144\2\uffff\1\147\1\172\1\147\1\145\1\156\1\143\1"+
-        "\172\1\55\1\172\1\156\1\157\1\uffff\1\164\1\156\1\172\2\uffff\1"+
-        "\172\1\145\1\uffff\1\163\1\uffff\2\156\1\151\1\143\1\164\2\172\1"+
-        "\uffff\1\161\3\172\1\uffff\1\147\2\uffff\1\172\1\156\1\172\1\55"+
-        "\1\uffff\1\172\1\151\1\164\1\171\2\172\1\145\1\147\1\145\1\172\1"+
-        "\uffff\1\145\1\151\1\162\1\155\1\uffff\1\172\1\150\1\163\1\147\2"+
-        "\172\1\156\2\uffff\1\145\1\147\1\uffff\1\164\1\163\1\171\1\163\1"+
-        "\164\1\154\1\145\1\172\1\141\1\172\1\uffff\1\163\1\143\1\172\1\144"+
-        "\1\172\1\145\2\172\2\uffff\1\163\1\151\1\157\1\uffff\2\172\1\154"+
-        "\1\141\1\uffff\1\163\1\uffff\1\172\1\156\1\151\1\164\2\uffff\1\163"+
-        "\1\157\1\145\1\164\1\147\2\163\1\172\1\uffff\1\156\1\uffff\1\165"+
-        "\3\uffff\1\172\1\uffff\1\172\1\uffff\1\163\1\uffff\1\166\2\172\2"+
-        "\uffff\1\172\1\156\1\144\1\uffff\1\172\1\164\1\166\1\151\1\uffff"+
-        "\1\172\1\145\1\172\2\uffff\1\147\2\172\1\151\1\150\2\172\1\164\1"+
-        "\145\2\172\1\uffff\1\154\1\uffff\1\172\1\150\1\uffff\1\172\1\uffff"+
-        "\1\172\2\uffff\1\172\1\164\1\162\2\uffff\1\171\1\154\1\160\1\uffff"+
-        "\1\172\1\157\1\172\1\160\1\162\1\160\2\172\1\164\1\172\1\uffff\1"+
-        "\157\1\145\1\163\2\uffff\2\145\3\uffff\2\172\1\156\1\uffff\1\172"+
-        "\1\145\1\156\1\172\1\uffff\1\160\1\163\1\uffff\1\55\2\uffff\1\157"+
-        "\1\151\2\uffff\1\162\1\155\2\uffff\1\172\1\uffff\1\172\3\uffff\1"+
-        "\172\1\55\1\172\1\154\1\141\1\uffff\1\156\1\uffff\1\141\1\155\1"+
-        "\141\1\157\2\uffff\1\151\1\uffff\1\144\1\156\1\151\1\160\1\172\2"+
-        "\uffff\1\157\1\uffff\1\172\1\151\1\uffff\1\141\2\151\1\156\1\160"+
-        "\1\151\1\145\3\uffff\1\163\1\uffff\1\171\1\143\1\172\1\143\1\141"+
-        "\2\162\1\143\1\145\1\143\1\142\1\141\1\uffff\1\144\1\uffff\1\163"+
-        "\1\162\1\142\1\156\2\172\1\142\1\156\1\145\1\172\1\145\1\uffff\1"+
-        "\145\1\164\1\141\1\55\2\172\1\145\1\154\1\162\1\145\1\164\1\141"+
-        "\1\154\1\163\2\uffff\1\165\1\164\1\154\1\uffff\1\172\1\163\1\172"+
-        "\1\164\1\163\2\uffff\1\172\1\151\1\141\1\172\1\151\1\164\1\151\2"+
-        "\164\1\172\1\146\1\uffff\1\172\1\uffff\1\157\1\145\1\uffff\1\156"+
-        "\1\164\1\uffff\1\143\1\157\1\156\1\162\1\145\1\uffff\1\172\1\uffff"+
-        "\1\162\1\154\1\147\1\157\1\172\1\162\1\147\1\165\1\172\1\uffff\1"+
-        "\172\1\146\1\172\1\162\1\uffff\2\172\1\143\2\uffff\1\172\1\uffff"+
+        "\145\1\147\2\uffff\1\154\1\172\1\156\2\172\1\156\1\157\1\164\1\147"+
+        "\1\uffff\1\172\1\145\1\uffff\1\164\1\143\1\164\1\171\1\145\1\uffff"+
+        "\1\163\2\uffff\1\151\1\143\1\162\1\145\1\uffff\1\172\1\147\2\uffff"+
+        "\1\160\1\55\1\156\1\145\1\163\1\151\1\172\1\154\1\uffff\1\156\2"+
+        "\uffff\1\172\1\141\1\156\2\145\1\uffff\1\166\1\145\2\uffff\1\147"+
+        "\1\172\1\uffff\1\165\1\164\1\147\1\145\1\147\1\163\2\145\1\172\1"+
+        "\uffff\1\172\1\144\2\uffff\1\147\1\172\1\147\1\145\2\172\1\55\1"+
+        "\172\1\156\1\157\1\uffff\1\164\1\156\2\uffff\2\172\1\145\1\uffff"+
+        "\1\163\1\uffff\2\156\1\151\1\143\1\164\2\172\1\uffff\1\161\2\172"+
+        "\1\uffff\1\147\2\uffff\1\172\1\156\1\172\1\55\1\uffff\1\172\1\151"+
+        "\1\164\1\171\2\172\1\145\1\147\1\145\1\151\1\162\1\uffff\1\172\1"+
+        "\150\1\163\1\147\2\172\1\156\1\uffff\1\145\1\147\1\uffff\1\164\2"+
+        "\163\1\164\1\154\1\145\2\172\1\uffff\1\163\1\143\1\172\1\144\1\172"+
+        "\1\145\2\172\2\uffff\1\163\1\151\1\157\1\uffff\2\172\2\uffff\1\163"+
+        "\1\uffff\1\172\1\156\1\151\1\164\2\uffff\1\163\1\157\1\145\1\164"+
+        "\1\147\2\163\1\172\1\uffff\1\156\1\uffff\1\165\2\uffff\1\172\1\uffff"+
+        "\1\172\1\uffff\1\163\1\uffff\1\166\2\172\2\uffff\1\172\1\156\1\172"+
+        "\1\164\1\166\1\uffff\1\172\1\145\1\172\2\uffff\1\147\2\172\1\151"+
+        "\1\150\1\172\1\164\1\145\2\172\2\uffff\1\172\1\150\1\uffff\1\172"+
+        "\1\uffff\1\172\2\uffff\1\172\1\164\1\162\2\uffff\1\160\1\uffff\1"+
+        "\172\1\157\1\172\1\160\1\162\1\160\2\172\1\164\1\172\1\uffff\1\157"+
+        "\1\145\1\163\2\uffff\2\145\3\uffff\1\172\1\156\1\uffff\1\172\1\145"+
+        "\1\172\1\uffff\1\160\1\163\1\uffff\1\55\2\uffff\1\157\1\151\1\uffff"+
+        "\1\162\1\155\3\uffff\1\172\3\uffff\1\172\1\55\1\141\1\uffff\1\156"+
+        "\1\uffff\1\141\1\155\1\141\1\157\2\uffff\1\151\1\uffff\1\144\1\156"+
+        "\1\151\1\160\1\172\1\uffff\1\157\1\uffff\1\172\1\uffff\1\141\2\151"+
+        "\1\156\1\160\1\151\1\145\2\uffff\1\163\1\143\1\172\1\143\1\141\2"+
+        "\162\1\143\1\145\1\143\1\142\1\141\1\uffff\1\144\1\uffff\1\162\1"+
+        "\142\1\156\2\172\1\142\1\156\2\145\1\uffff\1\145\1\164\1\141\1\55"+
+        "\2\172\1\145\1\154\1\162\1\145\1\141\1\154\1\163\2\uffff\1\165\1"+
+        "\164\1\154\1\172\1\163\1\172\1\164\1\163\2\uffff\1\172\1\151\1\141"+
+        "\1\172\1\164\1\151\2\164\1\172\1\146\1\uffff\1\172\1\uffff\1\157"+
+        "\1\145\1\uffff\1\156\1\164\1\uffff\1\157\1\156\1\162\1\145\1\uffff"+
+        "\1\172\1\uffff\1\162\1\154\1\147\1\157\1\162\1\147\1\165\1\172\1"+
+        "\uffff\1\172\1\146\1\172\1\162\2\172\1\143\2\uffff\1\172\1\uffff"+
         "\1\172\2\uffff\1\164\2\uffff\1\151\1\157\1\156\1\172\1\uffff";
     static final String DFA19_acceptS =
-        "\32\uffff\1\u00df\1\u00e0\1\u00e1\1\u00e2\1\u00e3\1\u00e4\1\u00e5"+
-        "\3\uffff\1\u00e9\1\uffff\1\u00eb\1\u00ec\5\uffff\1\u00fc\1\u00fd"+
-        "\1\uffff\1\u0104\1\u0107\1\u0108\1\u0109\1\u010a\1\uffff\1\u0112"+
-        "\10\uffff\1\u0109\127\uffff\1\u0111\1\u00de\1\u00df\1\u00e0\1\u00e1"+
-        "\1\u00e2\1\u00e3\1\u00e4\1\u00e5\1\u00e6\1\u00f9\1\u00f8\1\u00e7"+
-        "\1\uffff\1\u00e8\1\u00e9\1\u0103\1\u00ea\1\u00eb\1\u00ec\1\u0101"+
-        "\1\u00ed\1\u00f0\1\u00f2\1\u00fb\2\uffff\1\u00ee\1\u00f1\1\u00f3"+
-        "\1\u00ef\1\u00f5\1\u00fa\1\u00f4\1\u00f7\1\u00f6\1\uffff\1\u00fc"+
-        "\1\u00fd\1\u00ff\1\u0104\1\u0107\1\u0108\1\u010a\1\u010e\2\uffff"+
-        "\1\u0110\4\uffff\1\4\1\uffff\1\6\10\uffff\1\12\36\uffff\1\40\17"+
-        "\uffff\1\50\2\uffff\1\52\1\uffff\1\54\6\uffff\1\56\1\62\7\uffff"+
-        "\1\65\1\70\11\uffff\1\74\4\uffff\1\u00a5\1\100\2\uffff\1\102\1\uffff"+
-        "\1\u00d5\44\uffff\1\127\32\uffff\1\u00fe\1\u010b\1\u0106\1\u0105"+
-        "\1\uffff\1\u0102\1\u010d\1\u010f\2\uffff\1\3\1\u0093\3\uffff\1\u0092"+
-        "\3\uffff\1\u00db\26\uffff\1\30\11\uffff\1\150\12\uffff\1\46\23\uffff"+
-        "\1\64\3\uffff\1\67\4\uffff\1\71\13\uffff\1\u00d4\1\u00a6\40\uffff"+
-        "\1\u00c1\16\uffff\1\174\26\uffff\1\156\1\uffff\1\u00d0\10\uffff"+
-        "\1\u00dc\6\uffff\1\13\1\uffff\1\14\12\uffff\1\u0083\15\uffff\1\34"+
-        "\5\uffff\1\u00c4\3\uffff\1\u00be\5\uffff\1\u009b\3\uffff\1\u009f"+
-        "\2\uffff\1\53\7\uffff\1\u0087\2\uffff\1\63\1\u0088\6\uffff\1\u00a4"+
-        "\5\uffff\1\157\3\uffff\1\77\3\uffff\1\161\26\uffff\1\u00ac\2\uffff"+
-        "\1\120\3\uffff\1\121\5\uffff\1\u00b2\2\uffff\1\u008e\1\uffff\1\125"+
-        "\1\126\20\uffff\1\176\3\uffff\1\u0091\3\uffff\1\u00ba\3\uffff\1"+
-        "\u00dd\1\u0100\1\u010c\3\uffff\1\u0081\5\uffff\1\u00bc\2\uffff\1"+
-        "\141\1\16\1\u00c7\5\uffff\1\u00ca\4\uffff\1\143\6\uffff\1\147\6"+
-        "\uffff\1\35\3\uffff\1\41\7\uffff\1\u0085\1\uffff\1\u009d\1\u009e"+
-        "\2\uffff\1\151\10\uffff\1\u00ce\1\uffff\1\66\13\uffff\1\u008a\4"+
-        "\uffff\1\103\1\162\23\uffff\1\u00d7\2\uffff\1\u00ad\4\uffff\1\172"+
-        "\1\uffff\1\124\5\uffff\1\130\2\uffff\1\u00b4\1\132\4\uffff\1\u00b6"+
-        "\1\uffff\1\u0090\2\uffff\1\137\1\u00c3\4\uffff\1\u00bb\2\uffff\1"+
-        "\u00d6\7\uffff\1\u0082\1\u00da\20\uffff\1\u0084\7\uffff\1\u0099"+
-        "\1\uffff\1\42\11\uffff\1\55\2\uffff\1\u0086\5\uffff\1\u00a2\1\uffff"+
-        "\1\72\1\u0089\10\uffff\1\101\2\uffff\1\u00a7\1\106\11\uffff\1\167"+
-        "\1\u00aa\1\uffff\1\113\1\u008b\6\uffff\1\115\3\uffff\1\122\1\123"+
-        "\2\uffff\1\173\1\u00c2\3\uffff\1\u00d9\6\uffff\1\177\2\uffff\1\u00b7"+
-        "\1\140\13\uffff\1\20\3\uffff\1\142\1\u0095\2\uffff\1\23\1\uffff"+
-        "\1\24\7\uffff\1\33\4\uffff\1\u009a\1\uffff\1\u00cc\1\u00cd\4\uffff"+
-        "\1\57\12\uffff\1\u00d3\4\uffff\1\104\7\uffff\1\166\1\164\2\uffff"+
-        "\1\u008c\12\uffff\1\171\10\uffff\1\136\1\u00b9\3\uffff\1\1\4\uffff"+
-        "\1\10\1\uffff\1\15\4\uffff\1\u00bd\1\u0094\10\uffff\1\u0098\1\uffff"+
-        "\1\31\1\uffff\1\37\1\u00cb\1\43\1\uffff\1\47\1\uffff\1\51\1\uffff"+
-        "\1\60\3\uffff\1\153\1\u00a1\3\uffff\1\u00d2\4\uffff\1\105\3\uffff"+
-        "\1\111\1\170\13\uffff\1\u00af\1\uffff\1\u00b1\2\uffff\1\175\1\uffff"+
-        "\1\u008f\1\uffff\1\134\1\135\3\uffff\1\5\1\7\3\uffff\1\17\12\uffff"+
-        "\1\u0097\3\uffff\1\44\1\u009c\2\uffff\1\61\1\u00cf\1\u00a3\3\uffff"+
-        "\1\73\4\uffff\1\u00a8\2\uffff\1\107\1\uffff\1\165\1\u00bf\2\uffff"+
-        "\1\u00d8\1\114\2\uffff\1\u00ae\1\u00b0\1\uffff\1\u00b3\1\uffff\1"+
-        "\133\1\u00b5\1\u00b8\5\uffff\1\u00c8\1\uffff\1\u00c9\4\uffff\1\25"+
-        "\1\27\1\uffff\1\u0096\5\uffff\1\154\1\u00d1\1\uffff\1\75\2\uffff"+
-        "\1\u00a9\7\uffff\1\u00c0\1\131\1\u0080\1\uffff\1\u00c5\14\uffff"+
-        "\1\u00a0\1\uffff\1\76\13\uffff\1\21\16\uffff\1\u008d\1\u00ab\3\uffff"+
-        "\1\u00c6\5\uffff\1\146\1\32\13\uffff\1\11\1\uffff\1\144\2\uffff"+
-        "\1\36\2\uffff\1\155\5\uffff\1\117\1\uffff\1\22\11\uffff\1\2\4\uffff"+
-        "\1\160\3\uffff\1\116\1\145\1\uffff\1\45\1\uffff\1\163\1\110\1\uffff"+
-        "\1\26\1\152\4\uffff\1\112";
+        "\32\uffff\1\u00cf\1\u00d0\1\u00d1\1\u00d2\1\u00d3\1\u00d4\1\u00d5"+
+        "\2\uffff\1\u00d8\2\uffff\1\u00db\1\uffff\1\u00dd\1\u00de\5\uffff"+
+        "\1\u00ee\1\u00ef\1\u00f6\1\u00f9\1\u00fa\1\u00fb\1\u00fc\1\uffff"+
+        "\1\u0104\7\uffff\1\u00fb\121\uffff\1\u0103\1\u00ce\1\u00cf\1\u00d0"+
+        "\1\u00d1\1\u00d2\1\u00d3\1\u00d4\1\u00d5\1\u00d6\1\u00eb\1\u00ea"+
+        "\1\u00d7\1\u00d8\1\u00f1\1\u00d9\1\uffff\1\u00da\1\u00db\1\u00f5"+
+        "\1\u00dc\1\u00dd\1\u00de\1\u00f3\1\u00df\1\u00e2\1\u00e4\1\u00ed"+
+        "\2\uffff\1\u00e0\1\u00e3\1\u00e5\1\u00e1\1\u00e7\1\u00ec\1\u00e6"+
+        "\1\u00e9\1\u00e8\1\uffff\1\u00ee\1\u00ef\1\u00f6\1\u00f9\1\u00fa"+
+        "\1\u00fc\1\u0100\2\uffff\1\u0102\4\uffff\1\4\1\uffff\1\6\6\uffff"+
+        "\1\12\35\uffff\1\40\17\uffff\1\50\2\uffff\1\52\1\uffff\1\54\6\uffff"+
+        "\1\56\1\62\7\uffff\1\65\1\70\7\uffff\1\74\3\uffff\1\u00a3\1\100"+
+        "\2\uffff\1\102\1\uffff\1\u00c9\34\uffff\1\127\31\uffff\1\u00f0\1"+
+        "\u00fd\1\u00f8\1\u00f7\1\uffff\1\u00f4\1\u00ff\1\u0101\2\uffff\1"+
+        "\3\1\u0091\3\uffff\1\u0090\1\uffff\1\u00cb\27\uffff\1\30\11\uffff"+
+        "\1\151\11\uffff\1\46\23\uffff\1\64\3\uffff\1\67\5\uffff\1\71\7\uffff"+
+        "\1\u00a4\47\uffff\1\171\25\uffff\1\157\1\uffff\1\u00c8\7\uffff\1"+
+        "\u00cc\5\uffff\1\13\1\uffff\1\14\13\uffff\1\u0081\15\uffff\1\34"+
+        "\4\uffff\1\u00c0\3\uffff\1\u00bc\5\uffff\1\u0099\3\uffff\1\u009d"+
+        "\2\uffff\1\53\7\uffff\1\u0085\2\uffff\1\63\1\u0086\4\uffff\1\u00bd"+
+        "\2\uffff\1\u00a2\2\uffff\1\160\3\uffff\1\77\2\uffff\1\161\21\uffff"+
+        "\1\u00aa\2\uffff\1\120\2\uffff\1\121\5\uffff\1\u00b0\2\uffff\1\u008c"+
+        "\1\125\1\126\3\uffff\1\173\14\uffff\1\174\3\uffff\1\u008f\3\uffff"+
+        "\1\u00b8\2\uffff\1\u00cd\1\u00f2\1\u00fe\4\uffff\1\177\3\uffff\1"+
+        "\u00ba\2\uffff\1\142\1\16\1\u00c1\11\uffff\1\144\6\uffff\1\150\6"+
+        "\uffff\1\35\2\uffff\1\41\7\uffff\1\u0083\1\uffff\1\u009b\1\u009c"+
+        "\2\uffff\1\152\10\uffff\1\u00c6\1\uffff\1\66\10\uffff\1\u0088\3"+
+        "\uffff\1\103\22\uffff\1\u00ab\3\uffff\1\167\1\uffff\1\124\4\uffff"+
+        "\1\130\2\uffff\1\u00b2\1\132\3\uffff\1\u00b4\1\uffff\1\u008e\2\uffff"+
+        "\1\137\1\u00bf\4\uffff\1\u00b9\10\uffff\1\u0080\1\u00ca\20\uffff"+
+        "\1\u0082\7\uffff\1\u0097\1\42\11\uffff\1\55\2\uffff\1\u0084\5\uffff"+
+        "\1\u00a0\1\uffff\1\72\1\u0087\4\uffff\1\101\2\uffff\1\u00a5\1\106"+
+        "\10\uffff\1\u00a8\1\uffff\1\113\1\u0089\5\uffff\1\115\2\uffff\1"+
+        "\122\1\123\2\uffff\1\170\11\uffff\1\175\2\uffff\1\u00b5\1\140\12"+
+        "\uffff\1\20\2\uffff\1\143\1\u0093\3\uffff\1\23\1\uffff\1\24\7\uffff"+
+        "\1\33\3\uffff\1\u0098\1\uffff\1\u00c4\1\u00c5\4\uffff\1\57\13\uffff"+
+        "\1\104\7\uffff\1\163\2\uffff\1\u008a\10\uffff\1\166\10\uffff\1\136"+
+        "\1\u00b7\3\uffff\1\1\2\uffff\1\141\1\10\1\uffff\1\15\4\uffff\1\u0092"+
+        "\1\u00bb\10\uffff\1\u0096\1\uffff\1\31\1\uffff\1\37\1\43\1\uffff"+
+        "\1\47\1\uffff\1\51\1\uffff\1\60\3\uffff\1\154\1\u009f\5\uffff\1"+
+        "\105\3\uffff\1\111\1\165\12\uffff\1\u00ad\1\u00af\2\uffff\1\172"+
+        "\1\uffff\1\u008d\1\uffff\1\134\1\135\3\uffff\1\5\1\7\1\uffff\1\17"+
+        "\12\uffff\1\u0095\3\uffff\1\44\1\u009a\2\uffff\1\61\1\u00c7\1\u00a1"+
+        "\2\uffff\1\73\3\uffff\1\u00a6\2\uffff\1\107\1\uffff\1\164\1\u00be"+
+        "\2\uffff\1\114\2\uffff\1\u00ac\1\u00ae\1\u00b1\1\uffff\1\133\1\u00b3"+
+        "\1\u00b6\3\uffff\1\u00c2\1\uffff\1\u00c3\4\uffff\1\25\1\27\1\uffff"+
+        "\1\u0094\5\uffff\1\155\1\uffff\1\75\1\uffff\1\u00a7\7\uffff\1\131"+
+        "\1\176\14\uffff\1\u009e\1\uffff\1\76\11\uffff\1\21\15\uffff\1\u008b"+
+        "\1\u00a9\10\uffff\1\147\1\32\12\uffff\1\11\1\uffff\1\145\2\uffff"+
+        "\1\36\2\uffff\1\156\4\uffff\1\117\1\uffff\1\22\10\uffff\1\2\7\uffff"+
+        "\1\116\1\146\1\uffff\1\45\1\uffff\1\162\1\110\1\uffff\1\26\1\153"+
+        "\4\uffff\1\112";
     static final String DFA19_specialS =
-        "\1\0\u0224\uffff\1\1\u0330\uffff}>";
+        "\1\1\u0201\uffff\1\0\u02e3\uffff}>";
     static final String[] DFA19_transitionS = {
-            "\11\66\2\64\2\66\1\64\22\66\1\64\1\42\1\62\1\57\1\33\1\66\1"+
-            "\43\1\61\1\31\1\32\1\46\1\47\1\44\1\50\1\54\1\53\12\65\1\41"+
-            "\1\55\1\51\1\40\1\52\1\45\1\60\15\63\1\25\14\63\1\36\1\66\1"+
-            "\37\1\66\1\63\1\66\1\1\1\2\1\3\1\4\1\5\1\6\1\7\1\63\1\10\1\63"+
+            "\11\67\2\65\2\67\1\65\22\67\1\65\1\42\1\63\1\44\1\33\1\43\1"+
+            "\45\1\62\1\31\1\32\1\50\1\51\1\46\1\52\1\56\1\55\12\66\1\41"+
+            "\1\57\1\53\1\40\1\54\1\47\1\61\15\64\1\25\14\64\1\36\1\67\1"+
+            "\37\1\67\1\64\1\67\1\1\1\2\1\3\1\4\1\5\1\6\1\7\1\64\1\10\1\64"+
             "\1\27\1\11\1\12\1\13\1\14\1\15\1\30\1\16\1\17\1\20\1\21\1\22"+
-            "\1\23\1\24\1\63\1\26\1\34\1\56\1\35\uff82\66",
-            "\1\72\5\uffff\1\73\1\76\1\67\1\uffff\1\74\2\uffff\1\70\1\71"+
-            "\1\75",
-            "\1\100\3\uffff\1\103\3\uffff\1\105\2\uffff\1\104\2\uffff\1"+
-            "\101\11\uffff\1\102",
+            "\1\23\1\24\1\64\1\26\1\34\1\60\1\35\uff82\67",
+            "\1\74\5\uffff\1\73\1\75\1\70\1\uffff\1\76\2\uffff\1\71\1\72",
+            "\1\100\3\uffff\1\103\3\uffff\1\105\5\uffff\1\101\2\uffff\1"+
+            "\104\6\uffff\1\102",
             "\1\106\6\uffff\1\107\6\uffff\1\110",
             "\1\111\3\uffff\1\112\5\uffff\1\113",
             "\1\114\1\115\1\116\2\uffff\1\117\4\uffff\1\120\1\uffff\1\121",
@@ -9097,26 +8659,25 @@ public class XQueryLexer extends XQDTLexer {
             "\1\127\14\uffff\1\130\1\uffff\1\131",
             "\1\132\1\uffff\1\133\6\uffff\1\134\1\135\4\uffff\1\136\1\137",
             "\1\140\3\uffff\1\141\11\uffff\1\143\4\uffff\1\142",
-            "\1\146\7\uffff\1\145\5\uffff\1\144\5\uffff\1\147",
-            "\1\150\3\uffff\1\151\11\uffff\1\152",
-            "\1\160\2\uffff\1\153\7\uffff\1\156\1\uffff\1\154\1\uffff\1"+
-            "\155\2\uffff\1\157",
-            "\1\161\3\uffff\1\163\2\uffff\1\165\11\uffff\1\162\2\uffff"+
-            "\1\164",
-            "\1\167\3\uffff\1\166",
-            "\1\170\1\uffff\1\171\1\uffff\1\172\3\uffff\1\u0080\1\uffff"+
-            "\1\177\1\175\2\uffff\1\173\4\uffff\1\174\2\uffff\1\176",
-            "\1\u0081\2\uffff\1\u0082\1\u0087\5\uffff\1\u0083\2\uffff\1"+
-            "\u0084\2\uffff\1\u0086\3\uffff\1\u0085",
-            "\1\u0088\1\uffff\1\u0089\2\uffff\1\u008a",
-            "\1\u008b\3\uffff\1\u008c",
-            "\1\u008f\2\uffff\1\u008d\1\u008e\5\uffff\1\u0090",
-            "\1\u0091",
-            "\1\u0092",
-            "\1\u0093",
-            "\1\u0094",
-            "\1\u0095",
-            "\1\u0096\26\uffff\1\u0097",
+            "\1\145\5\uffff\1\144",
+            "\1\146\3\uffff\1\147\11\uffff\1\150",
+            "\1\155\2\uffff\1\151\7\uffff\1\154\1\uffff\1\152\1\uffff\1"+
+            "\153",
+            "\1\156\3\uffff\1\160\2\uffff\1\161\11\uffff\1\157",
+            "\1\162",
+            "\1\163\1\uffff\1\164\1\uffff\1\165\5\uffff\1\172\1\170\2\uffff"+
+            "\1\166\4\uffff\1\167\2\uffff\1\171",
+            "\1\173\2\uffff\1\174\1\u0081\5\uffff\1\175\2\uffff\1\176\2"+
+            "\uffff\1\u0080\3\uffff\1\177",
+            "\1\u0082\1\uffff\1\u0083\2\uffff\1\u0084",
+            "\1\u0085\3\uffff\1\u0086",
+            "\1\u0089\2\uffff\1\u0087\1\u0088\5\uffff\1\u008a",
+            "\1\u008b",
+            "\1\u008c",
+            "\1\u008d",
+            "\1\u008e",
+            "\1\u008f",
+            "\1\u0090\26\uffff\1\u0091",
             "",
             "",
             "",
@@ -9124,234 +8685,250 @@ public class XQueryLexer extends XQDTLexer {
             "",
             "",
             "",
-            "\1\u00a1\2\uffff\1\u00a0",
-            "\1\u00a3",
+            "\1\u009b\2\uffff\1\u009a",
+            "\1\u009d",
+            "",
+            "\1\u009f",
+            "\1\u00a1",
+            "",
             "\1\u00a4",
             "",
-            "\1\u00a7",
             "",
-            "",
-            "\1\u00ab",
-            "\1\u00b0\15\uffff\1\u00af\14\uffff\1\u00ae\1\u00ad\1\uffff"+
-            "\1\u00b1",
-            "\1\u00b3\1\u00b4",
-            "\1\u00b6\16\uffff\1\u00b7",
-            "\1\u00b9\1\uffff\12\u00bb",
-            "",
-            "",
-            "\1\u00be",
+            "\1\u00a8",
+            "\1\u00ad\15\uffff\1\u00ac\14\uffff\1\u00ab\1\u00aa\1\uffff"+
+            "\1\u00ae",
+            "\1\u00b0\1\u00b1",
+            "\1\u00b3\16\uffff\1\u00b4",
+            "\1\u00b6\1\uffff\12\u00b8",
             "",
             "",
             "",
             "",
             "",
-            "\1\u00c4\1\uffff\12\u00c5\13\uffff\1\u00c6\37\uffff\1\u00c6",
             "",
-            "\1\u00c7\1\u00c8\24\uffff\1\u00c9",
+            "",
+            "\1\u00c0\1\uffff\12\u00c1\13\uffff\1\u00c2\37\uffff\1\u00c2",
+            "",
+            "\1\u00c3\1\u00c4\24\uffff\1\u00c5",
             "\2\77\1\uffff\12\77\7\uffff\32\77\4\uffff\1\77\1\uffff\2\77"+
-            "\1\u00ca\27\77",
+            "\1\u00c6\27\77",
             "\2\77\1\uffff\12\77\7\uffff\32\77\4\uffff\1\77\1\uffff\23"+
-            "\77\1\u00cc\6\77",
+            "\77\1\u00c8\6\77",
+            "\1\u00ca",
+            "\1\u00cb",
+            "\1\u00cc",
+            "\1\u00cd",
+            "",
             "\1\u00ce",
             "\1\u00cf",
-            "\1\u00d1\1\u00d0",
+            "\2\77\1\uffff\12\77\7\uffff\32\77\4\uffff\1\77\1\uffff\32"+
+            "\77",
+            "\1\u00d1",
             "\1\u00d2",
             "\1\u00d3",
-            "",
-            "\1\u00d4",
-            "\1\u00d5",
+            "\1\u00d4\1\u00d5",
+            "\1\u00d7\3\uffff\1\u00d6",
+            "\1\u00d8\1\u00d9\1\u00da\1\uffff\1\u00db\4\uffff\1\u00dc",
+            "\1\u00dd\2\uffff\1\u00de\5\uffff\1\u00e1\6\uffff\1\u00df\1"+
+            "\u00e0",
+            "\1\u00e4\4\uffff\1\u00e5\1\u00e3\13\uffff\1\u00e6\2\uffff"+
+            "\1\u00e2",
+            "\1\u00e7",
+            "\1\u00e8\15\uffff\1\u00e9",
+            "\1\u00ea",
+            "\1\u00eb\1\u00ec\17\uffff\1\u00ed",
             "\2\77\1\uffff\12\77\7\uffff\32\77\4\uffff\1\77\1\uffff\32"+
             "\77",
-            "\1\u00d7",
-            "\1\u00d8",
-            "\1\u00d9",
-            "\1\u00da\1\u00db",
-            "\1\u00dd\3\uffff\1\u00dc",
-            "\1\u00de\1\u00df\1\u00e0\1\uffff\1\u00e1\4\uffff\1\u00e2",
-            "\1\u00e3\2\uffff\1\u00e4\5\uffff\1\u00e7\6\uffff\1\u00e5\1"+
-            "\u00e6",
-            "\1\u00ea\4\uffff\1\u00eb\1\u00e9\13\uffff\1\u00ec\2\uffff"+
-            "\1\u00e8",
-            "\1\u00ed",
-            "\1\u00ee\15\uffff\1\u00ef",
-            "\1\u00f0",
-            "\1\u00f1\1\u00f2\17\uffff\1\u00f3",
-            "\2\77\1\uffff\12\77\7\uffff\32\77\4\uffff\1\77\1\uffff\24"+
-            "\77\1\u00f4\5\77",
-            "\1\u00f7\3\uffff\1\u00f6",
-            "\1\u00fa\1\uffff\1\u00f8\5\uffff\1\u00fb\12\uffff\1\u00f9",
-            "\1\u00fc\5\uffff\1\u00fd",
-            "\1\u00fe",
-            "\1\u00ff",
-            "\1\u0100",
-            "\1\u0101\63\uffff\1\u0102\14\uffff\1\u0103\1\u0104",
+            "\1\u00f0\3\uffff\1\u00ef",
+            "\1\u00f3\1\uffff\1\u00f1\5\uffff\1\u00f4\12\uffff\1\u00f2",
+            "\1\u00f5\5\uffff\1\u00f6",
+            "\1\u00f7",
+            "\1\u00f8",
+            "\1\u00f9",
+            "\1\u00fa\63\uffff\1\u00fb\14\uffff\1\u00fc\1\u00fd",
             "\2\77\1\uffff\12\77\7\uffff\32\77\4\uffff\1\77\1\uffff\32"+
             "\77",
-            "\1\u0106\11\uffff\1\u0107",
+            "\1\u00ff\11\uffff\1\u0100",
             "\2\77\1\uffff\12\77\7\uffff\32\77\4\uffff\1\77\1\uffff\32"+
             "\77",
-            "\1\u0109",
+            "\1\u0102",
             "\2\77\1\uffff\12\77\7\uffff\32\77\4\uffff\1\77\1\uffff\32"+
             "\77",
-            "\1\u010b",
+            "\1\u0104",
             "\2\77\1\uffff\12\77\7\uffff\32\77\4\uffff\1\77\1\uffff\3\77"+
-            "\1\u0110\1\77\1\u010f\1\77\1\u010c\12\77\1\u010d\1\u010e\6\77",
+            "\1\u0109\1\77\1\u0108\1\77\1\u0105\12\77\1\u0106\1\u0107\6\77",
             "\2\77\1\uffff\12\77\7\uffff\32\77\4\uffff\1\77\1\uffff\32"+
             "\77",
-            "\1\u0113",
-            "\1\u0116\4\uffff\1\u0115\4\uffff\1\u0114",
-            "\2\77\1\uffff\12\77\7\uffff\32\77\4\uffff\1\77\1\uffff\1\u0117"+
-            "\22\77\1\u0118\1\77\1\u0119\4\77",
+            "\1\u010c",
+            "\1\u010f\4\uffff\1\u010e\4\uffff\1\u010d",
+            "\2\77\1\uffff\12\77\7\uffff\32\77\4\uffff\1\77\1\uffff\1\u0110"+
+            "\22\77\1\u0111\1\77\1\u0112\4\77",
             "\2\77\1\uffff\12\77\7\uffff\32\77\4\uffff\1\77\1\uffff\32"+
             "\77",
-            "\1\u011c",
-            "\1\u011d\16\uffff\1\u011e",
-            "\1\u011f",
-            "\1\u0120\4\uffff\1\u0121",
-            "\1\u0122",
-            "\1\u0123",
+            "\1\u0116\7\uffff\1\u0115",
+            "\1\u0117\16\uffff\1\u0118",
+            "\1\u0119",
+            "\1\u011a",
             "\2\77\1\uffff\12\77\7\uffff\32\77\4\uffff\1\77\1\uffff\27"+
-            "\77\1\u0124\2\77",
-            "\1\u0126\1\77\1\uffff\12\77\7\uffff\32\77\4\uffff\1\77\1\uffff"+
-            "\3\77\1\u0127\11\77\1\u0128\5\77\1\u0129\6\77",
+            "\77\1\u011b\2\77",
+            "\1\u011d\1\77\1\uffff\12\77\7\uffff\32\77\4\uffff\1\77\1\uffff"+
+            "\3\77\1\u011e\17\77\1\u011f\6\77",
             "\2\77\1\uffff\12\77\7\uffff\32\77\4\uffff\1\77\1\uffff\32"+
             "\77",
-            "\1\u012c",
+            "\1\u0122",
             "\2\77\1\uffff\12\77\7\uffff\32\77\4\uffff\1\77\1\uffff\3\77"+
-            "\1\u012d\26\77",
+            "\1\u0123\26\77",
             "\2\77\1\uffff\12\77\7\uffff\32\77\4\uffff\1\77\1\uffff\13"+
-            "\77\1\u012f\16\77",
-            "\1\u0131",
-            "\1\u0132",
-            "\1\u0133\1\uffff\1\u0134",
-            "\1\u0135\3\uffff\1\u0137\5\uffff\1\u0136",
-            "\1\u0138",
+            "\77\1\u0125\16\77",
+            "\1\u0127",
+            "\1\u0128\1\uffff\1\u0129",
+            "\1\u012a\11\uffff\1\u012b",
+            "\1\u012c",
+            "\1\u012d",
+            "\1\u0132\1\uffff\1\u012f\1\uffff\1\u0130\3\uffff\1\u012e\1"+
+            "\uffff\1\u0131",
+            "\1\u0134\6\uffff\1\u0133",
+            "\1\u0135\6\uffff\1\u0136",
+            "\1\u0137\1\uffff\1\u0138",
             "\1\u0139",
-            "\1\u013a",
-            "\1\u0140\12\uffff\1\u013f\1\uffff\1\u013c\1\uffff\1\u013d"+
-            "\3\uffff\1\u013b\1\uffff\1\u013e",
+            "\1\u013a\3\uffff\1\u013c\11\uffff\1\u013d\2\uffff\1\u013b",
+            "\1\u013e",
+            "\1\u013f",
+            "\1\u0140",
             "\1\u0141",
-            "\1\u0143\6\uffff\1\u0142",
-            "\1\u0144\6\uffff\1\u0145",
-            "\1\u0146\1\uffff\1\u0147\2\uffff\1\u0148\2\uffff\1\u0149",
-            "\1\u014a",
-            "\1\u014b\3\uffff\1\u014d\11\uffff\1\u014e\2\uffff\1\u014c",
-            "\1\u014f",
-            "\1\u0150",
-            "\1\u0151",
-            "\1\u0152",
-            "\1\u0153",
-            "\1\u0154",
+            "\1\u0142",
             "\2\77\1\uffff\12\77\7\uffff\32\77\4\uffff\1\77\1\uffff\32"+
             "\77",
-            "\1\u0156\23\uffff\1\u0157",
+            "\1\u0144\23\uffff\1\u0145",
+            "\1\u0146",
+            "\1\u0147",
+            "\1\u0148",
+            "\1\u0149\5\uffff\1\u014a",
+            "\1\u014b\13\uffff\1\u014c",
+            "\1\u014d",
+            "\1\u014e\5\uffff\1\u014f",
+            "\1\u0150",
+            "\1\u0151\3\uffff\1\u0152",
+            "\1\u0155\1\uffff\1\u0153\5\uffff\1\u0154",
+            "\1\u0156",
+            "\1\u0157",
             "\1\u0158",
             "\1\u0159",
             "\1\u015a",
-            "\1\u015b\5\uffff\1\u015c",
-            "\1\u015d\13\uffff\1\u015e",
+            "\1\u015b",
+            "\1\u015c",
+            "\2\u015e\2\uffff\1\u015e\22\uffff\1\u015e\40\uffff\32\u015e"+
+            "\4\uffff\1\u015e\1\uffff\32\u015e",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
             "\1\u015f",
-            "\1\u0160\5\uffff\1\u0161",
-            "\1\u0162",
-            "\1\u0163\3\uffff\1\u0164",
-            "\1\u0167\1\uffff\1\u0165\5\uffff\1\u0166",
-            "\1\u0168",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "\1\u0161",
+            "\2\u0163\2\uffff\1\u0163\22\uffff\1\u0163\40\uffff\32\u0163"+
+            "\4\uffff\1\u0163\1\uffff\32\u0163",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "\12\u00b8\13\uffff\1\u00c2\37\uffff\1\u00c2",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "\12\u0165\13\uffff\1\u00c2\37\uffff\1\u00c2",
+            "\1\u00c0\1\uffff\12\u00c1\13\uffff\1\u00c2\37\uffff\1\u00c2",
+            "",
+            "\1\u0166",
+            "\2\77\1\uffff\12\77\7\uffff\32\77\4\uffff\1\77\1\uffff\32"+
+            "\77",
+            "\2\77\1\uffff\12\77\7\uffff\32\77\4\uffff\1\77\1\uffff\32"+
+            "\77",
             "\1\u0169",
+            "",
             "\1\u016a",
-            "\1\u016b",
-            "\1\u016c",
+            "",
+            "\2\77\1\uffff\12\77\7\uffff\32\77\4\uffff\1\77\1\uffff\16"+
+            "\77\1\u016b\13\77",
             "\1\u016d",
-            "\1\u016e\11\uffff\1\u016f",
-            "\2\u0171\2\uffff\1\u0171\22\uffff\1\u0171\40\uffff\32\u0171"+
-            "\4\uffff\1\u0171\1\uffff\32\u0171",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
+            "\2\77\1\uffff\12\77\7\uffff\32\77\4\uffff\1\77\1\uffff\32"+
+            "\77",
+            "\1\u016f",
+            "\1\u0170",
+            "\1\u0171",
             "",
             "\1\u0172",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
+            "\1\u0173",
             "\1\u0174",
-            "\2\u0176\2\uffff\1\u0176\22\uffff\1\u0176\40\uffff\32\u0176"+
-            "\4\uffff\1\u0176\1\uffff\32\u0176",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "\12\u00bb\13\uffff\1\u00c6\37\uffff\1\u00c6",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "\12\u0178\13\uffff\1\u00c6\37\uffff\1\u00c6",
-            "\1\u00c4\1\uffff\12\u00c5\13\uffff\1\u00c6\37\uffff\1\u00c6",
-            "",
+            "\1\u0175\16\uffff\1\u0176",
+            "\1\u0177",
+            "\1\u0178",
             "\1\u0179",
-            "\2\77\1\uffff\12\77\7\uffff\32\77\4\uffff\1\77\1\uffff\32"+
-            "\77",
-            "\2\77\1\uffff\12\77\7\uffff\32\77\4\uffff\1\77\1\uffff\32"+
-            "\77",
-            "\1\u017c",
-            "",
-            "\1\u017d",
-            "",
+            "\1\u017a",
+            "\1\u017b",
+            "\1\u017c\1\u017d",
             "\1\u017e",
-            "\2\77\1\uffff\12\77\7\uffff\32\77\4\uffff\1\77\1\uffff\32"+
-            "\77",
-            "\1\u0180",
-            "\1\u0181",
+            "\1\u017f",
+            "\1\u0181\2\uffff\1\u0180",
             "\1\u0182",
-            "\2\77\1\uffff\12\77\7\uffff\32\77\4\uffff\1\77\1\uffff\32"+
-            "\77",
+            "\1\u0183",
             "\1\u0184",
             "\1\u0185",
-            "",
-            "\1\u0186",
+            "\2\77\1\uffff\12\77\7\uffff\32\77\4\uffff\1\77\1\uffff\32"+
+            "\77",
             "\1\u0187",
             "\1\u0188",
-            "\1\u0189\16\uffff\1\u018a",
+            "\1\u0189",
+            "\1\u018a",
             "\1\u018b",
             "\1\u018c",
             "\1\u018d",
             "\1\u018e",
             "\1\u018f",
-            "\1\u0190\1\u0191",
+            "\2\77\1\uffff\12\77\7\uffff\32\77\4\uffff\1\77\1\uffff\32"+
+            "\77",
+            "\1\u0191",
+            "",
             "\1\u0192",
             "\1\u0193",
-            "\1\u0195\2\uffff\1\u0194",
+            "\1\u0194",
+            "\1\u0195",
             "\1\u0196",
             "\1\u0197",
             "\1\u0198",
-            "\1\u0199",
-            "\2\77\1\uffff\12\77\7\uffff\32\77\4\uffff\1\77\1\uffff\32"+
-            "\77",
+            "\2\77\1\uffff\12\77\7\uffff\32\77\4\uffff\1\77\1\uffff\4\77"+
+            "\1\u0199\25\77",
             "\1\u019b",
             "\1\u019c",
             "\1\u019d",
@@ -9359,86 +8936,83 @@ public class XQueryLexer extends XQDTLexer {
             "\1\u019f",
             "\1\u01a0",
             "\1\u01a1",
+            "",
             "\1\u01a2",
             "\1\u01a3",
-            "\2\77\1\uffff\12\77\7\uffff\32\77\4\uffff\1\77\1\uffff\32"+
-            "\77",
+            "",
+            "\1\u01a4",
+            "",
             "\1\u01a5",
             "\1\u01a6",
-            "",
-            "\1\u01a7",
-            "\1\u01a8",
-            "\1\u01a9",
-            "\1\u01aa",
+            "\1\u01a8\16\uffff\1\u01a7",
+            "\1\u01a9\11\uffff\1\u01aa",
             "\1\u01ab",
             "\1\u01ac",
+            "",
+            "",
             "\1\u01ad",
-            "\2\77\1\uffff\12\77\7\uffff\32\77\4\uffff\1\77\1\uffff\4\77"+
-            "\1\u01ae\25\77",
+            "\2\77\1\uffff\12\77\7\uffff\32\77\4\uffff\1\77\1\uffff\32"+
+            "\77",
+            "\1\u01af",
             "\1\u01b0",
             "\1\u01b1",
-            "\1\u01b2",
+            "\2\77\1\uffff\12\77\7\uffff\32\77\4\uffff\1\77\1\uffff\32"+
+            "\77",
             "\1\u01b3",
+            "",
+            "",
             "\1\u01b4",
             "\1\u01b5",
-            "\1\u01b6",
-            "",
-            "\1\u01b7",
-            "\1\u01b8",
-            "",
+            "\2\77\1\uffff\12\77\7\uffff\32\77\4\uffff\1\77\1\uffff\10"+
+            "\77\1\u01b7\13\77\1\u01b6\5\77",
             "\1\u01b9",
-            "",
             "\1\u01ba",
             "\1\u01bb",
-            "\1\u01bd\16\uffff\1\u01bc",
-            "\1\u01be\11\uffff\1\u01bf",
-            "\1\u01c0",
+            "\1\u01bc",
+            "",
+            "\1\u01bd\6\uffff\1\u01be",
+            "\1\u01bf",
+            "\2\77\1\uffff\12\77\7\uffff\32\77\4\uffff\1\77\1\uffff\32"+
+            "\77",
+            "",
+            "",
             "\1\u01c1",
-            "",
-            "",
             "\1\u01c2",
-            "\2\77\1\uffff\12\77\7\uffff\32\77\4\uffff\1\77\1\uffff\32"+
-            "\77",
+            "",
+            "\1\u01c3",
+            "",
             "\1\u01c4",
-            "\1\u01c5",
-            "\1\u01c6",
-            "\2\77\1\uffff\12\77\7\uffff\32\77\4\uffff\1\77\1\uffff\32"+
-            "\77",
-            "\1\u01c8",
-            "",
-            "",
-            "\1\u01c9",
-            "\2\77\1\uffff\12\77\7\uffff\32\77\4\uffff\1\77\1\uffff\10"+
-            "\77\1\u01cb\13\77\1\u01ca\5\77",
-            "\1\u01cd",
+            "\1\u01c6\3\uffff\1\u01c5",
+            "\1\u01c7",
+            "\1\u01c8\17\uffff\1\u01c9\2\uffff\1\u01ca",
+            "\1\u01cb",
+            "\1\u01cd\65\uffff\1\u01cc",
             "\1\u01ce",
             "\1\u01cf",
             "\1\u01d0",
             "\1\u01d1",
             "\1\u01d2",
             "\1\u01d3",
-            "",
-            "\1\u01d4\6\uffff\1\u01d5",
+            "\1\u01d4",
+            "\1\u01d5",
             "\1\u01d6",
-            "\2\77\1\uffff\12\77\7\uffff\32\77\4\uffff\1\77\1\uffff\3\77"+
-            "\1\u01d7\26\77",
+            "\1\u01d7",
+            "\1\u01d8",
+            "\1\u01d9\1\u01da",
+            "\1\u01db",
+            "\1\u01dc\17\uffff\1\u01dd",
+            "\1\u01de",
+            "\1\u01df",
+            "\1\u01e0",
+            "\1\u01e1",
+            "\1\u01e2",
+            "\1\u01e3",
+            "\1\u01e4",
+            "\1\u01e5\4\uffff\1\u01e6",
+            "",
+            "\1\u01e7",
             "\2\77\1\uffff\12\77\7\uffff\32\77\4\uffff\1\77\1\uffff\32"+
             "\77",
-            "",
-            "",
-            "\1\u01da",
-            "\1\u01db",
-            "",
-            "\1\u01dc",
-            "",
-            "\1\u01dd",
-            "\1\u01de",
-            "\1\u01e0\3\uffff\1\u01df",
-            "\1\u01e1",
-            "\1\u01e2\17\uffff\1\u01e3\2\uffff\1\u01e4",
-            "\1\u01e5",
-            "\1\u01e6",
-            "\1\u01e8\65\uffff\1\u01e7",
             "\1\u01e9",
             "\1\u01ea",
             "\1\u01eb",
@@ -9447,183 +9021,190 @@ public class XQueryLexer extends XQDTLexer {
             "\1\u01ee",
             "\1\u01ef",
             "\1\u01f0",
-            "\1\u01f1",
-            "\1\u01f2",
+            "\1\u01f1\13\uffff\1\u01f2",
             "\1\u01f3",
             "\1\u01f4",
-            "\1\u01f5",
-            "\1\u01f6",
-            "\1\u01f7\1\u01f8",
+            "\1\u01f6\3\uffff\1\u01f5",
+            "\1\u01f7",
+            "\1\u01f8",
             "\1\u01f9",
+            "\1\u01fa",
+            "\1\u01fb",
+            "\1\u01fc",
+            "\1\u01fd",
             "\2\77\1\uffff\12\77\7\uffff\32\77\4\uffff\1\77\1\uffff\32"+
             "\77",
-            "\1\u01fb",
-            "\1\u01fc\17\uffff\1\u01fd",
-            "\1\u01fe",
             "\1\u01ff",
-            "\1\u0200",
+            "\2\77\1\uffff\12\77\7\uffff\32\77\4\uffff\1\77\1\uffff\32"+
+            "\77",
             "\1\u0201",
+            "",
+            "",
+            "",
+            "",
             "\1\u0202",
+            "",
+            "",
+            "",
+            "\12\u0165\13\uffff\1\u00c2\37\uffff\1\u00c2",
             "\1\u0203",
+            "",
+            "",
             "\1\u0204",
             "\1\u0205",
-            "\1\u0206\4\uffff\1\u0207",
+            "\1\u0206",
             "",
-            "\1\u0208",
+            "\1\u0207",
+            "",
             "\2\77\1\uffff\12\77\7\uffff\32\77\4\uffff\1\77\1\uffff\32"+
             "\77",
+            "\1\u0209",
             "\1\u020a",
             "\1\u020b",
             "\1\u020c",
-            "\1\u020d\1\uffff\1\u020e",
-            "\1\u020f",
-            "\1\u0210",
+            "\1\u020d",
+            "\2\77\1\uffff\12\77\7\uffff\32\77\4\uffff\1\77\1\uffff\32"+
+            "\77",
+            "\2\77\1\uffff\12\77\7\uffff\32\77\4\uffff\1\77\1\uffff\1\u020f"+
+            "\31\77",
             "\1\u0211",
             "\1\u0212",
-            "\1\u0213\13\uffff\1\u0214",
-            "\1\u0215",
+            "\1\u0213",
+            "\1\u0214\3\uffff\1\u0215",
             "\1\u0216",
-            "\1\u0218\3\uffff\1\u0217",
-            "\1\u0219",
-            "\1\u021a",
-            "\1\u021b",
-            "\1\u021c",
+            "\1\u0217",
+            "\1\u0219\3\uffff\1\u0218\3\uffff\1\u021a",
+            "\1\u021b\1\77\1\uffff\12\77\7\uffff\32\77\4\uffff\1\77\1\uffff"+
+            "\32\77",
             "\1\u021d",
             "\1\u021e",
             "\1\u021f",
-            "\2\77\1\uffff\12\77\7\uffff\32\77\4\uffff\1\77\1\uffff\32"+
-            "\77",
+            "\1\u0220",
             "\1\u0221",
-            "\2\77\1\uffff\12\77\7\uffff\32\77\4\uffff\1\77\1\uffff\32"+
-            "\77",
+            "\1\u0222",
             "\1\u0223",
+            "",
             "\1\u0224",
-            "",
-            "",
-            "",
-            "",
             "\1\u0225",
-            "",
-            "",
-            "",
-            "\12\u0178\13\uffff\1\u00c6\37\uffff\1\u00c6",
             "\1\u0226",
-            "",
-            "",
             "\1\u0227",
             "\1\u0228",
             "\1\u0229",
-            "",
-            "\1\u022a",
             "\2\77\1\uffff\12\77\7\uffff\32\77\4\uffff\1\77\1\uffff\32"+
             "\77",
+            "\1\u022b",
             "\1\u022c",
             "",
             "\1\u022d",
             "\1\u022e",
-            "\1\u022f",
-            "\1\u0230",
-            "\1\u0231",
             "\2\77\1\uffff\12\77\7\uffff\32\77\4\uffff\1\77\1\uffff\32"+
             "\77",
-            "\2\77\1\uffff\12\77\7\uffff\32\77\4\uffff\1\77\1\uffff\1\u0233"+
-            "\31\77",
-            "\1\u0235",
-            "\1\u0236",
+            "\1\u0230",
+            "\1\u0231",
+            "\1\u0232",
+            "\2\77\1\uffff\12\77\7\uffff\32\77\4\uffff\1\77\1\uffff\32"+
+            "\77",
+            "\1\u0234",
+            "\1\u0235\7\uffff\1\u0236",
+            "",
             "\1\u0237",
-            "\1\u0238\3\uffff\1\u0239",
+            "\1\u0238",
+            "\2\77\1\uffff\12\77\7\uffff\32\77\4\uffff\1\77\1\uffff\32"+
+            "\77",
             "\1\u023a",
             "\1\u023b",
-            "\1\u023d\3\uffff\1\u023c",
-            "\1\u023e\1\77\1\uffff\12\77\7\uffff\32\77\4\uffff\1\77\1\uffff"+
-            "\32\77",
-            "\1\u0240",
+            "\1\u023c",
+            "\2\77\1\uffff\12\77\7\uffff\32\77\4\uffff\1\77\1\uffff\32"+
+            "\77",
+            "\1\u023e",
+            "\1\u023f",
+            "\2\77\1\uffff\12\77\7\uffff\32\77\4\uffff\1\77\1\uffff\32"+
+            "\77",
             "\1\u0241",
             "\1\u0242",
             "\1\u0243",
-            "\1\u0244",
-            "\1\u0245",
-            "\1\u0246",
-            "",
-            "\1\u0247",
-            "\1\u0248",
+            "\1\u0245\3\uffff\1\u0244",
+            "\1\u0247\12\uffff\1\u0246",
+            "\2\77\1\uffff\12\77\7\uffff\32\77\4\uffff\1\77\1\uffff\32"+
+            "\77",
             "\1\u0249",
             "\1\u024a",
-            "\1\u024b",
-            "\1\u024c",
             "\2\77\1\uffff\12\77\7\uffff\32\77\4\uffff\1\77\1\uffff\32"+
             "\77",
-            "\1\u024e",
-            "\1\u024f",
             "",
-            "\1\u0250",
-            "\1\u0251",
-            "\1\u0252",
             "\2\77\1\uffff\12\77\7\uffff\32\77\4\uffff\1\77\1\uffff\32"+
             "\77",
-            "\1\u0254",
+            "\1\u024d",
+            "\1\u024e",
+            "",
+            "\1\u024f",
+            "\1\u0250",
+            "\2\77\1\uffff\12\77\7\uffff\32\77\4\uffff\1\77\1\uffff\32"+
+            "\77",
+            "\1\u0252",
+            "\1\u0253",
+            "",
+            "\2\77\1\uffff\12\77\7\uffff\32\77\4\uffff\1\77\1\uffff\32"+
+            "\77",
             "\1\u0255",
             "\1\u0256",
             "\2\77\1\uffff\12\77\7\uffff\32\77\4\uffff\1\77\1\uffff\32"+
             "\77",
             "\1\u0258",
-            "\1\u0259\7\uffff\1\u025a",
+            "\1\u0259",
+            "\2\77\1\uffff\12\77\7\uffff\32\77\4\uffff\1\77\1\uffff\22"+
+            "\77\1\u025a\7\77",
             "",
-            "\1\u025b",
             "\1\u025c",
+            "\1\u025d",
             "\2\77\1\uffff\12\77\7\uffff\32\77\4\uffff\1\77\1\uffff\32"+
             "\77",
-            "\1\u025e",
             "\1\u025f",
             "\1\u0260",
-            "\2\77\1\uffff\12\77\7\uffff\32\77\4\uffff\1\77\1\uffff\32"+
-            "\77",
+            "\1\u0261",
             "\1\u0262",
             "\1\u0263",
-            "\2\77\1\uffff\12\77\7\uffff\32\77\4\uffff\1\77\1\uffff\32"+
-            "\77",
+            "\1\u0264",
             "\1\u0265",
             "\1\u0266",
             "\1\u0267",
-            "\1\u0269\3\uffff\1\u0268",
-            "\1\u026b\12\uffff\1\u026a",
-            "\2\77\1\uffff\12\77\7\uffff\32\77\4\uffff\1\77\1\uffff\32"+
-            "\77",
+            "\1\u0268",
+            "\1\u0269",
+            "\1\u026a",
+            "\1\u026b",
+            "\1\u026c",
             "\1\u026d",
             "\1\u026e",
-            "\2\77\1\uffff\12\77\7\uffff\32\77\4\uffff\1\77\1\uffff\32"+
-            "\77",
-            "",
+            "\1\u026f",
             "\2\77\1\uffff\12\77\7\uffff\32\77\4\uffff\1\77\1\uffff\32"+
             "\77",
             "\1\u0271",
             "\1\u0272",
-            "",
-            "\1\u0273",
+            "\2\77\1\uffff\12\77\7\uffff\32\77\4\uffff\1\77\1\uffff\32"+
+            "\77",
             "\1\u0274",
             "\1\u0275",
-            "\1\u0276",
-            "",
             "\2\77\1\uffff\12\77\7\uffff\32\77\4\uffff\1\77\1\uffff\32"+
             "\77",
+            "\1\u0277",
             "\1\u0278",
-            "\1\u0279",
-            "\1\u027a",
+            "\1\u0279\14\uffff\1\u027a",
             "\1\u027b",
-            "\1\u027c",
             "\2\77\1\uffff\12\77\7\uffff\32\77\4\uffff\1\77\1\uffff\32"+
             "\77",
+            "\1\u027d",
             "\1\u027e",
-            "\1\u027f",
-            "\2\77\1\uffff\12\77\7\uffff\32\77\4\uffff\1\77\1\uffff\22"+
-            "\77\1\u0280\7\77",
-            "\1\u0282",
-            "",
-            "",
-            "\1\u0283",
-            "\1\u0284",
             "\2\77\1\uffff\12\77\7\uffff\32\77\4\uffff\1\77\1\uffff\32"+
             "\77",
+            "\2\77\1\uffff\12\77\7\uffff\32\77\4\uffff\1\77\1\uffff\32"+
+            "\77",
+            "\2\77\1\uffff\12\77\7\uffff\32\77\4\uffff\1\77\1\uffff\32"+
+            "\77",
+            "\1\u0282",
+            "\1\u0283",
+            "",
+            "\2\77\1\uffff\12\77\7\uffff\32\77\4\uffff\1\77\1\uffff\22"+
+            "\77\1\u0284\7\77",
             "\1\u0286",
             "\1\u0287",
             "\1\u0288",
@@ -9636,179 +9217,195 @@ public class XQueryLexer extends XQDTLexer {
             "\1\u028f",
             "\1\u0290",
             "\1\u0291",
-            "\1\u0292",
+            "\2\77\1\uffff\12\77\7\uffff\32\77\4\uffff\1\77\1\uffff\32"+
+            "\77",
             "\1\u0293",
             "\1\u0294",
-            "\1\u0295",
-            "\1\u0296",
+            "\2\77\1\uffff\12\77\7\uffff\32\77\4\uffff\1\77\1\uffff\16"+
+            "\77\1\u0295\13\77",
             "\1\u0297",
             "\1\u0298",
-            "\1\u0299",
-            "\1\u029a",
+            "\2\77\1\uffff\12\77\7\uffff\32\77\4\uffff\1\77\1\uffff\22"+
+            "\77\1\u0299\7\77",
             "\1\u029b",
+            "",
+            "\1\u029c",
+            "",
             "\2\77\1\uffff\12\77\7\uffff\32\77\4\uffff\1\77\1\uffff\32"+
             "\77",
-            "\1\u029d",
-            "\1\u029e",
-            "\2\77\1\uffff\12\77\7\uffff\32\77\4\uffff\1\77\1\uffff\32"+
-            "\77",
+            "\0\u029f",
             "\1\u02a0",
             "\1\u02a1",
             "\1\u02a2",
+            "\1\u02a3",
+            "\2\77\1\uffff\12\77\7\uffff\32\77\4\uffff\1\77\1\uffff\32"+
+            "\77",
+            "",
+            "\1\u02a5",
+            "\1\u02a6",
+            "\1\u02a7",
+            "\2\77\1\uffff\12\77\7\uffff\32\77\4\uffff\1\77\1\uffff\32"+
+            "\77",
+            "\1\u02a9",
+            "",
+            "\1\u02aa",
             "",
             "\2\77\1\uffff\12\77\7\uffff\32\77\4\uffff\1\77\1\uffff\32"+
             "\77",
-            "\1\u02a4",
-            "\1\u02a5",
-            "\1\u02a6\14\uffff\1\u02a7",
-            "\1\u02a8",
-            "\2\77\1\uffff\12\77\7\uffff\32\77\4\uffff\1\77\1\uffff\32"+
-            "\77",
-            "\1\u02aa",
-            "\1\u02ab",
-            "\2\77\1\uffff\12\77\7\uffff\32\77\4\uffff\1\77\1\uffff\32"+
-            "\77",
-            "\1\u02ad",
             "\2\77\1\uffff\12\77\7\uffff\32\77\4\uffff\1\77\1\uffff\32"+
             "\77",
             "\2\77\1\uffff\12\77\7\uffff\32\77\4\uffff\1\77\1\uffff\32"+
             "\77",
+            "\1\u02ae",
+            "\1\u02af",
             "\1\u02b0",
             "\1\u02b1",
-            "",
-            "\1\u02b2",
-            "\1\u02b3",
+            "\1\u02b3\11\uffff\1\u02b2",
             "\1\u02b4",
             "\1\u02b5",
             "\1\u02b6",
-            "\1\u02b7",
+            "",
+            "\2\77\1\uffff\12\77\7\uffff\32\77\4\uffff\1\77\1\uffff\32"+
+            "\77",
             "\1\u02b8",
             "\1\u02b9",
             "\1\u02ba",
             "\1\u02bb",
             "\1\u02bc",
             "\1\u02bd",
-            "\1\u02be",
-            "\1\u02bf",
             "\2\77\1\uffff\12\77\7\uffff\32\77\4\uffff\1\77\1\uffff\32"+
             "\77",
+            "\1\u02bf",
+            "\1\u02c0",
             "\1\u02c1",
             "\1\u02c2",
-            "\2\77\1\uffff\12\77\7\uffff\32\77\4\uffff\1\77\1\uffff\16"+
-            "\77\1\u02c3\13\77",
-            "\1\u02c5",
+            "\1\u02c3",
+            "",
+            "\1\u02c4\1\77\1\uffff\12\77\7\uffff\32\77\4\uffff\1\77\1\uffff"+
+            "\32\77",
             "\1\u02c6",
-            "\2\77\1\uffff\12\77\7\uffff\32\77\4\uffff\1\77\1\uffff\22"+
-            "\77\1\u02c7\7\77",
-            "\1\u02c9",
-            "",
-            "\1\u02ca",
-            "",
-            "\1\u02cb",
+            "\1\u02c7",
             "\2\77\1\uffff\12\77\7\uffff\32\77\4\uffff\1\77\1\uffff\32"+
             "\77",
-            "\0\u02ce",
+            "",
+            "\1\u02c9",
+            "\1\u02ca",
+            "\1\u02cb",
+            "",
+            "\1\u02cc",
+            "\1\u02cd",
+            "\1\u02ce",
             "\1\u02cf",
-            "\1\u02d0",
+            "\2\77\1\uffff\12\77\7\uffff\32\77\4\uffff\1\77\1\uffff\32"+
+            "\77",
+            "",
             "\1\u02d1",
             "\2\77\1\uffff\12\77\7\uffff\32\77\4\uffff\1\77\1\uffff\32"+
             "\77",
-            "\1\u02d3",
+            "\2\77\1\uffff\12\77\7\uffff\32\77\4\uffff\1\77\1\uffff\32"+
+            "\77",
             "",
             "\1\u02d4",
-            "\1\u02d5",
-            "\1\u02d6",
+            "\2\77\1\uffff\12\77\7\uffff\32\77\4\uffff\1\77\1\uffff\10"+
+            "\77\1\u02d5\21\77",
+            "",
             "\1\u02d7",
-            "\2\77\1\uffff\12\77\7\uffff\32\77\4\uffff\1\77\1\uffff\32"+
-            "\77",
+            "\1\u02d8",
             "\1\u02d9",
-            "",
             "\1\u02da",
+            "\1\u02db",
+            "\1\u02dc",
+            "\1\u02dd",
             "",
-            "\2\77\1\uffff\12\77\7\uffff\32\77\4\uffff\1\77\1\uffff\32"+
-            "\77",
-            "\2\77\1\uffff\12\77\7\uffff\32\77\4\uffff\1\77\1\uffff\32"+
-            "\77",
-            "\2\77\1\uffff\12\77\7\uffff\32\77\4\uffff\1\77\1\uffff\32"+
-            "\77",
             "\1\u02de",
-            "\1\u02df",
+            "\2\77\1\uffff\12\77\7\uffff\32\77\4\uffff\1\77\1\uffff\32"+
+            "\77",
+            "",
+            "",
             "\1\u02e0",
-            "\2\77\1\uffff\12\77\7\uffff\32\77\4\uffff\1\77\1\uffff\1\u02e2"+
-            "\20\77\1\u02e1\10\77",
-            "\1\u02e5\11\uffff\1\u02e4",
+            "\2\77\1\uffff\12\77\7\uffff\32\77\4\uffff\1\77\1\uffff\32"+
+            "\77",
+            "\1\u02e2",
+            "\1\u02e3",
+            "",
+            "\1\u02e4",
+            "\1\u02e5",
+            "",
             "\1\u02e6",
             "\1\u02e7",
             "",
-            "\2\77\1\uffff\12\77\7\uffff\32\77\4\uffff\1\77\1\uffff\32"+
-            "\77",
+            "\1\u02e8",
             "\1\u02e9",
-            "\1\u02ea",
-            "\1\u02eb",
-            "\1\u02ec",
-            "\1\u02ed",
-            "\1\u02ee",
             "\2\77\1\uffff\12\77\7\uffff\32\77\4\uffff\1\77\1\uffff\32"+
             "\77",
+            "",
+            "\1\u02eb",
+            "\2\77\1\uffff\12\77\7\uffff\32\77\4\uffff\1\77\1\uffff\4\77"+
+            "\1\u02ec\3\77\1\u02ed\21\77",
+            "",
+            "\1\u02ef",
             "\1\u02f0",
             "\1\u02f1",
             "\1\u02f2",
             "\1\u02f3",
             "\1\u02f4",
-            "",
-            "\1\u02f5\1\77\1\uffff\12\77\7\uffff\32\77\4\uffff\1\77\1\uffff"+
-            "\32\77",
+            "\1\u02f5",
+            "\1\u02f6",
             "\1\u02f7",
             "\1\u02f8",
             "\1\u02f9",
-            "\2\77\1\uffff\12\77\7\uffff\32\77\4\uffff\1\77\1\uffff\32"+
-            "\77",
-            "",
+            "\1\u02fa",
             "\1\u02fb",
             "\1\u02fc",
             "\1\u02fd",
-            "",
             "\1\u02fe",
             "\1\u02ff",
+            "",
             "\1\u0300",
-            "\1\u0301",
             "\2\77\1\uffff\12\77\7\uffff\32\77\4\uffff\1\77\1\uffff\32"+
             "\77",
             "",
+            "\1\u0302",
             "\1\u0303",
-            "\2\77\1\uffff\12\77\7\uffff\32\77\4\uffff\1\77\1\uffff\32"+
-            "\77",
-            "\2\77\1\uffff\12\77\7\uffff\32\77\4\uffff\1\77\1\uffff\32"+
-            "\77",
             "",
+            "\1\u0304",
+            "\2\77\1\uffff\12\77\7\uffff\32\77\4\uffff\1\77\1\uffff\32"+
+            "\77",
             "\1\u0306",
-            "\2\77\1\uffff\12\77\7\uffff\32\77\4\uffff\1\77\1\uffff\10"+
-            "\77\1\u0307\21\77",
+            "\2\77\1\uffff\12\77\7\uffff\32\77\4\uffff\1\77\1\uffff\32"+
+            "\77",
+            "\1\u0308",
             "",
             "\1\u0309",
             "\1\u030a",
+            "",
+            "",
+            "",
             "\1\u030b",
-            "\1\u030c",
+            "\2\77\1\uffff\12\77\7\uffff\32\77\4\uffff\1\77\1\uffff\32"+
+            "\77",
             "\1\u030d",
+            "",
             "\1\u030e",
-            "\1\u030f",
-            "",
-            "\1\u0310",
             "\2\77\1\uffff\12\77\7\uffff\32\77\4\uffff\1\77\1\uffff\32"+
             "\77",
-            "",
-            "",
+            "\2\77\1\uffff\12\77\7\uffff\32\77\4\uffff\1\77\1\uffff\32"+
+            "\77",
+            "\1\u0311",
             "\1\u0312",
+            "\1\u0313",
             "\2\77\1\uffff\12\77\7\uffff\32\77\4\uffff\1\77\1\uffff\32"+
             "\77",
-            "\1\u0314",
             "\1\u0315",
-            "\1\u0316",
+            "\2\77\1\uffff\12\77\7\uffff\32\77\4\uffff\1\77\1\uffff\32"+
+            "\77",
             "\1\u0317",
-            "",
             "\1\u0318",
-            "\1\u0319",
-            "\1\u031a",
+            "\2\77\1\uffff\12\77\7\uffff\32\77\4\uffff\1\77\1\uffff\32"+
+            "\77",
+            "",
+            "\2\77\1\uffff\12\77\7\uffff\32\77\4\uffff\1\77\1\uffff\32"+
+            "\77",
             "\1\u031b",
             "\1\u031c",
             "",
@@ -9819,242 +9416,248 @@ public class XQueryLexer extends XQDTLexer {
             "",
             "\1\u0320",
             "\1\u0321",
-            "\2\77\1\uffff\12\77\7\uffff\32\77\4\uffff\1\77\1\uffff\4\77"+
-            "\1\u0322\3\77\1\u0323\21\77",
+            "",
+            "",
+            "",
+            "\1\u0322",
+            "\1\u0323",
+            "\1\u0324",
+            "\1\u0325",
+            "",
+            "\1\u0326",
+            "\1\u0327",
+            "\2\77\1\uffff\12\77\7\uffff\32\77\4\uffff\1\77\1\uffff\32"+
+            "\77",
             "",
             "\2\77\1\uffff\12\77\7\uffff\32\77\4\uffff\1\77\1\uffff\32"+
             "\77",
-            "\1\u0326",
-            "\1\u0327",
-            "\1\u0328",
-            "\1\u0329",
             "\1\u032a",
+            "",
+            "",
+            "",
             "\1\u032b",
             "\1\u032c",
             "\1\u032d",
-            "\1\u032e",
-            "\1\u032f",
+            "\1\u032f\23\uffff\1\u032e",
             "\1\u0330",
             "\1\u0331",
             "\1\u0332",
             "\1\u0333",
             "\1\u0334",
+            "",
             "\1\u0335",
             "\1\u0336",
             "\1\u0337",
             "\1\u0338",
+            "\1\u0339",
             "\2\77\1\uffff\12\77\7\uffff\32\77\4\uffff\1\77\1\uffff\32"+
             "\77",
-            "\1\u033a",
             "",
             "\1\u033b",
-            "\2\77\1\uffff\12\77\7\uffff\32\77\4\uffff\1\77\1\uffff\32"+
-            "\77",
-            "",
+            "\1\u033c",
             "\1\u033d",
             "\1\u033e",
             "\1\u033f",
-            "",
             "\1\u0340",
+            "",
+            "\1\u0341",
             "\2\77\1\uffff\12\77\7\uffff\32\77\4\uffff\1\77\1\uffff\32"+
             "\77",
-            "\1\u0342",
+            "",
             "\2\77\1\uffff\12\77\7\uffff\32\77\4\uffff\1\77\1\uffff\32"+
             "\77",
             "\1\u0344",
-            "",
             "\1\u0345",
             "\1\u0346",
-            "",
             "\1\u0347",
-            "",
-            "",
             "\1\u0348",
-            "\2\77\1\uffff\12\77\7\uffff\32\77\4\uffff\1\77\1\uffff\32"+
-            "\77",
+            "\1\u0349",
+            "",
             "\1\u034a",
+            "",
+            "",
             "\1\u034b",
-            "\2\77\1\uffff\12\77\7\uffff\32\77\4\uffff\1\77\1\uffff\32"+
-            "\77",
+            "\1\u034c",
+            "",
             "\2\77\1\uffff\12\77\7\uffff\32\77\4\uffff\1\77\1\uffff\32"+
             "\77",
             "\1\u034e",
             "\1\u034f",
-            "\1\u0350",
+            "\2\77\1\uffff\12\77\7\uffff\32\77\4\uffff\1\77\1\uffff\32"+
+            "\77",
             "\1\u0351",
-            "\2\77\1\uffff\12\77\7\uffff\32\77\4\uffff\1\77\1\uffff\32"+
-            "\77",
+            "\1\u0352",
             "\1\u0353",
-            "\2\77\1\uffff\12\77\7\uffff\32\77\4\uffff\1\77\1\uffff\32"+
-            "\77",
+            "\1\u0354",
+            "",
             "\1\u0355",
-            "\1\u0356",
-            "\2\77\1\uffff\12\77\7\uffff\32\77\4\uffff\1\77\1\uffff\32"+
-            "\77",
             "",
             "\2\77\1\uffff\12\77\7\uffff\32\77\4\uffff\1\77\1\uffff\32"+
             "\77",
-            "\1\u0359",
+            "\1\u0357",
+            "\2\77\1\uffff\12\77\7\uffff\32\77\4\uffff\1\77\1\uffff\32"+
+            "\77",
+            "\2\77\1\uffff\12\77\7\uffff\32\77\4\uffff\1\77\1\uffff\32"+
+            "\77",
             "\1\u035a",
-            "",
             "\1\u035b",
             "\1\u035c",
+            "\1\u035d",
+            "",
             "\2\77\1\uffff\12\77\7\uffff\32\77\4\uffff\1\77\1\uffff\32"+
             "\77",
-            "",
-            "\1\u035e",
             "\1\u035f",
+            "\1\u0360",
+            "",
             "\2\77\1\uffff\12\77\7\uffff\32\77\4\uffff\1\77\1\uffff\32"+
             "\77",
-            "",
-            "",
-            "",
-            "\1\u0361",
-            "\1\u0362",
+            "\2\77\1\uffff\12\77\7\uffff\32\77\4\uffff\1\77\1\uffff\32"+
+            "\77",
             "\1\u0363",
-            "",
             "\1\u0364",
             "\1\u0365",
             "\1\u0366",
             "\1\u0367",
-            "\2\77\1\uffff\12\77\7\uffff\32\77\4\uffff\1\77\1\uffff\32"+
-            "\77",
-            "",
-            "\2\77\1\uffff\12\77\7\uffff\32\77\4\uffff\1\77\1\uffff\32"+
-            "\77",
+            "\1\u0368",
+            "\1\u0369",
             "\1\u036a",
-            "",
-            "",
-            "",
-            "\1\u036b",
-            "\1\u036c",
-            "\1\u036d",
-            "\1\u036f\23\uffff\1\u036e",
-            "\1\u0370",
-            "",
-            "\1\u0371",
-            "\1\u0372",
-            "\1\u0373",
-            "\1\u0374",
-            "",
-            "\1\u0375",
-            "\1\u0376",
-            "\1\u0377",
-            "\1\u0378",
-            "\1\u0379",
-            "\2\77\1\uffff\12\77\7\uffff\32\77\4\uffff\1\77\1\uffff\32"+
-            "\77",
-            "",
-            "\1\u037b",
-            "\1\u037c",
-            "\1\u037d",
-            "\1\u037e",
-            "\1\u037f",
-            "\1\u0380",
-            "",
-            "\1\u0381",
-            "\2\77\1\uffff\12\77\7\uffff\32\77\4\uffff\1\77\1\uffff\32"+
-            "\77",
-            "\1\u0383",
-            "",
-            "\2\77\1\uffff\12\77\7\uffff\32\77\4\uffff\1\77\1\uffff\32"+
-            "\77",
-            "\1\u0385",
-            "\1\u0386",
-            "\1\u0387",
-            "\1\u0388",
-            "\1\u0389",
-            "\1\u038a",
-            "",
-            "\1\u038b",
-            "",
-            "",
-            "\1\u038c",
-            "\1\u038d",
-            "",
-            "\2\77\1\uffff\12\77\7\uffff\32\77\4\uffff\1\77\1\uffff\32"+
-            "\77",
-            "\1\u038f",
-            "\1\u0390",
-            "\2\77\1\uffff\12\77\7\uffff\32\77\4\uffff\1\77\1\uffff\32"+
-            "\77",
-            "\1\u0392",
-            "\1\u0393",
-            "\1\u0394",
-            "\1\u0395",
-            "",
-            "\1\u0396",
-            "",
-            "\2\77\1\uffff\12\77\7\uffff\32\77\4\uffff\1\77\1\uffff\32"+
-            "\77",
-            "\1\u0398",
-            "\2\77\1\uffff\12\77\7\uffff\32\77\4\uffff\1\77\1\uffff\32"+
-            "\77",
-            "\2\77\1\uffff\12\77\7\uffff\32\77\4\uffff\1\77\1\uffff\32"+
-            "\77",
-            "\1\u039b",
-            "\1\u039c",
-            "\1\u039d",
-            "\1\u039e",
-            "\1\u039f",
-            "\1\u03a0",
-            "\1\u03a1",
-            "",
-            "\1\u03a2",
-            "\2\77\1\uffff\12\77\7\uffff\32\77\4\uffff\1\77\1\uffff\32"+
-            "\77",
-            "\1\u03a4",
-            "\1\u03a5",
-            "",
-            "",
-            "\2\77\1\uffff\12\77\7\uffff\32\77\4\uffff\1\77\1\uffff\32"+
-            "\77",
-            "\2\77\1\uffff\12\77\7\uffff\32\77\4\uffff\1\77\1\uffff\32"+
-            "\77",
-            "\1\u03a8",
-            "\1\u03a9",
-            "\1\u03aa",
-            "\1\u03ab",
-            "\1\u03ac",
-            "\1\u03ad",
-            "\1\u03ae",
-            "\1\u03af",
-            "\1\u03b0",
-            "\2\77\1\uffff\12\77\7\uffff\32\77\4\uffff\1\77\1\uffff\32"+
-            "\77",
             "\2\77\1\uffff\12\77\7\uffff\32\77\4\uffff\1\77\1\uffff\32"+
             "\77",
             "\2\77\1\uffff\12\77\7\uffff\32\77\4\uffff\1\77\1\uffff\10"+
-            "\77\1\u03b3\21\77",
+            "\77\1\u036c\21\77",
             "\2\77\1\uffff\12\77\7\uffff\32\77\4\uffff\1\77\1\uffff\32"+
             "\77",
+            "\1\u036f",
+            "\1\u0370",
+            "\1\u0371",
+            "\1\u0372",
+            "\1\u0373\1\77\1\uffff\12\77\7\uffff\32\77\4\uffff\1\77\1\uffff"+
+            "\32\77",
+            "",
+            "\1\u0375",
+            "\1\u0376",
+            "\2\77\1\uffff\12\77\7\uffff\32\77\4\uffff\1\77\1\uffff\32"+
+            "\77",
+            "",
+            "\2\77\1\uffff\12\77\7\uffff\32\77\4\uffff\1\77\1\uffff\32"+
+            "\77",
+            "",
+            "\1\u0379",
+            "\1\u037a",
+            "\2\77\1\uffff\12\77\7\uffff\32\77\4\uffff\1\77\1\uffff\32"+
+            "\77",
+            "\1\u037c",
+            "",
+            "\1\u037d",
+            "\1\u037e",
+            "",
+            "",
+            "\1\u037f",
+            "\1\u0380",
+            "\1\u0381",
+            "",
+            "\1\u0382",
+            "",
+            "\1\u0383",
+            "\1\u0384",
+            "",
+            "",
+            "\2\77\1\uffff\12\77\7\uffff\32\77\4\uffff\1\77\1\uffff\32"+
+            "\77",
+            "\1\u0386",
+            "\1\u0387",
+            "\2\77\1\uffff\12\77\7\uffff\32\77\4\uffff\1\77\1\uffff\32"+
+            "\77",
+            "",
+            "\2\77\1\uffff\12\77\7\uffff\32\77\4\uffff\1\77\1\uffff\32"+
+            "\77",
+            "\1\u038a",
+            "\1\u038b",
+            "\1\u038c",
+            "\1\u038d",
+            "\1\u038e",
+            "\1\u038f",
+            "\1\u0390",
+            "",
+            "",
+            "\1\u0391",
+            "\1\u0392",
+            "\1\u0393",
+            "\2\77\1\uffff\12\77\7\uffff\32\77\4\uffff\1\77\1\uffff\32"+
+            "\77",
+            "\1\u0395",
+            "\1\u0396",
+            "\2\77\1\uffff\12\77\7\uffff\32\77\4\uffff\1\77\1\uffff\32"+
+            "\77",
+            "\2\77\1\uffff\12\77\7\uffff\32\77\4\uffff\1\77\1\uffff\32"+
+            "\77",
+            "\1\u0399",
+            "\1\u039a",
+            "\1\u039b",
+            "\2\77\1\uffff\12\77\7\uffff\32\77\4\uffff\1\77\1\uffff\32"+
+            "\77",
+            "\1\u039d",
+            "\2\77\1\uffff\12\77\7\uffff\32\77\4\uffff\1\77\1\uffff\32"+
+            "\77",
+            "\1\u039f\7\uffff\1\u03a0",
+            "\1\u03a1",
+            "",
+            "\1\u03a2",
+            "\1\u03a3",
+            "\1\u03a4",
+            "\1\u03a5",
+            "\2\77\1\uffff\12\77\7\uffff\32\77\4\uffff\1\77\1\uffff\32"+
+            "\77",
+            "\1\u03a7",
+            "\1\u03a8",
+            "",
+            "",
+            "\1\u03a9",
+            "\2\77\1\uffff\12\77\7\uffff\32\77\4\uffff\1\77\1\uffff\32"+
+            "\77",
+            "\1\u03ab",
+            "\2\77\1\uffff\12\77\7\uffff\32\77\4\uffff\1\77\1\uffff\32"+
+            "\77",
+            "\2\77\1\uffff\12\77\7\uffff\32\77\4\uffff\1\77\1\uffff\32"+
+            "\77",
+            "\1\u03ae",
+            "\1\u03af",
+            "\1\u03b0",
+            "\1\u03b1",
+            "",
+            "\2\77\1\uffff\12\77\7\uffff\32\77\4\uffff\1\77\1\uffff\32"+
+            "\77",
+            "\1\u03b3",
+            "",
+            "\1\u03b4",
+            "\1\u03b5",
             "\1\u03b6",
             "\1\u03b7",
             "\1\u03b8",
+            "",
             "\1\u03b9",
             "",
+            "",
             "\1\u03ba",
-            "\1\u03bb\1\77\1\uffff\12\77\7\uffff\32\77\4\uffff\1\77\1\uffff"+
-            "\32\77",
-            "",
+            "\1\u03bb",
+            "\1\u03bc",
             "\1\u03bd",
-            "\1\u03be",
+            "",
+            "\2\77\1\uffff\12\77\7\uffff\32\77\4\uffff\1\77\1\uffff\32"+
+            "\77",
             "\1\u03bf",
-            "\2\77\1\uffff\12\77\7\uffff\32\77\4\uffff\1\77\1\uffff\32"+
-            "\77",
             "",
-            "\2\77\1\uffff\12\77\7\uffff\32\77\4\uffff\1\77\1\uffff\32"+
-            "\77",
             "",
+            "\1\u03c0",
+            "\1\u03c1",
             "\1\u03c2",
             "\1\u03c3",
+            "\1\u03c4",
+            "\1\u03c5",
             "\2\77\1\uffff\12\77\7\uffff\32\77\4\uffff\1\77\1\uffff\32"+
             "\77",
-            "\2\77\1\uffff\12\77\7\uffff\32\77\4\uffff\1\77\1\uffff\32"+
-            "\77",
-            "\1\u03c6",
-            "",
             "\1\u03c7",
+            "",
             "\1\u03c8",
             "",
             "",
@@ -10063,344 +9666,361 @@ public class XQueryLexer extends XQDTLexer {
             "\1\u03ca",
             "\1\u03cb",
             "\1\u03cc",
+            "\1\u03cd\3\uffff\1\u03ce",
             "",
-            "\1\u03cd",
-            "",
-            "\1\u03ce",
             "\1\u03cf",
+            "\1\u03d0",
             "",
             "",
-            "\2\77\1\uffff\12\77\7\uffff\32\77\4\uffff\1\77\1\uffff\32"+
-            "\77",
             "\1\u03d1",
-            "\1\u03d2",
             "\2\77\1\uffff\12\77\7\uffff\32\77\4\uffff\1\77\1\uffff\32"+
             "\77",
             "",
-            "\2\77\1\uffff\12\77\7\uffff\32\77\4\uffff\1\77\1\uffff\32"+
-            "\77",
+            "\1\u03d3",
+            "\1\u03d4",
             "\1\u03d5",
-            "",
             "\1\u03d6",
             "\1\u03d7",
             "\1\u03d8",
             "\1\u03d9",
             "\1\u03da",
-            "\1\u03db",
-            "\1\u03dc",
-            "",
-            "",
-            "\1\u03dd",
-            "\1\u03de",
-            "\1\u03df",
             "\2\77\1\uffff\12\77\7\uffff\32\77\4\uffff\1\77\1\uffff\32"+
             "\77",
+            "",
+            "\2\77\1\uffff\12\77\7\uffff\32\77\4\uffff\1\77\1\uffff\32"+
+            "\77",
+            "\1\u03dd",
+            "",
+            "",
+            "\1\u03de",
+            "\1\u03df\1\77\1\uffff\12\77\7\uffff\32\77\4\uffff\1\77\1\uffff"+
+            "\32\77",
             "\1\u03e1",
             "\1\u03e2",
-            "\1\u03e3",
             "\2\77\1\uffff\12\77\7\uffff\32\77\4\uffff\1\77\1\uffff\32"+
             "\77",
             "\2\77\1\uffff\12\77\7\uffff\32\77\4\uffff\1\77\1\uffff\32"+
             "\77",
-            "\1\u03e6",
+            "\1\u03e5",
+            "\2\77\1\uffff\12\77\7\uffff\32\77\4\uffff\1\77\1\uffff\32"+
+            "\77",
             "\1\u03e7",
-            "\2\77\1\uffff\12\77\7\uffff\32\77\4\uffff\1\77\1\uffff\32"+
-            "\77",
+            "\1\u03e8",
+            "",
             "\1\u03e9",
+            "\1\u03ea",
+            "",
+            "",
             "\2\77\1\uffff\12\77\7\uffff\32\77\4\uffff\1\77\1\uffff\32"+
             "\77",
-            "\1\u03eb\7\uffff\1\u03ec",
+            "\2\77\1\uffff\12\77\7\uffff\32\77\4\uffff\1\77\1\uffff\32"+
+            "\77",
             "\1\u03ed",
             "",
-            "\1\u03ee",
-            "\1\u03ef",
+            "\1\u03ee\14\uffff\1\u03ef",
+            "",
             "\1\u03f0",
             "\1\u03f1",
-            "\2\77\1\uffff\12\77\7\uffff\32\77\4\uffff\1\77\1\uffff\32"+
-            "\77",
+            "\1\u03f2",
             "\1\u03f3",
             "\1\u03f4",
-            "",
-            "\1\u03f5",
-            "",
-            "\1\u03f6",
             "\2\77\1\uffff\12\77\7\uffff\32\77\4\uffff\1\77\1\uffff\32"+
             "\77",
+            "\1\u03f6\1\77\1\uffff\12\77\7\uffff\32\77\4\uffff\1\77\1\uffff"+
+            "\32\77",
+            "",
             "\1\u03f8",
             "\2\77\1\uffff\12\77\7\uffff\32\77\4\uffff\1\77\1\uffff\32"+
             "\77",
             "\2\77\1\uffff\12\77\7\uffff\32\77\4\uffff\1\77\1\uffff\32"+
             "\77",
+            "",
             "\1\u03fb",
-            "\1\u03fc",
-            "\1\u03fd",
-            "\1\u03fe",
+            "",
             "",
             "\2\77\1\uffff\12\77\7\uffff\32\77\4\uffff\1\77\1\uffff\32"+
             "\77",
-            "\1\u0400",
+            "\1\u03fd",
+            "\2\77\1\uffff\12\77\7\uffff\32\77\4\uffff\1\77\1\uffff\32"+
+            "\77",
+            "\1\u03ff",
             "",
+            "\2\77\1\uffff\12\77\7\uffff\32\77\4\uffff\1\77\1\uffff\32"+
+            "\77",
             "\1\u0401",
             "\1\u0402",
             "\1\u0403",
-            "\1\u0404",
-            "\1\u0405",
-            "",
+            "\2\77\1\uffff\12\77\7\uffff\32\77\4\uffff\1\77\1\uffff\32"+
+            "\77",
+            "\2\77\1\uffff\12\77\7\uffff\32\77\4\uffff\1\77\1\uffff\32"+
+            "\77",
             "\1\u0406",
-            "",
-            "",
             "\1\u0407",
             "\1\u0408",
             "\1\u0409",
+            "\1\u040a",
+            "",
             "\2\77\1\uffff\12\77\7\uffff\32\77\4\uffff\1\77\1\uffff\32"+
             "\77",
-            "\1\u040b",
             "\1\u040c",
             "\1\u040d",
             "\1\u040e",
-            "",
             "\2\77\1\uffff\12\77\7\uffff\32\77\4\uffff\1\77\1\uffff\32"+
             "\77",
-            "\1\u0410",
-            "",
-            "",
+            "\2\77\1\uffff\12\77\7\uffff\32\77\4\uffff\1\77\1\uffff\32"+
+            "\77",
             "\1\u0411",
+            "",
             "\1\u0412",
             "\1\u0413",
+            "",
             "\1\u0414",
             "\1\u0415",
             "\1\u0416",
-            "\2\77\1\uffff\12\77\7\uffff\32\77\4\uffff\1\77\1\uffff\32"+
-            "\77",
-            "\2\77\1\uffff\12\77\7\uffff\32\77\4\uffff\1\77\1\uffff\32"+
-            "\77",
+            "\1\u0417",
+            "\1\u0418",
             "\1\u0419",
-            "",
-            "",
-            "\1\u041a",
-            "",
-            "",
+            "\2\77\1\uffff\12\77\7\uffff\32\77\4\uffff\1\77\1\uffff\22"+
+            "\77\1\u041a\7\77",
             "\2\77\1\uffff\12\77\7\uffff\32\77\4\uffff\1\77\1\uffff\32"+
             "\77",
-            "\1\u041c",
+            "",
             "\1\u041d",
             "\1\u041e",
-            "\1\u041f",
-            "\1\u0420\3\uffff\1\u0421",
-            "",
+            "\2\77\1\uffff\12\77\7\uffff\32\77\4\uffff\1\77\1\uffff\32"+
+            "\77",
+            "\1\u0420",
+            "\2\77\1\uffff\12\77\7\uffff\32\77\4\uffff\1\77\1\uffff\32"+
+            "\77",
             "\1\u0422",
-            "\1\u0423",
-            "\1\u0424",
+            "\2\77\1\uffff\12\77\7\uffff\32\77\4\uffff\1\77\1\uffff\32"+
+            "\77",
+            "\2\77\1\uffff\12\77\7\uffff\32\77\4\uffff\1\77\1\uffff\32"+
+            "\77",
             "",
             "",
             "\1\u0425",
+            "\1\u0426",
+            "\1\u0427",
+            "",
+            "\2\77\1\uffff\12\77\7\uffff\32\77\4\uffff\1\77\1\uffff\32"+
+            "\77",
             "\2\77\1\uffff\12\77\7\uffff\32\77\4\uffff\1\77\1\uffff\32"+
             "\77",
             "",
             "",
-            "\1\u0427",
-            "\1\u0428",
-            "\1\u0429",
-            "",
             "\1\u042a",
-            "\1\u042b",
+            "",
+            "\2\77\1\uffff\12\77\7\uffff\32\77\4\uffff\1\77\1\uffff\32"+
+            "\77",
             "\1\u042c",
             "\1\u042d",
             "\1\u042e",
-            "\2\77\1\uffff\12\77\7\uffff\32\77\4\uffff\1\77\1\uffff\32"+
-            "\77",
             "",
-            "\2\77\1\uffff\12\77\7\uffff\32\77\4\uffff\1\77\1\uffff\32"+
-            "\77",
+            "",
+            "\1\u042f",
+            "\1\u0430",
             "\1\u0431",
-            "",
-            "",
             "\1\u0432",
-            "\1\u0433\1\77\1\uffff\12\77\7\uffff\32\77\4\uffff\1\77\1\uffff"+
-            "\32\77",
+            "\1\u0433",
+            "\1\u0434",
             "\1\u0435",
-            "\1\u0436",
+            "\2\77\1\uffff\12\77\7\uffff\32\77\4\uffff\1\77\1\uffff\32"+
+            "\77",
+            "",
             "\1\u0437",
+            "",
             "\1\u0438",
-            "\2\77\1\uffff\12\77\7\uffff\32\77\4\uffff\1\77\1\uffff\32"+
-            "\77",
-            "\1\u043a",
-            "\2\77\1\uffff\12\77\7\uffff\32\77\4\uffff\1\77\1\uffff\32"+
-            "\77",
-            "\1\u043c",
-            "\1\u043d",
-            "",
-            "\1\u043e",
-            "\1\u043f",
-            "\2\77\1\uffff\12\77\7\uffff\32\77\4\uffff\1\77\1\uffff\32"+
-            "\77",
             "",
             "",
-            "\2\77\1\uffff\12\77\7\uffff\32\77\4\uffff\1\77\1\uffff\32"+
-            "\77",
-            "\1\u0442",
-            "",
-            "\1\u0443\14\uffff\1\u0444",
-            "",
-            "\1\u0445",
-            "\1\u0446",
-            "\1\u0447",
-            "\1\u0448",
-            "\1\u0449",
-            "\2\77\1\uffff\12\77\7\uffff\32\77\4\uffff\1\77\1\uffff\32"+
-            "\77",
-            "\1\u044b\1\77\1\uffff\12\77\7\uffff\32\77\4\uffff\1\77\1\uffff"+
+            "\1\u0439\1\77\1\uffff\12\77\7\uffff\32\77\4\uffff\1\77\1\uffff"+
             "\32\77",
             "",
-            "\1\u044d",
             "\2\77\1\uffff\12\77\7\uffff\32\77\4\uffff\1\77\1\uffff\32"+
             "\77",
+            "",
+            "\1\u043c",
+            "",
+            "\1\u043d",
             "\2\77\1\uffff\12\77\7\uffff\32\77\4\uffff\1\77\1\uffff\32"+
             "\77",
             "\2\77\1\uffff\12\77\7\uffff\32\77\4\uffff\1\77\1\uffff\32"+
             "\77",
             "",
+            "",
+            "\2\77\1\uffff\12\77\7\uffff\32\77\4\uffff\1\77\1\uffff\32"+
+            "\77",
+            "\1\u0441",
+            "\1\u0442\1\77\1\uffff\12\77\7\uffff\32\77\4\uffff\1\77\1\uffff"+
+            "\32\77",
+            "\1\u0444",
+            "\1\u0445",
+            "",
+            "\2\77\1\uffff\12\77\7\uffff\32\77\4\uffff\1\77\1\uffff\22"+
+            "\77\1\u0446\7\77",
+            "\1\u0448",
+            "\1\u0449\1\77\1\uffff\12\77\7\uffff\32\77\4\uffff\1\77\1\uffff"+
+            "\32\77",
+            "",
+            "",
+            "\1\u044b",
+            "\2\77\1\uffff\12\77\7\uffff\32\77\4\uffff\1\77\1\uffff\32"+
+            "\77",
+            "\2\77\1\uffff\12\77\7\uffff\32\77\4\uffff\1\77\1\uffff\32"+
+            "\77",
+            "\1\u044e",
+            "\1\u044f",
+            "\2\77\1\uffff\12\77\7\uffff\32\77\4\uffff\1\77\1\uffff\32"+
+            "\77",
             "\1\u0451",
+            "\1\u0452",
+            "\2\77\1\uffff\12\77\7\uffff\32\77\4\uffff\1\77\1\uffff\32"+
+            "\77",
+            "\2\77\1\uffff\12\77\7\uffff\32\77\4\uffff\1\77\1\uffff\32"+
+            "\77",
             "",
             "",
             "\2\77\1\uffff\12\77\7\uffff\32\77\4\uffff\1\77\1\uffff\32"+
             "\77",
-            "\1\u0453",
-            "\2\77\1\uffff\12\77\7\uffff\32\77\4\uffff\1\77\1\uffff\32"+
-            "\77",
-            "\1\u0455",
+            "\1\u0456",
             "",
             "\2\77\1\uffff\12\77\7\uffff\32\77\4\uffff\1\77\1\uffff\32"+
             "\77",
-            "\1\u0457",
-            "\1\u0458",
-            "\1\u0459",
+            "",
             "\2\77\1\uffff\12\77\7\uffff\32\77\4\uffff\1\77\1\uffff\32"+
             "\77",
+            "",
+            "",
             "\2\77\1\uffff\12\77\7\uffff\32\77\4\uffff\1\77\1\uffff\32"+
             "\77",
+            "\1\u045a",
+            "\1\u045b",
+            "",
+            "",
             "\1\u045c",
-            "\1\u045d",
+            "",
+            "\2\77\1\uffff\12\77\7\uffff\32\77\4\uffff\1\77\1\uffff\32"+
+            "\77",
             "\1\u045e",
             "\2\77\1\uffff\12\77\7\uffff\32\77\4\uffff\1\77\1\uffff\32"+
             "\77",
-            "",
             "\1\u0460",
             "\1\u0461",
             "\1\u0462",
-            "\1\u0463",
-            "",
+            "\1\u0463\1\77\1\uffff\12\77\7\uffff\32\77\4\uffff\1\77\1\uffff"+
+            "\32\77",
             "\2\77\1\uffff\12\77\7\uffff\32\77\4\uffff\1\77\1\uffff\32"+
             "\77",
-            "\1\u0465",
             "\1\u0466",
-            "\1\u0467",
             "\2\77\1\uffff\12\77\7\uffff\32\77\4\uffff\1\77\1\uffff\32"+
             "\77",
-            "\2\77\1\uffff\12\77\7\uffff\32\77\4\uffff\1\77\1\uffff\32"+
-            "\77",
+            "",
+            "\1\u0468",
+            "\1\u0469",
             "\1\u046a",
             "",
             "",
             "\1\u046b",
             "\1\u046c",
             "",
-            "\1\u046d",
+            "",
+            "",
+            "\2\77\1\uffff\12\77\7\uffff\32\77\4\uffff\1\77\1\uffff\32"+
+            "\77",
             "\1\u046e",
-            "\1\u046f",
+            "",
+            "\2\77\1\uffff\12\77\7\uffff\32\77\4\uffff\1\77\1\uffff\32"+
+            "\77",
             "\1\u0470",
-            "\1\u0471",
-            "\1\u0472",
-            "\1\u0473",
-            "\2\77\1\uffff\12\77\7\uffff\32\77\4\uffff\1\77\1\uffff\22"+
-            "\77\1\u0474\7\77",
-            "\1\u0476",
             "\2\77\1\uffff\12\77\7\uffff\32\77\4\uffff\1\77\1\uffff\32"+
             "\77",
             "",
+            "\1\u0472",
+            "\1\u0473",
+            "",
+            "\1\u0474",
+            "",
+            "",
+            "\1\u0475",
+            "\1\u0476",
+            "",
+            "\1\u0477",
             "\1\u0478",
-            "\1\u0479",
+            "",
+            "",
+            "",
+            "\2\77\1\uffff\12\77\7\uffff\32\77\4\uffff\1\77\1\uffff\32"+
+            "\77",
+            "",
+            "",
+            "",
             "\2\77\1\uffff\12\77\7\uffff\32\77\4\uffff\1\77\1\uffff\32"+
             "\77",
             "\1\u047b",
-            "\2\77\1\uffff\12\77\7\uffff\32\77\4\uffff\1\77\1\uffff\32"+
-            "\77",
+            "\1\u047c",
+            "",
             "\1\u047d",
-            "\2\77\1\uffff\12\77\7\uffff\32\77\4\uffff\1\77\1\uffff\32"+
-            "\77",
-            "\2\77\1\uffff\12\77\7\uffff\32\77\4\uffff\1\77\1\uffff\32"+
-            "\77",
             "",
-            "",
+            "\1\u047e",
+            "\1\u047f",
             "\1\u0480",
             "\1\u0481",
+            "",
+            "",
             "\1\u0482",
             "",
-            "\2\77\1\uffff\12\77\7\uffff\32\77\4\uffff\1\77\1\uffff\32"+
-            "\77",
-            "\2\77\1\uffff\12\77\7\uffff\32\77\4\uffff\1\77\1\uffff\32"+
-            "\77",
+            "\1\u0483",
+            "\1\u0484",
             "\1\u0485",
             "\1\u0486",
+            "\2\77\1\uffff\12\77\7\uffff\32\77\4\uffff\1\77\1\uffff\32"+
+            "\77",
             "",
-            "\1\u0487",
+            "\1\u0488",
             "",
             "\2\77\1\uffff\12\77\7\uffff\32\77\4\uffff\1\77\1\uffff\32"+
             "\77",
-            "\1\u0489",
+            "",
             "\1\u048a",
             "\1\u048b",
-            "",
-            "",
             "\1\u048c",
             "\1\u048d",
             "\1\u048e",
             "\1\u048f",
             "\1\u0490",
+            "",
+            "",
             "\1\u0491",
             "\1\u0492",
             "\2\77\1\uffff\12\77\7\uffff\32\77\4\uffff\1\77\1\uffff\32"+
             "\77",
-            "",
             "\1\u0494",
-            "",
             "\1\u0495",
-            "",
-            "",
-            "",
-            "\1\u0496\1\77\1\uffff\12\77\7\uffff\32\77\4\uffff\1\77\1\uffff"+
-            "\32\77",
-            "",
-            "\2\77\1\uffff\12\77\7\uffff\32\77\4\uffff\1\77\1\uffff\32"+
-            "\77",
-            "",
+            "\1\u0496",
+            "\1\u0497",
+            "\1\u0498",
             "\1\u0499",
-            "",
             "\1\u049a",
-            "\2\77\1\uffff\12\77\7\uffff\32\77\4\uffff\1\77\1\uffff\32"+
-            "\77",
-            "\2\77\1\uffff\12\77\7\uffff\32\77\4\uffff\1\77\1\uffff\32"+
-            "\77",
+            "\1\u049b",
+            "\1\u049c",
             "",
+            "\1\u049d",
             "",
-            "\2\77\1\uffff\12\77\7\uffff\32\77\4\uffff\1\77\1\uffff\32"+
-            "\77",
             "\1\u049e",
             "\1\u049f",
-            "",
-            "\1\u04a0\1\77\1\uffff\12\77\7\uffff\32\77\4\uffff\1\77\1\uffff"+
-            "\32\77",
-            "\1\u04a2",
+            "\1\u04a0",
+            "\2\77\1\uffff\12\77\7\uffff\32\77\4\uffff\1\77\1\uffff\32"+
+            "\77",
+            "\2\77\1\uffff\12\77\7\uffff\32\77\4\uffff\1\77\1\uffff\32"+
+            "\77",
             "\1\u04a3",
             "\1\u04a4",
+            "\1\u04a5",
+            "\1\u04a6",
             "",
-            "\2\77\1\uffff\12\77\7\uffff\32\77\4\uffff\1\77\1\uffff\22"+
-            "\77\1\u04a5\7\77",
             "\1\u04a7",
-            "\1\u04a8\1\77\1\uffff\12\77\7\uffff\32\77\4\uffff\1\77\1\uffff"+
-            "\32\77",
-            "",
-            "",
+            "\1\u04a8",
+            "\1\u04a9",
             "\1\u04aa",
             "\2\77\1\uffff\12\77\7\uffff\32\77\4\uffff\1\77\1\uffff\32"+
             "\77",
@@ -10408,91 +10028,77 @@ public class XQueryLexer extends XQDTLexer {
             "\77",
             "\1\u04ad",
             "\1\u04ae",
-            "\2\77\1\uffff\12\77\7\uffff\32\77\4\uffff\1\77\1\uffff\32"+
-            "\77",
-            "\2\77\1\uffff\12\77\7\uffff\32\77\4\uffff\1\77\1\uffff\32"+
-            "\77",
+            "\1\u04af",
+            "\1\u04b0",
             "\1\u04b1",
             "\1\u04b2",
-            "\2\77\1\uffff\12\77\7\uffff\32\77\4\uffff\1\77\1\uffff\32"+
-            "\77",
-            "\2\77\1\uffff\12\77\7\uffff\32\77\4\uffff\1\77\1\uffff\32"+
-            "\77",
+            "\1\u04b3",
             "",
+            "",
+            "\1\u04b4",
             "\1\u04b5",
-            "",
+            "\1\u04b6",
             "\2\77\1\uffff\12\77\7\uffff\32\77\4\uffff\1\77\1\uffff\32"+
             "\77",
-            "\1\u04b7",
-            "",
+            "\1\u04b8",
             "\2\77\1\uffff\12\77\7\uffff\32\77\4\uffff\1\77\1\uffff\32"+
             "\77",
-            "",
-            "\2\77\1\uffff\12\77\7\uffff\32\77\4\uffff\1\77\1\uffff\32"+
-            "\77",
-            "",
-            "",
-            "\2\77\1\uffff\12\77\7\uffff\32\77\4\uffff\1\77\1\uffff\32"+
-            "\77",
+            "\1\u04ba",
             "\1\u04bb",
-            "\1\u04bc",
             "",
             "",
+            "\2\77\1\uffff\12\77\7\uffff\32\77\4\uffff\1\77\1\uffff\32"+
+            "\77",
             "\1\u04bd",
             "\1\u04be",
-            "\1\u04bf",
+            "\2\77\1\uffff\12\77\7\uffff\32\77\4\uffff\1\77\1\uffff\32"+
+            "\77",
+            "\1\u04c0",
+            "\1\u04c1",
+            "\1\u04c2",
+            "\1\u04c3",
+            "\2\77\1\uffff\12\77\7\uffff\32\77\4\uffff\1\77\1\uffff\32"+
+            "\77",
+            "\1\u04c5",
             "",
             "\2\77\1\uffff\12\77\7\uffff\32\77\4\uffff\1\77\1\uffff\32"+
             "\77",
-            "\1\u04c1",
-            "\2\77\1\uffff\12\77\7\uffff\32\77\4\uffff\1\77\1\uffff\32"+
-            "\77",
-            "\1\u04c3",
-            "\1\u04c4",
-            "\1\u04c5",
-            "\1\u04c6\1\77\1\uffff\12\77\7\uffff\32\77\4\uffff\1\77\1\uffff"+
-            "\32\77",
-            "\2\77\1\uffff\12\77\7\uffff\32\77\4\uffff\1\77\1\uffff\32"+
-            "\77",
+            "",
+            "\1\u04c7",
+            "\1\u04c8",
+            "",
             "\1\u04c9",
-            "\2\77\1\uffff\12\77\7\uffff\32\77\4\uffff\1\77\1\uffff\32"+
-            "\77",
+            "\1\u04ca",
             "",
             "\1\u04cb",
             "\1\u04cc",
             "\1\u04cd",
-            "",
-            "",
             "\1\u04ce",
-            "\1\u04cf",
-            "",
-            "",
             "",
             "\2\77\1\uffff\12\77\7\uffff\32\77\4\uffff\1\77\1\uffff\32"+
             "\77",
-            "\2\77\1\uffff\12\77\7\uffff\32\77\4\uffff\1\77\1\uffff\32"+
-            "\77",
+            "",
+            "\1\u04d0",
+            "\1\u04d1",
             "\1\u04d2",
-            "",
-            "\2\77\1\uffff\12\77\7\uffff\32\77\4\uffff\1\77\1\uffff\32"+
-            "\77",
+            "\1\u04d3",
             "\1\u04d4",
             "\1\u04d5",
+            "\1\u04d6",
             "\2\77\1\uffff\12\77\7\uffff\32\77\4\uffff\1\77\1\uffff\32"+
             "\77",
             "",
-            "\1\u04d7",
-            "\1\u04d8",
-            "",
+            "\2\77\1\uffff\12\77\7\uffff\32\77\4\uffff\1\77\1\uffff\32"+
+            "\77",
             "\1\u04d9",
-            "",
-            "",
-            "\1\u04da",
+            "\2\77\1\uffff\12\77\7\uffff\32\77\4\uffff\1\77\1\uffff\32"+
+            "\77",
             "\1\u04db",
-            "",
-            "",
-            "\1\u04dc",
-            "\1\u04dd",
+            "\2\77\1\uffff\12\77\7\uffff\32\77\4\uffff\1\77\1\uffff\32"+
+            "\77",
+            "\2\77\1\uffff\12\77\7\uffff\32\77\4\uffff\1\77\1\uffff\32"+
+            "\77",
+            "\1\u04de",
             "",
             "",
             "\2\77\1\uffff\12\77\7\uffff\32\77\4\uffff\1\77\1\uffff\32"+
@@ -10502,185 +10108,12 @@ public class XQueryLexer extends XQDTLexer {
             "\77",
             "",
             "",
-            "",
-            "\2\77\1\uffff\12\77\7\uffff\32\77\4\uffff\1\77\1\uffff\32"+
-            "\77",
             "\1\u04e1",
-            "\2\77\1\uffff\12\77\7\uffff\32\77\4\uffff\1\77\1\uffff\32"+
-            "\77",
+            "",
+            "",
+            "\1\u04e2",
             "\1\u04e3",
             "\1\u04e4",
-            "",
-            "\1\u04e5",
-            "",
-            "\1\u04e6",
-            "\1\u04e7",
-            "\1\u04e8",
-            "\1\u04e9",
-            "",
-            "",
-            "\1\u04ea",
-            "",
-            "\1\u04eb",
-            "\1\u04ec",
-            "\1\u04ed",
-            "\1\u04ee",
-            "\2\77\1\uffff\12\77\7\uffff\32\77\4\uffff\1\77\1\uffff\32"+
-            "\77",
-            "",
-            "",
-            "\1\u04f0",
-            "",
-            "\2\77\1\uffff\12\77\7\uffff\32\77\4\uffff\1\77\1\uffff\32"+
-            "\77",
-            "\1\u04f2",
-            "",
-            "\1\u04f3",
-            "\1\u04f4",
-            "\1\u04f5",
-            "\1\u04f6",
-            "\1\u04f7",
-            "\1\u04f8",
-            "\1\u04f9",
-            "",
-            "",
-            "",
-            "\1\u04fa",
-            "",
-            "\1\u04fb",
-            "\1\u04fc",
-            "\2\77\1\uffff\12\77\7\uffff\32\77\4\uffff\1\77\1\uffff\32"+
-            "\77",
-            "\1\u04fe",
-            "\1\u04ff",
-            "\1\u0500",
-            "\1\u0501",
-            "\1\u0502",
-            "\1\u0503",
-            "\1\u0504",
-            "\1\u0505",
-            "\1\u0506",
-            "",
-            "\1\u0507",
-            "",
-            "\1\u0508",
-            "\1\u0509",
-            "\1\u050a",
-            "\1\u050b",
-            "\2\77\1\uffff\12\77\7\uffff\32\77\4\uffff\1\77\1\uffff\32"+
-            "\77",
-            "\2\77\1\uffff\12\77\7\uffff\32\77\4\uffff\1\77\1\uffff\32"+
-            "\77",
-            "\1\u050e",
-            "\1\u050f",
-            "\1\u0510",
-            "\2\77\1\uffff\12\77\7\uffff\32\77\4\uffff\1\77\1\uffff\32"+
-            "\77",
-            "\1\u0512",
-            "",
-            "\1\u0513",
-            "\1\u0514",
-            "\1\u0515",
-            "\1\u0516",
-            "\2\77\1\uffff\12\77\7\uffff\32\77\4\uffff\1\77\1\uffff\32"+
-            "\77",
-            "\2\77\1\uffff\12\77\7\uffff\32\77\4\uffff\1\77\1\uffff\32"+
-            "\77",
-            "\1\u0519",
-            "\1\u051a",
-            "\1\u051b",
-            "\1\u051c",
-            "\1\u051d",
-            "\1\u051e",
-            "\1\u051f",
-            "\1\u0520",
-            "",
-            "",
-            "\1\u0521",
-            "\1\u0522",
-            "\1\u0523",
-            "",
-            "\2\77\1\uffff\12\77\7\uffff\32\77\4\uffff\1\77\1\uffff\32"+
-            "\77",
-            "\1\u0525",
-            "\2\77\1\uffff\12\77\7\uffff\32\77\4\uffff\1\77\1\uffff\32"+
-            "\77",
-            "\1\u0527",
-            "\1\u0528",
-            "",
-            "",
-            "\2\77\1\uffff\12\77\7\uffff\32\77\4\uffff\1\77\1\uffff\32"+
-            "\77",
-            "\1\u052a",
-            "\1\u052b",
-            "\2\77\1\uffff\12\77\7\uffff\32\77\4\uffff\1\77\1\uffff\32"+
-            "\77",
-            "\1\u052d",
-            "\1\u052e",
-            "\1\u052f",
-            "\1\u0530",
-            "\1\u0531",
-            "\2\77\1\uffff\12\77\7\uffff\32\77\4\uffff\1\77\1\uffff\32"+
-            "\77",
-            "\1\u0533",
-            "",
-            "\2\77\1\uffff\12\77\7\uffff\32\77\4\uffff\1\77\1\uffff\32"+
-            "\77",
-            "",
-            "\1\u0535",
-            "\1\u0536",
-            "",
-            "\1\u0537",
-            "\1\u0538",
-            "",
-            "\1\u0539",
-            "\1\u053a",
-            "\1\u053b",
-            "\1\u053c",
-            "\1\u053d",
-            "",
-            "\2\77\1\uffff\12\77\7\uffff\32\77\4\uffff\1\77\1\uffff\32"+
-            "\77",
-            "",
-            "\1\u053f",
-            "\1\u0540",
-            "\1\u0541",
-            "\1\u0542",
-            "\2\77\1\uffff\12\77\7\uffff\32\77\4\uffff\1\77\1\uffff\32"+
-            "\77",
-            "\1\u0544",
-            "\1\u0545",
-            "\1\u0546",
-            "\2\77\1\uffff\12\77\7\uffff\32\77\4\uffff\1\77\1\uffff\32"+
-            "\77",
-            "",
-            "\2\77\1\uffff\12\77\7\uffff\32\77\4\uffff\1\77\1\uffff\32"+
-            "\77",
-            "\1\u0549",
-            "\2\77\1\uffff\12\77\7\uffff\32\77\4\uffff\1\77\1\uffff\32"+
-            "\77",
-            "\1\u054b",
-            "",
-            "\2\77\1\uffff\12\77\7\uffff\32\77\4\uffff\1\77\1\uffff\32"+
-            "\77",
-            "\2\77\1\uffff\12\77\7\uffff\32\77\4\uffff\1\77\1\uffff\32"+
-            "\77",
-            "\1\u054e",
-            "",
-            "",
-            "\2\77\1\uffff\12\77\7\uffff\32\77\4\uffff\1\77\1\uffff\32"+
-            "\77",
-            "",
-            "\2\77\1\uffff\12\77\7\uffff\32\77\4\uffff\1\77\1\uffff\32"+
-            "\77",
-            "",
-            "",
-            "\1\u0551",
-            "",
-            "",
-            "\1\u0552",
-            "\1\u0553",
-            "\1\u0554",
             "\2\77\1\uffff\12\77\7\uffff\32\77\4\uffff\1\77\1\uffff\32"+
             "\77",
             ""
@@ -10716,13 +10149,23 @@ public class XQueryLexer extends XQDTLexer {
             this.transition = DFA19_transition;
         }
         public String getDescription() {
-            return "1:1: Tokens : ( ANCESTOR | ANCESTOR_OR_SELF | AND | AS | ASCENDING | AT | ATTRIBUTE | BASE_URI | BOUNDARY_SPACE | BY | CASE | CAST | CASTABLE | CHILD | COLLATION | COMMENT | CONSTRUCTION | COPY_NAMESPACES | DECLARE | DEFAULT | DESCENDANT | DESCENDANT_OR_SELF | DESCENDING | DIV | DOCUMENT | DOCUMENT_NODE | ELEMENT | ELSE | EMPTY | EMPTY_SEQUENCE | ENCODING | EQ | EVERY | EXCEPT | EXTERNAL | FOLLOWING | FOLLOWING_SIBLING | FOR | FUNCTION | GE | GREATEST | GT | IDIV | IF | IMPORT | IN | INHERIT | INSTANCE | INTERSECT | IS | ITEM | LAX | LE | LEAST | LET | LT | MOD | MODULE | NAMESPACE | NE | NO_INHERIT | NO_PRESERVE | NODE | OF | OPTION | OR | ORDER | ORDERED | ORDERING | PARENT | PRECEDING | PRECEDING_SIBLING | PRESERVE | PROCESSING_INSTRUCTION | RETURN | SATISFIES | SCHEMA | SCHEMA_ATTRIBUTE | SCHEMA_ELEMENT | SELF | SOME | STABLE | STRICT | STRIP | TEXT | THEN | TO | TREAT | TYPESWITCH | UNION | UNORDERED | VALIDATE | VARIABLE | VERSION | WHERE | XQUERY | CATCH | CONTEXT | COUNT | DECIMAL_FORMAT | DECIMAL_SEPARATOR | DETERMINISTIC | DIGIT | END | GROUP | GROUPING_SEPARATOR | INFINITY | MINUS_SIGN | NAMESPACE_NODE | NAN | NEXT | NONDETERMINISTIC | ONLY | OUTER | PATTERN_SEPARATOR | PERCENT | PER_MILLE | PRIVATE | PUBLIC | PREVIOUS | SLIDING | START | SWITCH | TRY | TUMBLING | WHEN | WINDOW | ZERO_DIGIT | AFTER | BEFORE | COPY | DELETE | FIRST | INSERT | INTO | LAST | MODIFY | NODES | RENAME | REPLACE | REVALIDATION | SKIP | UPDATING | VALUE | WITH | ALL | ANY | CONTAINS | CONTENT | DIACRITICS | DIFFERENT | DISTANCE | ENTIRE | EXACTLY | FROM | FT_OPTION | FTAND | FTNOT | FTOR | INSENSITIVE | LANGUAGE | LEVELS | LOWERCASE | MOST | NO | NOT | OCCURS | PARAGRAPH | PARAGRAPHS | PHRASE | RELATIONSHIP | SAME | SCORE | SENSITIVE | SENTENCE | SENTENCES | STEMMING | STOP | THESAURUS | TIMES | UPPERCASE | USING | WEIGHT | WILDCARDS | WITHOUT | WORD | WORDS | BLOCK | CONSTANT | EXIT | RETURNING | SEQUENTIAL | SET | SIMPLE | WHILE | EVAL | APPEND_ONLY | AUTOMATICALLY | CHECK | COLLECTION | CONSTRAINT | CONST | EQUALITY | FOREACH | FOREIGN | INDEX | INTEGRITY | KEY | MAINTAINED | MANUALLY | MUTABLE | NON | ON | QUEUE | RANGE | READ_ONLY | UNIQUE | BINARY | AMP_ER | APOS_ER | QUOT_ER | LPAREN | RPAREN | DOLLAR | LBRACKET | RBRACKET | LSQUARE | RSQUARE | EQUAL | BIND | NOTEQUAL | AMP | COMMA | QUESTION | STAR | PLUS | MINUS | SMALLER | GREATER | SMALLEREQ | GREATEREQ | SMALLER_SMALLER | GREATER_GREATER | SLASH | SLASH_SLASH | DOT | DOT_DOT | COLON | COLON_COLON | EMPTY_CLOSE_TAG | CLOSE_TAG | SEMICOLON | VBAR | PRAGMA_START | PRAGMA_END | XML_COMMENT_START | XML_COMMENT_END | PI_START | PI_END | ATTR_SIGN | CHARREF_DEC | CHARREF_HEX | APOS | QUOT | L_NCName | S | L_Pragma | L_DirCommentConstructor | L_DirPIConstructor | L_IntegerLiteral | L_DecimalLiteral | L_DoubleLiteral | L_Comment | L_AnyChar );";
+            return "1:1: Tokens : ( ANCESTOR | ANCESTOR_OR_SELF | AND | AS | ASCENDING | AT | ATTRIBUTE | BASE_URI | BOUNDARY_SPACE | BY | CASE | CAST | CASTABLE | CHILD | COLLATION | COMMENT | CONSTRUCTION | COPY_NAMESPACES | DECLARE | DEFAULT | DESCENDANT | DESCENDANT_OR_SELF | DESCENDING | DIV | DOCUMENT | DOCUMENT_NODE | ELEMENT | ELSE | EMPTY | EMPTY_SEQUENCE | ENCODING | EQ | EVERY | EXCEPT | EXTERNAL | FOLLOWING | FOLLOWING_SIBLING | FOR | FUNCTION | GE | GREATEST | GT | IDIV | IF | IMPORT | IN | INHERIT | INSTANCE | INTERSECT | IS | ITEM | LAX | LE | LEAST | LET | LT | MOD | MODULE | NAMESPACE | NE | NO_INHERIT | NO_PRESERVE | NODE | OF | OPTION | OR | ORDER | ORDERED | ORDERING | PARENT | PRECEDING | PRECEDING_SIBLING | PRESERVE | PROCESSING_INSTRUCTION | RETURN | SATISFIES | SCHEMA | SCHEMA_ATTRIBUTE | SCHEMA_ELEMENT | SELF | SOME | STABLE | STRICT | STRIP | TEXT | THEN | TO | TREAT | TYPESWITCH | UNION | UNORDERED | VALIDATE | VARIABLE | VERSION | WHERE | XQUERY | ALLOWING | CATCH | CONTEXT | COUNT | DECIMAL_FORMAT | DECIMAL_SEPARATOR | DETERMINISTIC | DIGIT | END | GROUP | GROUPING_SEPARATOR | INFINITY | MINUS_SIGN | NAMESPACE_NODE | NAN | NEXT | ONLY | PATTERN_SEPARATOR | PERCENT | PER_MILLE | PREVIOUS | SLIDING | START | SWITCH | TRY | TUMBLING | TYPE | WHEN | WINDOW | ZERO_DIGIT | AFTER | BEFORE | COPY | DELETE | FIRST | INSERT | INTO | LAST | MODIFY | NODES | RENAME | REPLACE | REVALIDATION | SKIP | UPDATING | VALUE | WITH | ALL | ANY | CONTAINS | CONTENT | DIACRITICS | DIFFERENT | DISTANCE | ENTIRE | EXACTLY | FROM | FT_OPTION | FTAND | FTNOT | FTOR | INSENSITIVE | LANGUAGE | LEVELS | LOWERCASE | MOST | NO | NOT | OCCURS | PARAGRAPH | PARAGRAPHS | PHRASE | RELATIONSHIP | SAME | SCORE | SENSITIVE | SENTENCE | SENTENCES | STEMMING | STOP | THESAURUS | TIMES | UPPERCASE | USING | WEIGHT | WILDCARDS | WITHOUT | WORD | WORDS | BREAK | CONTINUE | EXIT | LOOP | RETURNING | WHILE | EVAL | CHECK | COLLECTION | CONSTRAINT | FOREACH | FOREIGN | INDEX | INTEGRITY | KEY | ON | BINARY | AMP_ER | APOS_ER | QUOT_ER | LPAREN | RPAREN | DOLLAR | LBRACKET | RBRACKET | LSQUARE | RSQUARE | EQUAL | BIND | NOTEQUAL | ANN_PERCENT | HASH | AMP | COMMA | QUESTION | STAR | PLUS | MINUS | SMALLER | GREATER | SMALLEREQ | GREATEREQ | SMALLER_SMALLER | GREATER_GREATER | SLASH | SLASH_SLASH | DOT | DOT_DOT | COLON | COLON_COLON | EMPTY_CLOSE_TAG | CLOSE_TAG | SEMICOLON | VBAR | PRAGMA_START | PRAGMA_END | XML_COMMENT_START | XML_COMMENT_END | PI_START | PI_END | ATTR_SIGN | CHARREF_DEC | CHARREF_HEX | APOS | QUOT | L_NCName | S | L_Pragma | L_DirCommentConstructor | L_DirPIConstructor | L_IntegerLiteral | L_DecimalLiteral | L_DoubleLiteral | L_Comment | L_AnyChar );";
         }
         public int specialStateTransition(int s, IntStream _input) throws NoViableAltException {
             IntStream input = _input;
         	int _s = s;
             switch ( s ) {
                     case 0 : 
+                        int LA19_514 = input.LA(1);
+
+                        s = -1;
+                        if ( ((LA19_514>='\u0000' && LA19_514<='\uFFFF')) ) {s = 671;}
+
+                        else s = 670;
+
+                        if ( s>=0 ) return s;
+                        break;
+                    case 1 : 
                         int LA19_0 = input.LA(1);
 
                         s = -1;
@@ -10794,55 +10237,47 @@ public class XQueryLexer extends XQDTLexer {
 
                         else if ( (LA19_0=='!') ) {s = 34;}
 
-                        else if ( (LA19_0=='&') ) {s = 35;}
+                        else if ( (LA19_0=='%') ) {s = 35;}
 
-                        else if ( (LA19_0==',') ) {s = 36;}
+                        else if ( (LA19_0=='#') ) {s = 36;}
 
-                        else if ( (LA19_0=='?') ) {s = 37;}
+                        else if ( (LA19_0=='&') ) {s = 37;}
 
-                        else if ( (LA19_0=='*') ) {s = 38;}
+                        else if ( (LA19_0==',') ) {s = 38;}
 
-                        else if ( (LA19_0=='+') ) {s = 39;}
+                        else if ( (LA19_0=='?') ) {s = 39;}
 
-                        else if ( (LA19_0=='-') ) {s = 40;}
+                        else if ( (LA19_0=='*') ) {s = 40;}
 
-                        else if ( (LA19_0=='<') ) {s = 41;}
+                        else if ( (LA19_0=='+') ) {s = 41;}
 
-                        else if ( (LA19_0=='>') ) {s = 42;}
+                        else if ( (LA19_0=='-') ) {s = 42;}
 
-                        else if ( (LA19_0=='/') ) {s = 43;}
+                        else if ( (LA19_0=='<') ) {s = 43;}
 
-                        else if ( (LA19_0=='.') ) {s = 44;}
+                        else if ( (LA19_0=='>') ) {s = 44;}
 
-                        else if ( (LA19_0==';') ) {s = 45;}
+                        else if ( (LA19_0=='/') ) {s = 45;}
 
-                        else if ( (LA19_0=='|') ) {s = 46;}
+                        else if ( (LA19_0=='.') ) {s = 46;}
 
-                        else if ( (LA19_0=='#') ) {s = 47;}
+                        else if ( (LA19_0==';') ) {s = 47;}
 
-                        else if ( (LA19_0=='@') ) {s = 48;}
+                        else if ( (LA19_0=='|') ) {s = 48;}
 
-                        else if ( (LA19_0=='\'') ) {s = 49;}
+                        else if ( (LA19_0=='@') ) {s = 49;}
 
-                        else if ( (LA19_0=='\"') ) {s = 50;}
+                        else if ( (LA19_0=='\'') ) {s = 50;}
 
-                        else if ( ((LA19_0>='A' && LA19_0<='M')||(LA19_0>='O' && LA19_0<='Z')||LA19_0=='_'||LA19_0=='h'||LA19_0=='j'||LA19_0=='y') ) {s = 51;}
+                        else if ( (LA19_0=='\"') ) {s = 51;}
 
-                        else if ( ((LA19_0>='\t' && LA19_0<='\n')||LA19_0=='\r'||LA19_0==' ') ) {s = 52;}
+                        else if ( ((LA19_0>='A' && LA19_0<='M')||(LA19_0>='O' && LA19_0<='Z')||LA19_0=='_'||LA19_0=='h'||LA19_0=='j'||LA19_0=='y') ) {s = 52;}
 
-                        else if ( ((LA19_0>='0' && LA19_0<='9')) ) {s = 53;}
+                        else if ( ((LA19_0>='\t' && LA19_0<='\n')||LA19_0=='\r'||LA19_0==' ') ) {s = 53;}
 
-                        else if ( ((LA19_0>='\u0000' && LA19_0<='\b')||(LA19_0>='\u000B' && LA19_0<='\f')||(LA19_0>='\u000E' && LA19_0<='\u001F')||LA19_0=='%'||LA19_0=='\\'||LA19_0=='^'||LA19_0=='`'||(LA19_0>='~' && LA19_0<='\uFFFF')) ) {s = 54;}
+                        else if ( ((LA19_0>='0' && LA19_0<='9')) ) {s = 54;}
 
-                        if ( s>=0 ) return s;
-                        break;
-                    case 1 : 
-                        int LA19_549 = input.LA(1);
-
-                        s = -1;
-                        if ( ((LA19_549>='\u0000' && LA19_549<='\uFFFF')) ) {s = 718;}
-
-                        else s = 717;
+                        else if ( ((LA19_0>='\u0000' && LA19_0<='\b')||(LA19_0>='\u000B' && LA19_0<='\f')||(LA19_0>='\u000E' && LA19_0<='\u001F')||LA19_0=='\\'||LA19_0=='^'||LA19_0=='`'||(LA19_0>='~' && LA19_0<='\uFFFF')) ) {s = 55;}
 
                         if ( s>=0 ) return s;
                         break;

@@ -7,7 +7,7 @@ Bundle-Activator: org.eclipse.wst.xquery.core.tests.XQDTCoreTestPlugin
 Bundle-Vendor: %providerName
 Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.core.resources,
- org.antlr.runtime_v31,
+ org.antlr.runtime;bundle-version="3.2.0",
  org.eclipse.wst.sse.core,
  org.eclipse.wst.xml.core,
  org.eclipse.dltk.core;bundle-version="2.0.0",

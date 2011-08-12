@@ -80,18 +80,18 @@
 
 	<repositories>
 		<repository>
-			<id>dltk2.0</id>
-			<url>http://download.eclipse.org/technology/dltk/updates-dev/2.0/</url>
+			<id>dltk3.0</id>
+			<url>http://download.eclipse.org/technology/dltk/updates-dev/3.0/</url>
 			<layout>p2</layout>
 		</repository>
 		<repository>
-			<id>helios</id>
-			<url>http://download.eclipse.org/releases/helios/</url>
+			<id>indigo</id>
+			<url>http://download.eclipse.org/releases/indigo/</url>
 			<layout>p2</layout>
 		</repository>
 		<repository>
 			<id>orbit</id>
-			<url>http://download.eclipse.org/tools/orbit/downloads/drops/R20100519200754/repository</url>
+			<url>http://download.eclipse.org/tools/orbit/downloads/drops/R20110523182458/repository/</url>
 			<layout>p2</layout>
 		</repository>
 	</repositories>

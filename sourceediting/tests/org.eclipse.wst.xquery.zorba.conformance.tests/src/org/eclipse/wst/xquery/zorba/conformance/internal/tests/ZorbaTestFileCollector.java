@@ -41,14 +41,18 @@ public class ZorbaTestFileCollector extends TestFileCollector {
             if (file.isDirectory()) {
                 recursive(file, map, relativeName + file.getName() + "/");
             } else {
-                if (file.getName().endsWith(".xq")) {
-                    String name = relativeName + file.getName();
+                String fileName = file.getName();
+                String name = relativeName + fileName;
+                if (fileName.endsWith(".xq")) {
                     String path = file.getAbsolutePath();
                     String spec = path.substring(0, path.length() - 3) + ".spec";
                     if (!(new File(spec).exists())) {
                         spec = null;
                     }
                     map.put(name, new Object[] { path, spec });
+                } else if (fileName.matches(".*\\..*xq.*")) {
+                    String path = file.getAbsolutePath();
+                    map.put(name, new Object[] { path, null });
                 }
             }
         }

@@ -394,18 +394,17 @@ p_Expr
 //[40]
 //[22] new XQuery Scripting proposal
 p_ExprSingle
-        : (((FOR | LET) DOLLAR) | (FOR (TUMBLING | SLIDING))) => p_FLWORExpr
-        | (IF LPAREN) =>          p_IfExpr
-        | (TYPESWITCH LPAREN) =>  p_SwitchExpr
-        | (TYPESWITCH LPAREN) =>  p_TypeswitchExpr
+        : (((FOR | LET) DOLLAR) | (FOR (TUMBLING | SLIDING))) => p_FLWORHybrid
+        | (IF LPAREN) =>          p_IfHybrid
+        | (SWITCH LPAREN) =>      p_SwitchHybrid
+        | (TYPESWITCH LPAREN) =>  p_TypeswitchHybrid
         | (TRY LBRACKET) =>       p_TryCatchExpr
-        | {lc(ZORBA)}?=> p_EvalExpr
         | p_ExprSimple
         ;
 
 //[41]
-p_FLWORExpr
-        : p_InitialClause p_IntermediateClause* p_ReturnClause
+p_FLWORHybrid
+        : p_InitialClause p_IntermediateClause* p_ReturnHybrid
         ;
 
 //[42]
@@ -541,8 +540,8 @@ p_OrderModifier
         ;
 
 //[68]
-p_ReturnClause
-        : k=RETURN {ak($k);} p_ExprSingle
+p_ReturnHybrid
+        : k=RETURN {ak($k);} p_Hybrid
         ;
 
 //[69]
@@ -551,13 +550,13 @@ p_QuantifiedExpr
         ;
 
 //[70]
-p_SwitchExpr
-        : k=SWITCH {ak($k);} LPAREN p_Expr RPAREN p_SwitchCaseClause+ k=DEFAULT {ak($k);} k=RETURN {ak($k);} p_ExprSingle
+p_SwitchHybrid
+        : k=SWITCH {ak($k);} LPAREN p_Expr RPAREN p_SwitchCaseHybrid+ k=DEFAULT {ak($k);} k=RETURN {ak($k);} p_Hybrid
         ;
 
 //[71]
-p_SwitchCaseClause
-        : (k=CASE {ak($k);} p_SwitchCaseOperand)+ k=RETURN {ak($k);} p_ExprSingle
+p_SwitchCaseHybrid
+        : (k=CASE {ak($k);} p_SwitchCaseOperand)+ k=RETURN {ak($k);} p_Hybrid
         ;
 
 //[72]
@@ -566,12 +565,12 @@ p_SwitchCaseOperand
         ;
 
 //[73]
-p_TypeswitchExpr
-        : k=TYPESWITCH {ak($k);} LPAREN p_Expr RPAREN p_CaseClause+ k=DEFAULT {ak($k);} (DOLLAR p_VarName)? k=RETURN {ak($k);} p_ExprSingle
+p_TypeswitchHybrid
+        : k=TYPESWITCH {ak($k);} LPAREN p_Expr RPAREN p_CaseHybrid+ k=DEFAULT {ak($k);} (DOLLAR p_VarName)? k=RETURN {ak($k);} p_Hybrid
         ;
 
 //[74]
-p_CaseClause
+p_CaseHybrid
         : k=CASE {ak($k);} (DOLLAR p_VarName k=AS {ak($k);})? p_SequenceTypeUnion k=RETURN {ak($k);} p_ExprSingle
         ;
 
@@ -581,8 +580,8 @@ p_SequenceTypeUnion
         ;
 
 //[76]
-p_IfExpr
-        : k=IF {ak($k);} LPAREN p_Expr RPAREN k=THEN {ak($k);} p_ExprSingle k=ELSE {ak($k);} p_ExprSingle
+p_IfHybrid
+        : k=IF {ak($k);} LPAREN p_Expr RPAREN k=THEN {ak($k);} p_Hybrid k=ELSE {ak($k);} p_Hybrid
         ;
 
 //[77]
@@ -738,7 +737,8 @@ p_RelativePathExpr
 
 //[106]
 p_StepExpr
-        : (SMALLER) => p_PostfixExpr
+        : (LBRACKET | LPAREN | SMALLER) => p_PostfixExpr
+        | ((ELEMENT | ATTRIBUTE | NAMESPACE | TEXT | COMMENT | PROCESSING_INSTRUCTION) (p_QName | LBRACKET)) => p_PostfixExpr
         | (p_KindTest) => p_AxisStep 
         | (p_QName LPAREN) => p_PostfixExpr
         | (p_PrimaryExpr) => p_PostfixExpr
@@ -835,7 +835,6 @@ p_Predicate
 
 //[121]
 //[30] new XQuery Scripting proposal
-//LL grammar
 p_PrimaryExpr
         : (LPAREN) => p_ParenthesizedExpr
         | p_Literal
@@ -847,8 +846,7 @@ p_PrimaryExpr
         | p_Constructor
 //TODO
 //        | p_FunctionItemExpr
-//LL grammar
-//        | p_BlockExpr
+        | p_BlockExpr
         ;
 
 //[122]
@@ -1748,44 +1746,69 @@ p_Program
 
 //[2]
 p_Statements
-        : p_Statement*
+        : p_Hybrid*
         ;
 
-//LL grammar
 //[3]
-//p_StatementsAndExpr
-//        : p_Statements p_Expr
-//        ;
+p_StatementsAndExpr
+        : p_Statements
+        ;
 
 //[4]
-//LL grammar
 p_StatementsAndOptionalExpr
-        : p_Statement1+ p_Expr?
-        | p_Expr?
+        : p_Statements
         ;
 
-//[5]
-//LL grammar
-p_Statement
-        : p_Statement1 | p_Statement2
+p_Hybrid
+        : p_HybridExprSingle
+        | p_Statement
         ;
-p_Statement1
+catch [RecognitionException re] {
+    XQueryParser.p_StepExpr_return var = p_StepExpr();
+    root_0 = (XQDTCommonTree)adaptor.nil();
+    adaptor.addChild(root_0, var.getTree());
+    retval.stop = input.LT(-1);
+    retval.tree = (XQDTCommonTree)adaptor.rulePostProcessing(root_0);
+    adaptor.setTokenBoundaries(retval.tree, retval.start, retval.stop);
+}
+
+p_Statement
         : p_AssignStatement
-        | p_BlockStatement
         | p_BreakStatement
         | p_ContinueStatement
         | p_ExitStatement
         | p_VarDeclStatement
         | p_WhileStatement
         ;
-p_Statement2
-        : p_ApplyStatement
-        | p_FLWORStatement
-        | p_IfStatement
-        | p_SwitchStatement
-        | p_TryCatchStatement
-        | p_TypeswitchStatement
+
+p_HybridExprSingle
+        : e=p_Expr SEMICOLON
         ;
+catch [RecognitionException re] {
+    root_0 = (XQDTCommonTree)adaptor.nil();
+    adaptor.addChild(root_0, e.getTree());
+    retval.stop = input.LT(-1);
+    retval.tree = (XQDTCommonTree)adaptor.rulePostProcessing(root_0);
+    adaptor.setTokenBoundaries(retval.tree, retval.start, retval.stop);
+}
+
+//[5]
+//p_Statement
+//        : p_AssignStatement
+//        | p_BlockStatement
+//        | p_BreakStatement
+//        | p_ContinueStatement
+//        | p_ExitStatement
+//        | p_VarDeclStatement
+//        | p_WhileStatement
+
+//        | p_ApplyStatement
+//        | p_FLWORStatement
+//        | p_IfStatement
+//        | p_SwitchStatement
+//        | p_TryCatchStatement
+//        | p_TypeswitchStatement
+//        ;
 
 //[6]
 p_ApplyStatement
@@ -1824,22 +1847,22 @@ p_FLWORStatement
 
 //[13]
 p_ReturnStatement
-        : k=RETURN {ak($k);} p_Statement
+        : k=RETURN {ak($k);} p_Hybrid
         ;
 
 //[14]
 p_IfStatement
-        : k=IF {ak($k);} LPAREN p_Expr RPAREN k=THEN {ak($k);} p_Statement k=ELSE {ak($k);} p_Statement
+        : k=IF {ak($k);} LPAREN p_Expr RPAREN k=THEN {ak($k);} p_Hybrid k=ELSE {ak($k);} p_Hybrid
         ;
 
 //[15]
 p_SwitchStatement
-        : k=SWITCH {ak($k);} LPAREN p_Expr RPAREN p_SwitchCaseStatement+ k=DEFAULT {ak($k);} k=RETURN {ak($k);} p_Statement
+        : k=SWITCH {ak($k);} LPAREN p_Expr RPAREN p_SwitchCaseStatement+ k=DEFAULT {ak($k);} k=RETURN {ak($k);} p_Hybrid
         ;
 
 //[16]
 p_SwitchCaseStatement
-        : (k=CASE {ak($k);} p_SwitchCaseOperand)+ k=RETURN {ak($k);} p_Statement
+        : (k=CASE {ak($k);} p_SwitchCaseOperand)+ k=RETURN {ak($k);} p_Hybrid
         ;
 
 //[17]
@@ -1849,12 +1872,12 @@ p_TryCatchStatement
 
 //[18]
 p_TypeswitchStatement
-        : k=TYPESWITCH {ak($k);} LPAREN p_Expr RPAREN p_CaseStatement+ k=DEFAULT {ak($k);} (DOLLAR p_VarName)? k=RETURN {ak($k);} p_Statement
+        : k=TYPESWITCH {ak($k);} LPAREN p_Expr RPAREN p_CaseStatement+ k=DEFAULT {ak($k);} (DOLLAR p_VarName)? k=RETURN {ak($k);} p_Hybrid
         ;
 
 //[19]
 p_CaseStatement
-        : k=CASE {ak($k);} (DOLLAR p_VarName AS)? p_SequenceType k=RETURN {ak($k);} p_Statement
+        : k=CASE {ak($k);} (DOLLAR p_VarName AS)? p_SequenceType k=RETURN {ak($k);} p_Hybrid
         ;
 
 //[20]
@@ -1866,7 +1889,7 @@ p_VarDeclStatement
 
 //[21]
 p_WhileStatement
-        : k=WHILE {ak($k);} LPAREN p_Expr RPAREN p_Statement
+        : k=WHILE {ak($k);} LPAREN p_Expr RPAREN p_Hybrid
         ;
 
 //[23]
@@ -1877,9 +1900,9 @@ p_ExprSimple
         ;
 
 //[31]
-//p_BlockExpr
-//        : LBRACKET p_StatementsAndExpr LBRACKET
-//        ;
+p_BlockExpr
+        : LBRACKET p_StatementsAndExpr RBRACKET
+        ;
 
 // **************************************
 // Zorba XQuery Extensions

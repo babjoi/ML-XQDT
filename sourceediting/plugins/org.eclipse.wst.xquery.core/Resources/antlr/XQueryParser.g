@@ -394,7 +394,7 @@ p_Expr
 //[40]
 //[22] new XQuery Scripting proposal
 p_ExprSingle
-        : ((FOR | LET) DOLLAR) => p_FLWORExpr
+        : (((FOR | LET) DOLLAR) | (FOR (TUMBLING | SLIDING))) => p_FLWORExpr
         | (IF LPAREN) =>          p_IfExpr
         | (TYPESWITCH LPAREN) =>  p_SwitchExpr
         | (TYPESWITCH LPAREN) =>  p_TypeswitchExpr

@@ -737,7 +737,7 @@ p_RelativePathExpr
 
 //[106]
 p_StepExpr
-        : (LBRACKET | LPAREN | SMALLER) => p_PostfixExpr
+        : (LBRACKET | LPAREN | SMALLER | QUOT | APOS) => p_PostfixExpr
         | ((ELEMENT | ATTRIBUTE | NAMESPACE | TEXT | COMMENT | PROCESSING_INSTRUCTION) (p_QName | LBRACKET)) => p_PostfixExpr
         | (p_KindTest) => p_AxisStep 
         | (p_QName LPAREN) => p_PostfixExpr
@@ -1782,7 +1782,8 @@ p_Statement
         ;
 
 p_HybridExprSingle
-        : e=p_Expr SEMICOLON
+        : e=p_Expr { if (mustParseExpr() || input.LT(1).getType() != SEMICOLON) throw new RecognitionException(); }        
+          SEMICOLON
         ;
 catch [RecognitionException re] {
     root_0 = (XQDTCommonTree)adaptor.nil();
@@ -1882,8 +1883,8 @@ p_CaseStatement
 
 //[20]
 p_VarDeclStatement
-        : (k=LOCAL {ak($k);} p_Annotation*)? k=VARIABLE {ak($k);} DOLLAR p_VarName p_TypeDeclaration? (BIND p_ExprSingle)?
-          (COMMA DOLLAR P_VarName p_TypeDeclaration? (BIND p_ExprSingle)?)*
+        : p_Annotation* k=VARIABLE {ak($k);} DOLLAR p_VarName p_TypeDeclaration? (BIND {parseExpr(true);} p_ExprSingle {parseExpr(false);})?
+          (COMMA DOLLAR P_VarName p_TypeDeclaration? (BIND {parseExpr(true);} p_ExprSingle {parseExpr(true);})?)*
           SEMICOLON
         ;
 

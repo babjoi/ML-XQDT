@@ -34,6 +34,7 @@ public class XQDTParser extends Parser implements IXQDTLanguageConstants {
     private String fFileName;
     protected int fLanguage;
     private List<Position> fKeywords = new ArrayList<Position>(50);
+    private boolean fExpectExpression = false;
 
     public XQDTParser(TokenStream input) {
         this(input, new RecognizerSharedState());
@@ -189,4 +190,27 @@ public class XQDTParser extends Parser implements IXQDTLanguageConstants {
         XQDTLexer lexer = (XQDTLexer)fStream.getTokenSource();
         lexer.postErrors();
     }
+
+    /**
+     * Function to indicate that the next hybrid should be passed as expression not as a statement.
+     * Hybrid will automatically set this back to false.
+     * 
+     * @param state
+     */
+    protected void parseExpr(boolean state) {
+        fExpectExpression = state;
+    }
+
+    /**
+     * Function to interrogate if the next hybrid should be passed as expression only or not. A the
+     * Hybrid will automatically set this back to false.
+     * 
+     * @return True if the following Hybrid must be parsed as an expression only.
+     */
+    protected boolean mustParseExpr() {
+        boolean result = fExpectExpression;
+        fExpectExpression = false;
+        return result;
+    }
+
 }

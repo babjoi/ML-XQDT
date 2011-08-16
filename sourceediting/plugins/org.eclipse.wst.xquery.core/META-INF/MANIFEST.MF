@@ -27,6 +27,7 @@ Export-Package: org.eclipse.wst.xquery.compiler.problem;uses:="org.eclipse.dltk.
    org.eclipse.dltk.ast.declarations,
    org.eclipse.dltk.ast",
  org.eclipse.wst.xquery.core.model.compiler;uses:="org.eclipse.dltk.compiler",
+ org.eclipse.wst.xquery.core.problems,
  org.eclipse.wst.xquery.core.semantic;uses:="org.eclipse.dltk.compiler.problem,org.eclipse.dltk.core",
  org.eclipse.wst.xquery.core.text;uses:="org.eclipse.jface.text.rules",
  org.eclipse.wst.xquery.core.utils;

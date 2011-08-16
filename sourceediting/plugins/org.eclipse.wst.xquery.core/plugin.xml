@@ -103,6 +103,14 @@
          </label>
       </group>
    </extension>
+   <extension
+         point="org.eclipse.dltk.core.problemFactory">
+      <problemFactory
+            class="org.eclipse.wst.xquery.core.problems.XQDTProblemFactory"
+            nature="org.eclipse.wst.xquery.core.nature"
+            priority="0">
+      </problemFactory>
+   </extension>
 <!--
    <extension
          point="org.eclipse.dltk.core.environment">

@@ -10,17 +10,19 @@
  *******************************************************************************/
 package org.eclipse.wst.xquery.core.semantic;
 
-import org.eclipse.dltk.compiler.problem.IProblem;
+import org.eclipse.dltk.compiler.problem.CategorizedProblem;
+import org.eclipse.dltk.compiler.problem.DefaultProblem;
 import org.eclipse.dltk.compiler.problem.IProblemIdentifier;
 
-public class SemanticCheckError implements IProblem {
+public class SemanticCheckError extends CategorizedProblem {
+
+    private int fLineNumber;
+    private int fSourceStart;
+    private int fSourceEnd;
 
     private String fErrorCode;
     private String fDescription;
     private String fFileName;
-    private int fLineNumber;
-    private int fSourceStart;
-    private int fSourceEnd;
 
     public SemanticCheckError(String fileName, String errorCode, String description, int line) {
         this(fileName, errorCode, description, line, -1, -1);
@@ -41,6 +43,10 @@ public class SemanticCheckError implements IProblem {
 
     public String[] getArguments() {
         return new String[0];
+    }
+
+    public IProblemIdentifier getID() {
+        return null;
     }
 
     public String getErrorCode() {
@@ -75,6 +81,10 @@ public class SemanticCheckError implements IProblem {
         return false;
     }
 
+    public boolean isTask() {
+        return false;
+    }
+
     public void setSourceEnd(int sourceEnd) {
         fSourceEnd = sourceEnd;
     }
@@ -87,12 +97,18 @@ public class SemanticCheckError implements IProblem {
         fSourceStart = sourceStart;
     }
 
-    public boolean isTask() {
-        return false;
+    public int getCategoryID() {
+        if ("err:XPST0003".equals(fErrorCode)) {
+            return CAT_SYNTAX;
+        } else if ("err:XQST0059".equals(fErrorCode)) {
+            return CAT_IMPORT;
+        }
+
+        return CAT_UNSPECIFIED;
     }
 
-    public IProblemIdentifier getID() {
-        return null;
+    public String getMarkerType() {
+        return DefaultProblem.MARKER_TYPE_PROBLEM;
     }
 
 }

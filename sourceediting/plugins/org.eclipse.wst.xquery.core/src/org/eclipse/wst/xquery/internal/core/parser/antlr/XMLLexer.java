@@ -1,4 +1,4 @@
-// $ANTLR 3.2 Sep 23, 2009 12:02:23 XMLLexer.g 2011-08-15 18:07:18
+// $ANTLR 3.2 Sep 23, 2009 12:02:23 XMLLexer.g 2011-08-20 01:06:58
 
 /*******************************************************************************
  * Copyright (c) 2008, 2009 28msec Inc. and others.
@@ -19,7 +19,7 @@ import java.util.List;
 import java.util.ArrayList;
 
 public class XMLLexer extends XQDTLexer {
-    public static final int INDEX=213;
+    public static final int INDEX=212;
     public static final int L_CDataSection=7;
     public static final int MINUS=238;
     public static final int NAMESPACE_NODE=125;
@@ -36,10 +36,10 @@ public class XMLLexer extends XQDTLexer {
     public static final int STOP=191;
     public static final int IMPORT=60;
     public static final int BINARY=217;
-    public static final int ON=216;
+    public static final int ON=215;
     public static final int CONTINUE=202;
     public static final int DOT=247;
-    public static final int CONSTRAINT=210;
+    public static final int CONSTRAINT=209;
     public static final int Letter=269;
     public static final int ORDER=82;
     public static final int CASTABLE=28;
@@ -80,7 +80,6 @@ public class XMLLexer extends XQDTLexer {
     public static final int PRAGMA_START=255;
     public static final int SENSITIVE=187;
     public static final int L_ElementContentChar=6;
-    public static final int EVAL=207;
     public static final int SELF=95;
     public static final int DISTANCE=165;
     public static final int ALLOWING=112;
@@ -90,7 +89,8 @@ public class XMLLexer extends XQDTLexer {
     public static final int PARENT=85;
     public static final int SCORE=186;
     public static final int FTOR=172;
-    public static final int FOREACH=211;
+    public static final int UNIQUE=216;
+    public static final int FOREACH=210;
     public static final int TYPE=138;
     public static final int PERCENT=130;
     public static final int EMPTY_SEQUENCE=45;
@@ -98,7 +98,7 @@ public class XMLLexer extends XQDTLexer {
     public static final int ANN_PERCENT=231;
     public static final int Digit=271;
     public static final int LAST=149;
-    public static final int COLLECTION=209;
+    public static final int COLLECTION=208;
     public static final int DOT_DOT=248;
     public static final int DECIMAL_SEPARATOR=117;
     public static final int CAST=27;
@@ -183,7 +183,7 @@ public class XMLLexer extends XQDTLexer {
     public static final int PI_END=260;
     public static final int GREATEREQ=242;
     public static final int WORDS=200;
-    public static final int FOREIGN=212;
+    public static final int FOREIGN=211;
     public static final int PARAGRAPHS=182;
     public static final int NCNameStartChar=266;
     public static final int AND=18;
@@ -220,8 +220,8 @@ public class XMLLexer extends XQDTLexer {
     public static final int EQUAL=228;
     public static final int SEMICOLON=253;
     public static final int THESAURUS=192;
-    public static final int CHECK=208;
-    public static final int KEY=215;
+    public static final int CHECK=207;
+    public static final int KEY=214;
     public static final int FTAND=170;
     public static final int FIRST=146;
     public static final int BREAK=201;
@@ -242,7 +242,7 @@ public class XMLLexer extends XQDTLexer {
     public static final int EVERY=48;
     public static final int CONTEXT=114;
     public static final int XQUERY=111;
-    public static final int INTEGRITY=214;
+    public static final int INTEGRITY=213;
     public static final int SLIDING=133;
     public static final int UPDATING=156;
     public static final int IDIV=58;

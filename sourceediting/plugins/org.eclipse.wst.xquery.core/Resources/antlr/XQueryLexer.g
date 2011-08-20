@@ -240,8 +240,6 @@ EXIT                        : 'exit';
 LOOP                        : 'loop';
 RETURNING                   : 'returning';
 WHILE                       : 'while';
-// Zorba XQuery Extensions
-EVAL                        : 'eval';
 // Zorba DDL Extensions (only additional keywords only)
 CHECK                       : 'check';
 COLLECTION                  : 'collection';
@@ -252,6 +250,7 @@ INDEX                       : 'index';
 INTEGRITY                   : 'integrity';
 KEY                         : 'key';
 ON                          : 'on';
+UNIQUE                      : 'unique';
 // MarkLogic
 BINARY                      : 'binary';
 

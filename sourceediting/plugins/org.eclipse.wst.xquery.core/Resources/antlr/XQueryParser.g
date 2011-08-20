@@ -345,7 +345,7 @@ pm_ContextItemDecl
 //[32]
 //[32] new XQuery Scripting proposal
 pm_FunctionDecl
-        : ({lc(XQU)}?=> k=UPDATING {ak($k);})? k=FUNCTION {ak($k);} qn=p_FQName LPAREN pl=p_ParamList? RPAREN (k=AS {ak($k);} st=p_SequenceType)? (LBRACKET soe=p_StatementsAndOptionalExpr RBRACKET | k=EXTERNAL {ak($k);} )
+        : ({lc(XQU)}?=> k=UPDATING {ak($k);})? k=FUNCTION {ak($k);} qn=pg_FQName LPAREN pl=p_ParamList? RPAREN (k=AS {ak($k);} st=p_SequenceType)? (LBRACKET soe=p_StatementsAndOptionalExpr RBRACKET | k=EXTERNAL {ak($k);} )
                 -> ^(FunctionDecl $qn ^(ParamList $pl?) ^(ReturnType $st?) $soe?)
         ;
 
@@ -737,8 +737,12 @@ p_RelativePathExpr
 
 //[106]
 p_StepExpr
-        : (LBRACKET | LPAREN | SMALLER | QUOT | APOS) => p_PostfixExpr
-        | ((ELEMENT | ATTRIBUTE | NAMESPACE | TEXT | COMMENT | PROCESSING_INSTRUCTION) (p_QName | LBRACKET)) => p_PostfixExpr
+        : (LBRACKET | LPAREN | SMALLER | QUOT | APOS | DOLLAR) => p_PostfixExpr
+        | (
+            ((ELEMENT | ATTRIBUTE) p_QName? LBRACKET) |
+            ((NAMESPACE | PROCESSING_INSTRUCTION) p_NCName? LBRACKET) |
+            ((DOCUMENT | TEXT | COMMENT) LBRACKET)
+          ) => p_PostfixExpr
         | (p_KindTest) => p_AxisStep 
         | (p_QName LPAREN) => p_PostfixExpr
         | (p_PrimaryExpr) => p_PostfixExpr
@@ -889,10 +893,10 @@ p_UnorderedExpr
         : k=UNORDERED {ak($k);} LBRACKET p_Expr RBRACKET
         ;
 
-//[130] /* xgs: reserved-function-names */ - resolved through p_FQName production
+//[130] /* xgs: reserved-function-names */ - resolved through pg_FQName production
 //      /* gn: parens */
 p_FunctionCall
-        : p_FQName p_ArgumentList
+        : pg_FQName p_ArgumentList
         ;
 
 //[131]
@@ -1091,7 +1095,7 @@ pm_CompPIConstructor
 //[161] /* xgc: reserved-function-names */
 //TODO
 //p_LiteralFunctionItem
-//        : p_FQName HASH L_IntegerLiteral
+//        : pg_FQName HASH L_IntegerLiteral
 //        ;
 
 //[162]
@@ -1353,22 +1357,22 @@ p_AposAttrContentChar
 //L_CharRef
 
 //[207] /* xgc: xml-version */
-p_QName @init {setWsExplicit(true);}
-        : p_NCName pg_LocalNCName
-                -> ^(QName p_NCName pg_LocalNCName?)
+p_QName 
+        @init {setWsExplicit(true);}
+        : pg_QName
+        | p_NCName
+//                -> ^(QName p_NCName)
         ;
         finally {setWsExplicit(false);}
 // additional production used to resolve the function name exceptions
-p_FQName @init {setWsExplicit(true);}
-        : p_FNCName pg_LocalNCName
-                -> ^(QName p_FNCName pg_LocalNCName?)
-        ;
-        finally {setWsExplicit(false);}
-
-// rule needed in order to catch the missing
-// COLON and restore to non-explicit mode
-pg_LocalNCName
-        : (COLON p_NCName)?
+pg_FQName
+        : pg_QName
+        | p_FNCName
+//                -> ^(QName p_FNCName)
+		;
+pg_QName
+        : nn=p_NCName COLON nl=p_NCName
+//                -> ^(QName $nn $nl)
         ;
 
 //[208] /* xgc: xml-version */
@@ -1384,10 +1388,8 @@ p_NCName
         | ALL | ANY | CONTAINS | CONTENT | DIACRITICS | DIFFERENT | DISTANCE | ENTIRE | EXACTLY | FROM | FT_OPTION | FTAND | FTNOT | FTOR | INSENSITIVE | LANGUAGE | LEVELS | LOWERCASE | MOST | NO | NOT | OCCURS | PARAGRAPH | PARAGRAPHS | PHRASE | RELATIONSHIP | SAME | SCORE | SENSITIVE | SENTENCE | SENTENCES | STEMMING | STOP | THESAURUS | TIMES | UPPERCASE | USING | WEIGHT | WILDCARDS | WITHOUT | WORD | WORDS
         // new XQuery Scripting proposal keywords
         | BREAK | CONTINUE | EXIT | LOOP | RETURNING | WHILE
-        // Zorba keywords
-        | EVAL
         // Zorba DDL keywords
-        | CHECK | COLLECTION | CONSTRAINT | EXPLICITLY | FOREACH | FOREIGN | INDEX | INTEGRITY | KEY | ON
+        | CHECK | COLLECTION | CONSTRAINT | EXPLICITLY | FOREACH | FOREIGN | INDEX | INTEGRITY | KEY | ON | UNIQUE
         // Mark Logic keywords
         | BINARY
         // entity references
@@ -1405,10 +1407,8 @@ p_FNCName
         | ALL | ANY | CONTAINS | CONTENT | DIACRITICS | DIFFERENT | DISTANCE | ENTIRE | EXACTLY | FROM | FT_OPTION | FTAND | FTNOT | FTOR | INSENSITIVE | LANGUAGE | LEVELS | LOWERCASE | MOST | NO | NOT | OCCURS | PARAGRAPH | PARAGRAPHS | PHRASE | RELATIONSHIP | SAME | SCORE | SENSITIVE | SENTENCE | SENTENCES | STEMMING | STOP | THESAURUS | TIMES | UPPERCASE | USING | WEIGHT | WILDCARDS | WITHOUT | WORD | WORDS
         // new XQuery Scripting proposal keywords
         | BREAK | CONTINUE | EXIT | LOOP | RETURNING
-        // Zorba keywords
-        | EVAL
         // Zorba DDL keywords
-        | CHECK | COLLECTION | CONSTRAINT | EXPLICITLY | FOREACH | FOREIGN | INDEX | INTEGRITY | KEY | ON
+        | CHECK | COLLECTION | CONSTRAINT | EXPLICITLY | FOREACH | FOREIGN | INDEX | INTEGRITY | KEY | ON | UNIQUE
         // Mark Logic keywords
         | BINARY
         // entity references

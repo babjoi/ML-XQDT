@@ -99,9 +99,12 @@ public class XQDTParser extends Parser implements IXQDTLanguageConstants {
         if (fLexerStack.size() == 0) {
             return;
         }
-
+        fStream.mark();
         XQDTLexer oldLexer = (XQDTLexer)fStream.getTokenSource();
         XQDTLexer newLexer = fLexerStack.remove(fLexerStack.size() - 1);
+        if (oldLexer instanceof StringLexer && newLexer instanceof XQueryLexer) {
+            ((XQueryLexer)newLexer).inStr = false;
+        }
         fStream.setTokenSource(newLexer);
         oldLexer.postErrors();
     }

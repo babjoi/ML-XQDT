@@ -1,4 +1,4 @@
-// $ANTLR 3.2 Sep 23, 2009 12:02:23 XQueryLexer.g 2011-08-20 01:06:51
+// $ANTLR 3.2 Sep 23, 2009 12:02:23 XQueryLexer.g 2011-08-23 13:48:24
 
 /*******************************************************************************
  * Copyright (c) 2008, 2009 28msec Inc. and others.
@@ -12,6 +12,7 @@
  *     Sam Neth (Mark Logic)
  *******************************************************************************/
 package org.eclipse.wst.xquery.internal.core.parser.antlr;
+
 
 
 import org.antlr.runtime.*;
@@ -301,8 +302,18 @@ public class XQueryLexer extends XQDTLexer {
     public static final int BIND=229;
     public static final int XML_COMMENT_END=258;
 
+
     // dummy list for warning elimination
     List<Stack<Object>> dummy = new ArrayList<Stack<Object>>();
+
+    // when we start, the '<' has already been eaten by the other lexer
+    boolean inStr = false;
+
+    public boolean isInString()
+    {
+       return inStr;
+    }
+
 
 
     // delegates
@@ -323,8 +334,8 @@ public class XQueryLexer extends XQDTLexer {
         try {
             int _type = ANCESTOR;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XQueryLexer.g:48:29: ( 'ancestor' )
-            // XQueryLexer.g:48:31: 'ancestor'
+            // XQueryLexer.g:58:29: ( 'ancestor' )
+            // XQueryLexer.g:58:31: 'ancestor'
             {
             match("ancestor"); 
 
@@ -344,8 +355,8 @@ public class XQueryLexer extends XQDTLexer {
         try {
             int _type = ANCESTOR_OR_SELF;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XQueryLexer.g:49:29: ( 'ancestor-or-self' )
-            // XQueryLexer.g:49:31: 'ancestor-or-self'
+            // XQueryLexer.g:59:29: ( 'ancestor-or-self' )
+            // XQueryLexer.g:59:31: 'ancestor-or-self'
             {
             match("ancestor-or-self"); 
 
@@ -365,8 +376,8 @@ public class XQueryLexer extends XQDTLexer {
         try {
             int _type = AND;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XQueryLexer.g:50:29: ( 'and' )
-            // XQueryLexer.g:50:31: 'and'
+            // XQueryLexer.g:60:29: ( 'and' )
+            // XQueryLexer.g:60:31: 'and'
             {
             match("and"); 
 
@@ -386,8 +397,8 @@ public class XQueryLexer extends XQDTLexer {
         try {
             int _type = AS;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XQueryLexer.g:51:29: ( 'as' )
-            // XQueryLexer.g:51:31: 'as'
+            // XQueryLexer.g:61:29: ( 'as' )
+            // XQueryLexer.g:61:31: 'as'
             {
             match("as"); 
 
@@ -407,8 +418,8 @@ public class XQueryLexer extends XQDTLexer {
         try {
             int _type = ASCENDING;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XQueryLexer.g:52:29: ( 'ascending' )
-            // XQueryLexer.g:52:31: 'ascending'
+            // XQueryLexer.g:62:29: ( 'ascending' )
+            // XQueryLexer.g:62:31: 'ascending'
             {
             match("ascending"); 
 
@@ -428,8 +439,8 @@ public class XQueryLexer extends XQDTLexer {
         try {
             int _type = AT;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XQueryLexer.g:53:29: ( 'at' )
-            // XQueryLexer.g:53:31: 'at'
+            // XQueryLexer.g:63:29: ( 'at' )
+            // XQueryLexer.g:63:31: 'at'
             {
             match("at"); 
 
@@ -449,8 +460,8 @@ public class XQueryLexer extends XQDTLexer {
         try {
             int _type = ATTRIBUTE;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XQueryLexer.g:54:29: ( 'attribute' )
-            // XQueryLexer.g:54:31: 'attribute'
+            // XQueryLexer.g:64:29: ( 'attribute' )
+            // XQueryLexer.g:64:31: 'attribute'
             {
             match("attribute"); 
 
@@ -470,8 +481,8 @@ public class XQueryLexer extends XQDTLexer {
         try {
             int _type = BASE_URI;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XQueryLexer.g:55:29: ( 'base-uri' )
-            // XQueryLexer.g:55:31: 'base-uri'
+            // XQueryLexer.g:65:29: ( 'base-uri' )
+            // XQueryLexer.g:65:31: 'base-uri'
             {
             match("base-uri"); 
 
@@ -491,8 +502,8 @@ public class XQueryLexer extends XQDTLexer {
         try {
             int _type = BOUNDARY_SPACE;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XQueryLexer.g:56:29: ( 'boundary-space' )
-            // XQueryLexer.g:56:31: 'boundary-space'
+            // XQueryLexer.g:66:29: ( 'boundary-space' )
+            // XQueryLexer.g:66:31: 'boundary-space'
             {
             match("boundary-space"); 
 
@@ -512,8 +523,8 @@ public class XQueryLexer extends XQDTLexer {
         try {
             int _type = BY;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XQueryLexer.g:57:29: ( 'by' )
-            // XQueryLexer.g:57:31: 'by'
+            // XQueryLexer.g:67:29: ( 'by' )
+            // XQueryLexer.g:67:31: 'by'
             {
             match("by"); 
 
@@ -533,8 +544,8 @@ public class XQueryLexer extends XQDTLexer {
         try {
             int _type = CASE;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XQueryLexer.g:58:29: ( 'case' )
-            // XQueryLexer.g:58:31: 'case'
+            // XQueryLexer.g:68:29: ( 'case' )
+            // XQueryLexer.g:68:31: 'case'
             {
             match("case"); 
 
@@ -554,8 +565,8 @@ public class XQueryLexer extends XQDTLexer {
         try {
             int _type = CAST;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XQueryLexer.g:59:29: ( 'cast' )
-            // XQueryLexer.g:59:31: 'cast'
+            // XQueryLexer.g:69:29: ( 'cast' )
+            // XQueryLexer.g:69:31: 'cast'
             {
             match("cast"); 
 
@@ -575,8 +586,8 @@ public class XQueryLexer extends XQDTLexer {
         try {
             int _type = CASTABLE;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XQueryLexer.g:60:29: ( 'castable' )
-            // XQueryLexer.g:60:31: 'castable'
+            // XQueryLexer.g:70:29: ( 'castable' )
+            // XQueryLexer.g:70:31: 'castable'
             {
             match("castable"); 
 
@@ -596,8 +607,8 @@ public class XQueryLexer extends XQDTLexer {
         try {
             int _type = CHILD;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XQueryLexer.g:61:29: ( 'child' )
-            // XQueryLexer.g:61:31: 'child'
+            // XQueryLexer.g:71:29: ( 'child' )
+            // XQueryLexer.g:71:31: 'child'
             {
             match("child"); 
 
@@ -617,8 +628,8 @@ public class XQueryLexer extends XQDTLexer {
         try {
             int _type = COLLATION;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XQueryLexer.g:62:29: ( 'collation' )
-            // XQueryLexer.g:62:31: 'collation'
+            // XQueryLexer.g:72:29: ( 'collation' )
+            // XQueryLexer.g:72:31: 'collation'
             {
             match("collation"); 
 
@@ -638,8 +649,8 @@ public class XQueryLexer extends XQDTLexer {
         try {
             int _type = COMMENT;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XQueryLexer.g:63:29: ( 'comment' )
-            // XQueryLexer.g:63:31: 'comment'
+            // XQueryLexer.g:73:29: ( 'comment' )
+            // XQueryLexer.g:73:31: 'comment'
             {
             match("comment"); 
 
@@ -659,8 +670,8 @@ public class XQueryLexer extends XQDTLexer {
         try {
             int _type = CONSTRUCTION;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XQueryLexer.g:64:29: ( 'construction' )
-            // XQueryLexer.g:64:31: 'construction'
+            // XQueryLexer.g:74:29: ( 'construction' )
+            // XQueryLexer.g:74:31: 'construction'
             {
             match("construction"); 
 
@@ -680,8 +691,8 @@ public class XQueryLexer extends XQDTLexer {
         try {
             int _type = COPY_NAMESPACES;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XQueryLexer.g:65:29: ( 'copy-namespaces' )
-            // XQueryLexer.g:65:31: 'copy-namespaces'
+            // XQueryLexer.g:75:29: ( 'copy-namespaces' )
+            // XQueryLexer.g:75:31: 'copy-namespaces'
             {
             match("copy-namespaces"); 
 
@@ -701,8 +712,8 @@ public class XQueryLexer extends XQDTLexer {
         try {
             int _type = DECLARE;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XQueryLexer.g:66:29: ( 'declare' )
-            // XQueryLexer.g:66:31: 'declare'
+            // XQueryLexer.g:76:29: ( 'declare' )
+            // XQueryLexer.g:76:31: 'declare'
             {
             match("declare"); 
 
@@ -722,8 +733,8 @@ public class XQueryLexer extends XQDTLexer {
         try {
             int _type = DEFAULT;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XQueryLexer.g:67:29: ( 'default' )
-            // XQueryLexer.g:67:31: 'default'
+            // XQueryLexer.g:77:29: ( 'default' )
+            // XQueryLexer.g:77:31: 'default'
             {
             match("default"); 
 
@@ -743,8 +754,8 @@ public class XQueryLexer extends XQDTLexer {
         try {
             int _type = DESCENDANT;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XQueryLexer.g:68:29: ( 'descendant' )
-            // XQueryLexer.g:68:31: 'descendant'
+            // XQueryLexer.g:78:29: ( 'descendant' )
+            // XQueryLexer.g:78:31: 'descendant'
             {
             match("descendant"); 
 
@@ -764,8 +775,8 @@ public class XQueryLexer extends XQDTLexer {
         try {
             int _type = DESCENDANT_OR_SELF;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XQueryLexer.g:69:29: ( 'descendant-or-self' )
-            // XQueryLexer.g:69:31: 'descendant-or-self'
+            // XQueryLexer.g:79:29: ( 'descendant-or-self' )
+            // XQueryLexer.g:79:31: 'descendant-or-self'
             {
             match("descendant-or-self"); 
 
@@ -785,8 +796,8 @@ public class XQueryLexer extends XQDTLexer {
         try {
             int _type = DESCENDING;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XQueryLexer.g:70:29: ( 'descending' )
-            // XQueryLexer.g:70:31: 'descending'
+            // XQueryLexer.g:80:29: ( 'descending' )
+            // XQueryLexer.g:80:31: 'descending'
             {
             match("descending"); 
 
@@ -806,8 +817,8 @@ public class XQueryLexer extends XQDTLexer {
         try {
             int _type = DIV;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XQueryLexer.g:71:29: ( 'div' )
-            // XQueryLexer.g:71:31: 'div'
+            // XQueryLexer.g:81:29: ( 'div' )
+            // XQueryLexer.g:81:31: 'div'
             {
             match("div"); 
 
@@ -827,8 +838,8 @@ public class XQueryLexer extends XQDTLexer {
         try {
             int _type = DOCUMENT;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XQueryLexer.g:72:29: ( 'document' )
-            // XQueryLexer.g:72:31: 'document'
+            // XQueryLexer.g:82:29: ( 'document' )
+            // XQueryLexer.g:82:31: 'document'
             {
             match("document"); 
 
@@ -848,8 +859,8 @@ public class XQueryLexer extends XQDTLexer {
         try {
             int _type = DOCUMENT_NODE;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XQueryLexer.g:73:29: ( 'document-node' )
-            // XQueryLexer.g:73:31: 'document-node'
+            // XQueryLexer.g:83:29: ( 'document-node' )
+            // XQueryLexer.g:83:31: 'document-node'
             {
             match("document-node"); 
 
@@ -869,8 +880,8 @@ public class XQueryLexer extends XQDTLexer {
         try {
             int _type = ELEMENT;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XQueryLexer.g:74:29: ( 'element' )
-            // XQueryLexer.g:74:31: 'element'
+            // XQueryLexer.g:84:29: ( 'element' )
+            // XQueryLexer.g:84:31: 'element'
             {
             match("element"); 
 
@@ -890,8 +901,8 @@ public class XQueryLexer extends XQDTLexer {
         try {
             int _type = ELSE;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XQueryLexer.g:75:29: ( 'else' )
-            // XQueryLexer.g:75:31: 'else'
+            // XQueryLexer.g:85:29: ( 'else' )
+            // XQueryLexer.g:85:31: 'else'
             {
             match("else"); 
 
@@ -911,8 +922,8 @@ public class XQueryLexer extends XQDTLexer {
         try {
             int _type = EMPTY;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XQueryLexer.g:76:29: ( 'empty' )
-            // XQueryLexer.g:76:31: 'empty'
+            // XQueryLexer.g:86:29: ( 'empty' )
+            // XQueryLexer.g:86:31: 'empty'
             {
             match("empty"); 
 
@@ -932,8 +943,8 @@ public class XQueryLexer extends XQDTLexer {
         try {
             int _type = EMPTY_SEQUENCE;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XQueryLexer.g:77:29: ( 'empty-sequence' )
-            // XQueryLexer.g:77:31: 'empty-sequence'
+            // XQueryLexer.g:87:29: ( 'empty-sequence' )
+            // XQueryLexer.g:87:31: 'empty-sequence'
             {
             match("empty-sequence"); 
 
@@ -953,8 +964,8 @@ public class XQueryLexer extends XQDTLexer {
         try {
             int _type = ENCODING;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XQueryLexer.g:78:29: ( 'encoding' )
-            // XQueryLexer.g:78:31: 'encoding'
+            // XQueryLexer.g:88:29: ( 'encoding' )
+            // XQueryLexer.g:88:31: 'encoding'
             {
             match("encoding"); 
 
@@ -974,8 +985,8 @@ public class XQueryLexer extends XQDTLexer {
         try {
             int _type = EQ;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XQueryLexer.g:79:29: ( 'eq' )
-            // XQueryLexer.g:79:31: 'eq'
+            // XQueryLexer.g:89:29: ( 'eq' )
+            // XQueryLexer.g:89:31: 'eq'
             {
             match("eq"); 
 
@@ -995,8 +1006,8 @@ public class XQueryLexer extends XQDTLexer {
         try {
             int _type = EVERY;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XQueryLexer.g:80:29: ( 'every' )
-            // XQueryLexer.g:80:31: 'every'
+            // XQueryLexer.g:90:29: ( 'every' )
+            // XQueryLexer.g:90:31: 'every'
             {
             match("every"); 
 
@@ -1016,8 +1027,8 @@ public class XQueryLexer extends XQDTLexer {
         try {
             int _type = EXCEPT;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XQueryLexer.g:81:29: ( 'except' )
-            // XQueryLexer.g:81:31: 'except'
+            // XQueryLexer.g:91:29: ( 'except' )
+            // XQueryLexer.g:91:31: 'except'
             {
             match("except"); 
 
@@ -1037,8 +1048,8 @@ public class XQueryLexer extends XQDTLexer {
         try {
             int _type = EXTERNAL;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XQueryLexer.g:82:29: ( 'external' )
-            // XQueryLexer.g:82:31: 'external'
+            // XQueryLexer.g:92:29: ( 'external' )
+            // XQueryLexer.g:92:31: 'external'
             {
             match("external"); 
 
@@ -1058,8 +1069,8 @@ public class XQueryLexer extends XQDTLexer {
         try {
             int _type = FOLLOWING;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XQueryLexer.g:83:29: ( 'following' )
-            // XQueryLexer.g:83:31: 'following'
+            // XQueryLexer.g:93:29: ( 'following' )
+            // XQueryLexer.g:93:31: 'following'
             {
             match("following"); 
 
@@ -1079,8 +1090,8 @@ public class XQueryLexer extends XQDTLexer {
         try {
             int _type = FOLLOWING_SIBLING;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XQueryLexer.g:84:29: ( 'following-sibling' )
-            // XQueryLexer.g:84:31: 'following-sibling'
+            // XQueryLexer.g:94:29: ( 'following-sibling' )
+            // XQueryLexer.g:94:31: 'following-sibling'
             {
             match("following-sibling"); 
 
@@ -1100,8 +1111,8 @@ public class XQueryLexer extends XQDTLexer {
         try {
             int _type = FOR;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XQueryLexer.g:85:29: ( 'for' )
-            // XQueryLexer.g:85:31: 'for'
+            // XQueryLexer.g:95:29: ( 'for' )
+            // XQueryLexer.g:95:31: 'for'
             {
             match("for"); 
 
@@ -1121,8 +1132,8 @@ public class XQueryLexer extends XQDTLexer {
         try {
             int _type = FUNCTION;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XQueryLexer.g:86:29: ( 'function' )
-            // XQueryLexer.g:86:31: 'function'
+            // XQueryLexer.g:96:29: ( 'function' )
+            // XQueryLexer.g:96:31: 'function'
             {
             match("function"); 
 
@@ -1142,8 +1153,8 @@ public class XQueryLexer extends XQDTLexer {
         try {
             int _type = GE;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XQueryLexer.g:87:29: ( 'ge' )
-            // XQueryLexer.g:87:31: 'ge'
+            // XQueryLexer.g:97:29: ( 'ge' )
+            // XQueryLexer.g:97:31: 'ge'
             {
             match("ge"); 
 
@@ -1163,8 +1174,8 @@ public class XQueryLexer extends XQDTLexer {
         try {
             int _type = GREATEST;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XQueryLexer.g:88:29: ( 'greatest' )
-            // XQueryLexer.g:88:31: 'greatest'
+            // XQueryLexer.g:98:29: ( 'greatest' )
+            // XQueryLexer.g:98:31: 'greatest'
             {
             match("greatest"); 
 
@@ -1184,8 +1195,8 @@ public class XQueryLexer extends XQDTLexer {
         try {
             int _type = GT;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XQueryLexer.g:89:29: ( 'gt' )
-            // XQueryLexer.g:89:31: 'gt'
+            // XQueryLexer.g:99:29: ( 'gt' )
+            // XQueryLexer.g:99:31: 'gt'
             {
             match("gt"); 
 
@@ -1205,8 +1216,8 @@ public class XQueryLexer extends XQDTLexer {
         try {
             int _type = IDIV;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XQueryLexer.g:90:29: ( 'idiv' )
-            // XQueryLexer.g:90:31: 'idiv'
+            // XQueryLexer.g:100:29: ( 'idiv' )
+            // XQueryLexer.g:100:31: 'idiv'
             {
             match("idiv"); 
 
@@ -1226,8 +1237,8 @@ public class XQueryLexer extends XQDTLexer {
         try {
             int _type = IF;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XQueryLexer.g:91:29: ( 'if' )
-            // XQueryLexer.g:91:31: 'if'
+            // XQueryLexer.g:101:29: ( 'if' )
+            // XQueryLexer.g:101:31: 'if'
             {
             match("if"); 
 
@@ -1247,8 +1258,8 @@ public class XQueryLexer extends XQDTLexer {
         try {
             int _type = IMPORT;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XQueryLexer.g:92:29: ( 'import' )
-            // XQueryLexer.g:92:31: 'import'
+            // XQueryLexer.g:102:29: ( 'import' )
+            // XQueryLexer.g:102:31: 'import'
             {
             match("import"); 
 
@@ -1268,8 +1279,8 @@ public class XQueryLexer extends XQDTLexer {
         try {
             int _type = IN;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XQueryLexer.g:93:29: ( 'in' )
-            // XQueryLexer.g:93:31: 'in'
+            // XQueryLexer.g:103:29: ( 'in' )
+            // XQueryLexer.g:103:31: 'in'
             {
             match("in"); 
 
@@ -1289,8 +1300,8 @@ public class XQueryLexer extends XQDTLexer {
         try {
             int _type = INHERIT;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XQueryLexer.g:94:29: ( 'inherit' )
-            // XQueryLexer.g:94:31: 'inherit'
+            // XQueryLexer.g:104:29: ( 'inherit' )
+            // XQueryLexer.g:104:31: 'inherit'
             {
             match("inherit"); 
 
@@ -1310,8 +1321,8 @@ public class XQueryLexer extends XQDTLexer {
         try {
             int _type = INSTANCE;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XQueryLexer.g:95:29: ( 'instance' )
-            // XQueryLexer.g:95:31: 'instance'
+            // XQueryLexer.g:105:29: ( 'instance' )
+            // XQueryLexer.g:105:31: 'instance'
             {
             match("instance"); 
 
@@ -1331,8 +1342,8 @@ public class XQueryLexer extends XQDTLexer {
         try {
             int _type = INTERSECT;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XQueryLexer.g:96:29: ( 'intersect' )
-            // XQueryLexer.g:96:31: 'intersect'
+            // XQueryLexer.g:106:29: ( 'intersect' )
+            // XQueryLexer.g:106:31: 'intersect'
             {
             match("intersect"); 
 
@@ -1352,8 +1363,8 @@ public class XQueryLexer extends XQDTLexer {
         try {
             int _type = IS;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XQueryLexer.g:97:29: ( 'is' )
-            // XQueryLexer.g:97:31: 'is'
+            // XQueryLexer.g:107:29: ( 'is' )
+            // XQueryLexer.g:107:31: 'is'
             {
             match("is"); 
 
@@ -1373,8 +1384,8 @@ public class XQueryLexer extends XQDTLexer {
         try {
             int _type = ITEM;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XQueryLexer.g:98:29: ( 'item' )
-            // XQueryLexer.g:98:31: 'item'
+            // XQueryLexer.g:108:29: ( 'item' )
+            // XQueryLexer.g:108:31: 'item'
             {
             match("item"); 
 
@@ -1394,8 +1405,8 @@ public class XQueryLexer extends XQDTLexer {
         try {
             int _type = LAX;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XQueryLexer.g:99:29: ( 'lax' )
-            // XQueryLexer.g:99:31: 'lax'
+            // XQueryLexer.g:109:29: ( 'lax' )
+            // XQueryLexer.g:109:31: 'lax'
             {
             match("lax"); 
 
@@ -1415,8 +1426,8 @@ public class XQueryLexer extends XQDTLexer {
         try {
             int _type = LE;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XQueryLexer.g:100:29: ( 'le' )
-            // XQueryLexer.g:100:31: 'le'
+            // XQueryLexer.g:110:29: ( 'le' )
+            // XQueryLexer.g:110:31: 'le'
             {
             match("le"); 
 
@@ -1436,8 +1447,8 @@ public class XQueryLexer extends XQDTLexer {
         try {
             int _type = LEAST;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XQueryLexer.g:101:29: ( 'least' )
-            // XQueryLexer.g:101:31: 'least'
+            // XQueryLexer.g:111:29: ( 'least' )
+            // XQueryLexer.g:111:31: 'least'
             {
             match("least"); 
 
@@ -1457,8 +1468,8 @@ public class XQueryLexer extends XQDTLexer {
         try {
             int _type = LET;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XQueryLexer.g:102:29: ( 'let' )
-            // XQueryLexer.g:102:31: 'let'
+            // XQueryLexer.g:112:29: ( 'let' )
+            // XQueryLexer.g:112:31: 'let'
             {
             match("let"); 
 
@@ -1478,8 +1489,8 @@ public class XQueryLexer extends XQDTLexer {
         try {
             int _type = LT;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XQueryLexer.g:103:29: ( 'lt' )
-            // XQueryLexer.g:103:31: 'lt'
+            // XQueryLexer.g:113:29: ( 'lt' )
+            // XQueryLexer.g:113:31: 'lt'
             {
             match("lt"); 
 
@@ -1499,8 +1510,8 @@ public class XQueryLexer extends XQDTLexer {
         try {
             int _type = MOD;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XQueryLexer.g:104:29: ( 'mod' )
-            // XQueryLexer.g:104:31: 'mod'
+            // XQueryLexer.g:114:29: ( 'mod' )
+            // XQueryLexer.g:114:31: 'mod'
             {
             match("mod"); 
 
@@ -1520,8 +1531,8 @@ public class XQueryLexer extends XQDTLexer {
         try {
             int _type = MODULE;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XQueryLexer.g:105:29: ( 'module' )
-            // XQueryLexer.g:105:31: 'module'
+            // XQueryLexer.g:115:29: ( 'module' )
+            // XQueryLexer.g:115:31: 'module'
             {
             match("module"); 
 
@@ -1541,8 +1552,8 @@ public class XQueryLexer extends XQDTLexer {
         try {
             int _type = NAMESPACE;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XQueryLexer.g:106:29: ( 'namespace' )
-            // XQueryLexer.g:106:31: 'namespace'
+            // XQueryLexer.g:116:29: ( 'namespace' )
+            // XQueryLexer.g:116:31: 'namespace'
             {
             match("namespace"); 
 
@@ -1562,8 +1573,8 @@ public class XQueryLexer extends XQDTLexer {
         try {
             int _type = NE;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XQueryLexer.g:107:29: ( 'ne' )
-            // XQueryLexer.g:107:31: 'ne'
+            // XQueryLexer.g:117:29: ( 'ne' )
+            // XQueryLexer.g:117:31: 'ne'
             {
             match("ne"); 
 
@@ -1583,8 +1594,8 @@ public class XQueryLexer extends XQDTLexer {
         try {
             int _type = NO_INHERIT;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XQueryLexer.g:108:29: ( 'no-inherit' )
-            // XQueryLexer.g:108:31: 'no-inherit'
+            // XQueryLexer.g:118:29: ( 'no-inherit' )
+            // XQueryLexer.g:118:31: 'no-inherit'
             {
             match("no-inherit"); 
 
@@ -1604,8 +1615,8 @@ public class XQueryLexer extends XQDTLexer {
         try {
             int _type = NO_PRESERVE;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XQueryLexer.g:109:29: ( 'no-preserve' )
-            // XQueryLexer.g:109:31: 'no-preserve'
+            // XQueryLexer.g:119:29: ( 'no-preserve' )
+            // XQueryLexer.g:119:31: 'no-preserve'
             {
             match("no-preserve"); 
 
@@ -1625,8 +1636,8 @@ public class XQueryLexer extends XQDTLexer {
         try {
             int _type = NODE;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XQueryLexer.g:110:29: ( 'node' )
-            // XQueryLexer.g:110:31: 'node'
+            // XQueryLexer.g:120:29: ( 'node' )
+            // XQueryLexer.g:120:31: 'node'
             {
             match("node"); 
 
@@ -1646,8 +1657,8 @@ public class XQueryLexer extends XQDTLexer {
         try {
             int _type = OF;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XQueryLexer.g:111:29: ( 'of' )
-            // XQueryLexer.g:111:31: 'of'
+            // XQueryLexer.g:121:29: ( 'of' )
+            // XQueryLexer.g:121:31: 'of'
             {
             match("of"); 
 
@@ -1667,8 +1678,8 @@ public class XQueryLexer extends XQDTLexer {
         try {
             int _type = OPTION;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XQueryLexer.g:112:29: ( 'option' )
-            // XQueryLexer.g:112:31: 'option'
+            // XQueryLexer.g:122:29: ( 'option' )
+            // XQueryLexer.g:122:31: 'option'
             {
             match("option"); 
 
@@ -1688,8 +1699,8 @@ public class XQueryLexer extends XQDTLexer {
         try {
             int _type = OR;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XQueryLexer.g:113:29: ( 'or' )
-            // XQueryLexer.g:113:31: 'or'
+            // XQueryLexer.g:123:29: ( 'or' )
+            // XQueryLexer.g:123:31: 'or'
             {
             match("or"); 
 
@@ -1709,8 +1720,8 @@ public class XQueryLexer extends XQDTLexer {
         try {
             int _type = ORDER;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XQueryLexer.g:114:29: ( 'order' )
-            // XQueryLexer.g:114:31: 'order'
+            // XQueryLexer.g:124:29: ( 'order' )
+            // XQueryLexer.g:124:31: 'order'
             {
             match("order"); 
 
@@ -1730,8 +1741,8 @@ public class XQueryLexer extends XQDTLexer {
         try {
             int _type = ORDERED;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XQueryLexer.g:115:29: ( 'ordered' )
-            // XQueryLexer.g:115:31: 'ordered'
+            // XQueryLexer.g:125:29: ( 'ordered' )
+            // XQueryLexer.g:125:31: 'ordered'
             {
             match("ordered"); 
 
@@ -1751,8 +1762,8 @@ public class XQueryLexer extends XQDTLexer {
         try {
             int _type = ORDERING;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XQueryLexer.g:116:29: ( 'ordering' )
-            // XQueryLexer.g:116:31: 'ordering'
+            // XQueryLexer.g:126:29: ( 'ordering' )
+            // XQueryLexer.g:126:31: 'ordering'
             {
             match("ordering"); 
 
@@ -1772,8 +1783,8 @@ public class XQueryLexer extends XQDTLexer {
         try {
             int _type = PARENT;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XQueryLexer.g:117:29: ( 'parent' )
-            // XQueryLexer.g:117:31: 'parent'
+            // XQueryLexer.g:127:29: ( 'parent' )
+            // XQueryLexer.g:127:31: 'parent'
             {
             match("parent"); 
 
@@ -1793,8 +1804,8 @@ public class XQueryLexer extends XQDTLexer {
         try {
             int _type = PRECEDING;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XQueryLexer.g:118:29: ( 'preceding' )
-            // XQueryLexer.g:118:31: 'preceding'
+            // XQueryLexer.g:128:29: ( 'preceding' )
+            // XQueryLexer.g:128:31: 'preceding'
             {
             match("preceding"); 
 
@@ -1814,8 +1825,8 @@ public class XQueryLexer extends XQDTLexer {
         try {
             int _type = PRECEDING_SIBLING;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XQueryLexer.g:119:29: ( 'preceding-sibling' )
-            // XQueryLexer.g:119:31: 'preceding-sibling'
+            // XQueryLexer.g:129:29: ( 'preceding-sibling' )
+            // XQueryLexer.g:129:31: 'preceding-sibling'
             {
             match("preceding-sibling"); 
 
@@ -1835,8 +1846,8 @@ public class XQueryLexer extends XQDTLexer {
         try {
             int _type = PRESERVE;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XQueryLexer.g:120:29: ( 'preserve' )
-            // XQueryLexer.g:120:31: 'preserve'
+            // XQueryLexer.g:130:29: ( 'preserve' )
+            // XQueryLexer.g:130:31: 'preserve'
             {
             match("preserve"); 
 
@@ -1856,8 +1867,8 @@ public class XQueryLexer extends XQDTLexer {
         try {
             int _type = PROCESSING_INSTRUCTION;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XQueryLexer.g:121:29: ( 'processing-instruction' )
-            // XQueryLexer.g:121:31: 'processing-instruction'
+            // XQueryLexer.g:131:29: ( 'processing-instruction' )
+            // XQueryLexer.g:131:31: 'processing-instruction'
             {
             match("processing-instruction"); 
 
@@ -1877,8 +1888,8 @@ public class XQueryLexer extends XQDTLexer {
         try {
             int _type = RETURN;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XQueryLexer.g:122:29: ( 'return' )
-            // XQueryLexer.g:122:31: 'return'
+            // XQueryLexer.g:132:29: ( 'return' )
+            // XQueryLexer.g:132:31: 'return'
             {
             match("return"); 
 
@@ -1898,8 +1909,8 @@ public class XQueryLexer extends XQDTLexer {
         try {
             int _type = SATISFIES;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XQueryLexer.g:123:29: ( 'satisfies' )
-            // XQueryLexer.g:123:31: 'satisfies'
+            // XQueryLexer.g:133:29: ( 'satisfies' )
+            // XQueryLexer.g:133:31: 'satisfies'
             {
             match("satisfies"); 
 
@@ -1919,8 +1930,8 @@ public class XQueryLexer extends XQDTLexer {
         try {
             int _type = SCHEMA;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XQueryLexer.g:124:29: ( 'schema' )
-            // XQueryLexer.g:124:31: 'schema'
+            // XQueryLexer.g:134:29: ( 'schema' )
+            // XQueryLexer.g:134:31: 'schema'
             {
             match("schema"); 
 
@@ -1940,8 +1951,8 @@ public class XQueryLexer extends XQDTLexer {
         try {
             int _type = SCHEMA_ATTRIBUTE;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XQueryLexer.g:125:29: ( 'schema-attribute' )
-            // XQueryLexer.g:125:31: 'schema-attribute'
+            // XQueryLexer.g:135:29: ( 'schema-attribute' )
+            // XQueryLexer.g:135:31: 'schema-attribute'
             {
             match("schema-attribute"); 
 
@@ -1961,8 +1972,8 @@ public class XQueryLexer extends XQDTLexer {
         try {
             int _type = SCHEMA_ELEMENT;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XQueryLexer.g:126:29: ( 'schema-element' )
-            // XQueryLexer.g:126:31: 'schema-element'
+            // XQueryLexer.g:136:29: ( 'schema-element' )
+            // XQueryLexer.g:136:31: 'schema-element'
             {
             match("schema-element"); 
 
@@ -1982,8 +1993,8 @@ public class XQueryLexer extends XQDTLexer {
         try {
             int _type = SELF;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XQueryLexer.g:127:29: ( 'self' )
-            // XQueryLexer.g:127:31: 'self'
+            // XQueryLexer.g:137:29: ( 'self' )
+            // XQueryLexer.g:137:31: 'self'
             {
             match("self"); 
 
@@ -2003,8 +2014,8 @@ public class XQueryLexer extends XQDTLexer {
         try {
             int _type = SOME;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XQueryLexer.g:128:29: ( 'some' )
-            // XQueryLexer.g:128:31: 'some'
+            // XQueryLexer.g:138:29: ( 'some' )
+            // XQueryLexer.g:138:31: 'some'
             {
             match("some"); 
 
@@ -2024,8 +2035,8 @@ public class XQueryLexer extends XQDTLexer {
         try {
             int _type = STABLE;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XQueryLexer.g:129:29: ( 'stable' )
-            // XQueryLexer.g:129:31: 'stable'
+            // XQueryLexer.g:139:29: ( 'stable' )
+            // XQueryLexer.g:139:31: 'stable'
             {
             match("stable"); 
 
@@ -2045,8 +2056,8 @@ public class XQueryLexer extends XQDTLexer {
         try {
             int _type = STRICT;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XQueryLexer.g:130:29: ( 'strict' )
-            // XQueryLexer.g:130:31: 'strict'
+            // XQueryLexer.g:140:29: ( 'strict' )
+            // XQueryLexer.g:140:31: 'strict'
             {
             match("strict"); 
 
@@ -2066,8 +2077,8 @@ public class XQueryLexer extends XQDTLexer {
         try {
             int _type = STRIP;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XQueryLexer.g:131:29: ( 'strip' )
-            // XQueryLexer.g:131:31: 'strip'
+            // XQueryLexer.g:141:29: ( 'strip' )
+            // XQueryLexer.g:141:31: 'strip'
             {
             match("strip"); 
 
@@ -2087,8 +2098,8 @@ public class XQueryLexer extends XQDTLexer {
         try {
             int _type = TEXT;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XQueryLexer.g:132:29: ( 'text' )
-            // XQueryLexer.g:132:31: 'text'
+            // XQueryLexer.g:142:29: ( 'text' )
+            // XQueryLexer.g:142:31: 'text'
             {
             match("text"); 
 
@@ -2108,8 +2119,8 @@ public class XQueryLexer extends XQDTLexer {
         try {
             int _type = THEN;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XQueryLexer.g:133:29: ( 'then' )
-            // XQueryLexer.g:133:31: 'then'
+            // XQueryLexer.g:143:29: ( 'then' )
+            // XQueryLexer.g:143:31: 'then'
             {
             match("then"); 
 
@@ -2129,8 +2140,8 @@ public class XQueryLexer extends XQDTLexer {
         try {
             int _type = TO;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XQueryLexer.g:134:29: ( 'to' )
-            // XQueryLexer.g:134:31: 'to'
+            // XQueryLexer.g:144:29: ( 'to' )
+            // XQueryLexer.g:144:31: 'to'
             {
             match("to"); 
 
@@ -2150,8 +2161,8 @@ public class XQueryLexer extends XQDTLexer {
         try {
             int _type = TREAT;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XQueryLexer.g:135:29: ( 'treat' )
-            // XQueryLexer.g:135:31: 'treat'
+            // XQueryLexer.g:145:29: ( 'treat' )
+            // XQueryLexer.g:145:31: 'treat'
             {
             match("treat"); 
 
@@ -2171,8 +2182,8 @@ public class XQueryLexer extends XQDTLexer {
         try {
             int _type = TYPESWITCH;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XQueryLexer.g:136:29: ( 'typeswitch' )
-            // XQueryLexer.g:136:31: 'typeswitch'
+            // XQueryLexer.g:146:29: ( 'typeswitch' )
+            // XQueryLexer.g:146:31: 'typeswitch'
             {
             match("typeswitch"); 
 
@@ -2192,8 +2203,8 @@ public class XQueryLexer extends XQDTLexer {
         try {
             int _type = UNION;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XQueryLexer.g:137:29: ( 'union' )
-            // XQueryLexer.g:137:31: 'union'
+            // XQueryLexer.g:147:29: ( 'union' )
+            // XQueryLexer.g:147:31: 'union'
             {
             match("union"); 
 
@@ -2213,8 +2224,8 @@ public class XQueryLexer extends XQDTLexer {
         try {
             int _type = UNORDERED;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XQueryLexer.g:138:29: ( 'unordered' )
-            // XQueryLexer.g:138:31: 'unordered'
+            // XQueryLexer.g:148:29: ( 'unordered' )
+            // XQueryLexer.g:148:31: 'unordered'
             {
             match("unordered"); 
 
@@ -2234,8 +2245,8 @@ public class XQueryLexer extends XQDTLexer {
         try {
             int _type = VALIDATE;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XQueryLexer.g:139:29: ( 'validate' )
-            // XQueryLexer.g:139:31: 'validate'
+            // XQueryLexer.g:149:29: ( 'validate' )
+            // XQueryLexer.g:149:31: 'validate'
             {
             match("validate"); 
 
@@ -2255,8 +2266,8 @@ public class XQueryLexer extends XQDTLexer {
         try {
             int _type = VARIABLE;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XQueryLexer.g:140:29: ( 'variable' )
-            // XQueryLexer.g:140:31: 'variable'
+            // XQueryLexer.g:150:29: ( 'variable' )
+            // XQueryLexer.g:150:31: 'variable'
             {
             match("variable"); 
 
@@ -2276,8 +2287,8 @@ public class XQueryLexer extends XQDTLexer {
         try {
             int _type = VERSION;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XQueryLexer.g:141:29: ( 'version' )
-            // XQueryLexer.g:141:31: 'version'
+            // XQueryLexer.g:151:29: ( 'version' )
+            // XQueryLexer.g:151:31: 'version'
             {
             match("version"); 
 
@@ -2297,8 +2308,8 @@ public class XQueryLexer extends XQDTLexer {
         try {
             int _type = WHERE;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XQueryLexer.g:142:29: ( 'where' )
-            // XQueryLexer.g:142:31: 'where'
+            // XQueryLexer.g:152:29: ( 'where' )
+            // XQueryLexer.g:152:31: 'where'
             {
             match("where"); 
 
@@ -2318,8 +2329,8 @@ public class XQueryLexer extends XQDTLexer {
         try {
             int _type = XQUERY;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XQueryLexer.g:143:29: ( 'xquery' )
-            // XQueryLexer.g:143:31: 'xquery'
+            // XQueryLexer.g:153:29: ( 'xquery' )
+            // XQueryLexer.g:153:31: 'xquery'
             {
             match("xquery"); 
 
@@ -2339,8 +2350,8 @@ public class XQueryLexer extends XQDTLexer {
         try {
             int _type = ALLOWING;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XQueryLexer.g:145:29: ( 'allowing' )
-            // XQueryLexer.g:145:31: 'allowing'
+            // XQueryLexer.g:155:29: ( 'allowing' )
+            // XQueryLexer.g:155:31: 'allowing'
             {
             match("allowing"); 
 
@@ -2360,8 +2371,8 @@ public class XQueryLexer extends XQDTLexer {
         try {
             int _type = CATCH;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XQueryLexer.g:146:29: ( 'catch' )
-            // XQueryLexer.g:146:31: 'catch'
+            // XQueryLexer.g:156:29: ( 'catch' )
+            // XQueryLexer.g:156:31: 'catch'
             {
             match("catch"); 
 
@@ -2381,8 +2392,8 @@ public class XQueryLexer extends XQDTLexer {
         try {
             int _type = CONTEXT;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XQueryLexer.g:147:29: ( 'context' )
-            // XQueryLexer.g:147:31: 'context'
+            // XQueryLexer.g:157:29: ( 'context' )
+            // XQueryLexer.g:157:31: 'context'
             {
             match("context"); 
 
@@ -2402,8 +2413,8 @@ public class XQueryLexer extends XQDTLexer {
         try {
             int _type = COUNT;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XQueryLexer.g:148:29: ( 'count' )
-            // XQueryLexer.g:148:31: 'count'
+            // XQueryLexer.g:158:29: ( 'count' )
+            // XQueryLexer.g:158:31: 'count'
             {
             match("count"); 
 
@@ -2423,8 +2434,8 @@ public class XQueryLexer extends XQDTLexer {
         try {
             int _type = DECIMAL_FORMAT;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XQueryLexer.g:149:29: ( 'decimal-format' )
-            // XQueryLexer.g:149:31: 'decimal-format'
+            // XQueryLexer.g:159:29: ( 'decimal-format' )
+            // XQueryLexer.g:159:31: 'decimal-format'
             {
             match("decimal-format"); 
 
@@ -2444,8 +2455,8 @@ public class XQueryLexer extends XQDTLexer {
         try {
             int _type = DECIMAL_SEPARATOR;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XQueryLexer.g:150:29: ( 'decimal-separator' )
-            // XQueryLexer.g:150:31: 'decimal-separator'
+            // XQueryLexer.g:160:29: ( 'decimal-separator' )
+            // XQueryLexer.g:160:31: 'decimal-separator'
             {
             match("decimal-separator"); 
 
@@ -2465,8 +2476,8 @@ public class XQueryLexer extends XQDTLexer {
         try {
             int _type = DETERMINISTIC;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XQueryLexer.g:151:29: ( 'deterministic' )
-            // XQueryLexer.g:151:31: 'deterministic'
+            // XQueryLexer.g:161:29: ( 'deterministic' )
+            // XQueryLexer.g:161:31: 'deterministic'
             {
             match("deterministic"); 
 
@@ -2486,8 +2497,8 @@ public class XQueryLexer extends XQDTLexer {
         try {
             int _type = DIGIT;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XQueryLexer.g:152:29: ( 'digit' )
-            // XQueryLexer.g:152:31: 'digit'
+            // XQueryLexer.g:162:29: ( 'digit' )
+            // XQueryLexer.g:162:31: 'digit'
             {
             match("digit"); 
 
@@ -2507,8 +2518,8 @@ public class XQueryLexer extends XQDTLexer {
         try {
             int _type = END;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XQueryLexer.g:153:29: ( 'end' )
-            // XQueryLexer.g:153:31: 'end'
+            // XQueryLexer.g:163:29: ( 'end' )
+            // XQueryLexer.g:163:31: 'end'
             {
             match("end"); 
 
@@ -2528,8 +2539,8 @@ public class XQueryLexer extends XQDTLexer {
         try {
             int _type = GROUP;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XQueryLexer.g:154:29: ( 'group' )
-            // XQueryLexer.g:154:31: 'group'
+            // XQueryLexer.g:164:29: ( 'group' )
+            // XQueryLexer.g:164:31: 'group'
             {
             match("group"); 
 
@@ -2549,8 +2560,8 @@ public class XQueryLexer extends XQDTLexer {
         try {
             int _type = GROUPING_SEPARATOR;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XQueryLexer.g:155:29: ( 'grouping-separator' )
-            // XQueryLexer.g:155:31: 'grouping-separator'
+            // XQueryLexer.g:165:29: ( 'grouping-separator' )
+            // XQueryLexer.g:165:31: 'grouping-separator'
             {
             match("grouping-separator"); 
 
@@ -2570,8 +2581,8 @@ public class XQueryLexer extends XQDTLexer {
         try {
             int _type = INFINITY;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XQueryLexer.g:156:29: ( 'infinity' )
-            // XQueryLexer.g:156:31: 'infinity'
+            // XQueryLexer.g:166:29: ( 'infinity' )
+            // XQueryLexer.g:166:31: 'infinity'
             {
             match("infinity"); 
 
@@ -2591,8 +2602,8 @@ public class XQueryLexer extends XQDTLexer {
         try {
             int _type = MINUS_SIGN;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XQueryLexer.g:157:29: ( 'minus-sign' )
-            // XQueryLexer.g:157:31: 'minus-sign'
+            // XQueryLexer.g:167:29: ( 'minus-sign' )
+            // XQueryLexer.g:167:31: 'minus-sign'
             {
             match("minus-sign"); 
 
@@ -2612,8 +2623,8 @@ public class XQueryLexer extends XQDTLexer {
         try {
             int _type = NAMESPACE_NODE;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XQueryLexer.g:158:29: ( 'namespace-node' )
-            // XQueryLexer.g:158:31: 'namespace-node'
+            // XQueryLexer.g:168:29: ( 'namespace-node' )
+            // XQueryLexer.g:168:31: 'namespace-node'
             {
             match("namespace-node"); 
 
@@ -2633,8 +2644,8 @@ public class XQueryLexer extends XQDTLexer {
         try {
             int _type = NAN;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XQueryLexer.g:159:29: ( 'NaN' )
-            // XQueryLexer.g:159:31: 'NaN'
+            // XQueryLexer.g:169:29: ( 'NaN' )
+            // XQueryLexer.g:169:31: 'NaN'
             {
             match("NaN"); 
 
@@ -2654,8 +2665,8 @@ public class XQueryLexer extends XQDTLexer {
         try {
             int _type = NEXT;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XQueryLexer.g:160:29: ( 'next' )
-            // XQueryLexer.g:160:31: 'next'
+            // XQueryLexer.g:170:29: ( 'next' )
+            // XQueryLexer.g:170:31: 'next'
             {
             match("next"); 
 
@@ -2675,8 +2686,8 @@ public class XQueryLexer extends XQDTLexer {
         try {
             int _type = ONLY;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XQueryLexer.g:161:29: ( 'only' )
-            // XQueryLexer.g:161:31: 'only'
+            // XQueryLexer.g:171:29: ( 'only' )
+            // XQueryLexer.g:171:31: 'only'
             {
             match("only"); 
 
@@ -2696,8 +2707,8 @@ public class XQueryLexer extends XQDTLexer {
         try {
             int _type = PATTERN_SEPARATOR;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XQueryLexer.g:162:29: ( 'pattern-separator' )
-            // XQueryLexer.g:162:31: 'pattern-separator'
+            // XQueryLexer.g:172:29: ( 'pattern-separator' )
+            // XQueryLexer.g:172:31: 'pattern-separator'
             {
             match("pattern-separator"); 
 
@@ -2717,8 +2728,8 @@ public class XQueryLexer extends XQDTLexer {
         try {
             int _type = PERCENT;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XQueryLexer.g:163:29: ( 'percent' )
-            // XQueryLexer.g:163:31: 'percent'
+            // XQueryLexer.g:173:29: ( 'percent' )
+            // XQueryLexer.g:173:31: 'percent'
             {
             match("percent"); 
 
@@ -2738,8 +2749,8 @@ public class XQueryLexer extends XQDTLexer {
         try {
             int _type = PER_MILLE;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XQueryLexer.g:164:29: ( 'per-mille' )
-            // XQueryLexer.g:164:31: 'per-mille'
+            // XQueryLexer.g:174:29: ( 'per-mille' )
+            // XQueryLexer.g:174:31: 'per-mille'
             {
             match("per-mille"); 
 
@@ -2759,8 +2770,8 @@ public class XQueryLexer extends XQDTLexer {
         try {
             int _type = PREVIOUS;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XQueryLexer.g:165:29: ( 'previous' )
-            // XQueryLexer.g:165:31: 'previous'
+            // XQueryLexer.g:175:29: ( 'previous' )
+            // XQueryLexer.g:175:31: 'previous'
             {
             match("previous"); 
 
@@ -2780,8 +2791,8 @@ public class XQueryLexer extends XQDTLexer {
         try {
             int _type = SLIDING;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XQueryLexer.g:166:29: ( 'sliding' )
-            // XQueryLexer.g:166:31: 'sliding'
+            // XQueryLexer.g:176:29: ( 'sliding' )
+            // XQueryLexer.g:176:31: 'sliding'
             {
             match("sliding"); 
 
@@ -2801,8 +2812,8 @@ public class XQueryLexer extends XQDTLexer {
         try {
             int _type = START;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XQueryLexer.g:167:29: ( 'start' )
-            // XQueryLexer.g:167:31: 'start'
+            // XQueryLexer.g:177:29: ( 'start' )
+            // XQueryLexer.g:177:31: 'start'
             {
             match("start"); 
 
@@ -2822,8 +2833,8 @@ public class XQueryLexer extends XQDTLexer {
         try {
             int _type = SWITCH;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XQueryLexer.g:168:29: ( 'switch' )
-            // XQueryLexer.g:168:31: 'switch'
+            // XQueryLexer.g:178:29: ( 'switch' )
+            // XQueryLexer.g:178:31: 'switch'
             {
             match("switch"); 
 
@@ -2843,8 +2854,8 @@ public class XQueryLexer extends XQDTLexer {
         try {
             int _type = TRY;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XQueryLexer.g:169:29: ( 'try' )
-            // XQueryLexer.g:169:31: 'try'
+            // XQueryLexer.g:179:29: ( 'try' )
+            // XQueryLexer.g:179:31: 'try'
             {
             match("try"); 
 
@@ -2864,8 +2875,8 @@ public class XQueryLexer extends XQDTLexer {
         try {
             int _type = TUMBLING;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XQueryLexer.g:170:29: ( 'tumbling' )
-            // XQueryLexer.g:170:31: 'tumbling'
+            // XQueryLexer.g:180:29: ( 'tumbling' )
+            // XQueryLexer.g:180:31: 'tumbling'
             {
             match("tumbling"); 
 
@@ -2885,8 +2896,8 @@ public class XQueryLexer extends XQDTLexer {
         try {
             int _type = TYPE;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XQueryLexer.g:171:29: ( 'type' )
-            // XQueryLexer.g:171:31: 'type'
+            // XQueryLexer.g:181:29: ( 'type' )
+            // XQueryLexer.g:181:31: 'type'
             {
             match("type"); 
 
@@ -2906,8 +2917,8 @@ public class XQueryLexer extends XQDTLexer {
         try {
             int _type = WHEN;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XQueryLexer.g:172:29: ( 'when' )
-            // XQueryLexer.g:172:31: 'when'
+            // XQueryLexer.g:182:29: ( 'when' )
+            // XQueryLexer.g:182:31: 'when'
             {
             match("when"); 
 
@@ -2927,8 +2938,8 @@ public class XQueryLexer extends XQDTLexer {
         try {
             int _type = WINDOW;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XQueryLexer.g:173:29: ( 'window' )
-            // XQueryLexer.g:173:31: 'window'
+            // XQueryLexer.g:183:29: ( 'window' )
+            // XQueryLexer.g:183:31: 'window'
             {
             match("window"); 
 
@@ -2948,8 +2959,8 @@ public class XQueryLexer extends XQDTLexer {
         try {
             int _type = ZERO_DIGIT;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XQueryLexer.g:174:29: ( 'zero-digit' )
-            // XQueryLexer.g:174:31: 'zero-digit'
+            // XQueryLexer.g:184:29: ( 'zero-digit' )
+            // XQueryLexer.g:184:31: 'zero-digit'
             {
             match("zero-digit"); 
 
@@ -2969,8 +2980,8 @@ public class XQueryLexer extends XQDTLexer {
         try {
             int _type = AFTER;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XQueryLexer.g:176:29: ( 'after' )
-            // XQueryLexer.g:176:31: 'after'
+            // XQueryLexer.g:186:29: ( 'after' )
+            // XQueryLexer.g:186:31: 'after'
             {
             match("after"); 
 
@@ -2990,8 +3001,8 @@ public class XQueryLexer extends XQDTLexer {
         try {
             int _type = BEFORE;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XQueryLexer.g:177:29: ( 'before' )
-            // XQueryLexer.g:177:31: 'before'
+            // XQueryLexer.g:187:29: ( 'before' )
+            // XQueryLexer.g:187:31: 'before'
             {
             match("before"); 
 
@@ -3011,8 +3022,8 @@ public class XQueryLexer extends XQDTLexer {
         try {
             int _type = COPY;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XQueryLexer.g:178:29: ( 'copy' )
-            // XQueryLexer.g:178:31: 'copy'
+            // XQueryLexer.g:188:29: ( 'copy' )
+            // XQueryLexer.g:188:31: 'copy'
             {
             match("copy"); 
 
@@ -3032,8 +3043,8 @@ public class XQueryLexer extends XQDTLexer {
         try {
             int _type = DELETE;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XQueryLexer.g:179:29: ( 'delete' )
-            // XQueryLexer.g:179:31: 'delete'
+            // XQueryLexer.g:189:29: ( 'delete' )
+            // XQueryLexer.g:189:31: 'delete'
             {
             match("delete"); 
 
@@ -3053,8 +3064,8 @@ public class XQueryLexer extends XQDTLexer {
         try {
             int _type = FIRST;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XQueryLexer.g:180:29: ( 'first' )
-            // XQueryLexer.g:180:31: 'first'
+            // XQueryLexer.g:190:29: ( 'first' )
+            // XQueryLexer.g:190:31: 'first'
             {
             match("first"); 
 
@@ -3074,8 +3085,8 @@ public class XQueryLexer extends XQDTLexer {
         try {
             int _type = INSERT;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XQueryLexer.g:181:29: ( 'insert' )
-            // XQueryLexer.g:181:31: 'insert'
+            // XQueryLexer.g:191:29: ( 'insert' )
+            // XQueryLexer.g:191:31: 'insert'
             {
             match("insert"); 
 
@@ -3095,8 +3106,8 @@ public class XQueryLexer extends XQDTLexer {
         try {
             int _type = INTO;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XQueryLexer.g:182:29: ( 'into' )
-            // XQueryLexer.g:182:31: 'into'
+            // XQueryLexer.g:192:29: ( 'into' )
+            // XQueryLexer.g:192:31: 'into'
             {
             match("into"); 
 
@@ -3116,8 +3127,8 @@ public class XQueryLexer extends XQDTLexer {
         try {
             int _type = LAST;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XQueryLexer.g:183:29: ( 'last' )
-            // XQueryLexer.g:183:31: 'last'
+            // XQueryLexer.g:193:29: ( 'last' )
+            // XQueryLexer.g:193:31: 'last'
             {
             match("last"); 
 
@@ -3137,8 +3148,8 @@ public class XQueryLexer extends XQDTLexer {
         try {
             int _type = MODIFY;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XQueryLexer.g:184:29: ( 'modify' )
-            // XQueryLexer.g:184:31: 'modify'
+            // XQueryLexer.g:194:29: ( 'modify' )
+            // XQueryLexer.g:194:31: 'modify'
             {
             match("modify"); 
 
@@ -3158,8 +3169,8 @@ public class XQueryLexer extends XQDTLexer {
         try {
             int _type = NODES;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XQueryLexer.g:185:29: ( 'nodes' )
-            // XQueryLexer.g:185:31: 'nodes'
+            // XQueryLexer.g:195:29: ( 'nodes' )
+            // XQueryLexer.g:195:31: 'nodes'
             {
             match("nodes"); 
 
@@ -3179,8 +3190,8 @@ public class XQueryLexer extends XQDTLexer {
         try {
             int _type = RENAME;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XQueryLexer.g:186:29: ( 'rename' )
-            // XQueryLexer.g:186:31: 'rename'
+            // XQueryLexer.g:196:29: ( 'rename' )
+            // XQueryLexer.g:196:31: 'rename'
             {
             match("rename"); 
 
@@ -3200,8 +3211,8 @@ public class XQueryLexer extends XQDTLexer {
         try {
             int _type = REPLACE;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XQueryLexer.g:187:29: ( 'replace' )
-            // XQueryLexer.g:187:31: 'replace'
+            // XQueryLexer.g:197:29: ( 'replace' )
+            // XQueryLexer.g:197:31: 'replace'
             {
             match("replace"); 
 
@@ -3221,8 +3232,8 @@ public class XQueryLexer extends XQDTLexer {
         try {
             int _type = REVALIDATION;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XQueryLexer.g:188:29: ( 'revalidation' )
-            // XQueryLexer.g:188:31: 'revalidation'
+            // XQueryLexer.g:198:29: ( 'revalidation' )
+            // XQueryLexer.g:198:31: 'revalidation'
             {
             match("revalidation"); 
 
@@ -3242,8 +3253,8 @@ public class XQueryLexer extends XQDTLexer {
         try {
             int _type = SKIP;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XQueryLexer.g:189:29: ( 'skip' )
-            // XQueryLexer.g:189:31: 'skip'
+            // XQueryLexer.g:199:29: ( 'skip' )
+            // XQueryLexer.g:199:31: 'skip'
             {
             match("skip"); 
 
@@ -3263,8 +3274,8 @@ public class XQueryLexer extends XQDTLexer {
         try {
             int _type = UPDATING;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XQueryLexer.g:190:29: ( 'updating' )
-            // XQueryLexer.g:190:31: 'updating'
+            // XQueryLexer.g:200:29: ( 'updating' )
+            // XQueryLexer.g:200:31: 'updating'
             {
             match("updating"); 
 
@@ -3284,8 +3295,8 @@ public class XQueryLexer extends XQDTLexer {
         try {
             int _type = VALUE;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XQueryLexer.g:191:29: ( 'value' )
-            // XQueryLexer.g:191:31: 'value'
+            // XQueryLexer.g:201:29: ( 'value' )
+            // XQueryLexer.g:201:31: 'value'
             {
             match("value"); 
 
@@ -3305,8 +3316,8 @@ public class XQueryLexer extends XQDTLexer {
         try {
             int _type = WITH;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XQueryLexer.g:192:29: ( 'with' )
-            // XQueryLexer.g:192:31: 'with'
+            // XQueryLexer.g:202:29: ( 'with' )
+            // XQueryLexer.g:202:31: 'with'
             {
             match("with"); 
 
@@ -3326,8 +3337,8 @@ public class XQueryLexer extends XQDTLexer {
         try {
             int _type = ALL;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XQueryLexer.g:194:29: ( 'all' )
-            // XQueryLexer.g:194:31: 'all'
+            // XQueryLexer.g:204:29: ( 'all' )
+            // XQueryLexer.g:204:31: 'all'
             {
             match("all"); 
 
@@ -3347,8 +3358,8 @@ public class XQueryLexer extends XQDTLexer {
         try {
             int _type = ANY;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XQueryLexer.g:195:29: ( 'any' )
-            // XQueryLexer.g:195:31: 'any'
+            // XQueryLexer.g:205:29: ( 'any' )
+            // XQueryLexer.g:205:31: 'any'
             {
             match("any"); 
 
@@ -3368,8 +3379,8 @@ public class XQueryLexer extends XQDTLexer {
         try {
             int _type = CONTAINS;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XQueryLexer.g:196:29: ( 'contains' )
-            // XQueryLexer.g:196:31: 'contains'
+            // XQueryLexer.g:206:29: ( 'contains' )
+            // XQueryLexer.g:206:31: 'contains'
             {
             match("contains"); 
 
@@ -3389,8 +3400,8 @@ public class XQueryLexer extends XQDTLexer {
         try {
             int _type = CONTENT;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XQueryLexer.g:197:29: ( 'content' )
-            // XQueryLexer.g:197:31: 'content'
+            // XQueryLexer.g:207:29: ( 'content' )
+            // XQueryLexer.g:207:31: 'content'
             {
             match("content"); 
 
@@ -3410,8 +3421,8 @@ public class XQueryLexer extends XQDTLexer {
         try {
             int _type = DIACRITICS;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XQueryLexer.g:198:29: ( 'diacritics' )
-            // XQueryLexer.g:198:31: 'diacritics'
+            // XQueryLexer.g:208:29: ( 'diacritics' )
+            // XQueryLexer.g:208:31: 'diacritics'
             {
             match("diacritics"); 
 
@@ -3431,8 +3442,8 @@ public class XQueryLexer extends XQDTLexer {
         try {
             int _type = DIFFERENT;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XQueryLexer.g:199:29: ( 'different' )
-            // XQueryLexer.g:199:31: 'different'
+            // XQueryLexer.g:209:29: ( 'different' )
+            // XQueryLexer.g:209:31: 'different'
             {
             match("different"); 
 
@@ -3452,8 +3463,8 @@ public class XQueryLexer extends XQDTLexer {
         try {
             int _type = DISTANCE;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XQueryLexer.g:200:29: ( 'distance' )
-            // XQueryLexer.g:200:31: 'distance'
+            // XQueryLexer.g:210:29: ( 'distance' )
+            // XQueryLexer.g:210:31: 'distance'
             {
             match("distance"); 
 
@@ -3473,8 +3484,8 @@ public class XQueryLexer extends XQDTLexer {
         try {
             int _type = ENTIRE;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XQueryLexer.g:201:29: ( 'entire' )
-            // XQueryLexer.g:201:31: 'entire'
+            // XQueryLexer.g:211:29: ( 'entire' )
+            // XQueryLexer.g:211:31: 'entire'
             {
             match("entire"); 
 
@@ -3494,8 +3505,8 @@ public class XQueryLexer extends XQDTLexer {
         try {
             int _type = EXACTLY;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XQueryLexer.g:202:29: ( 'exactly' )
-            // XQueryLexer.g:202:31: 'exactly'
+            // XQueryLexer.g:212:29: ( 'exactly' )
+            // XQueryLexer.g:212:31: 'exactly'
             {
             match("exactly"); 
 
@@ -3515,8 +3526,8 @@ public class XQueryLexer extends XQDTLexer {
         try {
             int _type = FROM;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XQueryLexer.g:203:29: ( 'from' )
-            // XQueryLexer.g:203:31: 'from'
+            // XQueryLexer.g:213:29: ( 'from' )
+            // XQueryLexer.g:213:31: 'from'
             {
             match("from"); 
 
@@ -3536,8 +3547,8 @@ public class XQueryLexer extends XQDTLexer {
         try {
             int _type = FT_OPTION;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XQueryLexer.g:204:29: ( 'ft-option' )
-            // XQueryLexer.g:204:31: 'ft-option'
+            // XQueryLexer.g:214:29: ( 'ft-option' )
+            // XQueryLexer.g:214:31: 'ft-option'
             {
             match("ft-option"); 
 
@@ -3557,8 +3568,8 @@ public class XQueryLexer extends XQDTLexer {
         try {
             int _type = FTAND;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XQueryLexer.g:205:29: ( 'ftand' )
-            // XQueryLexer.g:205:31: 'ftand'
+            // XQueryLexer.g:215:29: ( 'ftand' )
+            // XQueryLexer.g:215:31: 'ftand'
             {
             match("ftand"); 
 
@@ -3578,8 +3589,8 @@ public class XQueryLexer extends XQDTLexer {
         try {
             int _type = FTNOT;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XQueryLexer.g:206:29: ( 'ftnot' )
-            // XQueryLexer.g:206:31: 'ftnot'
+            // XQueryLexer.g:216:29: ( 'ftnot' )
+            // XQueryLexer.g:216:31: 'ftnot'
             {
             match("ftnot"); 
 
@@ -3599,8 +3610,8 @@ public class XQueryLexer extends XQDTLexer {
         try {
             int _type = FTOR;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XQueryLexer.g:207:29: ( 'ftor' )
-            // XQueryLexer.g:207:31: 'ftor'
+            // XQueryLexer.g:217:29: ( 'ftor' )
+            // XQueryLexer.g:217:31: 'ftor'
             {
             match("ftor"); 
 
@@ -3620,8 +3631,8 @@ public class XQueryLexer extends XQDTLexer {
         try {
             int _type = INSENSITIVE;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XQueryLexer.g:208:29: ( 'insensitive' )
-            // XQueryLexer.g:208:31: 'insensitive'
+            // XQueryLexer.g:218:29: ( 'insensitive' )
+            // XQueryLexer.g:218:31: 'insensitive'
             {
             match("insensitive"); 
 
@@ -3641,8 +3652,8 @@ public class XQueryLexer extends XQDTLexer {
         try {
             int _type = LANGUAGE;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XQueryLexer.g:209:29: ( 'language' )
-            // XQueryLexer.g:209:31: 'language'
+            // XQueryLexer.g:219:29: ( 'language' )
+            // XQueryLexer.g:219:31: 'language'
             {
             match("language"); 
 
@@ -3662,8 +3673,8 @@ public class XQueryLexer extends XQDTLexer {
         try {
             int _type = LEVELS;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XQueryLexer.g:210:29: ( 'levels' )
-            // XQueryLexer.g:210:31: 'levels'
+            // XQueryLexer.g:220:29: ( 'levels' )
+            // XQueryLexer.g:220:31: 'levels'
             {
             match("levels"); 
 
@@ -3683,8 +3694,8 @@ public class XQueryLexer extends XQDTLexer {
         try {
             int _type = LOWERCASE;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XQueryLexer.g:211:29: ( 'lowercase' )
-            // XQueryLexer.g:211:31: 'lowercase'
+            // XQueryLexer.g:221:29: ( 'lowercase' )
+            // XQueryLexer.g:221:31: 'lowercase'
             {
             match("lowercase"); 
 
@@ -3704,8 +3715,8 @@ public class XQueryLexer extends XQDTLexer {
         try {
             int _type = MOST;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XQueryLexer.g:212:29: ( 'most' )
-            // XQueryLexer.g:212:31: 'most'
+            // XQueryLexer.g:222:29: ( 'most' )
+            // XQueryLexer.g:222:31: 'most'
             {
             match("most"); 
 
@@ -3725,8 +3736,8 @@ public class XQueryLexer extends XQDTLexer {
         try {
             int _type = NO;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XQueryLexer.g:213:29: ( 'no' )
-            // XQueryLexer.g:213:31: 'no'
+            // XQueryLexer.g:223:29: ( 'no' )
+            // XQueryLexer.g:223:31: 'no'
             {
             match("no"); 
 
@@ -3746,8 +3757,8 @@ public class XQueryLexer extends XQDTLexer {
         try {
             int _type = NOT;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XQueryLexer.g:214:29: ( 'not' )
-            // XQueryLexer.g:214:31: 'not'
+            // XQueryLexer.g:224:29: ( 'not' )
+            // XQueryLexer.g:224:31: 'not'
             {
             match("not"); 
 
@@ -3767,8 +3778,8 @@ public class XQueryLexer extends XQDTLexer {
         try {
             int _type = OCCURS;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XQueryLexer.g:215:29: ( 'occurs' )
-            // XQueryLexer.g:215:31: 'occurs'
+            // XQueryLexer.g:225:29: ( 'occurs' )
+            // XQueryLexer.g:225:31: 'occurs'
             {
             match("occurs"); 
 
@@ -3788,8 +3799,8 @@ public class XQueryLexer extends XQDTLexer {
         try {
             int _type = PARAGRAPH;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XQueryLexer.g:216:29: ( 'paragraph' )
-            // XQueryLexer.g:216:31: 'paragraph'
+            // XQueryLexer.g:226:29: ( 'paragraph' )
+            // XQueryLexer.g:226:31: 'paragraph'
             {
             match("paragraph"); 
 
@@ -3809,8 +3820,8 @@ public class XQueryLexer extends XQDTLexer {
         try {
             int _type = PARAGRAPHS;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XQueryLexer.g:217:29: ( 'paragraphs' )
-            // XQueryLexer.g:217:31: 'paragraphs'
+            // XQueryLexer.g:227:29: ( 'paragraphs' )
+            // XQueryLexer.g:227:31: 'paragraphs'
             {
             match("paragraphs"); 
 
@@ -3830,8 +3841,8 @@ public class XQueryLexer extends XQDTLexer {
         try {
             int _type = PHRASE;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XQueryLexer.g:218:29: ( 'phrase' )
-            // XQueryLexer.g:218:31: 'phrase'
+            // XQueryLexer.g:228:29: ( 'phrase' )
+            // XQueryLexer.g:228:31: 'phrase'
             {
             match("phrase"); 
 
@@ -3851,8 +3862,8 @@ public class XQueryLexer extends XQDTLexer {
         try {
             int _type = RELATIONSHIP;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XQueryLexer.g:219:29: ( 'relationship' )
-            // XQueryLexer.g:219:31: 'relationship'
+            // XQueryLexer.g:229:29: ( 'relationship' )
+            // XQueryLexer.g:229:31: 'relationship'
             {
             match("relationship"); 
 
@@ -3872,8 +3883,8 @@ public class XQueryLexer extends XQDTLexer {
         try {
             int _type = SAME;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XQueryLexer.g:220:29: ( 'same' )
-            // XQueryLexer.g:220:31: 'same'
+            // XQueryLexer.g:230:29: ( 'same' )
+            // XQueryLexer.g:230:31: 'same'
             {
             match("same"); 
 
@@ -3893,8 +3904,8 @@ public class XQueryLexer extends XQDTLexer {
         try {
             int _type = SCORE;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XQueryLexer.g:221:29: ( 'score' )
-            // XQueryLexer.g:221:31: 'score'
+            // XQueryLexer.g:231:29: ( 'score' )
+            // XQueryLexer.g:231:31: 'score'
             {
             match("score"); 
 
@@ -3914,8 +3925,8 @@ public class XQueryLexer extends XQDTLexer {
         try {
             int _type = SENSITIVE;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XQueryLexer.g:222:29: ( 'sensitive' )
-            // XQueryLexer.g:222:31: 'sensitive'
+            // XQueryLexer.g:232:29: ( 'sensitive' )
+            // XQueryLexer.g:232:31: 'sensitive'
             {
             match("sensitive"); 
 
@@ -3935,8 +3946,8 @@ public class XQueryLexer extends XQDTLexer {
         try {
             int _type = SENTENCE;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XQueryLexer.g:223:29: ( 'sentence' )
-            // XQueryLexer.g:223:31: 'sentence'
+            // XQueryLexer.g:233:29: ( 'sentence' )
+            // XQueryLexer.g:233:31: 'sentence'
             {
             match("sentence"); 
 
@@ -3956,8 +3967,8 @@ public class XQueryLexer extends XQDTLexer {
         try {
             int _type = SENTENCES;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XQueryLexer.g:224:29: ( 'sentences' )
-            // XQueryLexer.g:224:31: 'sentences'
+            // XQueryLexer.g:234:29: ( 'sentences' )
+            // XQueryLexer.g:234:31: 'sentences'
             {
             match("sentences"); 
 
@@ -3977,8 +3988,8 @@ public class XQueryLexer extends XQDTLexer {
         try {
             int _type = STEMMING;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XQueryLexer.g:225:29: ( 'stemming' )
-            // XQueryLexer.g:225:31: 'stemming'
+            // XQueryLexer.g:235:29: ( 'stemming' )
+            // XQueryLexer.g:235:31: 'stemming'
             {
             match("stemming"); 
 
@@ -3998,8 +4009,8 @@ public class XQueryLexer extends XQDTLexer {
         try {
             int _type = STOP;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XQueryLexer.g:226:29: ( 'stop' )
-            // XQueryLexer.g:226:31: 'stop'
+            // XQueryLexer.g:236:29: ( 'stop' )
+            // XQueryLexer.g:236:31: 'stop'
             {
             match("stop"); 
 
@@ -4019,8 +4030,8 @@ public class XQueryLexer extends XQDTLexer {
         try {
             int _type = THESAURUS;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XQueryLexer.g:227:29: ( 'thesaurus' )
-            // XQueryLexer.g:227:31: 'thesaurus'
+            // XQueryLexer.g:237:29: ( 'thesaurus' )
+            // XQueryLexer.g:237:31: 'thesaurus'
             {
             match("thesaurus"); 
 
@@ -4040,8 +4051,8 @@ public class XQueryLexer extends XQDTLexer {
         try {
             int _type = TIMES;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XQueryLexer.g:228:29: ( 'times' )
-            // XQueryLexer.g:228:31: 'times'
+            // XQueryLexer.g:238:29: ( 'times' )
+            // XQueryLexer.g:238:31: 'times'
             {
             match("times"); 
 
@@ -4061,8 +4072,8 @@ public class XQueryLexer extends XQDTLexer {
         try {
             int _type = UPPERCASE;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XQueryLexer.g:229:29: ( 'uppercase' )
-            // XQueryLexer.g:229:31: 'uppercase'
+            // XQueryLexer.g:239:29: ( 'uppercase' )
+            // XQueryLexer.g:239:31: 'uppercase'
             {
             match("uppercase"); 
 
@@ -4082,8 +4093,8 @@ public class XQueryLexer extends XQDTLexer {
         try {
             int _type = USING;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XQueryLexer.g:230:29: ( 'using' )
-            // XQueryLexer.g:230:31: 'using'
+            // XQueryLexer.g:240:29: ( 'using' )
+            // XQueryLexer.g:240:31: 'using'
             {
             match("using"); 
 
@@ -4103,8 +4114,8 @@ public class XQueryLexer extends XQDTLexer {
         try {
             int _type = WEIGHT;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XQueryLexer.g:231:29: ( 'weight' )
-            // XQueryLexer.g:231:31: 'weight'
+            // XQueryLexer.g:241:29: ( 'weight' )
+            // XQueryLexer.g:241:31: 'weight'
             {
             match("weight"); 
 
@@ -4124,8 +4135,8 @@ public class XQueryLexer extends XQDTLexer {
         try {
             int _type = WILDCARDS;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XQueryLexer.g:232:29: ( 'wildcards' )
-            // XQueryLexer.g:232:31: 'wildcards'
+            // XQueryLexer.g:242:29: ( 'wildcards' )
+            // XQueryLexer.g:242:31: 'wildcards'
             {
             match("wildcards"); 
 
@@ -4145,8 +4156,8 @@ public class XQueryLexer extends XQDTLexer {
         try {
             int _type = WITHOUT;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XQueryLexer.g:233:29: ( 'without' )
-            // XQueryLexer.g:233:31: 'without'
+            // XQueryLexer.g:243:29: ( 'without' )
+            // XQueryLexer.g:243:31: 'without'
             {
             match("without"); 
 
@@ -4166,8 +4177,8 @@ public class XQueryLexer extends XQDTLexer {
         try {
             int _type = WORD;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XQueryLexer.g:234:29: ( 'word' )
-            // XQueryLexer.g:234:31: 'word'
+            // XQueryLexer.g:244:29: ( 'word' )
+            // XQueryLexer.g:244:31: 'word'
             {
             match("word"); 
 
@@ -4187,8 +4198,8 @@ public class XQueryLexer extends XQDTLexer {
         try {
             int _type = WORDS;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XQueryLexer.g:235:29: ( 'words' )
-            // XQueryLexer.g:235:31: 'words'
+            // XQueryLexer.g:245:29: ( 'words' )
+            // XQueryLexer.g:245:31: 'words'
             {
             match("words"); 
 
@@ -4208,8 +4219,8 @@ public class XQueryLexer extends XQDTLexer {
         try {
             int _type = BREAK;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XQueryLexer.g:237:29: ( 'break' )
-            // XQueryLexer.g:237:31: 'break'
+            // XQueryLexer.g:247:29: ( 'break' )
+            // XQueryLexer.g:247:31: 'break'
             {
             match("break"); 
 
@@ -4229,8 +4240,8 @@ public class XQueryLexer extends XQDTLexer {
         try {
             int _type = CONTINUE;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XQueryLexer.g:238:29: ( 'continue' )
-            // XQueryLexer.g:238:31: 'continue'
+            // XQueryLexer.g:248:29: ( 'continue' )
+            // XQueryLexer.g:248:31: 'continue'
             {
             match("continue"); 
 
@@ -4250,8 +4261,8 @@ public class XQueryLexer extends XQDTLexer {
         try {
             int _type = EXIT;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XQueryLexer.g:239:29: ( 'exit' )
-            // XQueryLexer.g:239:31: 'exit'
+            // XQueryLexer.g:249:29: ( 'exit' )
+            // XQueryLexer.g:249:31: 'exit'
             {
             match("exit"); 
 
@@ -4271,8 +4282,8 @@ public class XQueryLexer extends XQDTLexer {
         try {
             int _type = LOOP;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XQueryLexer.g:240:29: ( 'loop' )
-            // XQueryLexer.g:240:31: 'loop'
+            // XQueryLexer.g:250:29: ( 'loop' )
+            // XQueryLexer.g:250:31: 'loop'
             {
             match("loop"); 
 
@@ -4292,8 +4303,8 @@ public class XQueryLexer extends XQDTLexer {
         try {
             int _type = RETURNING;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XQueryLexer.g:241:29: ( 'returning' )
-            // XQueryLexer.g:241:31: 'returning'
+            // XQueryLexer.g:251:29: ( 'returning' )
+            // XQueryLexer.g:251:31: 'returning'
             {
             match("returning"); 
 
@@ -4313,8 +4324,8 @@ public class XQueryLexer extends XQDTLexer {
         try {
             int _type = WHILE;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XQueryLexer.g:242:29: ( 'while' )
-            // XQueryLexer.g:242:31: 'while'
+            // XQueryLexer.g:252:29: ( 'while' )
+            // XQueryLexer.g:252:31: 'while'
             {
             match("while"); 
 
@@ -4334,8 +4345,8 @@ public class XQueryLexer extends XQDTLexer {
         try {
             int _type = CHECK;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XQueryLexer.g:244:29: ( 'check' )
-            // XQueryLexer.g:244:31: 'check'
+            // XQueryLexer.g:254:29: ( 'check' )
+            // XQueryLexer.g:254:31: 'check'
             {
             match("check"); 
 
@@ -4355,8 +4366,8 @@ public class XQueryLexer extends XQDTLexer {
         try {
             int _type = COLLECTION;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XQueryLexer.g:245:29: ( 'collection' )
-            // XQueryLexer.g:245:31: 'collection'
+            // XQueryLexer.g:255:29: ( 'collection' )
+            // XQueryLexer.g:255:31: 'collection'
             {
             match("collection"); 
 
@@ -4376,8 +4387,8 @@ public class XQueryLexer extends XQDTLexer {
         try {
             int _type = CONSTRAINT;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XQueryLexer.g:246:29: ( 'constraint' )
-            // XQueryLexer.g:246:31: 'constraint'
+            // XQueryLexer.g:256:29: ( 'constraint' )
+            // XQueryLexer.g:256:31: 'constraint'
             {
             match("constraint"); 
 
@@ -4397,8 +4408,8 @@ public class XQueryLexer extends XQDTLexer {
         try {
             int _type = FOREACH;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XQueryLexer.g:247:29: ( 'foreach' )
-            // XQueryLexer.g:247:31: 'foreach'
+            // XQueryLexer.g:257:29: ( 'foreach' )
+            // XQueryLexer.g:257:31: 'foreach'
             {
             match("foreach"); 
 
@@ -4418,8 +4429,8 @@ public class XQueryLexer extends XQDTLexer {
         try {
             int _type = FOREIGN;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XQueryLexer.g:248:29: ( 'foreign' )
-            // XQueryLexer.g:248:31: 'foreign'
+            // XQueryLexer.g:258:29: ( 'foreign' )
+            // XQueryLexer.g:258:31: 'foreign'
             {
             match("foreign"); 
 
@@ -4439,8 +4450,8 @@ public class XQueryLexer extends XQDTLexer {
         try {
             int _type = INDEX;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XQueryLexer.g:249:29: ( 'index' )
-            // XQueryLexer.g:249:31: 'index'
+            // XQueryLexer.g:259:29: ( 'index' )
+            // XQueryLexer.g:259:31: 'index'
             {
             match("index"); 
 
@@ -4460,8 +4471,8 @@ public class XQueryLexer extends XQDTLexer {
         try {
             int _type = INTEGRITY;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XQueryLexer.g:250:29: ( 'integrity' )
-            // XQueryLexer.g:250:31: 'integrity'
+            // XQueryLexer.g:260:29: ( 'integrity' )
+            // XQueryLexer.g:260:31: 'integrity'
             {
             match("integrity"); 
 
@@ -4481,8 +4492,8 @@ public class XQueryLexer extends XQDTLexer {
         try {
             int _type = KEY;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XQueryLexer.g:251:29: ( 'key' )
-            // XQueryLexer.g:251:31: 'key'
+            // XQueryLexer.g:261:29: ( 'key' )
+            // XQueryLexer.g:261:31: 'key'
             {
             match("key"); 
 
@@ -4502,8 +4513,8 @@ public class XQueryLexer extends XQDTLexer {
         try {
             int _type = ON;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XQueryLexer.g:252:29: ( 'on' )
-            // XQueryLexer.g:252:31: 'on'
+            // XQueryLexer.g:262:29: ( 'on' )
+            // XQueryLexer.g:262:31: 'on'
             {
             match("on"); 
 
@@ -4523,8 +4534,8 @@ public class XQueryLexer extends XQDTLexer {
         try {
             int _type = UNIQUE;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XQueryLexer.g:253:29: ( 'unique' )
-            // XQueryLexer.g:253:31: 'unique'
+            // XQueryLexer.g:263:29: ( 'unique' )
+            // XQueryLexer.g:263:31: 'unique'
             {
             match("unique"); 
 
@@ -4544,8 +4555,8 @@ public class XQueryLexer extends XQDTLexer {
         try {
             int _type = BINARY;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XQueryLexer.g:255:29: ( 'binary' )
-            // XQueryLexer.g:255:31: 'binary'
+            // XQueryLexer.g:265:29: ( 'binary' )
+            // XQueryLexer.g:265:31: 'binary'
             {
             match("binary"); 
 
@@ -4565,8 +4576,8 @@ public class XQueryLexer extends XQDTLexer {
         try {
             int _type = AMP_ER;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XQueryLexer.g:258:9: ( 'amp' )
-            // XQueryLexer.g:258:11: 'amp'
+            // XQueryLexer.g:268:9: ( 'amp' )
+            // XQueryLexer.g:268:11: 'amp'
             {
             match("amp"); 
 
@@ -4586,8 +4597,8 @@ public class XQueryLexer extends XQDTLexer {
         try {
             int _type = APOS_ER;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XQueryLexer.g:259:9: ( 'apos' )
-            // XQueryLexer.g:259:11: 'apos'
+            // XQueryLexer.g:269:9: ( 'apos' )
+            // XQueryLexer.g:269:11: 'apos'
             {
             match("apos"); 
 
@@ -4607,8 +4618,8 @@ public class XQueryLexer extends XQDTLexer {
         try {
             int _type = QUOT_ER;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XQueryLexer.g:260:9: ( 'quot' )
-            // XQueryLexer.g:260:11: 'quot'
+            // XQueryLexer.g:270:9: ( 'quot' )
+            // XQueryLexer.g:270:11: 'quot'
             {
             match("quot"); 
 
@@ -4628,8 +4639,8 @@ public class XQueryLexer extends XQDTLexer {
         try {
             int _type = LPAREN;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XQueryLexer.g:267:25: ( '(' )
-            // XQueryLexer.g:267:27: '('
+            // XQueryLexer.g:277:25: ( '(' )
+            // XQueryLexer.g:277:27: '('
             {
             match('('); 
 
@@ -4648,8 +4659,8 @@ public class XQueryLexer extends XQDTLexer {
         try {
             int _type = RPAREN;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XQueryLexer.g:268:25: ( ')' )
-            // XQueryLexer.g:268:27: ')'
+            // XQueryLexer.g:278:25: ( ')' )
+            // XQueryLexer.g:278:27: ')'
             {
             match(')'); 
 
@@ -4668,8 +4679,8 @@ public class XQueryLexer extends XQDTLexer {
         try {
             int _type = DOLLAR;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XQueryLexer.g:269:25: ( '$' )
-            // XQueryLexer.g:269:27: '$'
+            // XQueryLexer.g:279:25: ( '$' )
+            // XQueryLexer.g:279:27: '$'
             {
             match('$'); 
 
@@ -4688,8 +4699,8 @@ public class XQueryLexer extends XQDTLexer {
         try {
             int _type = LBRACKET;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XQueryLexer.g:270:25: ( '{' )
-            // XQueryLexer.g:270:27: '{'
+            // XQueryLexer.g:280:25: ( '{' )
+            // XQueryLexer.g:280:27: '{'
             {
             match('{'); 
 
@@ -4708,8 +4719,8 @@ public class XQueryLexer extends XQDTLexer {
         try {
             int _type = RBRACKET;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XQueryLexer.g:271:25: ( '}' )
-            // XQueryLexer.g:271:27: '}'
+            // XQueryLexer.g:281:25: ( '}' )
+            // XQueryLexer.g:281:27: '}'
             {
             match('}'); 
 
@@ -4728,8 +4739,8 @@ public class XQueryLexer extends XQDTLexer {
         try {
             int _type = LSQUARE;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XQueryLexer.g:272:25: ( '[' )
-            // XQueryLexer.g:272:27: '['
+            // XQueryLexer.g:282:25: ( '[' )
+            // XQueryLexer.g:282:27: '['
             {
             match('['); 
 
@@ -4748,8 +4759,8 @@ public class XQueryLexer extends XQDTLexer {
         try {
             int _type = RSQUARE;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XQueryLexer.g:273:25: ( ']' )
-            // XQueryLexer.g:273:27: ']'
+            // XQueryLexer.g:283:25: ( ']' )
+            // XQueryLexer.g:283:27: ']'
             {
             match(']'); 
 
@@ -4768,8 +4779,8 @@ public class XQueryLexer extends XQDTLexer {
         try {
             int _type = EQUAL;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XQueryLexer.g:274:25: ( '=' )
-            // XQueryLexer.g:274:27: '='
+            // XQueryLexer.g:284:25: ( '=' )
+            // XQueryLexer.g:284:27: '='
             {
             match('='); 
 
@@ -4788,8 +4799,8 @@ public class XQueryLexer extends XQDTLexer {
         try {
             int _type = BIND;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XQueryLexer.g:275:25: ( ':=' )
-            // XQueryLexer.g:275:27: ':='
+            // XQueryLexer.g:285:25: ( ':=' )
+            // XQueryLexer.g:285:27: ':='
             {
             match(":="); 
 
@@ -4809,8 +4820,8 @@ public class XQueryLexer extends XQDTLexer {
         try {
             int _type = NOTEQUAL;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XQueryLexer.g:276:25: ( '!=' )
-            // XQueryLexer.g:276:27: '!='
+            // XQueryLexer.g:286:25: ( '!=' )
+            // XQueryLexer.g:286:27: '!='
             {
             match("!="); 
 
@@ -4830,8 +4841,8 @@ public class XQueryLexer extends XQDTLexer {
         try {
             int _type = ANN_PERCENT;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XQueryLexer.g:277:25: ( '%' )
-            // XQueryLexer.g:277:27: '%'
+            // XQueryLexer.g:287:25: ( '%' )
+            // XQueryLexer.g:287:27: '%'
             {
             match('%'); 
 
@@ -4850,8 +4861,8 @@ public class XQueryLexer extends XQDTLexer {
         try {
             int _type = HASH;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XQueryLexer.g:278:25: ( '#' )
-            // XQueryLexer.g:278:27: '#'
+            // XQueryLexer.g:288:25: ( '#' )
+            // XQueryLexer.g:288:27: '#'
             {
             match('#'); 
 
@@ -4870,8 +4881,8 @@ public class XQueryLexer extends XQDTLexer {
         try {
             int _type = AMP;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XQueryLexer.g:279:25: ( '&' )
-            // XQueryLexer.g:279:27: '&'
+            // XQueryLexer.g:289:25: ( '&' )
+            // XQueryLexer.g:289:27: '&'
             {
             match('&'); 
 
@@ -4890,8 +4901,8 @@ public class XQueryLexer extends XQDTLexer {
         try {
             int _type = COMMA;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XQueryLexer.g:280:25: ( ',' )
-            // XQueryLexer.g:280:27: ','
+            // XQueryLexer.g:290:25: ( ',' )
+            // XQueryLexer.g:290:27: ','
             {
             match(','); 
 
@@ -4910,8 +4921,8 @@ public class XQueryLexer extends XQDTLexer {
         try {
             int _type = QUESTION;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XQueryLexer.g:281:25: ( '?' )
-            // XQueryLexer.g:281:27: '?'
+            // XQueryLexer.g:291:25: ( '?' )
+            // XQueryLexer.g:291:27: '?'
             {
             match('?'); 
 
@@ -4930,8 +4941,8 @@ public class XQueryLexer extends XQDTLexer {
         try {
             int _type = STAR;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XQueryLexer.g:282:25: ( '*' )
-            // XQueryLexer.g:282:27: '*'
+            // XQueryLexer.g:292:25: ( '*' )
+            // XQueryLexer.g:292:27: '*'
             {
             match('*'); 
 
@@ -4950,8 +4961,8 @@ public class XQueryLexer extends XQDTLexer {
         try {
             int _type = PLUS;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XQueryLexer.g:283:25: ( '+' )
-            // XQueryLexer.g:283:27: '+'
+            // XQueryLexer.g:293:25: ( '+' )
+            // XQueryLexer.g:293:27: '+'
             {
             match('+'); 
 
@@ -4970,8 +4981,8 @@ public class XQueryLexer extends XQDTLexer {
         try {
             int _type = MINUS;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XQueryLexer.g:284:25: ( '-' )
-            // XQueryLexer.g:284:27: '-'
+            // XQueryLexer.g:294:25: ( '-' )
+            // XQueryLexer.g:294:27: '-'
             {
             match('-'); 
 
@@ -4990,8 +5001,8 @@ public class XQueryLexer extends XQDTLexer {
         try {
             int _type = SMALLER;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XQueryLexer.g:285:25: ( '<' )
-            // XQueryLexer.g:285:27: '<'
+            // XQueryLexer.g:295:25: ( '<' )
+            // XQueryLexer.g:295:27: '<'
             {
             match('<'); 
 
@@ -5010,8 +5021,8 @@ public class XQueryLexer extends XQDTLexer {
         try {
             int _type = GREATER;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XQueryLexer.g:286:25: ( '>' )
-            // XQueryLexer.g:286:27: '>'
+            // XQueryLexer.g:296:25: ( '>' )
+            // XQueryLexer.g:296:27: '>'
             {
             match('>'); 
 
@@ -5030,8 +5041,8 @@ public class XQueryLexer extends XQDTLexer {
         try {
             int _type = SMALLEREQ;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XQueryLexer.g:287:25: ( '<=' )
-            // XQueryLexer.g:287:27: '<='
+            // XQueryLexer.g:297:25: ( '<=' )
+            // XQueryLexer.g:297:27: '<='
             {
             match("<="); 
 
@@ -5051,8 +5062,8 @@ public class XQueryLexer extends XQDTLexer {
         try {
             int _type = GREATEREQ;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XQueryLexer.g:288:25: ( '>=' )
-            // XQueryLexer.g:288:27: '>='
+            // XQueryLexer.g:298:25: ( '>=' )
+            // XQueryLexer.g:298:27: '>='
             {
             match(">="); 
 
@@ -5072,8 +5083,8 @@ public class XQueryLexer extends XQDTLexer {
         try {
             int _type = SMALLER_SMALLER;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XQueryLexer.g:289:25: ( '<<' )
-            // XQueryLexer.g:289:27: '<<'
+            // XQueryLexer.g:299:25: ( '<<' )
+            // XQueryLexer.g:299:27: '<<'
             {
             match("<<"); 
 
@@ -5093,8 +5104,8 @@ public class XQueryLexer extends XQDTLexer {
         try {
             int _type = GREATER_GREATER;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XQueryLexer.g:290:25: ( '>>' )
-            // XQueryLexer.g:290:27: '>>'
+            // XQueryLexer.g:300:25: ( '>>' )
+            // XQueryLexer.g:300:27: '>>'
             {
             match(">>"); 
 
@@ -5114,8 +5125,8 @@ public class XQueryLexer extends XQDTLexer {
         try {
             int _type = SLASH;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XQueryLexer.g:291:25: ( '/' )
-            // XQueryLexer.g:291:27: '/'
+            // XQueryLexer.g:301:25: ( '/' )
+            // XQueryLexer.g:301:27: '/'
             {
             match('/'); 
 
@@ -5134,8 +5145,8 @@ public class XQueryLexer extends XQDTLexer {
         try {
             int _type = SLASH_SLASH;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XQueryLexer.g:292:25: ( '//' )
-            // XQueryLexer.g:292:27: '//'
+            // XQueryLexer.g:302:25: ( '//' )
+            // XQueryLexer.g:302:27: '//'
             {
             match("//"); 
 
@@ -5155,8 +5166,8 @@ public class XQueryLexer extends XQDTLexer {
         try {
             int _type = DOT;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XQueryLexer.g:293:25: ( '.' )
-            // XQueryLexer.g:293:27: '.'
+            // XQueryLexer.g:303:25: ( '.' )
+            // XQueryLexer.g:303:27: '.'
             {
             match('.'); 
 
@@ -5175,8 +5186,8 @@ public class XQueryLexer extends XQDTLexer {
         try {
             int _type = DOT_DOT;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XQueryLexer.g:294:25: ( '..' )
-            // XQueryLexer.g:294:27: '..'
+            // XQueryLexer.g:304:25: ( '..' )
+            // XQueryLexer.g:304:27: '..'
             {
             match(".."); 
 
@@ -5196,8 +5207,8 @@ public class XQueryLexer extends XQDTLexer {
         try {
             int _type = COLON;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XQueryLexer.g:295:25: ( ':' )
-            // XQueryLexer.g:295:27: ':'
+            // XQueryLexer.g:305:25: ( ':' )
+            // XQueryLexer.g:305:27: ':'
             {
             match(':'); 
 
@@ -5216,8 +5227,8 @@ public class XQueryLexer extends XQDTLexer {
         try {
             int _type = COLON_COLON;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XQueryLexer.g:296:25: ( '::' )
-            // XQueryLexer.g:296:27: '::'
+            // XQueryLexer.g:306:25: ( '::' )
+            // XQueryLexer.g:306:27: '::'
             {
             match("::"); 
 
@@ -5237,8 +5248,8 @@ public class XQueryLexer extends XQDTLexer {
         try {
             int _type = EMPTY_CLOSE_TAG;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XQueryLexer.g:297:25: ( '/>' )
-            // XQueryLexer.g:297:27: '/>'
+            // XQueryLexer.g:307:25: ( '/>' )
+            // XQueryLexer.g:307:27: '/>'
             {
             match("/>"); 
 
@@ -5258,8 +5269,8 @@ public class XQueryLexer extends XQDTLexer {
         try {
             int _type = CLOSE_TAG;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XQueryLexer.g:298:25: ( '</' )
-            // XQueryLexer.g:298:27: '</'
+            // XQueryLexer.g:308:25: ( '</' )
+            // XQueryLexer.g:308:27: '</'
             {
             match("</"); 
 
@@ -5279,8 +5290,8 @@ public class XQueryLexer extends XQDTLexer {
         try {
             int _type = SEMICOLON;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XQueryLexer.g:299:25: ( ';' )
-            // XQueryLexer.g:299:27: ';'
+            // XQueryLexer.g:309:25: ( ';' )
+            // XQueryLexer.g:309:27: ';'
             {
             match(';'); 
 
@@ -5299,8 +5310,8 @@ public class XQueryLexer extends XQDTLexer {
         try {
             int _type = VBAR;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XQueryLexer.g:300:25: ( '|' )
-            // XQueryLexer.g:300:27: '|'
+            // XQueryLexer.g:310:25: ( '|' )
+            // XQueryLexer.g:310:27: '|'
             {
             match('|'); 
 
@@ -5319,8 +5330,8 @@ public class XQueryLexer extends XQDTLexer {
         try {
             int _type = PRAGMA_START;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XQueryLexer.g:301:25: ( '(#' )
-            // XQueryLexer.g:301:27: '(#'
+            // XQueryLexer.g:311:25: ( '(#' )
+            // XQueryLexer.g:311:27: '(#'
             {
             match("(#"); 
 
@@ -5340,8 +5351,8 @@ public class XQueryLexer extends XQDTLexer {
         try {
             int _type = PRAGMA_END;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XQueryLexer.g:302:25: ( '#)' )
-            // XQueryLexer.g:302:27: '#)'
+            // XQueryLexer.g:312:25: ( '#)' )
+            // XQueryLexer.g:312:27: '#)'
             {
             match("#)"); 
 
@@ -5361,8 +5372,8 @@ public class XQueryLexer extends XQDTLexer {
         try {
             int _type = XML_COMMENT_START;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XQueryLexer.g:303:25: ( '<!--' )
-            // XQueryLexer.g:303:27: '<!--'
+            // XQueryLexer.g:313:25: ( '<!--' )
+            // XQueryLexer.g:313:27: '<!--'
             {
             match("<!--"); 
 
@@ -5382,8 +5393,8 @@ public class XQueryLexer extends XQDTLexer {
         try {
             int _type = XML_COMMENT_END;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XQueryLexer.g:304:25: ( '-->' )
-            // XQueryLexer.g:304:27: '-->'
+            // XQueryLexer.g:314:25: ( '-->' )
+            // XQueryLexer.g:314:27: '-->'
             {
             match("-->"); 
 
@@ -5403,8 +5414,8 @@ public class XQueryLexer extends XQDTLexer {
         try {
             int _type = PI_START;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XQueryLexer.g:305:25: ( '<?' )
-            // XQueryLexer.g:305:27: '<?'
+            // XQueryLexer.g:315:25: ( '<?' )
+            // XQueryLexer.g:315:27: '<?'
             {
             match("<?"); 
 
@@ -5424,8 +5435,8 @@ public class XQueryLexer extends XQDTLexer {
         try {
             int _type = PI_END;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XQueryLexer.g:306:25: ( '?>' )
-            // XQueryLexer.g:306:27: '?>'
+            // XQueryLexer.g:316:25: ( '?>' )
+            // XQueryLexer.g:316:27: '?>'
             {
             match("?>"); 
 
@@ -5445,8 +5456,8 @@ public class XQueryLexer extends XQDTLexer {
         try {
             int _type = ATTR_SIGN;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XQueryLexer.g:307:25: ( '@' )
-            // XQueryLexer.g:307:27: '@'
+            // XQueryLexer.g:317:25: ( '@' )
+            // XQueryLexer.g:317:27: '@'
             {
             match('@'); 
 
@@ -5465,8 +5476,8 @@ public class XQueryLexer extends XQDTLexer {
         try {
             int _type = CHARREF_DEC;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XQueryLexer.g:308:25: ( '&#' )
-            // XQueryLexer.g:308:27: '&#'
+            // XQueryLexer.g:318:25: ( '&#' )
+            // XQueryLexer.g:318:27: '&#'
             {
             match("&#"); 
 
@@ -5486,8 +5497,8 @@ public class XQueryLexer extends XQDTLexer {
         try {
             int _type = CHARREF_HEX;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XQueryLexer.g:309:25: ( '&#x' )
-            // XQueryLexer.g:309:27: '&#x'
+            // XQueryLexer.g:319:25: ( '&#x' )
+            // XQueryLexer.g:319:27: '&#x'
             {
             match("&#x"); 
 
@@ -5507,10 +5518,11 @@ public class XQueryLexer extends XQDTLexer {
         try {
             int _type = APOS;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XQueryLexer.g:310:25: ( '\\'' )
-            // XQueryLexer.g:310:27: '\\''
+            // XQueryLexer.g:320:25: ( '\\'' )
+            // XQueryLexer.g:320:27: '\\''
             {
             match('\''); 
+             if (!inStr) inStr = true; 
 
             }
 
@@ -5527,10 +5539,11 @@ public class XQueryLexer extends XQDTLexer {
         try {
             int _type = QUOT;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XQueryLexer.g:311:25: ( '\"' )
-            // XQueryLexer.g:311:27: '\"'
+            // XQueryLexer.g:321:25: ( '\"' )
+            // XQueryLexer.g:321:27: '\"'
             {
             match('\"'); 
+             if (!inStr) inStr = true; 
 
             }
 
@@ -5547,11 +5560,11 @@ public class XQueryLexer extends XQDTLexer {
         try {
             int _type = L_NCName;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XQueryLexer.g:315:9: ( NCNameStartChar ( NCNameChar )* )
-            // XQueryLexer.g:315:13: NCNameStartChar ( NCNameChar )*
+            // XQueryLexer.g:325:9: ( NCNameStartChar ( NCNameChar )* )
+            // XQueryLexer.g:325:13: NCNameStartChar ( NCNameChar )*
             {
             mNCNameStartChar(); 
-            // XQueryLexer.g:315:29: ( NCNameChar )*
+            // XQueryLexer.g:325:29: ( NCNameChar )*
             loop1:
             do {
                 int alt1=2;
@@ -5564,7 +5577,7 @@ public class XQueryLexer extends XQDTLexer {
 
                 switch (alt1) {
             	case 1 :
-            	    // XQueryLexer.g:315:29: NCNameChar
+            	    // XQueryLexer.g:325:29: NCNameChar
             	    {
             	    mNCNameChar(); 
 
@@ -5590,7 +5603,7 @@ public class XQueryLexer extends XQDTLexer {
     // $ANTLR start "Letter"
     public final void mLetter() throws RecognitionException {
         try {
-            // XQueryLexer.g:318:29: ( 'a' .. 'z' | 'A' .. 'Z' )
+            // XQueryLexer.g:328:29: ( 'a' .. 'z' | 'A' .. 'Z' )
             // XQueryLexer.g:
             {
             if ( (input.LA(1)>='A' && input.LA(1)<='Z')||(input.LA(1)>='a' && input.LA(1)<='z') ) {
@@ -5614,7 +5627,7 @@ public class XQueryLexer extends XQDTLexer {
     // $ANTLR start "HexLetter"
     public final void mHexLetter() throws RecognitionException {
         try {
-            // XQueryLexer.g:319:29: ( 'a' .. 'f' | 'A' .. 'F' )
+            // XQueryLexer.g:329:29: ( 'a' .. 'f' | 'A' .. 'F' )
             // XQueryLexer.g:
             {
             if ( (input.LA(1)>='A' && input.LA(1)<='F')||(input.LA(1)>='a' && input.LA(1)<='f') ) {
@@ -5638,8 +5651,8 @@ public class XQueryLexer extends XQDTLexer {
     // $ANTLR start "Digit"
     public final void mDigit() throws RecognitionException {
         try {
-            // XQueryLexer.g:320:29: ( '0' .. '9' )
-            // XQueryLexer.g:320:31: '0' .. '9'
+            // XQueryLexer.g:330:29: ( '0' .. '9' )
+            // XQueryLexer.g:330:31: '0' .. '9'
             {
             matchRange('0','9'); 
 
@@ -5654,10 +5667,10 @@ public class XQueryLexer extends XQDTLexer {
     // $ANTLR start "Digits"
     public final void mDigits() throws RecognitionException {
         try {
-            // XQueryLexer.g:321:29: ( ( Digit )+ )
-            // XQueryLexer.g:321:31: ( Digit )+
+            // XQueryLexer.g:331:29: ( ( Digit )+ )
+            // XQueryLexer.g:331:31: ( Digit )+
             {
-            // XQueryLexer.g:321:31: ( Digit )+
+            // XQueryLexer.g:331:31: ( Digit )+
             int cnt2=0;
             loop2:
             do {
@@ -5671,7 +5684,7 @@ public class XQueryLexer extends XQDTLexer {
 
                 switch (alt2) {
             	case 1 :
-            	    // XQueryLexer.g:321:31: Digit
+            	    // XQueryLexer.g:331:31: Digit
             	    {
             	    mDigit(); 
 
@@ -5699,7 +5712,7 @@ public class XQueryLexer extends XQDTLexer {
     // $ANTLR start "NCNameStartChar"
     public final void mNCNameStartChar() throws RecognitionException {
         try {
-            // XQueryLexer.g:323:29: ( Letter | '_' )
+            // XQueryLexer.g:333:29: ( Letter | '_' )
             // XQueryLexer.g:
             {
             if ( (input.LA(1)>='A' && input.LA(1)<='Z')||input.LA(1)=='_'||(input.LA(1)>='a' && input.LA(1)<='z') ) {
@@ -5723,7 +5736,7 @@ public class XQueryLexer extends XQDTLexer {
     // $ANTLR start "NCNameChar"
     public final void mNCNameChar() throws RecognitionException {
         try {
-            // XQueryLexer.g:324:29: ( Letter | Digit | '.' | '-' | '_' )
+            // XQueryLexer.g:334:29: ( Letter | Digit | '.' | '-' | '_' )
             // XQueryLexer.g:
             {
             if ( (input.LA(1)>='-' && input.LA(1)<='.')||(input.LA(1)>='0' && input.LA(1)<='9')||(input.LA(1)>='A' && input.LA(1)<='Z')||input.LA(1)=='_'||(input.LA(1)>='a' && input.LA(1)<='z') ) {
@@ -5749,10 +5762,10 @@ public class XQueryLexer extends XQDTLexer {
         try {
             int _type = S;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XQueryLexer.g:327:9: ( ( '\\t' | ' ' | '\\n' | '\\r' )+ )
-            // XQueryLexer.g:327:11: ( '\\t' | ' ' | '\\n' | '\\r' )+
+            // XQueryLexer.g:337:9: ( ( '\\t' | ' ' | '\\n' | '\\r' )+ )
+            // XQueryLexer.g:337:11: ( '\\t' | ' ' | '\\n' | '\\r' )+
             {
-            // XQueryLexer.g:327:11: ( '\\t' | ' ' | '\\n' | '\\r' )+
+            // XQueryLexer.g:337:11: ( '\\t' | ' ' | '\\n' | '\\r' )+
             int cnt3=0;
             loop3:
             do {
@@ -5805,10 +5818,10 @@ public class XQueryLexer extends XQDTLexer {
     // $ANTLR start "SU"
     public final void mSU() throws RecognitionException {
         try {
-            // XQueryLexer.g:330:9: ( ( '\\t' | ' ' | '\\n' | '\\r' )+ )
-            // XQueryLexer.g:330:11: ( '\\t' | ' ' | '\\n' | '\\r' )+
+            // XQueryLexer.g:340:9: ( ( '\\t' | ' ' | '\\n' | '\\r' )+ )
+            // XQueryLexer.g:340:11: ( '\\t' | ' ' | '\\n' | '\\r' )+
             {
-            // XQueryLexer.g:330:11: ( '\\t' | ' ' | '\\n' | '\\r' )+
+            // XQueryLexer.g:340:11: ( '\\t' | ' ' | '\\n' | '\\r' )+
             int cnt4=0;
             loop4:
             do {
@@ -5860,11 +5873,11 @@ public class XQueryLexer extends XQDTLexer {
         try {
             int _type = L_Pragma;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XQueryLexer.g:341:9: ( PRAGMA_START ( SU )? L_NCName COLON L_NCName ( SU ( options {greedy=false; } : . )* )? PRAGMA_END )
-            // XQueryLexer.g:341:11: PRAGMA_START ( SU )? L_NCName COLON L_NCName ( SU ( options {greedy=false; } : . )* )? PRAGMA_END
+            // XQueryLexer.g:351:9: ( PRAGMA_START ( SU )? L_NCName COLON L_NCName ( SU ( options {greedy=false; } : . )* )? PRAGMA_END )
+            // XQueryLexer.g:351:11: PRAGMA_START ( SU )? L_NCName COLON L_NCName ( SU ( options {greedy=false; } : . )* )? PRAGMA_END
             {
             mPRAGMA_START(); 
-            // XQueryLexer.g:341:24: ( SU )?
+            // XQueryLexer.g:351:24: ( SU )?
             int alt5=2;
             int LA5_0 = input.LA(1);
 
@@ -5873,7 +5886,7 @@ public class XQueryLexer extends XQDTLexer {
             }
             switch (alt5) {
                 case 1 :
-                    // XQueryLexer.g:341:24: SU
+                    // XQueryLexer.g:351:24: SU
                     {
                     mSU(); 
 
@@ -5885,7 +5898,7 @@ public class XQueryLexer extends XQDTLexer {
             mL_NCName(); 
             mCOLON(); 
             mL_NCName(); 
-            // XQueryLexer.g:341:52: ( SU ( options {greedy=false; } : . )* )?
+            // XQueryLexer.g:351:52: ( SU ( options {greedy=false; } : . )* )?
             int alt7=2;
             int LA7_0 = input.LA(1);
 
@@ -5894,10 +5907,10 @@ public class XQueryLexer extends XQDTLexer {
             }
             switch (alt7) {
                 case 1 :
-                    // XQueryLexer.g:341:53: SU ( options {greedy=false; } : . )*
+                    // XQueryLexer.g:351:53: SU ( options {greedy=false; } : . )*
                     {
                     mSU(); 
-                    // XQueryLexer.g:341:56: ( options {greedy=false; } : . )*
+                    // XQueryLexer.g:351:56: ( options {greedy=false; } : . )*
                     loop6:
                     do {
                         int alt6=2;
@@ -5922,7 +5935,7 @@ public class XQueryLexer extends XQDTLexer {
 
                         switch (alt6) {
                     	case 1 :
-                    	    // XQueryLexer.g:341:83: .
+                    	    // XQueryLexer.g:351:83: .
                     	    {
                     	    matchAny(); 
 
@@ -5957,14 +5970,14 @@ public class XQueryLexer extends XQDTLexer {
         try {
             int _type = L_DirCommentConstructor;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XQueryLexer.g:351:9: ( XML_COMMENT_START ( options {greedy=false; } : ( . )* ) XML_COMMENT_END )
-            // XQueryLexer.g:351:11: XML_COMMENT_START ( options {greedy=false; } : ( . )* ) XML_COMMENT_END
+            // XQueryLexer.g:361:9: ( XML_COMMENT_START ( options {greedy=false; } : ( . )* ) XML_COMMENT_END )
+            // XQueryLexer.g:361:11: XML_COMMENT_START ( options {greedy=false; } : ( . )* ) XML_COMMENT_END
             {
             mXML_COMMENT_START(); 
-            // XQueryLexer.g:351:29: ( options {greedy=false; } : ( . )* )
-            // XQueryLexer.g:351:56: ( . )*
+            // XQueryLexer.g:361:29: ( options {greedy=false; } : ( . )* )
+            // XQueryLexer.g:361:56: ( . )*
             {
-            // XQueryLexer.g:351:56: ( . )*
+            // XQueryLexer.g:361:56: ( . )*
             loop8:
             do {
                 int alt8=2;
@@ -5998,7 +6011,7 @@ public class XQueryLexer extends XQDTLexer {
 
                 switch (alt8) {
             	case 1 :
-            	    // XQueryLexer.g:351:56: .
+            	    // XQueryLexer.g:361:56: .
             	    {
             	    matchAny(); 
 
@@ -6030,11 +6043,11 @@ public class XQueryLexer extends XQDTLexer {
         try {
             int _type = L_DirPIConstructor;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XQueryLexer.g:360:9: ( PI_START ( SU )? L_NCName ( SU ( options {greedy=false; } : ( . )* ) )? PI_END )
-            // XQueryLexer.g:360:11: PI_START ( SU )? L_NCName ( SU ( options {greedy=false; } : ( . )* ) )? PI_END
+            // XQueryLexer.g:370:9: ( PI_START ( SU )? L_NCName ( SU ( options {greedy=false; } : ( . )* ) )? PI_END )
+            // XQueryLexer.g:370:11: PI_START ( SU )? L_NCName ( SU ( options {greedy=false; } : ( . )* ) )? PI_END
             {
             mPI_START(); 
-            // XQueryLexer.g:360:20: ( SU )?
+            // XQueryLexer.g:370:20: ( SU )?
             int alt9=2;
             int LA9_0 = input.LA(1);
 
@@ -6043,7 +6056,7 @@ public class XQueryLexer extends XQDTLexer {
             }
             switch (alt9) {
                 case 1 :
-                    // XQueryLexer.g:360:20: SU
+                    // XQueryLexer.g:370:20: SU
                     {
                     mSU(); 
 
@@ -6053,7 +6066,7 @@ public class XQueryLexer extends XQDTLexer {
             }
 
             mL_NCName(); 
-            // XQueryLexer.g:360:33: ( SU ( options {greedy=false; } : ( . )* ) )?
+            // XQueryLexer.g:370:33: ( SU ( options {greedy=false; } : ( . )* ) )?
             int alt11=2;
             int LA11_0 = input.LA(1);
 
@@ -6062,13 +6075,13 @@ public class XQueryLexer extends XQDTLexer {
             }
             switch (alt11) {
                 case 1 :
-                    // XQueryLexer.g:360:34: SU ( options {greedy=false; } : ( . )* )
+                    // XQueryLexer.g:370:34: SU ( options {greedy=false; } : ( . )* )
                     {
                     mSU(); 
-                    // XQueryLexer.g:360:36: ( options {greedy=false; } : ( . )* )
-                    // XQueryLexer.g:360:63: ( . )*
+                    // XQueryLexer.g:370:36: ( options {greedy=false; } : ( . )* )
+                    // XQueryLexer.g:370:63: ( . )*
                     {
-                    // XQueryLexer.g:360:63: ( . )*
+                    // XQueryLexer.g:370:63: ( . )*
                     loop10:
                     do {
                         int alt10=2;
@@ -6093,7 +6106,7 @@ public class XQueryLexer extends XQDTLexer {
 
                         switch (alt10) {
                     	case 1 :
-                    	    // XQueryLexer.g:360:63: .
+                    	    // XQueryLexer.g:370:63: .
                     	    {
                     	    matchAny(); 
 
@@ -6131,8 +6144,8 @@ public class XQueryLexer extends XQDTLexer {
         try {
             int _type = L_IntegerLiteral;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XQueryLexer.g:368:9: ( Digits )
-            // XQueryLexer.g:368:13: Digits
+            // XQueryLexer.g:378:9: ( Digits )
+            // XQueryLexer.g:378:13: Digits
             {
             mDigits(); 
 
@@ -6151,7 +6164,7 @@ public class XQueryLexer extends XQDTLexer {
         try {
             int _type = L_DecimalLiteral;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XQueryLexer.g:373:9: ( ( '.' Digits ) | ( Digits '.' ( Digit )* ) )
+            // XQueryLexer.g:383:9: ( ( '.' Digits ) | ( Digits '.' ( Digit )* ) )
             int alt13=2;
             int LA13_0 = input.LA(1);
 
@@ -6169,10 +6182,10 @@ public class XQueryLexer extends XQDTLexer {
             }
             switch (alt13) {
                 case 1 :
-                    // XQueryLexer.g:373:11: ( '.' Digits )
+                    // XQueryLexer.g:383:11: ( '.' Digits )
                     {
-                    // XQueryLexer.g:373:11: ( '.' Digits )
-                    // XQueryLexer.g:373:12: '.' Digits
+                    // XQueryLexer.g:383:11: ( '.' Digits )
+                    // XQueryLexer.g:383:12: '.' Digits
                     {
                     match('.'); 
                     mDigits(); 
@@ -6183,14 +6196,14 @@ public class XQueryLexer extends XQDTLexer {
                     }
                     break;
                 case 2 :
-                    // XQueryLexer.g:373:26: ( Digits '.' ( Digit )* )
+                    // XQueryLexer.g:383:26: ( Digits '.' ( Digit )* )
                     {
-                    // XQueryLexer.g:373:26: ( Digits '.' ( Digit )* )
-                    // XQueryLexer.g:373:27: Digits '.' ( Digit )*
+                    // XQueryLexer.g:383:26: ( Digits '.' ( Digit )* )
+                    // XQueryLexer.g:383:27: Digits '.' ( Digit )*
                     {
                     mDigits(); 
                     match('.'); 
-                    // XQueryLexer.g:373:38: ( Digit )*
+                    // XQueryLexer.g:383:38: ( Digit )*
                     loop12:
                     do {
                         int alt12=2;
@@ -6203,7 +6216,7 @@ public class XQueryLexer extends XQDTLexer {
 
                         switch (alt12) {
                     	case 1 :
-                    	    // XQueryLexer.g:373:38: Digit
+                    	    // XQueryLexer.g:383:38: Digit
                     	    {
                     	    mDigit(); 
 
@@ -6236,10 +6249,10 @@ public class XQueryLexer extends XQDTLexer {
         try {
             int _type = L_DoubleLiteral;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XQueryLexer.g:378:9: ( ( ( '.' Digits ) | ( Digits ( '.' ( Digit )* )? ) ) ( 'e' | 'E' ) ( '+' | '-' )? Digits )
-            // XQueryLexer.g:378:11: ( ( '.' Digits ) | ( Digits ( '.' ( Digit )* )? ) ) ( 'e' | 'E' ) ( '+' | '-' )? Digits
+            // XQueryLexer.g:388:9: ( ( ( '.' Digits ) | ( Digits ( '.' ( Digit )* )? ) ) ( 'e' | 'E' ) ( '+' | '-' )? Digits )
+            // XQueryLexer.g:388:11: ( ( '.' Digits ) | ( Digits ( '.' ( Digit )* )? ) ) ( 'e' | 'E' ) ( '+' | '-' )? Digits
             {
-            // XQueryLexer.g:378:11: ( ( '.' Digits ) | ( Digits ( '.' ( Digit )* )? ) )
+            // XQueryLexer.g:388:11: ( ( '.' Digits ) | ( Digits ( '.' ( Digit )* )? ) )
             int alt16=2;
             int LA16_0 = input.LA(1);
 
@@ -6257,10 +6270,10 @@ public class XQueryLexer extends XQDTLexer {
             }
             switch (alt16) {
                 case 1 :
-                    // XQueryLexer.g:378:12: ( '.' Digits )
+                    // XQueryLexer.g:388:12: ( '.' Digits )
                     {
-                    // XQueryLexer.g:378:12: ( '.' Digits )
-                    // XQueryLexer.g:378:13: '.' Digits
+                    // XQueryLexer.g:388:12: ( '.' Digits )
+                    // XQueryLexer.g:388:13: '.' Digits
                     {
                     match('.'); 
                     mDigits(); 
@@ -6271,13 +6284,13 @@ public class XQueryLexer extends XQDTLexer {
                     }
                     break;
                 case 2 :
-                    // XQueryLexer.g:378:27: ( Digits ( '.' ( Digit )* )? )
+                    // XQueryLexer.g:388:27: ( Digits ( '.' ( Digit )* )? )
                     {
-                    // XQueryLexer.g:378:27: ( Digits ( '.' ( Digit )* )? )
-                    // XQueryLexer.g:378:28: Digits ( '.' ( Digit )* )?
+                    // XQueryLexer.g:388:27: ( Digits ( '.' ( Digit )* )? )
+                    // XQueryLexer.g:388:28: Digits ( '.' ( Digit )* )?
                     {
                     mDigits(); 
-                    // XQueryLexer.g:378:35: ( '.' ( Digit )* )?
+                    // XQueryLexer.g:388:35: ( '.' ( Digit )* )?
                     int alt15=2;
                     int LA15_0 = input.LA(1);
 
@@ -6286,10 +6299,10 @@ public class XQueryLexer extends XQDTLexer {
                     }
                     switch (alt15) {
                         case 1 :
-                            // XQueryLexer.g:378:36: '.' ( Digit )*
+                            // XQueryLexer.g:388:36: '.' ( Digit )*
                             {
                             match('.'); 
-                            // XQueryLexer.g:378:40: ( Digit )*
+                            // XQueryLexer.g:388:40: ( Digit )*
                             loop14:
                             do {
                                 int alt14=2;
@@ -6302,7 +6315,7 @@ public class XQueryLexer extends XQDTLexer {
 
                                 switch (alt14) {
                             	case 1 :
-                            	    // XQueryLexer.g:378:40: Digit
+                            	    // XQueryLexer.g:388:40: Digit
                             	    {
                             	    mDigit(); 
 
@@ -6338,7 +6351,7 @@ public class XQueryLexer extends XQDTLexer {
                 recover(mse);
                 throw mse;}
 
-            // XQueryLexer.g:378:63: ( '+' | '-' )?
+            // XQueryLexer.g:388:63: ( '+' | '-' )?
             int alt17=2;
             int LA17_0 = input.LA(1);
 
@@ -6381,12 +6394,15 @@ public class XQueryLexer extends XQDTLexer {
         try {
             int _type = L_Comment;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XQueryLexer.g:383:9: ( '(:' ( options {greedy=false; } : L_Comment | . )* ':)' )
-            // XQueryLexer.g:383:11: '(:' ( options {greedy=false; } : L_Comment | . )* ':)'
+            // XQueryLexer.g:393:9: ({...}? => '(:' ( options {greedy=false; } : L_Comment | . )* ':)' )
+            // XQueryLexer.g:393:11: {...}? => '(:' ( options {greedy=false; } : L_Comment | . )* ':)'
             {
+            if ( !((!inStr)) ) {
+                throw new FailedPredicateException(input, "L_Comment", "!inStr");
+            }
             match("(:"); 
 
-            // XQueryLexer.g:383:16: ( options {greedy=false; } : L_Comment | . )*
+            // XQueryLexer.g:393:28: ( options {greedy=false; } : L_Comment | . )*
             loop18:
             do {
                 int alt18=3;
@@ -6408,7 +6424,16 @@ public class XQueryLexer extends XQDTLexer {
                     int LA18_2 = input.LA(2);
 
                     if ( (LA18_2==':') ) {
-                        alt18=1;
+                        int LA18_5 = input.LA(3);
+
+                        if ( ((!inStr)) ) {
+                            alt18=1;
+                        }
+                        else if ( (true) ) {
+                            alt18=2;
+                        }
+
+
                     }
                     else if ( ((LA18_2>='\u0000' && LA18_2<='9')||(LA18_2>=';' && LA18_2<='\uFFFF')) ) {
                         alt18=2;
@@ -6423,14 +6448,14 @@ public class XQueryLexer extends XQDTLexer {
 
                 switch (alt18) {
             	case 1 :
-            	    // XQueryLexer.g:383:42: L_Comment
+            	    // XQueryLexer.g:393:54: L_Comment
             	    {
             	    mL_Comment(); 
 
             	    }
             	    break;
             	case 2 :
-            	    // XQueryLexer.g:383:54: .
+            	    // XQueryLexer.g:393:66: .
             	    {
             	    matchAny(); 
 
@@ -6461,8 +6486,8 @@ public class XQueryLexer extends XQDTLexer {
         try {
             int _type = L_AnyChar;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XQueryLexer.g:386:11: ( . )
-            // XQueryLexer.g:386:13: .
+            // XQueryLexer.g:396:11: ( . )
+            // XQueryLexer.g:396:13: .
             {
             matchAny(); 
 
@@ -8315,8 +8340,8 @@ public class XQueryLexer extends XQDTLexer {
         "\1\u00d0\14\77\1\u00ee\7\77\1\u00fd\1\77\1\u0100\1\77\1\u0102\1"+
         "\77\1\u0109\1\u010a\2\77\1\u0112\1\u0113\4\77\1\u011b\1\u011f\1"+
         "\u0120\1\77\1\u0123\1\u0125\20\77\1\u0142\22\77\1\u015c\20\uffff"+
-        "\1\u015f\14\uffff\1\u0161\11\uffff\1\u0163\7\uffff\1\u0163\1\uffff"+
-        "\1\u00bf\1\77\1\u0166\1\u0167\1\77\1\uffff\1\77\1\uffff\1\u016b"+
+        "\1\u015f\14\uffff\1\u0161\11\uffff\1\u0163\7\uffff\1\u0163\1\u00bf"+
+        "\1\uffff\1\77\1\u0166\1\u0167\1\77\1\uffff\1\77\1\uffff\1\u016b"+
         "\1\77\1\u016d\3\77\1\uffff\21\77\1\u0185\11\77\1\u018f\1\77\1\uffff"+
         "\6\77\1\u0198\7\77\1\uffff\2\77\1\uffff\1\77\1\uffff\6\77\2\uffff"+
         "\1\77\1\u01ac\3\77\1\u01b0\1\77\2\uffff\2\77\1\u01b6\4\77\1\uffff"+
@@ -8391,7 +8416,7 @@ public class XQueryLexer extends XQDTLexer {
         "\143\1\162\1\145\2\162\1\154\1\155\1\150\1\154\1\155\1\141\3\151"+
         "\1\170\1\145\1\55\1\145\1\160\2\155\1\151\1\144\1\151\1\154\1\162"+
         "\1\145\1\154\1\151\1\162\1\165\1\116\1\162\1\171\1\157\1\11\20\uffff"+
-        "\1\170\13\uffff\1\55\1\11\11\uffff\1\60\7\uffff\1\60\1\uffff\1\56"+
+        "\1\170\13\uffff\1\55\1\11\11\uffff\1\60\7\uffff\1\60\1\56\1\uffff"+
         "\1\145\2\55\1\145\1\uffff\1\162\1\uffff\1\55\1\145\1\55\1\163\1"+
         "\145\1\156\1\uffff\1\157\2\141\1\145\1\143\1\154\1\143\1\154\1\155"+
         "\1\163\1\171\1\156\1\151\1\141\1\143\2\145\1\55\1\151\1\143\1\146"+
@@ -8494,7 +8519,7 @@ public class XQueryLexer extends XQDTLexer {
         "\1\164\1\157\1\156\1\155\1\162\3\151\1\170\1\145\1\172\1\171\1\160"+
         "\2\155\1\157\1\160\1\151\2\162\1\151\1\164\1\151\1\162\1\165\1\116"+
         "\1\162\1\171\1\157\1\172\20\uffff\1\170\13\uffff\1\55\1\172\11\uffff"+
-        "\1\145\7\uffff\1\145\1\uffff\2\145\2\172\1\145\1\uffff\1\162\1\uffff"+
+        "\1\145\7\uffff\2\145\1\uffff\1\145\2\172\1\145\1\uffff\1\162\1\uffff"+
         "\1\172\1\145\1\172\1\163\1\145\1\156\1\uffff\1\157\2\141\1\164\1"+
         "\143\1\154\1\143\1\154\1\155\1\164\1\171\1\156\1\154\1\141\1\143"+
         "\2\145\1\172\1\151\1\143\1\146\1\164\1\165\1\155\1\145\1\164\1\157"+
@@ -8597,7 +8622,7 @@ public class XQueryLexer extends XQDTLexer {
         "\1\u00dc\1\u00dd\1\u00de\1\u00f3\1\u00df\1\u00e2\1\u00e4\1\u00ed"+
         "\2\uffff\1\u00e0\1\u00e3\1\u00e5\1\u00e1\1\u00e7\1\u00ec\1\u00e6"+
         "\1\u00e9\1\u00e8\1\uffff\1\u00ee\1\u00ef\1\u00f6\1\u00f9\1\u00fa"+
-        "\1\u00fc\1\u0100\1\uffff\1\u0102\5\uffff\1\4\1\uffff\1\6\6\uffff"+
+        "\1\u00fc\1\u0100\2\uffff\1\u0102\4\uffff\1\4\1\uffff\1\6\6\uffff"+
         "\1\12\35\uffff\1\40\16\uffff\1\50\2\uffff\1\52\1\uffff\1\54\6\uffff"+
         "\1\56\1\62\7\uffff\1\65\1\70\7\uffff\1\74\3\uffff\1\u00a3\1\100"+
         "\2\uffff\1\102\1\uffff\1\u00c8\34\uffff\1\127\31\uffff\1\u00f0\1"+
@@ -8641,7 +8666,7 @@ public class XQueryLexer extends XQDTLexer {
         "\1\116\1\146\1\uffff\1\45\1\uffff\1\162\1\110\1\uffff\1\26\1\153"+
         "\4\uffff\1\112";
     static final String DFA19_specialS =
-        "\1\1\u0200\uffff\1\0\u02e5\uffff}>";
+        "\1\0\30\uffff\1\1\u01e7\uffff\1\2\u02e5\uffff}>";
     static final String[] DFA19_transitionS = {
             "\11\67\2\65\2\67\1\65\22\67\1\65\1\42\1\63\1\44\1\33\1\43\1"+
             "\45\1\62\1\31\1\32\1\50\1\51\1\46\1\52\1\56\1\55\12\66\1\41"+
@@ -8707,7 +8732,7 @@ public class XQueryLexer extends XQDTLexer {
             "",
             "",
             "",
-            "\1\u00c0\1\uffff\12\u00c2\13\uffff\1\u00c1\37\uffff\1\u00c1",
+            "\1\u00c0\1\uffff\12\u00c1\13\uffff\1\u00c2\37\uffff\1\u00c2",
             "",
             "\1\u00c3\1\u00c4\24\uffff\1\u00c5",
             "\2\77\1\uffff\12\77\7\uffff\32\77\4\uffff\1\77\1\uffff\2\77"+
@@ -8859,7 +8884,7 @@ public class XQueryLexer extends XQDTLexer {
             "",
             "",
             "",
-            "\12\u00b8\13\uffff\1\u00c1\37\uffff\1\u00c1",
+            "\12\u00b8\13\uffff\1\u00c2\37\uffff\1\u00c2",
             "",
             "",
             "",
@@ -8867,9 +8892,9 @@ public class XQueryLexer extends XQDTLexer {
             "",
             "",
             "",
-            "\12\u0164\13\uffff\1\u00c1\37\uffff\1\u00c1",
+            "\12\u0164\13\uffff\1\u00c2\37\uffff\1\u00c2",
+            "\1\u00c0\1\uffff\12\u00c1\13\uffff\1\u00c2\37\uffff\1\u00c2",
             "",
-            "\1\u00c0\1\uffff\12\u00c2\13\uffff\1\u00c1\37\uffff\1\u00c1",
             "\1\u0165",
             "\2\77\1\uffff\12\77\7\uffff\32\77\4\uffff\1\77\1\uffff\32"+
             "\77",
@@ -9045,7 +9070,7 @@ public class XQueryLexer extends XQDTLexer {
             "",
             "",
             "",
-            "\12\u0164\13\uffff\1\u00c1\37\uffff\1\u00c1",
+            "\12\u0164\13\uffff\1\u00c2\37\uffff\1\u00c2",
             "\1\u0202",
             "",
             "",
@@ -10157,16 +10182,6 @@ public class XQueryLexer extends XQDTLexer {
         	int _s = s;
             switch ( s ) {
                     case 0 : 
-                        int LA19_513 = input.LA(1);
-
-                        s = -1;
-                        if ( ((LA19_513>='\u0000' && LA19_513<='\uFFFF')) ) {s = 670;}
-
-                        else s = 669;
-
-                        if ( s>=0 ) return s;
-                        break;
-                    case 1 : 
                         int LA19_0 = input.LA(1);
 
                         s = -1;
@@ -10279,6 +10294,33 @@ public class XQueryLexer extends XQDTLexer {
                         else if ( ((LA19_0>='0' && LA19_0<='9')) ) {s = 54;}
 
                         else if ( ((LA19_0>='\u0000' && LA19_0<='\b')||(LA19_0>='\u000B' && LA19_0<='\f')||(LA19_0>='\u000E' && LA19_0<='\u001F')||LA19_0=='\\'||LA19_0=='^'||LA19_0=='`'||(LA19_0>='~' && LA19_0<='\uFFFF')) ) {s = 55;}
+
+                        if ( s>=0 ) return s;
+                        break;
+                    case 1 : 
+                        int LA19_25 = input.LA(1);
+
+                         
+                        int index19_25 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (LA19_25=='#') ) {s = 144;}
+
+                        else if ( (LA19_25==':') && ((!inStr))) {s = 145;}
+
+                        else s = 146;
+
+                         
+                        input.seek(index19_25);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 2 : 
+                        int LA19_513 = input.LA(1);
+
+                        s = -1;
+                        if ( ((LA19_513>='\u0000' && LA19_513<='\uFFFF')) ) {s = 670;}
+
+                        else s = 669;
 
                         if ( s>=0 ) return s;
                         break;

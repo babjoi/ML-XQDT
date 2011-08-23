@@ -1,4 +1,4 @@
-// $ANTLR 3.2 Sep 23, 2009 12:02:23 XMLLexer.g 2011-08-20 01:06:58
+// $ANTLR 3.2 Sep 23, 2009 12:02:23 XMLLexer.g 2011-08-23 13:48:32
 
 /*******************************************************************************
  * Copyright (c) 2008, 2009 28msec Inc. and others.
@@ -11,6 +11,7 @@
  *     Gabriel Petrovay (28msec) - initial API and implementation
  *******************************************************************************/
 package org.eclipse.wst.xquery.internal.core.parser.antlr;
+
 
 
 import org.antlr.runtime.*;
@@ -302,6 +303,7 @@ public class XMLLexer extends XQDTLexer {
     public static final int L_Comment=281;
     public static final int XML_COMMENT_END=258;
 
+
     // dummy list for warning elimination
     List<Stack<Object>> dummy = new ArrayList<Stack<Object>>();
 
@@ -338,7 +340,8 @@ public class XMLLexer extends XQDTLexer {
     	System.out.println("inElem:\t" + inElem);
     	System.out.println("---------------------");
     	return false;
-    };
+    }
+
 
 
     // delegates
@@ -359,8 +362,8 @@ public class XMLLexer extends XQDTLexer {
         try {
             int _type = QUOT;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XMLLexer.g:77:6: ({...}? => '\"' )
-            // XMLLexer.g:77:8: {...}? => '\"'
+            // XMLLexer.g:80:6: ({...}? => '\"' )
+            // XMLLexer.g:80:8: {...}? => '\"'
             {
             if ( !(( inElem || inQuotAttr )) ) {
                 throw new FailedPredicateException(input, "QUOT", " inElem || inQuotAttr ");
@@ -383,8 +386,8 @@ public class XMLLexer extends XQDTLexer {
         try {
             int _type = APOS;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XMLLexer.g:78:6: ({...}? => '\\'' )
-            // XMLLexer.g:78:8: {...}? => '\\''
+            // XMLLexer.g:81:6: ({...}? => '\\'' )
+            // XMLLexer.g:81:8: {...}? => '\\''
             {
             if ( !(( inElem || inAposAttr )) ) {
                 throw new FailedPredicateException(input, "APOS", " inElem || inAposAttr ");
@@ -407,13 +410,13 @@ public class XMLLexer extends XQDTLexer {
         try {
             int _type = L_QuotAttrContentChar;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XMLLexer.g:81:2: ({...}? => ( '\\u0009' | '\\u000A' | '\\u000D' | '\\u0020' | '\\u0021' | '\\u0023' .. '\\u0025' | '\\u0028' .. '\\u003B' | '\\u003D' .. '\\u007A' | '\\u007C' .. '\\u007C' | '\\u007E' .. '\\uD7FF' | '\\uE000' .. '\\uFFFD' )+ )
-            // XMLLexer.g:81:4: {...}? => ( '\\u0009' | '\\u000A' | '\\u000D' | '\\u0020' | '\\u0021' | '\\u0023' .. '\\u0025' | '\\u0028' .. '\\u003B' | '\\u003D' .. '\\u007A' | '\\u007C' .. '\\u007C' | '\\u007E' .. '\\uD7FF' | '\\uE000' .. '\\uFFFD' )+
+            // XMLLexer.g:84:2: ({...}? => ( '\\u0009' | '\\u000A' | '\\u000D' | '\\u0020' | '\\u0021' | '\\u0023' .. '\\u0025' | '\\u0028' .. '\\u003B' | '\\u003D' .. '\\u007A' | '\\u007C' .. '\\u007C' | '\\u007E' .. '\\uD7FF' | '\\uE000' .. '\\uFFFD' )+ )
+            // XMLLexer.g:84:4: {...}? => ( '\\u0009' | '\\u000A' | '\\u000D' | '\\u0020' | '\\u0021' | '\\u0023' .. '\\u0025' | '\\u0028' .. '\\u003B' | '\\u003D' .. '\\u007A' | '\\u007C' .. '\\u007C' | '\\u007E' .. '\\uD7FF' | '\\uE000' .. '\\uFFFD' )+
             {
             if ( !(( inQuotAttr )) ) {
                 throw new FailedPredicateException(input, "L_QuotAttrContentChar", " inQuotAttr ");
             }
-            // XMLLexer.g:82:3: ( '\\u0009' | '\\u000A' | '\\u000D' | '\\u0020' | '\\u0021' | '\\u0023' .. '\\u0025' | '\\u0028' .. '\\u003B' | '\\u003D' .. '\\u007A' | '\\u007C' .. '\\u007C' | '\\u007E' .. '\\uD7FF' | '\\uE000' .. '\\uFFFD' )+
+            // XMLLexer.g:85:3: ( '\\u0009' | '\\u000A' | '\\u000D' | '\\u0020' | '\\u0021' | '\\u0023' .. '\\u0025' | '\\u0028' .. '\\u003B' | '\\u003D' .. '\\u007A' | '\\u007C' .. '\\u007C' | '\\u007E' .. '\\uD7FF' | '\\uE000' .. '\\uFFFD' )+
             int cnt1=0;
             loop1:
             do {
@@ -467,13 +470,13 @@ public class XMLLexer extends XQDTLexer {
         try {
             int _type = L_AposAttrContentChar;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XMLLexer.g:88:2: ({...}? => ( '\\u0009' | '\\u000A' | '\\u000D' | '\\u0020' | '\\u0021' | '\\u0023' .. '\\u0025' | '\\u0028' .. '\\u003B' | '\\u003D' .. '\\u007A' | '\\u007C' .. '\\u007C' | '\\u007E' .. '\\uD7FF' | '\\uE000' .. '\\uFFFD' )+ )
-            // XMLLexer.g:88:4: {...}? => ( '\\u0009' | '\\u000A' | '\\u000D' | '\\u0020' | '\\u0021' | '\\u0023' .. '\\u0025' | '\\u0028' .. '\\u003B' | '\\u003D' .. '\\u007A' | '\\u007C' .. '\\u007C' | '\\u007E' .. '\\uD7FF' | '\\uE000' .. '\\uFFFD' )+
+            // XMLLexer.g:91:2: ({...}? => ( '\\u0009' | '\\u000A' | '\\u000D' | '\\u0020' | '\\u0021' | '\\u0023' .. '\\u0025' | '\\u0028' .. '\\u003B' | '\\u003D' .. '\\u007A' | '\\u007C' .. '\\u007C' | '\\u007E' .. '\\uD7FF' | '\\uE000' .. '\\uFFFD' )+ )
+            // XMLLexer.g:91:4: {...}? => ( '\\u0009' | '\\u000A' | '\\u000D' | '\\u0020' | '\\u0021' | '\\u0023' .. '\\u0025' | '\\u0028' .. '\\u003B' | '\\u003D' .. '\\u007A' | '\\u007C' .. '\\u007C' | '\\u007E' .. '\\uD7FF' | '\\uE000' .. '\\uFFFD' )+
             {
             if ( !(( inAposAttr )) ) {
                 throw new FailedPredicateException(input, "L_AposAttrContentChar", " inAposAttr ");
             }
-            // XMLLexer.g:89:3: ( '\\u0009' | '\\u000A' | '\\u000D' | '\\u0020' | '\\u0021' | '\\u0023' .. '\\u0025' | '\\u0028' .. '\\u003B' | '\\u003D' .. '\\u007A' | '\\u007C' .. '\\u007C' | '\\u007E' .. '\\uD7FF' | '\\uE000' .. '\\uFFFD' )+
+            // XMLLexer.g:92:3: ( '\\u0009' | '\\u000A' | '\\u000D' | '\\u0020' | '\\u0021' | '\\u0023' .. '\\u0025' | '\\u0028' .. '\\u003B' | '\\u003D' .. '\\u007A' | '\\u007C' .. '\\u007C' | '\\u007E' .. '\\uD7FF' | '\\uE000' .. '\\uFFFD' )+
             int cnt2=0;
             loop2:
             do {
@@ -527,13 +530,13 @@ public class XMLLexer extends XQDTLexer {
         try {
             int _type = L_ElementContentChar;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XMLLexer.g:96:2: ({...}? => ( '\\u0009' | '\\u000A' | '\\u000D' | '\\u0020' .. '\\u0025' | '\\u0027' .. '\\u003B' | '\\u003D' .. '\\u007A' | '\\u007C' | '\\u007E' .. '\\uD7FF' | '\\uE000' .. '\\uFFFD' )+ )
-            // XMLLexer.g:96:4: {...}? => ( '\\u0009' | '\\u000A' | '\\u000D' | '\\u0020' .. '\\u0025' | '\\u0027' .. '\\u003B' | '\\u003D' .. '\\u007A' | '\\u007C' | '\\u007E' .. '\\uD7FF' | '\\uE000' .. '\\uFFFD' )+
+            // XMLLexer.g:99:2: ({...}? => ( '\\u0009' | '\\u000A' | '\\u000D' | '\\u0020' .. '\\u0025' | '\\u0027' .. '\\u003B' | '\\u003D' .. '\\u007A' | '\\u007C' | '\\u007E' .. '\\uD7FF' | '\\uE000' .. '\\uFFFD' )+ )
+            // XMLLexer.g:99:4: {...}? => ( '\\u0009' | '\\u000A' | '\\u000D' | '\\u0020' .. '\\u0025' | '\\u0027' .. '\\u003B' | '\\u003D' .. '\\u007A' | '\\u007C' | '\\u007E' .. '\\uD7FF' | '\\uE000' .. '\\uFFFD' )+
             {
             if ( !(( !inElem )) ) {
                 throw new FailedPredicateException(input, "L_ElementContentChar", " !inElem ");
             }
-            // XMLLexer.g:97:3: ( '\\u0009' | '\\u000A' | '\\u000D' | '\\u0020' .. '\\u0025' | '\\u0027' .. '\\u003B' | '\\u003D' .. '\\u007A' | '\\u007C' | '\\u007E' .. '\\uD7FF' | '\\uE000' .. '\\uFFFD' )+
+            // XMLLexer.g:100:3: ( '\\u0009' | '\\u000A' | '\\u000D' | '\\u0020' .. '\\u0025' | '\\u0027' .. '\\u003B' | '\\u003D' .. '\\u007A' | '\\u007C' | '\\u007E' .. '\\uD7FF' | '\\uE000' .. '\\uFFFD' )+
             int cnt3=0;
             loop3:
             do {
@@ -587,8 +590,8 @@ public class XMLLexer extends XQDTLexer {
         try {
             int _type = GREATER;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XMLLexer.g:103:2: ({...}? => '>' )
-            // XMLLexer.g:103:4: {...}? => '>'
+            // XMLLexer.g:106:2: ({...}? => '>' )
+            // XMLLexer.g:106:4: {...}? => '>'
             {
             if ( !(( inElem )) ) {
                 throw new FailedPredicateException(input, "GREATER", " inElem ");
@@ -611,8 +614,8 @@ public class XMLLexer extends XQDTLexer {
         try {
             int _type = EMPTY_CLOSE_TAG;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XMLLexer.g:107:2: ({...}? => '/>' )
-            // XMLLexer.g:107:4: {...}? => '/>'
+            // XMLLexer.g:110:2: ({...}? => '/>' )
+            // XMLLexer.g:110:4: {...}? => '/>'
             {
             if ( !(( inElem )) ) {
                 throw new FailedPredicateException(input, "EMPTY_CLOSE_TAG", " inElem ");
@@ -636,13 +639,13 @@ public class XMLLexer extends XQDTLexer {
         try {
             int _type = S;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XMLLexer.g:111:2: ({...}? => ( ' ' | '\\t' | '\\r' | '\\n' )+ )
-            // XMLLexer.g:111:4: {...}? => ( ' ' | '\\t' | '\\r' | '\\n' )+
+            // XMLLexer.g:114:2: ({...}? => ( ' ' | '\\t' | '\\r' | '\\n' )+ )
+            // XMLLexer.g:114:4: {...}? => ( ' ' | '\\t' | '\\r' | '\\n' )+
             {
             if ( !(( inElem )) ) {
                 throw new FailedPredicateException(input, "S", " inElem ");
             }
-            // XMLLexer.g:111:19: ( ' ' | '\\t' | '\\r' | '\\n' )+
+            // XMLLexer.g:114:19: ( ' ' | '\\t' | '\\r' | '\\n' )+
             int cnt4=0;
             loop4:
             do {
@@ -696,8 +699,8 @@ public class XMLLexer extends XQDTLexer {
         try {
             int _type = L_NCName;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XMLLexer.g:117:2: ({...}? => NCNameUnprotected )
-            // XMLLexer.g:117:4: {...}? => NCNameUnprotected
+            // XMLLexer.g:120:2: ({...}? => NCNameUnprotected )
+            // XMLLexer.g:120:4: {...}? => NCNameUnprotected
             {
             if ( !(( inElem )) ) {
                 throw new FailedPredicateException(input, "L_NCName", " inElem ");
@@ -717,11 +720,11 @@ public class XMLLexer extends XQDTLexer {
     // $ANTLR start "NCNameUnprotected"
     public final void mNCNameUnprotected() throws RecognitionException {
         try {
-            // XMLLexer.g:121:2: ( NCNameStartChar ( NCNameChar )* )
-            // XMLLexer.g:121:4: NCNameStartChar ( NCNameChar )*
+            // XMLLexer.g:124:2: ( NCNameStartChar ( NCNameChar )* )
+            // XMLLexer.g:124:4: NCNameStartChar ( NCNameChar )*
             {
             mNCNameStartChar(); 
-            // XMLLexer.g:121:20: ( NCNameChar )*
+            // XMLLexer.g:124:20: ( NCNameChar )*
             loop5:
             do {
                 int alt5=2;
@@ -734,7 +737,7 @@ public class XMLLexer extends XQDTLexer {
 
                 switch (alt5) {
             	case 1 :
-            	    // XMLLexer.g:121:20: NCNameChar
+            	    // XMLLexer.g:124:20: NCNameChar
             	    {
             	    mNCNameChar(); 
 
@@ -758,7 +761,7 @@ public class XMLLexer extends XQDTLexer {
     // $ANTLR start "NCNameStartChar"
     public final void mNCNameStartChar() throws RecognitionException {
         try {
-            // XMLLexer.g:125:2: ( Letter | '_' )
+            // XMLLexer.g:128:2: ( Letter | '_' )
             // XMLLexer.g:
             {
             if ( (input.LA(1)>='A' && input.LA(1)<='Z')||input.LA(1)=='_'||(input.LA(1)>='a' && input.LA(1)<='z') ) {
@@ -782,7 +785,7 @@ public class XMLLexer extends XQDTLexer {
     // $ANTLR start "NCNameChar"
     public final void mNCNameChar() throws RecognitionException {
         try {
-            // XMLLexer.g:129:2: ( Letter | XMLDigit | '.' | '-' | '_' )
+            // XMLLexer.g:132:2: ( Letter | XMLDigit | '.' | '-' | '_' )
             // XMLLexer.g:
             {
             if ( (input.LA(1)>='-' && input.LA(1)<='.')||(input.LA(1)>='0' && input.LA(1)<='9')||(input.LA(1)>='A' && input.LA(1)<='Z')||input.LA(1)=='_'||(input.LA(1)>='a' && input.LA(1)<='z') ) {
@@ -806,7 +809,7 @@ public class XMLLexer extends XQDTLexer {
     // $ANTLR start "Letter"
     public final void mLetter() throws RecognitionException {
         try {
-            // XMLLexer.g:133:2: ( 'a' .. 'z' | 'A' .. 'Z' )
+            // XMLLexer.g:136:2: ( 'a' .. 'z' | 'A' .. 'Z' )
             // XMLLexer.g:
             {
             if ( (input.LA(1)>='A' && input.LA(1)<='Z')||(input.LA(1)>='a' && input.LA(1)<='z') ) {
@@ -830,8 +833,8 @@ public class XMLLexer extends XQDTLexer {
     // $ANTLR start "XMLDigit"
     public final void mXMLDigit() throws RecognitionException {
         try {
-            // XMLLexer.g:137:2: ( '0' .. '9' )
-            // XMLLexer.g:137:4: '0' .. '9'
+            // XMLLexer.g:140:2: ( '0' .. '9' )
+            // XMLLexer.g:140:4: '0' .. '9'
             {
             matchRange('0','9'); 
 
@@ -848,8 +851,8 @@ public class XMLLexer extends XQDTLexer {
         try {
             int _type = EQUAL;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XMLLexer.g:152:7: ({...}? => '=' )
-            // XMLLexer.g:152:9: {...}? => '='
+            // XMLLexer.g:155:7: ({...}? => '=' )
+            // XMLLexer.g:155:9: {...}? => '='
             {
             if ( !(( inElem  )) ) {
                 throw new FailedPredicateException(input, "EQUAL", " inElem  ");
@@ -871,8 +874,8 @@ public class XMLLexer extends XQDTLexer {
         try {
             int _type = ESCAPE_APOS;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XMLLexer.g:153:13: ({...}? => '\\'\\'' )
-            // XMLLexer.g:153:15: {...}? => '\\'\\''
+            // XMLLexer.g:156:13: ({...}? => '\\'\\'' )
+            // XMLLexer.g:156:15: {...}? => '\\'\\''
             {
             if ( !(( inAposAttr )) ) {
                 throw new FailedPredicateException(input, "ESCAPE_APOS", " inAposAttr ");
@@ -895,8 +898,8 @@ public class XMLLexer extends XQDTLexer {
         try {
             int _type = ESCAPE_QUOT;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XMLLexer.g:154:13: ({...}? => '\"\"' )
-            // XMLLexer.g:154:15: {...}? => '\"\"'
+            // XMLLexer.g:157:13: ({...}? => '\"\"' )
+            // XMLLexer.g:157:15: {...}? => '\"\"'
             {
             if ( !(( inQuotAttr )) ) {
                 throw new FailedPredicateException(input, "ESCAPE_QUOT", " inQuotAttr ");
@@ -919,8 +922,8 @@ public class XMLLexer extends XQDTLexer {
         try {
             int _type = ESCAPE_LBRACKET;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XMLLexer.g:157:2: ({...}? => '{{' )
-            // XMLLexer.g:157:4: {...}? => '{{'
+            // XMLLexer.g:160:2: ({...}? => '{{' )
+            // XMLLexer.g:160:4: {...}? => '{{'
             {
             if ( !(( !inElem || inAposAttr || inQuotAttr )) ) {
                 throw new FailedPredicateException(input, "ESCAPE_LBRACKET", " !inElem || inAposAttr || inQuotAttr ");
@@ -943,8 +946,8 @@ public class XMLLexer extends XQDTLexer {
         try {
             int _type = ESCAPE_RBRACKET;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XMLLexer.g:161:2: ({...}? => '}}' )
-            // XMLLexer.g:161:4: {...}? => '}}'
+            // XMLLexer.g:164:2: ({...}? => '}}' )
+            // XMLLexer.g:164:4: {...}? => '}}'
             {
             if ( !(( !inElem || inAposAttr || inQuotAttr )) ) {
                 throw new FailedPredicateException(input, "ESCAPE_RBRACKET", " !inElem || inAposAttr || inQuotAttr ");
@@ -967,8 +970,8 @@ public class XMLLexer extends XQDTLexer {
         try {
             int _type = LBRACKET;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XMLLexer.g:164:10: ({...}? => '{' )
-            // XMLLexer.g:164:12: {...}? => '{'
+            // XMLLexer.g:167:10: ({...}? => '{' )
+            // XMLLexer.g:167:12: {...}? => '{'
             {
             if ( !(( !inElem || inAposAttr || inQuotAttr )) ) {
                 throw new FailedPredicateException(input, "LBRACKET", " !inElem || inAposAttr || inQuotAttr ");
@@ -990,8 +993,8 @@ public class XMLLexer extends XQDTLexer {
         try {
             int _type = RBRACKET;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XMLLexer.g:165:10: ({...}? => '}' )
-            // XMLLexer.g:165:12: {...}? => '}'
+            // XMLLexer.g:168:10: ({...}? => '}' )
+            // XMLLexer.g:168:12: {...}? => '}'
             {
             if ( !(( !inElem || inAposAttr || inQuotAttr )) ) {
                 throw new FailedPredicateException(input, "RBRACKET", " !inElem || inAposAttr || inQuotAttr ");
@@ -1013,8 +1016,8 @@ public class XMLLexer extends XQDTLexer {
         try {
             int _type = SMALLER;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XMLLexer.g:166:9: ( '<' )
-            // XMLLexer.g:166:11: '<'
+            // XMLLexer.g:169:9: ( '<' )
+            // XMLLexer.g:169:11: '<'
             {
             match('<'); 
 
@@ -1033,8 +1036,8 @@ public class XMLLexer extends XQDTLexer {
         try {
             int _type = CLOSE_TAG;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XMLLexer.g:167:11: ({...}? => '</' )
-            // XMLLexer.g:167:13: {...}? => '</'
+            // XMLLexer.g:170:11: ({...}? => '</' )
+            // XMLLexer.g:170:13: {...}? => '</'
             {
             if ( !(( !inElem )) ) {
                 throw new FailedPredicateException(input, "CLOSE_TAG", " !inElem ");
@@ -1058,8 +1061,8 @@ public class XMLLexer extends XQDTLexer {
         try {
             int _type = CDATA_START;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XMLLexer.g:169:13: ( '<![CDATA[' )
-            // XMLLexer.g:169:15: '<![CDATA['
+            // XMLLexer.g:172:13: ( '<![CDATA[' )
+            // XMLLexer.g:172:15: '<![CDATA['
             {
             match("<![CDATA["); 
 
@@ -1079,8 +1082,8 @@ public class XMLLexer extends XQDTLexer {
         try {
             int _type = CDATA_END;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XMLLexer.g:170:12: ( ']]>' )
-            // XMLLexer.g:170:14: ']]>'
+            // XMLLexer.g:173:12: ( ']]>' )
+            // XMLLexer.g:173:14: ']]>'
             {
             match("]]>"); 
 
@@ -1100,17 +1103,17 @@ public class XMLLexer extends XQDTLexer {
         try {
             int _type = L_CDataSection;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XMLLexer.g:174:3: ({...}? => CDATA_START ( options {greedy=false; } : ( . )* ) CDATA_END )
-            // XMLLexer.g:174:5: {...}? => CDATA_START ( options {greedy=false; } : ( . )* ) CDATA_END
+            // XMLLexer.g:177:3: ({...}? => CDATA_START ( options {greedy=false; } : ( . )* ) CDATA_END )
+            // XMLLexer.g:177:5: {...}? => CDATA_START ( options {greedy=false; } : ( . )* ) CDATA_END
             {
             if ( !(( !inElem )) ) {
                 throw new FailedPredicateException(input, "L_CDataSection", " !inElem ");
             }
             mCDATA_START(); 
-            // XMLLexer.g:174:33: ( options {greedy=false; } : ( . )* )
-            // XMLLexer.g:174:60: ( . )*
+            // XMLLexer.g:177:33: ( options {greedy=false; } : ( . )* )
+            // XMLLexer.g:177:60: ( . )*
             {
-            // XMLLexer.g:174:60: ( . )*
+            // XMLLexer.g:177:60: ( . )*
             loop6:
             do {
                 int alt6=2;
@@ -1144,7 +1147,7 @@ public class XMLLexer extends XQDTLexer {
 
                 switch (alt6) {
             	case 1 :
-            	    // XMLLexer.g:174:60: .
+            	    // XMLLexer.g:177:60: .
             	    {
             	    matchAny(); 
 
@@ -1176,14 +1179,14 @@ public class XMLLexer extends XQDTLexer {
         try {
             int _type = L_PredefinedEntityRef;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XMLLexer.g:182:2: ({...}? => '&' ( 'lt' | 'gt' | 'apos' | 'quot' | 'amp' ) ';' )
-            // XMLLexer.g:182:4: {...}? => '&' ( 'lt' | 'gt' | 'apos' | 'quot' | 'amp' ) ';'
+            // XMLLexer.g:185:2: ({...}? => '&' ( 'lt' | 'gt' | 'apos' | 'quot' | 'amp' ) ';' )
+            // XMLLexer.g:185:4: {...}? => '&' ( 'lt' | 'gt' | 'apos' | 'quot' | 'amp' ) ';'
             {
             if ( !(( !inElem || inAposAttr || inQuotAttr )) ) {
                 throw new FailedPredicateException(input, "L_PredefinedEntityRef", " !inElem || inAposAttr || inQuotAttr ");
             }
             match('&'); 
-            // XMLLexer.g:182:52: ( 'lt' | 'gt' | 'apos' | 'quot' | 'amp' )
+            // XMLLexer.g:185:52: ( 'lt' | 'gt' | 'apos' | 'quot' | 'amp' )
             int alt7=5;
             switch ( input.LA(1) ) {
             case 'l':
@@ -1228,7 +1231,7 @@ public class XMLLexer extends XQDTLexer {
 
             switch (alt7) {
                 case 1 :
-                    // XMLLexer.g:182:53: 'lt'
+                    // XMLLexer.g:185:53: 'lt'
                     {
                     match("lt"); 
 
@@ -1236,7 +1239,7 @@ public class XMLLexer extends XQDTLexer {
                     }
                     break;
                 case 2 :
-                    // XMLLexer.g:182:60: 'gt'
+                    // XMLLexer.g:185:60: 'gt'
                     {
                     match("gt"); 
 
@@ -1244,7 +1247,7 @@ public class XMLLexer extends XQDTLexer {
                     }
                     break;
                 case 3 :
-                    // XMLLexer.g:182:67: 'apos'
+                    // XMLLexer.g:185:67: 'apos'
                     {
                     match("apos"); 
 
@@ -1252,7 +1255,7 @@ public class XMLLexer extends XQDTLexer {
                     }
                     break;
                 case 4 :
-                    // XMLLexer.g:182:76: 'quot'
+                    // XMLLexer.g:185:76: 'quot'
                     {
                     match("quot"); 
 
@@ -1260,7 +1263,7 @@ public class XMLLexer extends XQDTLexer {
                     }
                     break;
                 case 5 :
-                    // XMLLexer.g:182:85: 'amp'
+                    // XMLLexer.g:185:85: 'amp'
                     {
                     match("amp"); 
 
@@ -1287,7 +1290,7 @@ public class XMLLexer extends XQDTLexer {
         try {
             int _type = L_CharRef;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XMLLexer.g:187:2: ({...}? => '&#' ( '0' .. '9' )+ ';' | '&#x' ( '0' .. '9' | 'a' .. 'f' | 'A' .. 'F' )+ ';' )
+            // XMLLexer.g:190:2: ({...}? => '&#' ( '0' .. '9' )+ ';' | '&#x' ( '0' .. '9' | 'a' .. 'f' | 'A' .. 'F' )+ ';' )
             int alt10=2;
             int LA10_0 = input.LA(1);
 
@@ -1325,14 +1328,14 @@ public class XMLLexer extends XQDTLexer {
             }
             switch (alt10) {
                 case 1 :
-                    // XMLLexer.g:187:4: {...}? => '&#' ( '0' .. '9' )+ ';'
+                    // XMLLexer.g:190:4: {...}? => '&#' ( '0' .. '9' )+ ';'
                     {
                     if ( !(( !inElem || inAposAttr || inQuotAttr )) ) {
                         throw new FailedPredicateException(input, "L_CharRef", " !inElem || inAposAttr || inQuotAttr ");
                     }
                     match("&#"); 
 
-                    // XMLLexer.g:187:53: ( '0' .. '9' )+
+                    // XMLLexer.g:190:53: ( '0' .. '9' )+
                     int cnt8=0;
                     loop8:
                     do {
@@ -1346,7 +1349,7 @@ public class XMLLexer extends XQDTLexer {
 
                         switch (alt8) {
                     	case 1 :
-                    	    // XMLLexer.g:187:54: '0' .. '9'
+                    	    // XMLLexer.g:190:54: '0' .. '9'
                     	    {
                     	    matchRange('0','9'); 
 
@@ -1367,11 +1370,11 @@ public class XMLLexer extends XQDTLexer {
                     }
                     break;
                 case 2 :
-                    // XMLLexer.g:187:71: '&#x' ( '0' .. '9' | 'a' .. 'f' | 'A' .. 'F' )+ ';'
+                    // XMLLexer.g:190:71: '&#x' ( '0' .. '9' | 'a' .. 'f' | 'A' .. 'F' )+ ';'
                     {
                     match("&#x"); 
 
-                    // XMLLexer.g:187:77: ( '0' .. '9' | 'a' .. 'f' | 'A' .. 'F' )+
+                    // XMLLexer.g:190:77: ( '0' .. '9' | 'a' .. 'f' | 'A' .. 'F' )+
                     int cnt9=0;
                     loop9:
                     do {
@@ -1428,18 +1431,18 @@ public class XMLLexer extends XQDTLexer {
         try {
             int _type = L_DirCommentConstructor;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XMLLexer.g:191:2: ({...}? => '<!--' ( options {greedy=false; } : ( . )* ) '-->' )
-            // XMLLexer.g:191:4: {...}? => '<!--' ( options {greedy=false; } : ( . )* ) '-->'
+            // XMLLexer.g:194:2: ({...}? => '<!--' ( options {greedy=false; } : ( . )* ) '-->' )
+            // XMLLexer.g:194:4: {...}? => '<!--' ( options {greedy=false; } : ( . )* ) '-->'
             {
             if ( !(( !inElem )) ) {
                 throw new FailedPredicateException(input, "L_DirCommentConstructor", " !inElem ");
             }
             match("<!--"); 
 
-            // XMLLexer.g:191:27: ( options {greedy=false; } : ( . )* )
-            // XMLLexer.g:191:54: ( . )*
+            // XMLLexer.g:194:27: ( options {greedy=false; } : ( . )* )
+            // XMLLexer.g:194:54: ( . )*
             {
-            // XMLLexer.g:191:54: ( . )*
+            // XMLLexer.g:194:54: ( . )*
             loop11:
             do {
                 int alt11=2;
@@ -1473,7 +1476,7 @@ public class XMLLexer extends XQDTLexer {
 
                 switch (alt11) {
             	case 1 :
-            	    // XMLLexer.g:191:54: .
+            	    // XMLLexer.g:194:54: .
             	    {
             	    matchAny(); 
 
@@ -1506,15 +1509,15 @@ public class XMLLexer extends XQDTLexer {
         try {
             int _type = L_DirPIConstructor;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XMLLexer.g:194:2: ({...}? => '<?' ( SU )? NCNameUnprotected ( SU ( options {greedy=false; } : ( . )* ) )? '?>' )
-            // XMLLexer.g:194:4: {...}? => '<?' ( SU )? NCNameUnprotected ( SU ( options {greedy=false; } : ( . )* ) )? '?>'
+            // XMLLexer.g:197:2: ({...}? => '<?' ( SU )? NCNameUnprotected ( SU ( options {greedy=false; } : ( . )* ) )? '?>' )
+            // XMLLexer.g:197:4: {...}? => '<?' ( SU )? NCNameUnprotected ( SU ( options {greedy=false; } : ( . )* ) )? '?>'
             {
             if ( !(( !inElem )) ) {
                 throw new FailedPredicateException(input, "L_DirPIConstructor", " !inElem ");
             }
             match("<?"); 
 
-            // XMLLexer.g:195:8: ( SU )?
+            // XMLLexer.g:198:8: ( SU )?
             int alt12=2;
             int LA12_0 = input.LA(1);
 
@@ -1523,7 +1526,7 @@ public class XMLLexer extends XQDTLexer {
             }
             switch (alt12) {
                 case 1 :
-                    // XMLLexer.g:195:8: SU
+                    // XMLLexer.g:198:8: SU
                     {
                     mSU(); 
 
@@ -1533,7 +1536,7 @@ public class XMLLexer extends XQDTLexer {
             }
 
             mNCNameUnprotected(); 
-            // XMLLexer.g:195:30: ( SU ( options {greedy=false; } : ( . )* ) )?
+            // XMLLexer.g:198:30: ( SU ( options {greedy=false; } : ( . )* ) )?
             int alt14=2;
             int LA14_0 = input.LA(1);
 
@@ -1542,13 +1545,13 @@ public class XMLLexer extends XQDTLexer {
             }
             switch (alt14) {
                 case 1 :
-                    // XMLLexer.g:195:31: SU ( options {greedy=false; } : ( . )* )
+                    // XMLLexer.g:198:31: SU ( options {greedy=false; } : ( . )* )
                     {
                     mSU(); 
-                    // XMLLexer.g:195:34: ( options {greedy=false; } : ( . )* )
-                    // XMLLexer.g:195:61: ( . )*
+                    // XMLLexer.g:198:34: ( options {greedy=false; } : ( . )* )
+                    // XMLLexer.g:198:61: ( . )*
                     {
-                    // XMLLexer.g:195:61: ( . )*
+                    // XMLLexer.g:198:61: ( . )*
                     loop13:
                     do {
                         int alt13=2;
@@ -1573,7 +1576,7 @@ public class XMLLexer extends XQDTLexer {
 
                         switch (alt13) {
                     	case 1 :
-                    	    // XMLLexer.g:195:61: .
+                    	    // XMLLexer.g:198:61: .
                     	    {
                     	    matchAny(); 
 
@@ -1610,10 +1613,10 @@ public class XMLLexer extends XQDTLexer {
     // $ANTLR start "SU"
     public final void mSU() throws RecognitionException {
         try {
-            // XMLLexer.g:199:2: ( ( ' ' | '\\t' | '\\n' | '\\r' )+ )
-            // XMLLexer.g:199:4: ( ' ' | '\\t' | '\\n' | '\\r' )+
+            // XMLLexer.g:202:2: ( ( ' ' | '\\t' | '\\n' | '\\r' )+ )
+            // XMLLexer.g:202:4: ( ' ' | '\\t' | '\\n' | '\\r' )+
             {
-            // XMLLexer.g:199:4: ( ' ' | '\\t' | '\\n' | '\\r' )+
+            // XMLLexer.g:202:4: ( ' ' | '\\t' | '\\n' | '\\r' )+
             int cnt15=0;
             loop15:
             do {
@@ -1665,8 +1668,8 @@ public class XMLLexer extends XQDTLexer {
         try {
             int _type = COLON;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // XMLLexer.g:202:7: ( ':' )
-            // XMLLexer.g:202:9: ':'
+            // XMLLexer.g:205:7: ( ':' )
+            // XMLLexer.g:205:9: ':'
             {
             match(':'); 
 

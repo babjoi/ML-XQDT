@@ -33,13 +33,23 @@ CDATA_END;
  *     Sam Neth (Mark Logic)
  *******************************************************************************/
 package org.eclipse.wst.xquery.internal.core.parser.antlr;
-}
+
+} // @header
 
 @lexer::members {
+
 // dummy list for warning elimination
 List<Stack<Object>> dummy = new ArrayList<Stack<Object>>();
+
+// when we start, the '<' has already been eaten by the other lexer
+boolean inStr = false;
+
+public boolean isInString()
+{
+   return inStr;
 }
 
+} // @lexer::members
 
 // **********************************
 // "keywords" present in the language
@@ -307,8 +317,8 @@ PI_END                  : '?>';
 ATTR_SIGN               : '@';
 CHARREF_DEC             : '&#';
 CHARREF_HEX             : '&#x';
-APOS                    : '\'';
-QUOT                    : '"';
+APOS                    : '\'' { if (!inStr) inStr = true; };
+QUOT                    : '"' { if (!inStr) inStr = true; };
 
 
 L_NCName
@@ -324,7 +334,7 @@ fragment NCNameStartChar    : Letter | '_' ;
 fragment NCNameChar         : Letter | Digit | '.' | '-' | '_' ; // | CombiningChar | Extender ;
 
 S
-        : ('\t' | ' ' | '\n' | '\r')+  { $channel = HIDDEN; }
+        : ('\t' | ' ' | '\n' | '\r')+ { $channel = HIDDEN; }
         ;
 fragment SU
         : ('\t' | ' ' | '\n' | '\r')+
@@ -380,7 +390,7 @@ L_DoubleLiteral
 
 //[151]
 L_Comment
-        : '(:' (options {greedy=false;}: L_Comment | . )* ':)' { $channel = HIDDEN; }
+        : {!inStr}?=> '(:' (options {greedy=false;}: L_Comment | . )* ':)' { $channel = HIDDEN; }
         ;
 
 L_AnyChar : . ;

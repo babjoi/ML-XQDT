@@ -250,22 +250,12 @@ p_InheritMode
         
 //[18]
 pm_DecimalFormatDecl
-        : k=DECLARE {ak($k);} ((k=DECIMAL_FORMAT {ak($k);} p_QName) | (k=DEFAULT {ak($k);} k=DECIMAL_FORMAT {ak($k);})) (p_DFPropertyName EQ p_StringLiteral)* SEMICOLON
+        : k=DECLARE {ak($k);} ((k=DECIMAL_FORMAT {ak($k);} p_QName) | (k=DEFAULT {ak($k);} k=DECIMAL_FORMAT {ak($k);})) (p_DFPropertyName EQUAL p_StringLiteral)* SEMICOLON
         ;
 
 //[19]
 p_DFPropertyName
-        : k=DECIMAL_SEPARATOR
-        | k=GROUPING_SEPARATOR
-        | k=INFINITY
-        | k=MINUS_SIGN
-        | k=NAN
-        | k=PERCENT
-        | k=PER_MILLE
-        | k=ZERO_DIGIT
-        | k=DIGIT
-        | k=PATTERN_SEPARATOR
-          {ak($k);}
+        : (k=DECIMAL_SEPARATOR | k=GROUPING_SEPARATOR | k=INFINITY | k=MINUS_SIGN | k=NAN | k=PERCENT | k=PER_MILLE | k=ZERO_DIGIT | k=DIGIT | k=PATTERN_SEPARATOR) {ak($k);}
         ;
 
 //[20]
@@ -329,12 +319,12 @@ p_VarDecl
 
 //[29]
 p_VarValue
-        : p_ExprSingle
+        : p_ExprSingle[true]
         ;
 
 //[30]
 p_VarDefaultValue
-        : p_ExprSingle
+        : p_ExprSingle[true]
         ;
 
 //[31]
@@ -369,7 +359,7 @@ pm_FunctionBody
 
 //[36]
 p_EnclosedExpr
-        : LBRACKET p_Expr RBRACKET
+        : LBRACKET p_Expr[true,true] RBRACKET
                 -> ^(EnclosedExpr p_Expr)
         ;
 
@@ -381,30 +371,47 @@ pm_OptionDecl
 //[38]
 pm_QueryBody
         : {lc(XQS)}?=> p_Program
-        | p_Expr
+        | p_Expr[true,true]
         ;
 
+////[39]
+//p_Expr[boolean strict, boolean allowConcat]
+//        : es=p_ExprSingle[$strict]
+//          (COMMA p_ExprSingle[$strict])*
+//        ;
+
 //[39]
-p_Expr
-        : p_ExprSingle (COMMA p_ExprSingle)*
-//TODO: disabled because of XQuery 3.0 grammar changes and ambiguities
-//          ({lc(MLS)}?=> (SEMICOLON p_ConcatExpr)* | /* nothing */)
+p_Expr[boolean strict, boolean allowConcat]
+        : es=p_ExprSingle[$strict] { if (!$allowConcat) throw new Exception(); }
+          (COMMA p_ExprSingle[$strict])*
         ;
+catch [RecognitionException re] {
+    reportError(re);
+    recover(input,re);
+    retval.tree = (XQDTCommonTree)adaptor.errorNode(input, retval.start, input.LT(-1), re);
+}
+catch [Exception e] {
+    root_0 = (XQDTCommonTree)adaptor.nil();
+    adaptor.addChild(root_0, es.getTree());
+    retval.stop = input.LT(-1);
+    retval.tree = (XQDTCommonTree)adaptor.rulePostProcessing(root_0);
+    adaptor.setTokenBoundaries(retval.tree, retval.start, retval.stop);
+}
 
 //[40]
 //[22] new XQuery Scripting proposal
-p_ExprSingle
-        : (((FOR | LET) DOLLAR) | (FOR (TUMBLING | SLIDING))) => p_FLWORHybrid
-        | (IF LPAREN) =>          p_IfHybrid
-        | (SWITCH LPAREN) =>      p_SwitchHybrid
-        | (TYPESWITCH LPAREN) =>  p_TypeswitchHybrid
-        | (TRY LBRACKET) =>       p_TryCatchExpr
+p_ExprSingle[boolean strict]
+        : (((FOR | LET) DOLLAR) | (FOR (TUMBLING | SLIDING))) => p_FLWORHybrid[$strict]
+        | (IF LPAREN) =>          p_IfHybrid[$strict]
+        | (SWITCH LPAREN) =>      p_SwitchHybrid[$strict]
+        | (TYPESWITCH LPAREN) =>  p_TypeswitchHybrid[$strict]
+        | (TRY LBRACKET) =>       p_TryCatchHybrid[$strict]
         | p_ExprSimple
         ;
 
 //[41]
-p_FLWORHybrid
-        : p_InitialClause p_IntermediateClause* p_ReturnHybrid
+p_FLWORHybrid[boolean strict]
+        : p_InitialClause p_IntermediateClause* p_ReturnHybrid[$strict]
         ;
 
 //[42]
@@ -425,7 +432,7 @@ p_ForClause
 
 //[45]
 p_ForBinding
-        : DOLLAR p_VarName p_TypeDeclaration? p_AllowingEmpty? p_PositionalVar? p_FTScoreVar? k=IN {ak($k);} p_ExprSingle
+        : DOLLAR p_VarName p_TypeDeclaration? p_AllowingEmpty? p_PositionalVar? p_FTScoreVar? k=IN {ak($k);} p_ExprSingle[true]
         ;
 
 //[46]
@@ -446,7 +453,7 @@ p_LetClause
 //[49]
 //[38] Full Text 1.0
 p_LetBinding
-        : ( (DOLLAR p_VarName p_TypeDeclaration?) | p_FTScoreVar ) BIND p_ExprSingle
+        : ( (DOLLAR p_VarName p_TypeDeclaration?) | p_FTScoreVar ) BIND p_ExprSingle[true]
         ;
 
 //[50]
@@ -456,22 +463,22 @@ p_WindowClause
         
 //[51]
 p_TumblingWindowClause
-        : k=TUMBLING {ak($k);} k=WINDOW {ak($k);} DOLLAR p_VarName p_TypeDeclaration? k=IN {ak($k);} p_ExprSingle p_WindowStartCondition p_WindowEndCondition?
+        : k=TUMBLING {ak($k);} k=WINDOW {ak($k);} DOLLAR p_VarName p_TypeDeclaration? k=IN {ak($k);} p_ExprSingle[true] p_WindowStartCondition p_WindowEndCondition?
         ;
 
 //[52]
 p_SlidingWindowClause
-        : k=SLIDING {ak($k);} k=WINDOW {ak($k);} DOLLAR p_VarName p_TypeDeclaration? k=IN {ak($k);} p_ExprSingle p_WindowStartCondition p_WindowEndCondition?
+        : k=SLIDING {ak($k);} k=WINDOW {ak($k);} DOLLAR p_VarName p_TypeDeclaration? k=IN {ak($k);} p_ExprSingle[true] p_WindowStartCondition p_WindowEndCondition?
         ;
 
 //[53]
 p_WindowStartCondition
-        : k=START {ak($k);} p_WindowVars k=WHEN {ak($k);} p_ExprSingle
+        : k=START {ak($k);} p_WindowVars k=WHEN {ak($k);} p_ExprSingle[true]
         ;
 
 //[54]
 p_WindowEndCondition
-        : (k=ONLY {ak($k);})? k=END {ak($k);} p_WindowVars k=WHEN {ak($k);} p_ExprSingle
+        : (k=ONLY {ak($k);})? k=END {ak($k);} p_WindowVars k=WHEN {ak($k);} p_ExprSingle[true]
         ;
 
 //[55]
@@ -501,7 +508,7 @@ p_CountClause
         
 //[60]
 p_WhereClause
-        : k=WHERE {ak($k);} p_ExprSingle
+        : k=WHERE {ak($k);} p_ExprSingle[true]
         ;
 
 //[61]
@@ -531,7 +538,7 @@ p_OrderSpecList
 
 //[66]
 p_OrderSpec
-        : p_ExprSingle p_OrderModifier
+        : p_ExprSingle[true] p_OrderModifier
         ;
 
 //[67]
@@ -540,38 +547,38 @@ p_OrderModifier
         ;
 
 //[68]
-p_ReturnHybrid
-        : k=RETURN {ak($k);} p_Hybrid
+p_ReturnHybrid[boolean strict]
+        : k=RETURN {ak($k);} p_Hybrid[$strict,false]
         ;
 
 //[69]
 p_QuantifiedExpr
-        : (k=SOME | k=EVERY) {ak($k);} DOLLAR p_VarName p_TypeDeclaration? k=IN {ak($k);} p_ExprSingle (COMMA DOLLAR p_QName p_TypeDeclaration? k=IN {ak($k);} p_ExprSingle)* k=SATISFIES {ak($k);} p_ExprSingle
+        : (k=SOME | k=EVERY) {ak($k);} DOLLAR p_VarName p_TypeDeclaration? k=IN {ak($k);} p_ExprSingle[true] (COMMA DOLLAR p_QName p_TypeDeclaration? k=IN {ak($k);} p_ExprSingle[true])* k=SATISFIES {ak($k);} p_ExprSingle[true]
         ;
 
 //[70]
-p_SwitchHybrid
-        : k=SWITCH {ak($k);} LPAREN p_Expr RPAREN p_SwitchCaseHybrid+ k=DEFAULT {ak($k);} k=RETURN {ak($k);} p_Hybrid
+p_SwitchHybrid[boolean strict]
+        : k=SWITCH {ak($k);} LPAREN p_Expr[true,true] RPAREN p_SwitchCaseHybrid[$strict]+ k=DEFAULT {ak($k);} k=RETURN {ak($k);} p_Hybrid[$strict,false]
         ;
 
 //[71]
-p_SwitchCaseHybrid
-        : (k=CASE {ak($k);} p_SwitchCaseOperand)+ k=RETURN {ak($k);} p_Hybrid
+p_SwitchCaseHybrid[boolean strict]
+        : (k=CASE {ak($k);} p_SwitchCaseOperand)+ k=RETURN {ak($k);} p_Hybrid[$strict,false]
         ;
 
 //[72]
 p_SwitchCaseOperand
-        : p_ExprSingle
+        : p_ExprSingle[true]
         ;
 
 //[73]
-p_TypeswitchHybrid
-        : k=TYPESWITCH {ak($k);} LPAREN p_Expr RPAREN p_CaseHybrid+ k=DEFAULT {ak($k);} (DOLLAR p_VarName)? k=RETURN {ak($k);} p_Hybrid
+p_TypeswitchHybrid[boolean strict]
+        : k=TYPESWITCH {ak($k);} LPAREN p_Expr[true,true] RPAREN p_CaseHybrid[$strict]+ k=DEFAULT {ak($k);} (DOLLAR p_VarName)? k=RETURN {ak($k);} p_Hybrid[$strict,false]
         ;
 
 //[74]
-p_CaseHybrid
-        : k=CASE {ak($k);} (DOLLAR p_VarName k=AS {ak($k);})? p_SequenceTypeUnion k=RETURN {ak($k);} p_ExprSingle
+p_CaseHybrid[boolean strict]
+        : k=CASE {ak($k);} (DOLLAR p_VarName k=AS {ak($k);})? p_SequenceTypeUnion k=RETURN {ak($k);} p_ExprSingle[false]
         ;
 
 //[75]
@@ -580,8 +587,8 @@ p_SequenceTypeUnion
         ;
 
 //[76]
-p_IfHybrid
-        : k=IF {ak($k);} LPAREN p_Expr RPAREN k=THEN {ak($k);} p_Hybrid k=ELSE {ak($k);} p_Hybrid
+p_IfHybrid[boolean strict]
+        : k=IF {ak($k);} LPAREN p_Expr[true,true] RPAREN k=THEN {ak($k);} p_Hybrid[$strict,false] k=ELSE {ak($k);} p_Hybrid[$strict,false]
         ;
 
 //[77]
@@ -596,12 +603,12 @@ p_TryClause
 
 //[79]
 p_TryTargetExpr
-        : p_Expr
+        : p_Expr[false,false]
         ;
 
 //[80]
 p_CatchClause
-        : k=CATCH {ak($k);} p_CatchErrorList LBRACKET p_Expr RBRACKET
+        : k=CATCH {ak($k);} p_CatchErrorList LBRACKET p_Expr[false,false] RBRACKET
         ;
 
 //[81]
@@ -701,7 +708,7 @@ p_NodeComp
 
 //[99]
 p_ValidateExpr
-        : k=VALIDATE {ak($k);} ( p_ValidationMode | k=TYPE {ak($k);} p_TypeName )? LBRACKET p_Expr RBRACKET
+        : k=VALIDATE {ak($k);} ( p_ValidationMode | k=TYPE {ak($k);} p_TypeName )? LBRACKET p_Expr[true,true] RBRACKET
         ;
 
 //[100]
@@ -711,7 +718,7 @@ p_ValidationMode
 
 //[101]
 p_ExtensionExpr
-        : L_Pragma+ LBRACKET p_Expr? RBRACKET
+        : L_Pragma+ LBRACKET p_Expr[true,true]? RBRACKET
         ;
 
 //[102] /* ws: explicit */
@@ -803,7 +810,9 @@ p_NodeTest
 
 //[115]
 p_NameTest
-        : p_QName | p_Wildcard
+        : (p_Wildcard) => p_Wildcard 
+        | (p_NCName COLON) => p_QName
+        | (p_NCName) => p_QName
         ;
 
 //[116] /* ws: explicit */
@@ -834,7 +843,7 @@ p_PredicateList
 
 //[120]
 p_Predicate
-        : LSQUARE p_Expr RSQUARE
+        : LSQUARE p_Expr[true,true] RSQUARE
         ;
 
 //[121]
@@ -875,7 +884,7 @@ p_VarName
 
 //[126]
 p_ParenthesizedExpr
-        : LPAREN p_Expr? RPAREN
+        : LPAREN p_Expr[true,true]? RPAREN
         ;
 
 //[127]
@@ -885,12 +894,12 @@ p_ContextItemExpr
 
 //[128]
 p_OrderedExpr
-        : k=ORDERED {ak($k);} LBRACKET p_Expr RBRACKET
+        : k=ORDERED {ak($k);} LBRACKET p_Expr[true,true] RBRACKET
         ;
 
 //[129]
 p_UnorderedExpr
-        : k=UNORDERED {ak($k);} LBRACKET p_Expr RBRACKET
+        : k=UNORDERED {ak($k);} LBRACKET p_Expr[true,true] RBRACKET
         ;
 
 //[130] /* xgs: reserved-function-names */ - resolved through pg_FQName production
@@ -901,7 +910,7 @@ p_FunctionCall
 
 //[131]
 p_Argument
-        : p_ExprSingle | p_ArgumentPlaceholder
+        : p_ExprSingle[true] | p_ArgumentPlaceholder
         ;
 
 //[132]
@@ -1029,7 +1038,7 @@ pm_CompDocConstructor
         
 //[150]
 pm_CompElemConstructor
-        : k=ELEMENT {ak($k);} (p_QName | (LBRACKET p_Expr RBRACKET)) LBRACKET pm_ContentExpr RBRACKET
+        : k=ELEMENT {ak($k);} (p_QName | (LBRACKET p_Expr[true,true] RBRACKET)) LBRACKET pm_ContentExpr RBRACKET
         ;
 
 //[151]
@@ -1041,7 +1050,7 @@ pm_ContentExpr
 //[152]
 //[27] new XQuery Scripting proposal
 pm_CompAttrConstructor
-        : k=ATTRIBUTE {ak($k);} (p_QName | (LBRACKET p_Expr RBRACKET)) LBRACKET p_StatementsAndOptionalExpr RBRACKET
+        : k=ATTRIBUTE {ak($k);} (p_QName | (LBRACKET p_Expr[true,true] RBRACKET)) LBRACKET p_StatementsAndOptionalExpr RBRACKET
         ;
 
 //[153]
@@ -1056,22 +1065,22 @@ p_Prefix
 
 //[155]
 p_PrefixExpr
-        : p_Expr
+        : p_Expr[true,true]
         ;
 
 //[156]
 p_URIExpr
-        : p_Expr
+        : p_Expr[true,true]
         ;
 
 //[157]
 p_CompTextConstructor
-        : k=TEXT {ak($k);} LBRACKET p_Expr RBRACKET
+        : k=TEXT {ak($k);} LBRACKET p_Expr[true,true] RBRACKET
         ;
 
 // MarkLogic Server Extension
 p_CompBinaryConstructor
-        : k=BINARY {ak($k);} LBRACKET p_Expr RBRACKET
+        : k=BINARY {ak($k);} LBRACKET p_Expr[true,true] RBRACKET
         ;
 
 //[158]
@@ -1083,7 +1092,7 @@ pm_CompCommentConstructor
 //[159]
 //[28] new XQuery Scripting proposal
 pm_CompPIConstructor
-        : k=PROCESSING_INSTRUCTION {ak($k);} (p_NCName | (LBRACKET p_Expr RBRACKET)) LBRACKET p_StatementsAndOptionalExpr RBRACKET
+        : k=PROCESSING_INSTRUCTION {ak($k);} (p_NCName | (LBRACKET p_Expr[true,true] RBRACKET)) LBRACKET p_StatementsAndOptionalExpr RBRACKET
         ;
 
 //[160]
@@ -1294,26 +1303,24 @@ p_ParenthesizedItemType
 
 //[197] /* ws: explicit */
 p_StringLiteral
-        : QUOT {pushStringLexer(false);} p_QuotStringLiteralContent QUOT { popLexer(); }
-                -> ^(StringLiteral p_QuotStringLiteralContent*)
-        |   APOS {pushStringLexer(true);} p_AposStringLiteralContent APOS { popLexer(); }
-                -> ^(StringLiteral p_AposStringLiteralContent*)
+        : QUOT { pushStringLexer(false);} pg_QuotStringLiteralContent QUOT { popLexer(); }
+                -> ^(StringLiteral pg_QuotStringLiteralContent*)
+        | APOS {pushStringLexer(true);} pg_AposStringLiteralContent APOS { popLexer(); }
+                -> ^(StringLiteral pg_AposStringLiteralContent*)
         ;
 
 // *************************************************
 // This is not in the EBNF grammar.
-// A special node is needed to keep track of the prolog
-// declarations for which the order is important.
-p_QuotStringLiteralContent
+// A special node is needed to keep track of different fragments in this string
+pg_QuotStringLiteralContent
         : (ESCAPE_QUOT | L_CharRef | L_PredefinedEntityRef | ~(QUOT | AMP))*
         ;
 // *************************************************
 
 // *************************************************
 // This is not in the EBNF grammar.
-// A special node is needed to keep track of the prolog
-// declarations for which the order is important.
-p_AposStringLiteralContent
+// A special node is needed to keep track of different fragments in this string
+pg_AposStringLiteralContent
         : (ESCAPE_APOS | L_CharRef | L_PredefinedEntityRef | ~(APOS | AMP))*
         ;
 // *************************************************
@@ -1356,6 +1363,8 @@ p_AposAttrContentChar
 //[206]
 //L_CharRef
 
+
+
 //[207] /* xgc: xml-version */
 p_QName 
         @init {setWsExplicit(true);}
@@ -1374,6 +1383,32 @@ pg_QName
         : nn=p_NCName COLON nl=p_NCName
 //                -> ^(QName $nn $nl)
         ;
+
+
+////[207] /* ws: explicit */ - resolved through the additional productions
+//p_QName @init {setWsExplicit(true);}
+//        : p_NCName pg_LocalNCName
+//                -> ^(QName p_NCName pg_LocalNCName?)
+//        ;
+//// rule needed in order to catch the missing
+//// COLON and restore to non-explicit mode
+//pg_LocalNCName
+//        : (COLON p_NCName)?
+//        ;
+//        finally {setWsExplicit(false);}
+//// additional production used to resolve the function name exceptions
+//pg_FQName @init {setWsExplicit(true);}
+//        : p_FNCName pg_LocalFNCName
+//        ;
+//// rule needed in order to catch the missing
+//// COLON and restore to non-explicit mode
+//pg_LocalFNCName
+//        : (COLON p_NCName)?
+//        ;
+//        finally {setWsExplicit(false);}
+
+
+
 
 //[208] /* xgc: xml-version */
 p_NCName
@@ -1465,7 +1500,7 @@ p_DeleteExpr
 
 //[145]
 p_ReplaceExpr
-        : k+=REPLACE (k+=VALUE k+=OF)? k+=NODE p_ExprSingle k+=WITH p_ExprSingle {ak($k);}
+        : k+=REPLACE (k+=VALUE k+=OF)? k+=NODE p_ExprSingle[true] k+=WITH p_ExprSingle[true] {ak($k);}
         ;
 
 //[146]
@@ -1475,22 +1510,22 @@ p_RenameExpr
 
 //[147]
 p_SourceExpr
-        : p_ExprSingle
+        : p_ExprSingle[true]
         ;
 
 //[148]
 p_TargetExpr
-        : p_ExprSingle
+        : p_ExprSingle[true]
         ;
 
 //[149]
 p_NewNameExpr
-        : p_ExprSingle
+        : p_ExprSingle[true]
         ;
 
 //[150]
 p_TransformExpr
-        : k+=COPY DOLLAR p_VarName BIND p_ExprSingle (COMMA DOLLAR p_VarName BIND p_ExprSingle)* k+=MODIFY p_ExprSingle k+=RETURN p_ExprSingle {ak($k);} 
+        : k+=COPY DOLLAR p_VarName BIND p_ExprSingle[true] (COMMA DOLLAR p_VarName BIND p_ExprSingle[true])* k+=MODIFY p_ExprSingle[true] k+=RETURN p_ExprSingle[true] {ak($k);} 
         ;
 
 
@@ -1521,7 +1556,7 @@ p_FTSelection
 
 //[145] Full Text 1.0
 p_FTWeight
-        : kw=WEIGHT {ak($kw);} LBRACKET p_Expr RBRACKET
+        : kw=WEIGHT {ak($kw);} LBRACKET p_Expr[true,true] RBRACKET
         ;
 
 //[146] Full Text 1.0
@@ -1556,8 +1591,7 @@ p_FTPrimaryWithOptions
 p_FTPrimary
         : (p_FTWords p_FTTimes?)
         | (LPAREN p_FTSelection RPAREN)
-// disabled: see below 
-//        | p_FTExtensionSelection
+        | p_FTExtensionSelection
         ;
 
 //[152] Full Text 1.0
@@ -1568,18 +1602,13 @@ p_FTWords
 //[153] Full Text 1.0
 p_FTWordsValue
         : p_StringLiteral
-        | (LBRACKET p_Expr RBRACKET)
+        | (LBRACKET p_Expr[true,true] RBRACKET)
         ;
 
-// disabled because of an error:
-//   [java] error(211): XQueryParser.g:1248:30: [fatal] rule p_FTExtensionSelection has non-LL(*) decision due to recursive rule invocations reachable from alts 1,2.  Resolve by left-factoring or using syntactic predicates or using backtrack=true option.
-//   [java] warning(200): XQueryParser.g:1248:30: Decision can match input such as "LBRACKET FOR {AND, CAST..CASTABLE, DIV, EQ, EXCEPT, GE, GT..IDIV, INSTANCE..IS, LE, LT..MOD, NE, OR, TO..TREAT, UNION, CONTAINS, LPAREN, RBRACKET..LSQUARE, EQUAL, NOTEQUAL, COMMA, STAR..SLASH_SLASH, COLON, SEMICOLON..VBAR}" using multiple alternatives: 1, 2
-//   [java] As a result, alternative(s) 2 were disabled for that input
-// line 1248 is: L_Pragma+ LBRACKET p_FTSelection? LBRACKET
 //[154] Full Text 1.0
-//p_FTExtensionSelection
-//        : L_Pragma+ LBRACKET p_FTSelection? LBRACKET
-//        ;
+p_FTExtensionSelection
+        : L_Pragma+ LBRACKET p_FTSelection? RBRACKET
+        ;
 
 //[155] Full Text 1.0
 p_FTAnyallOption
@@ -1745,22 +1774,22 @@ p_Program
         ;
 
 //[2]
-p_Statements
-        : p_Hybrid*
+p_Statements[boolean strict]
+        : p_Hybrid[$strict,true]*
         ;
 
 //[3]
 p_StatementsAndExpr
-        : p_Statements
+        : p_Statements[false]
         ;
 
 //[4]
 p_StatementsAndOptionalExpr
-        : p_Statements
+        : p_Statements[false]
         ;
 
-p_Hybrid
-        : p_HybridExprSingle
+p_Hybrid[boolean strict, boolean allowConcat]
+        : p_HybridExprSingle[$strict,$allowConcat]
         | p_Statement
         ;
 catch [RecognitionException re] {
@@ -1780,9 +1809,8 @@ p_Statement
         | p_VarDeclStatement
         | p_WhileStatement
         ;
-
-p_HybridExprSingle
-        : e=p_Expr { if (mustParseExpr() || input.LT(1).getType() != SEMICOLON) throw new RecognitionException(); }        
+p_HybridExprSingle[boolean strict, boolean allowConcat]
+        : e=p_Expr[$strict,$allowConcat] { if ($strict || input.LT(1).getType() != SEMICOLON) throw new RecognitionException(); }
           SEMICOLON
         ;
 catch [RecognitionException re] {
@@ -1818,12 +1846,16 @@ p_ApplyStatement
 
 //[7]
 p_AssignStatement
-        : DOLLAR p_VarName BIND p_ExprSingle SEMICOLON
+        : DOLLAR p_VarName BIND p_ExprSingle[true] SEMICOLON
         ;
 
 //[8]
 p_BlockStatement
-        : LBRACKET p_Statements RBRACKET
+        : LBRACKET p_Statements[false] RBRACKET
+        ;
+
+p_BlockHybrid[boolean strict]
+        : LBRACKET p_Statements[$strict] RBRACKET
         ;
 
 //[9]
@@ -1838,7 +1870,7 @@ p_ContinueStatement
 
 //[11]
 p_ExitStatement
-        : k=EXIT {ak($k);} k=RETURNING {ak($k);} p_ExprSingle SEMICOLON
+        : k=EXIT {ak($k);} k=RETURNING {ak($k);} p_ExprSingle[true] SEMICOLON
         ;
 
 //[12]
@@ -1848,22 +1880,22 @@ p_FLWORStatement
 
 //[13]
 p_ReturnStatement
-        : k=RETURN {ak($k);} p_Hybrid
+        : k=RETURN {ak($k);} p_Hybrid[false,false]
         ;
 
 //[14]
 p_IfStatement
-        : k=IF {ak($k);} LPAREN p_Expr RPAREN k=THEN {ak($k);} p_Hybrid k=ELSE {ak($k);} p_Hybrid
+        : k=IF {ak($k);} LPAREN p_Expr[true,true] RPAREN k=THEN {ak($k);} p_Hybrid[false,false] k=ELSE {ak($k);} p_Hybrid[false,false]
         ;
 
 //[15]
 p_SwitchStatement
-        : k=SWITCH {ak($k);} LPAREN p_Expr RPAREN p_SwitchCaseStatement+ k=DEFAULT {ak($k);} k=RETURN {ak($k);} p_Hybrid
+        : k=SWITCH {ak($k);} LPAREN p_Expr[true,true] RPAREN p_SwitchCaseStatement+ k=DEFAULT {ak($k);} k=RETURN {ak($k);} p_Hybrid[false,false]
         ;
 
 //[16]
 p_SwitchCaseStatement
-        : (k=CASE {ak($k);} p_SwitchCaseOperand)+ k=RETURN {ak($k);} p_Hybrid
+        : (k=CASE {ak($k);} p_SwitchCaseOperand)+ k=RETURN {ak($k);} p_Hybrid[false,false]
         ;
 
 //[17]
@@ -1871,26 +1903,30 @@ p_TryCatchStatement
         : k=TRY {ak($k);} p_BlockStatement (k=CATCH {ak($k);} p_CatchErrorList p_BlockStatement)+ {ak($k);}
         ;
 
+p_TryCatchHybrid[boolean strict]
+        : k=TRY {ak($k);} p_BlockHybrid[$strict] (k=CATCH {ak($k);} p_CatchErrorList p_BlockHybrid[$strict])+ {ak($k);}
+        ;
+
 //[18]
 p_TypeswitchStatement
-        : k=TYPESWITCH {ak($k);} LPAREN p_Expr RPAREN p_CaseStatement+ k=DEFAULT {ak($k);} (DOLLAR p_VarName)? k=RETURN {ak($k);} p_Hybrid
+        : k=TYPESWITCH {ak($k);} LPAREN p_Expr[true,true] RPAREN p_CaseStatement+ k=DEFAULT {ak($k);} (DOLLAR p_VarName)? k=RETURN {ak($k);} p_Hybrid[false,false]
         ;
 
 //[19]
 p_CaseStatement
-        : k=CASE {ak($k);} (DOLLAR p_VarName AS)? p_SequenceType k=RETURN {ak($k);} p_Hybrid
+        : k=CASE {ak($k);} (DOLLAR p_VarName AS)? p_SequenceType k=RETURN {ak($k);} p_Hybrid[false,false]
         ;
 
 //[20]
 p_VarDeclStatement
-        : p_Annotation* k=VARIABLE {ak($k);} DOLLAR p_VarName p_TypeDeclaration? (BIND {parseExpr(true);} p_ExprSingle {parseExpr(false);})?
-          (COMMA DOLLAR P_VarName p_TypeDeclaration? (BIND {parseExpr(true);} p_ExprSingle {parseExpr(true);})?)*
+        : p_Annotation* k=VARIABLE {ak($k);} DOLLAR p_VarName p_TypeDeclaration? (BIND p_ExprSingle[true])?
+          (COMMA DOLLAR p_VarName p_TypeDeclaration? (BIND p_ExprSingle[true])?)*
           SEMICOLON
         ;
 
 //[21]
 p_WhileStatement
-        : k=WHILE {ak($k);} LPAREN p_Expr RPAREN p_Hybrid
+        : k=WHILE {ak($k);} LPAREN p_Expr[true,true] RPAREN p_Hybrid[false,false]
         ;
 
 //[23]
@@ -1904,19 +1940,6 @@ p_ExprSimple
 p_BlockExpr
         : LBRACKET p_StatementsAndExpr RBRACKET
         ;
-
-// **************************************
-// Zorba XQuery Extensions
-// http://www.zorba-xquery.com/doc/zorba-latest/zorba/html/eval.html
-// **************************************
-p_EvalExpr
-        : p_UsingClause? k=EVAL {ak($k);} LBRACKET p_ExprSingle RBRACKET
-        ;
-
-p_UsingClause
-        : k=USING {ak($k);} DOLLAR p_VarName (COMMA DOLLAR p_VarName)*
-        ;
-// *************************************************
 
 // *************************************************
 // XQDDL
@@ -1943,11 +1966,23 @@ p_IndexDomainExpr
         ;
 
 p_IndexKeySpec
-        : p_IndexKeyExpr p_TypeDeclaration p_OrderModifier
+        : p_IndexKeyExpr p_IndexKeyTypeDecl? p_IndexKeyCollation?
         ;
 
 p_IndexKeyExpr
         : p_PathExpr
+        ;
+
+p_IndexKeyTypeDecl
+        : k=AS {ak($k);} p_AtomicType p_OccurrenceIndicator?
+        ;
+
+p_AtomicType
+        : p_QName
+        ;
+
+p_IndexKeyCollation
+        : k=COLLATION {ak($k);} p_StringLiteral
         ;
 
 p_ICDecl
@@ -1959,7 +1994,7 @@ p_ICCollection
         ;
 
 p_ICCollSequence
-        : DOLLAR p_QName k=CHECK {ak($k);} p_ExprSingle
+        : DOLLAR p_QName k=CHECK {ak($k);} p_ExprSingle[true]
         ;
 
 p_ICCollSequenceUnique
@@ -1967,7 +2002,7 @@ p_ICCollSequenceUnique
         ;
 
 p_ICCollNode
-        : k=FOREACH {ak($k);} k=NODE {ak($k);} DOLLAR p_QName k=CHECK {ak($k);} p_ExprSingle
+        : k=FOREACH {ak($k);} k=NODE {ak($k);} DOLLAR p_QName k=CHECK {ak($k);} p_ExprSingle[true]
         ;
 
 p_ICForeignKey

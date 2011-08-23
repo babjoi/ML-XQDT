@@ -32,9 +32,11 @@ CDATA_END;
  *     Gabriel Petrovay (28msec) - initial API and implementation
  *******************************************************************************/
 package org.eclipse.wst.xquery.internal.core.parser.antlr;
-}
+
+} // @header
 
 @lexer::members {
+
 // dummy list for warning elimination
 List<Stack<Object>> dummy = new ArrayList<Stack<Object>>();
 
@@ -71,8 +73,9 @@ private boolean log() {
 	System.out.println("inElem:\t" + inElem);
 	System.out.println("---------------------");
 	return false;
-};
 }
+
+} // @lexer::members
 
 QUOT	:	{ inElem || inQuotAttr }? => '"' { if (!inAposAttr) inQuotAttr = (!inQuotAttr); };
 APOS	:	{ inElem || inAposAttr }? => '\'' { if (!inQuotAttr) inAposAttr = !inAposAttr; };

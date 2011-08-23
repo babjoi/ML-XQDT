@@ -58,7 +58,7 @@ public class ZorbaRbktTestSuite implements IXQDTLanguageConstants {
         File spFile = null;
         if (fSpecFile != null) {
             spFile = new File(fSpecFile);
-            assertTrue("The input query file was not found: " + fXqFile, spFile.exists());
+            assertTrue("The spec file was not found: " + fSpecFile, spFile.exists());
             String spec = readFile(spFile);
             if (spec.contains("Error:") && fSpecFile.contains("syntax-error")) {
                 valid = false;
@@ -80,27 +80,17 @@ public class ZorbaRbktTestSuite implements IXQDTLanguageConstants {
     // *****************************************************
 
     protected boolean isIgnored(String file) {
-//        // TODO: Tracked by: https://bugs.launchpad.net/sausalito/+bug/697024
-//        if (file.endsWith("syntax-error-01.xq")) {
-//            return false;
-//        }
-//        // TODO: Tracked by: https://bugs.launchpad.net/sausalito/+bug/697021
-//        if (file.contains("annotations") || file.endsWith("introsp-fn-annot-1.xq")) {
-//            return false;
-//        }
-//        // TODO: Tracked by: https://bugs.launchpad.net/sausalito/+bug/696713
-//        if (file.contains("fulltext")) {
-//            return false;
-//        }
-//        // TODO: Tracked by: https://bugs.launchpad.net/sausalito/+bug/696717
-//        if (file.contains("allowing-empty") || file.endsWith("gflwor04.xq") || file.endsWith("gflwor05.xq")) {
-//            return false;
-//        }
-//        // TODO: Tracked by: https://bugs.launchpad.net/sausalito/+bug/696716
-//        if (file.contains("HigherOrder")) {
-//            return false;
-//        }
+        // since we have a relaxed grammar, we cannot simply invert the results of
+        // the syntax error queries because some of them will not fail.
+        if (file.contains("syntax_error") || file.contains("syntax-error")) {
+            return false;
+        }
 
+        // zorba/xqueryx/err2.xqx has a non-valid XQuery syntax.
+        // If it were in a "syntax-error" sub-directory, the rule above would catch it as well.
+        if (file.contains("xqueryx") && file.contains("zorba") && file.contains("err2.xqx")) {
+            return false;
+        }
         return true;
     }
 

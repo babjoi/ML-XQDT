@@ -6,7 +6,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>org.eclipse.wst.xquery</groupId>
 	<artifactId>org.eclipse.wst.xquery.conformance.tests</artifactId>
-	<version>0.8.0-SNAPSHOT</version>
+	<version>1.0.0-SNAPSHOT</version>
 	<packaging>pom</packaging>
 
 	<properties>
@@ -14,7 +14,9 @@
 	</properties>
  
 	<modules>
+		<!--
  		<module>../org.eclipse.wst.xquery.set.conformance.tests</module>
+ 		-->
 		<module>../org.eclipse.wst.xquery.zorba.conformance.tests</module>
 	</modules>
 

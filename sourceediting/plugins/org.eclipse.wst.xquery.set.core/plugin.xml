@@ -48,4 +48,12 @@
             priority="0">
       </completionEngine>
    </extension>
+   <extension
+         point="org.eclipse.dltk.core.problemFactory">
+      <problemFactory
+            class="org.eclipse.wst.xquery.core.problems.XQDTProblemFactory"
+            nature="org.eclipse.wst.xquery.set.core.nature"
+            priority="0">
+      </problemFactory>
+   </extension>
 </plugin>

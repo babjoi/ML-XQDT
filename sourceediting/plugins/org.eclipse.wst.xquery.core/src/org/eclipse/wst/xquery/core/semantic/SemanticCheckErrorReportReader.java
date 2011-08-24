@@ -140,8 +140,8 @@ public class SemanticCheckErrorReportReader {
 
         try {
             document.get();
-            int sourceStart = document.getLineOffset(lineStart - 1) + columnStart;
-            int sourceEnd = document.getLineOffset(lineEnd - 1) + columnEnd + 1;
+            int sourceStart = document.getLineOffset(lineStart - 1) + columnStart - 1;
+            int sourceEnd = document.getLineOffset(lineEnd - 1) + columnEnd - 1;
             if (sourceEnd == sourceStart) {
                 sourceEnd++;
             }

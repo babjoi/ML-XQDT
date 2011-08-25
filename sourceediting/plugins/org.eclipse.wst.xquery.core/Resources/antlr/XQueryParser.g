@@ -1478,7 +1478,7 @@ pg_UpdateExpr
 
 //[141]
 pm_RevalidationDecl
-        : k+=DECLARE k+=REVALIDATION (k+=STRICT | k+=LAX | k+=SKIP) {ak($k);}
+        : k+=DECLARE k+=REVALIDATION (k+=STRICT | k+=LAX | k+=SKIP) {ak($k);} SEMICOLON
         ;
 
 //[142]

@@ -60,7 +60,6 @@ VarDecl;
 VarType;                      // container
 VarValue;
 VarDefaultValue;
-VarConstantDecl;              // container
 VarVariableDecl;              // container
 FunctionDecl;
 ParamList;                    // container
@@ -164,7 +163,7 @@ p_ModuleDecl
 // The SEMICOLON was pushed back in all the Prolog declarations
 // in order to be contained by the declaration trees.
 pm_Prolog
-        : ((dnd+=pm_DefaultNamespaceDecl | s+=p_Setter | nd+=pm_NamespaceDecl | i+=p_Import | fto+=pm_FTOptionDecl))* od=pg_OrderedDecl*
+        : ((dnd+=pm_DefaultNamespaceDecl | s+=p_Setter | nd+=pm_NamespaceDecl | i+=p_Import | fto+=pm_FTOptionDecl))* od+=pg_OrderedDecl*
                 ->  ^(Prolog
                                 ^(DefaultNamespaceDecls $dnd*)
                                 ^(Setters $s*)
@@ -1370,18 +1369,18 @@ p_QName
         @init {setWsExplicit(true);}
         : pg_QName
         | p_NCName
-//                -> ^(QName p_NCName)
+                -> ^(QName p_NCName)
         ;
         finally {setWsExplicit(false);}
 // additional production used to resolve the function name exceptions
 pg_FQName
         : pg_QName
         | p_FNCName
-//                -> ^(QName p_FNCName)
+                -> ^(QName p_FNCName)
 		;
 pg_QName
         : nn=p_NCName COLON nl=p_NCName
-//                -> ^(QName $nn $nl)
+                -> ^(QName $nn $nl)
         ;
 
 

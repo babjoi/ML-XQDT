@@ -107,8 +107,6 @@ public class XQDTCommonTreeVisitor implements NodeVisitor {
                 boolean isConstant;
                 if (xct.getChild(0).getType() == XQueryParser.VarVariableDecl) {
                     isConstant = false;
-                } else if (xct.getChild(0).getType() == XQueryParser.VarConstantDecl) {
-                    isConstant = true;
                 } else {
                     break;
                 }
@@ -236,17 +234,17 @@ public class XQDTCommonTreeVisitor implements NodeVisitor {
         }
     }
 
-    private String readFunctionQNameString(XQDTCommonTree node) {
-        String qname = readQNameString(node);
-        if (qname == null) {
+    private String readFunctionQNameString(XQDTCommonTree qname) {
+        String qnameStr = readQNameString(qname);
+        if (qnameStr == null) {
             return null;
         }
 
-        if (qname.indexOf(':') == -1) {
-            return "local:" + qname;
+        if (qnameStr.indexOf(':') == -1) {
+            return "local:" + qnameStr;
         }
 
-        return qname;
+        return qnameStr;
     }
 
     private String readQNameString(XQDTCommonTree node) {
@@ -257,8 +255,8 @@ public class XQDTCommonTreeVisitor implements NodeVisitor {
         if (node.getChildCount() == 1) {
             return node.getChild(0).getText();
         }
-        if (node.getChildCount() == 3) {
-            return node.getChild(0).getText() + ":" + node.getChild(2).getText();
+        if (node.getChildCount() == 2) {
+            return node.getChild(0).getText() + ":" + node.getChild(1).getText();
         }
 
         return null;

@@ -52,7 +52,6 @@ public class ZorbaTemplateContentType extends ScriptTemplateContextType {
         super.addGlobalResolvers();
 
         addResolver(new ZorbaTemplateVariables.CollectionProperties());
-        addResolver(new ZorbaTemplateVariables.NodeModifier());
         addResolver(new ZorbaTemplateVariables.IndexProperties());
         addResolver(new XQueryTemplateVariables.OrderingModes());
     }

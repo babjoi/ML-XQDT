@@ -19,14 +19,6 @@
 	enabled="true"
 	autoinsert="false">declare ${collection_properties} collection ${ns}:${name};
 </template>
-<template
-	name="collection"
-	description="%Templates.CollectionDeclN"
-	id="zorba.CollectionDeclN"
-	context="org.eclipse.wst.xquery.ui.templates.ZorbaTemplateContentType"
-	enabled="true"
-	autoinsert="false">declare ${collection_properties} collection ${ns}:${name} with ${node_modifier} nodes;
-</template>
 
 <template
 	name="index"
@@ -34,16 +26,32 @@
 	id="zorba.IndexDecl"
 	context="org.eclipse.wst.xquery.ui.templates.ZorbaTemplateContentType"
 	enabled="true"
-	autoinsert="false">declare ${index_properties} index ${ns}:${name} on nodes ${domain_expression} by ${key_expression} as ${atomic_type};
+	autoinsert="false">declare ${index_properties} index ${ns}:${name}
+	on nodes ${domain_expression}
+	by ${key_expression};
 </template>
+
+<!--
 <template
-	name="index"
-	description="%Templates.IndexDeclC"
-	id="zorba.IndexDeclC"
-	context="org.eclipse.wst.xquery.ui.templates.ZorbaTemplateContentType"
+	name="integrity"
+	description="%Templates.ICDecl"
+	id="zorba.ICDeclI"
+	context="org.eclipse.wst.xquery.ui.templates.XQueryScriptingTemplateContentType"
 	enabled="true"
-	autoinsert="false">declare ${index_properties} index ${ns}:${name} on nodes ${domain_expression} by ${key_expression} as ${atomic_type} collation "${URI_literal}";
+	autoinsert="false">declare integrity constraint ${namespace_prefix}:${ic_name}
+...
 </template>
+
+<template
+	name="constraint"
+	description="%Templates.ICDecl"
+	id="zorba.ICDeclC"
+	context="org.eclipse.wst.xquery.ui.templates.XQueryScriptingTemplateContentType"
+	enabled="true"
+	autoinsert="false">declare integrity constraint ${namespace_prefix}:${ic_name}
+...
+}</template>
+-->
 
 <template
 	name="try"

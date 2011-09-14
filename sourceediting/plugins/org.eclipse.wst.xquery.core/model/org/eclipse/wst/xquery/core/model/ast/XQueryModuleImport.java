@@ -49,6 +49,11 @@ public class XQueryModuleImport extends Declaration implements IChildProcessor {
         fHints.add(hint);
     }
 
+    /**
+     * Gets the hints of this import.
+     * 
+     * @return The list of hints used in this import or an empty lists if no hints were used.
+     */
     public List<XQueryStringLiteral> getHints() {
         return fHints;
     }
@@ -70,8 +75,9 @@ public class XQueryModuleImport extends Declaration implements IChildProcessor {
 
     @Override
     public void traverse(ASTVisitor visitor) throws Exception {
-        if (visitor.visit(this))
+        if (visitor.visit(this)) {
             visitor.endvisit(this);
+        }
     }
 
     @Override

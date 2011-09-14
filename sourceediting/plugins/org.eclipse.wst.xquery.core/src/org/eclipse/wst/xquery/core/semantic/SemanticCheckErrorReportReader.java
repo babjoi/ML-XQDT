@@ -12,6 +12,10 @@ package org.eclipse.wst.xquery.core.semantic;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.net.URLDecoder;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,11 +23,15 @@ import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 
+import org.eclipse.core.resources.IResource;
+import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.Status;
+import org.eclipse.dltk.core.DLTKCore;
 import org.eclipse.dltk.core.IBuffer;
+import org.eclipse.dltk.core.IModelElement;
 import org.eclipse.dltk.core.ISourceModule;
 import org.eclipse.dltk.core.ModelException;
 import org.eclipse.jface.text.BadLocationException;
@@ -83,7 +91,8 @@ public class SemanticCheckErrorReportReader {
 
     private SemanticCheckError readError(Element error) {
 
-        String errorCode = "", module = "", description = "";
+        String errorCode = "", description = "";
+        IResource moduleFile = null;
         int lineStart = -1, lineEnd = -1, columnStart = -1, columnEnd = -1;
         IDocument document = null;
 
@@ -98,17 +107,30 @@ public class SemanticCheckErrorReportReader {
 
             if (child.getNodeName().equals("location")) {
                 Element loc = (Element)child;
-                module = loc.getAttribute("module");
+                String module = loc.getAttribute("module");
+                if (module.startsWith("file://")) {
+                    try {
+                        URL url = new URL(module);
+                        module = URLDecoder.decode(url.getFile(), "UTF-8");
+                    } catch (UnsupportedEncodingException uee) {
+                        uee.printStackTrace();
+                    } catch (MalformedURLException mue) {
+                        mue.printStackTrace();
+                    }
+                }
                 IPath fullPath = new Path(module);
                 IPath path = PathUtil.makePathRelativeTo(fullPath, fModule.getScriptProject().getResource()
                         .getLocation());
                 path = fModule.getScriptProject().getProject().getFullPath().append(path);
-                module = path.toString();
-
-                try {
-                    IBuffer buffer = fModule.getBuffer();
-                    document = new org.eclipse.jface.text.Document(buffer.getContents());
-                } catch (ModelException e) {
+                moduleFile = ResourcesPlugin.getWorkspace().getRoot().findMember(path);
+                IModelElement element = DLTKCore.create(moduleFile);
+                if (element instanceof ISourceModule) {
+                    ISourceModule targetModule = (ISourceModule)element;
+                    try {
+                        IBuffer buffer = targetModule.getBuffer();
+                        document = new org.eclipse.jface.text.Document(buffer.getContents());
+                    } catch (ModelException e) {
+                    }
                 }
 
                 if (document == null) {
@@ -139,13 +161,12 @@ public class SemanticCheckErrorReportReader {
         } while ((child = child.getNextSibling()) != null);
 
         try {
-            document.get();
             int sourceStart = document.getLineOffset(lineStart - 1) + columnStart - 1;
             int sourceEnd = document.getLineOffset(lineEnd - 1) + columnEnd - 1;
             if (sourceEnd == sourceStart) {
                 sourceEnd++;
             }
-            return new SemanticCheckError(module, errorCode, description, lineStart - 1, sourceStart, sourceEnd);
+            return new SemanticCheckError(moduleFile, errorCode, description, lineStart - 1, sourceStart, sourceEnd);
         } catch (BadLocationException ble) {
             return null;
         }

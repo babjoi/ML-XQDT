@@ -108,8 +108,7 @@ public class CoreSDKErrorReportReader extends SemanticCheckErrorReportReader {
                         int end = nsStringLiteral.sourceEnd();
                         ISourceLineTracker lineTracker = TextUtils.createLineTracker(fModule.getSource());
                         int line = lineTracker.getLineNumberOfOffset(start);
-                        return new SemanticCheckError(oldError.getOriginatingFileName(), problemID, errorMessage, line,
-                                start, end);
+                        return new SemanticCheckError(oldError.getResource(), problemID, errorMessage, line, start, end);
                     }
                 }
             }

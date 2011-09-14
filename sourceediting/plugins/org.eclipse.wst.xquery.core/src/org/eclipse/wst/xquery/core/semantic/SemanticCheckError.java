@@ -10,6 +10,7 @@
  *******************************************************************************/
 package org.eclipse.wst.xquery.core.semantic;
 
+import org.eclipse.core.resources.IResource;
 import org.eclipse.dltk.compiler.problem.CategorizedProblem;
 import org.eclipse.dltk.compiler.problem.DefaultProblem;
 import org.eclipse.dltk.compiler.problem.IProblemIdentifier;
@@ -22,20 +23,20 @@ public class SemanticCheckError extends CategorizedProblem {
 
     private String fErrorCode;
     private String fDescription;
-    private String fFileName;
+    private IResource fResource;
 
-    public SemanticCheckError(String fileName, String errorCode, String description, int line) {
-        this(fileName, errorCode, description, line, -1, -1);
+    public SemanticCheckError(IResource resource, String errorCode, String description, int line) {
+        this(resource, errorCode, description, line, -1, -1);
     }
 
-    public SemanticCheckError(String fileName, String errorCode, String description, int line, int start) {
-        this(fileName, errorCode, description, line, start, start);
+    public SemanticCheckError(IResource resource, String errorCode, String description, int line, int start) {
+        this(resource, errorCode, description, line, start, start);
     }
 
-    public SemanticCheckError(String fileName, String errorCode, String description, int line, int start, int end) {
+    public SemanticCheckError(IResource resource, String errorCode, String description, int line, int start, int end) {
         fErrorCode = errorCode;
         fDescription = description;
-        fFileName = fileName;
+        fResource = resource;
         fLineNumber = line;
         fSourceStart = start;
         fSourceEnd = end;
@@ -57,8 +58,12 @@ public class SemanticCheckError extends CategorizedProblem {
         return "[" + fErrorCode + "]: " + fDescription;
     }
 
+    public IResource getResource() {
+        return fResource;
+    }
+
     public String getOriginatingFileName() {
-        return fFileName;
+        return fResource.getFullPath().toString();
     }
 
     public int getSourceEnd() {

@@ -13,7 +13,6 @@ package org.eclipse.wst.xquery.internal.launching;
 import java.util.List;
 
 import org.eclipse.core.resources.IMarker;
-import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.dltk.compiler.problem.DefaultProblem;
 import org.eclipse.dltk.core.DLTKCore;
@@ -59,12 +58,10 @@ public class XQDTSemanticBuilder implements IBuildParticipant {
                     if (error == null) {
                         continue;
                     }
-                    String fileName = error.getOriginatingFileName();
-                    if (source.getPath().toString().equals(fileName)) {
+                    if (source.getResource().equals(error.getResource())) {
                         context.getProblemReporter().reportProblem(error);
                     } else {
-                        IModelElement element = DLTKCore.create(ResourcesPlugin.getWorkspace().getRoot()
-                                .findMember(fileName));
+                        IModelElement element = DLTKCore.create(error.getResource());
                         if (element instanceof ISourceModule) {
                             ISourceModule module = (ISourceModule)element;
                             createMarker(module, error);

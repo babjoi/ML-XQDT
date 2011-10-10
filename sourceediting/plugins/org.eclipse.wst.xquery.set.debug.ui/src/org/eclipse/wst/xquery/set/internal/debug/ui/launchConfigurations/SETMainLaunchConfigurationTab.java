@@ -10,21 +10,14 @@
  *******************************************************************************/
 package org.eclipse.wst.xquery.set.internal.debug.ui.launchConfigurations;
 
-import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
-import org.eclipse.core.runtime.IPath;
-import org.eclipse.core.runtime.Path;
 import org.eclipse.debug.core.DebugPlugin;
 import org.eclipse.debug.core.ILaunchConfiguration;
 import org.eclipse.debug.core.ILaunchConfigurationWorkingCopy;
-import org.eclipse.dltk.ast.declarations.ModuleDeclaration;
-import org.eclipse.dltk.core.DLTKCore;
 import org.eclipse.dltk.core.IModelElement;
 import org.eclipse.dltk.core.IScriptProject;
-import org.eclipse.dltk.core.ISourceModule;
-import org.eclipse.dltk.core.SourceParserUtil;
 import org.eclipse.dltk.debug.ui.launchConfigurations.MainLaunchConfigurationTab;
 import org.eclipse.dltk.internal.launching.DLTKLaunchingPlugin;
 import org.eclipse.dltk.internal.launching.LaunchConfigurationUtils;
@@ -44,8 +37,6 @@ import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Group;
 import org.eclipse.swt.widgets.Text;
-import org.eclipse.wst.xquery.core.model.ast.XQueryFunctionDecl;
-import org.eclipse.wst.xquery.core.model.ast.XQueryLibraryModule;
 import org.eclipse.wst.xquery.set.core.ISETCoreConstants;
 import org.eclipse.wst.xquery.set.core.SETNature;
 import org.eclipse.wst.xquery.set.core.SETProjectConfig;
@@ -96,50 +87,6 @@ public class SETMainLaunchConfigurationTab extends MainLaunchConfigurationTab {
 
     @Override
     protected boolean validateScript() {
-        String startPage = getScriptName();
-        IProject project = getProject().getProject();
-        if (project.getFile(ISETCoreConstants.PROJECT_DIRECTORY_PUBLIC + "/" + startPage).exists()) {
-            setErrorMessage(null);
-            return true;
-        }
-
-        Path path = new Path(startPage);
-        if (path.segmentCount() != 2) {
-            setErrorMessage("Invalid start page. Use either a resource in the \""
-                    + ISETCoreConstants.PROJECT_DIRECTORY_PUBLIC
-                    + "\" directory or the format: /handler_module/function");
-            return false;
-        }
-
-        IFolder folder = project.getFolder(ISETCoreConstants.PROJECT_DIRECTORY_HANDLER);
-        if (!folder.isAccessible()) {
-            setErrorMessage("The \"" + ISETCoreConstants.PROJECT_DIRECTORY_HANDLER + "\" directory is not accessible");
-            return false;
-        }
-        String handlerName = path.segment(0);
-        IPath fileName = new Path(handlerName).addFileExtension(ISETCoreConstants.XQUERY_FILE_EXTENSION);
-        ISourceModule module = DLTKCore.createSourceModuleFrom(folder.getFile(fileName));
-        if (module == null || !module.exists()) {
-            setErrorMessage("Could not find the '" + handlerName + ".xq' module in the \""
-                    + ISETCoreConstants.PROJECT_DIRECTORY_HANDLER + "\" directory folder");
-            return false;
-        }
-
-        ModuleDeclaration modDecl = SourceParserUtil.getModuleDeclaration(module);
-        if (!(modDecl instanceof XQueryLibraryModule)) {
-            setErrorMessage("The start page must point to a valid XQuery library module");
-            return false;
-        }
-        String functionName = path.segment(1);
-        XQueryLibraryModule libMod = (XQueryLibraryModule)modDecl;
-        String prefix = libMod.getNamespacePrefix();
-        XQueryFunctionDecl method = libMod.getFunction(prefix + ":" + functionName + 0);
-        if (method == null) {
-            setErrorMessage("No function '" + functionName + "' with 0 arguments is defined in the '" + handlerName
-                    + ".xq' handler module");
-            return false;
-        }
-
         setErrorMessage(null);
         return true;
     }

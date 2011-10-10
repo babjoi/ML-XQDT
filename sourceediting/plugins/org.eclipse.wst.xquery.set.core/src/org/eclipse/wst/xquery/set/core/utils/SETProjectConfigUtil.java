@@ -79,8 +79,8 @@ public class SETProjectConfigUtil {
 
             } while ((child = child.getNextSibling()) != null);
 
-            if (startPage != null && startPage.trim().length() == 0) {
-                startPage = null;
+            if (startPage == null || startPage.trim().length() == 0) {
+                startPage = "";
             }
             if (version == null || version.trim().length() == 0) {
                 version = "1.0";

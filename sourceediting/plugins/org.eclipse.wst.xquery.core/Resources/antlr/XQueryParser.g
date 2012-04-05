@@ -632,6 +632,10 @@ p_ComparisonExpr
         : p_FTContainsExpr ( (p_ValueComp | p_GeneralComp | p_NodeComp) p_FTContainsExpr )?
         ;
 
+p_StringConcatExpr
+        : p_RangeExpr ( CONCAT p_RangeExpr )*
+        ;
+
 //[85]
 p_RangeExpr
         : p_AdditiveExpr ( k=TO {ak($k);} p_AdditiveExpr )?
@@ -1545,7 +1549,7 @@ p_FTScoreVar
 
 //[51] Full Text 1.0
 p_FTContainsExpr
-        : p_RangeExpr ( k+=CONTAINS k+=TEXT {ak($k);} p_FTSelection p_FTIgnoreOption? )?
+        : p_StringConcatExpr ( k+=CONTAINS k+=TEXT {ak($k);} p_FTSelection p_FTIgnoreOption? )?
         ;
 
 //[144] Full Text 1.0

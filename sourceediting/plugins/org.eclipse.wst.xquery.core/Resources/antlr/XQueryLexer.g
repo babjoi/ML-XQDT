@@ -274,6 +274,7 @@ QUOT_ER : 'quot';
 // *******************************************
 // signs and operators present in the language
 // *******************************************
+CONCAT                  : '||';
 LPAREN                  : '(';
 RPAREN                  : ')';
 DOLLAR                  : '$';

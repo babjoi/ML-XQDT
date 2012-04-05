@@ -1,4 +1,4 @@
-// $ANTLR 3.2 Sep 23, 2009 12:02:23 XMLLexer.g 2011-08-25 19:33:36
+// $ANTLR 3.3 Nov 30, 2010 12:50:56 XMLLexer.g 2012-04-05 17:09:35
 
 /*******************************************************************************
  * Copyright (c) 2008, 2009 28msec Inc. and others.
@@ -20,288 +20,289 @@ import java.util.List;
 import java.util.ArrayList;
 
 public class XMLLexer extends XQDTLexer {
-    public static final int INDEX=212;
-    public static final int L_CDataSection=7;
-    public static final int MINUS=238;
-    public static final int NAMESPACE_NODE=125;
-    public static final int HASH=232;
-    public static final int END=120;
-    public static final int INTO=148;
-    public static final int PATTERN_SEPARATOR=129;
-    public static final int GREATER_GREATER=244;
-    public static final int RENAME=152;
-    public static final int INSTANCE=63;
-    public static final int CONTENT=162;
-    public static final int NCNameUnprotected=283;
-    public static final int LAX=67;
-    public static final int STOP=191;
-    public static final int IMPORT=60;
-    public static final int BINARY=217;
-    public static final int ON=215;
-    public static final int CONTINUE=202;
-    public static final int DOT=247;
-    public static final int CONSTRAINT=209;
-    public static final int Letter=269;
-    public static final int ORDER=82;
-    public static final int CASTABLE=28;
-    public static final int DIACRITICS=163;
-    public static final int DETERMINISTIC=118;
-    public static final int EMPTY_CLOSE_TAG=251;
-    public static final int TYPESWITCH=104;
-    public static final int MODULE=73;
-    public static final int ESCAPE_RBRACKET=11;
-    public static final int AMP=233;
-    public static final int RPAREN=222;
-    public static final int VERSION=109;
-    public static final int XML_COMMENT_START=257;
-    public static final int EXACTLY=167;
-    public static final int FTNOT=171;
-    public static final int DECLARE=34;
-    public static final int BOUNDARY_SPACE=24;
-    public static final int CLOSE_TAG=252;
-    public static final int OCCURS=180;
-    public static final int UNION=105;
-    public static final int STRIP=99;
-    public static final int GROUPING_SEPARATOR=122;
-    public static final int HexLetter=270;
-    public static final int SAME=185;
-    public static final int WHEN=139;
-    public static final int DESCENDING=38;
-    public static final int DOCUMENT_NODE=41;
-    public static final int ANCESTOR_OR_SELF=17;
-    public static final int SMALLER_SMALLER=243;
-    public static final int RELATIONSHIP=184;
-    public static final int ANY=160;
-    public static final int CATCH=113;
-    public static final int GE=55;
-    public static final int ATTR_SIGN=261;
-    public static final int ELSE=43;
-    public static final int WORD=199;
-    public static final int SU=274;
-    public static final int PRAGMA_START=255;
-    public static final int SENSITIVE=187;
-    public static final int L_ElementContentChar=6;
-    public static final int SELF=95;
-    public static final int DISTANCE=165;
-    public static final int ALLOWING=112;
-    public static final int COUNT=115;
-    public static final int TEXT=100;
-    public static final int COLON=249;
-    public static final int PARENT=85;
-    public static final int SCORE=186;
-    public static final int FTOR=172;
-    public static final int UNIQUE=216;
-    public static final int FOREACH=210;
-    public static final int TYPE=138;
-    public static final int PERCENT=130;
-    public static final int EMPTY_SEQUENCE=45;
-    public static final int EXTERNAL=50;
-    public static final int ANN_PERCENT=231;
-    public static final int Digit=271;
-    public static final int LAST=149;
-    public static final int COLLECTION=208;
-    public static final int DOT_DOT=248;
-    public static final int DECIMAL_SEPARATOR=117;
-    public static final int CAST=27;
-    public static final int L_CharRef=9;
-    public static final int LBRACKET=224;
-    public static final int MOD=72;
-    public static final int EXCEPT=49;
-    public static final int QUESTION=235;
-    public static final int OR=81;
-    public static final int AFTER=142;
-    public static final int S=273;
-    public static final int SMALLEREQ=241;
-    public static final int BY=25;
-    public static final int SCHEMA_ELEMENT=94;
-    public static final int INFINITY=123;
-    public static final int WEIGHT=196;
-    public static final int TUMBLING=137;
-    public static final int NO_INHERIT=76;
-    public static final int LPAREN=221;
-    public static final int UPPERCASE=194;
-    public static final int PRECEDING_SIBLING=87;
-    public static final int L_DecimalLiteral=279;
-    public static final int EXIT=203;
-    public static final int PI_START=259;
-    public static final int APOS=264;
-    public static final int SKIP=155;
-    public static final int STEMMING=190;
-    public static final int FROM=168;
-    public static final int DELETE=145;
-    public static final int TIMES=193;
-    public static final int EMPTY=44;
-    public static final int ASCENDING=20;
-    public static final int WHILE=206;
-    public static final int ESCAPE_QUOT=13;
-    public static final int ONLY=128;
-    public static final int SENTENCES=189;
-    public static final int APOS_ER=219;
-    public static final int NE=75;
-    public static final int COMMENT=31;
-    public static final int RETURNING=205;
-    public static final int L_AnyChar=282;
-    public static final int RSQUARE=227;
-    public static final int ESCAPE_APOS=12;
-    public static final int NCNameChar=267;
-    public static final int ENTIRE=166;
-    public static final int WITH=158;
-    public static final int IN=61;
-    public static final int SOME=96;
-    public static final int MOST=177;
-    public static final int NEXT=127;
-    public static final int RETURN=90;
-    public static final int LET=70;
-    public static final int IF=59;
-    public static final int NODE=78;
-    public static final int PER_MILLE=131;
-    public static final int FOR=53;
-    public static final int CHARREF_HEX=263;
-    public static final int PRESERVE=88;
-    public static final int DEFAULT=35;
-    public static final int L_AposAttrContentChar=5;
-    public static final int LEVELS=175;
-    public static final int BEFORE=143;
-    public static final int ATTRIBUTE=22;
-    public static final int CHILD=29;
-    public static final int Digits=272;
-    public static final int CDATA_START=14;
-    public static final int TRY=136;
-    public static final int NOT=179;
-    public static final int OPTION=80;
-    public static final int L_DirCommentConstructor=276;
-    public static final int COMMA=234;
-    public static final int ELEMENT=42;
-    public static final int INSENSITIVE=173;
-    public static final int AS=19;
-    public static final int DOCUMENT=40;
-    public static final int ENCODING=46;
-    public static final int NAN=126;
-    public static final int TREAT=103;
-    public static final int NAMESPACE=74;
-    public static final int LEAST=69;
-    public static final int THEN=101;
-    public static final int PI_END=260;
-    public static final int GREATEREQ=242;
-    public static final int WORDS=200;
-    public static final int FOREIGN=211;
-    public static final int PARAGRAPHS=182;
-    public static final int NCNameStartChar=266;
-    public static final int AND=18;
-    public static final int BASE_URI=23;
-    public static final int TO=102;
-    public static final int FUNCTION=54;
-    public static final int L_Pragma=275;
-    public static final int LANGUAGE=174;
-    public static final int RBRACKET=225;
-    public static final int LE=68;
-    public static final int LOWERCASE=176;
-    public static final int SCHEMA=92;
-    public static final int CONSTRUCTION=32;
-    public static final int WILDCARDS=197;
-    public static final int PLUS=237;
-    public static final int L_DoubleLiteral=280;
-    public static final int DIFFERENT=164;
-    public static final int INTERSECT=64;
-    public static final int AT=21;
-    public static final int L_QuotAttrContentChar=4;
-    public static final int LSQUARE=226;
-    public static final int GREATEST=56;
-    public static final int EQ=47;
-    public static final int LOOP=204;
-    public static final int ESCAPE_LBRACKET=10;
-    public static final int LT=71;
-    public static final int OF=79;
-    public static final int DOLLAR=223;
-    public static final int WINDOW=140;
-    public static final int FOLLOWING=51;
-    public static final int CASE=26;
-    public static final int CDATA_END=15;
-    public static final int DESCENDANT_OR_SELF=37;
-    public static final int EQUAL=228;
-    public static final int SEMICOLON=253;
-    public static final int THESAURUS=192;
-    public static final int CHECK=207;
-    public static final int KEY=214;
-    public static final int FTAND=170;
-    public static final int FIRST=146;
-    public static final int BREAK=201;
-    public static final int PARAGRAPH=181;
-    public static final int DIV=39;
-    public static final int ALL=159;
-    public static final int FT_OPTION=169;
-    public static final int REVALIDATION=154;
-    public static final int INSERT=147;
-    public static final int QUOT=265;
-    public static final int WHERE=110;
-    public static final int COPY=144;
-    public static final int PREVIOUS=132;
-    public static final int WITHOUT=198;
-    public static final int AMP_ER=218;
-    public static final int USING=195;
-    public static final int SCHEMA_ATTRIBUTE=93;
-    public static final int EVERY=48;
-    public static final int CONTEXT=114;
-    public static final int XQUERY=111;
-    public static final int INTEGRITY=213;
-    public static final int SLIDING=133;
-    public static final int UPDATING=156;
-    public static final int IDIV=58;
-    public static final int PRAGMA_END=256;
-    public static final int SATISFIES=91;
-    public static final int VALUE=157;
-    public static final int DESCENDANT=36;
-    public static final int STRICT=98;
-    public static final int NOTEQUAL=230;
-    public static final int COLON_COLON=250;
-    public static final int L_PredefinedEntityRef=8;
-    public static final int L_IntegerLiteral=278;
-    public static final int FOLLOWING_SIBLING=52;
-    public static final int STABLE=97;
-    public static final int CHARREF_DEC=262;
-    public static final int DECIMAL_FORMAT=116;
-    public static final int START=134;
-    public static final int GROUP=121;
-    public static final int VALIDATE=107;
-    public static final int CONTAINS=161;
-    public static final int PRECEDING=86;
-    public static final int ZERO_DIGIT=141;
-    public static final int MINUS_SIGN=124;
-    public static final int GREATER=240;
-    public static final int VBAR=254;
-    public static final int DIGIT=119;
-    public static final int COPY_NAMESPACES=33;
-    public static final int ORDERING=84;
-    public static final int NO_PRESERVE=77;
-    public static final int UNORDERED=106;
-    public static final int SENTENCE=188;
-    public static final int L_NCName=268;
-    public static final int INHERIT=62;
-    public static final int SLASH=245;
-    public static final int SWITCH=135;
-    public static final int L_DirPIConstructor=277;
-    public static final int IS=65;
-    public static final int REPLACE=153;
-    public static final int NO=178;
-    public static final int GT=57;
-    public static final int PHRASE=183;
-    public static final int ITEM=66;
-    public static final int ORDERED=83;
-    public static final int PROCESSING_INSTRUCTION=89;
-    public static final int COLLATION=30;
-    public static final int SLASH_SLASH=246;
-    public static final int ANCESTOR=16;
-    public static final int SMALLER=239;
-    public static final int NODES=151;
-    public static final int VARIABLE=108;
     public static final int EOF=-1;
+    public static final int L_QuotAttrContentChar=4;
+    public static final int L_AposAttrContentChar=5;
+    public static final int L_ElementContentChar=6;
+    public static final int L_CDataSection=7;
+    public static final int L_PredefinedEntityRef=8;
+    public static final int L_CharRef=9;
+    public static final int ESCAPE_LBRACKET=10;
+    public static final int ESCAPE_RBRACKET=11;
+    public static final int ESCAPE_APOS=12;
+    public static final int ESCAPE_QUOT=13;
+    public static final int CDATA_START=14;
+    public static final int CDATA_END=15;
+    public static final int ANCESTOR=16;
+    public static final int ANCESTOR_OR_SELF=17;
+    public static final int AND=18;
+    public static final int AS=19;
+    public static final int ASCENDING=20;
+    public static final int AT=21;
+    public static final int ATTRIBUTE=22;
+    public static final int BASE_URI=23;
+    public static final int BOUNDARY_SPACE=24;
+    public static final int BY=25;
+    public static final int CASE=26;
+    public static final int CAST=27;
+    public static final int CASTABLE=28;
+    public static final int CHILD=29;
+    public static final int COLLATION=30;
+    public static final int COMMENT=31;
+    public static final int CONSTRUCTION=32;
+    public static final int COPY_NAMESPACES=33;
+    public static final int DECLARE=34;
+    public static final int DEFAULT=35;
+    public static final int DESCENDANT=36;
+    public static final int DESCENDANT_OR_SELF=37;
+    public static final int DESCENDING=38;
+    public static final int DIV=39;
+    public static final int DOCUMENT=40;
+    public static final int DOCUMENT_NODE=41;
+    public static final int ELEMENT=42;
+    public static final int ELSE=43;
+    public static final int EMPTY=44;
+    public static final int EMPTY_SEQUENCE=45;
+    public static final int ENCODING=46;
+    public static final int EQ=47;
+    public static final int EVERY=48;
+    public static final int EXCEPT=49;
+    public static final int EXTERNAL=50;
+    public static final int FOLLOWING=51;
+    public static final int FOLLOWING_SIBLING=52;
+    public static final int FOR=53;
+    public static final int FUNCTION=54;
+    public static final int GE=55;
+    public static final int GREATEST=56;
+    public static final int GT=57;
+    public static final int IDIV=58;
+    public static final int IF=59;
+    public static final int IMPORT=60;
+    public static final int IN=61;
+    public static final int INHERIT=62;
+    public static final int INSTANCE=63;
+    public static final int INTERSECT=64;
+    public static final int IS=65;
+    public static final int ITEM=66;
+    public static final int LAX=67;
+    public static final int LE=68;
+    public static final int LEAST=69;
+    public static final int LET=70;
+    public static final int LT=71;
+    public static final int MOD=72;
+    public static final int MODULE=73;
+    public static final int NAMESPACE=74;
+    public static final int NE=75;
+    public static final int NO_INHERIT=76;
+    public static final int NO_PRESERVE=77;
+    public static final int NODE=78;
+    public static final int OF=79;
+    public static final int OPTION=80;
+    public static final int OR=81;
+    public static final int ORDER=82;
+    public static final int ORDERED=83;
+    public static final int ORDERING=84;
+    public static final int PARENT=85;
+    public static final int PRECEDING=86;
+    public static final int PRECEDING_SIBLING=87;
+    public static final int PRESERVE=88;
+    public static final int PROCESSING_INSTRUCTION=89;
+    public static final int RETURN=90;
+    public static final int SATISFIES=91;
+    public static final int SCHEMA=92;
+    public static final int SCHEMA_ATTRIBUTE=93;
+    public static final int SCHEMA_ELEMENT=94;
+    public static final int SELF=95;
+    public static final int SOME=96;
+    public static final int STABLE=97;
+    public static final int STRICT=98;
+    public static final int STRIP=99;
+    public static final int TEXT=100;
+    public static final int THEN=101;
+    public static final int TO=102;
+    public static final int TREAT=103;
+    public static final int TYPESWITCH=104;
+    public static final int UNION=105;
+    public static final int UNORDERED=106;
+    public static final int VALIDATE=107;
+    public static final int VARIABLE=108;
+    public static final int VERSION=109;
+    public static final int WHERE=110;
+    public static final int XQUERY=111;
+    public static final int ALLOWING=112;
+    public static final int CATCH=113;
+    public static final int CONTEXT=114;
+    public static final int COUNT=115;
+    public static final int DECIMAL_FORMAT=116;
+    public static final int DECIMAL_SEPARATOR=117;
+    public static final int DETERMINISTIC=118;
+    public static final int DIGIT=119;
+    public static final int END=120;
+    public static final int GROUP=121;
+    public static final int GROUPING_SEPARATOR=122;
+    public static final int INFINITY=123;
+    public static final int MINUS_SIGN=124;
+    public static final int NAMESPACE_NODE=125;
+    public static final int NAN=126;
+    public static final int NEXT=127;
+    public static final int ONLY=128;
+    public static final int PATTERN_SEPARATOR=129;
+    public static final int PERCENT=130;
+    public static final int PER_MILLE=131;
+    public static final int PREVIOUS=132;
+    public static final int SLIDING=133;
+    public static final int START=134;
+    public static final int SWITCH=135;
+    public static final int TRY=136;
+    public static final int TUMBLING=137;
+    public static final int TYPE=138;
+    public static final int WHEN=139;
+    public static final int WINDOW=140;
+    public static final int ZERO_DIGIT=141;
+    public static final int AFTER=142;
+    public static final int BEFORE=143;
+    public static final int COPY=144;
+    public static final int DELETE=145;
+    public static final int FIRST=146;
+    public static final int INSERT=147;
+    public static final int INTO=148;
+    public static final int LAST=149;
     public static final int MODIFY=150;
-    public static final int XMLDigit=284;
+    public static final int NODES=151;
+    public static final int RENAME=152;
+    public static final int REPLACE=153;
+    public static final int REVALIDATION=154;
+    public static final int SKIP=155;
+    public static final int UPDATING=156;
+    public static final int VALUE=157;
+    public static final int WITH=158;
+    public static final int ALL=159;
+    public static final int ANY=160;
+    public static final int CONTAINS=161;
+    public static final int CONTENT=162;
+    public static final int DIACRITICS=163;
+    public static final int DIFFERENT=164;
+    public static final int DISTANCE=165;
+    public static final int ENTIRE=166;
+    public static final int EXACTLY=167;
+    public static final int FROM=168;
+    public static final int FT_OPTION=169;
+    public static final int FTAND=170;
+    public static final int FTNOT=171;
+    public static final int FTOR=172;
+    public static final int INSENSITIVE=173;
+    public static final int LANGUAGE=174;
+    public static final int LEVELS=175;
+    public static final int LOWERCASE=176;
+    public static final int MOST=177;
+    public static final int NO=178;
+    public static final int NOT=179;
+    public static final int OCCURS=180;
+    public static final int PARAGRAPH=181;
+    public static final int PARAGRAPHS=182;
+    public static final int PHRASE=183;
+    public static final int RELATIONSHIP=184;
+    public static final int SAME=185;
+    public static final int SCORE=186;
+    public static final int SENSITIVE=187;
+    public static final int SENTENCE=188;
+    public static final int SENTENCES=189;
+    public static final int STEMMING=190;
+    public static final int STOP=191;
+    public static final int THESAURUS=192;
+    public static final int TIMES=193;
+    public static final int UPPERCASE=194;
+    public static final int USING=195;
+    public static final int WEIGHT=196;
+    public static final int WILDCARDS=197;
+    public static final int WITHOUT=198;
+    public static final int WORD=199;
+    public static final int WORDS=200;
+    public static final int BREAK=201;
+    public static final int CONTINUE=202;
+    public static final int EXIT=203;
+    public static final int LOOP=204;
+    public static final int RETURNING=205;
+    public static final int WHILE=206;
+    public static final int CHECK=207;
+    public static final int COLLECTION=208;
+    public static final int CONSTRAINT=209;
+    public static final int FOREACH=210;
+    public static final int FOREIGN=211;
+    public static final int INDEX=212;
+    public static final int INTEGRITY=213;
+    public static final int KEY=214;
+    public static final int ON=215;
+    public static final int UNIQUE=216;
+    public static final int BINARY=217;
+    public static final int AMP_ER=218;
+    public static final int APOS_ER=219;
     public static final int QUOT_ER=220;
-    public static final int STAR=236;
-    public static final int BIND=229;
-    public static final int L_Comment=281;
-    public static final int XML_COMMENT_END=258;
+    public static final int CONCAT=221;
+    public static final int LPAREN=222;
+    public static final int RPAREN=223;
+    public static final int DOLLAR=224;
+    public static final int LBRACKET=225;
+    public static final int RBRACKET=226;
+    public static final int LSQUARE=227;
+    public static final int RSQUARE=228;
+    public static final int EQUAL=229;
+    public static final int BIND=230;
+    public static final int NOTEQUAL=231;
+    public static final int ANN_PERCENT=232;
+    public static final int HASH=233;
+    public static final int AMP=234;
+    public static final int COMMA=235;
+    public static final int QUESTION=236;
+    public static final int STAR=237;
+    public static final int PLUS=238;
+    public static final int MINUS=239;
+    public static final int SMALLER=240;
+    public static final int GREATER=241;
+    public static final int SMALLEREQ=242;
+    public static final int GREATEREQ=243;
+    public static final int SMALLER_SMALLER=244;
+    public static final int GREATER_GREATER=245;
+    public static final int SLASH=246;
+    public static final int SLASH_SLASH=247;
+    public static final int DOT=248;
+    public static final int DOT_DOT=249;
+    public static final int COLON=250;
+    public static final int COLON_COLON=251;
+    public static final int EMPTY_CLOSE_TAG=252;
+    public static final int CLOSE_TAG=253;
+    public static final int SEMICOLON=254;
+    public static final int VBAR=255;
+    public static final int PRAGMA_START=256;
+    public static final int PRAGMA_END=257;
+    public static final int XML_COMMENT_START=258;
+    public static final int XML_COMMENT_END=259;
+    public static final int PI_START=260;
+    public static final int PI_END=261;
+    public static final int ATTR_SIGN=262;
+    public static final int CHARREF_DEC=263;
+    public static final int CHARREF_HEX=264;
+    public static final int APOS=265;
+    public static final int QUOT=266;
+    public static final int NCNameStartChar=267;
+    public static final int NCNameChar=268;
+    public static final int L_NCName=269;
+    public static final int Letter=270;
+    public static final int HexLetter=271;
+    public static final int Digit=272;
+    public static final int Digits=273;
+    public static final int S=274;
+    public static final int SU=275;
+    public static final int L_Pragma=276;
+    public static final int L_DirCommentConstructor=277;
+    public static final int L_DirPIConstructor=278;
+    public static final int L_IntegerLiteral=279;
+    public static final int L_DecimalLiteral=280;
+    public static final int L_DoubleLiteral=281;
+    public static final int L_Comment=282;
+    public static final int L_AnyChar=283;
+    public static final int NCNameUnprotected=284;
+    public static final int XMLDigit=285;
 
 
     // dummy list for warning elimination
@@ -1889,20 +1890,20 @@ public class XMLLexer extends XQDTLexer {
         "\1\0\4\uffff\1\0\3\uffff\1\11\1\103\5\uffff\1\0\1\104\1\uffff\1"+
         "\101\1\124\1\101\1\133\1\0\2\uffff";
     static final String DFA16_maxS =
-        "\11\ufffd\1\173\1\175\1\77\1\ufffd\1\161\2\ufffd\1\0\1\uffff\1"+
-        "\ufffd\2\0\1\ufffd\3\0\1\ufffd\1\0\1\ufffd\5\uffff\1\133\2\uffff"+
-        "\1\0\2\uffff\1\0\1\uffff\1\0\4\uffff\1\0\3\uffff\1\ufffd\1\103\5"+
-        "\uffff\1\0\1\104\1\uffff\1\101\1\124\1\101\1\133\1\uffff\2\uffff";
+        "\11\ufffd\1\173\1\175\1\77\1\ufffd\1\161\2\ufffd\1\0\1\uffff\1\ufffd"+
+        "\2\0\1\ufffd\3\0\1\ufffd\1\0\1\ufffd\5\uffff\1\133\2\uffff\1\0\2"+
+        "\uffff\1\0\1\uffff\1\0\4\uffff\1\0\3\uffff\1\ufffd\1\103\5\uffff"+
+        "\1\0\1\104\1\uffff\1\101\1\124\1\101\1\133\1\uffff\2\uffff";
     static final String DFA16_acceptS =
-        "\21\uffff\1\5\12\uffff\1\15\1\17\1\16\1\20\1\22\1\uffff\1\31\1"+
-        "\21\1\uffff\1\27\1\26\1\uffff\1\1\1\uffff\1\2\1\3\1\4\1\6\1\uffff"+
-        "\1\10\1\11\1\12\2\uffff\1\30\1\32\1\14\1\13\1\7\2\uffff\1\24\5\uffff"+
+        "\21\uffff\1\5\12\uffff\1\15\1\17\1\16\1\20\1\22\1\uffff\1\31\1\21"+
+        "\1\uffff\1\27\1\26\1\uffff\1\1\1\uffff\1\2\1\3\1\4\1\6\1\uffff\1"+
+        "\10\1\11\1\12\2\uffff\1\30\1\32\1\14\1\13\1\7\2\uffff\1\24\5\uffff"+
         "\1\23\1\25";
     static final String DFA16_specialS =
-        "\1\34\1\2\1\25\1\36\1\33\1\11\1\12\1\35\1\27\1\41\1\13\1\17\1\32"+
-        "\1\1\1\30\1\5\1\7\1\uffff\1\16\1\21\1\15\1\14\1\31\1\37\1\3\1\4"+
-        "\1\10\1\26\5\uffff\1\22\2\uffff\1\20\2\uffff\1\0\1\uffff\1\24\4"+
-        "\uffff\1\42\3\uffff\1\23\6\uffff\1\40\6\uffff\1\6\2\uffff}>";
+        "\1\0\1\37\1\42\1\4\1\15\1\36\1\25\1\2\1\13\1\41\1\5\1\21\1\33\1"+
+        "\40\1\14\1\32\1\11\1\uffff\1\20\1\12\1\35\1\26\1\17\1\30\1\31\1"+
+        "\3\1\27\1\10\5\uffff\1\22\2\uffff\1\16\2\uffff\1\6\1\uffff\1\7\4"+
+        "\uffff\1\34\3\uffff\1\23\6\uffff\1\24\6\uffff\1\1\2\uffff}>";
     static final String[] DFA16_transitionS = {
             "\2\5\2\uffff\1\5\22\uffff\1\5\1\16\1\1\3\16\1\15\1\2\7\16\1"+
             "\4\12\16\1\14\1\16\1\13\1\7\1\3\2\16\32\6\2\16\1\10\1\16\1\6"+
@@ -1918,12 +1919,12 @@ public class XMLLexer extends XQDTLexer {
             "\2\16\2\uffff\1\16\22\uffff\2\16\1\21\3\16\1\uffff\1\21\24"+
             "\16\1\uffff\1\16\1\25\74\16\1\uffff\1\16\1\uffff\ud782\16\u0800"+
             "\uffff\u1ffe\16",
-            "\2\5\2\uffff\1\5\22\uffff\1\5\1\16\1\21\3\16\1\uffff\1\21"+
-            "\24\16\1\uffff\76\16\1\uffff\1\16\1\uffff\ud782\16\u0800\uffff"+
+            "\2\5\2\uffff\1\5\22\uffff\1\5\1\16\1\21\3\16\1\uffff\1\21\24"+
+            "\16\1\uffff\76\16\1\uffff\1\16\1\uffff\ud782\16\u0800\uffff"+
             "\u1ffe\16",
-            "\2\16\2\uffff\1\16\22\uffff\2\16\1\21\3\16\1\uffff\1\21\5"+
-            "\16\2\31\1\16\12\31\2\16\1\uffff\4\16\32\31\4\16\1\31\1\16\32"+
-            "\31\1\uffff\1\16\1\uffff\ud782\16\u0800\uffff\u1ffe\16",
+            "\2\16\2\uffff\1\16\22\uffff\2\16\1\21\3\16\1\uffff\1\21\5\16"+
+            "\2\31\1\16\12\31\2\16\1\uffff\4\16\32\31\4\16\1\31\1\16\32\31"+
+            "\1\uffff\1\16\1\uffff\ud782\16\u0800\uffff\u1ffe\16",
             "\2\16\2\uffff\1\16\22\uffff\2\16\1\21\3\16\1\uffff\1\21\24"+
             "\16\1\uffff\76\16\1\uffff\1\16\1\uffff\ud782\16\u0800\uffff"+
             "\u1ffe\16",
@@ -1940,12 +1941,12 @@ public class XMLLexer extends XQDTLexer {
             "\2\16\2\uffff\1\16\22\uffff\2\16\1\21\3\16\1\uffff\1\21\24"+
             "\16\1\uffff\76\16\1\uffff\1\16\1\uffff\ud782\16\u0800\uffff"+
             "\u1ffe\16",
-            "\2\21\2\uffff\1\21\22\uffff\6\21\1\uffff\25\21\1\uffff\76"+
-            "\21\1\uffff\1\21\1\uffff\ud782\21\u0800\uffff\u1ffe\21",
+            "\2\21\2\uffff\1\21\22\uffff\6\21\1\uffff\25\21\1\uffff\76\21"+
+            "\1\uffff\1\21\1\uffff\ud782\21\u0800\uffff\u1ffe\21",
             "\1\uffff",
             "",
-            "\2\21\2\uffff\1\21\22\uffff\6\21\1\uffff\25\21\1\uffff\76"+
-            "\21\1\uffff\1\21\1\uffff\ud782\21\u0800\uffff\u1ffe\21",
+            "\2\21\2\uffff\1\21\22\uffff\6\21\1\uffff\25\21\1\uffff\76\21"+
+            "\1\uffff\1\21\1\uffff\ud782\21\u0800\uffff\u1ffe\21",
             "\1\uffff",
             "\1\uffff",
             "\2\16\2\uffff\1\16\22\uffff\2\16\1\21\3\16\1\uffff\1\21\24"+
@@ -1954,9 +1955,9 @@ public class XMLLexer extends XQDTLexer {
             "\1\uffff",
             "\1\uffff",
             "\1\uffff",
-            "\2\16\2\uffff\1\16\22\uffff\2\16\1\21\3\16\1\uffff\1\21\5"+
-            "\16\2\31\1\16\12\31\2\16\1\uffff\4\16\32\31\4\16\1\31\1\16\32"+
-            "\31\1\uffff\1\16\1\uffff\ud782\16\u0800\uffff\u1ffe\16",
+            "\2\16\2\uffff\1\16\22\uffff\2\16\1\21\3\16\1\uffff\1\21\5\16"+
+            "\2\31\1\16\12\31\2\16\1\uffff\4\16\32\31\4\16\1\31\1\16\32\31"+
+            "\1\uffff\1\16\1\uffff\ud782\16\u0800\uffff\u1ffe\16",
             "\1\uffff",
             "\2\16\2\uffff\1\16\22\uffff\2\16\1\21\3\16\1\uffff\1\21\24"+
             "\16\1\uffff\1\16\1\62\74\16\1\uffff\1\16\1\uffff\ud782\16\u0800"+
@@ -2041,106 +2042,45 @@ public class XMLLexer extends XQDTLexer {
         	int _s = s;
             switch ( s ) {
                     case 0 : 
-                        int LA16_39 = input.LA(1);
+                        int LA16_0 = input.LA(1);
 
                          
-                        int index16_39 = input.index();
+                        int index16_0 = input.index();
                         input.rewind();
                         s = -1;
-                        if ( (( !inElem )) ) {s = 17;}
+                        if ( (LA16_0=='\"') && ((( inElem || inQuotAttr )||( inQuotAttr )||( !inElem )))) {s = 1;}
 
-                        else if ( (( inQuotAttr )) ) {s = 54;}
+                        else if ( (LA16_0=='\'') && ((( !inElem )||( inAposAttr )||( inElem || inAposAttr )))) {s = 2;}
+
+                        else if ( (LA16_0=='>') && ((( inElem )||( inQuotAttr )||( !inElem )||( inAposAttr )))) {s = 3;}
+
+                        else if ( (LA16_0=='/') && ((( inElem )||( !inElem )||( inQuotAttr )||( inAposAttr )))) {s = 4;}
+
+                        else if ( ((LA16_0>='\t' && LA16_0<='\n')||LA16_0=='\r'||LA16_0==' ') && ((( inElem )||( inQuotAttr )||( !inElem )||( inAposAttr )))) {s = 5;}
+
+                        else if ( ((LA16_0>='A' && LA16_0<='Z')||LA16_0=='_'||(LA16_0>='a' && LA16_0<='z')) && ((( inElem )||( !inElem )||( inQuotAttr )||( inAposAttr )))) {s = 6;}
+
+                        else if ( (LA16_0=='=') && ((( inElem  )||( !inElem )||( inQuotAttr )||( inAposAttr )))) {s = 7;}
+
+                        else if ( (LA16_0==']') ) {s = 8;}
+
+                        else if ( (LA16_0=='{') && (( !inElem || inAposAttr || inQuotAttr ))) {s = 9;}
+
+                        else if ( (LA16_0=='}') && (( !inElem || inAposAttr || inQuotAttr ))) {s = 10;}
+
+                        else if ( (LA16_0=='<') ) {s = 11;}
+
+                        else if ( (LA16_0==':') ) {s = 12;}
+
+                        else if ( (LA16_0=='&') ) {s = 13;}
+
+                        else if ( (LA16_0=='!'||(LA16_0>='#' && LA16_0<='%')||(LA16_0>='(' && LA16_0<='.')||(LA16_0>='0' && LA16_0<='9')||LA16_0==';'||(LA16_0>='?' && LA16_0<='@')||(LA16_0>='[' && LA16_0<='\\')||LA16_0=='^'||LA16_0=='`'||LA16_0=='|'||(LA16_0>='~' && LA16_0<='\uD7FF')||(LA16_0>='\uE000' && LA16_0<='\uFFFD')) && ((( inQuotAttr )||( !inElem )||( inAposAttr )))) {s = 14;}
 
                          
-                        input.seek(index16_39);
+                        input.seek(index16_0);
                         if ( s>=0 ) return s;
                         break;
                     case 1 : 
-                        int LA16_13 = input.LA(1);
-
-                         
-                        int index16_13 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (LA16_13=='#') ) {s = 37;}
-
-                        else if ( (LA16_13=='a'||LA16_13=='g'||LA16_13=='l'||LA16_13=='q') && (( !inElem || inAposAttr || inQuotAttr ))) {s = 38;}
-
-                         
-                        input.seek(index16_13);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 2 : 
-                        int LA16_1 = input.LA(1);
-
-                         
-                        int index16_1 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (LA16_1=='\"') && ((( !inElem )||( inQuotAttr )))) {s = 15;}
-
-                        else if ( ((LA16_1>='\t' && LA16_1<='\n')||LA16_1=='\r'||(LA16_1>=' ' && LA16_1<='!')||(LA16_1>='#' && LA16_1<='%')||(LA16_1>='\'' && LA16_1<=';')||(LA16_1>='=' && LA16_1<='z')||LA16_1=='|'||(LA16_1>='~' && LA16_1<='\uD7FF')||(LA16_1>='\uE000' && LA16_1<='\uFFFD')) && (( !inElem ))) {s = 17;}
-
-                        else s = 16;
-
-                         
-                        input.seek(index16_1);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 3 : 
-                        int LA16_24 = input.LA(1);
-
-                         
-                        int index16_24 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (( inQuotAttr )) ) {s = 43;}
-
-                        else if ( (( inAposAttr )) ) {s = 44;}
-
-                        else if ( (( !inElem )) ) {s = 17;}
-
-                        else if ( (( inElem )) ) {s = 48;}
-
-                         
-                        input.seek(index16_24);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 4 : 
-                        int LA16_25 = input.LA(1);
-
-                         
-                        int index16_25 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( ((LA16_25>='-' && LA16_25<='.')||(LA16_25>='0' && LA16_25<='9')||(LA16_25>='A' && LA16_25<='Z')||LA16_25=='_'||(LA16_25>='a' && LA16_25<='z')) && ((( inElem )||( !inElem )||( inQuotAttr )||( inAposAttr )))) {s = 25;}
-
-                        else if ( (LA16_25=='\"'||LA16_25=='\'') && (( !inElem ))) {s = 17;}
-
-                        else if ( ((LA16_25>='\t' && LA16_25<='\n')||LA16_25=='\r'||(LA16_25>=' ' && LA16_25<='!')||(LA16_25>='#' && LA16_25<='%')||(LA16_25>='(' && LA16_25<=',')||LA16_25=='/'||(LA16_25>=':' && LA16_25<=';')||(LA16_25>='=' && LA16_25<='@')||(LA16_25>='[' && LA16_25<='^')||LA16_25=='`'||LA16_25=='|'||(LA16_25>='~' && LA16_25<='\uD7FF')||(LA16_25>='\uE000' && LA16_25<='\uFFFD')) && ((( !inElem )||( inQuotAttr )||( inAposAttr )))) {s = 14;}
-
-                        else s = 24;
-
-                         
-                        input.seek(index16_25);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 5 : 
-                        int LA16_15 = input.LA(1);
-
-                         
-                        int index16_15 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( ((LA16_15>='\t' && LA16_15<='\n')||LA16_15=='\r'||(LA16_15>=' ' && LA16_15<='%')||(LA16_15>='\'' && LA16_15<=';')||(LA16_15>='=' && LA16_15<='z')||LA16_15=='|'||(LA16_15>='~' && LA16_15<='\uD7FF')||(LA16_15>='\uE000' && LA16_15<='\uFFFD')) && (( !inElem ))) {s = 17;}
-
-                        else s = 39;
-
-                         
-                        input.seek(index16_15);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 6 : 
                         int LA16_64 = input.LA(1);
 
                          
@@ -2155,79 +2095,60 @@ public class XMLLexer extends XQDTLexer {
                         input.seek(index16_64);
                         if ( s>=0 ) return s;
                         break;
-                    case 7 : 
-                        int LA16_16 = input.LA(1);
+                    case 2 : 
+                        int LA16_7 = input.LA(1);
 
                          
-                        int index16_16 = input.index();
+                        int index16_7 = input.index();
                         input.rewind();
                         s = -1;
-                        if ( (( inElem || inQuotAttr )) ) {s = 40;}
+                        if ( ((LA16_7>='\t' && LA16_7<='\n')||LA16_7=='\r'||(LA16_7>=' ' && LA16_7<='!')||(LA16_7>='#' && LA16_7<='%')||(LA16_7>='(' && LA16_7<=';')||(LA16_7>='=' && LA16_7<='z')||LA16_7=='|'||(LA16_7>='~' && LA16_7<='\uD7FF')||(LA16_7>='\uE000' && LA16_7<='\uFFFD')) && ((( inQuotAttr )||( !inElem )||( inAposAttr )))) {s = 14;}
 
-                        else if ( (( !inElem )) ) {s = 17;}
+                        else if ( (LA16_7=='\"'||LA16_7=='\'') && (( !inElem ))) {s = 17;}
+
+                        else s = 26;
 
                          
-                        input.seek(index16_16);
+                        input.seek(index16_7);
                         if ( s>=0 ) return s;
                         break;
-                    case 8 : 
-                        int LA16_26 = input.LA(1);
+                    case 3 : 
+                        int LA16_25 = input.LA(1);
 
                          
-                        int index16_26 = input.index();
+                        int index16_25 = input.index();
                         input.rewind();
                         s = -1;
-                        if ( (( inQuotAttr )) ) {s = 43;}
+                        if ( ((LA16_25>='-' && LA16_25<='.')||(LA16_25>='0' && LA16_25<='9')||(LA16_25>='A' && LA16_25<='Z')||LA16_25=='_'||(LA16_25>='a' && LA16_25<='z')) && ((( inElem )||( !inElem )||( inQuotAttr )||( inAposAttr )))) {s = 25;}
 
-                        else if ( (( inAposAttr )) ) {s = 44;}
+                        else if ( (LA16_25=='\"'||LA16_25=='\'') && (( !inElem ))) {s = 17;}
 
-                        else if ( (( !inElem )) ) {s = 17;}
-
-                        else if ( (( inElem  )) ) {s = 49;}
-
-                         
-                        input.seek(index16_26);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 9 : 
-                        int LA16_5 = input.LA(1);
-
-                         
-                        int index16_5 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( ((LA16_5>='\t' && LA16_5<='\n')||LA16_5=='\r'||LA16_5==' ') && ((( inElem )||( !inElem )||( inQuotAttr )||( inAposAttr )))) {s = 5;}
-
-                        else if ( (LA16_5=='!'||(LA16_5>='#' && LA16_5<='%')||(LA16_5>='(' && LA16_5<=';')||(LA16_5>='=' && LA16_5<='z')||LA16_5=='|'||(LA16_5>='~' && LA16_5<='\uD7FF')||(LA16_5>='\uE000' && LA16_5<='\uFFFD')) && ((( !inElem )||( inQuotAttr )||( inAposAttr )))) {s = 14;}
-
-                        else if ( (LA16_5=='\"'||LA16_5=='\'') && (( !inElem ))) {s = 17;}
-
-                        else s = 23;
-
-                         
-                        input.seek(index16_5);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 10 : 
-                        int LA16_6 = input.LA(1);
-
-                         
-                        int index16_6 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( ((LA16_6>='-' && LA16_6<='.')||(LA16_6>='0' && LA16_6<='9')||(LA16_6>='A' && LA16_6<='Z')||LA16_6=='_'||(LA16_6>='a' && LA16_6<='z')) && ((( inElem )||( !inElem )||( inQuotAttr )||( inAposAttr )))) {s = 25;}
-
-                        else if ( ((LA16_6>='\t' && LA16_6<='\n')||LA16_6=='\r'||(LA16_6>=' ' && LA16_6<='!')||(LA16_6>='#' && LA16_6<='%')||(LA16_6>='(' && LA16_6<=',')||LA16_6=='/'||(LA16_6>=':' && LA16_6<=';')||(LA16_6>='=' && LA16_6<='@')||(LA16_6>='[' && LA16_6<='^')||LA16_6=='`'||LA16_6=='|'||(LA16_6>='~' && LA16_6<='\uD7FF')||(LA16_6>='\uE000' && LA16_6<='\uFFFD')) && ((( !inElem )||( inQuotAttr )||( inAposAttr )))) {s = 14;}
-
-                        else if ( (LA16_6=='\"'||LA16_6=='\'') && (( !inElem ))) {s = 17;}
+                        else if ( ((LA16_25>='\t' && LA16_25<='\n')||LA16_25=='\r'||(LA16_25>=' ' && LA16_25<='!')||(LA16_25>='#' && LA16_25<='%')||(LA16_25>='(' && LA16_25<=',')||LA16_25=='/'||(LA16_25>=':' && LA16_25<=';')||(LA16_25>='=' && LA16_25<='@')||(LA16_25>='[' && LA16_25<='^')||LA16_25=='`'||LA16_25=='|'||(LA16_25>='~' && LA16_25<='\uD7FF')||(LA16_25>='\uE000' && LA16_25<='\uFFFD')) && ((( inQuotAttr )||( !inElem )||( inAposAttr )))) {s = 14;}
 
                         else s = 24;
 
                          
-                        input.seek(index16_6);
+                        input.seek(index16_25);
                         if ( s>=0 ) return s;
                         break;
-                    case 11 : 
+                    case 4 : 
+                        int LA16_3 = input.LA(1);
+
+                         
+                        int index16_3 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( ((LA16_3>='\t' && LA16_3<='\n')||LA16_3=='\r'||(LA16_3>=' ' && LA16_3<='!')||(LA16_3>='#' && LA16_3<='%')||(LA16_3>='(' && LA16_3<=';')||(LA16_3>='=' && LA16_3<='z')||LA16_3=='|'||(LA16_3>='~' && LA16_3<='\uD7FF')||(LA16_3>='\uE000' && LA16_3<='\uFFFD')) && ((( inQuotAttr )||( !inElem )||( inAposAttr )))) {s = 14;}
+
+                        else if ( (LA16_3=='\"'||LA16_3=='\'') && (( !inElem ))) {s = 17;}
+
+                        else s = 20;
+
+                         
+                        input.seek(index16_3);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 5 : 
                         int LA16_10 = input.LA(1);
 
                          
@@ -2242,77 +2163,141 @@ public class XMLLexer extends XQDTLexer {
                         input.seek(index16_10);
                         if ( s>=0 ) return s;
                         break;
-                    case 12 : 
-                        int LA16_21 = input.LA(1);
+                    case 6 : 
+                        int LA16_39 = input.LA(1);
 
                          
-                        int index16_21 = input.index();
+                        int index16_39 = input.index();
                         input.rewind();
                         s = -1;
-                        if ( ((LA16_21>='\t' && LA16_21<='\n')||LA16_21=='\r'||(LA16_21>=' ' && LA16_21<='!')||(LA16_21>='#' && LA16_21<='%')||(LA16_21>='(' && LA16_21<=';')||(LA16_21>='=' && LA16_21<='z')||LA16_21=='|'||(LA16_21>='~' && LA16_21<='\uD7FF')||(LA16_21>='\uE000' && LA16_21<='\uFFFD')) && ((( !inElem )||( inQuotAttr )||( inAposAttr )))) {s = 14;}
+                        if ( (( !inElem )) ) {s = 17;}
 
-                        else if ( (LA16_21=='\"'||LA16_21=='\'') && (( !inElem ))) {s = 17;}
-
-                        else s = 46;
+                        else if ( (( inQuotAttr )) ) {s = 54;}
 
                          
-                        input.seek(index16_21);
+                        input.seek(index16_39);
                         if ( s>=0 ) return s;
                         break;
-                    case 13 : 
-                        int LA16_20 = input.LA(1);
+                    case 7 : 
+                        int LA16_41 = input.LA(1);
 
                          
-                        int index16_20 = input.index();
+                        int index16_41 = input.index();
                         input.rewind();
                         s = -1;
-                        if ( (( inQuotAttr )) ) {s = 43;}
+                        if ( (( !inElem )) ) {s = 17;}
 
-                        else if ( (( inAposAttr )) ) {s = 44;}
+                        else if ( (( inAposAttr )) ) {s = 55;}
+
+                         
+                        input.seek(index16_41);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 8 : 
+                        int LA16_27 = input.LA(1);
+
+                         
+                        int index16_27 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (LA16_27=='>') ) {s = 50;}
+
+                        else if ( ((LA16_27>='\t' && LA16_27<='\n')||LA16_27=='\r'||(LA16_27>=' ' && LA16_27<='!')||(LA16_27>='#' && LA16_27<='%')||(LA16_27>='(' && LA16_27<=';')||LA16_27=='='||(LA16_27>='?' && LA16_27<='z')||LA16_27=='|'||(LA16_27>='~' && LA16_27<='\uD7FF')||(LA16_27>='\uE000' && LA16_27<='\uFFFD')) && ((( inQuotAttr )||( !inElem )||( inAposAttr )))) {s = 14;}
+
+                        else if ( (LA16_27=='\"'||LA16_27=='\'') && (( !inElem ))) {s = 17;}
+
+                        else s = 22;
+
+                         
+                        input.seek(index16_27);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 9 : 
+                        int LA16_16 = input.LA(1);
+
+                         
+                        int index16_16 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (( inElem || inQuotAttr )) ) {s = 40;}
 
                         else if ( (( !inElem )) ) {s = 17;}
 
-                        else if ( (( inElem )) ) {s = 45;}
+                         
+                        input.seek(index16_16);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 10 : 
+                        int LA16_19 = input.LA(1);
 
                          
-                        input.seek(index16_20);
+                        int index16_19 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (( inElem || inAposAttr )) ) {s = 42;}
+
+                        else if ( (( !inElem )) ) {s = 17;}
+
+                         
+                        input.seek(index16_19);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 11 : 
+                        int LA16_8 = input.LA(1);
+
+                         
+                        int index16_8 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (LA16_8==']') ) {s = 27;}
+
+                        else if ( ((LA16_8>='\t' && LA16_8<='\n')||LA16_8=='\r'||(LA16_8>=' ' && LA16_8<='!')||(LA16_8>='#' && LA16_8<='%')||(LA16_8>='(' && LA16_8<=';')||(LA16_8>='=' && LA16_8<='\\')||(LA16_8>='^' && LA16_8<='z')||LA16_8=='|'||(LA16_8>='~' && LA16_8<='\uD7FF')||(LA16_8>='\uE000' && LA16_8<='\uFFFD')) && ((( inQuotAttr )||( !inElem )||( inAposAttr )))) {s = 14;}
+
+                        else if ( (LA16_8=='\"'||LA16_8=='\'') && (( !inElem ))) {s = 17;}
+
+                        else s = 22;
+
+                         
+                        input.seek(index16_8);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 12 : 
+                        int LA16_14 = input.LA(1);
+
+                         
+                        int index16_14 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( ((LA16_14>='\t' && LA16_14<='\n')||LA16_14=='\r'||(LA16_14>=' ' && LA16_14<='!')||(LA16_14>='#' && LA16_14<='%')||(LA16_14>='(' && LA16_14<=';')||(LA16_14>='=' && LA16_14<='z')||LA16_14=='|'||(LA16_14>='~' && LA16_14<='\uD7FF')||(LA16_14>='\uE000' && LA16_14<='\uFFFD')) && ((( inQuotAttr )||( !inElem )||( inAposAttr )))) {s = 14;}
+
+                        else if ( (LA16_14=='\"'||LA16_14=='\'') && (( !inElem ))) {s = 17;}
+
+                        else s = 22;
+
+                         
+                        input.seek(index16_14);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 13 : 
+                        int LA16_4 = input.LA(1);
+
+                         
+                        int index16_4 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (LA16_4=='>') && ((( inElem )||( !inElem )||( inQuotAttr )||( inAposAttr )))) {s = 21;}
+
+                        else if ( ((LA16_4>='\t' && LA16_4<='\n')||LA16_4=='\r'||(LA16_4>=' ' && LA16_4<='!')||(LA16_4>='#' && LA16_4<='%')||(LA16_4>='(' && LA16_4<=';')||LA16_4=='='||(LA16_4>='?' && LA16_4<='z')||LA16_4=='|'||(LA16_4>='~' && LA16_4<='\uD7FF')||(LA16_4>='\uE000' && LA16_4<='\uFFFD')) && ((( inQuotAttr )||( !inElem )||( inAposAttr )))) {s = 14;}
+
+                        else if ( (LA16_4=='\"'||LA16_4=='\'') && (( !inElem ))) {s = 17;}
+
+                        else s = 22;
+
+                         
+                        input.seek(index16_4);
                         if ( s>=0 ) return s;
                         break;
                     case 14 : 
-                        int LA16_18 = input.LA(1);
-
-                         
-                        int index16_18 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( ((LA16_18>='\t' && LA16_18<='\n')||LA16_18=='\r'||(LA16_18>=' ' && LA16_18<='%')||(LA16_18>='\'' && LA16_18<=';')||(LA16_18>='=' && LA16_18<='z')||LA16_18=='|'||(LA16_18>='~' && LA16_18<='\uD7FF')||(LA16_18>='\uE000' && LA16_18<='\uFFFD')) && (( !inElem ))) {s = 17;}
-
-                        else s = 41;
-
-                         
-                        input.seek(index16_18);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 15 : 
-                        int LA16_11 = input.LA(1);
-
-                         
-                        int index16_11 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (LA16_11=='/') && (( !inElem ))) {s = 32;}
-
-                        else if ( (LA16_11=='!') ) {s = 33;}
-
-                        else if ( (LA16_11=='?') && (( !inElem ))) {s = 34;}
-
-                        else s = 35;
-
-                         
-                        input.seek(index16_11);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 16 : 
                         int LA16_36 = input.LA(1);
 
                          
@@ -2331,19 +2316,55 @@ public class XMLLexer extends XQDTLexer {
                         input.seek(index16_36);
                         if ( s>=0 ) return s;
                         break;
-                    case 17 : 
-                        int LA16_19 = input.LA(1);
+                    case 15 : 
+                        int LA16_22 = input.LA(1);
 
                          
-                        int index16_19 = input.index();
+                        int index16_22 = input.index();
                         input.rewind();
                         s = -1;
-                        if ( (( inElem || inAposAttr )) ) {s = 42;}
+                        if ( (( inQuotAttr )) ) {s = 43;}
+
+                        else if ( (( inAposAttr )) ) {s = 44;}
 
                         else if ( (( !inElem )) ) {s = 17;}
 
                          
-                        input.seek(index16_19);
+                        input.seek(index16_22);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 16 : 
+                        int LA16_18 = input.LA(1);
+
+                         
+                        int index16_18 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( ((LA16_18>='\t' && LA16_18<='\n')||LA16_18=='\r'||(LA16_18>=' ' && LA16_18<='%')||(LA16_18>='\'' && LA16_18<=';')||(LA16_18>='=' && LA16_18<='z')||LA16_18=='|'||(LA16_18>='~' && LA16_18<='\uD7FF')||(LA16_18>='\uE000' && LA16_18<='\uFFFD')) && (( !inElem ))) {s = 17;}
+
+                        else s = 41;
+
+                         
+                        input.seek(index16_18);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 17 : 
+                        int LA16_11 = input.LA(1);
+
+                         
+                        int index16_11 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (LA16_11=='/') && (( !inElem ))) {s = 32;}
+
+                        else if ( (LA16_11=='!') ) {s = 33;}
+
+                        else if ( (LA16_11=='?') && (( !inElem ))) {s = 34;}
+
+                        else s = 35;
+
+                         
+                        input.seek(index16_11);
                         if ( s>=0 ) return s;
                         break;
                     case 18 : 
@@ -2368,7 +2389,7 @@ public class XMLLexer extends XQDTLexer {
                         int index16_50 = input.index();
                         input.rewind();
                         s = -1;
-                        if ( ((LA16_50>='\t' && LA16_50<='\n')||LA16_50=='\r'||(LA16_50>=' ' && LA16_50<='!')||(LA16_50>='#' && LA16_50<='%')||(LA16_50>='(' && LA16_50<=';')||(LA16_50>='=' && LA16_50<='z')||LA16_50=='|'||(LA16_50>='~' && LA16_50<='\uD7FF')||(LA16_50>='\uE000' && LA16_50<='\uFFFD')) && ((( !inElem )||( inQuotAttr )||( inAposAttr )))) {s = 14;}
+                        if ( ((LA16_50>='\t' && LA16_50<='\n')||LA16_50=='\r'||(LA16_50>=' ' && LA16_50<='!')||(LA16_50>='#' && LA16_50<='%')||(LA16_50>='(' && LA16_50<=';')||(LA16_50>='=' && LA16_50<='z')||LA16_50=='|'||(LA16_50>='~' && LA16_50<='\uD7FF')||(LA16_50>='\uE000' && LA16_50<='\uFFFD')) && ((( inQuotAttr )||( !inElem )||( inAposAttr )))) {s = 14;}
 
                         else if ( (LA16_50=='\"'||LA16_50=='\'') && (( !inElem ))) {s = 17;}
 
@@ -2379,238 +2400,6 @@ public class XMLLexer extends XQDTLexer {
                         if ( s>=0 ) return s;
                         break;
                     case 20 : 
-                        int LA16_41 = input.LA(1);
-
-                         
-                        int index16_41 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (( !inElem )) ) {s = 17;}
-
-                        else if ( (( inAposAttr )) ) {s = 55;}
-
-                         
-                        input.seek(index16_41);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 21 : 
-                        int LA16_2 = input.LA(1);
-
-                         
-                        int index16_2 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (LA16_2=='\'') && ((( !inElem )||( inAposAttr )))) {s = 18;}
-
-                        else if ( ((LA16_2>='\t' && LA16_2<='\n')||LA16_2=='\r'||(LA16_2>=' ' && LA16_2<='%')||(LA16_2>='(' && LA16_2<=';')||(LA16_2>='=' && LA16_2<='z')||LA16_2=='|'||(LA16_2>='~' && LA16_2<='\uD7FF')||(LA16_2>='\uE000' && LA16_2<='\uFFFD')) && (( !inElem ))) {s = 17;}
-
-                        else s = 19;
-
-                         
-                        input.seek(index16_2);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 22 : 
-                        int LA16_27 = input.LA(1);
-
-                         
-                        int index16_27 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (LA16_27=='>') ) {s = 50;}
-
-                        else if ( ((LA16_27>='\t' && LA16_27<='\n')||LA16_27=='\r'||(LA16_27>=' ' && LA16_27<='!')||(LA16_27>='#' && LA16_27<='%')||(LA16_27>='(' && LA16_27<=';')||LA16_27=='='||(LA16_27>='?' && LA16_27<='z')||LA16_27=='|'||(LA16_27>='~' && LA16_27<='\uD7FF')||(LA16_27>='\uE000' && LA16_27<='\uFFFD')) && ((( !inElem )||( inQuotAttr )||( inAposAttr )))) {s = 14;}
-
-                        else if ( (LA16_27=='\"'||LA16_27=='\'') && (( !inElem ))) {s = 17;}
-
-                        else s = 22;
-
-                         
-                        input.seek(index16_27);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 23 : 
-                        int LA16_8 = input.LA(1);
-
-                         
-                        int index16_8 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (LA16_8==']') ) {s = 27;}
-
-                        else if ( ((LA16_8>='\t' && LA16_8<='\n')||LA16_8=='\r'||(LA16_8>=' ' && LA16_8<='!')||(LA16_8>='#' && LA16_8<='%')||(LA16_8>='(' && LA16_8<=';')||(LA16_8>='=' && LA16_8<='\\')||(LA16_8>='^' && LA16_8<='z')||LA16_8=='|'||(LA16_8>='~' && LA16_8<='\uD7FF')||(LA16_8>='\uE000' && LA16_8<='\uFFFD')) && ((( !inElem )||( inQuotAttr )||( inAposAttr )))) {s = 14;}
-
-                        else if ( (LA16_8=='\"'||LA16_8=='\'') && (( !inElem ))) {s = 17;}
-
-                        else s = 22;
-
-                         
-                        input.seek(index16_8);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 24 : 
-                        int LA16_14 = input.LA(1);
-
-                         
-                        int index16_14 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( ((LA16_14>='\t' && LA16_14<='\n')||LA16_14=='\r'||(LA16_14>=' ' && LA16_14<='!')||(LA16_14>='#' && LA16_14<='%')||(LA16_14>='(' && LA16_14<=';')||(LA16_14>='=' && LA16_14<='z')||LA16_14=='|'||(LA16_14>='~' && LA16_14<='\uD7FF')||(LA16_14>='\uE000' && LA16_14<='\uFFFD')) && ((( !inElem )||( inQuotAttr )||( inAposAttr )))) {s = 14;}
-
-                        else if ( (LA16_14=='\"'||LA16_14=='\'') && (( !inElem ))) {s = 17;}
-
-                        else s = 22;
-
-                         
-                        input.seek(index16_14);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 25 : 
-                        int LA16_22 = input.LA(1);
-
-                         
-                        int index16_22 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (( inQuotAttr )) ) {s = 43;}
-
-                        else if ( (( inAposAttr )) ) {s = 44;}
-
-                        else if ( (( !inElem )) ) {s = 17;}
-
-                         
-                        input.seek(index16_22);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 26 : 
-                        int LA16_12 = input.LA(1);
-
-                         
-                        int index16_12 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( ((LA16_12>='\t' && LA16_12<='\n')||LA16_12=='\r'||(LA16_12>=' ' && LA16_12<='!')||(LA16_12>='#' && LA16_12<='%')||(LA16_12>='(' && LA16_12<=';')||(LA16_12>='=' && LA16_12<='z')||LA16_12=='|'||(LA16_12>='~' && LA16_12<='\uD7FF')||(LA16_12>='\uE000' && LA16_12<='\uFFFD')) && ((( !inElem )||( inQuotAttr )||( inAposAttr )))) {s = 14;}
-
-                        else if ( (LA16_12=='\"'||LA16_12=='\'') && (( !inElem ))) {s = 17;}
-
-                        else s = 36;
-
-                         
-                        input.seek(index16_12);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 27 : 
-                        int LA16_4 = input.LA(1);
-
-                         
-                        int index16_4 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (LA16_4=='>') && ((( inElem )||( !inElem )||( inQuotAttr )||( inAposAttr )))) {s = 21;}
-
-                        else if ( ((LA16_4>='\t' && LA16_4<='\n')||LA16_4=='\r'||(LA16_4>=' ' && LA16_4<='!')||(LA16_4>='#' && LA16_4<='%')||(LA16_4>='(' && LA16_4<=';')||LA16_4=='='||(LA16_4>='?' && LA16_4<='z')||LA16_4=='|'||(LA16_4>='~' && LA16_4<='\uD7FF')||(LA16_4>='\uE000' && LA16_4<='\uFFFD')) && ((( !inElem )||( inQuotAttr )||( inAposAttr )))) {s = 14;}
-
-                        else if ( (LA16_4=='\"'||LA16_4=='\'') && (( !inElem ))) {s = 17;}
-
-                        else s = 22;
-
-                         
-                        input.seek(index16_4);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 28 : 
-                        int LA16_0 = input.LA(1);
-
-                         
-                        int index16_0 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (LA16_0=='\"') && ((( !inElem )||( inQuotAttr )||( inElem || inQuotAttr )))) {s = 1;}
-
-                        else if ( (LA16_0=='\'') && ((( !inElem )||( inElem || inAposAttr )||( inAposAttr )))) {s = 2;}
-
-                        else if ( (LA16_0=='>') && ((( inElem )||( !inElem )||( inQuotAttr )||( inAposAttr )))) {s = 3;}
-
-                        else if ( (LA16_0=='/') && ((( inElem )||( !inElem )||( inQuotAttr )||( inAposAttr )))) {s = 4;}
-
-                        else if ( ((LA16_0>='\t' && LA16_0<='\n')||LA16_0=='\r'||LA16_0==' ') && ((( inElem )||( !inElem )||( inQuotAttr )||( inAposAttr )))) {s = 5;}
-
-                        else if ( ((LA16_0>='A' && LA16_0<='Z')||LA16_0=='_'||(LA16_0>='a' && LA16_0<='z')) && ((( inElem )||( !inElem )||( inQuotAttr )||( inAposAttr )))) {s = 6;}
-
-                        else if ( (LA16_0=='=') && ((( !inElem )||( inQuotAttr )||( inElem  )||( inAposAttr )))) {s = 7;}
-
-                        else if ( (LA16_0==']') ) {s = 8;}
-
-                        else if ( (LA16_0=='{') && (( !inElem || inAposAttr || inQuotAttr ))) {s = 9;}
-
-                        else if ( (LA16_0=='}') && (( !inElem || inAposAttr || inQuotAttr ))) {s = 10;}
-
-                        else if ( (LA16_0=='<') ) {s = 11;}
-
-                        else if ( (LA16_0==':') ) {s = 12;}
-
-                        else if ( (LA16_0=='&') ) {s = 13;}
-
-                        else if ( (LA16_0=='!'||(LA16_0>='#' && LA16_0<='%')||(LA16_0>='(' && LA16_0<='.')||(LA16_0>='0' && LA16_0<='9')||LA16_0==';'||(LA16_0>='?' && LA16_0<='@')||(LA16_0>='[' && LA16_0<='\\')||LA16_0=='^'||LA16_0=='`'||LA16_0=='|'||(LA16_0>='~' && LA16_0<='\uD7FF')||(LA16_0>='\uE000' && LA16_0<='\uFFFD')) && ((( !inElem )||( inQuotAttr )||( inAposAttr )))) {s = 14;}
-
-                         
-                        input.seek(index16_0);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 29 : 
-                        int LA16_7 = input.LA(1);
-
-                         
-                        int index16_7 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( ((LA16_7>='\t' && LA16_7<='\n')||LA16_7=='\r'||(LA16_7>=' ' && LA16_7<='!')||(LA16_7>='#' && LA16_7<='%')||(LA16_7>='(' && LA16_7<=';')||(LA16_7>='=' && LA16_7<='z')||LA16_7=='|'||(LA16_7>='~' && LA16_7<='\uD7FF')||(LA16_7>='\uE000' && LA16_7<='\uFFFD')) && ((( !inElem )||( inQuotAttr )||( inAposAttr )))) {s = 14;}
-
-                        else if ( (LA16_7=='\"'||LA16_7=='\'') && (( !inElem ))) {s = 17;}
-
-                        else s = 26;
-
-                         
-                        input.seek(index16_7);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 30 : 
-                        int LA16_3 = input.LA(1);
-
-                         
-                        int index16_3 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( ((LA16_3>='\t' && LA16_3<='\n')||LA16_3=='\r'||(LA16_3>=' ' && LA16_3<='!')||(LA16_3>='#' && LA16_3<='%')||(LA16_3>='(' && LA16_3<=';')||(LA16_3>='=' && LA16_3<='z')||LA16_3=='|'||(LA16_3>='~' && LA16_3<='\uD7FF')||(LA16_3>='\uE000' && LA16_3<='\uFFFD')) && ((( !inElem )||( inQuotAttr )||( inAposAttr )))) {s = 14;}
-
-                        else if ( (LA16_3=='\"'||LA16_3=='\'') && (( !inElem ))) {s = 17;}
-
-                        else s = 20;
-
-                         
-                        input.seek(index16_3);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 31 : 
-                        int LA16_23 = input.LA(1);
-
-                         
-                        int index16_23 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (( inQuotAttr )) ) {s = 43;}
-
-                        else if ( (( inAposAttr )) ) {s = 44;}
-
-                        else if ( (( !inElem )) ) {s = 17;}
-
-                        else if ( (( inElem )) ) {s = 47;}
-
-                         
-                        input.seek(index16_23);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 32 : 
                         int LA16_57 = input.LA(1);
 
                          
@@ -2629,22 +2418,132 @@ public class XMLLexer extends XQDTLexer {
                         input.seek(index16_57);
                         if ( s>=0 ) return s;
                         break;
-                    case 33 : 
-                        int LA16_9 = input.LA(1);
+                    case 21 : 
+                        int LA16_6 = input.LA(1);
 
                          
-                        int index16_9 = input.index();
+                        int index16_6 = input.index();
                         input.rewind();
                         s = -1;
-                        if ( (LA16_9=='{') && (( !inElem || inAposAttr || inQuotAttr ))) {s = 28;}
+                        if ( ((LA16_6>='-' && LA16_6<='.')||(LA16_6>='0' && LA16_6<='9')||(LA16_6>='A' && LA16_6<='Z')||LA16_6=='_'||(LA16_6>='a' && LA16_6<='z')) && ((( inElem )||( !inElem )||( inQuotAttr )||( inAposAttr )))) {s = 25;}
 
-                        else s = 29;
+                        else if ( (LA16_6=='\"'||LA16_6=='\'') && (( !inElem ))) {s = 17;}
+
+                        else if ( ((LA16_6>='\t' && LA16_6<='\n')||LA16_6=='\r'||(LA16_6>=' ' && LA16_6<='!')||(LA16_6>='#' && LA16_6<='%')||(LA16_6>='(' && LA16_6<=',')||LA16_6=='/'||(LA16_6>=':' && LA16_6<=';')||(LA16_6>='=' && LA16_6<='@')||(LA16_6>='[' && LA16_6<='^')||LA16_6=='`'||LA16_6=='|'||(LA16_6>='~' && LA16_6<='\uD7FF')||(LA16_6>='\uE000' && LA16_6<='\uFFFD')) && ((( inQuotAttr )||( !inElem )||( inAposAttr )))) {s = 14;}
+
+                        else s = 24;
 
                          
-                        input.seek(index16_9);
+                        input.seek(index16_6);
                         if ( s>=0 ) return s;
                         break;
-                    case 34 : 
+                    case 22 : 
+                        int LA16_21 = input.LA(1);
+
+                         
+                        int index16_21 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( ((LA16_21>='\t' && LA16_21<='\n')||LA16_21=='\r'||(LA16_21>=' ' && LA16_21<='!')||(LA16_21>='#' && LA16_21<='%')||(LA16_21>='(' && LA16_21<=';')||(LA16_21>='=' && LA16_21<='z')||LA16_21=='|'||(LA16_21>='~' && LA16_21<='\uD7FF')||(LA16_21>='\uE000' && LA16_21<='\uFFFD')) && ((( inQuotAttr )||( !inElem )||( inAposAttr )))) {s = 14;}
+
+                        else if ( (LA16_21=='\"'||LA16_21=='\'') && (( !inElem ))) {s = 17;}
+
+                        else s = 46;
+
+                         
+                        input.seek(index16_21);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 23 : 
+                        int LA16_26 = input.LA(1);
+
+                         
+                        int index16_26 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (( inQuotAttr )) ) {s = 43;}
+
+                        else if ( (( inAposAttr )) ) {s = 44;}
+
+                        else if ( (( !inElem )) ) {s = 17;}
+
+                        else if ( (( inElem  )) ) {s = 49;}
+
+                         
+                        input.seek(index16_26);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 24 : 
+                        int LA16_23 = input.LA(1);
+
+                         
+                        int index16_23 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (( inQuotAttr )) ) {s = 43;}
+
+                        else if ( (( inAposAttr )) ) {s = 44;}
+
+                        else if ( (( !inElem )) ) {s = 17;}
+
+                        else if ( (( inElem )) ) {s = 47;}
+
+                         
+                        input.seek(index16_23);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 25 : 
+                        int LA16_24 = input.LA(1);
+
+                         
+                        int index16_24 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (( inQuotAttr )) ) {s = 43;}
+
+                        else if ( (( inAposAttr )) ) {s = 44;}
+
+                        else if ( (( !inElem )) ) {s = 17;}
+
+                        else if ( (( inElem )) ) {s = 48;}
+
+                         
+                        input.seek(index16_24);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 26 : 
+                        int LA16_15 = input.LA(1);
+
+                         
+                        int index16_15 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( ((LA16_15>='\t' && LA16_15<='\n')||LA16_15=='\r'||(LA16_15>=' ' && LA16_15<='%')||(LA16_15>='\'' && LA16_15<=';')||(LA16_15>='=' && LA16_15<='z')||LA16_15=='|'||(LA16_15>='~' && LA16_15<='\uD7FF')||(LA16_15>='\uE000' && LA16_15<='\uFFFD')) && (( !inElem ))) {s = 17;}
+
+                        else s = 39;
+
+                         
+                        input.seek(index16_15);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 27 : 
+                        int LA16_12 = input.LA(1);
+
+                         
+                        int index16_12 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( ((LA16_12>='\t' && LA16_12<='\n')||LA16_12=='\r'||(LA16_12>=' ' && LA16_12<='!')||(LA16_12>='#' && LA16_12<='%')||(LA16_12>='(' && LA16_12<=';')||(LA16_12>='=' && LA16_12<='z')||LA16_12=='|'||(LA16_12>='~' && LA16_12<='\uD7FF')||(LA16_12>='\uE000' && LA16_12<='\uFFFD')) && ((( inQuotAttr )||( !inElem )||( inAposAttr )))) {s = 14;}
+
+                        else if ( (LA16_12=='\"'||LA16_12=='\'') && (( !inElem ))) {s = 17;}
+
+                        else s = 36;
+
+                         
+                        input.seek(index16_12);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 28 : 
                         int LA16_46 = input.LA(1);
 
                          
@@ -2661,6 +2560,108 @@ public class XMLLexer extends XQDTLexer {
 
                          
                         input.seek(index16_46);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 29 : 
+                        int LA16_20 = input.LA(1);
+
+                         
+                        int index16_20 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (( inQuotAttr )) ) {s = 43;}
+
+                        else if ( (( inAposAttr )) ) {s = 44;}
+
+                        else if ( (( !inElem )) ) {s = 17;}
+
+                        else if ( (( inElem )) ) {s = 45;}
+
+                         
+                        input.seek(index16_20);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 30 : 
+                        int LA16_5 = input.LA(1);
+
+                         
+                        int index16_5 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( ((LA16_5>='\t' && LA16_5<='\n')||LA16_5=='\r'||LA16_5==' ') && ((( inElem )||( inQuotAttr )||( !inElem )||( inAposAttr )))) {s = 5;}
+
+                        else if ( (LA16_5=='\"'||LA16_5=='\'') && (( !inElem ))) {s = 17;}
+
+                        else if ( (LA16_5=='!'||(LA16_5>='#' && LA16_5<='%')||(LA16_5>='(' && LA16_5<=';')||(LA16_5>='=' && LA16_5<='z')||LA16_5=='|'||(LA16_5>='~' && LA16_5<='\uD7FF')||(LA16_5>='\uE000' && LA16_5<='\uFFFD')) && ((( inQuotAttr )||( !inElem )||( inAposAttr )))) {s = 14;}
+
+                        else s = 23;
+
+                         
+                        input.seek(index16_5);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 31 : 
+                        int LA16_1 = input.LA(1);
+
+                         
+                        int index16_1 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (LA16_1=='\"') && ((( inQuotAttr )||( !inElem )))) {s = 15;}
+
+                        else if ( ((LA16_1>='\t' && LA16_1<='\n')||LA16_1=='\r'||(LA16_1>=' ' && LA16_1<='!')||(LA16_1>='#' && LA16_1<='%')||(LA16_1>='\'' && LA16_1<=';')||(LA16_1>='=' && LA16_1<='z')||LA16_1=='|'||(LA16_1>='~' && LA16_1<='\uD7FF')||(LA16_1>='\uE000' && LA16_1<='\uFFFD')) && (( !inElem ))) {s = 17;}
+
+                        else s = 16;
+
+                         
+                        input.seek(index16_1);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 32 : 
+                        int LA16_13 = input.LA(1);
+
+                         
+                        int index16_13 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (LA16_13=='#') ) {s = 37;}
+
+                        else if ( (LA16_13=='a'||LA16_13=='g'||LA16_13=='l'||LA16_13=='q') && (( !inElem || inAposAttr || inQuotAttr ))) {s = 38;}
+
+                         
+                        input.seek(index16_13);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 33 : 
+                        int LA16_9 = input.LA(1);
+
+                         
+                        int index16_9 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (LA16_9=='{') && (( !inElem || inAposAttr || inQuotAttr ))) {s = 28;}
+
+                        else s = 29;
+
+                         
+                        input.seek(index16_9);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 34 : 
+                        int LA16_2 = input.LA(1);
+
+                         
+                        int index16_2 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (LA16_2=='\'') && ((( !inElem )||( inAposAttr )))) {s = 18;}
+
+                        else if ( ((LA16_2>='\t' && LA16_2<='\n')||LA16_2=='\r'||(LA16_2>=' ' && LA16_2<='%')||(LA16_2>='(' && LA16_2<=';')||(LA16_2>='=' && LA16_2<='z')||LA16_2=='|'||(LA16_2>='~' && LA16_2<='\uD7FF')||(LA16_2>='\uE000' && LA16_2<='\uFFFD')) && (( !inElem ))) {s = 17;}
+
+                        else s = 19;
+
+                         
+                        input.seek(index16_2);
                         if ( s>=0 ) return s;
                         break;
             }

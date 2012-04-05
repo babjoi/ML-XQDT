@@ -1,4 +1,4 @@
-// $ANTLR 3.2 Sep 23, 2009 12:02:23 StringLexer.g 2011-08-25 19:33:28
+// $ANTLR 3.3 Nov 30, 2010 12:50:56 StringLexer.g 2012-04-05 17:09:35
 
 /*******************************************************************************
  * Copyright (c) 2008, 2009 28msec Inc. and others.
@@ -19,288 +19,289 @@ import java.util.List;
 import java.util.ArrayList;
 
 public class StringLexer extends XQDTLexer {
-    public static final int INDEX=212;
-    public static final int L_CDataSection=7;
-    public static final int MINUS=238;
-    public static final int NAMESPACE_NODE=125;
-    public static final int HASH=232;
-    public static final int END=120;
-    public static final int INTO=148;
-    public static final int PATTERN_SEPARATOR=129;
-    public static final int GREATER_GREATER=244;
-    public static final int RENAME=152;
-    public static final int INSTANCE=63;
-    public static final int CONTENT=162;
-    public static final int LAX=67;
-    public static final int STOP=191;
-    public static final int IMPORT=60;
-    public static final int BINARY=217;
-    public static final int ON=215;
-    public static final int CONTINUE=202;
-    public static final int DOT=247;
-    public static final int CONSTRAINT=209;
-    public static final int Letter=269;
-    public static final int ORDER=82;
-    public static final int CASTABLE=28;
-    public static final int DIACRITICS=163;
-    public static final int DETERMINISTIC=118;
-    public static final int EMPTY_CLOSE_TAG=251;
-    public static final int TYPESWITCH=104;
-    public static final int MODULE=73;
-    public static final int ESCAPE_RBRACKET=11;
-    public static final int AMP=233;
-    public static final int RPAREN=222;
-    public static final int VERSION=109;
-    public static final int XML_COMMENT_START=257;
-    public static final int EXACTLY=167;
-    public static final int FTNOT=171;
-    public static final int DECLARE=34;
-    public static final int BOUNDARY_SPACE=24;
-    public static final int CLOSE_TAG=252;
-    public static final int OCCURS=180;
-    public static final int UNION=105;
-    public static final int STRIP=99;
-    public static final int GROUPING_SEPARATOR=122;
-    public static final int HexLetter=270;
-    public static final int SAME=185;
-    public static final int WHEN=139;
-    public static final int DESCENDING=38;
-    public static final int DOCUMENT_NODE=41;
-    public static final int ANCESTOR_OR_SELF=17;
-    public static final int SMALLER_SMALLER=243;
-    public static final int RELATIONSHIP=184;
-    public static final int ANY=160;
-    public static final int CATCH=113;
-    public static final int GE=55;
-    public static final int ATTR_SIGN=261;
-    public static final int ELSE=43;
-    public static final int WORD=199;
-    public static final int SU=274;
-    public static final int PRAGMA_START=255;
-    public static final int SENSITIVE=187;
-    public static final int L_ElementContentChar=6;
-    public static final int SELF=95;
-    public static final int DISTANCE=165;
-    public static final int ALLOWING=112;
-    public static final int COUNT=115;
-    public static final int TEXT=100;
-    public static final int COLON=249;
-    public static final int PARENT=85;
-    public static final int SCORE=186;
-    public static final int FTOR=172;
-    public static final int UNIQUE=216;
-    public static final int FOREACH=210;
-    public static final int TYPE=138;
-    public static final int PERCENT=130;
-    public static final int EMPTY_SEQUENCE=45;
-    public static final int EXTERNAL=50;
-    public static final int ANN_PERCENT=231;
-    public static final int Digit=271;
-    public static final int LAST=149;
-    public static final int COLLECTION=208;
-    public static final int DOT_DOT=248;
-    public static final int DECIMAL_SEPARATOR=117;
-    public static final int CAST=27;
-    public static final int L_CharRef=9;
-    public static final int LBRACKET=224;
-    public static final int MOD=72;
-    public static final int EXCEPT=49;
-    public static final int QUESTION=235;
-    public static final int OR=81;
-    public static final int AFTER=142;
-    public static final int S=273;
-    public static final int SMALLEREQ=241;
-    public static final int BY=25;
-    public static final int SCHEMA_ELEMENT=94;
-    public static final int INFINITY=123;
-    public static final int WEIGHT=196;
-    public static final int TUMBLING=137;
-    public static final int NO_INHERIT=76;
-    public static final int LPAREN=221;
-    public static final int UPPERCASE=194;
-    public static final int PRECEDING_SIBLING=87;
-    public static final int L_DecimalLiteral=279;
-    public static final int EXIT=203;
-    public static final int PI_START=259;
-    public static final int APOS=264;
-    public static final int SKIP=155;
-    public static final int STEMMING=190;
-    public static final int FROM=168;
-    public static final int DELETE=145;
-    public static final int TIMES=193;
-    public static final int EMPTY=44;
-    public static final int ASCENDING=20;
-    public static final int WHILE=206;
-    public static final int ESCAPE_QUOT=13;
-    public static final int ONLY=128;
-    public static final int SENTENCES=189;
-    public static final int APOS_ER=219;
-    public static final int NE=75;
-    public static final int COMMENT=31;
-    public static final int RETURNING=205;
-    public static final int L_AnyChar=282;
-    public static final int RSQUARE=227;
-    public static final int ESCAPE_APOS=12;
-    public static final int NCNameChar=267;
-    public static final int ENTIRE=166;
-    public static final int WITH=158;
-    public static final int IN=61;
-    public static final int SOME=96;
-    public static final int MOST=177;
-    public static final int NEXT=127;
-    public static final int RETURN=90;
-    public static final int LET=70;
-    public static final int IF=59;
-    public static final int NODE=78;
-    public static final int PER_MILLE=131;
-    public static final int FOR=53;
-    public static final int CHARREF_HEX=263;
-    public static final int PRESERVE=88;
-    public static final int DEFAULT=35;
-    public static final int L_AposAttrContentChar=5;
-    public static final int LEVELS=175;
-    public static final int BEFORE=143;
-    public static final int ATTRIBUTE=22;
-    public static final int CHILD=29;
-    public static final int Digits=272;
-    public static final int CDATA_START=14;
-    public static final int TRY=136;
-    public static final int NOT=179;
-    public static final int OPTION=80;
-    public static final int L_DirCommentConstructor=276;
-    public static final int COMMA=234;
-    public static final int ELEMENT=42;
-    public static final int INSENSITIVE=173;
-    public static final int AS=19;
-    public static final int DOCUMENT=40;
-    public static final int ENCODING=46;
-    public static final int NAN=126;
-    public static final int TREAT=103;
-    public static final int NAMESPACE=74;
-    public static final int LEAST=69;
-    public static final int THEN=101;
-    public static final int PI_END=260;
-    public static final int GREATEREQ=242;
-    public static final int WORDS=200;
-    public static final int FOREIGN=211;
-    public static final int PARAGRAPHS=182;
-    public static final int NCNameStartChar=266;
-    public static final int AND=18;
-    public static final int BASE_URI=23;
-    public static final int TO=102;
-    public static final int FUNCTION=54;
-    public static final int L_Pragma=275;
-    public static final int LANGUAGE=174;
-    public static final int RBRACKET=225;
-    public static final int LE=68;
-    public static final int LOWERCASE=176;
-    public static final int SCHEMA=92;
-    public static final int CONSTRUCTION=32;
-    public static final int WILDCARDS=197;
-    public static final int PLUS=237;
-    public static final int L_DoubleLiteral=280;
-    public static final int DIFFERENT=164;
-    public static final int INTERSECT=64;
-    public static final int AT=21;
-    public static final int L_QuotAttrContentChar=4;
-    public static final int LSQUARE=226;
-    public static final int GREATEST=56;
-    public static final int EQ=47;
-    public static final int LOOP=204;
-    public static final int L_AposStringLiteralChar=284;
-    public static final int ESCAPE_LBRACKET=10;
-    public static final int LT=71;
-    public static final int OF=79;
-    public static final int DOLLAR=223;
-    public static final int WINDOW=140;
-    public static final int FOLLOWING=51;
-    public static final int CASE=26;
-    public static final int CDATA_END=15;
-    public static final int DESCENDANT_OR_SELF=37;
-    public static final int EQUAL=228;
-    public static final int SEMICOLON=253;
-    public static final int THESAURUS=192;
-    public static final int CHECK=207;
-    public static final int KEY=214;
-    public static final int FTAND=170;
-    public static final int FIRST=146;
-    public static final int BREAK=201;
-    public static final int PARAGRAPH=181;
-    public static final int DIV=39;
-    public static final int ALL=159;
-    public static final int FT_OPTION=169;
-    public static final int REVALIDATION=154;
-    public static final int INSERT=147;
-    public static final int QUOT=265;
-    public static final int WHERE=110;
-    public static final int COPY=144;
-    public static final int PREVIOUS=132;
-    public static final int WITHOUT=198;
-    public static final int AMP_ER=218;
-    public static final int USING=195;
-    public static final int SCHEMA_ATTRIBUTE=93;
-    public static final int EVERY=48;
-    public static final int CONTEXT=114;
-    public static final int XQUERY=111;
-    public static final int INTEGRITY=213;
-    public static final int SLIDING=133;
-    public static final int UPDATING=156;
-    public static final int IDIV=58;
-    public static final int PRAGMA_END=256;
-    public static final int SATISFIES=91;
-    public static final int VALUE=157;
-    public static final int DESCENDANT=36;
-    public static final int STRICT=98;
-    public static final int NOTEQUAL=230;
-    public static final int COLON_COLON=250;
-    public static final int L_PredefinedEntityRef=8;
-    public static final int L_IntegerLiteral=278;
-    public static final int FOLLOWING_SIBLING=52;
-    public static final int STABLE=97;
-    public static final int CHARREF_DEC=262;
-    public static final int DECIMAL_FORMAT=116;
-    public static final int START=134;
-    public static final int GROUP=121;
-    public static final int VALIDATE=107;
-    public static final int CONTAINS=161;
-    public static final int PRECEDING=86;
-    public static final int ZERO_DIGIT=141;
-    public static final int MINUS_SIGN=124;
-    public static final int GREATER=240;
-    public static final int VBAR=254;
-    public static final int DIGIT=119;
-    public static final int COPY_NAMESPACES=33;
-    public static final int ORDERING=84;
-    public static final int NO_PRESERVE=77;
-    public static final int UNORDERED=106;
-    public static final int SENTENCE=188;
-    public static final int L_NCName=268;
-    public static final int INHERIT=62;
-    public static final int SLASH=245;
-    public static final int SWITCH=135;
-    public static final int L_DirPIConstructor=277;
-    public static final int IS=65;
-    public static final int REPLACE=153;
-    public static final int NO=178;
-    public static final int GT=57;
-    public static final int PHRASE=183;
-    public static final int L_QuotStringLiteralChar=283;
-    public static final int ITEM=66;
-    public static final int ORDERED=83;
-    public static final int PROCESSING_INSTRUCTION=89;
-    public static final int COLLATION=30;
-    public static final int SLASH_SLASH=246;
-    public static final int ANCESTOR=16;
-    public static final int SMALLER=239;
-    public static final int NODES=151;
-    public static final int VARIABLE=108;
     public static final int EOF=-1;
+    public static final int L_QuotAttrContentChar=4;
+    public static final int L_AposAttrContentChar=5;
+    public static final int L_ElementContentChar=6;
+    public static final int L_CDataSection=7;
+    public static final int L_PredefinedEntityRef=8;
+    public static final int L_CharRef=9;
+    public static final int ESCAPE_LBRACKET=10;
+    public static final int ESCAPE_RBRACKET=11;
+    public static final int ESCAPE_APOS=12;
+    public static final int ESCAPE_QUOT=13;
+    public static final int CDATA_START=14;
+    public static final int CDATA_END=15;
+    public static final int ANCESTOR=16;
+    public static final int ANCESTOR_OR_SELF=17;
+    public static final int AND=18;
+    public static final int AS=19;
+    public static final int ASCENDING=20;
+    public static final int AT=21;
+    public static final int ATTRIBUTE=22;
+    public static final int BASE_URI=23;
+    public static final int BOUNDARY_SPACE=24;
+    public static final int BY=25;
+    public static final int CASE=26;
+    public static final int CAST=27;
+    public static final int CASTABLE=28;
+    public static final int CHILD=29;
+    public static final int COLLATION=30;
+    public static final int COMMENT=31;
+    public static final int CONSTRUCTION=32;
+    public static final int COPY_NAMESPACES=33;
+    public static final int DECLARE=34;
+    public static final int DEFAULT=35;
+    public static final int DESCENDANT=36;
+    public static final int DESCENDANT_OR_SELF=37;
+    public static final int DESCENDING=38;
+    public static final int DIV=39;
+    public static final int DOCUMENT=40;
+    public static final int DOCUMENT_NODE=41;
+    public static final int ELEMENT=42;
+    public static final int ELSE=43;
+    public static final int EMPTY=44;
+    public static final int EMPTY_SEQUENCE=45;
+    public static final int ENCODING=46;
+    public static final int EQ=47;
+    public static final int EVERY=48;
+    public static final int EXCEPT=49;
+    public static final int EXTERNAL=50;
+    public static final int FOLLOWING=51;
+    public static final int FOLLOWING_SIBLING=52;
+    public static final int FOR=53;
+    public static final int FUNCTION=54;
+    public static final int GE=55;
+    public static final int GREATEST=56;
+    public static final int GT=57;
+    public static final int IDIV=58;
+    public static final int IF=59;
+    public static final int IMPORT=60;
+    public static final int IN=61;
+    public static final int INHERIT=62;
+    public static final int INSTANCE=63;
+    public static final int INTERSECT=64;
+    public static final int IS=65;
+    public static final int ITEM=66;
+    public static final int LAX=67;
+    public static final int LE=68;
+    public static final int LEAST=69;
+    public static final int LET=70;
+    public static final int LT=71;
+    public static final int MOD=72;
+    public static final int MODULE=73;
+    public static final int NAMESPACE=74;
+    public static final int NE=75;
+    public static final int NO_INHERIT=76;
+    public static final int NO_PRESERVE=77;
+    public static final int NODE=78;
+    public static final int OF=79;
+    public static final int OPTION=80;
+    public static final int OR=81;
+    public static final int ORDER=82;
+    public static final int ORDERED=83;
+    public static final int ORDERING=84;
+    public static final int PARENT=85;
+    public static final int PRECEDING=86;
+    public static final int PRECEDING_SIBLING=87;
+    public static final int PRESERVE=88;
+    public static final int PROCESSING_INSTRUCTION=89;
+    public static final int RETURN=90;
+    public static final int SATISFIES=91;
+    public static final int SCHEMA=92;
+    public static final int SCHEMA_ATTRIBUTE=93;
+    public static final int SCHEMA_ELEMENT=94;
+    public static final int SELF=95;
+    public static final int SOME=96;
+    public static final int STABLE=97;
+    public static final int STRICT=98;
+    public static final int STRIP=99;
+    public static final int TEXT=100;
+    public static final int THEN=101;
+    public static final int TO=102;
+    public static final int TREAT=103;
+    public static final int TYPESWITCH=104;
+    public static final int UNION=105;
+    public static final int UNORDERED=106;
+    public static final int VALIDATE=107;
+    public static final int VARIABLE=108;
+    public static final int VERSION=109;
+    public static final int WHERE=110;
+    public static final int XQUERY=111;
+    public static final int ALLOWING=112;
+    public static final int CATCH=113;
+    public static final int CONTEXT=114;
+    public static final int COUNT=115;
+    public static final int DECIMAL_FORMAT=116;
+    public static final int DECIMAL_SEPARATOR=117;
+    public static final int DETERMINISTIC=118;
+    public static final int DIGIT=119;
+    public static final int END=120;
+    public static final int GROUP=121;
+    public static final int GROUPING_SEPARATOR=122;
+    public static final int INFINITY=123;
+    public static final int MINUS_SIGN=124;
+    public static final int NAMESPACE_NODE=125;
+    public static final int NAN=126;
+    public static final int NEXT=127;
+    public static final int ONLY=128;
+    public static final int PATTERN_SEPARATOR=129;
+    public static final int PERCENT=130;
+    public static final int PER_MILLE=131;
+    public static final int PREVIOUS=132;
+    public static final int SLIDING=133;
+    public static final int START=134;
+    public static final int SWITCH=135;
+    public static final int TRY=136;
+    public static final int TUMBLING=137;
+    public static final int TYPE=138;
+    public static final int WHEN=139;
+    public static final int WINDOW=140;
+    public static final int ZERO_DIGIT=141;
+    public static final int AFTER=142;
+    public static final int BEFORE=143;
+    public static final int COPY=144;
+    public static final int DELETE=145;
+    public static final int FIRST=146;
+    public static final int INSERT=147;
+    public static final int INTO=148;
+    public static final int LAST=149;
     public static final int MODIFY=150;
+    public static final int NODES=151;
+    public static final int RENAME=152;
+    public static final int REPLACE=153;
+    public static final int REVALIDATION=154;
+    public static final int SKIP=155;
+    public static final int UPDATING=156;
+    public static final int VALUE=157;
+    public static final int WITH=158;
+    public static final int ALL=159;
+    public static final int ANY=160;
+    public static final int CONTAINS=161;
+    public static final int CONTENT=162;
+    public static final int DIACRITICS=163;
+    public static final int DIFFERENT=164;
+    public static final int DISTANCE=165;
+    public static final int ENTIRE=166;
+    public static final int EXACTLY=167;
+    public static final int FROM=168;
+    public static final int FT_OPTION=169;
+    public static final int FTAND=170;
+    public static final int FTNOT=171;
+    public static final int FTOR=172;
+    public static final int INSENSITIVE=173;
+    public static final int LANGUAGE=174;
+    public static final int LEVELS=175;
+    public static final int LOWERCASE=176;
+    public static final int MOST=177;
+    public static final int NO=178;
+    public static final int NOT=179;
+    public static final int OCCURS=180;
+    public static final int PARAGRAPH=181;
+    public static final int PARAGRAPHS=182;
+    public static final int PHRASE=183;
+    public static final int RELATIONSHIP=184;
+    public static final int SAME=185;
+    public static final int SCORE=186;
+    public static final int SENSITIVE=187;
+    public static final int SENTENCE=188;
+    public static final int SENTENCES=189;
+    public static final int STEMMING=190;
+    public static final int STOP=191;
+    public static final int THESAURUS=192;
+    public static final int TIMES=193;
+    public static final int UPPERCASE=194;
+    public static final int USING=195;
+    public static final int WEIGHT=196;
+    public static final int WILDCARDS=197;
+    public static final int WITHOUT=198;
+    public static final int WORD=199;
+    public static final int WORDS=200;
+    public static final int BREAK=201;
+    public static final int CONTINUE=202;
+    public static final int EXIT=203;
+    public static final int LOOP=204;
+    public static final int RETURNING=205;
+    public static final int WHILE=206;
+    public static final int CHECK=207;
+    public static final int COLLECTION=208;
+    public static final int CONSTRAINT=209;
+    public static final int FOREACH=210;
+    public static final int FOREIGN=211;
+    public static final int INDEX=212;
+    public static final int INTEGRITY=213;
+    public static final int KEY=214;
+    public static final int ON=215;
+    public static final int UNIQUE=216;
+    public static final int BINARY=217;
+    public static final int AMP_ER=218;
+    public static final int APOS_ER=219;
     public static final int QUOT_ER=220;
-    public static final int STAR=236;
-    public static final int BIND=229;
-    public static final int L_Comment=281;
-    public static final int XML_COMMENT_END=258;
+    public static final int CONCAT=221;
+    public static final int LPAREN=222;
+    public static final int RPAREN=223;
+    public static final int DOLLAR=224;
+    public static final int LBRACKET=225;
+    public static final int RBRACKET=226;
+    public static final int LSQUARE=227;
+    public static final int RSQUARE=228;
+    public static final int EQUAL=229;
+    public static final int BIND=230;
+    public static final int NOTEQUAL=231;
+    public static final int ANN_PERCENT=232;
+    public static final int HASH=233;
+    public static final int AMP=234;
+    public static final int COMMA=235;
+    public static final int QUESTION=236;
+    public static final int STAR=237;
+    public static final int PLUS=238;
+    public static final int MINUS=239;
+    public static final int SMALLER=240;
+    public static final int GREATER=241;
+    public static final int SMALLEREQ=242;
+    public static final int GREATEREQ=243;
+    public static final int SMALLER_SMALLER=244;
+    public static final int GREATER_GREATER=245;
+    public static final int SLASH=246;
+    public static final int SLASH_SLASH=247;
+    public static final int DOT=248;
+    public static final int DOT_DOT=249;
+    public static final int COLON=250;
+    public static final int COLON_COLON=251;
+    public static final int EMPTY_CLOSE_TAG=252;
+    public static final int CLOSE_TAG=253;
+    public static final int SEMICOLON=254;
+    public static final int VBAR=255;
+    public static final int PRAGMA_START=256;
+    public static final int PRAGMA_END=257;
+    public static final int XML_COMMENT_START=258;
+    public static final int XML_COMMENT_END=259;
+    public static final int PI_START=260;
+    public static final int PI_END=261;
+    public static final int ATTR_SIGN=262;
+    public static final int CHARREF_DEC=263;
+    public static final int CHARREF_HEX=264;
+    public static final int APOS=265;
+    public static final int QUOT=266;
+    public static final int NCNameStartChar=267;
+    public static final int NCNameChar=268;
+    public static final int L_NCName=269;
+    public static final int Letter=270;
+    public static final int HexLetter=271;
+    public static final int Digit=272;
+    public static final int Digits=273;
+    public static final int S=274;
+    public static final int SU=275;
+    public static final int L_Pragma=276;
+    public static final int L_DirCommentConstructor=277;
+    public static final int L_DirPIConstructor=278;
+    public static final int L_IntegerLiteral=279;
+    public static final int L_DecimalLiteral=280;
+    public static final int L_DoubleLiteral=281;
+    public static final int L_Comment=282;
+    public static final int L_AnyChar=283;
+    public static final int L_QuotStringLiteralChar=284;
+    public static final int L_AposStringLiteralChar=285;
 
     // dummy list for warning elimination
     List<Stack<Object>> dummy = new ArrayList<Stack<Object>>();
@@ -941,37 +942,37 @@ public class StringLexer extends XQDTLexer {
         "\3\11\1\43\3\11\1\0\1\11\2\uffff\1\11\1\0\1\11\3\uffff\3\0\1\uffff"+
         "\2\0\1\uffff\1\0\2\uffff";
     static final String DFA8_maxS =
-        "\3\ufffd\1\161\3\ufffd\1\0\1\ufffd\2\uffff\1\ufffd\1\0\1\ufffd"+
-        "\3\uffff\3\0\1\uffff\2\0\1\uffff\1\0\2\uffff";
+        "\3\ufffd\1\161\3\ufffd\1\0\1\ufffd\2\uffff\1\ufffd\1\0\1\ufffd\3"+
+        "\uffff\3\0\1\uffff\2\0\1\uffff\1\0\2\uffff";
     static final String DFA8_acceptS =
-        "\11\uffff\1\11\1\10\3\uffff\1\7\1\6\1\5\3\uffff\1\1\2\uffff\1\2"+
+        "\11\uffff\1\10\1\11\3\uffff\1\7\1\6\1\5\3\uffff\1\1\2\uffff\1\2"+
         "\1\uffff\1\3\1\4";
     static final String DFA8_specialS =
-        "\1\16\1\4\1\12\1\21\1\2\1\14\1\6\1\1\1\20\2\uffff\1\3\1\0\1\13"+
-        "\3\uffff\1\15\1\7\1\10\1\uffff\1\5\1\11\1\uffff\1\17\2\uffff}>";
+        "\1\7\1\16\1\0\1\4\1\21\1\12\1\5\1\11\1\20\2\uffff\1\17\1\10\1\6"+
+        "\3\uffff\1\15\1\3\1\13\1\uffff\1\1\1\14\1\uffff\1\2\2\uffff}>";
     static final String[] DFA8_transitionS = {
             "\2\4\2\uffff\1\4\22\uffff\2\4\1\1\3\4\1\3\1\2\24\4\1\5\76\4"+
             "\1\5\1\4\1\5\ud782\4\u0800\uffff\u1ffe\4",
-            "\2\10\2\uffff\1\10\22\uffff\2\10\1\6\3\10\1\uffff\1\11\24"+
-            "\10\1\12\76\10\1\12\1\10\1\12\ud782\10\u0800\uffff\u1ffe\10",
-            "\2\15\2\uffff\1\15\22\uffff\2\15\1\11\3\15\1\uffff\1\13\24"+
+            "\2\10\2\uffff\1\10\22\uffff\2\10\1\6\3\10\1\uffff\1\12\24\10"+
+            "\1\11\76\10\1\11\1\10\1\11\ud782\10\u0800\uffff\u1ffe\10",
+            "\2\15\2\uffff\1\15\22\uffff\2\15\1\12\3\15\1\uffff\1\13\24"+
             "\15\1\16\76\15\1\16\1\15\1\16\ud782\15\u0800\uffff\u1ffe\15",
             "\1\17\75\uffff\1\20\5\uffff\1\20\4\uffff\1\20\4\uffff\1\20",
             "\2\4\2\uffff\1\4\22\uffff\2\4\1\10\3\4\1\uffff\1\15\24\4\1"+
             "\5\76\4\1\5\1\4\1\5\ud782\4\u0800\uffff\u1ffe\4",
-            "\2\5\2\uffff\1\5\22\uffff\2\5\1\12\3\5\1\uffff\1\16\ud7d8"+
-            "\5\u0800\uffff\u1ffe\5",
-            "\2\10\2\uffff\1\10\22\uffff\6\10\1\uffff\1\11\24\10\1\12\76"+
-            "\10\1\12\1\10\1\12\ud782\10\u0800\uffff\u1ffe\10",
+            "\2\5\2\uffff\1\5\22\uffff\2\5\1\11\3\5\1\uffff\1\16\ud7d8\5"+
+            "\u0800\uffff\u1ffe\5",
+            "\2\10\2\uffff\1\10\22\uffff\6\10\1\uffff\1\12\24\10\1\11\76"+
+            "\10\1\11\1\10\1\11\ud782\10\u0800\uffff\u1ffe\10",
             "\1\uffff",
-            "\2\10\2\uffff\1\10\22\uffff\6\10\1\uffff\1\11\24\10\1\12\76"+
-            "\10\1\12\1\10\1\12\ud782\10\u0800\uffff\u1ffe\10",
+            "\2\10\2\uffff\1\10\22\uffff\6\10\1\uffff\1\12\24\10\1\11\76"+
+            "\10\1\11\1\10\1\11\ud782\10\u0800\uffff\u1ffe\10",
             "",
             "",
-            "\2\15\2\uffff\1\15\22\uffff\2\15\1\11\3\15\1\uffff\25\15\1"+
+            "\2\15\2\uffff\1\15\22\uffff\2\15\1\12\3\15\1\uffff\25\15\1"+
             "\16\76\15\1\16\1\15\1\16\ud782\15\u0800\uffff\u1ffe\15",
             "\1\uffff",
-            "\2\15\2\uffff\1\15\22\uffff\2\15\1\11\3\15\1\uffff\25\15\1"+
+            "\2\15\2\uffff\1\15\22\uffff\2\15\1\12\3\15\1\uffff\25\15\1"+
             "\16\76\15\1\16\1\15\1\16\ud782\15\u0800\uffff\u1ffe\15",
             "",
             "",
@@ -1025,197 +1026,19 @@ public class StringLexer extends XQDTLexer {
         	int _s = s;
             switch ( s ) {
                     case 0 : 
-                        int LA8_12 = input.LA(1);
-
-                         
-                        int index8_12 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (( inAposStr )) ) {s = 23;}
-
-                        else if ( (( inQuotStr )) ) {s = 14;}
-
-                        else if ( (( !inQuotStr && !inAposStr )) ) {s = 9;}
-
-                         
-                        input.seek(index8_12);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 1 : 
-                        int LA8_7 = input.LA(1);
-
-                         
-                        int index8_7 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (( inQuotStr )) ) {s = 20;}
-
-                        else if ( (( inAposStr )) ) {s = 10;}
-
-                        else if ( (( !inQuotStr && !inAposStr )) ) {s = 9;}
-
-                         
-                        input.seek(index8_7);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 2 : 
-                        int LA8_4 = input.LA(1);
-
-                         
-                        int index8_4 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( ((LA8_4>='\t' && LA8_4<='\n')||LA8_4=='\r'||(LA8_4>=' ' && LA8_4<='!')||(LA8_4>='#' && LA8_4<='%')||(LA8_4>='(' && LA8_4<=';')||(LA8_4>='=' && LA8_4<='z')||LA8_4=='|'||(LA8_4>='~' && LA8_4<='\uD7FF')||(LA8_4>='\uE000' && LA8_4<='\uFFFD')) && ((( !inQuotStr && !inAposStr )||( inQuotStr )||( inAposStr )))) {s = 4;}
-
-                        else if ( (LA8_4=='<'||LA8_4=='{'||LA8_4=='}') && ((( inQuotStr )||( inAposStr )))) {s = 5;}
-
-                        else if ( (LA8_4=='\"') && ((( !inQuotStr && !inAposStr )||( inAposStr )))) {s = 8;}
-
-                        else if ( (LA8_4=='\'') && ((( !inQuotStr && !inAposStr )||( inQuotStr )))) {s = 13;}
-
-                        else s = 17;
-
-                         
-                        input.seek(index8_4);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 3 : 
-                        int LA8_11 = input.LA(1);
-
-                         
-                        int index8_11 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( ((LA8_11>='\t' && LA8_11<='\n')||LA8_11=='\r'||(LA8_11>=' ' && LA8_11<='!')||(LA8_11>='#' && LA8_11<='%')||(LA8_11>='\'' && LA8_11<=';')||(LA8_11>='=' && LA8_11<='z')||LA8_11=='|'||(LA8_11>='~' && LA8_11<='\uD7FF')||(LA8_11>='\uE000' && LA8_11<='\uFFFD')) && ((( !inQuotStr && !inAposStr )||( inQuotStr )))) {s = 13;}
-
-                        else if ( (LA8_11=='<'||LA8_11=='{'||LA8_11=='}') && (( inQuotStr ))) {s = 14;}
-
-                        else if ( (LA8_11=='\"') && (( !inQuotStr && !inAposStr ))) {s = 9;}
-
-                        else s = 22;
-
-                         
-                        input.seek(index8_11);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 4 : 
-                        int LA8_1 = input.LA(1);
-
-                         
-                        int index8_1 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (LA8_1=='\"') && ((( !inQuotStr && !inAposStr )||( inQuotStr )||( inAposStr )))) {s = 6;}
-
-                        else if ( ((LA8_1>='\t' && LA8_1<='\n')||LA8_1=='\r'||(LA8_1>=' ' && LA8_1<='!')||(LA8_1>='#' && LA8_1<='%')||(LA8_1>='(' && LA8_1<=';')||(LA8_1>='=' && LA8_1<='z')||LA8_1=='|'||(LA8_1>='~' && LA8_1<='\uD7FF')||(LA8_1>='\uE000' && LA8_1<='\uFFFD')) && ((( !inQuotStr && !inAposStr )||( inAposStr )))) {s = 8;}
-
-                        else if ( (LA8_1=='\'') && (( !inQuotStr && !inAposStr ))) {s = 9;}
-
-                        else if ( (LA8_1=='<'||LA8_1=='{'||LA8_1=='}') && (( inAposStr ))) {s = 10;}
-
-                        else s = 7;
-
-                         
-                        input.seek(index8_1);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 5 : 
-                        int LA8_21 = input.LA(1);
-
-                         
-                        int index8_21 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (( inAposStr )) ) {s = 10;}
-
-                        else if ( (( !inQuotStr && !inAposStr )) ) {s = 9;}
-
-                         
-                        input.seek(index8_21);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 6 : 
-                        int LA8_6 = input.LA(1);
-
-                         
-                        int index8_6 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( ((LA8_6>='\t' && LA8_6<='\n')||LA8_6=='\r'||(LA8_6>=' ' && LA8_6<='%')||(LA8_6>='(' && LA8_6<=';')||(LA8_6>='=' && LA8_6<='z')||LA8_6=='|'||(LA8_6>='~' && LA8_6<='\uD7FF')||(LA8_6>='\uE000' && LA8_6<='\uFFFD')) && ((( !inQuotStr && !inAposStr )||( inAposStr )))) {s = 8;}
-
-                        else if ( (LA8_6=='<'||LA8_6=='{'||LA8_6=='}') && (( inAposStr ))) {s = 10;}
-
-                        else if ( (LA8_6=='\'') && (( !inQuotStr && !inAposStr ))) {s = 9;}
-
-                        else s = 19;
-
-                         
-                        input.seek(index8_6);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 7 : 
-                        int LA8_18 = input.LA(1);
-
-                         
-                        int index8_18 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (( inQuotStr )) ) {s = 14;}
-
-                        else if ( (( inAposStr )) ) {s = 10;}
-
-                         
-                        input.seek(index8_18);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 8 : 
-                        int LA8_19 = input.LA(1);
-
-                         
-                        int index8_19 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (( inQuotStr )) ) {s = 25;}
-
-                        else if ( (( inAposStr )) ) {s = 10;}
-
-                        else if ( (( !inQuotStr && !inAposStr )) ) {s = 9;}
-
-                         
-                        input.seek(index8_19);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 9 : 
-                        int LA8_22 = input.LA(1);
-
-                         
-                        int index8_22 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (( inAposStr )) ) {s = 26;}
-
-                        else if ( (( inQuotStr )) ) {s = 14;}
-
-                        else if ( (( !inQuotStr && !inAposStr )) ) {s = 9;}
-
-                         
-                        input.seek(index8_22);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 10 : 
                         int LA8_2 = input.LA(1);
 
                          
                         int index8_2 = input.index();
                         input.rewind();
                         s = -1;
-                        if ( (LA8_2=='\'') && ((( !inQuotStr && !inAposStr )||( inQuotStr )||( inAposStr )))) {s = 11;}
+                        if ( (LA8_2=='\'') && ((( !inQuotStr && !inAposStr )||( inAposStr )||( inQuotStr )))) {s = 11;}
 
                         else if ( ((LA8_2>='\t' && LA8_2<='\n')||LA8_2=='\r'||(LA8_2>=' ' && LA8_2<='!')||(LA8_2>='#' && LA8_2<='%')||(LA8_2>='(' && LA8_2<=';')||(LA8_2>='=' && LA8_2<='z')||LA8_2=='|'||(LA8_2>='~' && LA8_2<='\uD7FF')||(LA8_2>='\uE000' && LA8_2<='\uFFFD')) && ((( !inQuotStr && !inAposStr )||( inQuotStr )))) {s = 13;}
 
                         else if ( (LA8_2=='<'||LA8_2=='{'||LA8_2=='}') && (( inQuotStr ))) {s = 14;}
 
-                        else if ( (LA8_2=='\"') && (( !inQuotStr && !inAposStr ))) {s = 9;}
+                        else if ( (LA8_2=='\"') && (( !inQuotStr && !inAposStr ))) {s = 10;}
 
                         else s = 12;
 
@@ -1223,83 +1046,22 @@ public class StringLexer extends XQDTLexer {
                         input.seek(index8_2);
                         if ( s>=0 ) return s;
                         break;
-                    case 11 : 
-                        int LA8_13 = input.LA(1);
+                    case 1 : 
+                        int LA8_21 = input.LA(1);
 
                          
-                        int index8_13 = input.index();
+                        int index8_21 = input.index();
                         input.rewind();
                         s = -1;
-                        if ( ((LA8_13>='\t' && LA8_13<='\n')||LA8_13=='\r'||(LA8_13>=' ' && LA8_13<='!')||(LA8_13>='#' && LA8_13<='%')||(LA8_13>='\'' && LA8_13<=';')||(LA8_13>='=' && LA8_13<='z')||LA8_13=='|'||(LA8_13>='~' && LA8_13<='\uD7FF')||(LA8_13>='\uE000' && LA8_13<='\uFFFD')) && ((( !inQuotStr && !inAposStr )||( inQuotStr )))) {s = 13;}
+                        if ( (( inAposStr )) ) {s = 9;}
 
-                        else if ( (LA8_13=='<'||LA8_13=='{'||LA8_13=='}') && (( inQuotStr ))) {s = 14;}
-
-                        else if ( (LA8_13=='\"') && (( !inQuotStr && !inAposStr ))) {s = 9;}
-
-                        else s = 24;
+                        else if ( (( !inQuotStr && !inAposStr )) ) {s = 10;}
 
                          
-                        input.seek(index8_13);
+                        input.seek(index8_21);
                         if ( s>=0 ) return s;
                         break;
-                    case 12 : 
-                        int LA8_5 = input.LA(1);
-
-                         
-                        int index8_5 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( ((LA8_5>='\t' && LA8_5<='\n')||LA8_5=='\r'||(LA8_5>=' ' && LA8_5<='!')||(LA8_5>='#' && LA8_5<='%')||(LA8_5>='(' && LA8_5<='\uD7FF')||(LA8_5>='\uE000' && LA8_5<='\uFFFD')) && ((( inQuotStr )||( inAposStr )))) {s = 5;}
-
-                        else if ( (LA8_5=='\'') && (( inQuotStr ))) {s = 14;}
-
-                        else if ( (LA8_5=='\"') && (( inAposStr ))) {s = 10;}
-
-                        else s = 18;
-
-                         
-                        input.seek(index8_5);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 13 : 
-                        int LA8_17 = input.LA(1);
-
-                         
-                        int index8_17 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (( inQuotStr )) ) {s = 14;}
-
-                        else if ( (( inAposStr )) ) {s = 10;}
-
-                        else if ( (( !inQuotStr && !inAposStr )) ) {s = 9;}
-
-                         
-                        input.seek(index8_17);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 14 : 
-                        int LA8_0 = input.LA(1);
-
-                         
-                        int index8_0 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (LA8_0=='\"') && ((( !inQuotStr && !inAposStr )||( inQuotStr )||( inAposStr )))) {s = 1;}
-
-                        else if ( (LA8_0=='\'') && ((( !inQuotStr && !inAposStr )||( inQuotStr )||( inAposStr )))) {s = 2;}
-
-                        else if ( (LA8_0=='&') ) {s = 3;}
-
-                        else if ( ((LA8_0>='\t' && LA8_0<='\n')||LA8_0=='\r'||(LA8_0>=' ' && LA8_0<='!')||(LA8_0>='#' && LA8_0<='%')||(LA8_0>='(' && LA8_0<=';')||(LA8_0>='=' && LA8_0<='z')||LA8_0=='|'||(LA8_0>='~' && LA8_0<='\uD7FF')||(LA8_0>='\uE000' && LA8_0<='\uFFFD')) && ((( !inQuotStr && !inAposStr )||( inQuotStr )||( inAposStr )))) {s = 4;}
-
-                        else if ( (LA8_0=='<'||LA8_0=='{'||LA8_0=='}') && ((( inQuotStr )||( inAposStr )))) {s = 5;}
-
-                         
-                        input.seek(index8_0);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 15 : 
+                    case 2 : 
                         int LA8_24 = input.LA(1);
 
                          
@@ -1308,32 +1070,28 @@ public class StringLexer extends XQDTLexer {
                         s = -1;
                         if ( (( inQuotStr )) ) {s = 14;}
 
-                        else if ( (( !inQuotStr && !inAposStr )) ) {s = 9;}
+                        else if ( (( !inQuotStr && !inAposStr )) ) {s = 10;}
 
                          
                         input.seek(index8_24);
                         if ( s>=0 ) return s;
                         break;
-                    case 16 : 
-                        int LA8_8 = input.LA(1);
+                    case 3 : 
+                        int LA8_18 = input.LA(1);
 
                          
-                        int index8_8 = input.index();
+                        int index8_18 = input.index();
                         input.rewind();
                         s = -1;
-                        if ( ((LA8_8>='\t' && LA8_8<='\n')||LA8_8=='\r'||(LA8_8>=' ' && LA8_8<='%')||(LA8_8>='(' && LA8_8<=';')||(LA8_8>='=' && LA8_8<='z')||LA8_8=='|'||(LA8_8>='~' && LA8_8<='\uD7FF')||(LA8_8>='\uE000' && LA8_8<='\uFFFD')) && ((( !inQuotStr && !inAposStr )||( inAposStr )))) {s = 8;}
+                        if ( (( inQuotStr )) ) {s = 14;}
 
-                        else if ( (LA8_8=='<'||LA8_8=='{'||LA8_8=='}') && (( inAposStr ))) {s = 10;}
-
-                        else if ( (LA8_8=='\'') && (( !inQuotStr && !inAposStr ))) {s = 9;}
-
-                        else s = 21;
+                        else if ( (( inAposStr )) ) {s = 9;}
 
                          
-                        input.seek(index8_8);
+                        input.seek(index8_18);
                         if ( s>=0 ) return s;
                         break;
-                    case 17 : 
+                    case 4 : 
                         int LA8_3 = input.LA(1);
 
                          
@@ -1346,6 +1104,249 @@ public class StringLexer extends XQDTLexer {
 
                          
                         input.seek(index8_3);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 5 : 
+                        int LA8_6 = input.LA(1);
+
+                         
+                        int index8_6 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( ((LA8_6>='\t' && LA8_6<='\n')||LA8_6=='\r'||(LA8_6>=' ' && LA8_6<='%')||(LA8_6>='(' && LA8_6<=';')||(LA8_6>='=' && LA8_6<='z')||LA8_6=='|'||(LA8_6>='~' && LA8_6<='\uD7FF')||(LA8_6>='\uE000' && LA8_6<='\uFFFD')) && ((( !inQuotStr && !inAposStr )||( inAposStr )))) {s = 8;}
+
+                        else if ( (LA8_6=='<'||LA8_6=='{'||LA8_6=='}') && (( inAposStr ))) {s = 9;}
+
+                        else if ( (LA8_6=='\'') && (( !inQuotStr && !inAposStr ))) {s = 10;}
+
+                        else s = 19;
+
+                         
+                        input.seek(index8_6);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 6 : 
+                        int LA8_13 = input.LA(1);
+
+                         
+                        int index8_13 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( ((LA8_13>='\t' && LA8_13<='\n')||LA8_13=='\r'||(LA8_13>=' ' && LA8_13<='!')||(LA8_13>='#' && LA8_13<='%')||(LA8_13>='\'' && LA8_13<=';')||(LA8_13>='=' && LA8_13<='z')||LA8_13=='|'||(LA8_13>='~' && LA8_13<='\uD7FF')||(LA8_13>='\uE000' && LA8_13<='\uFFFD')) && ((( !inQuotStr && !inAposStr )||( inQuotStr )))) {s = 13;}
+
+                        else if ( (LA8_13=='<'||LA8_13=='{'||LA8_13=='}') && (( inQuotStr ))) {s = 14;}
+
+                        else if ( (LA8_13=='\"') && (( !inQuotStr && !inAposStr ))) {s = 10;}
+
+                        else s = 24;
+
+                         
+                        input.seek(index8_13);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 7 : 
+                        int LA8_0 = input.LA(1);
+
+                         
+                        int index8_0 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (LA8_0=='\"') && ((( !inQuotStr && !inAposStr )||( inAposStr )||( inQuotStr )))) {s = 1;}
+
+                        else if ( (LA8_0=='\'') && ((( !inQuotStr && !inAposStr )||( inQuotStr )||( inAposStr )))) {s = 2;}
+
+                        else if ( (LA8_0=='&') ) {s = 3;}
+
+                        else if ( ((LA8_0>='\t' && LA8_0<='\n')||LA8_0=='\r'||(LA8_0>=' ' && LA8_0<='!')||(LA8_0>='#' && LA8_0<='%')||(LA8_0>='(' && LA8_0<=';')||(LA8_0>='=' && LA8_0<='z')||LA8_0=='|'||(LA8_0>='~' && LA8_0<='\uD7FF')||(LA8_0>='\uE000' && LA8_0<='\uFFFD')) && ((( !inQuotStr && !inAposStr )||( inAposStr )||( inQuotStr )))) {s = 4;}
+
+                        else if ( (LA8_0=='<'||LA8_0=='{'||LA8_0=='}') && ((( inAposStr )||( inQuotStr )))) {s = 5;}
+
+                         
+                        input.seek(index8_0);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 8 : 
+                        int LA8_12 = input.LA(1);
+
+                         
+                        int index8_12 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (( inAposStr )) ) {s = 23;}
+
+                        else if ( (( inQuotStr )) ) {s = 14;}
+
+                        else if ( (( !inQuotStr && !inAposStr )) ) {s = 10;}
+
+                         
+                        input.seek(index8_12);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 9 : 
+                        int LA8_7 = input.LA(1);
+
+                         
+                        int index8_7 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (( inQuotStr )) ) {s = 20;}
+
+                        else if ( (( inAposStr )) ) {s = 9;}
+
+                        else if ( (( !inQuotStr && !inAposStr )) ) {s = 10;}
+
+                         
+                        input.seek(index8_7);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 10 : 
+                        int LA8_5 = input.LA(1);
+
+                         
+                        int index8_5 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( ((LA8_5>='\t' && LA8_5<='\n')||LA8_5=='\r'||(LA8_5>=' ' && LA8_5<='!')||(LA8_5>='#' && LA8_5<='%')||(LA8_5>='(' && LA8_5<='\uD7FF')||(LA8_5>='\uE000' && LA8_5<='\uFFFD')) && ((( inAposStr )||( inQuotStr )))) {s = 5;}
+
+                        else if ( (LA8_5=='\'') && (( inQuotStr ))) {s = 14;}
+
+                        else if ( (LA8_5=='\"') && (( inAposStr ))) {s = 9;}
+
+                        else s = 18;
+
+                         
+                        input.seek(index8_5);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 11 : 
+                        int LA8_19 = input.LA(1);
+
+                         
+                        int index8_19 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (( inQuotStr )) ) {s = 25;}
+
+                        else if ( (( inAposStr )) ) {s = 9;}
+
+                        else if ( (( !inQuotStr && !inAposStr )) ) {s = 10;}
+
+                         
+                        input.seek(index8_19);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 12 : 
+                        int LA8_22 = input.LA(1);
+
+                         
+                        int index8_22 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (( inAposStr )) ) {s = 26;}
+
+                        else if ( (( inQuotStr )) ) {s = 14;}
+
+                        else if ( (( !inQuotStr && !inAposStr )) ) {s = 10;}
+
+                         
+                        input.seek(index8_22);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 13 : 
+                        int LA8_17 = input.LA(1);
+
+                         
+                        int index8_17 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (( inQuotStr )) ) {s = 14;}
+
+                        else if ( (( inAposStr )) ) {s = 9;}
+
+                        else if ( (( !inQuotStr && !inAposStr )) ) {s = 10;}
+
+                         
+                        input.seek(index8_17);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 14 : 
+                        int LA8_1 = input.LA(1);
+
+                         
+                        int index8_1 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (LA8_1=='\"') && ((( !inQuotStr && !inAposStr )||( inQuotStr )||( inAposStr )))) {s = 6;}
+
+                        else if ( ((LA8_1>='\t' && LA8_1<='\n')||LA8_1=='\r'||(LA8_1>=' ' && LA8_1<='!')||(LA8_1>='#' && LA8_1<='%')||(LA8_1>='(' && LA8_1<=';')||(LA8_1>='=' && LA8_1<='z')||LA8_1=='|'||(LA8_1>='~' && LA8_1<='\uD7FF')||(LA8_1>='\uE000' && LA8_1<='\uFFFD')) && ((( !inQuotStr && !inAposStr )||( inAposStr )))) {s = 8;}
+
+                        else if ( (LA8_1=='<'||LA8_1=='{'||LA8_1=='}') && (( inAposStr ))) {s = 9;}
+
+                        else if ( (LA8_1=='\'') && (( !inQuotStr && !inAposStr ))) {s = 10;}
+
+                        else s = 7;
+
+                         
+                        input.seek(index8_1);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 15 : 
+                        int LA8_11 = input.LA(1);
+
+                         
+                        int index8_11 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( ((LA8_11>='\t' && LA8_11<='\n')||LA8_11=='\r'||(LA8_11>=' ' && LA8_11<='!')||(LA8_11>='#' && LA8_11<='%')||(LA8_11>='\'' && LA8_11<=';')||(LA8_11>='=' && LA8_11<='z')||LA8_11=='|'||(LA8_11>='~' && LA8_11<='\uD7FF')||(LA8_11>='\uE000' && LA8_11<='\uFFFD')) && ((( !inQuotStr && !inAposStr )||( inQuotStr )))) {s = 13;}
+
+                        else if ( (LA8_11=='<'||LA8_11=='{'||LA8_11=='}') && (( inQuotStr ))) {s = 14;}
+
+                        else if ( (LA8_11=='\"') && (( !inQuotStr && !inAposStr ))) {s = 10;}
+
+                        else s = 22;
+
+                         
+                        input.seek(index8_11);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 16 : 
+                        int LA8_8 = input.LA(1);
+
+                         
+                        int index8_8 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( ((LA8_8>='\t' && LA8_8<='\n')||LA8_8=='\r'||(LA8_8>=' ' && LA8_8<='%')||(LA8_8>='(' && LA8_8<=';')||(LA8_8>='=' && LA8_8<='z')||LA8_8=='|'||(LA8_8>='~' && LA8_8<='\uD7FF')||(LA8_8>='\uE000' && LA8_8<='\uFFFD')) && ((( !inQuotStr && !inAposStr )||( inAposStr )))) {s = 8;}
+
+                        else if ( (LA8_8=='<'||LA8_8=='{'||LA8_8=='}') && (( inAposStr ))) {s = 9;}
+
+                        else if ( (LA8_8=='\'') && (( !inQuotStr && !inAposStr ))) {s = 10;}
+
+                        else s = 21;
+
+                         
+                        input.seek(index8_8);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 17 : 
+                        int LA8_4 = input.LA(1);
+
+                         
+                        int index8_4 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( ((LA8_4>='\t' && LA8_4<='\n')||LA8_4=='\r'||(LA8_4>=' ' && LA8_4<='!')||(LA8_4>='#' && LA8_4<='%')||(LA8_4>='(' && LA8_4<=';')||(LA8_4>='=' && LA8_4<='z')||LA8_4=='|'||(LA8_4>='~' && LA8_4<='\uD7FF')||(LA8_4>='\uE000' && LA8_4<='\uFFFD')) && ((( !inQuotStr && !inAposStr )||( inAposStr )||( inQuotStr )))) {s = 4;}
+
+                        else if ( (LA8_4=='\'') && ((( !inQuotStr && !inAposStr )||( inQuotStr )))) {s = 13;}
+
+                        else if ( (LA8_4=='\"') && ((( !inQuotStr && !inAposStr )||( inAposStr )))) {s = 8;}
+
+                        else if ( (LA8_4=='<'||LA8_4=='{'||LA8_4=='}') && ((( inAposStr )||( inQuotStr )))) {s = 5;}
+
+                        else s = 17;
+
+                         
+                        input.seek(index8_4);
                         if ( s>=0 ) return s;
                         break;
             }

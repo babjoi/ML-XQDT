@@ -158,7 +158,6 @@ CONTEXT                     : 'context';
 COUNT                       : 'count';
 DECIMAL_FORMAT              : 'decimal-format';
 DECIMAL_SEPARATOR           : 'decimal-separator';
-DETERMINISTIC               : 'deterministic';
 DIGIT                       : 'digit';
 END                         : 'end';
 GROUP                       : 'group';

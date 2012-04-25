@@ -32,6 +32,7 @@ import org.eclipse.dltk.core.environment.IEnvironment;
 import org.eclipse.dltk.launching.AbstractScriptLaunchConfigurationDelegate;
 import org.eclipse.swt.custom.BusyIndicator;
 import org.eclipse.swt.widgets.Display;
+import org.eclipse.ui.browser.IWebBrowser;
 import org.eclipse.wst.xquery.set.core.SETNature;
 import org.eclipse.wst.xquery.set.internal.launching.server.Server;
 import org.eclipse.wst.xquery.set.internal.launching.server.ServerManager;
@@ -100,8 +101,8 @@ public class SETLaunchConfigurationDelegate extends AbstractScriptLaunchConfigur
             // open the browser
             monitor.subTask("Opening the browser");
 
-//            IWebBrowser browser = SETLaunchUtil.openBrowser(launch);
-//            server.setBrowser(browser);
+            IWebBrowser browser = SETLaunchUtil.openBrowser(launch);
+            server.setBrowser(browser);
 
             if (monitor.isCanceled()) {
                 return;

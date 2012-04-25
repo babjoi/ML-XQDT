@@ -42,16 +42,16 @@ public class XQDTUIPreferenceInitializer extends AbstractPreferenceInitializer {
 
         PreferenceConverter.setDefault(store, IXQDTColorConstants.XQDT_KEYWORD, new RGB(0, 0, 175));
         PreferenceConverter.setDefault(store, IXQDTColorConstants.XQDT_VARIABLE, new RGB(49, 132, 149));
-        PreferenceConverter.setDefault(store, IXQDTColorConstants.XQDT_FUNCTION, new RGB(128, 0, 128));//new RGB(60, 76, 114));
-        PreferenceConverter.setDefault(store, IXQDTColorConstants.XQDT_ITEM_TYPE, new RGB(0, 0, 0));
+        PreferenceConverter.setDefault(store, IXQDTColorConstants.XQDT_FUNCTION, new RGB(60, 76, 114));//new RGB(60, 76, 114));
+        PreferenceConverter.setDefault(store, IXQDTColorConstants.XQDT_ITEM_TYPE, new RGB(128, 0, 128));
         PreferenceConverter.setDefault(store, IXQDTColorConstants.XQDT_XML_TAG, new RGB(0, 0, 175));
 
         store.setDefault(IXQDTColorConstants.XQDT_COMMENT + PreferenceConstants.EDITOR_ITALIC_SUFFIX, true);
         store.setDefault(IXQDTColorConstants.XQDT_XML_COMMENT + PreferenceConstants.EDITOR_ITALIC_SUFFIX, true);
         store.setDefault(IXQDTColorConstants.XQDT_XML_CDATA + PreferenceConstants.EDITOR_ITALIC_SUFFIX, true);
-        //store.setDefault(IXQDTColorConstants.XQDT_KEYWORD + PreferenceConstants.EDITOR_BOLD_SUFFIX, true);
+        store.setDefault(IXQDTColorConstants.XQDT_KEYWORD + PreferenceConstants.EDITOR_BOLD_SUFFIX, true);
         //store.setDefault(IXQDTColorConstants.XQDT_FUNCTION + PreferenceConstants.EDITOR_BOLD_SUFFIX, true);
-        store.setDefault(IXQDTColorConstants.XQDT_XML_TAG + PreferenceConstants.EDITOR_BOLD_SUFFIX, true);
+        //store.setDefault(IXQDTColorConstants.XQDT_XML_TAG + PreferenceConstants.EDITOR_BOLD_SUFFIX, true);
 
         store.setDefault(PreferenceConstants.EDITOR_CLOSE_BRACES, true);
         store.setDefault(PreferenceConstants.EDITOR_CLOSE_BRACKETS, true);

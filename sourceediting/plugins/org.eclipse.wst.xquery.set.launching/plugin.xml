@@ -59,7 +59,7 @@
          point="org.eclipse.wst.xquery.launching.builtinModules">
       <searchPath
             installType="org.eclipse.wst.xquery.set.launching.CoreSDKInstallType"
-            path="${interpreterContainer}/../modules"
+            path="${interpreterContainer}/../share/zorba/uris"
             relative="false">
       </searchPath>
    </extension>

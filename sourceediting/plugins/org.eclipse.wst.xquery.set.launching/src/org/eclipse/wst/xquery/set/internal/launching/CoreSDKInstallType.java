@@ -51,7 +51,7 @@ public class CoreSDKInstallType extends XQDTInterpreterInstallType {
     @Override
     public synchronized LibraryLocation[] getDefaultLibraryLocations(IFileHandle installLocation,
             EnvironmentVariable[] variables, IProgressMonitor monitor) {
-        IPath sausalitoRoot = new Path(installLocation.getParent().getParent().getCanonicalPath()).append("modules");
+        IPath sausalitoRoot = new Path(installLocation.getParent().getParent().getCanonicalPath()).append("share/zorba/uris");
         LibraryLocation loc = new LibraryLocation(EnvironmentPathUtils.getFullPath(getEnvironment(), sausalitoRoot));
         return new LibraryLocation[] { loc };
     }

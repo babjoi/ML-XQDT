@@ -37,7 +37,7 @@ public class ZorbaInstallType extends XQDTInterpreterInstallType {
 
     @Override
     protected String[] getPossibleInterpreterNames() {
-        return new String[] { "zorba", "zorba_sausastore" };
+        return new String[] { "zorba" };
     }
 
     protected IInterpreterInstall doCreateInterpreterInstall(String id) {

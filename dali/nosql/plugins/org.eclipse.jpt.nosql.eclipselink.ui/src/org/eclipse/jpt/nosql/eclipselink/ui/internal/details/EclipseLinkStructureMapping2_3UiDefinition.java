@@ -1,0 +1,65 @@
+/*******************************************************************************
+ * Copyright (c) 2011, 2012 Oracle. All rights reserved.
+ * This program and the accompanying materials are made available under the
+ * terms of the Eclipse Public License v1.0, which accompanies this distribution
+ * and is available at http://www.eclipse.org/legal/epl-v10.html.
+ *
+ * Contributors:
+ *     Oracle - initial API and implementation
+ ******************************************************************************/
+package org.eclipse.jpt.nosql.eclipselink.ui.internal.details;
+
+import org.eclipse.jface.resource.ResourceManager;
+import org.eclipse.jpt.common.ui.WidgetFactory;
+import org.eclipse.jpt.common.utility.model.value.PropertyValueModel;
+import org.eclipse.jpt.jpa.core.context.JpaContextNode;
+import org.eclipse.jpt.jpa.ui.details.JpaComposite;
+import org.eclipse.jpt.jpa.ui.details.JpaUiFactory;
+import org.eclipse.jpt.jpa.ui.details.MappingUiDefinition;
+import org.eclipse.jpt.jpa.ui.internal.details.AbstractMappingUiDefinition;
+import org.eclipse.jpt.nosql.eclipselink.core.EclipseLinkMappingKeys;
+import org.eclipse.jpt.nosql.eclipselink.core.context.EclipseLinkStructureMapping2_3;
+import org.eclipse.jpt.nosql.eclipselink.ui.JptJpaEclipseLinkUiMessages;
+import org.eclipse.jpt.nosql.eclipselink.ui.details.JptJpaEclipseLinkUiDetailsMessages;
+import org.eclipse.swt.widgets.Composite;
+
+public class EclipseLinkStructureMapping2_3UiDefinition
+	extends AbstractMappingUiDefinition
+{
+	// singleton
+	private static final EclipseLinkStructureMapping2_3UiDefinition INSTANCE = 
+			new EclipseLinkStructureMapping2_3UiDefinition();
+
+
+	/**
+	 * Return the singleton.
+	 */
+	public static MappingUiDefinition instance() {
+		return INSTANCE;
+	}
+
+
+	/**
+	 * Ensure single instance.
+	 */
+	private EclipseLinkStructureMapping2_3UiDefinition() {
+		super();
+	}
+
+	public String getKey() {
+		return EclipseLinkMappingKeys.STRUCTURE_ATTRIBUTE_MAPPING_KEY;
+	}
+
+	public String getLabel() {
+		return JptJpaEclipseLinkUiDetailsMessages.STRUCTURE_MAPPING_LABEL;
+	}
+
+	public String getLinkLabel() {
+		return JptJpaEclipseLinkUiDetailsMessages.STRUCTURE_MAPPING_LINK_LABEL;
+	}
+
+	@SuppressWarnings("unchecked")
+	public JpaComposite buildMappingComposite(JpaUiFactory factory, PropertyValueModel<? extends JpaContextNode> mappingModel, PropertyValueModel<Boolean> enabledModel, Composite parentComposite, WidgetFactory widgetFactory, ResourceManager resourceManager) {
+		return new EclipseLinkStructureMapping2_3Composite((PropertyValueModel<EclipseLinkStructureMapping2_3>) mappingModel, enabledModel, parentComposite, widgetFactory, resourceManager);
+	}
+}

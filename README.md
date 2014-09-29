@@ -1,4 +1,4 @@
-XQDT
+ML-XQDT
 ====
 
 Eclipse XQDT Plugin Fork

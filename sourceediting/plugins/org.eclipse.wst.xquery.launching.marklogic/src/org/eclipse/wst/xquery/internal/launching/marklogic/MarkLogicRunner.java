@@ -97,6 +97,7 @@ public class MarkLogicRunner implements IInterpreterRunner {
                     buffer.append(chunk);
                     buffer.append("\n");
                 }
+                reader.close();
                 String source = buffer.toString();
 
                 Request request = session.newAdhocQuery(source);

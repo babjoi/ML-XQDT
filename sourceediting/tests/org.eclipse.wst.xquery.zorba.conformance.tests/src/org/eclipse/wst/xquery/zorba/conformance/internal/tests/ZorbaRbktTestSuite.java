@@ -103,6 +103,7 @@ public class ZorbaRbktTestSuite implements IXQDTLanguageConstants {
                 sb.append(line + "\n");
                 line = br.readLine();
             }
+            br.close();
         } catch (IOException ioe) {
             return null;
         }

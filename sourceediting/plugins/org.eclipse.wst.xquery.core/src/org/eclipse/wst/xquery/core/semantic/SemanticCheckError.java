@@ -14,6 +14,7 @@ import org.eclipse.core.resources.IResource;
 import org.eclipse.dltk.compiler.problem.CategorizedProblem;
 import org.eclipse.dltk.compiler.problem.DefaultProblem;
 import org.eclipse.dltk.compiler.problem.IProblemIdentifier;
+import org.eclipse.dltk.compiler.problem.ProblemSeverity;
 
 public class SemanticCheckError extends CategorizedProblem {
 
@@ -24,6 +25,8 @@ public class SemanticCheckError extends CategorizedProblem {
     private String fErrorCode;
     private String fDescription;
     private IResource fResource;
+
+    private ProblemSeverity severity;
 
     public SemanticCheckError(IResource resource, String errorCode, String description, int line) {
         this(resource, errorCode, description, line, -1, -1);
@@ -114,6 +117,15 @@ public class SemanticCheckError extends CategorizedProblem {
 
     public String getMarkerType() {
         return DefaultProblem.MARKER_TYPE_PROBLEM;
+    }
+
+    @Override
+    public ProblemSeverity getSeverity() {
+        return severity;
+    }
+
+    public void setSeverity(ProblemSeverity severity) {
+        this.severity = severity;
     }
 
 }

@@ -9,13 +9,13 @@ Bundle-Vendor: %providerName
 Require-Bundle: org.eclipse.ui,
  org.eclipse.core.runtime,
  org.eclipse.debug.core,
- org.eclipse.dltk.core;bundle-version="[3.0.0,4.0.0)",
- org.eclipse.dltk.ui;bundle-version="[3.0.0,4.0.0)",
- org.eclipse.dltk.launching;bundle-version="[3.0.0,4.0.0)",
- org.eclipse.dltk.debug;bundle-version="[3.0.0,4.0.0)",
- org.eclipse.dltk.debug.ui;bundle-version="[3.0.0,4.0.0)",
- org.eclipse.wst.xquery.debug.core;bundle-version="[0.8.0,2.0.0)",
- org.eclipse.wst.xquery.debug.ui;bundle-version="[0.8.0,2.0.0)"
+ org.eclipse.dltk.core,
+ org.eclipse.dltk.ui,
+ org.eclipse.dltk.launching,
+ org.eclipse.dltk.debug,
+ org.eclipse.dltk.debug.ui,
+ org.eclipse.wst.xquery.debug.core,
+ org.eclipse.wst.xquery.debug.ui
 Bundle-RequiredExecutionEnvironment: J2SE-1.5
 Eclipse-LazyStart: true
 Bundle-ActivationPolicy: lazy

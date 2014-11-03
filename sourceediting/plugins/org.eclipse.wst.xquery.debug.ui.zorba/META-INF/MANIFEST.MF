@@ -17,7 +17,7 @@ Require-Bundle: org.eclipse.ui,
  org.eclipse.wst.xquery.launching,
  org.eclipse.wst.xquery.launching.zorba
 Bundle-ActivationPolicy: lazy
-Bundle-RequiredExecutionEnvironment: J2SE-1.5
+Bundle-RequiredExecutionEnvironment: JavaSE-1.7
 Bundle-Vendor: %providerName
 Export-Package: org.eclipse.wst.xquery.debug.ui.zorba,
  org.eclipse.wst.xquery.internal.debug.ui.zorba.interpreters;x-internal:=true

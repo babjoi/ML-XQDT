@@ -22,7 +22,7 @@ Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.wst.xquery.launching,
  org.antlr.runtime;bundle-version="3.2.0"
 Eclipse-LazyStart: true
-Bundle-RequiredExecutionEnvironment: J2SE-1.5
+Bundle-RequiredExecutionEnvironment: JavaSE-1.7
 Bundle-ActivationPolicy: lazy
 Export-Package: org.eclipse.wst.xquery.internal.ui;x-internal:=true,
  org.eclipse.wst.xquery.internal.ui.editor;x-internal:=true,

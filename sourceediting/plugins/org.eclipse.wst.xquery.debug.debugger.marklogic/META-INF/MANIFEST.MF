@@ -16,7 +16,7 @@ Require-Bundle: org.eclipse.ui,
  org.eclipse.dltk.debug.ui,
  org.eclipse.wst.xquery.debug.core,
  org.eclipse.wst.xquery.debug.ui
-Bundle-RequiredExecutionEnvironment: J2SE-1.5
+Bundle-RequiredExecutionEnvironment: JavaSE-1.7
 Eclipse-LazyStart: true
 Bundle-ActivationPolicy: lazy
 Export-Package: org.eclipse.wst.xquery.debug.debugger.marklogic.preferences,

@@ -21,7 +21,7 @@ Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.wst.xquery.set.launching,
  org.eclipse.wst.xquery.ui
 Eclipse-LazyStart: true
-Bundle-RequiredExecutionEnvironment: J2SE-1.5
+Bundle-RequiredExecutionEnvironment: JavaSE-1.7
 Bundle-ActivationPolicy: lazy
 Export-Package: org.eclipse.wst.xquery.set.internal.ui;x-internal:=true,
  org.eclipse.wst.xquery.set.internal.ui.dialogs,

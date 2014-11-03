@@ -15,7 +15,7 @@ Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.wst.xquery.launching,
  org.eclipse.wst.common.project.facet.core
 Bundle-ActivationPolicy: lazy
-Bundle-RequiredExecutionEnvironment: J2SE-1.5
+Bundle-RequiredExecutionEnvironment: JavaSE-1.7
 Export-Package: org.eclipse.wst.xquery.internal.launching.zorba,
  org.eclipse.wst.xquery.launching.zorba
 Bundle-Vendor: %providerName

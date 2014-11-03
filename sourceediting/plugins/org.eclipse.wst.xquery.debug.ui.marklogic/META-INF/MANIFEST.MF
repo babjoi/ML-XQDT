@@ -13,7 +13,7 @@ Require-Bundle: org.eclipse.ui,
  org.eclipse.dltk.launching,
  org.eclipse.wst.xquery.debug.ui
 Bundle-ActivationPolicy: lazy
-Bundle-RequiredExecutionEnvironment: J2SE-1.5
+Bundle-RequiredExecutionEnvironment: JavaSE-1.7
 Bundle-Vendor: %providerName
 Export-Package: org.eclipse.wst.xquery.debug.ui.marklogic,
  org.eclipse.wst.xquery.internal.debug.ui.marklogic.interpreters;x-internal:=true

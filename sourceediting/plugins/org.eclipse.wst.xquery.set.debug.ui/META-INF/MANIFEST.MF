@@ -20,7 +20,7 @@ Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.wst.xquery.set.debug.core,
  org.eclipse.wst.xquery.set.ui,
  org.eclipse.wst.xquery.set.launching
-Bundle-RequiredExecutionEnvironment: J2SE-1.5
+Bundle-RequiredExecutionEnvironment: JavaSE-1.7
 Export-Package: org.eclipse.wst.xquery.set.debug.ui,
  org.eclipse.wst.xquery.set.internal.debug.ui.dialogs;x-internal:=true,
  org.eclipse.wst.xquery.set.internal.debug.ui.interpreters;x-internal:=true,

@@ -11,4 +11,4 @@ deploy:
   on:
     repo: mcrosier/ML-XQDT
     branch: xquery-release
-    tag:  latest_build
+    tag_name:  latest_build

@@ -10,7 +10,8 @@ deploy:
     secure: WvX0dRwWZy6DPgq1I38Axq1tVsMYfsTVb48ffMoGNJrYk/vYFKdWrYP5ELq3s0J2q02bajUVS1lCMIXNG0rymZYjFQDxDk/SMmovPzt2TbQAHMhB/EfNdRZcUBu4y9TILp37Z+0+a3rEumJWTlVf6wysku4LfDCCIyKhhZmmL+o=
   file: sourceediting/development/org.eclipse.wst.xquery.repository/target/site.zip
   skip-cleanup: true
-  tag_name: latest_build
   on:
+    all_branches: true
+    tag: true
     repo: mcrosier/ML-XQDT
     branch: xquery-release

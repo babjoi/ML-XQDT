@@ -1,6 +1,16 @@
 language: java
 script: cd sourceediting/development/org.eclipse.wst.xquery.releng && mvn clean install
 jdk:
-  - oraclejdk7
-  - oraclejdk8
-
+- oraclejdk7
+- oraclejdk8
+before-deploy: git fetch --tags
+deploy:
+  provider: releases
+  api_key:
+    secure: WvX0dRwWZy6DPgq1I38Axq1tVsMYfsTVb48ffMoGNJrYk/vYFKdWrYP5ELq3s0J2q02bajUVS1lCMIXNG0rymZYjFQDxDk/SMmovPzt2TbQAHMhB/EfNdRZcUBu4y9TILp37Z+0+a3rEumJWTlVf6wysku4LfDCCIyKhhZmmL+o=
+  file: sourceediting/development/org.eclipse.wst.xquery.repository/target/site.zip
+  skip-cleanup: true
+  on:
+    all_branches: true
+    tag: true
+    repo: mcrosier/ML-XQDT

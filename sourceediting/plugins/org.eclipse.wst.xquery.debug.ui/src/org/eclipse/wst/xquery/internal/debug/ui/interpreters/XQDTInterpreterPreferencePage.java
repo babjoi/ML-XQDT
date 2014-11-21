@@ -10,14 +10,13 @@
  *******************************************************************************/
 package org.eclipse.wst.xquery.internal.debug.ui.interpreters;
 
-import org.eclipse.dltk.internal.debug.ui.interpreters.ScriptInterpreterPreferencePage;
 import org.eclipse.dltk.internal.debug.ui.interpreters.InterpretersBlock;
+import org.eclipse.dltk.internal.debug.ui.interpreters.ScriptInterpreterPreferencePage;
 
 public class XQDTInterpreterPreferencePage extends ScriptInterpreterPreferencePage {
-
-    public static final String PAGE_ID = "org.eclipse.wst.xquery.preferences.interpreters"; //$NON-NLS-1$
 
     public InterpretersBlock createInterpretersBlock() {
         return new XQDTInterpretersBlock();
     }
+
 }

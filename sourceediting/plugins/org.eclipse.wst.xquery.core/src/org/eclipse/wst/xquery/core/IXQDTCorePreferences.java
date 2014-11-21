@@ -13,9 +13,9 @@ package org.eclipse.wst.xquery.core;
 public interface IXQDTCorePreferences {
 
     // XQuery language names
-    public static final String LANGUAGE_NAME_XQUERY = "XQuery 1.1";
-    public static final String LANGUAGE_NAME_XQUERY_UPDATE = "XQuery 1.1 + Update Facility";
-    public static final String LANGUAGE_NAME_XQUERY_SCRIPTING = "XQuery 1.1 + Scripting Extensions";
+    public static final String LANGUAGE_NAME_XQUERY = "XQuery 3.0";
+    public static final String LANGUAGE_NAME_XQUERY_UPDATE = "XQuery 3.0 + Update Facility";
+    public static final String LANGUAGE_NAME_XQUERY_SCRIPTING = "XQuery 3.0 + Scripting Extension Proposal";
     public static final String LANGUAGE_OPTION_NAME_FULTEXT = "Full Text";
 
     // XQuery language options

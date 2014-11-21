@@ -1,10 +1,9 @@
-declare variable $zorbaRoot external;
+import module namespace file = "http://expath.org/ns/file";
 
-let $paths :=
-  (
-    fn:concat("DLTK:", $zorbaRoot, "/include/zorba/modules")
-  )
-for $path in $paths
+declare variable $zorbaRoot external;
+declare variable $sep := file:directory-separator();
+
+let $path := fn:concat($zorbaRoot, $sep, "share")
+let $dir := file:list($path)[fn:starts-with(., "zorba")]
 return
-  concat("
-", $path)
+  fn:concat("DLTK:", $path, $sep, $dir, $sep, "modules")

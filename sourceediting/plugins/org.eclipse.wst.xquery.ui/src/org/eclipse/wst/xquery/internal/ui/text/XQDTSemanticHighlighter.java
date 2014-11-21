@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2008, 2009 28msec Inc. and others.
+ * Copyright (c) 2008 28msec Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -11,7 +11,7 @@
 package org.eclipse.wst.xquery.internal.ui.text;
 
 import org.eclipse.dltk.ast.declarations.ModuleDeclaration;
-import org.eclipse.dltk.compiler.env.ISourceModule;
+import org.eclipse.dltk.compiler.env.IModuleSource;
 import org.eclipse.dltk.core.IModelElement;
 import org.eclipse.dltk.core.SourceParserUtil;
 import org.eclipse.dltk.ui.editor.highlighting.AbstractSemanticHighlighter;
@@ -22,15 +22,14 @@ import org.eclipse.wst.xquery.core.model.ast.XQueryModule;
 
 public class XQDTSemanticHighlighter extends AbstractSemanticHighlighter {
 
-    @Override
-    protected boolean doHighlighting(ISourceModule code) throws Exception {
+    protected boolean doHighlighting(IModuleSource code) throws Exception {
         IModelElement modelElem = code.getModelElement();
         if (modelElem instanceof org.eclipse.dltk.core.ISourceModule) {
             ModuleDeclaration xqModule = SourceParserUtil
                     .getModuleDeclaration((org.eclipse.dltk.core.ISourceModule)modelElem);
             if (xqModule != null) {
                 for (Position p : ((XQueryModule)xqModule).getKeywords()) {
-                    addPosition(p.offset, p.offset + p.length, 0);
+                    addPosition(p.offset, p.offset + p.length, IXQDTColorConstants.XQDT_KEYWORD);
                 }
                 return true;
             }
@@ -38,7 +37,7 @@ public class XQDTSemanticHighlighter extends AbstractSemanticHighlighter {
         return false;
     }
 
-    public static SemanticHighlighting[] getSemanticHighlightings() {
+    public SemanticHighlighting[] getSemanticHighlightings() {
         return new SemanticHighlighting[] { new XQDTSemanticHighlighting(IXQDTColorConstants.XQDT_KEYWORD,
                 PreferencesMessages.DLTKEditorPreferencePage_keywords) };
     }

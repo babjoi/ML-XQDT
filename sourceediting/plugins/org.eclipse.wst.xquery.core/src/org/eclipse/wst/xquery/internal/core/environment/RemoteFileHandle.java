@@ -15,13 +15,15 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.URI;
 
+import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Path;
+import org.eclipse.core.runtime.Status;
 import org.eclipse.dltk.core.environment.IEnvironment;
 import org.eclipse.dltk.core.environment.IFileHandle;
-
-;
+import org.eclipse.wst.xquery.core.XQDTCorePlugin;
 
 public class RemoteFileHandle implements IFileHandle {
 
@@ -123,4 +125,7 @@ public class RemoteFileHandle implements IFileHandle {
         return fUri;
     }
 
+    public void move(IFileHandle destination) throws CoreException {
+        throw new CoreException(new Status(IStatus.ERROR, XQDTCorePlugin.PLUGIN_ID, "Method not implemented"));
+    }
 }

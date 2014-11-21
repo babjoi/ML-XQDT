@@ -180,7 +180,11 @@
 	<template id="fn:empty#1" enabled="true" description="%Templates.SystemFunction"
 		name="empty"
 		context="org.eclipse.wst.xquery.sse.ui.contextType.expr"
-		autoinsert="false">empty(${arg})</template>
+		autoinsert="false"><![CDATA[<p>fn:empty<b> ($$arg as item()*)</b> as xs:boolean</p>   <p><b>Summary:</b><br/>If the value of <code>$$arg</code> is the empty
+sequence, the function returns <code>true</code>; otherwise, the
+function returns <code>false</code>.</p>]]>
+         
+      </template>
 	<template id="fn:encode-for-uri#1" enabled="true" description="%Templates.SystemFunction"
 		name="encode-for-uri"
 		context="org.eclipse.wst.xquery.sse.ui.contextType.expr"

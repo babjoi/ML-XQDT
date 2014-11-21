@@ -1,10 +1,11 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
+Bundle-Localization: plugin
 Bundle-Name: %pluginName
 Bundle-SymbolicName: org.eclipse.wst.xquery.launching.marklogic.xcc
-Bundle-Version: 0.7.0.qualifier
+Bundle-Version: 1.0.0.qualifier
 Bundle-Vendor: %providerName
-Bundle-RequiredExecutionEnvironment: J2SE-1.5
+Bundle-RequiredExecutionEnvironment: JavaSE-1.7
 Export-Package: org.eclipse.wst.xquery.marklogic.http,
  org.eclipse.wst.xquery.marklogic.io,
  org.eclipse.wst.xquery.marklogic.xcc,

@@ -12,7 +12,7 @@
    <extension
          point="org.eclipse.core.variables.dynamicVariables">
       <variable
-            description="This searches for the Sausalito CoreSDK (either in a platform specific plug-in fragment or in default locations like: &quot;C:\Program Files\Sausalito-CoreSDK ${sdk_version}&quot; or &quot;/opt/sausalito&quot;"
+            description="This searches for the Sausalito CoreSDK (either in a platform specific plug-in fragment or in default locations like: &quot;C:\Program Files\Sausalito-CoreSDK X.Y.Z&quot; or &quot;/opt/sausalito&quot;"
             name="sdk_location"
             resolver="org.eclipse.wst.xquery.set.internal.launching.variables.CoreSdkLocationResolver"
             supportsArgument="false">
@@ -59,7 +59,7 @@
          point="org.eclipse.wst.xquery.launching.builtinModules">
       <searchPath
             installType="org.eclipse.wst.xquery.set.launching.CoreSDKInstallType"
-            path="${interpreterContainer}/../modules"
+            path="${interpreterContainer}/../share/zorba/uris"
             relative="false">
       </searchPath>
    </extension>
@@ -67,7 +67,7 @@
          point="org.eclipse.dltk.launching.interpreterInstalls">
       <interpreterInstall
             home="${sdk_location}/bin/${sausalito_script_exec}"
-            id="defaultSausalitoCoreSDK"
+            id="defaultCoreSDKInstall"
             interpreterInstallType="org.eclipse.wst.xquery.set.launching.CoreSDKInstallType"
             name="Sausalito CoreSDK ${sdk_version}">
       </interpreterInstall>

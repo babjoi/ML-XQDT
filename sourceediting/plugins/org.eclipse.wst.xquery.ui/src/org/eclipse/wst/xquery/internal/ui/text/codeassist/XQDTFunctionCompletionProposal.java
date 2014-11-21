@@ -29,8 +29,8 @@ import org.eclipse.wst.xquery.ui.XQDTUIPlugin;
 
 public class XQDTFunctionCompletionProposal extends ScriptMethodCompletionProposal {
 
-    public static char[] FUNCTION_TRIGGERS_NO_PARAMS = { '(', ' ' };
-    public static char[] FUNCTION_TRIGGERS_PARAMS = { '(', ' ', '$' };
+    public static final char[] FUNCTION_TRIGGERS_NO_PARAMS = { '(', ' ' };
+    public static final char[] FUNCTION_TRIGGERS_PARAMS = { '(', ' ', '$' };
 
     public XQDTFunctionCompletionProposal(final CompletionProposal proposal,
             ScriptContentAssistInvocationContext context) {

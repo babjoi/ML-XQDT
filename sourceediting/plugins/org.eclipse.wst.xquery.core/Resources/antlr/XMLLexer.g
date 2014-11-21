@@ -32,9 +32,11 @@ CDATA_END;
  *     Gabriel Petrovay (28msec) - initial API and implementation
  *******************************************************************************/
 package org.eclipse.wst.xquery.internal.core.parser.antlr;
-}
+
+} // @header
 
 @lexer::members {
+
 // dummy list for warning elimination
 List<Stack<Object>> dummy = new ArrayList<Stack<Object>>();
 
@@ -71,22 +73,23 @@ private boolean log() {
 	System.out.println("inElem:\t" + inElem);
 	System.out.println("---------------------");
 	return false;
-};
 }
 
-QUOT	:	{ inElem || inQuotAttr }? => '"' { inQuotAttr = !inQuotAttr; };
-APOS	:	{ inElem || inAposAttr }? => '\'' { inAposAttr = !inAposAttr; };
+} // @lexer::members
+
+QUOT	:	{ inElem || inQuotAttr }? => '"' { if (!inAposAttr) inQuotAttr = (!inQuotAttr); };
+APOS	:	{ inElem || inAposAttr }? => '\'' { if (!inQuotAttr) inAposAttr = !inAposAttr; };
 
 L_QuotAttrContentChar
 	:	{ inQuotAttr }? =>
-		('\u0009' | '\u000A' | '\u000D' | '\u0020'..'\u0021' | '\u0023'..'\u0025' 
-		| '\u0027'..'\u003B' | '\u003D'..'\u007A' | '\u007C'..'\u007C' | '\u007E'..'\uD7FF' |
+		('\u0009' | '\u000A' | '\u000D' | '\u0020' | '\u0021' | '\u0023'..'\u0025' 
+		| '\u0028'..'\u003B' | '\u003D'..'\u007A' | '\u007C'..'\u007C' | '\u007E'..'\uD7FF' |
 		'\uE000'..'\uFFFD')+
 	;
 
 L_AposAttrContentChar
 	:	{ inAposAttr }? =>
-		('\u0009' | '\u000A' | '\u000D' | '\u0020'..'\u0025' //| '\u0027'..'\u0026'
+		('\u0009' | '\u000A' | '\u000D' | '\u0020' | '\u0021' | '\u0023'..'\u0025' 
 		| '\u0028'..'\u003B' | '\u003D'..'\u007A' | '\u007C'..'\u007C' | '\u007E'..'\uD7FF' |
 		'\uE000'..'\uFFFD')+
 	;

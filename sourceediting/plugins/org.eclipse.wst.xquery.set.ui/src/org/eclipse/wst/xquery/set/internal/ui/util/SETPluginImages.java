@@ -27,12 +27,19 @@ public class SETPluginImages {
     }
 
     private static final String T_WIZBAN = "wizban"; //$NON-NLS-1$
+    private static final String T_OBJ16 = "obj16"; //$NON-NLS-1$
 
     public static final ImageDescriptor DESC_WIZBAN_NEW_MODULE = create(T_WIZBAN, "newsmod_wiz.png"); //$NON-NLS-1$;
     public static final ImageDescriptor DESC_WIZBAN_NEW_PROJECT = create(T_WIZBAN, "newsprj_wiz.png"); //$NON-NLS-1$;
     public static final ImageDescriptor DESC_WIZBAN_IMP_MODULE = create(T_WIZBAN, "impsmod_wiz.png"); //$NON-NLS-1$;
     public static final ImageDescriptor DESC_WIZBAN_IMP_PROJECT = create(T_WIZBAN, "impsprj_wiz.png"); //$NON-NLS-1$;
     public static final ImageDescriptor DESC_WIZBAN_DEPLOY_PROJECT = create(T_WIZBAN, "depsprj_wiz.png"); //$NON-NLS-1$;
+
+    public static final ImageDescriptor OBJ16_RENAME_NAMESPACE = create(T_OBJ16, "rename.gif"); //$NON-NLS-1$;
+    public static final ImageDescriptor OBJ16_CHANGE_NAMESPACE = create(T_OBJ16, "packd_obj.gif"); //$NON-NLS-1$;
+    public static final ImageDescriptor OBJ16_PROJECT = create(T_OBJ16, "project.gif"); //$NON-NLS-1$;
+    public static final ImageDescriptor OBJ16_CORRECTION_RENAME = create(T_OBJ16, "correction_rename.gif"); //$NON-NLS-1$;
+    public static final ImageDescriptor OBJ16_CORRECTION_MOVE = create(T_OBJ16, "correction_move.gif"); //$NON-NLS-1$;
 
     private static ImageDescriptor create(String prefix, String name) {
         try {

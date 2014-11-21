@@ -1,23 +1,30 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
-Bundle-Name: XQuery Development Tool
+Bundle-Name: %pluginName
 Bundle-SymbolicName: org.eclipse.wst.xquery.sse.core;singleton:=true
-Bundle-Version: 0.0.2.qualifier
-Bundle-Activator: org.eclipse.wst.xquery.sse.core.XQDTPlugin
-Bundle-Vendor: IBM
-Require-Bundle: org.eclipse.wst.xml.core,
- org.eclipse.core.runtime,
- org.eclipse.wst.sse.core,
+Bundle-Version: 1.0.0.qualifier
+Bundle-Activator: org.eclipse.wst.xquery.sse.core.XQDTSSECorePlugin
+Bundle-Vendor: %providerName
+Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.core.resources,
- org.eclipse.wst.validation
-Bundle-RequiredExecutionEnvironment: J2SE-1.5
+ org.eclipse.wst.xquery.core,
+ org.eclipse.wst.validation,
+ org.eclipse.wst.sse.core,
+ org.eclipse.wst.xml.core,
+ org.eclipse.dltk.core
+Bundle-RequiredExecutionEnvironment: JavaSE-1.7
 Bundle-ActivationPolicy: lazy
 Export-Package: org.eclipse.wst.xquery.sse.core,
+ org.eclipse.wst.xquery.sse.core.internal,
  org.eclipse.wst.xquery.sse.core.internal.document,
  org.eclipse.wst.xquery.sse.core.internal.encoding,
  org.eclipse.wst.xquery.sse.core.internal.model,
  org.eclipse.wst.xquery.sse.core.internal.model.ast,
- org.eclipse.wst.xquery.sse.core.internal.parser, 
- org.eclipse.wst.xquery.sse.core.internal.regions, 
+ org.eclipse.wst.xquery.sse.core.internal.model.ast.dltk,
+ org.eclipse.wst.xquery.sse.core.internal.model.ast.impl,
+ org.eclipse.wst.xquery.sse.core.internal.model.ast.impl.update,
+ org.eclipse.wst.xquery.sse.core.internal.model.ast.impl.xml,
+ org.eclipse.wst.xquery.sse.core.internal.parser,
+ org.eclipse.wst.xquery.sse.core.internal.regions,
  org.eclipse.wst.xquery.sse.core.internal.sdregions,
- org.eclipse.wst.xquery.sse.core.internal.validation
+ org.eclipse.wst.xquery.sse.core.text

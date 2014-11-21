@@ -16,128 +16,134 @@ import org.eclipse.wst.sse.core.internal.provisional.text.ITextRegion;
 
 /**
  * General purpose XQuery region.
- *  
+ * 
  * <p>
- * If an lexical error occurred during the parsing of this region, the lexical
- * state when this error happened is preserved.
+ * If an lexical error occurred during the parsing of this region, the lexical state when this error
+ * happened is preserved.
+ * </p>
  * 
  * @author <a href="villard@us.ibm.com">Lionel Villard</a>
  */
 public class XQueryRegion implements ITextRegion {
 
-	// State
+    // State
 
-	/** If set, lexical state when a lexical error occurred */
-	protected int fErrorLexicalState;
+    /** If set, lexical state when a lexical error occurred */
+    protected int fErrorLexicalState;
 
-	protected int fLength;
+    protected int fLength;
 
-	protected int fStart;
-	
-	protected int fTextLength;
-	
-	protected String fType;
+    protected int fStart;
 
-	/** Whether or not this region represent a keyword */
-	protected boolean fIsKeyword;
-	
-	// Constructors
+    protected int fTextLength;
 
-	public XQueryRegion(String type, int start, int textLength, int length, int lexicalState, boolean isKeyword) {
-		super();
+    protected String fType;
 
-		this.fType = type;
-		this.fStart = start;
-		this.fTextLength = textLength;
-		this.fLength = length;
-		this.fErrorLexicalState = lexicalState;
-		this.fIsKeyword = isKeyword;
-	}
+    /** Whether or not this region represent a keyword */
+    protected boolean fIsKeyword; // TODO: not here.
 
-	// Methods
+    // Constructors
 
-	/** Whether or not this region represent a keyword */
-	public boolean isKeyword()
-	{
-		return fIsKeyword;
-	}
-	
-	/**
-	 * @return the lexicalState, or -1 if no error.
-	 */
-	public int getErrorLexicalState() {
-		return fErrorLexicalState;
-	}
+    public XQueryRegion(String type, int start, int textLength, int length, int lexicalState, boolean isKeyword) {
+        super();
 
-	public void setLength(int i) {
-		fLength = i;
-	}
+        this.fType = type;
+        this.fStart = start;
+        this.fTextLength = textLength;
+        this.fLength = length;
+        this.fErrorLexicalState = lexicalState;
+        this.fIsKeyword = isKeyword;
+    }
 
-	public void setStart(int i) {
-		fStart = i;
-	}
+    // Methods
 
-	public void setTextLength(int i) {
-		fTextLength = i;
-	}
+    /** Whether or not this region represent a keyword */
+    public boolean isKeyword() {
+        return fIsKeyword;
+    }
 
-	public void setType(String string) {
-		fType = string;
-	}
+    /**
+     * @return the lexicalState, or -1 if no error.
+     */
+    public int getErrorLexicalState() {
+        return fErrorLexicalState;
+    }
 
-	// Implements ITextRegion
+    public void setLength(int i) {
+        fLength = i;
+    }
 
-	public void adjust(int i) {
-		fStart += i;
+    public void setStart(int i) {
+        fStart = i;
+    }
 
-	}
+    public void setTextLength(int i) {
+        fTextLength = i;
+    }
 
-	public void adjustLength(int i) {
-		fLength += i;
-	}
+    public void setType(String string) {
+        fType = string;
+    }
 
-	public void adjustStart(int i) {
-		fStart += i;
-	}
+    // Implements ITextRegion
 
-	public void adjustTextLength(int i) {
-		fTextLength += i;
-	}
+    public void adjust(int i) {
+        fStart += i;
 
-	public int getEnd() {
-		return fStart + fLength;
-	}
+    }
 
-	public int getLength() {
-		return fLength;
-	}
+    public void adjustLength(int i) {
+        fLength += i;
+    }
 
-	public int getStart() {
-		return fStart;
-	}
+    public void adjustStart(int i) {
+        fStart += i;
+    }
 
-	public void equatePositions(ITextRegion region) {
-		fStart = region.getStart();
-		fLength = region.getLength();
-		fTextLength = region.getTextLength();
-	}
+    public void adjustTextLength(int i) {
+        fTextLength += i;
+    }
 
-	public int getTextEnd() {
-		return fStart + fTextLength;
-	}
+    public int getEnd() {
+        return fStart + fLength;
+    }
 
-	public int getTextLength() {
-		return fTextLength;
-	}
+    public int getLength() {
+        return fLength;
+    }
 
-	public String getType() {
-		return fType;
-	}
+    public int getStart() {
+        return fStart;
+    }
 
-	public StructuredDocumentEvent updateRegion(Object requester, IStructuredDocumentRegion parent, String changes,
-			int requestStart, int lengthToReplace) {
+    public void equatePositions(ITextRegion region) {
+        fStart = region.getStart();
+        fLength = region.getLength();
+        fTextLength = region.getTextLength();
+        fType = region.getType();
+    }
 
-		return null;
-	}
+    public int getTextEnd() {
+        return fStart + fTextLength;
+    }
 
+    public int getTextLength() {
+        return fTextLength;
+        //return fLength;
+    }
+
+    public String getType() {
+        return fType;
+    }
+
+    public StructuredDocumentEvent updateRegion(Object requester, IStructuredDocumentRegion parent, String changes,
+            int requestStart, int lengthToReplace) {
+
+        return null;
+    }
+
+    @Override
+    public String toString() {
+        return fType + " (S:" + fStart + ", L:" + fLength + ")";
+    }
 }

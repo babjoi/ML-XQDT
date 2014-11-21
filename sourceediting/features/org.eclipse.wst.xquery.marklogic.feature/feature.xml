@@ -2,8 +2,9 @@
 <feature
       id="org.eclipse.wst.xquery.marklogic.feature"
       label="%featureName"
-      version="0.7.0.qualifier"
-      provider-name="%providerName">
+      version="1.0.0.qualifier"
+      provider-name="%providerName"
+      plugin="org.eclipse.wst.xquery.marklogic">
 
    <description>
       %description
@@ -40,5 +41,11 @@
          install-size="0"
          version="0.0.0"
          unpack="false"/>
+
+   <plugin
+         id="org.eclipse.wst.xquery.marklogic"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"/>
 
 </feature>

@@ -2,8 +2,9 @@
 <feature
       id="org.eclipse.wst.xquery.feature"
       label="%featureName"
-      version="0.7.0.qualifier"
-      provider-name="%providerName">
+      version="1.0.0.qualifier"
+      provider-name="%providerName"
+      plugin="org.eclipse.wst.xquery">
 
    <description>
       %description
@@ -49,13 +50,6 @@
          unpack="false"/>
 
    <plugin
-         id="org.antlr.runtime_v31"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/>
-
-   <plugin
          id="org.eclipse.wst.xquery.sse.core"
          download-size="0"
          install-size="0"
@@ -68,5 +62,11 @@
          install-size="0"
          version="0.0.0"
          unpack="false"/>
+
+   <plugin
+         id="org.eclipse.wst.xquery"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"/>
 
 </feature>

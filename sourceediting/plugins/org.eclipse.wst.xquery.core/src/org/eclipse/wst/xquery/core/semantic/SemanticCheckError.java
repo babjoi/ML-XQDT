@@ -10,29 +10,36 @@
  *******************************************************************************/
 package org.eclipse.wst.xquery.core.semantic;
 
-import org.eclipse.dltk.compiler.problem.IProblem;
+import org.eclipse.core.resources.IResource;
+import org.eclipse.dltk.compiler.problem.CategorizedProblem;
+import org.eclipse.dltk.compiler.problem.DefaultProblem;
+import org.eclipse.dltk.compiler.problem.IProblemIdentifier;
+import org.eclipse.dltk.compiler.problem.ProblemSeverity;
 
-public class SemanticCheckError implements IProblem {
+public class SemanticCheckError extends CategorizedProblem {
 
-    private String fErrorCode;
-    private String fDescription;
-    private String fFileName;
     private int fLineNumber;
     private int fSourceStart;
     private int fSourceEnd;
 
-    public SemanticCheckError(String fileName, String errorCode, String description, int line) {
-        this(fileName, errorCode, description, line, -1, -1);
+    private String fErrorCode;
+    private String fDescription;
+    private IResource fResource;
+
+    private ProblemSeverity severity;
+
+    public SemanticCheckError(IResource resource, String errorCode, String description, int line) {
+        this(resource, errorCode, description, line, -1, -1);
     }
 
-    public SemanticCheckError(String fileName, String errorCode, String description, int line, int start) {
-        this(fileName, errorCode, description, line, start, start);
+    public SemanticCheckError(IResource resource, String errorCode, String description, int line, int start) {
+        this(resource, errorCode, description, line, start, start);
     }
 
-    public SemanticCheckError(String fileName, String errorCode, String description, int line, int start, int end) {
+    public SemanticCheckError(IResource resource, String errorCode, String description, int line, int start, int end) {
         fErrorCode = errorCode;
         fDescription = description;
-        fFileName = fileName;
+        fResource = resource;
         fLineNumber = line;
         fSourceStart = start;
         fSourceEnd = end;
@@ -42,8 +49,8 @@ public class SemanticCheckError implements IProblem {
         return new String[0];
     }
 
-    public int getID() {
-        return 0;
+    public IProblemIdentifier getID() {
+        return null;
     }
 
     public String getErrorCode() {
@@ -54,8 +61,12 @@ public class SemanticCheckError implements IProblem {
         return "[" + fErrorCode + "]: " + fDescription;
     }
 
+    public IResource getResource() {
+        return fResource;
+    }
+
     public String getOriginatingFileName() {
-        return fFileName;
+        return fResource.getFullPath().toString();
     }
 
     public int getSourceEnd() {
@@ -78,6 +89,10 @@ public class SemanticCheckError implements IProblem {
         return false;
     }
 
+    public boolean isTask() {
+        return false;
+    }
+
     public void setSourceEnd(int sourceEnd) {
         fSourceEnd = sourceEnd;
     }
@@ -88,6 +103,29 @@ public class SemanticCheckError implements IProblem {
 
     public void setSourceStart(int sourceStart) {
         fSourceStart = sourceStart;
+    }
+
+    public int getCategoryID() {
+        if ("err:XPST0003".equals(fErrorCode)) {
+            return CAT_SYNTAX;
+        } else if ("err:XQST0059".equals(fErrorCode)) {
+            return CAT_IMPORT;
+        }
+
+        return CAT_UNSPECIFIED;
+    }
+
+    public String getMarkerType() {
+        return DefaultProblem.MARKER_TYPE_PROBLEM;
+    }
+
+    @Override
+    public ProblemSeverity getSeverity() {
+        return severity;
+    }
+
+    public void setSeverity(ProblemSeverity severity) {
+        this.severity = severity;
     }
 
 }

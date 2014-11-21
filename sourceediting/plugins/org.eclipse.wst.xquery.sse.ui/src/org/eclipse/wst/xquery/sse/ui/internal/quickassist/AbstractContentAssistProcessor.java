@@ -10,9 +10,6 @@
  *******************************************************************************/
 package org.eclipse.wst.xquery.sse.ui.internal.quickassist;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.eclipse.jface.text.ITextViewer;
 import org.eclipse.jface.text.contentassist.ICompletionProposal;
 import org.eclipse.jface.text.contentassist.IContentAssistProcessor;
@@ -31,53 +28,53 @@ import org.eclipse.wst.xquery.sse.core.internal.model.ast.IASTNode;
  */
 abstract class AbstractContentAssistProcessor implements IContentAssistProcessor {
 
-	// Methods
+    // Methods
 
-	/**
-	 * Compute completion proposals
-	 */
-	protected abstract ICompletionProposal[] propose(int offset, IStructuredDocument document,
-			IStructuredDocumentRegion region, XQueryStructuredModel model, IASTNode node);
+    /**
+     * Compute completion proposals
+     */
+    protected abstract ICompletionProposal[] propose(int offset, IStructuredDocument document,
+            IStructuredDocumentRegion region, XQueryStructuredModel model, IASTNode node);
 
-	// Implements IContentAssistProcessor
+    // Implements IContentAssistProcessor
 
-	public ICompletionProposal[] computeCompletionProposals(ITextViewer viewer, int offset) {
-		final IStructuredDocument document = (IStructuredDocument) viewer.getDocument();
-		final IStructuredDocumentRegion region = document.getRegionAtCharacterOffset(offset);
+    public ICompletionProposal[] computeCompletionProposals(ITextViewer viewer, int offset) {
+        final IStructuredDocument document = (IStructuredDocument)viewer.getDocument();
+        final IStructuredDocumentRegion region = document.getRegionAtCharacterOffset(offset);
 
-		if (region != null) {
-			final XQueryStructuredModel model = (XQueryStructuredModel) StructuredModelManager.getModelManager()
-					.getModelForRead(document);
+        if (region != null) {
+            final XQueryStructuredModel model = (XQueryStructuredModel)StructuredModelManager.getModelManager()
+                    .getModelForRead(document);
 
-			final IASTNode node = model.getASTNode(region);
+            final IASTNode node = model.getASTNode(region);
 
-			ICompletionProposal[] proposals = propose(offset, document, region, model, node);
+            ICompletionProposal[] proposals = propose(offset, document, region, model, node);
 
-			model.releaseFromRead();
+            model.releaseFromRead();
 
-			return proposals;
-		}
-		return null;
-	}
+            return proposals;
+        }
+        return null;
+    }
 
-	public IContextInformation[] computeContextInformation(ITextViewer viewer, int offset) {
+    public IContextInformation[] computeContextInformation(ITextViewer viewer, int offset) {
 
-		return null;
-	}
+        return null;
+    }
 
-	public char[] getCompletionProposalAutoActivationCharacters() {
-		return null;
-	}
+    public char[] getCompletionProposalAutoActivationCharacters() {
+        return null;
+    }
 
-	public char[] getContextInformationAutoActivationCharacters() {
-		return null;
-	}
+    public char[] getContextInformationAutoActivationCharacters() {
+        return null;
+    }
 
-	public IContextInformationValidator getContextInformationValidator() {
-		return null;
-	}
+    public IContextInformationValidator getContextInformationValidator() {
+        return null;
+    }
 
-	public String getErrorMessage() {
-		return null;
-	}
+    public String getErrorMessage() {
+        return null;
+    }
 }

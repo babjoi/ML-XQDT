@@ -1,14 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?eclipse version="3.4"?>
 <plugin>
+<!--
    <extension
          point="org.eclipse.dltk.debug.scriptDebugModel">
       <debugModel
-            debugModelId="org.eclipse.wst.xquery.set.debug.core.setModel"
+            debugModelId="org.eclipse.wst.xquery.debug.core.xqdtModel"
             natureId="org.eclipse.wst.xquery.set.core.nature"
             typeFactory="org.eclipse.wst.xquery.debug.core.XQDTTypeFactory">
       </debugModel>
    </extension>
+-->
    <extension
          point="org.eclipse.core.runtime.preferences">
       <initializer

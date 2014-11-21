@@ -16,11 +16,12 @@ import org.eclipse.wst.xquery.set.launching.SETLaunchingPlugin;
 
 public class CoreSdkRunner extends AbstractInterpreterRunner {
 
+    public static final String SAUSALITO_TOOLS = "SAUSALITO_TOOLS";
+
     public CoreSdkRunner(IInterpreterInstall install) {
         super(install);
     }
 
-    @SuppressWarnings("unchecked")
     @Override
     protected String[] renderCommandLine(InterpreterConfig config) {
         List<String> args = new ArrayList<String>(8);
@@ -36,6 +37,22 @@ public class CoreSdkRunner extends AbstractInterpreterRunner {
         args.addAll(config.getScriptArgs());
 
         return args.toArray(new String[args.size()]);
+    }
+
+    @Override
+    protected String[] getEnvironmentVariablesAsStrings(InterpreterConfig config) {
+        String[] env = super.getEnvironmentVariablesAsStrings(config);
+
+        // don't give the user a chance to provide SAUSALITO_TOOLS set to false
+        List<String> newEnv = new ArrayList<String>(env.length);
+        for (String var : env) {
+            if (var.startsWith(SAUSALITO_TOOLS + "=")) {
+                continue;
+            }
+            newEnv.add(var);
+        }
+        newEnv.add(SAUSALITO_TOOLS + "=true");
+        return newEnv.toArray(new String[newEnv.size()]);
     }
 
     @Override

@@ -29,20 +29,13 @@ public class ZorbaTemplateContext extends ScriptTemplateContext {
     }
 
     public String[] getCollectionProperties() {
-        return new String[] { "mutable", "const", "append-only", "queue", "ordered", "unordered" };
-    }
-
-    public String[] getNodeModifiers() {
-        return new String[] { "mutable", "read-only" };
+        return new String[] { "%ann:mutable", "%ann:const", "%ann:append-only", "%ann:queue", "%ann:ordered",
+                "%ann:unordered", "%ann:read-only-nodes", "%ann:mutable-nodes" };
     }
 
     public String[] getIndexProperties() {
-        return new String[] { "unique", "non unique", "value range", "value equality", "automatically maintained",
-                "manually maintained" };
-    }
-
-    public String[] getOrderingModes() {
-        return new String[] { "ordered", "unordered" };
+        return new String[] { "%ann:unique", "%ann:nonunique", "%ann:value-range", "%ann:value-equality",
+                "ann:general-range", "ann:general-equality", "%ann:automatic", "%ann:manual" };
     }
 
 }

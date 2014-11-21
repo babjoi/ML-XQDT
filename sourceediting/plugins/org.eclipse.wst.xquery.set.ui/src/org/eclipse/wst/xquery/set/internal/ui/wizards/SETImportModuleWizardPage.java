@@ -38,7 +38,8 @@ import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.core.runtime.SubProgressMonitor;
 import org.eclipse.core.runtime.content.IContentTypeSettings;
-import org.eclipse.dltk.ast.declarations.ModuleDeclaration;
+import org.eclipse.dltk.ast.parser.IModuleDeclaration;
+import org.eclipse.dltk.compiler.env.ModuleSource;
 import org.eclipse.dltk.core.DLTKCore;
 import org.eclipse.dltk.core.DLTKLanguageManager;
 import org.eclipse.dltk.core.IBuildpathEntry;
@@ -92,7 +93,7 @@ import org.eclipse.wst.xquery.internal.core.parser.XQDTSourceParser;
 import org.eclipse.wst.xquery.set.core.ISETCoreConstants;
 import org.eclipse.wst.xquery.set.core.SETNature;
 import org.eclipse.wst.xquery.set.core.SETProjectConfig;
-import org.eclipse.wst.xquery.set.core.SETProjectConfigUtil;
+import org.eclipse.wst.xquery.set.core.utils.SETProjectConfigUtil;
 import org.eclipse.wst.xquery.set.ui.SETUIPlugin;
 
 @SuppressWarnings("restriction")
@@ -879,8 +880,8 @@ public class SETImportModuleWizardPage extends WizardPage implements IDialogFiel
         dialog.setMessage("Select the import destination project");
 
         try {
-            final IScriptProject[] projects = ScriptModelHelper.getOpenedScriptProjects(DLTKCore
-                    .create(getWorkspaceRoot()), SETNature.NATURE_ID);
+            final IScriptProject[] projects = ScriptModelHelper.getOpenedScriptProjects(
+                    DLTKCore.create(getWorkspaceRoot()), SETNature.NATURE_ID);
             dialog.setElements(projects);
         } catch (ModelException e) {
             DLTKLaunchingPlugin.log(e);
@@ -1083,7 +1084,7 @@ public class SETImportModuleWizardPage extends WizardPage implements IDialogFiel
             throws CoreException {
 
         XQDTSourceParser parser = (XQDTSourceParser)DLTKLanguageManager.getSourceParser(SETNature.NATURE_ID);
-        char[] fileName = getProject().getPath().append(tempPath).toString().toCharArray();
+        String fileName = getProject().getPath().append(tempPath).toString();
         File module = moduleRecord.importPath.toFile();
         long length = module.length();
         if (length > Integer.MAX_VALUE) {
@@ -1104,7 +1105,7 @@ public class SETImportModuleWizardPage extends WizardPage implements IDialogFiel
             throw new CoreException(new Status(IStatus.ERROR, SETUIPlugin.PLUGIN_ID, e.getMessage()));
         }
 
-        ModuleDeclaration modDecl = parser.parse(fileName, source, null);
+        IModuleDeclaration modDecl = parser.parse(new ModuleSource(fileName, source), null);
 
         monitor.worked(1000);
 

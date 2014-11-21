@@ -13,17 +13,17 @@ package org.eclipse.wst.xquery.internal.debug.ui.interpreters;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.debug.ui.StringVariableSelectionDialog;
-import org.eclipse.dltk.compiler.util.Util;
 import org.eclipse.dltk.core.environment.IEnvironment;
 import org.eclipse.dltk.core.environment.IFileHandle;
+import org.eclipse.dltk.core.internal.environment.LazyFileHandle;
 import org.eclipse.dltk.internal.debug.ui.interpreters.InterpretersMessages;
-import org.eclipse.dltk.internal.launching.LazyFileHandle;
 import org.eclipse.dltk.internal.ui.wizards.dialogfields.DialogField;
 import org.eclipse.dltk.internal.ui.wizards.dialogfields.IDialogFieldListener;
 import org.eclipse.dltk.internal.ui.wizards.dialogfields.IStringButtonAdapter;
 import org.eclipse.dltk.internal.ui.wizards.dialogfields.StringButtonDialogField;
 import org.eclipse.dltk.internal.ui.wizards.dialogfields.StringDialogField;
 import org.eclipse.dltk.launching.IInterpreterInstall;
+import org.eclipse.dltk.launching.InterpreterStandin;
 import org.eclipse.dltk.ui.dialogs.StatusInfo;
 import org.eclipse.dltk.utils.PlatformFileUtils;
 import org.eclipse.swt.SWT;
@@ -38,18 +38,21 @@ import org.eclipse.swt.widgets.FileDialog;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.wst.xquery.debug.ui.interpreters.AbstractAddInterpreterDialogBlock;
 import org.eclipse.wst.xquery.debug.ui.interpreters.AbstractInterpreterEnvironmentVariablesBlock;
+import org.eclipse.wst.xquery.internal.launching.XQDTJavaInterpreterInstall;
 
 @SuppressWarnings("restriction")
 public class XQDTJavaInterpreterAddInterpreterDialogBlock extends AbstractAddInterpreterDialogBlock {
 
     private static final String INTERPRETER_LOCATION_LABEL_NAME = "Interpreter JAR/WAR:"; //$NON-NLS-1$
     private static final String INTERPRETER_MAIN_CLASS_LABEL_NAME = "Main class:"; //$NON-NLS-1$
+    private static final String INTERPRETER_JAVA_ARGS_LABEL_NAME = "Java arguments:"; //$NON-NLS-1$
 
     public static final String[] POSSIBLE_EXTENSION_FILTER = { "*.jar;*.war" };
 
     protected StringDialogField fInterpreterNameField;
     protected StringButtonDialogField fInterpreterLocationField;
     protected StringDialogField fInterpreterMainClassField;
+    protected StringDialogField fInterpreterJavaArgsField;
     protected StringDialogField fInterpreterArgsField;
 
     protected AbstractInterpreterEnvironmentVariablesBlock fEnvironmentVariablesBlock;
@@ -79,6 +82,10 @@ public class XQDTJavaInterpreterAddInterpreterDialogBlock extends AbstractAddInt
         fInterpreterLocationField.setButtonLabel(InterpretersMessages.addInterpreterDialog_browse1);
         fInterpreterLocationField.doFillIntoGrid(parent, numColumns);
         ((GridData)fInterpreterLocationField.getTextControl(null).getLayoutData()).widthHint = convertWidthInCharsToPixels(50);
+
+        fInterpreterJavaArgsField = new StringDialogField();
+        fInterpreterJavaArgsField.setLabelText(INTERPRETER_JAVA_ARGS_LABEL_NAME);
+        fInterpreterJavaArgsField.doFillIntoGrid(parent, numColumns);
 
         fInterpreterMainClassField = new StringDialogField();
         fInterpreterMainClassField.setLabelText(INTERPRETER_MAIN_CLASS_LABEL_NAME);
@@ -139,7 +146,7 @@ public class XQDTJavaInterpreterAddInterpreterDialogBlock extends AbstractAddInt
         IEnvironment selectedEnv = fAddInterpreterDialog.getEnvironment();
         install.setInstallLocation(new LazyFileHandle(selectedEnv.getId(), new Path(getInterpreterLocation())));
         install.setName(getInterpreterName());
-        String args = getInterpreterMainClass() + " " + getInterpreterArguments();
+        String args = getInterpreterJavaArgs() + "|" + getInterpreterMainClass() + "|" + getInterpreterArgs();
         install.setInterpreterArgs(args);
         if (fEnvironmentVariablesBlock != null) {
             fEnvironmentVariablesBlock.performApply(install);
@@ -163,7 +170,8 @@ public class XQDTJavaInterpreterAddInterpreterDialogBlock extends AbstractAddInt
                 BusyIndicator.showWhile(getShell().getDisplay(), new Runnable() {
 
                     public void run() {
-                        temp[0] = fAddInterpreterDialog.getInterpreterType().validateInstallLocation(file);
+                        temp[0] = fAddInterpreterDialog.getInterpreterType().validateInstallLocation(file, null, null,
+                                null);
                     }
                 });
                 s = temp[0];
@@ -186,11 +194,15 @@ public class XQDTJavaInterpreterAddInterpreterDialogBlock extends AbstractAddInt
         return fInterpreterMainClassField.getText().trim();
     }
 
+    protected String getInterpreterJavaArgs() {
+        return fInterpreterJavaArgsField.getText().trim();
+    }
+
     protected String getInterpreterLocation() {
         return fInterpreterLocationField.getText().trim();
     }
 
-    protected String getInterpreterArguments() {
+    protected String getInterpreterArgs() {
         return fInterpreterArgsField.getText().trim();
     }
 
@@ -209,22 +221,31 @@ public class XQDTJavaInterpreterAddInterpreterDialogBlock extends AbstractAddInt
 
     public void initializeFields(IInterpreterInstall install) {
         if (install == null) {
-            fInterpreterNameField.setText(Util.EMPTY_STRING);
-            fInterpreterLocationField.setText(Util.EMPTY_STRING);
-            fInterpreterMainClassField.setText(Util.EMPTY_STRING);
-            fInterpreterArgsField.setText(Util.EMPTY_STRING);
-        } else {
+            return;
+        }
+        if (install instanceof InterpreterStandin) {
             fInterpreterNameField.setText(install.getName());
             fInterpreterLocationField.setText(install.getRawInstallLocation().toOSString());
-            String mainClass = install.getInterpreterArguments()[0];
-            String interpreterArgs = install.getInterpreterArgs();
-            interpreterArgs = interpreterArgs.substring(interpreterArgs.indexOf(' '));
+            String allArgs = install.getInterpreterArgs();
+            String[] splits = allArgs.split("\\|");
+            fInterpreterJavaArgsField.setText(splits[0]);
+            fInterpreterMainClassField.setText(splits[1]);
+            fInterpreterArgsField.setText(splits[2]);
+            return;
+        } else {
+            XQDTJavaInterpreterInstall javaInstall = (XQDTJavaInterpreterInstall)install;
+            fInterpreterNameField.setText(javaInstall.getName());
+            fInterpreterLocationField.setText(javaInstall.getRawInstallLocation().toOSString());
+            String javaArgs = javaInstall.getJavaArgs();
+            String mainClass = javaInstall.getMainClass();
+            String interpreterArgs = javaInstall.getJavaInterpreterArgs();
 
             fInterpreterMainClassField.setText(mainClass);
+            fInterpreterJavaArgsField.setText(javaArgs);
             fInterpreterArgsField.setText(interpreterArgs);
 
             if (fEnvironmentVariablesBlock != null) {
-                fEnvironmentVariablesBlock.initializeFrom(install, install.getInterpreterInstallType());
+                fEnvironmentVariablesBlock.initializeFrom(javaInstall, javaInstall.getInterpreterInstallType());
             }
         }
         setInterpreterNameStatus(validateInterpreterName());
@@ -320,7 +341,7 @@ public class XQDTJavaInterpreterAddInterpreterDialogBlock extends AbstractAddInt
         String name = getInterpreterName();
         if (name == null || name.length() == 0) {
             status.setInfo(InterpretersMessages.addInterpreterDialog_enterName);
-        } else if (fRequestor.isDuplicateName(name)
+        } else if (fRequestor.isDuplicateName(name, fEditedInterpreter)
                 && (fEditedInterpreter == null || !name.equals(fEditedInterpreter.getName()))) {
             status.setError(InterpretersMessages.addInterpreterDialog_duplicateName);
         }

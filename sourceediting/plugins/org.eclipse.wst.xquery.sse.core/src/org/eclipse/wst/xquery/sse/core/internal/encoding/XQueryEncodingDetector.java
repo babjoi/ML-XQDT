@@ -19,32 +19,35 @@ import org.eclipse.wst.sse.core.internal.encoding.util.UnicodeBOMEncodingDetecto
 /**
  * Encoding detector.
  * 
+ * <p>
  * Based on the SSE framework unicode encoding detector, except for IDocument.
+ * </p>
  * 
  * @author <a href="villard@us.ibm.com">Lionel Villard</a>
  */
 public class XQueryEncodingDetector extends UnicodeBOMEncodingDetector implements IDocumentCharsetDetector {
 
-	// State
+    // State
 
-	/** Set document */
-	private IDocument fDocument;
+    /** Set document */
+    private IDocument fDocument;
 
-	// Implements IDocumentCharsetDetector
+    // Implements IDocumentCharsetDetector
 
-	public String getSpecDefaultEncoding() {
-		return "UTF-8";
-	}
+    public String getSpecDefaultEncoding() {
+        return "UTF-8";
+    }
 
-	public String getEncoding() throws IOException {
-		if (fDocument != null)
-			return "UTF-8";
+    public String getEncoding() throws IOException {
+        if (fDocument != null) {
+            return "UTF-8";
+        }
 
-		return super.getEncoding();
-	}
+        return super.getEncoding();
+    }
 
-	public void set(IDocument document) {
-		fDocument = document;
-	}
+    public void set(IDocument document) {
+        fDocument = document;
+    }
 
 }

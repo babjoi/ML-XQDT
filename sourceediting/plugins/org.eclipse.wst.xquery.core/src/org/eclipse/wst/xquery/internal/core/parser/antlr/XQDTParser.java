@@ -34,6 +34,7 @@ public class XQDTParser extends Parser implements IXQDTLanguageConstants {
     private String fFileName;
     protected int fLanguage;
     private List<Position> fKeywords = new ArrayList<Position>(50);
+    private boolean fExpectExpression = false;
 
     public XQDTParser(TokenStream input) {
         this(input, new RecognizerSharedState());
@@ -95,8 +96,15 @@ public class XQDTParser extends Parser implements IXQDTLanguageConstants {
     }
 
     public void popLexer() {
+        if (fLexerStack.size() == 0) {
+            return;
+        }
+        fStream.mark();
         XQDTLexer oldLexer = (XQDTLexer)fStream.getTokenSource();
         XQDTLexer newLexer = fLexerStack.remove(fLexerStack.size() - 1);
+        if (oldLexer instanceof StringLexer && newLexer instanceof XQueryLexer) {
+            ((XQueryLexer)newLexer).inStr = false;
+        }
         fStream.setTokenSource(newLexer);
         oldLexer.postErrors();
     }
@@ -113,8 +121,8 @@ public class XQDTParser extends Parser implements IXQDTLanguageConstants {
                 CommonToken t = (CommonToken)input.get(e.index);
                 if (t.getType() != XQueryParser.EOF) {
                     String errorMessage = getErrorMessage(e, getTokenNames());
-                    problem = new SyntaxProblem(fFileName, errorMessage, t.getStartIndex(), t.getStopIndex() + 1, t
-                            .getLine() - 1);
+                    problem = new SyntaxProblem(fFileName, errorMessage, t.getStartIndex(), t.getStopIndex() + 1,
+                            t.getLine() - 1);
                 } else {
                     CommonToken last = (CommonToken)input.get(input.size() - 1);
                     String errorMessage = getErrorMessage(e, getTokenNames());
@@ -130,8 +138,7 @@ public class XQDTParser extends Parser implements IXQDTLanguageConstants {
         super.reportError(e);
     }
 
-    @SuppressWarnings("unchecked")
-    protected void ak(List list) {
+    protected void ak(@SuppressWarnings("rawtypes") List list) {
         if (list == null) {
             return;
         }
@@ -186,4 +193,27 @@ public class XQDTParser extends Parser implements IXQDTLanguageConstants {
         XQDTLexer lexer = (XQDTLexer)fStream.getTokenSource();
         lexer.postErrors();
     }
+
+    /**
+     * Function to indicate that the next hybrid should be passed as expression not as a statement.
+     * Hybrid will automatically set this back to false.
+     * 
+     * @param state
+     */
+    protected void parseExpr(boolean state) {
+        fExpectExpression = state;
+    }
+
+    /**
+     * Function to interrogate if the next hybrid should be passed as expression only or not. A the
+     * Hybrid will automatically set this back to false.
+     * 
+     * @return True if the following Hybrid must be parsed as an expression only.
+     */
+    protected boolean mustParseExpr() {
+        boolean result = fExpectExpression;
+        fExpectExpression = false;
+        return result;
+    }
+
 }

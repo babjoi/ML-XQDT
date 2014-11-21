@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?eclipse version="3.4"?>
 <plugin>
-   <extension-point id="tokenizer" name="XQuery Tokenizer" schema="schema/org.eclipse.wst.xquery.sse.core.tokenizer.exsd"/>
+   <extension-point id="tokenizer" name="XQuery Tokenizer" schema="schema/tokenizer.exsd"/>
+   <extension-point id="modelBuilder" name="XQuery Model Builder" schema="schema/modelBuilder.exsd"/>
    <extension
          id="org.eclipse.wst.xquery.sse.core"
          point="org.eclipse.wst.sse.core.modelHandler">
@@ -14,6 +15,7 @@
    <extension
          point="org.eclipse.core.contenttype.contentTypes">
       <content-type
+            default-charset="UTF-8"
             file-extensions="xq,xql,xqy,xquery"
             id="org.eclipse.wst.xquery.sse.core.xquery"
             name="XQuery Module"
@@ -32,26 +34,6 @@
       </factory>
    </extension>
    <extension
-         id="org.eclipse.wst.validation.xquery"
-         name="XQuery Validator"
-         point="org.eclipse.wst.validation.validatorV2">
-      <validator
-            build="true"
-            class="org.eclipse.wst.xquery.sse.core.internal.validation.XQueryValidator"
-            manual="true"
-            markerId="XQueryValidationMarker"
-            version="1">
-         <include>
-            <rules>
-               <contentType
-                     exactMatch="true"
-                     id="org.eclipse.wst.xquery.sse.core.xquery">
-               </contentType>
-            </rules>
-         </include>
-      </validator>
-   </extension>
-   <extension
          id="XQueryValidationMarker"
          name="XQuery Validation Marker"
          point="org.eclipse.core.resources.markers">
@@ -59,18 +41,6 @@
             type="org.eclipse.core.resources.problemmarker">
       </super>
    </extension>
-   <extension
-         point="org.eclipse.wst.sse.ui.sourcevalidation">
-      <validator
-            class="org.eclipse.wst.xquery.sse.core.internal.validation.XQuerySourceValidator"
-            id="org.eclipse.wst.xquery.sse.core.validation.validator"
-            scope="total">
-         <contentTypeIdentifier
-               id="org.eclipse.wst.xquery.sse.core.xquery">
-            <partitionType
-                  id="org.eclipse.wst.xquery.DEFAULT">
-            </partitionType></contentTypeIdentifier>
-      </validator>
-   </extension>
+  
 
 </plugin>

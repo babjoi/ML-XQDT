@@ -1,0 +1,145 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!-- Schema file written by PDE -->
+<schema targetNamespace="org.eclipse.wst.xquery.sse.ui" xmlns="http://www.w3.org/2001/XMLSchema">
+<annotation>
+      <appinfo>
+         <meta.schema plugin="org.eclipse.wst.xquery.sse.ui" id="colorSchemes" name="XQuery Syntax Color Schemes"/>
+      </appinfo>
+      <documentation>
+         Provide color schemes for XQuery code syntax highlighting. The scheme will be available in the XQuery &quot;Syntax Coloring&quot; preference page.
+      </documentation>
+   </annotation>
+
+   <element name="extension">
+      <annotation>
+         <appinfo>
+            <meta.element />
+         </appinfo>
+      </annotation>
+      <complexType>
+         <sequence minOccurs="1" maxOccurs="unbounded">
+            <element ref="scheme"/>
+         </sequence>
+         <attribute name="point" type="string" use="required">
+            <annotation>
+               <documentation>
+                  
+               </documentation>
+            </annotation>
+         </attribute>
+         <attribute name="id" type="string">
+            <annotation>
+               <documentation>
+                  
+               </documentation>
+            </annotation>
+         </attribute>
+         <attribute name="name" type="string">
+            <annotation>
+               <documentation>
+                  
+               </documentation>
+               <appinfo>
+                  <meta.attribute translatable="true"/>
+               </appinfo>
+            </annotation>
+         </attribute>
+      </complexType>
+   </element>
+
+   <element name="scheme">
+      <complexType>
+         <sequence minOccurs="0" maxOccurs="unbounded">
+            <element ref="style" minOccurs="0" maxOccurs="unbounded"/>
+         </sequence>
+         <attribute name="name" type="string" use="required">
+            <annotation>
+               <documentation>
+                  
+               </documentation>
+            </annotation>
+         </attribute>
+      </complexType>
+   </element>
+
+   <element name="style">
+      <complexType>
+         <attribute name="id" use="required">
+            <annotation>
+               <documentation>
+                  One of the color keys in org.eclipse.wst.xquery.sse.ui.style.IXQDTColorKeys
+               </documentation>
+            </annotation>
+            <simpleType>
+               <restriction base="string">
+                  <enumeration value="Comment">
+                  </enumeration>
+                  <enumeration value="DollarExpression">
+                  </enumeration>
+                  <enumeration value="FunctionName">
+                  </enumeration>
+                  <enumeration value="Keyword">
+                  </enumeration>
+                  <enumeration value="Operator">
+                  </enumeration>
+                  <enumeration value="Pragma">
+                  </enumeration>
+                  <enumeration value="StringLiteral">
+                  </enumeration>
+                  <enumeration value="Type">
+                  </enumeration>
+               </restriction>
+            </simpleType>
+         </attribute>
+         <attribute name="color" type="string" use="default" value="#000000">
+            <annotation>
+               <documentation>
+                  The color value in the format #RRGGBB, where &apos;RR&apos;, &apos;GG&apos;, and &apos;BB&apos; take values from 00 to FF.
+               </documentation>
+            </annotation>
+         </attribute>
+         <attribute name="bold" type="boolean" use="default" value="false">
+            <annotation>
+               <documentation>
+                  
+               </documentation>
+            </annotation>
+         </attribute>
+         <attribute name="italic" type="boolean" use="default" value="false">
+            <annotation>
+               <documentation>
+                  
+               </documentation>
+            </annotation>
+         </attribute>
+         <attribute name="underline" type="boolean" use="default" value="false">
+            <annotation>
+               <documentation>
+                  
+               </documentation>
+            </annotation>
+         </attribute>
+         <attribute name="strike-through" type="boolean" use="default" value="false">
+            <annotation>
+               <documentation>
+                  
+               </documentation>
+            </annotation>
+         </attribute>
+      </complexType>
+   </element>
+
+
+
+
+   <annotation>
+      <appinfo>
+         <meta.section type="implementation"/>
+      </appinfo>
+      <documentation>
+         org.eclipse.wst.xquery.sse.core.internal.model.ModelBuilder
+      </documentation>
+   </annotation>
+
+
+</schema>

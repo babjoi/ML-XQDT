@@ -11,8 +11,8 @@
 package org.eclipse.wst.xquery.ui;
 
 import org.eclipse.ui.plugin.AbstractUIPlugin;
-import org.osgi.framework.BundleContext;
 import org.eclipse.wst.xquery.internal.ui.text.XQDTTextTools;
+import org.osgi.framework.BundleContext;
 
 /**
  * The activator class controls the plug-in life cycle
@@ -46,6 +46,7 @@ public class XQDTUIPlugin extends AbstractUIPlugin {
     public void start(BundleContext context) throws Exception {
         super.start(context);
         plugin = this;
+
         getPreferenceStore().setDefault(NAMESPACE_PREFERENCE, DEFAULT_NAMESPACES);
     }
 
@@ -69,8 +70,9 @@ public class XQDTUIPlugin extends AbstractUIPlugin {
     }
 
     public synchronized XQDTTextTools getTextTools() {
-        if (fTextTools == null)
+        if (fTextTools == null) {
             fTextTools = new XQDTTextTools(true);
+        }
         return fTextTools;
     }
 

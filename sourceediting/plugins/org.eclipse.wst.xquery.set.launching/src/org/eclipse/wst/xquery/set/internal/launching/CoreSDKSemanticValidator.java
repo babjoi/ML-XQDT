@@ -21,6 +21,7 @@ public class CoreSDKSemanticValidator extends AbstractLocalInterpreterSemanticVa
 
     public CoreSDKSemanticValidator(IInterpreterInstall install) {
         super(install);
+        setReportReaderFactory(new CoreSDKErrorReportReaderFactory());
     }
 
     public String[] buildCommandLine(ISourceModule module) {

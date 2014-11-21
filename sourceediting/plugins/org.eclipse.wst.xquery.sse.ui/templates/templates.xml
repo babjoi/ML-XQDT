@@ -19,7 +19,7 @@
 	name="xquery"
 	description="%Templates.VersionDecl"
 	id="xquery.VersionDeclX"
-	context="org.eclipse.wst.xquery.sse.ui.contextType.prolog1"
+	context="org.eclipse.wst.xquery.sse.ui.contextType.expr"
 	enabled="true"
 	autoinsert="false">xquery version "${ver_string}" encoding "${enc_string}";
 </template>
@@ -28,7 +28,7 @@
 	name="module"
 	description="%Templates.ModuleDecl"
 	id="xquery.ModuleDeclM"
-	context="org.eclipse.wst.xquery.sse.ui.contextType.prolog1"
+	context="org.eclipse.wst.xquery.sse.ui.contextType.expr"
 	enabled="true"
 	autoinsert="false">module namespace ${namespace_name} = "${URI_literal}";
 </template>
@@ -36,7 +36,7 @@
 	name="namespace"
 	description="%Templates.ModuleDecl"
 	id="xquery.ModuleDeclN"
-	context="org.eclipse.wst.xquery.sse.ui.contextType.prolog1"
+	context="org.eclipse.wst.xquery.sse.ui.contextType.expr"
 	enabled="true"
 	autoinsert="false">module namespace ${namespace_name} = "${URI_literal}";
 </template>
@@ -44,7 +44,7 @@
 	name="import"
 	description="%Templates.ModuleImport"
 	id="xquery.ModuleImportI"
-	context="org.eclipse.wst.xquery.sse.ui.contextType.prolog1"
+	context="org.eclipse.wst.xquery.sse.ui.contextType.expr"
 	enabled="true"
 	autoinsert="false">import module namespace ${namespace_name} = "${URI_literal}";
 </template>
@@ -52,7 +52,7 @@
 	name="module"
 	description="%Templates.ModuleImport"
 	id="xquery.ModuleImportM"
-	context="org.eclipse.wst.xquery.sse.ui.contextType.prolog1"
+	context="org.eclipse.wst.xquery.sse.ui.contextType.expr"
 	enabled="true"
 	autoinsert="false">import module namespace ${namespace_name} = "${URI_literal}";
 </template>
@@ -61,7 +61,7 @@
 	name="import"
 	description="%Templates.ModuleImportAt"
 	id="xquery.ModuleImportAtI"
-	context="org.eclipse.wst.xquery.sse.ui.contextType.prolog1"
+	context="org.eclipse.wst.xquery.sse.ui.contextType.expr"
 	enabled="true"
 	autoinsert="false">import module namespace ${namespace_name} = ${URI_and_location_hints};
 </template>
@@ -69,7 +69,7 @@
 	name="module"
 	description="%Templates.ModuleImportAt"
 	id="xquery.ModuleImportAtM"
-	context="org.eclipse.wst.xquery.sse.ui.contextType.prolog1"
+	context="org.eclipse.wst.xquery.sse.ui.contextType.expr"
 	enabled="true"
 	autoinsert="false">import module namespace ${namespace_name} = ${URI_and_location_hints};
 </template>
@@ -78,7 +78,7 @@
     name="import"
     description="%Templates.SchemaImport"
     id="xquery.SchemaImportI"
-    context="org.eclipse.wst.xquery.sse.ui.contextType.prolog1"
+    context="org.eclipse.wst.xquery.sse.ui.contextType.expr"
     enabled="true"
     autoinsert="false">import schema ${schema_prefix} "${schema_URI}";
 </template>
@@ -86,7 +86,7 @@
     name="schema"
     description="%Templates.SchemaImport"
     id="xquery.SchemaImportS"
-    context="org.eclipse.wst.xquery.sse.ui.contextType.prolog1"
+    context="org.eclipse.wst.xquery.sse.ui.contextType.expr"
     enabled="true"
     autoinsert="false">import schema ${schema_prefix} "${schema_URI}";
 </template>
@@ -95,7 +95,7 @@
     name="import"
     description="%Templates.SchemaImportAt"
     id="xquery.SchemaImportAtI"
-    context="org.eclipse.wst.xquery.sse.ui.contextType.prolog1"
+    context="org.eclipse.wst.xquery.sse.ui.contextType.expr"
     enabled="true"
     autoinsert="false">import schema ${schema_prefix} ${schema_URI_and_hints};
 </template>
@@ -103,7 +103,7 @@
     name="schema"
     description="%Templates.SchemaImportAt"
     id="xquery.SchemaImportAtS"
-    context="org.eclipse.wst.xquery.sse.ui.contextType.prolog1"
+    context="org.eclipse.wst.xquery.sse.ui.contextType.expr"
     enabled="true"
     autoinsert="false">import schema ${schema_prefix} ${schema_URI_and_hints};
 </template>
@@ -112,7 +112,7 @@
 	name="import"
 	description="%Templates.ServiceImport"
 	id="scripting.ServiceImportI"
-	context="org.eclipse.wst.xquery.sse.ui.contextType.prolog1"
+	context="org.eclipse.wst.xquery.sse.ui.contextType.expr"
 	enabled="true"
 	autoinsert="false">import service namespace ${namespace_name} = "${URI_literal}" from "${URI_literal}";
 </template>
@@ -120,7 +120,7 @@
 	name="service"
 	description="%Templates.ServiceImport"
 	id="scripting.ServiceImportS"
-	context="org.eclipse.wst.xquery.sse.ui.contextType.prolog1"
+	context="org.eclipse.wst.xquery.sse.ui.contextType.expr"
 	enabled="true"
 	autoinsert="false">import service namespace ${namespace_name} = "${URI_literal}" from "${URI_literal}";
 </template>-->
@@ -129,7 +129,7 @@
 	name="namespace"
 	description="%Templates.NamespaceDecl"
 	id="xquery.NamespaceDecl"
-	context="org.eclipse.wst.xquery.sse.ui.contextType.prolog1"
+	context="org.eclipse.wst.xquery.sse.ui.contextType.expr"
 	enabled="true"
 	autoinsert="false">declare namespace ${namespace_name} = "${URI_literal}";
 </template>
@@ -138,7 +138,7 @@
 	name="boundry-space"
 	description="%Templates.BoundarySpaceDecl"
 	id="xquery.BoundarySpaceDecl"
-	context="org.eclipse.wst.xquery.sse.ui.contextType.prolog1"
+	context="org.eclipse.wst.xquery.sse.ui.contextType.expr"
 	enabled="true"
 	autoinsert="false">declare boundary-space ${boundary_space_type};</template>
 
@@ -146,7 +146,7 @@
 	name="namespace"
 	description="%Templates.DefaultNamespaceDecl"
 	id="xquery.DefaultNamespaceDecl"
-	context="org.eclipse.wst.xquery.sse.ui.contextType.prolog1"
+	context="org.eclipse.wst.xquery.sse.ui.contextType.expr"
 	enabled="true"
 	autoinsert="false">declare default ${default_namespace_type} namespace "${URI_literal}";
 </template>
@@ -155,7 +155,7 @@
 	name="option"
 	description="%Templates.OptionDecl"
 	id="xquery.OptionDecl"
-	context="org.eclipse.wst.xquery.sse.ui.contextType.prolog2"
+	context="org.eclipse.wst.xquery.sse.ui.contextType.expr"
 	enabled="true"
 	autoinsert="false">declare option ${option_name} "${string_literal}";
 </template>
@@ -164,7 +164,7 @@
 	name="ordering"
 	description="%Templates.OrderingModeDecl"
 	id="xquery.OrderingModeDecl"
-	context="org.eclipse.wst.xquery.sse.ui.contextType.prolog1"
+	context="org.eclipse.wst.xquery.sse.ui.contextType.expr"
 	enabled="true"
 	autoinsert="false">declare ordering ${ordering_mode};</template>
 
@@ -172,7 +172,7 @@
 	name="empty"
 	description="%Templates.EmptyOrderDecl"
 	id="xquery.EmptyOrderDeclE"
-	context="org.eclipse.wst.xquery.sse.ui.contextType.prolog1"
+	context="org.eclipse.wst.xquery.sse.ui.contextType.expr"
 	enabled="true"
 	autoinsert="false">declare default order empty ${empty_order_mode};</template>
 
@@ -180,7 +180,7 @@
 	name="order"
 	description="%Templates.EmptyOrderDecl"
 	id="xquery.EmptyOrderDeclO"
-	context="org.eclipse.wst.xquery.sse.ui.contextType.prolog1"
+	context="org.eclipse.wst.xquery.sse.ui.contextType.expr"
 	enabled="true"
 	autoinsert="false">declare default order empty ${empty_order_mode};</template>
 
@@ -188,7 +188,7 @@
 	name="copy-namespaces"
 	description="%Templates.CopyNamespacesDecl"
 	id="xquery.CopyNamespacesDecl"
-	context="org.eclipse.wst.xquery.sse.ui.contextType.prolog1"
+	context="org.eclipse.wst.xquery.sse.ui.contextType.expr"
 	enabled="true"
 	autoinsert="false">declare copy-namespaces ${preserve_mode}, ${inherit_mode};</template>
 
@@ -196,7 +196,7 @@
 	name="collation"
 	description="%Templates.DefaultCollationDecl"
 	id="xquery.DefaultCollationDecl"
-	context="org.eclipse.wst.xquery.sse.ui.contextType.prolog1"
+	context="org.eclipse.wst.xquery.sse.ui.contextType.expr"
 	enabled="true"
 	autoinsert="false">declare default collation "${URI_literal}";
 </template>
@@ -205,7 +205,7 @@
 	name="base-uri"
 	description="%Templates.BaseURIDecl"
 	id="xquery.BaseURIDecl"
-	context="org.eclipse.wst.xquery.sse.ui.contextType.prolog1"
+	context="org.eclipse.wst.xquery.sse.ui.contextType.expr"
 	enabled="true"
 	autoinsert="false">declare base-uri "${URI_literal}";
 </template>
@@ -214,7 +214,7 @@
 	name="construction"
 	description="%Templates.ConstructionDecl"
 	id="xquery.ConstructionDecl"
-	context="org.eclipse.wst.xquery.sse.ui.contextType.prolog1"
+	context="org.eclipse.wst.xquery.sse.ui.contextType.expr"
 	enabled="true"
 	autoinsert="false">declare construction ${construction_mode};</template>
 
@@ -222,7 +222,7 @@
 	name="variable"
 	description="%Templates.VarDecl"
 	id="xquery.VarDecl"
-	context="org.eclipse.wst.xquery.sse.ui.contextType.prolog2"
+	context="org.eclipse.wst.xquery.sse.ui.contextType.expr"
 	enabled="true"
 	autoinsert="false">declare variable $$${variable} := ${value};
 </template>
@@ -230,7 +230,7 @@
 	name="variable"
 	description="%Templates.VarDeclTyped"
 	id="xquery.VarDeclTyped"
-	context="org.eclipse.wst.xquery.sse.ui.contextType.prolog2"
+	context="org.eclipse.wst.xquery.sse.ui.contextType.expr"
 	enabled="true"
 	autoinsert="false">declare variable $$${variable} as ${type} := ${value};
 </template>
@@ -238,7 +238,7 @@
 	name="variable"
 	description="%Templates.VarDeclExternal"
 	id="xquery.VarDeclExteral"
-	context="org.eclipse.wst.xquery.sse.ui.contextType.prolog2"
+	context="org.eclipse.wst.xquery.sse.ui.contextType.expr"
 	enabled="true"
 	autoinsert="false">declare variable $$${variable} external;
 </template>
@@ -246,7 +246,7 @@
 	name="variable"
 	description="%Templates.VarDeclTypedExternal"
 	id="xquery.VarDeclTypedExternal"
-	context="org.eclipse.wst.xquery.sse.ui.contextType.prolog2"
+	context="org.eclipse.wst.xquery.sse.ui.contextType.expr"
 	enabled="true"
 	autoinsert="false">declare variable $$${variable} as ${type} external;
 </template>
@@ -255,7 +255,7 @@
 	name="function"
 	description="%Templates.FunctionDecl"
 	id="xquery.FunctionDecl"
-	context="org.eclipse.wst.xquery.sse.ui.contextType.prolog2"
+	context="org.eclipse.wst.xquery.sse.ui.contextType.expr"
 	enabled="true"
 	autoinsert="false">declare function ${function_namespace}:${function_name} (${function_params}) as ${sequence_type} {
 	${insert_an_expression_here}${cursor}
@@ -266,7 +266,7 @@
 	name="function"
 	description="%Templates.FunctionDeclExternal"
 	id="xquery.FunctionDeclExternal"
-	context="org.eclipse.wst.xquery.sse.ui.contextType.prolog2"
+	context="org.eclipse.wst.xquery.sse.ui.contextType.expr"
 	enabled="true"
 	autoinsert="false">declare function ${function_namespace}:${function_name} (${function_params}) as ${sequence_type} external;</template>
 
@@ -442,7 +442,7 @@ return
 	name="updating"
 	description="%Templates.UpdatingFunctionDecl"
 	id="update.FunctionDeclU"
-	context="org.eclipse.wst.xquery.ui.templates.XQueryUpdateTemplateContentType"
+	context="org.eclipse.wst.xquery.sse.ui.contextType.expr"
 	enabled="true"
 	autoinsert="false">declare updating function ${function_namespace}:${function_name} (${function_params}) {
 	${insert_an_expression_here}${cursor}
@@ -454,7 +454,7 @@ return
 	name="function"
 	description="%Templates.UpdatingFunctionDecl"
 	id="update.FunctionDeclF"
-	context="org.eclipse.wst.xquery.ui.templates.XQueryUpdateTemplateContentType"
+	context="org.eclipse.wst.xquery.sse.ui.contextType.expr"
 	enabled="true"
 	autoinsert="false">declare updating function ${function_namespace}:${function_name} (${function_params}) {
 	${insert_an_expression_here}${cursor}
@@ -466,7 +466,7 @@ return
 	name="insert"
 	description="%Templates.InsertExpr"
 	id="update.InsertExpr"
-	context="org.eclipse.wst.xquery.ui.templates.XQueryUpdateTemplateContentType"
+	context="org.eclipse.wst.xquery.sse.ui.contextType.expr"
 	enabled="true"
 	autoinsert="false">insert ${node_nodes} ${source_expression} ${target_choice} ${target_expression}</template>
 
@@ -474,7 +474,7 @@ return
 	name="delete"
 	description="%Templates.DeleteExpr"
 	id="update.DeleteExpr"
-	context="org.eclipse.wst.xquery.ui.templates.XQueryUpdateTemplateContentType"
+	context="org.eclipse.wst.xquery.sse.ui.contextType.expr"
 	enabled="true"
 	autoinsert="false">delete ${node_nodes} ${target_expression}</template>
 
@@ -482,7 +482,7 @@ return
 	name="replace"
 	description="%Templates.ReplaceExpr"
 	id="update.ReplaceExpr"
-	context="org.eclipse.wst.xquery.ui.templates.XQueryUpdateTemplateContentType"
+	context="org.eclipse.wst.xquery.sse.ui.contextType.expr"
 	enabled="true"
 	autoinsert="false">replace ${value_of}node ${target_expression} with ${expression}</template>
 
@@ -490,7 +490,7 @@ return
 	name="rename"
 	description="%Templates.RenameExpr"
 	id="update.RenameExpr"
-	context="org.eclipse.wst.xquery.ui.templates.XQueryUpdateTemplateContentType"
+	context="org.eclipse.wst.xquery.sse.ui.contextType.expr"
 	enabled="true"
 	autoinsert="false">rename node ${target_expression} as ${new_expression}</template>
 
@@ -498,7 +498,7 @@ return
 	name="copy"
 	description="%Templates.TransformExpr"
 	id="update.TransformExprC"
-	context="org.eclipse.wst.xquery.ui.templates.XQueryUpdateTemplateContentType"
+	context="org.eclipse.wst.xquery.sse.ui.contextType.expr"
 	enabled="true"
 	autoinsert="false">copy $$${variable} := ${expression} modify ${expression} return ${expression}</template>
 
@@ -506,7 +506,7 @@ return
 	name="transform"
 	description="%Templates.TransformExpr"
 	id="update.TransformExprT"
-	context="org.eclipse.wst.xquery.ui.templates.XQueryUpdateTemplateContentType"
+	context="org.eclipse.wst.xquery.sse.ui.contextType.expr"
 	enabled="true"
 	autoinsert="false">copy $$${variable} := ${expression} modify ${expression} return ${expression}</template>
 
@@ -532,7 +532,7 @@ return
 	name="sequential"
 	description="%Templates.SequentialFunctionDecl"
 	id="scripting.FunctionDeclS"
-	context="org.eclipse.wst.xquery.ui.templates.XQueryScriptingTemplateContentType"
+	context="org.eclipse.wst.xquery.sse.ui.contextType.expr"
 	enabled="true"
 	autoinsert="false">declare sequential function ${function_namespace}:${function_name} (${function_params}) as ${sequence_type} {
 	${insert_an_expression_here}${cursor};
@@ -544,7 +544,7 @@ return
 	name="function"
 	description="%Templates.SequentialFunctionDecl"
 	id="scripting.FunctionDeclF"
-	context="org.eclipse.wst.xquery.ui.templates.XQueryScriptingTemplateContentType"
+	context="org.eclipse.wst.xquery.sse.ui.contextType.expr"
 	enabled="true"
 	autoinsert="false">declare sequential function ${function_namespace}:${function_name} (${function_params}) as ${sequence_type} {
 	${insert_an_expression_here}${cursor};
@@ -556,7 +556,7 @@ return
 	name="set"
 	description="%Templates.AssignExpr"
 	id="scripting.AssignExpr"
-	context="org.eclipse.wst.xquery.ui.templates.XQueryScriptingTemplateContentType"
+	context="org.eclipse.wst.xquery.sse.ui.contextType.expr"
 	enabled="true"
 	autoinsert="false">set $$${variable} := ${expression}</template>
 
@@ -564,7 +564,7 @@ return
 	name="while"
 	description="%Templates.WhileExpr"
 	id="scripting.WhileExpr"
-	context="org.eclipse.wst.xquery.ui.templates.XQueryScriptingTemplateContentType"
+	context="org.eclipse.wst.xquery.sse.ui.contextType.expr"
 	enabled="true"
 	autoinsert="false">while (${loop_expression}) {
 	${expression}

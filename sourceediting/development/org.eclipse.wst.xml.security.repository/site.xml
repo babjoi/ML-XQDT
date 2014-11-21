@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<site>
-   <feature url="features/org.eclipse.wst.xml.security.feature_0.5.0.qualifier.jar" id="org.eclipse.wst.xml.security.feature" version="0.5.0.qualifier">
-      <category name="xml_security"/>
-   </feature>
-   <category-def name="xml_security" label="XML Security"/>
-</site>

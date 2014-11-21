@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2008, 2009 28msec Inc. and others.
+ * Copyright (c) 2008 28msec Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -35,7 +35,7 @@ public class XQDTInterpretersBlock extends InterpretersBlock {
         ArrayList<IInterpreterInstallType> goodTypes = new ArrayList<IInterpreterInstallType>();
         for (IInterpreterInstallType type : types) {
             if (type instanceof IEnvironmentAwareInterpreterInstallType) {
-                if (((IEnvironmentAwareInterpreterInstallType)type).getEnvironment() == environment) {
+                if (environment == ((IEnvironmentAwareInterpreterInstallType)type).getEnvironment()) {
                     goodTypes.add(type);
                 }
             } else if (environment == EnvironmentManager.getLocalEnvironment()) {
@@ -44,8 +44,10 @@ public class XQDTInterpretersBlock extends InterpretersBlock {
         }
 
         if (goodTypes.size() == 0) {
-            XQDTDebugUIPlugin.getDefault().getLog().log(
-                    new Status(IStatus.ERROR, XQDTDebugUIPlugin.PLUGIN_ID,
+            XQDTDebugUIPlugin
+                    .getDefault()
+                    .getLog()
+                    .log(new Status(IStatus.ERROR, XQDTDebugUIPlugin.PLUGIN_ID,
                             "No IInterpreterInstallType definition can be associated with this environment: "
                                     + environment.getClass().getName() + ". In order to associate an "
                                     + IInterpreterInstallType.class.getName() + " with a particular "
@@ -55,8 +57,8 @@ public class XQDTInterpretersBlock extends InterpretersBlock {
             return null;
         }
 
-        GenericAddInterpreterDialog dialog = new GenericAddInterpreterDialog(this, getShell(), goodTypes
-                .toArray(new IInterpreterInstallType[goodTypes.size()]), standin);
+        GenericAddInterpreterDialog dialog = new GenericAddInterpreterDialog(this, getShell(),
+                goodTypes.toArray(new IInterpreterInstallType[goodTypes.size()]), standin);
         dialog.setEnvironment(environment);
         return dialog;
     }

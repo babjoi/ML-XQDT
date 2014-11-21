@@ -6,12 +6,12 @@
 	<parent>
 		<groupId>org.eclipse.wst.xquery</groupId>
 		<artifactId>org.eclipse.wst.xquery_parent</artifactId>
-		<version>0.7.0-SNAPSHOT</version>
+		<version>1.0.0-SNAPSHOT</version>
 		<relativePath>../../development/org.eclipse.wst.xquery.releng/pom.xml</relativePath>
 	</parent>
 
 	<artifactId>org.eclipse.wst.xquery.set.feature</artifactId>
-	<version>0.7.0-SNAPSHOT</version>
+	<version>1.0.0-SNAPSHOT</version>
 	<packaging>eclipse-feature</packaging>
 	<name>XQDT Set Feature</name>
 </project> 

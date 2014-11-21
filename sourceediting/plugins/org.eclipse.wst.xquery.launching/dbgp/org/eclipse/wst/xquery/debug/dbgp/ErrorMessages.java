@@ -42,7 +42,7 @@ public class ErrorMessages implements IErrorMessages {
     private static final int PROTOCOL_INTERNAL_EXCEPTION_ERROR = 998;
     private static final int PROTOCOL_UNKNOWN_ERROR = 999;
 
-    public static Map<Integer, String> ERROR_MESSAGES = new HashMap<Integer, String>(22);
+    public static final Map<Integer, String> ERROR_MESSAGES = new HashMap<Integer, String>(22);
 
     static {
         // 000 Command parsing 

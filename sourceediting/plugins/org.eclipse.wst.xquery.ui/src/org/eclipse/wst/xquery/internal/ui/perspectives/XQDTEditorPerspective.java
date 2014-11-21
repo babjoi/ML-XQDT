@@ -11,6 +11,7 @@
  *******************************************************************************/
 package org.eclipse.wst.xquery.internal.ui.perspectives;
 
+import org.eclipse.debug.ui.IDebugUIConstants;
 import org.eclipse.search.ui.NewSearchUI;
 import org.eclipse.ui.IFolderLayout;
 import org.eclipse.ui.IPageLayout;
@@ -36,7 +37,7 @@ public class XQDTEditorPerspective implements IPerspectiveFactory {
     protected void addFolders(IPageLayout layout) {
         IFolderLayout leftFolder = layout.createFolder("left", IPageLayout.LEFT, (float)0.2, layout.getEditorArea()); //$NON-NLS-1$
         leftFolder.addView("org.eclipse.dltk.ui.ScriptExplorer"); //$NON-NLS-1$
-        leftFolder.addView("org.eclipse.dltk.testing.ResultView"); //$NON-NLS-1$
+        //leftFolder.addView("org.eclipse.dltk.testing.ResultView"); //$NON-NLS-1$
         leftFolder.addPlaceholder("org.eclipse.dltk.ui.TypeHierarchy"); //$NON-NLS-1$
         leftFolder.addPlaceholder(IPageLayout.ID_BOOKMARKS);
 
@@ -55,7 +56,9 @@ public class XQDTEditorPerspective implements IPerspectiveFactory {
     protected void addActionSets(IPageLayout layout) {
         layout.addActionSet(IPageLayout.ID_NAVIGATE_ACTION_SET);
         // TODO: add XQDT action set
-        layout.addActionSet("org.eclipse.debug.ui.launchActionSet"); //$NON-NLS-1$
+        layout.addActionSet(IDebugUIConstants.LAUNCH_ACTION_SET);
+        layout.addActionSet(IDebugUIConstants.DEBUG_ACTION_SET);
+        layout.addActionSet("org.eclipse.debug.ui.breakpointActionSet"); //$NON-NLS-1$
     }
 
     protected void addViews(IPageLayout layout) {

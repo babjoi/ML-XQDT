@@ -11,14 +11,13 @@
 package org.eclipse.wst.xquery.sse.core.internal.sdregions;
 
 import org.eclipse.wst.sse.core.internal.provisional.text.ITextRegion;
-import org.eclipse.wst.xquery.sse.core.internal.parser.StatementTypes;
 import org.eclipse.wst.xquery.sse.core.internal.regions.XQueryRegions;
 
 /**
  * Region for
  * 
  * <pre>
- * ModuleDecl	 ::=   "module" "namespace" NCName "=" URILiteral Separator
+ * ModuleDecl ::= "module" "namespace" NCName "=" URILiteral Separator
  * </pre>
  * 
  * @author <a href="villard@us.ibm.com">Lionel Villard</a>
@@ -26,56 +25,48 @@ import org.eclipse.wst.xquery.sse.core.internal.regions.XQueryRegions;
  */
 public class ModuleDeclStructuredDocumentRegion extends XQueryStructuredDocumentRegion {
 
-	// Factory
+    // Factory
 
-	final public static class Factory implements StructuredDocumentRegionFactory {
+    final public static class Factory implements StructuredDocumentRegionFactory {
 
-		final public static Factory INSTANCE = new Factory();
+        final public static Factory INSTANCE = new Factory();
 
-		private Factory() {
-		}
+        private Factory() {
+        }
 
-		// Implements StructuredDocumentRegionFactory
+        // Implements StructuredDocumentRegionFactory
 
-		public XQueryStructuredDocumentRegion create() {
-			return new ModuleDeclStructuredDocumentRegion();
-		}
+        public XQueryStructuredDocumentRegion create() {
+            return new ModuleDeclStructuredDocumentRegion();
+        }
 
-	}
+    }
 
-	// Constructors
+    // Constructors
 
-	public ModuleDeclStructuredDocumentRegion() {
-		super();
-	}
+    public ModuleDeclStructuredDocumentRegion() {
+        super();
+    }
 
-	// Methods
+    // Methods
 
-	/**
-	 * @return the namespace prefix (NCName)
-	 */
-	public ITextRegion getNamespacePrefix() {
-		int index = search(getRegions(), 0, XQueryRegions.NCNAME);
-		return index == -1 ? null : getRegions().get(index);
-	}
+    /**
+     * @return the namespace prefix (NCName)
+     */
+    public ITextRegion getNamespacePrefix() {
+        int index = SDRegionUtils.search(getRegions(), 0, XQueryRegions.NCNAME);
+        return index == -1 ? null : getRegions().get(index);
+    }
 
-	/**
-	 * @return the namespace (URILiteral)
-	 */
-	public ITextRegion getNamespace() {
-		int index = search(getRegions(), 0, XQueryRegions.EQUALS);
-		if (index != -1) {
-			index = search(getRegions(), index, XQueryRegions.URILITERAL);
-			return index == -1 ? null : getRegions().get(index);
-		}
-		return null;
-	}
-
-	// Overrides
-
-	@Override
-	public int getStatementType() {
-		return StatementTypes.STMT_MODULEDECL;
-	}
-
+    /**
+     * @return the namespace (URILiteral)
+     */
+    public ITextRegion getNamespace() {
+        int index = SDRegionUtils.search(getRegions(), 0, XQueryRegions.EQUALS);
+        if (index != -1) {
+            index = SDRegionUtils.search(getRegions(), index, XQueryRegions.URILITERAL);
+            return index == -1 ? null : getRegions().get(index);
+        }
+        return null;
+    }
 }

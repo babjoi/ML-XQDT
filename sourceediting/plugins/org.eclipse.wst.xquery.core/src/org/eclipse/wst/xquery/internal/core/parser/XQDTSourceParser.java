@@ -16,11 +16,13 @@ import org.antlr.runtime.tree.CommonTree;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.Path;
-import org.eclipse.dltk.ast.declarations.ModuleDeclaration;
 import org.eclipse.dltk.ast.parser.AbstractSourceParser;
+import org.eclipse.dltk.ast.parser.IModuleDeclaration;
+import org.eclipse.dltk.compiler.env.IModuleSource;
 import org.eclipse.dltk.compiler.problem.DefaultProblem;
-import org.eclipse.dltk.compiler.problem.IProblem;
+import org.eclipse.dltk.compiler.problem.IProblemIdentifier;
 import org.eclipse.dltk.compiler.problem.IProblemReporter;
+import org.eclipse.dltk.compiler.problem.ProblemSeverity;
 import org.eclipse.wst.xquery.core.XQDTCorePlugin;
 import org.eclipse.wst.xquery.core.model.ast.XQueryLibraryModule;
 import org.eclipse.wst.xquery.core.model.ast.XQueryMainModule;
@@ -40,12 +42,15 @@ public class XQDTSourceParser extends AbstractSourceParser {
         return new XQDTCommonTreeVisitor(content, reporter);
     }
 
-    public ModuleDeclaration parse(char[] fileName, char[] source, IProblemReporter reporter) {
+    public IModuleDeclaration parse(IModuleSource input, IProblemReporter reporter) {
+        String fileName = input.getFileName();
+        char[] source = input.getContentsAsCharArray();
+
         if (fileName == null || source == null) {
             return null;
         }
 
-        ModuleDeclaration moduleDeclaration = null;
+        IModuleDeclaration moduleDeclaration = null;
         String file = new String(fileName);
 
         if (XQDTCorePlugin.DEBUG_PARSER_ACTIONS) {
@@ -147,7 +152,8 @@ public class XQDTSourceParser extends AbstractSourceParser {
     }
 
     private void reportProblem(IProblemReporter reporter, String message) {
-        reporter.reportProblem(new DefaultProblem(message, 1, new String[0], IProblem.Syntax, 0, 1, 1));
+        reporter.reportProblem(new DefaultProblem(message, IProblemIdentifier.NULL, new String[0],
+                ProblemSeverity.ERROR, 0, 1, 1));
     }
 
     private static String printTree(CommonTree tree, int i) {

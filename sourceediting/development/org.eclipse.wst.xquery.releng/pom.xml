@@ -5,16 +5,16 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>org.eclipse.wst.xquery</groupId>
 	<artifactId>org.eclipse.wst.xquery_parent</artifactId>
-	<version>0.7.0-SNAPSHOT</version>
+	<version>1.0.0-SNAPSHOT</version>
 	<packaging>pom</packaging>
 
 	<properties>
-		<tycho-version>0.8.0</tycho-version>
+		<tycho-version>0.21.0</tycho-version>
 	</properties>
  
 	<modules>
 	    <!-- XQuery Core functionality -->
-		<module>../../plugins/org.antlr.runtime_v31</module>
+		<module>../../plugins/org.eclipse.wst.xquery</module>
 		<module>../../plugins/org.eclipse.wst.xquery.core</module>
 		<module>../../plugins/org.eclipse.wst.xquery.ui</module>
 		<module>../../plugins/org.eclipse.wst.xquery.launching</module>
@@ -24,14 +24,16 @@
 		<module>../../tests/org.eclipse.wst.xquery.core.tests</module>
 		
 		<!-- Marklogic Support -->
+		<module>../../plugins/org.eclipse.wst.xquery.marklogic</module>
 		<module>../../plugins/org.eclipse.wst.xquery.launching.marklogic.xcc</module>
 		<module>../../plugins/org.eclipse.wst.xquery.launching.marklogic</module>
 		<module>../../plugins/org.eclipse.wst.xquery.debug.debugger.marklogic</module>
 		<module>../../plugins/org.eclipse.wst.xquery.debug.ui.marklogic</module>
 		<module>../../features/org.eclipse.wst.xquery.marklogic.feature</module>
-		
-		<!-- Zorba Support -->
-		<module>../../plugins/com.google.gson</module>
+
+		<!-- Zorba Support 
+		-->
+		<module>../../plugins/org.eclipse.wst.xquery.zorba</module>
 		<module>../../plugins/org.eclipse.wst.xquery.launching.zorba</module>
 		<module>../../plugins/org.eclipse.wst.xquery.debug.debugger.zorba</module>
 		<module>../../plugins/org.eclipse.wst.xquery.debug.ui.zorba</module>
@@ -39,6 +41,7 @@
 		<module>../../features/org.eclipse.wst.xquery.zorba.feature</module>
 		
 		<!-- Set Support -->
+		<module>../../plugins/org.eclipse.wst.xquery.set</module>
 		<module>../../plugins/org.eclipse.wst.xquery.set.core</module>
 		<module>../../plugins/org.eclipse.wst.xquery.set.debug.core</module>
 		<module>../../plugins/org.eclipse.wst.xquery.set.debug.debugger</module>
@@ -51,35 +54,49 @@
 		<module>../../plugins/org.eclipse.wst.xquery.sse.core</module>
 		<module>../../plugins/org.eclipse.wst.xquery.sse.ui</module>
 		
-<!--		<module>../org.eclipse.wst.xquery_sdk.feature</module>-->
 		<module>../org.eclipse.wst.xquery.repository</module>
-
-
-		
 	</modules>
+
 
 	<build>
 		<plugins>
 			<plugin>
-				<groupId>org.sonatype.tycho</groupId>
+				<groupId>org.eclipse.tycho</groupId>
 				<artifactId>tycho-maven-plugin</artifactId>
 				<version>${tycho-version}</version>
 				<extensions>true</extensions>
 			</plugin>
 			<plugin>
-				<groupId>org.sonatype.tycho</groupId>
+				<groupId>org.eclipse.tycho</groupId>
 				<artifactId>target-platform-configuration</artifactId>
 				<version>${tycho-version}</version>
 				<configuration>
 					<resolver>p2</resolver>
+<!-- 					<environments>
+			            <environment>
+			              <os>win32</os>
+			              <ws>win32</ws>
+			              <arch>x86</arch>
+			            </environment>
+			            <environment>
+			              <os>linux</os>
+			              <ws>gtk</ws>
+			              <arch>x86_64</arch>
+			            </environment>
+			            <environment>
+			              <os>macosx</os>
+			              <ws>cocoa</ws>
+			              <arch>x86_64</arch>
+			            </environment>
+			        </environments> -->
 				</configuration>
 			</plugin>
 		</plugins>
 		<pluginManagement>
 			<plugins>
 				<plugin>
-					<groupId>org.sonatype.tycho</groupId>
-					<artifactId>maven-osgi-compiler-plugin</artifactId>
+					<groupId>org.eclipse.tycho</groupId>
+					<artifactId>tycho-compiler-plugin</artifactId>
 					<version>${tycho-version}</version>
 					<configuration>
 						<encoding>UTF-8</encoding>
@@ -95,7 +112,7 @@
 				</plugin>
 				<plugin>
 			        <groupId>org.apache.maven.plugins</groupId>
-			        <artifactId>maven-pmd-plugin</artifactId>
+			        <artifactId> </artifactId>
 			        <version>2.5</version>
 			        <configuration>
 			          <linkXref>false</linkXref>
@@ -114,31 +131,23 @@
 			          </excludeRoots>
 			        </configuration>
 				</plugin>				
+				
 			</plugins>
-			
 		</pluginManagement>
 	</build>
+
 	<repositories>
 		<repository>
-			<id>webtools-update</id>
-			<url>http://download.eclipse.org/webtools/updates</url>
-			<layout>p2</layout>
-		</repository>
-		<repository>
-			<id>dltk1.0</id>
-			<url>http://download.eclipse.org/technology/dltk/updates-dev/1.0</url>
-			<layout>p2</layout>
-		</repository>
-		<repository>
-			<id>galileo</id>
-			<url>http://download.eclipse.org/releases/galileo/</url>
+			<id>luna</id>
+			<url>http://download.eclipse.org/releases/luna/</url>
 			<layout>p2</layout>
 		</repository>
 		<repository>
 			<id>orbit</id>
-			<url>http://download.eclipse.org/tools/orbit/downloads/drops/R20100519200754/repository</url>
+			<url>http://download.eclipse.org/tools/orbit/downloads/drops/R20110523182458/repository/</url>
 			<layout>p2</layout>
 		</repository>
 	</repositories>
-</project>
 
+
+</project>

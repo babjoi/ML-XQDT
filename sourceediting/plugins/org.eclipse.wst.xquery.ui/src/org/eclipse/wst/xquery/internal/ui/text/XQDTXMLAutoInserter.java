@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2008, 2009 28msec Inc. and others.
+ * Copyright (c) 2010 28msec Inc. and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -24,7 +24,6 @@ import org.eclipse.swt.events.VerifyEvent;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.wst.xquery.internal.core.parser.antlr.XMLLexer;
 
-@SuppressWarnings("restriction")
 public class XQDTXMLAutoInserter implements VerifyKeyListener {
 
     private final ScriptEditor editor;
@@ -58,14 +57,14 @@ public class XQDTXMLAutoInserter implements VerifyKeyListener {
 
         String source = document.get();
         String begin = source.substring(0, offset);
-        @SuppressWarnings("unused")
-        String end = source.substring(offset);
+//        @SuppressWarnings("unused")
+//        String end = source.substring(offset);
 
         try {
 
             IRegion startLine = document.getLineInformationOfOffset(offset);
-            @SuppressWarnings("unused")
-            IRegion endLine = document.getLineInformationOfOffset(offset + length);
+//            @SuppressWarnings("unused")
+//            IRegion endLine = document.getLineInformationOfOffset(offset + length);
             begin = begin.substring(startLine.getOffset());
             // end = end.substring(0, endLine.getLength());
 

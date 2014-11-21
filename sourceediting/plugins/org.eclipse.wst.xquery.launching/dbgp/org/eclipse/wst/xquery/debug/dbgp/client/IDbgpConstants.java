@@ -37,7 +37,7 @@ public interface IDbgpConstants {
     public final static String COMMAND_BREAKPOINT_GET = "breakpoint_get";
     public final static String COMMAND_BREAKPOINT_SET = "breakpoint_set";
     public final static String COMMAND_BREAKPOINT_REMOVE = "breakpoint_remove";
-    public final static String COMMAND_BREAKPOINT_UPDATE = "breakpoint_rupdate";
+    public final static String COMMAND_BREAKPOINT_UPDATE = "breakpoint_update";
 
     public final static String COMMAND_EVAL = "eval";
 

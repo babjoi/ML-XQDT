@@ -48,6 +48,7 @@ import org.eclipse.dltk.launching.InterpreterStandin;
 import org.eclipse.dltk.launching.ScriptRuntime;
 import org.eclipse.dltk.launching.ScriptRuntime.DefaultInterpreterEntry;
 import org.eclipse.dltk.ui.wizards.BuildpathsBlock;
+import org.eclipse.dltk.utils.ResourceUtil;
 import org.eclipse.jface.dialogs.ErrorDialog;
 import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.jface.wizard.WizardPage;
@@ -65,6 +66,7 @@ import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Link;
 import org.eclipse.ui.actions.WorkspaceModifyOperation;
 import org.eclipse.ui.dialogs.PreferencesUtil;
+import org.eclipse.wst.xquery.set.core.ISETCoreConstants;
 import org.eclipse.wst.xquery.set.core.SETNature;
 import org.eclipse.wst.xquery.set.internal.ui.preferences.PreferenceConstants;
 import org.eclipse.wst.xquery.set.ui.ISETUIConstants;
@@ -285,7 +287,8 @@ public class SETImportProjectWizardPage extends WizardPage implements IDialogFie
             setErrorMessage("The indicated path already contains an eclipse project. Use the \"Existing Projects into Workspace\" import wizard.");
             return false;
         }
-        file = new File(importDir + File.separator + ".config" + File.separator + "sausalito.xml");
+        file = new File(importDir + File.separator + ISETCoreConstants.PROJECT_DIRECTORY_CONFIG + File.separator
+                + ISETCoreConstants.PROJECT_FILE_CONFIG);
         if (!file.exists() || file.isDirectory()) {
             setErrorMessage("\"" + importDir + "\" is not a valid Sausalito project");
             return false;
@@ -396,7 +399,7 @@ public class SETImportProjectWizardPage extends WizardPage implements IDialogFie
 
         // add the Sausalito nature to the project
         monitor.setTaskName("Configuring Sausalito project...");
-        BuildpathsBlock.addScriptNature(project, new SubProgressMonitor(monitor, 300), SETNature.NATURE_ID);
+        ResourceUtil.addNature(project, monitor, SETNature.NATURE_ID);
 
         checkMonitor(monitor);
 

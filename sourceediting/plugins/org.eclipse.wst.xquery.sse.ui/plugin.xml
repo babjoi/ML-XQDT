@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?eclipse version="3.4"?>
 <plugin>
+   <extension-point id="colorSchemes" name="XQuery Syntax Color Schemes" schema="schema/colorSchemes.exsd"/>
    <extension
          point="org.eclipse.ui.editors">
       <editor
@@ -27,23 +28,16 @@
             value="XML_CONTENT">
       </provisionalDefinition>
       <provisionalConfiguration
-            class="org.eclipse.wst.xquery.sse.ui.internal.editor.XQueryFormatter"
-            target="org.eclipse.wst.xquery.sse.ui.xqueryeditor"
-            type="slaveformattingstrategy">
+            class="org.eclipse.wst.xquery.sse.ui.internal.text.XQDTCharacterPairMatcher"
+            target="org.eclipse.wst.xquery.sse.core.xquery"
+            type="characterpairmatcher">
       </provisionalConfiguration>
-   </extension>
-   <extension
-         point="org.eclipse.ui.contexts">
-      <context
-            id="org.eclipse.wst.xquery.sse.ui.context1"
-            name="name">
-      </context>
    </extension>
    <extension
          point="org.eclipse.ui.preferencePages">
       <page
             category="org.eclipse.wst.xquery.preferences.editor"
-            class="org.eclipse.wst.xquery.sse.ui.internal.preferences.SyntaxColoringPage"
+            class="org.eclipse.wst.xquery.sse.ui.internal.preferences.XQDTSyntaxColoringPage"
             id="org.eclipse.wst.xquery.sse.ui.syntaxcoloring"
             name="Syntax Coloring">
       </page>
@@ -65,24 +59,6 @@
    </extension>
    <extension
          point="org.eclipse.ui.editors.templates">
-      <contextType
-            class="org.eclipse.jface.text.templates.TemplateContextType"
-            id="org.eclipse.wst.xquery.sse.ui.contextType.prolog1"
-            name="Prolog Part 1"
-            registryId="org.eclipse.wst.xquery.sse.ui.contextTypeRegistry">
-      </contextType>
-      <contextType
-            class="org.eclipse.jface.text.templates.TemplateContextType"
-            id="org.eclipse.wst.xquery.sse.ui.contextType.prolog2"
-            name="Prolog Part 2"
-            registryId="org.eclipse.wst.xquery.sse.ui.contextTypeRegistry">
-      </contextType>
-      <contextType
-            class="org.eclipse.jface.text.templates.TemplateContextType"
-            id="org.eclipse.wst.xquery.sse.ui.contextType.expr"
-            name="Expression"
-            registryId="org.eclipse.wst.xquery.sse.ui.contextTypeRegistry">
-      </contextType>
        <include
             file="templates/templates.xml"
             translations="templates/templates.properties">
@@ -98,12 +74,393 @@
       <contextTypeRegistry
             id="org.eclipse.wst.xquery.sse.ui.contextTypeRegistry">
       </contextTypeRegistry>
+      <contextType
+            class="org.eclipse.wst.xquery.sse.ui.internal.quickassist.XQDTTemplateContextType"
+            id="org.eclipse.wst.xquery.sse.ui.contextType.expr"
+            registryId="org.eclipse.wst.xquery.sse.ui.contextTypeRegistry">
+      </contextType>
    </extension>
    <extension
          point="org.eclipse.core.runtime.preferences">
       <initializer
-            class="org.eclipse.wst.xquery.sse.ui.internal.style.PreferenceInitializer">
+            class="org.eclipse.wst.xquery.sse.ui.internal.XQDTEditorUIPreferenceInitializer">
       </initializer>
    </extension>
+    <extension
+         point="org.eclipse.wst.sse.ui.sourcevalidation">
+      <validator
+            class="org.eclipse.wst.xquery.sse.ui.internal.editor.XQDTSourceValidator"
+            id="org.eclipse.wst.xquery.sse.ui.sourcevalidator"
+            scope="total">
+         <contentTypeIdentifier
+               id="org.eclipse.wst.xquery.sse.core.xquery">
+            <partitionType
+                  id="org.eclipse.wst.xquery.DEFAULT">
+            </partitionType>
+         </contentTypeIdentifier>
+      </validator>
+   </extension>
+    <extension
+          point="org.eclipse.wst.xquery.sse.ui.colorSchemes">
+       <scheme
+             name="XQDT - XQuery Development Tools">
+          <style
+                bold="false"
+                color="#007DFF"
+                id="Comment"
+                italic="true"
+                strike-through="false"
+                underline="false">
+          </style>
+          <style
+                bold="false"
+                color="#FF0000"
+                id="DollarExpression"
+                italic="false"
+                strike-through="false"
+                underline="false">
+          </style>
+          <style
+                bold="false"
+                color="#6C00E1"
+                id="FunctionName"
+                italic="false"
+                strike-through="false"
+                underline="false">
+          </style>
+          <style
+                bold="true"
+                color="#0000B4"
+                id="Keyword"
+                italic="false"
+                strike-through="false"
+                underline="false">
+          </style>
+          <style
+                bold="false"
+                color="#000000"
+                id="Operator"
+                italic="false"
+                strike-through="false"
+                underline="false">
+          </style>
+          <style
+                bold="false"
+                color="#000000"
+                id="Pragma"
+                italic="false"
+                strike-through="false"
+                underline="false">
+          </style>
+          <style
+                bold="false"
+                color="#EB00D7"
+                id="StringLiteral"
+                italic="false"
+                strike-through="false"
+                underline="false">
+          </style>
+          <style
+                bold="false"
+                color="#1E41FF"
+                id="Type"
+                italic="false"
+                strike-through="false"
+                underline="false">
+          </style>
+       </scheme>
+       <scheme
+             name="WTP - Web Tools Platform">
+          <style
+                bold="false"
+                color="#74B081"
+                id="Comment"
+                italic="true"
+                strike-through="false"
+                underline="false">
+          </style>
+          <style
+                bold="false"
+                color="#A86A61"
+                id="DollarExpression"
+                italic="false"
+                strike-through="false"
+                underline="false">
+          </style>
+          <style
+                bold="false"
+                color="#A86A61"
+                id="FunctionName"
+                italic="false"
+                strike-through="false"
+                underline="false">
+          </style>
+          <style
+                bold="true"
+                color="#5A5CAD"
+                id="Keyword"
+                italic="false"
+                strike-through="false"
+                underline="false">
+          </style>
+          <style
+                bold="false"
+                color="#000000"
+                id="Operator"
+                italic="false"
+                strike-through="false"
+                underline="false">
+          </style>
+          <style
+                bold="false"
+                color="#A86A61"
+                id="Pragma"
+                italic="false"
+                strike-through="false"
+                underline="false">
+          </style>
+          <style
+                bold="false"
+                color="#C8C41D"
+                id="StringLiteral"
+                italic="false"
+                strike-through="false"
+                underline="false">
+          </style>
+          <style
+                bold="false"
+                color="#7EA656"
+                id="Type"
+                italic="false"
+                strike-through="false"
+                underline="false">
+          </style>
+       </scheme>
+    </extension>
+    <extension
+          point="org.eclipse.wst.xquery.sse.ui.colorSchemes">
+       <scheme
+             name="Altova XMLSpy">
+          <style
+                bold="false"
+                color="#008000"
+                id="Comment"
+                italic="false"
+                strike-through="false"
+                underline="false">
+          </style>
+          <style
+                bold="false"
+                color="#A000A0"
+                id="DollarExpression"
+                italic="false"
+                strike-through="false"
+                underline="false">
+          </style>
+          <style
+                bold="false"
+                color="#000000"
+                id="FunctionName"
+                italic="false"
+                strike-through="false"
+                underline="false">
+          </style>
+          <style
+                bold="false"
+                color="#0000FF"
+                id="Keyword"
+                italic="false"
+                strike-through="false"
+                underline="false">
+          </style>
+          <style
+                bold="false"
+                color="#008000"
+                id="Pragma"
+                italic="false"
+                strike-through="false"
+                underline="false">
+          </style>
+          <style
+                bold="false"
+                color="#CC6600"
+                id="StringLiteral"
+                italic="false"
+                strike-through="false"
+                underline="false">
+          </style>
+          <style
+                bold="false"
+                color="#000000"
+                id="Type"
+                italic="false"
+                strike-through="false"
+                underline="false">
+          </style>
+       </scheme>
+       <scheme
+             name="Oxygen XML Editor">
+          <style
+                bold="false"
+                color="#008C00"
+                id="Comment"
+                italic="true"
+                strike-through="false"
+                underline="false">
+          </style>
+          <style
+                bold="false"
+                color="#000000"
+                id="DollarExpression"
+                italic="false"
+                strike-through="false"
+                underline="false">
+          </style>
+          <style
+                bold="true"
+                color="#FA6400"
+                id="FunctionName"
+                italic="false"
+                strike-through="false"
+                underline="false">
+          </style>
+          <style
+                bold="true"
+                color="#0000FA"
+                id="Keyword"
+                italic="false"
+                strike-through="false"
+                underline="false">
+          </style>
+          <style
+                bold="false"
+                color="#000096"
+                id="Operator"
+                italic="false"
+                strike-through="false"
+                underline="false">
+          </style>
+          <style
+                bold="false"
+                color="#008C00"
+                id="Pragma"
+                italic="false"
+                strike-through="false"
+                underline="false">
+          </style>
+          <style
+                bold="false"
+                color="#640064"
+                id="StringLiteral"
+                italic="false"
+                strike-through="false"
+                underline="false">
+          </style>
+          <style
+                bold="false"
+                color="#000000"
+                id="Type"
+                italic="false"
+                strike-through="false"
+                underline="false">
+          </style>
+       </scheme>
+       <scheme
+             name="Stylus Studio">
+          <style
+                bold="false"
+                color="#008000"
+                id="Comment"
+                italic="false"
+                strike-through="false"
+                underline="false">
+          </style>
+          <style
+                bold="false"
+                color="#000000"
+                id="DollarExpression"
+                italic="false"
+                strike-through="false"
+                underline="false">
+          </style>
+          <style
+                bold="false"
+                color="#000000"
+                id="FunctionName"
+                italic="false"
+                strike-through="false"
+                underline="false">
+          </style>
+          <style
+                bold="false"
+                color="#0000FF"
+                id="Keyword"
+                italic="false"
+                strike-through="false"
+                underline="false">
+          </style>
+          <style
+                bold="false"
+                color="#008000"
+                id="Pragma"
+                italic="false"
+                strike-through="false"
+                underline="false">
+          </style>
+          <style
+                bold="false"
+                color="#008080"
+                id="Operator"
+                italic="false"
+                strike-through="false"
+                underline="false">
+          </style>
+          <style
+                bold="false"
+                color="#800080"
+                id="StringLiteral"
+                italic="false"
+                strike-through="false"
+                underline="false">
+          </style>
+          <style
+                bold="false"
+                color="#000000"
+                id="Type"
+                italic="false"
+                strike-through="false"
+                underline="false">
+          </style>
+       </scheme>
+    </extension>
+    <extension
+          point="org.eclipse.wst.sse.ui.completionProposal">
+       <proposalCategory
+             id="org.eclipse.wst.xquery.sse.ui.proposal.keyword"
+             name="Keyword Proposals">
+       </proposalCategory>
+       <proposalCategory
+             id="org.eclipse.wst.xquery.sse.ui.proposal.template"
+             name="Template Proposals">
+       </proposalCategory>
+       <proposalComputer
+             activate="false"
+             categoryId="org.eclipse.wst.xquery.sse.ui.proposal.keyword"
+             class="org.eclipse.wst.xquery.sse.ui.internal.quickassist.KeywordCompletionProposalComputer"
+             id="org.eclipse.wst.xquery.sse.ui.proposalComputer.keyword">
+          <contentType
+                id="org.eclipse.wst.xquery.sse.core.xquery">
+          </contentType>
+       </proposalComputer>
+       <proposalComputer
+             activate="false"
+             categoryId="org.eclipse.wst.xquery.sse.ui.proposal.template"
+             class="org.eclipse.wst.xquery.sse.ui.internal.quickassist.TemplateCompletionProposalComputer"
+             id="org.eclipse.wst.xquery.sse.ui.proposalComputer.template">
+          <contentType
+                id="org.eclipse.wst.xquery.sse.core.xquery">
+          </contentType>
+       </proposalComputer>
+    </extension>
 
 </plugin>

@@ -158,7 +158,7 @@ public class MarkLogicAddInterpreterDialogBlock extends AbstractAddInterpreterDi
         String name = fInterpreterNameField.getText();
         if (name == null || name.trim().length() == 0) {
             status.setInfo(InterpretersMessages.addInterpreterDialog_enterName);
-        } else if (fRequestor.isDuplicateName(name)
+        } else if (fRequestor.isDuplicateName(name, fEditedInterpreter)
                 && (fEditedInterpreter == null || !name.equals(fEditedInterpreter.getName()))) {
             status.setError(InterpretersMessages.addInterpreterDialog_duplicateName);
         }

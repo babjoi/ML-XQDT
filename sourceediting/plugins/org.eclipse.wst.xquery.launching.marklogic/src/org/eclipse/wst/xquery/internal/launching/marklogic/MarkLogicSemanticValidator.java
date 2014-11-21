@@ -76,8 +76,8 @@ public class MarkLogicSemanticValidator implements ISemanticValidator {
             }
         } catch (XQueryException e) {
             List<SemanticCheckError> errors = new ArrayList<SemanticCheckError>();
-            errors.add(new SemanticCheckError(module.getPath().toPortableString(), e.getCode(), e.getFormatString(), e
-                    .getStack()[0].getLineNumber() - 1));
+            new SemanticCheckError(module.getResource(), e.getCode(), e.getFormatString(),
+                    e.getStack()[0].getLineNumber() - 1);
             return errors;
         } catch (Throwable e) {
             streamsProxy.err("Execution failed: ");
@@ -118,5 +118,4 @@ public class MarkLogicSemanticValidator implements ISemanticValidator {
          */
         return null;
     }
-
 }

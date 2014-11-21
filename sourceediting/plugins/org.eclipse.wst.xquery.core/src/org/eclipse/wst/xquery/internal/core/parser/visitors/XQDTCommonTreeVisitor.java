@@ -21,6 +21,7 @@ import org.eclipse.dltk.compiler.problem.IProblemReporter;
 import org.eclipse.wst.xquery.core.model.ast.IChildProcessor;
 import org.eclipse.wst.xquery.core.model.ast.XQueryBaseURIDecl;
 import org.eclipse.wst.xquery.core.model.ast.XQueryFunctionDecl;
+import org.eclipse.wst.xquery.core.model.ast.XQueryFunctionDecl.XQueryFunctionKind;
 import org.eclipse.wst.xquery.core.model.ast.XQueryLibraryModule;
 import org.eclipse.wst.xquery.core.model.ast.XQueryMainModule;
 import org.eclipse.wst.xquery.core.model.ast.XQueryModule;
@@ -106,8 +107,6 @@ public class XQDTCommonTreeVisitor implements NodeVisitor {
                 boolean isConstant;
                 if (xct.getChild(0).getType() == XQueryParser.VarVariableDecl) {
                     isConstant = false;
-                } else if (xct.getChild(0).getType() == XQueryParser.VarConstantDecl) {
-                    isConstant = true;
                 } else {
                     break;
                 }
@@ -154,10 +153,9 @@ public class XQDTCommonTreeVisitor implements NodeVisitor {
                 // check if external
                 boolean isExternalFun = tree.getChildCount() == 3;
                 int indexOfColon = str.indexOf(':');
-                push(xct,
-                        new XQueryFunctionDecl(str.substring(0, indexOfColon), str.substring(indexOfColon + 1), child0
-                                .getStart(), child0.getStop() + 1, xct.getStart(), xct.getStop() + 1, type,
-                                isExternalFun));
+                push(xct, new XQueryFunctionDecl(str.substring(0, indexOfColon), str.substring(indexOfColon + 1),
+                        child0.getStart(), child0.getStop() + 1, xct.getStart(), xct.getStop() + 1, type,
+                        XQueryFunctionKind.PURE, isExternalFun));
                 break;
             case XQueryParser.Param:
                 child0 = xct.getChild(0);
@@ -211,9 +209,19 @@ public class XQDTCommonTreeVisitor implements NodeVisitor {
             case XQueryParser.StringLiteral:
                 sb = new StringBuffer();
                 if (xct.getChildCount() > 0) {
+                    int start = xct.getStart() + 1;
                     for (Object child : xct.getChildren()) {
+                        XQDTCommonTree childTree = (XQDTCommonTree)child;
+                        for (; start < childTree.getStart(); start++) {
+                            sb.append(" ");
+                        }
                         sb.append(child.toString());
+                        start += child.toString().length();
                     }
+                    for (; start < xct.getStop(); start++) {
+                        sb.append(" ");
+                    }
+
                 }
                 push(xct, new XQueryStringLiteral(xct.getStart(), xct.getStop(), sb.toString()));
                 break;
@@ -226,17 +234,17 @@ public class XQDTCommonTreeVisitor implements NodeVisitor {
         }
     }
 
-    private String readFunctionQNameString(XQDTCommonTree node) {
-        String qname = readQNameString(node);
-        if (qname == null) {
+    private String readFunctionQNameString(XQDTCommonTree qname) {
+        String qnameStr = readQNameString(qname);
+        if (qnameStr == null) {
             return null;
         }
 
-        if (qname.indexOf(':') == -1) {
-            return "local:" + qname;
+        if (qnameStr.indexOf(':') == -1) {
+            return "local:" + qnameStr;
         }
 
-        return qname;
+        return qnameStr;
     }
 
     private String readQNameString(XQDTCommonTree node) {
@@ -247,8 +255,8 @@ public class XQDTCommonTreeVisitor implements NodeVisitor {
         if (node.getChildCount() == 1) {
             return node.getChild(0).getText();
         }
-        if (node.getChildCount() == 3) {
-            return node.getChild(0).getText() + ":" + node.getChild(2).getText();
+        if (node.getChildCount() == 2) {
+            return node.getChild(0).getText() + ":" + node.getChild(1).getText();
         }
 
         return null;
@@ -264,6 +272,7 @@ public class XQDTCommonTreeVisitor implements NodeVisitor {
         XQDTCommonTree child = node.getChild(0);
         switch (child.getType()) {
         case XQueryParser.AtomicType:
+        case XQueryParser.AtomicOrUnionType:
             type = readQNameString(child.getChild(0));
             if (type == null) {
                 return null;

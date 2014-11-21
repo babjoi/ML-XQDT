@@ -55,4 +55,5 @@ public class CoreSDKInstall extends XQDTInterpreterInstall implements ISemanticV
         }
         super.setName(name);
     }
+
 }

@@ -12,13 +12,13 @@ package org.eclipse.wst.xquery.set.core;
 
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IResource;
+import org.eclipse.dltk.core.AbstractLanguageToolkit;
 import org.eclipse.dltk.core.IDLTKLanguageToolkit;
-import org.eclipse.wst.xquery.core.XQDTLanguageToolkit;
 import org.eclipse.wst.xquery.internal.core.XQDTContentType;
 
-public class SETLanguageToolkit extends XQDTLanguageToolkit {
+public class SETLanguageToolkit extends AbstractLanguageToolkit {
 
-    protected static SETLanguageToolkit sToolkit = new SETLanguageToolkit();
+    private static SETLanguageToolkit sToolkit = new SETLanguageToolkit();
 
     public String getLanguageContentType() {
         return XQDTContentType.XQUERY_CONTENT_TYPE;

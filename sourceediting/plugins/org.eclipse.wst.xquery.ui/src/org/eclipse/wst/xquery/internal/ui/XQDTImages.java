@@ -24,5 +24,9 @@ public class XQDTImages {
             "newxqdoc_wiz.png");
     public static final ImageDescriptor DESC_ELCL_FN_PROPOSAL = helper.createUnManaged(PluginImagesHelper.T_ELCL,
             "fn_proposal.gif");
+    public static final ImageDescriptor OBJ_ADD = helper.createUnManaged(PluginImagesHelper.T_OBJ, "add_exc.gif");
+
+    public static final ImageDescriptor OBJ_BREAK_FUNC = helper.createUnManaged(PluginImagesHelper.T_OBJ,
+            "func_brkp_obj.gif");
 
 }

@@ -25,7 +25,6 @@ import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.Platform;
-import org.eclipse.dltk.core.DLTKCore;
 import org.eclipse.dltk.core.environment.EnvironmentManager;
 import org.eclipse.dltk.core.environment.IEnvironment;
 import org.eclipse.dltk.internal.ui.wizards.NewWizardMessages;
@@ -35,12 +34,8 @@ import org.eclipse.dltk.internal.ui.wizards.dialogfields.IDialogFieldListener;
 import org.eclipse.dltk.internal.ui.wizards.dialogfields.LayoutUtil;
 import org.eclipse.dltk.internal.ui.wizards.dialogfields.SelectionButtonDialogField;
 import org.eclipse.dltk.internal.ui.wizards.dialogfields.StringDialogField;
-import org.eclipse.dltk.launching.IInterpreterInstall;
-import org.eclipse.dltk.launching.IInterpreterInstallType;
-import org.eclipse.dltk.launching.ScriptRuntime;
 import org.eclipse.dltk.ui.DLTKUIPlugin;
 import org.eclipse.dltk.ui.wizards.ProjectWizardFirstPage;
-import org.eclipse.jface.dialogs.Dialog;
 import org.eclipse.jface.dialogs.DialogPage;
 import org.eclipse.jface.dialogs.IDialogConstants;
 import org.eclipse.swt.SWT;
@@ -48,53 +43,47 @@ import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Group;
-import org.eclipse.wst.xquery.set.core.SETNature;
-import org.eclipse.wst.xquery.set.ui.ISETUIConstants;
 
-@SuppressWarnings( { "restriction" })
+@SuppressWarnings({ "restriction" })
 public class SETNewProjectWizardFirstPage extends ProjectWizardFirstPage {
 
-    private final class SETCoreSDKGroup extends AbstractInterpreterGroup {
-
-        public SETCoreSDKGroup(Composite composite) {
-            super(composite);
-        }
-
-        protected String getCurrentLanguageNature() {
-            return SETNature.NATURE_ID;
-        }
-
-        protected String getIntereprtersPreferencePageId() {
-            return ISETUIConstants.ID_INTEREPRTERS_PREFERENCE_PAGE;
-        }
-
-        public boolean hasWorkspaceCoreSDK() {
-            IInterpreterInstallType[] types = ScriptRuntime.getInterpreterInstallTypes(getCurrentLanguageNature());
-            IEnvironment environment = fLocationGroup.getEnvironment();
-            for (int i = 0; i < types.length; i++) {
-                IInterpreterInstallType type = types[i];
-                IInterpreterInstall[] installs = type.getInterpreterInstalls();
-                for (int j = 0; j < installs.length; j++) {
-                    IInterpreterInstall install = installs[j];
-                    String envId = install.getEnvironmentId();
-                    if (envId != null && envId.equals(environment.getId())) {
-                        return true;
-                    }
-                }
-            }
-            return false;
-        }
-
-        @Override
-        public void dialogFieldChanged(DialogField field) {
-            super.dialogFieldChanged(field);
-            if (!(field == fInterpreterCombo) || field.isEnabled()) {
-                if (fSausalitoGroup != null) {
-                    fSausalitoGroup.initializeTemplates();
-                }
-            }
-        }
-    };
+//    private final class SETCoreSDKGroup extends AbstractInterpreterGroup {
+//
+//        public SETCoreSDKGroup(Composite composite) {
+//            super(composite);
+//        }
+//
+//        protected String getIntereprtersPreferencePageId() {
+//            return ISETUIConstants.ID_INTEREPRTERS_PREFERENCE_PAGE;
+//        }
+//
+//        public boolean hasWorkspaceCoreSDK() {
+//            IInterpreterInstallType[] types = ScriptRuntime.getInterpreterInstallTypes(getCurrentLanguageNature());
+//            IEnvironment environment = fLocationGroup.getEnvironment();
+//            for (int i = 0; i < types.length; i++) {
+//                IInterpreterInstallType type = types[i];
+//                IInterpreterInstall[] installs = type.getInterpreterInstalls();
+//                for (int j = 0; j < installs.length; j++) {
+//                    IInterpreterInstall install = installs[j];
+//                    String envId = install.getEnvironmentId();
+//                    if (envId != null && envId.equals(environment.getId())) {
+//                        return true;
+//                    }
+//                }
+//            }
+//            return false;
+//        }
+//
+//        @Override
+//        public void dialogFieldChanged(DialogField field) {
+//            super.dialogFieldChanged(field);
+//            if (!(field == fInterpreterCombo) || field.isEnabled()) {
+//                if (fSausalitoGroup != null) {
+//                    fSausalitoGroup.initializeTemplates();
+//                }
+//            }
+//        }
+//    };
 
     private final class SETProjectSettingsGroup extends Observable implements Observer, IDialogFieldListener {
 
@@ -128,23 +117,23 @@ public class SETNewProjectWizardFirstPage extends ProjectWizardFirstPage {
             group.setText("Sausalito settings");
             fNewRadioButton = new SelectionButtonDialogField(SWT.RADIO);
             fNewRadioButton.setDialogFieldListener(this);
-            fNewRadioButton.setLabelText("Create an empty project");
+            fNewRadioButton.setLabelText("Create an e&mpty project");
             fNewRadioButton.doFillIntoGrid(group, numColumns);
 
             fProjectUriText = new StringDialogField();
             fProjectUriText.setDialogFieldListener(this);
-            fProjectUriText.setLabelText("Project logical URI:");
+            fProjectUriText.setLabelText("Project logical &URI:");
             fProjectUriText.doFillIntoGrid(group, numColumns);
             LayoutUtil.setHorizontalGrabbing(fProjectUriText.getTextControl(null));
             fNewRadioButton.attachDialogFields(new DialogField[] { fProjectUriText });
 
             fTemplateRadioButton = new SelectionButtonDialogField(SWT.RADIO);
             fTemplateRadioButton.setDialogFieldListener(this);
-            fTemplateRadioButton.setLabelText("Create project from a template");
+            fTemplateRadioButton.setLabelText("Create project from a temp&late");
             fTemplateRadioButton.doFillIntoGrid(group, numColumns);
 
             fProjectTemplateCombo = new ComboDialogField(SWT.DROP_DOWN | SWT.READ_ONLY);
-            fProjectTemplateCombo.setLabelText("Project template:");
+            fProjectTemplateCombo.setLabelText("Proje&ct template:");
             fProjectTemplateCombo.setDialogFieldListener(this);
             fProjectTemplateCombo.doFillIntoGrid(group, numColumns);
             LayoutUtil.setHorizontalGrabbing(fProjectTemplateCombo.getComboControl(null));
@@ -162,10 +151,11 @@ public class SETNewProjectWizardFirstPage extends ProjectWizardFirstPage {
 
         private void initializeTemplates() {
             try {
-                if (fCoreSDKGroup.getSelectedInterpreter() == null) {
+                if (getInterpreterGroup().getSelectedInterpreter() == null) {
                     templates = CoreSDKTemplateUtility.getTemplateProjectNames();
                 } else {
-                    templates = CoreSDKTemplateUtility.getTemplateProjectNames(fCoreSDKGroup.getSelectedInterpreter());
+                    templates = CoreSDKTemplateUtility.getTemplateProjectNames(getInterpreterGroup()
+                            .getSelectedInterpreter());
                 }
                 fProjectTemplateCombo.setItems(templates);
                 if (templates.length > 0) {
@@ -186,7 +176,7 @@ public class SETNewProjectWizardFirstPage extends ProjectWizardFirstPage {
         }
 
         public void update(Observable o, Object arg) {
-            if (o == fCoreSDKGroup) {
+            if (o == getInterpreterGroup()) {
                 initializeTemplates();
             }
             if (isNewProject()) {
@@ -212,6 +202,11 @@ public class SETNewProjectWizardFirstPage extends ProjectWizardFirstPage {
 
         public void dialogFieldChanged(DialogField field) {
             boolean hasChanged = false;
+            try {
+                System.out.println(field.getClass().getSimpleName() + " -- " + field.getLabelControl(null).getText());
+            } catch (Exception e) {
+                System.out.println(field.getClass().getSimpleName());
+            }
             if (field == fNewRadioButton) {
                 fProjectUriText.setText(getSampleProjectUri());
                 hasChanged = true;
@@ -242,13 +237,13 @@ public class SETNewProjectWizardFirstPage extends ProjectWizardFirstPage {
 
         public void update(Observable o, Object arg) {
 
-            if (supportInterpreter() && interpeterRequired()) {
-                if (getInterpreter() == null && !fCoreSDKGroup.hasWorkspaceCoreSDK()) {
-                    setErrorMessage("At least one Sausalito CoreSDK installation must be configured");
-                    setPageComplete(false);
-                    return;
-                }
-            }
+//            if (supportInterpreter() && interpeterRequired()) {
+//                if (getInterpreter() == null && !fCoreSDKGroup.hasWorkspaceCoreSDK()) {
+//                    setErrorMessage("At least one Sausalito CoreSDK installation must be configured");
+//                    setPageComplete(false);
+//                    return;
+//                }
+//            }
             final IWorkspace workspace = DLTKUIPlugin.getWorkspace();
             final String name = fNameGroup.getName();
             // check whether the project name field is empty
@@ -343,61 +338,61 @@ public class SETNewProjectWizardFirstPage extends ProjectWizardFirstPage {
         }
     }
 
-    protected SETCoreSDKGroup fCoreSDKGroup;
+//    protected SETCoreSDKGroup fCoreSDKGroup;
     protected SETProjectSettingsGroup fSausalitoGroup;
     private Validator fValidator;
 
-    public void createControl(Composite parent) {
-        initializeDialogUnits(parent);
-        final Composite composite = new Composite(parent, SWT.NULL);
-        composite.setFont(parent.getFont());
-        composite.setLayout(initGridLayout(new GridLayout(1, false), true));
-        composite.setLayoutData(new GridData(GridData.HORIZONTAL_ALIGN_FILL));
-        // create UI elements
-        fNameGroup = new NameGroup(composite, fInitialName);
-        fLocationGroup = createLocationGroup();
-        fLocationGroup.createControls(composite);
-
-        // create and connect validator
-        fValidator = new Validator();
-
-        createInterpreterGroup(composite);
-        createCustomGroups(composite);
-
-        fCoreSDKGroup.addObserver(fValidator);
-        fCoreSDKGroup.addObserver(fSausalitoGroup);
-
-        fDetectGroup = new DetectGroup(composite);
-        // fCoreSDKGroup.addObserver(fDetectGroup);
-        // fLocationGroup.addObserver(fDetectGroup);
-
-        // initialize all elements
-        fNameGroup.notifyObservers();
-
-        fNameGroup.addObserver(fValidator);
-        fLocationGroup.addObserver(fValidator);
-
-        setControl(composite);
-        Dialog.applyDialogFont(composite);
-        if (DLTKCore.DEBUG) {
-            System.err.println("Add help support here..."); //$NON-NLS-1$
-        }
-    }
+//    public void createControl(Composite parent) {
+//        initializeDialogUnits(parent);
+//        final Composite composite = new Composite(parent, SWT.NULL);
+//        composite.setFont(parent.getFont());
+//        composite.setLayout(initGridLayout(new GridLayout(1, false), true));
+//        composite.setLayoutData(new GridData(GridData.HORIZONTAL_ALIGN_FILL));
+//        // create UI elements
+//        fNameGroup = new NameGroup(composite, fInitialName);
+//        fLocationGroup = createLocationGroup();
+//        fLocationGroup.createControls(composite);
+//
+//        // create and connect validator
+//        fValidator = new Validator();
+//
+//        createInterpreterGroup(composite);
+//        createCustomGroups(composite);
+//
+//        fCoreSDKGroup.addObserver(fValidator);
+//        fCoreSDKGroup.addObserver(fSausalitoGroup);
+//
+//        fDetectGroup = new DetectGroup(composite);
+//        // fCoreSDKGroup.addObserver(fDetectGroup);
+//        // fLocationGroup.addObserver(fDetectGroup);
+//
+//        // initialize all elements
+//        fNameGroup.notifyObservers();
+//
+//        fNameGroup.addObserver(fValidator);
+//        fLocationGroup.addObserver(fValidator);
+//
+//        setControl(composite);
+//        Dialog.applyDialogFont(composite);
+//        if (DLTKCore.DEBUG) {
+//            System.err.println("Add help support here..."); //$NON-NLS-1$
+//        }
+//    }
 
     protected void createCustomGroups(Composite composite) {
+        fValidator = new Validator();
+
         fSausalitoGroup = new SETProjectSettingsGroup(composite);
         fSausalitoGroup.addObserver(fValidator);
         fNameGroup.addObserver(fSausalitoGroup);
+
+        // update the available templates when changing interpreters
+        getInterpreterGroupObservable().addObserver(fSausalitoGroup);
     }
 
     @Override
     public boolean canFlipToNextPage() {
         return false;
-    }
-
-    @Override
-    public boolean isSrc() {
-        return true;
     }
 
     public boolean isTemplate() {
@@ -412,17 +407,12 @@ public class SETNewProjectWizardFirstPage extends ProjectWizardFirstPage {
         return fSausalitoGroup.getTemplateName();
     }
 
-    protected IInterpreterGroup createInterpreterGroup(Composite parent) {
-        if (fCoreSDKGroup == null) {
-            fCoreSDKGroup = new SETCoreSDKGroup(parent);
-        }
-        return fCoreSDKGroup;
-    }
-
-    @Override
-    protected IInterpreterInstall getInterpreter() {
-        return fCoreSDKGroup.getSelectedInterpreter();
-    }
+//    protected IInterpreterGroup createInterpreterGroup(Composite parent) {
+//        if (fCoreSDKGroup == null) {
+//            fCoreSDKGroup = new SETCoreSDKGroup(parent);
+//        }
+//        return fCoreSDKGroup;
+//    }
 
     protected boolean interpeterRequired() {
         return true;

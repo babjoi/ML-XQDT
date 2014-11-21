@@ -28,7 +28,6 @@ public class XQDTDebugUIPlugin extends AbstractUIPlugin {
      * The constructor
      */
     public XQDTDebugUIPlugin() {
-        plugin = this;
     }
 
     /*
@@ -38,6 +37,7 @@ public class XQDTDebugUIPlugin extends AbstractUIPlugin {
      */
     public void start(BundleContext context) throws Exception {
         super.start(context);
+        plugin = this;
     }
 
     /*

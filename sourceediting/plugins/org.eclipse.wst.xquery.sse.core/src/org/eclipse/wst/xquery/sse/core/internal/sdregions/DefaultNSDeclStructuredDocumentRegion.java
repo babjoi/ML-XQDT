@@ -11,7 +11,6 @@
 package org.eclipse.wst.xquery.sse.core.internal.sdregions;
 
 import org.eclipse.wst.sse.core.internal.provisional.text.ITextRegion;
-import org.eclipse.wst.xquery.sse.core.internal.parser.StatementTypes;
 import org.eclipse.wst.xquery.sse.core.internal.regions.XQueryRegions;
 
 /**
@@ -26,30 +25,23 @@ import org.eclipse.wst.xquery.sse.core.internal.regions.XQueryRegions;
  */
 public class DefaultNSDeclStructuredDocumentRegion extends XQueryStructuredDocumentRegion {
 
-	// Constructors
+    // Constructors
 
-	public DefaultNSDeclStructuredDocumentRegion() {
-		super();
-	}
+    public DefaultNSDeclStructuredDocumentRegion() {
+        super();
+    }
 
-	// Methods
+    // Methods
 
-	/**
-	 * @return the namespace (URILiteral)
-	 */
-	public ITextRegion getNamespace() {
-		int index = search(getRegions(), 0, XQueryRegions.URILITERAL);
-		if (index != -1) {
-			return getRegions().get(index);
-		}
-		return null;
-	}
-
-	// Overrides
-
-	@Override
-	public int getStatementType() {
-		return StatementTypes.STMT_DEFAULTNSDECL;
-	}
+    /**
+     * @return the namespace (URILiteral)
+     */
+    public ITextRegion getNamespace() {
+        int index = SDRegionUtils.search(getRegions(), 0, XQueryRegions.URILITERAL);
+        if (index != -1) {
+            return getRegions().get(index);
+        }
+        return null;
+    }
 
 }

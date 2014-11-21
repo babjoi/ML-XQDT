@@ -1,17 +1,18 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
+Bundle-Localization: plugin
 Bundle-Name: %pluginName
 Bundle-SymbolicName: org.eclipse.wst.xquery.set.debug.ui;singleton:=true
-Bundle-Version: 0.7.0.qualifier
+Bundle-Version: 1.0.0.qualifier
 Bundle-Activator: org.eclipse.wst.xquery.set.debug.ui.SETDebugUIPlugin
 Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.ui,
  org.eclipse.ui.ide,
  org.eclipse.debug.ui,
- org.eclipse.dltk.core;bundle-version="1.0.0",
- org.eclipse.dltk.ui;bundle-version="1.0.0",
- org.eclipse.dltk.debug.ui;bundle-version="1.0.0",
- org.eclipse.dltk.launching;bundle-version="1.0.0",
+ org.eclipse.dltk.core,
+ org.eclipse.dltk.ui,
+ org.eclipse.dltk.debug.ui,
+ org.eclipse.dltk.launching,
  org.eclipse.wst.xquery.core,
  org.eclipse.wst.xquery.launching,
  org.eclipse.wst.xquery.debug.ui,
@@ -19,7 +20,7 @@ Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.wst.xquery.set.debug.core,
  org.eclipse.wst.xquery.set.ui,
  org.eclipse.wst.xquery.set.launching
-Bundle-RequiredExecutionEnvironment: J2SE-1.5
+Bundle-RequiredExecutionEnvironment: JavaSE-1.7
 Export-Package: org.eclipse.wst.xquery.set.debug.ui,
  org.eclipse.wst.xquery.set.internal.debug.ui.dialogs;x-internal:=true,
  org.eclipse.wst.xquery.set.internal.debug.ui.interpreters;x-internal:=true,

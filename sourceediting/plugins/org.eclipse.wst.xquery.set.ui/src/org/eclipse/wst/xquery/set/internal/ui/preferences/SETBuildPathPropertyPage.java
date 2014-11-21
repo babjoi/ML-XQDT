@@ -10,16 +10,14 @@
  *******************************************************************************/
 package org.eclipse.wst.xquery.set.internal.ui.preferences;
 
+import org.eclipse.dltk.core.IDLTKLanguageToolkit;
 import org.eclipse.dltk.ui.preferences.BuildPathsPropertyPage;
-import org.eclipse.dltk.ui.util.BusyIndicatorRunnableContext;
-import org.eclipse.dltk.ui.wizards.BuildpathsBlock;
-import org.eclipse.ui.preferences.IWorkbenchPreferenceContainer;
+import org.eclipse.wst.xquery.set.core.SETLanguageToolkit;
 
 public class SETBuildPathPropertyPage extends BuildPathsPropertyPage {
 
-    protected BuildpathsBlock createBuildPathBlock(IWorkbenchPreferenceContainer pageContainer) {
-        return new SETBuildPathsBlock(new BusyIndicatorRunnableContext(), this, getSettings().getInt(INDEX), false,
-                pageContainer);
+    public IDLTKLanguageToolkit getLanguageToolkit() {
+        return SETLanguageToolkit.getDefault();
     }
 
 }

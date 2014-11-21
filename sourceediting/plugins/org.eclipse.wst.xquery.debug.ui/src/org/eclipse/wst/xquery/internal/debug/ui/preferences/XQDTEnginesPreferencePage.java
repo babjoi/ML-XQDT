@@ -20,13 +20,13 @@ import org.eclipse.dltk.ui.util.IStatusChangeListener;
 import org.eclipse.ui.preferences.IWorkbenchPreferenceContainer;
 import org.eclipse.ui.preferences.ScopedPreferenceStore;
 import org.eclipse.wst.xquery.core.XQDTNature;
-import org.eclipse.wst.xquery.debug.core.XQDTDebugConstants;
+import org.eclipse.wst.xquery.debug.core.IXQDTDebugConstants;
 import org.eclipse.wst.xquery.debug.core.XQDTDebugCorePlugin;
 
 public class XQDTEnginesPreferencePage extends AbstractConfigurationBlockPropertyAndPreferencePage {
 
     static PreferenceKey DEBUGGING_ENGINE = new PreferenceKey(XQDTDebugCorePlugin.PLUGIN_ID,
-            XQDTDebugConstants.DEBUGGING_ENGINE_ID_KEY);
+            IXQDTDebugConstants.DEBUGGING_ENGINE_ID_KEY);
 
     private static final String PREFERENCE_PAGE_ID = "org.eclipse.wst.xquery.preferences.debug.engines";
     private static final String PROPERTY_PAGE_ID = "org.eclipse.wst.xquery.properties.debug.engines";

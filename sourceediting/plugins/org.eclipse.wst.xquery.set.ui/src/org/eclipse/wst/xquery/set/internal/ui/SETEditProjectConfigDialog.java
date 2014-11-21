@@ -17,6 +17,7 @@ import org.eclipse.core.resources.IContainer;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResource;
+import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Path;
@@ -50,6 +51,7 @@ import org.eclipse.ui.model.WorkbenchLabelProvider;
 import org.eclipse.wst.xquery.set.core.ISETCoreConstants;
 import org.eclipse.wst.xquery.set.core.SETNature;
 import org.eclipse.wst.xquery.set.core.SETProjectConfig;
+import org.eclipse.wst.xquery.set.launching.CoreSdkUtil;
 import org.eclipse.wst.xquery.set.ui.SETUIPlugin;
 
 public class SETEditProjectConfigDialog extends TitleAreaDialog {
@@ -260,7 +262,16 @@ public class SETEditProjectConfigDialog extends TitleAreaDialog {
             String version = fVersionText.getText().trim();
             version = (version.length() == 0 ? "1.0" : version);
 
-            fConfig = new SETProjectConfig(new URI(fUriText.getText()), startPage, version);
+            String apiVersion = null;
+            try {
+                apiVersion = CoreSdkUtil.getCoreSdkApiVersion(fProject);
+            } catch (CoreException e) {
+            }
+            if (apiVersion == null) {
+                apiVersion = "";
+            }
+
+            fConfig = new SETProjectConfig(new URI(fUriText.getText()), startPage, version, apiVersion);
         } catch (URISyntaxException e) {
         }
 

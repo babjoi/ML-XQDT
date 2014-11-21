@@ -34,7 +34,7 @@
    <extension
          point="org.eclipse.core.contenttype.contentTypes">
       <content-type
-            base-type="org.eclipse.core.runtime.xml"
+            base-type="org.eclipse.core.runtime.text"
             default-charset="UTF-8"
             file-extensions="xq,xql,xqy,xquery"
             id="org.eclipse.wst.xquery.XQueryContentType"
@@ -91,12 +91,25 @@
       <category id="uriResolverCategory">
          <label>URI Resolvers</label>
       </category>
+   </extension>
+   <extension
+         id="uriResolvers"
+         name="URI Resolvers"
+         point="org.eclipse.wst.common.project.facet.core.groups">
       <group
             id="uriResolvers">
          <label>
             URI Resolvers
          </label>
       </group>
+   </extension>
+   <extension
+         point="org.eclipse.dltk.core.problemFactory">
+      <problemFactory
+            class="org.eclipse.wst.xquery.core.problems.XQDTProblemFactory"
+            nature="org.eclipse.wst.xquery.core.nature"
+            priority="0">
+      </problemFactory>
    </extension>
 <!--
    <extension

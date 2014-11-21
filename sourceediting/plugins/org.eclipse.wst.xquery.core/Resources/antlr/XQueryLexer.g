@@ -33,13 +33,23 @@ CDATA_END;
  *     Sam Neth (Mark Logic)
  *******************************************************************************/
 package org.eclipse.wst.xquery.internal.core.parser.antlr;
-}
+
+} // @header
 
 @lexer::members {
+
 // dummy list for warning elimination
 List<Stack<Object>> dummy = new ArrayList<Stack<Object>>();
+
+// when we start, the '<' has already been eaten by the other lexer
+boolean inStr = false;
+
+public boolean isInString()
+{
+   return inStr;
 }
 
+} // @lexer::members
 
 // **********************************
 // "keywords" present in the language
@@ -141,7 +151,8 @@ VARIABLE                    : 'variable';
 VERSION                     : 'version';
 WHERE                       : 'where';
 XQUERY                      : 'xquery';
-// XQuery 1.1 (only additional keywords only)
+// XQuery 3.0 (only additional keywords only)
+ALLOWING                    : 'allowing';
 CATCH                       : 'catch';
 CONTEXT                     : 'context';
 COUNT                       : 'count';
@@ -157,15 +168,16 @@ NAMESPACE_NODE              : 'namespace-node';
 NAN                         : 'NaN';
 NEXT                        : 'next';
 ONLY                        : 'only';
-OUTER                       : 'outer';
 PATTERN_SEPARATOR           : 'pattern-separator';
 PERCENT                     : 'percent';
 PER_MILLE                   : 'per-mille';
 PREVIOUS                    : 'previous';
 SLIDING                     : 'sliding';
 START                       : 'start';
+SWITCH                      : 'switch';
 TRY                         : 'try';
 TUMBLING                    : 'tumbling';
+TYPE                        : 'type';
 WHEN                        : 'when';
 WINDOW                      : 'window';
 ZERO_DIGIT                  : 'zero-digit';
@@ -187,44 +199,69 @@ SKIP                        : 'skip';
 UPDATING                    : 'updating';
 VALUE                       : 'value';
 WITH                        : 'with';
-// XQuery Scripting Extensions 1.0 (only additional keywords only)
-BLOCK                       : 'block';
-CONSTANT                    : 'constant';
-EXIT                        : 'exit';
-RETURNING                   : 'returning';
-SEQUENTIAL                  : 'sequential';
-SET                         : 'set';
-SIMPLE                      : 'simple';
-WHILE                       : 'while';
-// Zorba XQuery Extensions
-EVAL                        : 'eval';
+// XQuery Full Text 1.0 (only additional keywords only)
+ALL                         : 'all';
+ANY                         : 'any';
+CONTAINS                    : 'contains';
+CONTENT                     : 'content';
+DIACRITICS                  : 'diacritics';
+DIFFERENT                   : 'different';
+DISTANCE                    : 'distance';
+ENTIRE                      : 'entire';
+EXACTLY                     : 'exactly';
+FROM                        : 'from';
+FT_OPTION                   : 'ft-option';
+FTAND                       : 'ftand';
+FTNOT                       : 'ftnot';
+FTOR                        : 'ftor';
+INSENSITIVE                 : 'insensitive';
+LANGUAGE                    : 'language';
+LEVELS                      : 'levels';
+LOWERCASE                   : 'lowercase';
+MOST                        : 'most';
+NO                          : 'no';
+NOT                         : 'not';
+OCCURS                      : 'occurs';
+PARAGRAPH                   : 'paragraph';
+PARAGRAPHS                  : 'paragraphs';
+PHRASE                      : 'phrase';
+RELATIONSHIP                : 'relationship';
+SAME                        : 'same';
+SCORE                       : 'score';
+SENSITIVE                   : 'sensitive';
+SENTENCE                    : 'sentence';
+SENTENCES                   : 'sentences';
+STEMMING                    : 'stemming';
+STOP                        : 'stop';
+THESAURUS                   : 'thesaurus';
+TIMES                       : 'times';
+UPPERCASE                   : 'uppercase';
 USING                       : 'using';
+WEIGHT                      : 'weight';
+WILDCARDS                   : 'wildcards';
+WITHOUT                     : 'without';
+WORD                        : 'word';
+WORDS                       : 'words';
+// new XQuery Scripting proposal (only additional keywords only)
+BREAK                       : 'break';
+CONTINUE                    : 'continue';
+EXIT                        : 'exit';
+LOOP                        : 'loop';
+RETURNING                   : 'returning';
+WHILE                       : 'while';
 // Zorba DDL Extensions (only additional keywords only)
-APPEND_ONLY                 : 'append-only';
-AUTOMATICALLY               : 'automatically';
 CHECK                       : 'check';
 COLLECTION                  : 'collection';
 CONSTRAINT                  : 'constraint';
-CONST                       : 'const';
-EQUALITY                    : 'equality';
 FOREACH                     : 'foreach';
 FOREIGN                     : 'foreign';
-FROM                        : 'from';
 INDEX                       : 'index';
 INTEGRITY                   : 'integrity';
 KEY                         : 'key';
-MAINTAINED                  : 'maintained';
-MANUALLY                    : 'manually';
-MUTABLE                     : 'mutable';
-NON                         : 'non';
 ON                          : 'on';
-QUEUE                       : 'queue';
-RANGE                       : 'range';
-READ_ONLY                   : 'read-only';
 UNIQUE                      : 'unique';
 // MarkLogic
 BINARY                      : 'binary';
-PRIVATE                     : 'private';
 
 // entity references
 AMP_ER  : 'amp';
@@ -236,6 +273,7 @@ QUOT_ER : 'quot';
 // *******************************************
 // signs and operators present in the language
 // *******************************************
+CONCAT                  : '||';
 LPAREN                  : '(';
 RPAREN                  : ')';
 DOLLAR                  : '$';
@@ -246,6 +284,8 @@ RSQUARE                 : ']';
 EQUAL                   : '=';
 BIND                    : ':=';
 NOTEQUAL                : '!=';
+ANN_PERCENT             : '%';
+HASH                    : '#';
 AMP                     : '&' ;
 COMMA                   : ',';
 QUESTION                : '?';
@@ -277,8 +317,8 @@ PI_END                  : '?>';
 ATTR_SIGN               : '@';
 CHARREF_DEC             : '&#';
 CHARREF_HEX             : '&#x';
-APOS                    : '\'';
-QUOT                    : '"';
+APOS                    : '\'' { if (!inStr) inStr = true; };
+QUOT                    : '"' { if (!inStr) inStr = true; };
 
 
 L_NCName
@@ -294,7 +334,7 @@ fragment NCNameStartChar    : Letter | '_' ;
 fragment NCNameChar         : Letter | Digit | '.' | '-' | '_' ; // | CombiningChar | Extender ;
 
 S
-        : ('\t' | ' ' | '\n' | '\r')+  { $channel = HIDDEN; }
+        : ('\t' | ' ' | '\n' | '\r')+ { $channel = HIDDEN; }
         ;
 fragment SU
         : ('\t' | ' ' | '\n' | '\r')+
@@ -350,7 +390,7 @@ L_DoubleLiteral
 
 //[151]
 L_Comment
-        : '(:' (options {greedy=false;}: L_Comment | . )* ':)' { $channel = HIDDEN; }
+        : {!inStr}?=> '(:' (options {greedy=false;}: L_Comment | . )* ':)' { $channel = HIDDEN; }
         ;
 
 L_AnyChar : . ;

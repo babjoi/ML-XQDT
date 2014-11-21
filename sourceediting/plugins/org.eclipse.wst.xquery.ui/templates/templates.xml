@@ -542,7 +542,7 @@ return
 
 
 <!-- ********************************************************************* -->
-<!-- ************************ XQuery Scripting 1.0 *********************** -->
+<!-- **************** XQuery Scripting Extension Proposal **************** -->
 <!-- ********************************************************************* -->
 
 <template
@@ -551,7 +551,7 @@ return
 	id="scripting.FunctionDeclS"
 	context="org.eclipse.wst.xquery.ui.templates.XQueryScriptingTemplateContentType"
 	enabled="true"
-	autoinsert="false">declare sequential function ${function_namespace}:${function_name} (${function_params}) as ${sequence_type} {
+	autoinsert="false">declare %Annotations.sequential function ${function_namespace}:${function_name} (${function_params}) as ${sequence_type} {
 	${insert_an_expression_here}${cursor};
 };
 
@@ -563,19 +563,11 @@ return
 	id="scripting.FunctionDeclF"
 	context="org.eclipse.wst.xquery.ui.templates.XQueryScriptingTemplateContentType"
 	enabled="true"
-	autoinsert="false">declare sequential function ${function_namespace}:${function_name} (${function_params}) as ${sequence_type} {
+	autoinsert="false">declare %Annotations.sequential function ${function_namespace}:${function_name} (${function_params}) as ${sequence_type} {
 	${insert_an_expression_here}${cursor};
 };
 
 </template>
-
-<template
-	name="set"
-	description="%Templates.AssignExpr"
-	id="scripting.AssignExpr"
-	context="org.eclipse.wst.xquery.ui.templates.XQueryScriptingTemplateContentType"
-	enabled="true"
-	autoinsert="false">set $$${variable} := ${expression}</template>
 
 <template
 	name="while"

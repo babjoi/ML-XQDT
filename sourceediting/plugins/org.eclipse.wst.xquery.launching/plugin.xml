@@ -55,5 +55,14 @@
             id="org.eclipse.wst.xquery.launching.JavaInterpreterInstallType">
       </interpreterInstallType>
    </extension>
+   <extension
+         point="org.eclipse.dltk.launching.debuggingEngine">
+      <engineContribution
+            natureId="org.eclipse.wst.xquery.core.nature">
+         <selector
+               class="org.eclipse.wst.xquery.internal.launching.debug.XQDTDebugEngineSelector">
+         </selector>
+      </engineContribution>
+   </extension>
 
 </plugin>

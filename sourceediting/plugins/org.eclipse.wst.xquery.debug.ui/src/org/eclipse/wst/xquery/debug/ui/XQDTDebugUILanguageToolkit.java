@@ -12,12 +12,12 @@ package org.eclipse.wst.xquery.debug.ui;
 
 import org.eclipse.dltk.debug.ui.AbstractDebugUILanguageToolkit;
 import org.eclipse.jface.preference.IPreferenceStore;
-import org.eclipse.wst.xquery.debug.core.XQDTDebugConstants;
+import org.eclipse.wst.xquery.debug.core.IXQDTDebugConstants;
 
 public class XQDTDebugUILanguageToolkit extends AbstractDebugUILanguageToolkit {
 
     public String getDebugModelId() {
-        return XQDTDebugConstants.DEBUG_MODEL_ID;
+        return IXQDTDebugConstants.DEBUG_MODEL_ID;
     }
 
     public IPreferenceStore getPreferenceStore() {

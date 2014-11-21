@@ -11,7 +11,7 @@
 package org.eclipse.wst.xquery.sse.ui.internal.preferences;
 
 import org.eclipse.ui.texteditor.templates.TemplatePreferencePage;
-import org.eclipse.wst.xquery.sse.ui.XQDTPlugin;
+import org.eclipse.wst.xquery.sse.ui.XQDTSSEUIPlugin;
 
 /**
  * 
@@ -24,8 +24,8 @@ public class XQDTTemplatePreferencePage extends TemplatePreferencePage {
 	public XQDTTemplatePreferencePage() {
 		super();
 
-		setTemplateStore(XQDTPlugin.getDefault().getTemplateStore());
-		setContextTypeRegistry(XQDTPlugin.getDefault().getTemplateContextRegistry());
+		setTemplateStore(XQDTSSEUIPlugin.getDefault().getTemplateStore());
+		setContextTypeRegistry(XQDTSSEUIPlugin.getDefault().getTemplateContextRegistry());
 	}
 
 	// Overrides

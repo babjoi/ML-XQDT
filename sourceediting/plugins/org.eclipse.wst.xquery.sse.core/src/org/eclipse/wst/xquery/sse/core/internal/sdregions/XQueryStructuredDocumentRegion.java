@@ -10,114 +10,102 @@
  *******************************************************************************/
 package org.eclipse.wst.xquery.sse.core.internal.sdregions;
 
+import org.eclipse.wst.sse.core.internal.provisional.IndexedRegion;
 import org.eclipse.wst.sse.core.internal.provisional.text.IStructuredDocumentRegion;
 import org.eclipse.wst.sse.core.internal.provisional.text.ITextRegion;
-import org.eclipse.wst.sse.core.internal.provisional.text.ITextRegionList;
 import org.eclipse.wst.sse.core.internal.text.BasicStructuredDocumentRegion;
 import org.eclipse.wst.xquery.sse.core.internal.model.ast.IASTNode;
-import org.eclipse.wst.xquery.sse.core.internal.parser.StatementTypes;
 import org.eclipse.wst.xquery.sse.core.internal.regions.XQueryRegion;
 
 /**
  * Base class for XQuery structured document region.
  * 
  * <p>
- * Extends basic behavior by making it aware of lexical errors stored in
- * {@link XQueryRegion}
+ * Extends basic behavior by making it aware of lexical errors stored in {@link XQueryRegion}
+ * </p>
  * 
  * @author <a href="villard@us.ibm.com">Lionel Villard</a>
  */
-public class XQueryStructuredDocumentRegion extends BasicStructuredDocumentRegion {
+public class XQueryStructuredDocumentRegion extends BasicStructuredDocumentRegion implements IndexedRegion {
 
-	// Factory
+    // Factory
 
-	final public static class Factory implements StructuredDocumentRegionFactory {
+    final public static class Factory implements StructuredDocumentRegionFactory {
 
-		final public static Factory INSTANCE = new Factory();
+        final public static Factory INSTANCE = new Factory();
 
-		private Factory() {
-		}
+        private Factory() {
+        }
 
-		// Implements StructuredDocumentRegionFactory
+        // Implements StructuredDocumentRegionFactory
 
-		public XQueryStructuredDocumentRegion create() {
-			return new XQueryStructuredDocumentRegion();
-		}
+        public XQueryStructuredDocumentRegion create() {
+            return new XQueryStructuredDocumentRegion();
+        }
 
-	}
+    }
 
-	// State
+    // State
 
-	protected IASTNode astNode;
+    /** Corresponding AST node */
+    protected IASTNode astNode;
 
-	// Constructors
+    // Constructors
 
-	public XQueryStructuredDocumentRegion() {
-	}
+    public XQueryStructuredDocumentRegion() {
+    }
 
-	// Methods
+    // Methods
 
-	/**
-	 * Gets the statement type corresponding to this region.
-	 * 
-	 * @see {@link StatementTypes}
-	 */
-	public int getStatementType() {
-		return StatementTypes.STMT_UNDEFINED;
-	}
+    /** The wrapping AST node (if any) */
+    public IASTNode getASTNode() {
+        return astNode;
+    }
 
-	/** The wrapping AST node (if any) */
-	public IASTNode getASTNode() {
-		return astNode;
-	}
+    /**
+     * @param node
+     *            the AST Node to set
+     */
+    public void setASTNode(IASTNode node) {
+        this.astNode = node;
+    }
 
-	/**
-	 * @param node
-	 *            the AST Node to set
-	 */
-	public void setASTNode(IASTNode node) {
-		this.astNode = node;
-	}
+    // Overrides
 
-	// Overrides
+    @Override
+    public boolean sameAs(IStructuredDocumentRegion region, int shift) {
+        return super.sameAs(region, shift) && sameLexicalState(region);
+    }
 
-	@Override
-	public boolean sameAs(IStructuredDocumentRegion region, int shift) {
-		return super.sameAs(region, shift) && sameLexicalState(region);
-	}
+    @Override
+    public boolean sameAs(ITextRegion oldRegion, IStructuredDocumentRegion newDocumentRegion, ITextRegion newRegion,
+            int shift) {
+        return super.sameAs(oldRegion, newDocumentRegion, newRegion, shift) && sameLexicalState(oldRegion, newRegion);
+    }
 
-	@Override
-	public boolean sameAs(ITextRegion oldRegion, IStructuredDocumentRegion newDocumentRegion, ITextRegion newRegion,
-			int shift) {
-		return super.sameAs(oldRegion, newDocumentRegion, newRegion, shift) && sameLexicalState(oldRegion, newRegion);
-	}
+    // Helpers
 
-	// Helpers
+    private boolean sameLexicalState(ITextRegion oldRegion, ITextRegion newRegion) {
+        if (oldRegion instanceof XQueryRegion && newRegion instanceof XQueryRegion) {
+            return ((XQueryRegion)oldRegion).getErrorLexicalState() == ((XQueryRegion)newRegion).getErrorLexicalState();
+        }
 
-	private boolean sameLexicalState(ITextRegion oldRegion, ITextRegion newRegion) {
-		if (oldRegion instanceof XQueryRegion && newRegion instanceof XQueryRegion) {
-			return ((XQueryRegion) oldRegion).getErrorLexicalState() == ((XQueryRegion) newRegion)
-					.getErrorLexicalState();
-		}
+        return true;
+    }
 
-		return true;
-	}
+    private boolean sameLexicalState(IStructuredDocumentRegion region) {
+        return sameLexicalState(region.getFirstRegion(), getFirstRegion());
+    }
 
-	private boolean sameLexicalState(IStructuredDocumentRegion region) {
-		return sameLexicalState(region.getFirstRegion(), getFirstRegion());
-	}
+    // Implements IndexedRegion
 
-	/**
-	 * Search for the region of the given type
-	 * 
-	 * @return the index where the first region is found, or -1 if none found
-	 */
-	protected int search(ITextRegionList regions, int start, String type) {
-		for (int i = start; i < regions.size(); i++) {
-			if (regions.get(i).getType() == type)
-				return i;
-		}
-		return -1;
-	}
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.eclipse.wst.sse.core.internal.provisional.IndexedRegion#contains(int)
+     */
+    public boolean contains(int testPosition) {
+        return containsOffset(testPosition);
+    }
 
 }

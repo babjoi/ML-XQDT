@@ -10,10 +10,16 @@
  *******************************************************************************/
 package org.eclipse.wst.xquery.set.internal.core;
 
-public interface ISETConstants {
+import org.eclipse.wst.xquery.internal.launching.zorba.IZorbaConstants;
+
+public interface ISETConstants extends IZorbaConstants {
 
     // TODO: create special code to contribute such modules
-    public static final String ZORBA_MODULE_PREFIX = "http://www.zorba-xquery.com/zorba/";
     public static final String SAUSALITO_MODULE_PREFIX = "http://www.28msec.com/modules/";
+
+    // names of the output console started by SETCoreSDKCommandAction 
+    public static final String SAUSALITO_COMMAND_IMORT_DATA = "Import data";
+    public static final String SAUSALITO_COMMAND_DELETE_DATA = "Delete data";
+    public static final String SAUSALITO_COMMAND_CREATE_DOC = "Create doc";
 
 }

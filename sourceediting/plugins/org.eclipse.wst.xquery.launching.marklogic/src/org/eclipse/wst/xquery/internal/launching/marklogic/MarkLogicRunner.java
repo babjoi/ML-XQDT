@@ -97,6 +97,7 @@ public class MarkLogicRunner implements IInterpreterRunner {
                     buffer.append(chunk);
                     buffer.append("\n");
                 }
+                reader.close();
                 String source = buffer.toString();
 
                 Request request = session.newAdhocQuery(source);
@@ -131,7 +132,7 @@ public class MarkLogicRunner implements IInterpreterRunner {
             }
         }
 
-        @SuppressWarnings("unchecked")
+        @SuppressWarnings("rawtypes")
         public Object getAdapter(Class adapter) {
             // TODO Auto-generated method stub
             return null;

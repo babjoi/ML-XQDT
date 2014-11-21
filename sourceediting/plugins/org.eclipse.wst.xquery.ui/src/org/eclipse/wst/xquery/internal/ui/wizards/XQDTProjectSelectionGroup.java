@@ -320,7 +320,7 @@ public class XQDTProjectSelectionGroup extends Composite {
      * 
      * @param container
      */
-    @SuppressWarnings("unchecked")
+    @SuppressWarnings({ "rawtypes", "unchecked" })
     public void setSelectedContainer(IContainer container) {
         selectedContainer = container;
 

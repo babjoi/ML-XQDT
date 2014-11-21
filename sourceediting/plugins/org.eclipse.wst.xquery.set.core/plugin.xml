@@ -49,12 +49,11 @@
       </completionEngine>
    </extension>
    <extension
-         point="org.eclipse.dltk.core.buildParticipant">
-      <buildParticipant
-            class="org.eclipse.wst.xquery.internal.core.builder.XQDTParserBuildParticipantFactory"
-            id="org.eclipse.wst.xquery.set.core.buildParticipant.parser"
-            name="XQuery Parser"
-            nature="org.eclipse.wst.xquery.set.core.nature">
-      </buildParticipant>
+         point="org.eclipse.dltk.core.problemFactory">
+      <problemFactory
+            class="org.eclipse.wst.xquery.core.problems.XQDTProblemFactory"
+            nature="org.eclipse.wst.xquery.set.core.nature"
+            priority="0">
+      </problemFactory>
    </extension>
 </plugin>

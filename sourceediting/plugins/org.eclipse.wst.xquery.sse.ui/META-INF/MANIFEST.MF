@@ -1,29 +1,36 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
-Bundle-Name: XQuery Development Tool
+Bundle-Localization: plugin
+Bundle-Name: %pluginName
 Bundle-SymbolicName: org.eclipse.wst.xquery.sse.ui;singleton:=true
-Bundle-Version: 0.0.2.qualifier
-Bundle-Activator: org.eclipse.wst.xquery.sse.ui.XQDTPlugin
-Bundle-Vendor: IBM
+Bundle-Version: 1.0.0.qualifier
+Bundle-Activator: org.eclipse.wst.xquery.sse.ui.XQDTSSEUIPlugin
+Bundle-Vendor: %providerName
 Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.ui,
- org.eclipse.wst.xquery.sse.core,
  org.eclipse.wst.sse.ui,
  org.eclipse.jface.text,
- org.eclipse.wst.sse.core,
  org.eclipse.core.resources,
- org.eclipse.dltk.debug,
  org.eclipse.search,
  org.eclipse.ui.console,
- org.eclipse.wst.common.ui,
  org.eclipse.ui.workbench.texteditor,
  org.eclipse.wst.xml.core,
+ org.eclipse.wst.sse.core,
+ org.eclipse.wst.validation,
+ org.eclipse.wst.common.ui,
+ org.eclipse.dltk.debug,
+ org.eclipse.wst.xquery.sse.core,
  org.eclipse.wst.xquery.core
-Bundle-RequiredExecutionEnvironment: J2SE-1.5
+Bundle-RequiredExecutionEnvironment: JavaSE-1.7
 Bundle-ActivationPolicy: lazy
 Export-Package: org.eclipse.wst.xquery.sse.ui,
  org.eclipse.wst.xquery.sse.ui.internal,
  org.eclipse.wst.xquery.sse.ui.internal.breakpoint,
  org.eclipse.wst.xquery.sse.ui.internal.editor,
+ org.eclipse.wst.xquery.sse.ui.internal.formatter,
  org.eclipse.wst.xquery.sse.ui.internal.preferences,
- org.eclipse.wst.xquery.sse.ui.internal.style
+ org.eclipse.wst.xquery.sse.ui.internal.quickassist,
+ org.eclipse.wst.xquery.sse.ui.internal.restrictions,
+ org.eclipse.wst.xquery.sse.ui.internal.style,
+ org.eclipse.wst.xquery.sse.ui.internal.text,
+ org.eclipse.wst.xquery.sse.ui.style

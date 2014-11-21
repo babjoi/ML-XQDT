@@ -11,66 +11,59 @@
 package org.eclipse.wst.xquery.sse.core.internal.sdregions;
 
 import org.eclipse.wst.sse.core.internal.provisional.text.ITextRegion;
-import org.eclipse.wst.xquery.sse.core.internal.parser.StatementTypes;
 import org.eclipse.wst.xquery.sse.core.internal.regions.XQueryRegions;
 
 /**
  * Region for
  * 
  * <pre>
- * VersionDecl	   ::=   	"xquery" "version" StringLiteral ("encoding" StringLiteral)? Separator
+ * VersionDecl ::= "xquery" "version" StringLiteral ("encoding" StringLiteral)? Separator
  * </pre>
  * 
  * @author <a href="villard@us.ibm.com">Lionel Villard</a>
  * 
  */
 public class VersionDeclStructuredDocumentRegion extends XQueryStructuredDocumentRegion {
-	// Factory
+    // Factory
 
-	final public static class Factory implements StructuredDocumentRegionFactory {
+    final public static class Factory implements StructuredDocumentRegionFactory {
 
-		final public static Factory INSTANCE = new Factory();
+        final public static Factory INSTANCE = new Factory();
 
-		private Factory() {
-		}
+        private Factory() {
+        }
 
-		// Implements StructuredDocumentRegionFactory
+        // Implements StructuredDocumentRegionFactory
 
-		public XQueryStructuredDocumentRegion create() {
-			return new VersionDeclStructuredDocumentRegion();
-		}
+        public XQueryStructuredDocumentRegion create() {
+            return new VersionDeclStructuredDocumentRegion();
+        }
 
-	}
+    }
 
-	// Constructors
+    // Constructors
 
-	private VersionDeclStructuredDocumentRegion() {
-		super();
-	}
+    private VersionDeclStructuredDocumentRegion() {
+        super();
+    }
 
-	// Methods
+    // Methods
 
-	public ITextRegion getVersion() {
-		final int index = search(getRegions(), 1, XQueryRegions.STRINGLITERAL);
-		return index == -1 ? null : getRegions().get(index);
-	}
+    public ITextRegion getVersion() {
+        final int index = SDRegionUtils.search(getRegions(), 1, XQueryRegions.STRINGLITERAL);
+        return index == -1 ? null : getRegions().get(index);
+    }
 
-	public ITextRegion getEncoding() {
-		int index = search(getRegions(), 1, XQueryRegions.KW_ENCODING);
-		if (index != -1) {
-			index = search(getRegions(), index, XQueryRegions.STRINGLITERAL);
-			if (index != -1)
-				return getRegions().get(index);
-		}
+    public ITextRegion getEncoding() {
+        int index = SDRegionUtils.search(getRegions(), 1, XQueryRegions.KW_ENCODING);
+        if (index != -1) {
+            index = SDRegionUtils.search(getRegions(), index, XQueryRegions.STRINGLITERAL);
+            if (index != -1) {
+                return getRegions().get(index);
+            }
+        }
 
-		return null;
-	}
-
-	// Overrides
-
-	@Override
-	public int getStatementType() {
-		return StatementTypes.STMT_VERSIONDECL;
-	}
+        return null;
+    }
 
 }

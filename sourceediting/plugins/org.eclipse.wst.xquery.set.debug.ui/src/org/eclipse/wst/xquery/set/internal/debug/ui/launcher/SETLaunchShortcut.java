@@ -36,7 +36,7 @@ import org.eclipse.ui.IFileEditorInput;
 import org.eclipse.wst.xquery.set.core.ISETCoreConstants;
 import org.eclipse.wst.xquery.set.core.SETNature;
 import org.eclipse.wst.xquery.set.core.SETProjectConfig;
-import org.eclipse.wst.xquery.set.core.SETProjectConfigUtil;
+import org.eclipse.wst.xquery.set.core.utils.SETProjectConfigUtil;
 import org.eclipse.wst.xquery.set.debug.core.ISETLaunchConfigurationConstants;
 import org.eclipse.wst.xquery.set.internal.ui.SETEditProjectConfigDialog;
 import org.eclipse.wst.xquery.set.launching.SETRuntimeProcessFactory;
@@ -61,20 +61,6 @@ public class SETLaunchShortcut extends AbstractScriptLaunchShortcut {
     protected String getSelectionEmptyMessage() {
         return "The project contains no handler modules";
     }
-
-    // @Override
-    // protected IResource chooseScript(IResource[] scripts, String title) {
-    // IProject project = scripts[0].getProject();
-    //
-    // String startPage = SETEditProjectConfigDialog.getProjectStartPage(project, getShell());
-    // SETProjectConfig config = SETProjectConfigUtil.readProjectConfig(project);
-    //
-    // dialog.setTitle(title);
-    // if (dialog.open() == Window.OK) {
-    // return (IResource) dialog.getResult()[0];
-    // }
-    // return null;
-    // }
 
     @Override
     protected IResource[] findScripts(Object[] elements, IRunnableContext context) throws InterruptedException,
@@ -102,6 +88,7 @@ public class SETLaunchShortcut extends AbstractScriptLaunchShortcut {
         return super.findScripts(new Object[] { sp.getProjectFragment(hd) }, context);
     }
 
+    @SuppressWarnings("deprecation")
     protected ILaunchConfiguration createConfiguration(IProject project, String startPage) {
         ILaunchConfiguration config = null;
         ILaunchConfigurationWorkingCopy wc = null;
@@ -175,6 +162,9 @@ public class SETLaunchShortcut extends AbstractScriptLaunchShortcut {
         }
 
         SETProjectConfig config = SETProjectConfigUtil.readProjectConfig(project);
+        if (config == null) {
+            return;
+        }
         String startPage = config.getStartPage();
         if (startPage == null) {
             startPage = SETEditProjectConfigDialog.getHandlerFunctionStartPage(project, getShell());
@@ -190,14 +180,14 @@ public class SETLaunchShortcut extends AbstractScriptLaunchShortcut {
         }
     }
 
-    @SuppressWarnings("unchecked")
     protected ILaunchConfiguration findLaunchConfiguration(IProject project, String startPage,
             ILaunchConfigurationType configType) {
-        List candidateConfigs = Collections.EMPTY_LIST;
+        @SuppressWarnings("unchecked")
+        List<ILaunchConfiguration> candidateConfigs = Collections.EMPTY_LIST;
         try {
-            ILaunchConfiguration[] configs = DebugPlugin.getDefault().getLaunchManager().getLaunchConfigurations(
-                    configType);
-            candidateConfigs = new ArrayList(configs.length);
+            ILaunchConfiguration[] configs = DebugPlugin.getDefault().getLaunchManager()
+                    .getLaunchConfigurations(configType);
+            candidateConfigs = new ArrayList<ILaunchConfiguration>(configs.length);
             for (int i = 0; i < configs.length; i++) {
                 ILaunchConfiguration config = configs[i];
                 if (config.getAttribute(ScriptLaunchConfigurationConstants.ATTR_MAIN_SCRIPT_NAME, Util.EMPTY_STRING)
@@ -215,7 +205,7 @@ public class SETLaunchShortcut extends AbstractScriptLaunchShortcut {
         if (candidateCount < 1) {
             return createConfiguration(project, startPage);
         } else if (candidateCount == 1) {
-            return (ILaunchConfiguration)candidateConfigs.get(0);
+            return candidateConfigs.get(0);
         } else {
             // Prompt the user to choose a config. A null result means the user
             // cancelled the dialog, in which case this method returns null,

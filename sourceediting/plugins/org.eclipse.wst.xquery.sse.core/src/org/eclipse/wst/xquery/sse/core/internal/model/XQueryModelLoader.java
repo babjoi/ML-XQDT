@@ -23,25 +23,25 @@ import org.eclipse.wst.xquery.sse.core.internal.document.XQueryDocumentLoader;
  */
 public class XQueryModelLoader extends AbstractModelLoader {
 
-	// Overrides
+    // Overrides
 
-	@Override
-	public IDocumentLoader getDocumentLoader() {
-		if (documentLoaderInstance == null) {
-			documentLoaderInstance = new XQueryDocumentLoader();
-		}
-		return documentLoaderInstance;
-	}
+    @Override
+    public IDocumentLoader getDocumentLoader() {
+        if (documentLoaderInstance == null) {
+            documentLoaderInstance = new XQueryDocumentLoader();
+        }
+        return documentLoaderInstance;
+    }
 
-	@Override
-	public IStructuredModel newModel() {
-		return new XQueryStructuredModel();
-	}
+    @Override
+    public IStructuredModel newModel() {
+        return new XQueryStructuredModel();
+    }
 
-	// Implements IModelLoader
+    // Implements IModelLoader
 
-	public IModelLoader newInstance() {
-		return new XQueryModelLoader();
-	}
+    public IModelLoader newInstance() {
+        return new XQueryModelLoader();
+    }
 
 }

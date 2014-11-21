@@ -10,16 +10,20 @@
  *******************************************************************************/
 package org.eclipse.wst.xquery.set.internal.launching.jobs;
 
-import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
 import org.eclipse.core.resources.IProject;
+import org.eclipse.core.resources.IResource;
+import org.eclipse.core.runtime.CoreException;
+import org.eclipse.core.runtime.IPath;
+import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.wst.xquery.set.core.ISETCoreConstants;
 
-public class SETDeleteDataJob extends SETCoreSDKCommandJob {
+public class SETDeleteDataJob extends AbstractSETCoreSDKCommandJob {
 
-    public SETDeleteDataJob(IProject project, OutputStream output) {
-        super("Deleting project data", project, output);
+    public SETDeleteDataJob(IProject project) {
+        super("Deleting data from project: \"" + project.getName() + "\"...", project);
     }
 
     protected List<String> getCommandParameters() {
@@ -33,9 +37,32 @@ public class SETDeleteDataJob extends SETCoreSDKCommandJob {
         return params;
     }
 
+    protected String getCommandConsleLabel() {
+        return "Delete data";
+    }
+
     @Override
     protected String getJobTaskName() {
         return "Deleting data for project: " + fProject.getName();
     }
 
+    @Override
+    protected String getWarningLinePrefix() {
+        return "No data available";
+    }
+
+    @Override
+    protected boolean needsResourceRefresh() {
+        return true;
+    }
+
+    @Override
+    protected void refresh(IProgressMonitor monitor) {
+        IPath path = new org.eclipse.core.runtime.Path(ISETCoreConstants.PROJECT_DIRECTORY_TEST);
+        try {
+            fProject.getFolder(path).refreshLocal(IResource.DEPTH_INFINITE, monitor);
+        } catch (CoreException e) {
+            // nothing to do
+        }
+    }
 }

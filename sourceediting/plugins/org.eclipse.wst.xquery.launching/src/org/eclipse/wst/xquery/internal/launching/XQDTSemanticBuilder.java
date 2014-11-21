@@ -13,12 +13,8 @@ package org.eclipse.wst.xquery.internal.launching;
 import java.util.List;
 
 import org.eclipse.core.resources.IMarker;
-import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.dltk.compiler.problem.DefaultProblem;
-import org.eclipse.dltk.compiler.problem.IProblem;
-import org.eclipse.dltk.compiler.problem.IProblemReporter;
-import org.eclipse.dltk.compiler.problem.ProblemCollector;
 import org.eclipse.dltk.core.DLTKCore;
 import org.eclipse.dltk.core.IBuildpathEntry;
 import org.eclipse.dltk.core.IModelElement;
@@ -43,26 +39,29 @@ public class XQDTSemanticBuilder implements IBuildParticipant {
                 return;
             }
 
-            IProblemReporter reporter = context.getProblemReporter();
-            if (reporter instanceof ProblemCollector) {
-                ProblemCollector pc = (ProblemCollector)reporter;
-                List<IProblem> problems = pc.getErrors();
-                for (IProblem problem : problems) {
-                    if (problem.getID() == IProblem.Syntax) {
-                        return;
-                    }
-                }
-            }
+            // TODO: disabled due to DLTK 3.0 API change
+            // review and add equivalent logic
+//            IProblemReporter reporter = context.getProblemReporter();
+//            if (reporter instanceof ProblemCollector) {
+//                ProblemCollector pc = (ProblemCollector)reporter;
+//                List<IProblem> problems = pc.getErrors();
+//                for (IProblem problem : problems) {
+//                    if (problem.getID() == IProblem.Syntax) {
+//                        return;
+//                    }
+//                }
+//            }
 
             List<SemanticCheckError> errors = check(source);
             if (errors != null) {
                 for (SemanticCheckError error : errors) {
-                    String fileName = error.getOriginatingFileName();
-                    if (fileName.equals(source.getPath().toString())) {
+                    if (error == null) {
+                        continue;
+                    }
+                    if (source.getResource().equals(error.getResource())) {
                         context.getProblemReporter().reportProblem(error);
                     } else {
-                        IModelElement element = DLTKCore.create(ResourcesPlugin.getWorkspace().getRoot().findMember(
-                                fileName));
+                        IModelElement element = DLTKCore.create(error.getResource());
                         if (element instanceof ISourceModule) {
                             ISourceModule module = (ISourceModule)element;
                             createMarker(module, error);
@@ -81,7 +80,7 @@ public class XQDTSemanticBuilder implements IBuildParticipant {
         marker.setAttribute(IMarker.PRIORITY, IMarker.PRIORITY_NORMAL);
         marker.setAttribute(IMarker.CHAR_START, error.getSourceStart());
         marker.setAttribute(IMarker.CHAR_END, error.getSourceEnd());
-        if (error.getID() != 0) {
+        if (error.getID() != null) {
             marker.setAttribute(IScriptModelMarker.ID, error.getID());
         }
     }

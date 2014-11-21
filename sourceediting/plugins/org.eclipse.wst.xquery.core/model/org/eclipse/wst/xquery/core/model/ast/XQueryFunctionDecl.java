@@ -15,14 +15,36 @@ import org.eclipse.dltk.ast.declarations.MethodDeclaration;
 
 public class XQueryFunctionDecl extends MethodDeclaration {
 
+    public enum XQueryFunctionKind {
+        PURE, UPDATING, SEQUENTIAL
+    }
+
     private String fReturnType;
+    private XQueryFunctionKind fKind;
     private boolean fExternal = false;
 
     public XQueryFunctionDecl(String namespace, String localName, int nameStart, int nameEnd, int declStart,
-            int declEnd, String returnType, boolean external) {
+            int declEnd, String returnType, XQueryFunctionKind kind, boolean external) {
         super(namespace + ":" + localName, nameStart, nameEnd, declStart, declEnd);
         fExternal = external;
+        fKind = kind;
         fReturnType = returnType;
+    }
+
+    public XQueryFunctionKind getFunctionKind() {
+        return fKind;
+    }
+
+    public boolean isPure() {
+        return fKind == XQueryFunctionKind.PURE;
+    }
+
+    public boolean isUpdating() {
+        return fKind == XQueryFunctionKind.UPDATING;
+    }
+
+    public boolean isSequential() {
+        return fKind == XQueryFunctionKind.SEQUENTIAL;
     }
 
     public boolean isExternal() {

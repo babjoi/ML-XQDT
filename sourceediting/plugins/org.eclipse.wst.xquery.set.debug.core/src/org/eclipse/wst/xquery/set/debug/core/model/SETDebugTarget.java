@@ -81,7 +81,7 @@ public class SETDebugTarget implements IDebugTarget {
         return "id";
     }
 
-    @SuppressWarnings("unchecked")
+    @SuppressWarnings("rawtypes")
     public Object getAdapter(Class adapter) {
         return null;
     }

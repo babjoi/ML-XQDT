@@ -1,8 +1,9 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
+Bundle-Localization: plugin
 Bundle-Name: %pluginName
 Bundle-SymbolicName: org.eclipse.wst.xquery.ui;singleton:=true
-Bundle-Version: 0.7.0.qualifier
+Bundle-Version: 1.0.0.qualifier
 Bundle-Activator: org.eclipse.wst.xquery.ui.XQDTUIPlugin
 Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.core.resources,
@@ -10,27 +11,29 @@ Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.search,
  org.eclipse.ui,
  org.eclipse.ui.ide,
+ org.eclipse.debug.ui,
  org.eclipse.ui.console,
  org.eclipse.jface.text,
  org.eclipse.ui.editors,
- org.eclipse.wst.common.project.facet.ui;bundle-version="1.4.0",
- org.eclipse.dltk.core;bundle-version="1.0.0",
- org.eclipse.dltk.launching;bundle-version="1.0.0",
- org.eclipse.dltk.ui;bundle-version="1.0.0",
- org.eclipse.wst.xquery.core;bundle-version="[0.7.0,2.0.0)",
- org.eclipse.wst.xquery.launching;bundle-version="[0.7.0,2.0.0)",
- org.antlr.runtime_v31;bundle-version="3.1.0"
+ org.eclipse.dltk.core,
+ org.eclipse.dltk.launching,
+ org.eclipse.dltk.ui,
+ org.eclipse.wst.xquery.core,
+ org.eclipse.wst.xquery.launching,
+ org.antlr.runtime;bundle-version="3.2.0"
 Eclipse-LazyStart: true
-Bundle-RequiredExecutionEnvironment: J2SE-1.5
+Bundle-RequiredExecutionEnvironment: JavaSE-1.7
 Bundle-ActivationPolicy: lazy
 Export-Package: org.eclipse.wst.xquery.internal.ui;x-internal:=true,
  org.eclipse.wst.xquery.internal.ui.editor;x-internal:=true,
  org.eclipse.wst.xquery.internal.ui.folding;x-internal:=true,
  org.eclipse.wst.xquery.internal.ui.perspectives;x-internal:=true,
  org.eclipse.wst.xquery.internal.ui.preferences;x-internal:=true,
+ org.eclipse.wst.xquery.internal.ui.quickfixes,
  org.eclipse.wst.xquery.internal.ui.templates;x-internal:=true,
  org.eclipse.wst.xquery.internal.ui.text;x-internal:=true,
  org.eclipse.wst.xquery.internal.ui.text.codeassist;x-internal:=true,
+ org.eclipse.wst.xquery.internal.ui.text.correction,
  org.eclipse.wst.xquery.internal.ui.text.rules;x-internal:=true,
  org.eclipse.wst.xquery.internal.ui.util;x-internal:=true,
  org.eclipse.wst.xquery.internal.ui.wizards;x-internal:=true,

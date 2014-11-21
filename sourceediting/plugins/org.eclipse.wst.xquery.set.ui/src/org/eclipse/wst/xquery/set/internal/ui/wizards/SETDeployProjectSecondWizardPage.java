@@ -22,7 +22,9 @@ import org.eclipse.swt.widgets.Group;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.wst.xquery.set.launching.deploy.DeployInfo;
+import org.eclipse.wst.xquery.set.launching.deploy.DeployManager;
 
+@SuppressWarnings("restriction")
 public class SETDeployProjectSecondWizardPage extends WizardPage {
 
     private class WidgetListener extends SelectionAdapter implements ModifyListener, IDialogFieldListener {
@@ -58,7 +60,6 @@ public class SETDeployProjectSecondWizardPage extends WizardPage {
 
     private WidgetListener fListener = new WidgetListener();
 
-    @SuppressWarnings("unused")
     private IScriptProject fProject;
 
     private static final String DESCRIPTION = "Choose custom deployment options";
@@ -81,6 +82,19 @@ public class SETDeployProjectSecondWizardPage extends WizardPage {
         //SWTFactory.createVerticalSpacer(composite, 5);
         createServerOptionsGroup(composite);
 
+        initializePageFields();
+    }
+
+    private void initializePageFields() {
+        DeployInfo info = DeployManager.getInstance().getCachedDeployInfo(fProject);
+        if (info != null && !info.getServer().equals(DeployInfo.DEFAULT_DEPLOYMENT_SERVER)) {
+            fCustomServerRadioField.setSelection(true);
+            fCustomServerText.setEnabled(true);
+            fCustomServerText.setText(info.getServer());
+        } else {
+            fDefaultServerRadioField.setSelection(true);
+            fCustomServerText.setEnabled(false);
+        }
     }
 
     @SuppressWarnings("unused")
@@ -111,7 +125,6 @@ public class SETDeployProjectSecondWizardPage extends WizardPage {
 
         fDefaultServerRadioField = new SelectionButtonDialogField(SWT.RADIO);
         fDefaultServerRadioField.setLabelText("Default server: ");
-        fDefaultServerRadioField.setSelection(true);
         fDefaultServerRadioField.setDialogFieldListener(fListener);
         fDefaultServerRadioField.doFillIntoGrid(group, 2);
 
@@ -125,7 +138,6 @@ public class SETDeployProjectSecondWizardPage extends WizardPage {
 
         fCustomServerText = SWTFactory.createText(group, SWT.BORDER, 1, "");
         fCustomServerText.addModifyListener(fListener);
-        fCustomServerText.setEnabled(false);
     }
 
     private void isValid() {
@@ -153,7 +165,7 @@ public class SETDeployProjectSecondWizardPage extends WizardPage {
     }
 
     DeployInfo configureDeployInfo(DeployInfo info) {
-        String host = info.getHost();
+        String host = info.getServer();
         if (fCustomServerRadioField.isSelected()) {
             host = fCustomServerText.getText();
         }

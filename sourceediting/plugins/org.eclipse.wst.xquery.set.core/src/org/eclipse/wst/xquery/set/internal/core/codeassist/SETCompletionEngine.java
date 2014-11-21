@@ -19,7 +19,7 @@ import org.eclipse.wst.xquery.core.IXQDTUriResolver;
 import org.eclipse.wst.xquery.internal.core.codeassist.XQDTCompletionEngine;
 import org.eclipse.wst.xquery.set.core.SETCorePlugin;
 import org.eclipse.wst.xquery.set.core.SETProjectConfig;
-import org.eclipse.wst.xquery.set.core.SETProjectConfigUtil;
+import org.eclipse.wst.xquery.set.core.utils.SETProjectConfigUtil;
 
 public class SETCompletionEngine extends XQDTCompletionEngine {
 

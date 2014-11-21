@@ -13,10 +13,7 @@ package org.eclipse.wst.xquery.sse.core.internal.parser;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.Reader;
-import java.util.List;
 
-import org.eclipse.wst.sse.core.internal.ltk.parser.BlockMarker;
-import org.eclipse.wst.sse.core.internal.ltk.parser.BlockTokenizer;
 import org.eclipse.wst.sse.core.internal.provisional.text.ITextRegion;
 
 /**
@@ -26,60 +23,76 @@ import org.eclipse.wst.sse.core.internal.provisional.text.ITextRegion;
  */
 public interface ITokenizer {
 
-	/**
-	 * Gets the next token
-	 * @return
-	 * @throws IOException
-	 */
-	ITextRegion getNextToken() throws IOException;
+    /**
+     * Gets the next token
+     * 
+     * @return
+     * @throws IOException
+     */
+    ITextRegion getNextToken() throws IOException;
 
-	/**
-	 * Whether or not the end-of-stream has been reached
-	 * @return
-	 */
-	boolean isEOF();
+    /**
+     * Gets the lookahead token type, if available.
+     * 
+     * @return
+     * @throws IOException
+     */
+    String getLookAheadToken();
 
-	/**
-	 * Reset the tokenizer
-	 * @param charArray
-	 */
-	void reset(char[] charArray);
+    /**
+     * Whether or not the end-of-stream has been reached
+     * 
+     * @return
+     */
+    boolean isEOF();
 
-	/**
-	 * Reset the tokenizer
-	 * @param charArray
-	 * @param newOffset
-	 */
-	void reset(char[] charArray, int newOffset);
+    /**
+     * Reset the tokenizer
+     * 
+     * @param charArray
+     */
+    void reset(char[] charArray);
 
-	/**
-	 * Reset the tokenizer
-	 * @param in
-	 */
-	void reset(InputStream in);
+    /**
+     * Reset the tokenizer
+     * 
+     * @param charArray
+     * @param newOffset
+     */
+    void reset(char[] charArray, int newOffset);
 
-	/**
-	 * Reset the tokenizer
-	 * @param in
-	 * @param newOffset
-	 */
-	void reset(InputStream in, int newOffset);
+    /**
+     * Reset the tokenizer
+     * 
+     * @param in
+     */
+    void reset(InputStream in);
 
-	/**
-	 * Reset the tokenizer
-	 * @param in
-	 */
-	void reset(Reader in);
+    /**
+     * Reset the tokenizer
+     * 
+     * @param in
+     * @param newOffset
+     */
+    void reset(InputStream in, int newOffset);
 
-	/**
-	 * Reset the tokenizer
-	 * @param in
-	 * @param newOffset
-	 */
-	void reset(Reader in, int newOffset);
+    /**
+     * Reset the tokenizer
+     * 
+     * @param in
+     */
+    void reset(Reader in);
 
-	/**
-	 * @param xQueryRegionParser
-	 */
-	void setParser(XQueryRegionParser parser);
+    /**
+     * Reset the tokenizer
+     * 
+     * @param in
+     * @param newOffset
+     */
+    void reset(Reader in, int newOffset);
+
+    /**
+     * @param xQueryRegionParser
+     */
+    void setParser(XQueryRegionParser parser);
 }

@@ -131,7 +131,7 @@ public class ServerManager {
                 } catch (IOException ioe) {
                     return new Status(IStatus.ERROR, SETDebugCorePlugin.PLUGIN_ID,
                             "Could not properly stop the server for project \"" + project.getName()
-                                    + "\" using socket \"" + socket + "\"", ioe);
+                            + "\" using socket \"" + socket + "\"", ioe);
                 } catch (CoreException ce) {
                     ce.printStackTrace();
                     return new Status(IStatus.ERROR, SETDebugCorePlugin.PLUGIN_ID,
@@ -141,7 +141,7 @@ public class ServerManager {
                     ie.printStackTrace();
                     return new Status(IStatus.ERROR, SETDebugCorePlugin.PLUGIN_ID,
                             "Could not properly stop the server for project \"" + project.getName()
-                                    + "\" using socket \"" + socket + "\"", ie);
+                            + "\" using socket \"" + socket + "\"", ie);
                 } finally {
                     removeStartedServer(server.getSocketString());
                     fStopRequests.remove(project);
@@ -213,6 +213,7 @@ public class ServerManager {
             BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(pidFile)));
             String pidStr = br.readLine().trim();
             int pid = Integer.parseInt(pidStr);
+            br.close();
             return pid;
         } catch (Exception e) {
             throw new DebugException(new Status(IStatus.ERROR, SETDebugCorePlugin.PLUGIN_ID,

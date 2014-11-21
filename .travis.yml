@@ -1,0 +1,6 @@
+language: java
+script: cd sourceediting/development/org.eclipse.wst.xquery.releng && mvn clean install
+jdk:
+  - oraclejdk7
+  - oraclejdk8
+

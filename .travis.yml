@@ -14,4 +14,3 @@ deploy:
     all_branches: true
     tag: true
     repo: mcrosier/ML-XQDT
-    branch: xquery-release

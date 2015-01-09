@@ -9,11 +9,11 @@
 	<packaging>pom</packaging>
 
 	<properties>
-		<tycho-version>0.21.0</tycho-version>
+		<tycho-version>0.22.0</tycho-version>
 	</properties>
- 
+
 	<modules>
-	    <!-- XQuery Core functionality -->
+		<!-- XQuery Core functionality -->
 		<module>../../plugins/org.eclipse.wst.xquery</module>
 		<module>../../plugins/org.eclipse.wst.xquery.core</module>
 		<module>../../plugins/org.eclipse.wst.xquery.ui</module>
@@ -22,7 +22,7 @@
 		<module>../../plugins/org.eclipse.wst.xquery.debug.ui</module>
 		<module>../../features/org.eclipse.wst.xquery.feature</module>
 		<module>../../tests/org.eclipse.wst.xquery.core.tests</module>
-		
+
 		<!-- Marklogic Support -->
 		<module>../../plugins/org.eclipse.wst.xquery.marklogic</module>
 		<module>../../plugins/org.eclipse.wst.xquery.launching.marklogic.xcc</module>
@@ -31,15 +31,14 @@
 		<module>../../plugins/org.eclipse.wst.xquery.debug.ui.marklogic</module>
 		<module>../../features/org.eclipse.wst.xquery.marklogic.feature</module>
 
-		<!-- Zorba Support 
-		-->
+		<!-- Zorba Support -->
 		<module>../../plugins/org.eclipse.wst.xquery.zorba</module>
 		<module>../../plugins/org.eclipse.wst.xquery.launching.zorba</module>
 		<module>../../plugins/org.eclipse.wst.xquery.debug.debugger.zorba</module>
 		<module>../../plugins/org.eclipse.wst.xquery.debug.ui.zorba</module>
 		<module>../../plugins/org.eclipse.wst.xquery.ui.zorba</module>
 		<module>../../features/org.eclipse.wst.xquery.zorba.feature</module>
-		
+
 		<!-- Set Support -->
 		<module>../../plugins/org.eclipse.wst.xquery.set</module>
 		<module>../../plugins/org.eclipse.wst.xquery.set.core</module>
@@ -50,10 +49,10 @@
 		<module>../../plugins/org.eclipse.wst.xquery.set.ui</module>
 		<module>../../features/org.eclipse.wst.xquery.set.feature</module>
 
- 		<!-- SSE Support -->
+		<!-- SSE Support -->
 		<module>../../plugins/org.eclipse.wst.xquery.sse.core</module>
 		<module>../../plugins/org.eclipse.wst.xquery.sse.ui</module>
-		
+
 		<module>../org.eclipse.wst.xquery.repository</module>
 	</modules>
 
@@ -72,23 +71,18 @@
 				<version>${tycho-version}</version>
 				<configuration>
 					<resolver>p2</resolver>
-<!-- 					<environments>
-			            <environment>
-			              <os>win32</os>
-			              <ws>win32</ws>
-			              <arch>x86</arch>
-			            </environment>
-			            <environment>
-			              <os>linux</os>
-			              <ws>gtk</ws>
-			              <arch>x86_64</arch>
-			            </environment>
-			            <environment>
-			              <os>macosx</os>
-			              <ws>cocoa</ws>
-			              <arch>x86_64</arch>
-			            </environment>
-			        </environments> -->
+					<!-- <environments> <environment> <os>win32</os> <ws>win32</ws> <arch>x86</arch> 
+						</environment> <environment> <os>linux</os> <ws>gtk</ws> <arch>x86_64</arch> 
+						</environment> <environment> <os>macosx</os> <ws>cocoa</ws> <arch>x86_64</arch> 
+						</environment> </environments> -->
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.eclipse.tycho</groupId>
+				<artifactId>tycho-p2-repository-plugin</artifactId>
+				<version>${tycho-version}</version>
+				<configuration>
+					<includeAllDependencies>true</includeAllDependencies>
 				</configuration>
 			</plugin>
 		</plugins>
@@ -111,27 +105,34 @@
 					</configuration>
 				</plugin>
 				<plugin>
-			        <groupId>org.apache.maven.plugins</groupId>
-			        <artifactId> </artifactId>
-			        <version>2.5</version>
-			        <configuration>
-			          <linkXref>false</linkXref>
-			          <sourceEncoding>UTF-8</sourceEncoding>
-			          <minimumTokens>100</minimumTokens>
-			          <targetJdk>1.5</targetJdk>
-			          <includes>
-			             <include>**/org/eclipse/wst/xquery/*.java</include>
-			          </includes>
-			          <excludes>
-			            <exclude>**/*Bean.java</exclude>
-			            <exclude>**/generated/*.java</exclude>
-			          </excludes>
-			          <excludeRoots>
-			            <excludeRoot>target/generated-sources/stubs</excludeRoot>
-			          </excludeRoots>
-			        </configuration>
-				</plugin>				
-				
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId> </artifactId>
+					<version>2.5</version>
+					<configuration>
+						<linkXref>false</linkXref>
+						<sourceEncoding>UTF-8</sourceEncoding>
+						<minimumTokens>100</minimumTokens>
+						<targetJdk>1.5</targetJdk>
+						<includes>
+							<include>**/org/eclipse/wst/xquery/*.java</include>
+						</includes>
+						<excludes>
+							<exclude>**/*Bean.java</exclude>
+							<exclude>**/generated/*.java</exclude>
+						</excludes>
+						<excludeRoots>
+							<excludeRoot>target/generated-sources/stubs</excludeRoot>
+						</excludeRoots>
+					</configuration>
+				</plugin>
+				<plugin>
+					<groupId>org.eclipse.tycho</groupId>
+					<artifactId>tycho-p2-repository-plugin</artifactId>
+					<version>${tycho-version}</version>
+					<configuration>
+						<includeAllDependencies>true</includeAllDependencies>
+					</configuration>
+				</plugin>
 			</plugins>
 		</pluginManagement>
 	</build>

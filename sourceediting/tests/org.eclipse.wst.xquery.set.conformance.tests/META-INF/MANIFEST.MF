@@ -9,10 +9,11 @@ Bundle-Activator: org.eclipse.wst.xquery.set.conformance.tests.SETConformanceTes
 Require-Bundle: org.eclipse.core.runtime,
  org.antlr.runtime;bundle-version="3.2.0",
  org.eclipse.dltk.core,
- org.eclipse.wst.xquery.core,
- org.eclipse.wst.xquery.zorba.conformance.tests
+ org.eclipse.wst.xquery.core
 Bundle-RequiredExecutionEnvironment: JavaSE-1.7
-Import-Package: org.junit;version="4.8.0",
+Import-Package: org.eclipse.wst.xquery.core.tests,
+ org.eclipse.wst.xquery.internal.core.tests,
+ org.junit;version="4.8.0",
  org.junit.runner;version="4.8.0",
  org.junit.runner.notification,
  org.junit.runners;version="4.8.0",

@@ -6,10 +6,10 @@ import java.io.File;
 import java.util.Map;
 import java.util.TreeMap;
 
+import org.eclipse.wst.xquery.internal.core.tests.CoreTestFileCollector;
 import org.eclipse.wst.xquery.set.conformance.tests.SETConformanceTestPlugin;
-import org.eclipse.wst.xquery.zorba.conformance.internal.tests.ZorbaTestFileCollector;
 
-public class SETTestFileCollector extends ZorbaTestFileCollector {
+public class SETTestFileCollector extends CoreTestFileCollector {
 
     @Override
     public Map<String, Object[]> collectTestFiles(String path) {

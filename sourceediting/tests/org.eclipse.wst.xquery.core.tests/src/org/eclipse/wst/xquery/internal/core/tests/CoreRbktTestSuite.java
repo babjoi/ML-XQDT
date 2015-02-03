@@ -1,14 +1,4 @@
-/*******************************************************************************
- * Copyright (c) 2008, 2009 28msec Inc. and others.
- * All rights reserved. This program and the accompanying materials
- * are made available under the terms of the Eclipse Public License v1.0
- * which accompanies this distribution, and is available at
- * http://www.eclipse.org/legal/epl-v10.html
- *
- * Contributors:
- *     Gabriel Petrovay (28msec) - initial API and implementation
- *******************************************************************************/
-package org.eclipse.wst.xquery.zorba.conformance.internal.tests;
+package org.eclipse.wst.xquery.internal.core.tests;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
@@ -26,23 +16,23 @@ import java.util.Map;
 import org.antlr.runtime.ANTLRStringStream;
 import org.antlr.runtime.RecognitionException;
 import org.eclipse.wst.xquery.core.IXQDTLanguageConstants;
+import org.eclipse.wst.xquery.core.tests.LabeledParameterized;
+import org.eclipse.wst.xquery.core.tests.LabeledParameterized.LabeledParameters;
 import org.eclipse.wst.xquery.internal.core.parser.antlr.NewLazyTokenStream;
 import org.eclipse.wst.xquery.internal.core.parser.antlr.XQDTCommonTreeAdaptor;
 import org.eclipse.wst.xquery.internal.core.parser.antlr.XQueryLexer;
 import org.eclipse.wst.xquery.internal.core.parser.antlr.XQueryParser;
-import org.eclipse.wst.xquery.zorba.conformance.tests.LabeledParameterized;
-import org.eclipse.wst.xquery.zorba.conformance.tests.LabeledParameterized.LabeledParameters;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
 @RunWith(LabeledParameterized.class)
-public class ZorbaRbktTestSuite implements IXQDTLanguageConstants {
+public class CoreRbktTestSuite implements IXQDTLanguageConstants {
 
     protected String fXqFile, fSpecFile;
 
     private static final String QUERY_DIR_PATH = "downloads" + File.separator + "zorba_test_queries";
 
-    public ZorbaRbktTestSuite(String fXqFile, String specFile) {
+    public CoreRbktTestSuite(String fXqFile, String specFile) {
         this.fXqFile = fXqFile;
         this.fSpecFile = specFile;
     }
@@ -73,7 +63,7 @@ public class ZorbaRbktTestSuite implements IXQDTLanguageConstants {
 
     @LabeledParameters
     public static Map<String, Object[]> files() {
-        TestFileCollector collector = new ZorbaTestFileCollector();
+        TestFileCollector collector = new CoreTestFileCollector();
         return collector.collectTestFiles(QUERY_DIR_PATH);
     }
 

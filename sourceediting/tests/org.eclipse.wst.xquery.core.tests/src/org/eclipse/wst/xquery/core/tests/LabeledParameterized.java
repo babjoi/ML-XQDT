@@ -1,4 +1,4 @@
-package org.eclipse.wst.xquery.zorba.conformance.tests;
+package org.eclipse.wst.xquery.core.tests;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

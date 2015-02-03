@@ -1,4 +1,4 @@
-package org.eclipse.wst.xquery.zorba.conformance.internal.tests;
+package org.eclipse.wst.xquery.internal.core.tests;
 
 import java.util.Map;
 

@@ -13,14 +13,14 @@ package org.eclipse.wst.xquery.set.conformance.internal.tests;
 import java.io.File;
 import java.util.Map;
 
-import org.eclipse.wst.xquery.zorba.conformance.internal.tests.TestFileCollector;
-import org.eclipse.wst.xquery.zorba.conformance.internal.tests.ZorbaRbktTestSuite;
-import org.eclipse.wst.xquery.zorba.conformance.tests.LabeledParameterized;
-import org.eclipse.wst.xquery.zorba.conformance.tests.LabeledParameterized.LabeledParameters;
+import org.eclipse.wst.xquery.core.tests.LabeledParameterized;
+import org.eclipse.wst.xquery.core.tests.LabeledParameterized.LabeledParameters;
+import org.eclipse.wst.xquery.internal.core.tests.CoreRbktTestSuite;
+import org.eclipse.wst.xquery.internal.core.tests.TestFileCollector;
 import org.junit.runner.RunWith;
 
 @RunWith(LabeledParameterized.class)
-public class SETRbktTestSuite extends ZorbaRbktTestSuite {
+public class SETRbktTestSuite extends CoreRbktTestSuite {
 
     private static final String QUERY_DIR_PATH = "downloads" + File.separator + "sausalito_test_queries";
 

@@ -1,4 +1,4 @@
-package org.eclipse.wst.xquery.zorba.conformance.internal.tests;
+package org.eclipse.wst.xquery.internal.core.tests;
 
 import static org.junit.Assert.assertTrue;
 
@@ -6,9 +6,7 @@ import java.io.File;
 import java.util.Map;
 import java.util.TreeMap;
 
-import org.eclipse.wst.xquery.zorba.conformance.tests.ZorbaConformanceTestPlugin;
-
-public class ZorbaTestFileCollector extends TestFileCollector {
+public class CoreTestFileCollector extends TestFileCollector {
 
     public Map<String, Object[]> collectTestFiles(String path) {
         Map<String, Object[]> map = new TreeMap<String, Object[]>(String.CASE_INSENSITIVE_ORDER);
@@ -23,8 +21,7 @@ public class ZorbaTestFileCollector extends TestFileCollector {
 
         assertTrue("Can not find the test queries under: \"" + dir.getAbsolutePath()
                 + "\". Are you sure that the following file provides an Ant build step on Hudson: "
-                + "sourceediting/tests/" + ZorbaConformanceTestPlugin.getDefault().getBundle().getBundleId()
-                + "/ant/conformanceTestDownload.xml ?", map.size() > 0);
+                + "sourceediting/tests/" + "/ant/conformanceTestDownload.xml ?", map.size() > 0);
 
         return map;
     }

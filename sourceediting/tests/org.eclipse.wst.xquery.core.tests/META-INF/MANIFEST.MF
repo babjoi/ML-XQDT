@@ -19,4 +19,6 @@ Export-Package: org.eclipse.wst.xquery.core.tests,
  org.eclipse.wst.xquery.internal.core.tests;x-internal:=true
 Import-Package: org.junit;version="4.8.0",
  org.junit.runner;version="4.8.0",
- org.junit.runners;version="4.8.0"
+ org.junit.runner.notification;version="4.11.0",
+ org.junit.runners;version="4.8.0",
+ org.junit.runners.model;version="4.11.0"

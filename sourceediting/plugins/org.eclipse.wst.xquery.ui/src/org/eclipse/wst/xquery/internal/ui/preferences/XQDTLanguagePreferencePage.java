@@ -36,12 +36,13 @@ import org.eclipse.wst.xquery.ui.XQDTUIPlugin;
 public class XQDTLanguagePreferencePage extends AbstractConfigurationBlockPropertyAndPreferencePage {
 
     public static final String[] languageTypes = { IXQDTCorePreferences.LANGUAGE_NAME_XQUERY,
-            IXQDTCorePreferences.LANGUAGE_NAME_XQUERY_UPDATE, IXQDTCorePreferences.LANGUAGE_NAME_XQUERY_SCRIPTING };
+        IXQDTCorePreferences.LANGUAGE_NAME_XQUERY_UPDATE, IXQDTCorePreferences.LANGUAGE_NAME_XQUERY_SCRIPTING,
+        IXQDTCorePreferences.LANGUAGE_NAME_XQUERY_MARKLOGIC };
 
     private static final PreferenceKey[] KEYS = new PreferenceKey[] { new PreferenceKey(XQDTCorePlugin.PLUGIN_ID,
             IXQDTCorePreferences.LANGUAGE_LEVEL),
-    // new PreferenceKey(XQDTCorePlugin.PLUGIN_ID,
-    // IXQDTCorePreferences.LANGUAGE_OPTION_USE_FULL_TEXT),
+            // new PreferenceKey(XQDTCorePlugin.PLUGIN_ID,
+            // IXQDTCorePreferences.LANGUAGE_OPTION_USE_FULL_TEXT),
     };
 
     protected AbstractOptionsBlock createOptionsBlock(IStatusChangeListener newStatusChangedListener, IProject project,

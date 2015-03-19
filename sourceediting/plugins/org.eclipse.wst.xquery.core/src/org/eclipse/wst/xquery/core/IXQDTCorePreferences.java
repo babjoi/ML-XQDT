@@ -13,6 +13,7 @@ package org.eclipse.wst.xquery.core;
 public interface IXQDTCorePreferences {
 
     // XQuery language names
+    public static final String LANGUAGE_NAME_XQUERY_MARKLOGIC = "XQuery 1.0-ml";
     public static final String LANGUAGE_NAME_XQUERY = "XQuery 3.0";
     public static final String LANGUAGE_NAME_XQUERY_UPDATE = "XQuery 3.0 + Update Facility";
     public static final String LANGUAGE_NAME_XQUERY_SCRIPTING = "XQuery 3.0 + Scripting Extension Proposal";

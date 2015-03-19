@@ -334,7 +334,7 @@ pm_ContextItemDecl
 //[32]
 //[32] new XQuery Scripting proposal
 pm_FunctionDecl
-        : ({lc(XQU)}?=> k=UPDATING {ak($k);})? k=FUNCTION {ak($k);} qn=pg_FQName LPAREN pl=p_ParamList? RPAREN (k=AS {ak($k);} st=p_SequenceType)? (LBRACKET soe=p_StatementsAndOptionalExpr RBRACKET | k=EXTERNAL {ak($k);} )
+        : ({lc(XQU)}?=> k=UPDATING {ak($k);})? k=FUNCTION {ak($k);} k=PRIVATE? qn=pg_FQName LPAREN pl=p_ParamList? RPAREN (k=AS {ak($k);} st=p_SequenceType)? (LBRACKET soe=p_StatementsAndOptionalExpr RBRACKET | k=EXTERNAL {ak($k);} )
                 -> ^(FunctionDecl $qn ^(ParamList $pl?) ^(ReturnType $st?) $soe?)
         ;
 
@@ -1266,12 +1266,12 @@ p_FunctionTest
 
 //[188]
 p_AnyFunctionTest
-        : FUNCTION LPAREN STAR RPAREN
+        : FUNCTION PRIVATE? LPAREN STAR RPAREN
         ;
 
 //[189]
 p_TypedFunctionTest
-        : FUNCTION LPAREN (p_SequenceType (COMMA p_SequenceType)*)? RPAREN AS p_SequenceType
+        : FUNCTION PRIVATE? LPAREN (p_SequenceType (COMMA p_SequenceType)*)? RPAREN AS p_SequenceType
         ;
 
 //[190]
@@ -1429,7 +1429,7 @@ p_NCName
         // Zorba DDL keywords
         | CHECK | COLLECTION | CONSTRAINT | EXPLICITLY | FOREACH | FOREIGN | INDEX | INTEGRITY | KEY | ON | UNIQUE
         // Mark Logic keywords
-        | BINARY
+        | BINARY | PRIVATE
         // entity references
         | AMP_ER | APOS_ER | QUOT_ER
         ;
@@ -1448,7 +1448,7 @@ p_FNCName
         // Zorba DDL keywords
         | CHECK | COLLECTION | CONSTRAINT | EXPLICITLY | FOREACH | FOREIGN | INDEX | INTEGRITY | KEY | ON | UNIQUE
         // Mark Logic keywords
-        | BINARY
+        | BINARY | PRIVATE
         // entity references
         | AMP_ER | APOS_ER | QUOT_ER
         ;

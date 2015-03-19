@@ -18,7 +18,7 @@
 <project name="XQDTParser" default="generateParser" basedir=".">
   <target name="generateParser">
     <property name="destination" value="../../src/org/eclipse/wst/xquery/internal/core/parser/antlr" />
-    <java classpath="antlr-3.2.jar" classname="org.antlr.Tool">
+    <java classpath="antlr-3.5.2-complete.jar" classname="org.antlr.Tool">
       <arg value="-o ." />
       <arg value="XQueryLexer.g" />
       <arg value="XMLLexer.g" />

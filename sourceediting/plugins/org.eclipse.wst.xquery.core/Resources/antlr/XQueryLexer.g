@@ -262,6 +262,7 @@ ON                          : 'on';
 UNIQUE                      : 'unique';
 // MarkLogic
 BINARY                      : 'binary';
+PRIVATE						: 'private';
 
 // entity references
 AMP_ER  : 'amp';

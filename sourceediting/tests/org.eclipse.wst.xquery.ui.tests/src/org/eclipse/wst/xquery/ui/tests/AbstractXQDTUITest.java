@@ -64,207 +64,193 @@ import org.osgi.framework.Bundle;
  */
 @SuppressWarnings("restriction")
 public abstract class AbstractXQDTUITest {
-	protected static IProject fTestProject;
-	protected static boolean fTestProjectInitialized;
-	protected static final String PROJECT_FILES = "projectfiles";
-	protected static final String TEST_PROJECT_NAME = "xquerytestfiles";
+    protected static IProject fTestProject;
+    protected static boolean fTestProjectInitialized;
+    protected static final String PROJECT_FILES = "projectfiles";
+    protected static final String TEST_PROJECT_NAME = "xquerytestfiles";
 
-	/** Current file name being tested (if any) */
-	protected String fileName;
+    /** Current file name being tested (if any) */
+    protected String fileName;
 
-	/** Current file being tested (if any) */
-	protected IFile file;
+    /** Current file being tested (if any) */
+    protected IFile file;
 
-	protected IEditorPart textEditorPart;
-	protected ITextEditor editor;
-	protected StructuredTextViewer sourceViewer;
-	private AbstractModelLoader modelLoader;
-	private IStructuredModel model;
-	protected IStructuredDocument document;
-	protected XQueryStructuredTextViewerConfiguration configuration;
-	protected Shell shell;
-	protected Composite parent;
+    protected IEditorPart textEditorPart;
+    protected ITextEditor editor;
+    protected StructuredTextViewer sourceViewer;
+    private AbstractModelLoader modelLoader;
+    private IStructuredModel model;
+    protected IStructuredDocument document;
+    protected XQueryStructuredTextViewerConfiguration configuration;
+    protected Shell shell;
+    protected Composite parent;
 
-	// Constructor
+    // Constructor
 
-	protected AbstractXQDTUITest() {
-		configuration = new XQueryStructuredTextViewerConfiguration();
-		modelLoader = new XQueryModelLoader();
-	}
+    protected AbstractXQDTUITest() {
+        configuration = new XQueryStructuredTextViewerConfiguration();
+        modelLoader = new XQueryModelLoader();
+    }
 
-	// Methods
+    // Methods
 
-	@Before
-	public void setUp() throws Exception {
-		getWorkspace().getRoot().delete(true, true, new NullProgressMonitor());
-		setupTestProjectFiles(XQDTUITestsPlugin.PLUGIN_ID);
-		fTestProject.refreshLocal(IResource.DEPTH_INFINITE, null);
-	}
+    @Before
+    public void setUp() throws Exception {
+        getWorkspace().getRoot().delete(true, true, new NullProgressMonitor());
+        setupTestProjectFiles(XQDTUITestsPlugin.PLUGIN_ID);
+        fTestProject.refreshLocal(IResource.DEPTH_INFINITE, null);
+    }
 
-	@After
-	public void tearDown() throws Exception {
-		String projName = TEST_PROJECT_NAME;
+    @After
+    public void tearDown() throws Exception {
+        String projName = TEST_PROJECT_NAME;
 
-		IProject project = ResourcesPlugin.getWorkspace().getRoot()
-				.getProject(projName);
-		if (project.isAccessible()) {
-			project.delete(true, true, new NullProgressMonitor());
-		}
-		getWorkspace().getRoot().refreshLocal(2, new NullProgressMonitor());
-		
+        IProject project = ResourcesPlugin.getWorkspace().getRoot().getProject(projName);
+        if (project.isAccessible()) {
+            project.delete(true, true, new NullProgressMonitor());
+        }
+        getWorkspace().getRoot().refreshLocal(2, new NullProgressMonitor());
 
-		if (parent != null)
-			parent.dispose();
+        if (parent != null) {
+            parent.dispose();
+        }
 
-		if (model != null) {
-			model.releaseFromEdit();
-		}
-	}
+        if (model != null) {
+            model.releaseFromEdit();
+        }
+    }
 
-	/**
-	 * Returns the workspace instance.
-	 */
-	public static IWorkspace getWorkspace() {
-		return ResourcesPlugin.getWorkspace();
-	}
+    /**
+     * Returns the workspace instance.
+     */
+    public static IWorkspace getWorkspace() {
+        return ResourcesPlugin.getWorkspace();
+    }
 
-	/** Setup files in test project */
-	protected void setupTestProjectFiles(String bundleId) throws CoreException,
-			IOException, URISyntaxException {
-		getAndCreateProject();
+    /** Setup files in test project */
+    protected void setupTestProjectFiles(String bundleId) throws CoreException, IOException, URISyntaxException {
+        getAndCreateProject();
 
-		Bundle coreBundle = Platform.getBundle(bundleId);
-		@SuppressWarnings("unchecked")
-		Enumeration<String> e = coreBundle.getEntryPaths("/projectfiles");
-		while (e.hasMoreElements()) {
-			String path = e.nextElement();
-			URL url = coreBundle.getEntry(path);
-			if (!url.getFile().endsWith("/")) {
-				String relativePath = path;
-				url = FileLocator.resolve(url);
-				path = path.substring("projectfiles".length());
-				IFile destFile = fTestProject.getFile(path);
-				if (url.toExternalForm().startsWith("jar:file")) {
-					InputStream source = FileLocator.openStream(coreBundle,
-							new Path(relativePath), false);
-					if (destFile.exists()) {
-						destFile.delete(true, new NullProgressMonitor());
-					}
-					destFile.create(source, true, new NullProgressMonitor());
-					source.close();
-				} else {
-					// if resource is not compressed, link
-					destFile.createLink(url.toURI(), IResource.REPLACE,
-							new NullProgressMonitor());
-				}
-			}
-		}
-	}
+        Bundle coreBundle = Platform.getBundle(bundleId);
+        Enumeration<String> e = coreBundle.getEntryPaths("/projectfiles");
+        while (e.hasMoreElements()) {
+            String path = e.nextElement();
+            URL url = coreBundle.getEntry(path);
+            if (!url.getFile().endsWith("/")) {
+                String relativePath = path;
+                url = FileLocator.resolve(url);
+                path = path.substring("projectfiles".length());
+                IFile destFile = fTestProject.getFile(path);
+                if (url.toExternalForm().startsWith("jar:file")) {
+                    InputStream source = FileLocator.openStream(coreBundle, new Path(relativePath), false);
+                    if (destFile.exists()) {
+                        destFile.delete(true, new NullProgressMonitor());
+                    }
+                    destFile.create(source, true, new NullProgressMonitor());
+                    source.close();
+                } else {
+                    // if resource is not compressed, link
+                    destFile.createLink(url.toURI(), IResource.REPLACE, new NullProgressMonitor());
+                }
+            }
+        }
+    }
 
-	protected static void getAndCreateProject() throws CoreException {
-		IWorkspace workspace = getWorkspace();
-		IWorkspaceRoot root = workspace.getRoot();
-		fTestProject = root.getProject(TEST_PROJECT_NAME);
-		createProject(fTestProject, null, null);
-		fTestProject.refreshLocal(IResource.DEPTH_INFINITE, null);
-		assertTrue(fTestProject.exists());
-	}
+    protected static void getAndCreateProject() throws CoreException {
+        IWorkspace workspace = getWorkspace();
+        IWorkspaceRoot root = workspace.getRoot();
+        fTestProject = root.getProject(TEST_PROJECT_NAME);
+        createProject(fTestProject, null, null);
+        fTestProject.refreshLocal(IResource.DEPTH_INFINITE, null);
+        assertTrue(fTestProject.exists());
+    }
 
-	private static void createProject(IProject project, IPath locationPath,
-			IProgressMonitor monitor) throws CoreException {
-		if (monitor == null) {
-			monitor = new NullProgressMonitor();
-		}
-		monitor.beginTask("creating test project", 10);
-		// create the project
-		try {
-			if (!project.exists()) {
-				IProjectDescription desc = project.getWorkspace()
-						.newProjectDescription(project.getName());
-				if (Platform.getLocation().equals(locationPath)) {
-					locationPath = null;
-				}
-				desc.setLocation(locationPath);
-				project.create(desc, monitor);
-				monitor = null;
-			}
-			if (!project.isOpen()) {
-				project.open(monitor);
-				monitor = null;
-			}
-		} finally {
-			if (monitor != null) {
-				monitor.done();
-			}
-		}
-	}
-	
+    private static void createProject(IProject project, IPath locationPath, IProgressMonitor monitor)
+            throws CoreException {
+        if (monitor == null) {
+            monitor = new NullProgressMonitor();
+        }
+        monitor.beginTask("creating test project", 10);
+        // create the project
+        try {
+            if (!project.exists()) {
+                IProjectDescription desc = project.getWorkspace().newProjectDescription(project.getName());
+                if (Platform.getLocation().equals(locationPath)) {
+                    locationPath = null;
+                }
+                desc.setLocation(locationPath);
+                project.create(desc, monitor);
+                monitor = null;
+            }
+            if (!project.isOpen()) {
+                project.open(monitor);
+                monitor = null;
+            }
+        } finally {
+            if (monitor != null) {
+                monitor.done();
+            }
+        }
+    }
 
-	/**
-	 * Gets source viewer structured document
-	 */
-	protected IStructuredDocument getStructuredDocument() {
-		return (IStructuredDocument) sourceViewer.getDocument();
-	}
+    /**
+     * Gets source viewer structured document
+     */
+    protected IStructuredDocument getStructuredDocument() {
+        return (IStructuredDocument)sourceViewer.getDocument();
+    }
 
-	/** Load given file and setup source viewer */
-	protected void setUpTest(String file) throws ResourceAlreadyExists,
-			ResourceInUse, IOException, CoreException {
-		fileName = file;
+    /** Load given file and setup source viewer */
+    protected void setUpTest(String file) throws ResourceAlreadyExists, ResourceInUse, IOException, CoreException {
+        fileName = file;
 
-		String filePath = TEST_PROJECT_NAME + File.separator + fileName;
-		loadFileForTesting(filePath);
-		IStructuredDocument document = (IStructuredDocument) sourceViewer
-				.getDocument();
+        String filePath = TEST_PROJECT_NAME + File.separator + fileName;
+        loadFileForTesting(filePath);
+        IStructuredDocument document = (IStructuredDocument)sourceViewer.getDocument();
 
-		assertNotNull("Missing Document Partitioner",
-				document.getDocumentPartitioner());
-	}
+        assertNotNull("Missing Document Partitioner", document.getDocumentPartitioner());
+    }
 
-	private void loadFileForTesting(String path) throws ResourceAlreadyExists,
-			ResourceInUse, IOException, CoreException {
-		file = ResourcesPlugin.getWorkspace().getRoot().getFile(new Path(path));
-		if (file != null && !file.exists()) {
-			fail("Unable to locate " + fileName + " stylesheet.");
-		}
+    private void loadFileForTesting(String path) throws ResourceAlreadyExists, ResourceInUse, IOException,
+            CoreException {
+        file = ResourcesPlugin.getWorkspace().getRoot().getFile(new Path(path));
+        if (file != null && !file.exists()) {
+            fail("Unable to locate " + fileName + " stylesheet.");
+        }
 
-		loadFile();
-		initializeSourceViewer();
-	}
+        loadFile();
+        initializeSourceViewer();
+    }
 
-	/** Load query file and open it for edit */
-	private void loadFile() throws ResourceAlreadyExists, ResourceInUse,
-			IOException, CoreException {
-		IModelManager modelManager = StructuredModelManager.getModelManager();
-		model = modelManager.getNewModelForEdit(file, true);
-		document = model.getStructuredDocument();
+    /** Load query file and open it for edit */
+    private void loadFile() throws ResourceAlreadyExists, ResourceInUse, IOException, CoreException {
+        IModelManager modelManager = StructuredModelManager.getModelManager();
+        model = modelManager.getNewModelForEdit(file, true);
+        document = model.getStructuredDocument();
 
-		IDocumentPartitioner partitioner = modelLoader.getDocumentLoader()
-				.getDefaultDocumentPartitioner();
-		partitioner.connect(document);
-		document.setDocumentPartitioner(partitioner);
-	}
+        IDocumentPartitioner partitioner = modelLoader.getDocumentLoader().getDefaultDocumentPartitioner();
+        partitioner.connect(document);
+        document.setDocumentPartitioner(partitioner);
+    }
 
-	private void initializeSourceViewer() {
-		// some test environments might not have a "real" display
-		if (Display.getCurrent() != null) {
+    private void initializeSourceViewer() {
+        // some test environments might not have a "real" display
+        if (Display.getCurrent() != null) {
 
-			if (PlatformUI.isWorkbenchRunning()) {
-				shell = PlatformUI.getWorkbench().getActiveWorkbenchWindow()
-						.getShell();
-			} else {
-				shell = new Shell(Display.getCurrent());
-			}
-			parent = new Composite(shell, SWT.NONE);
+            if (PlatformUI.isWorkbenchRunning()) {
+                shell = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell();
+            } else {
+                shell = new Shell(Display.getCurrent());
+            }
+            parent = new Composite(shell, SWT.NONE);
 
-			// dummy viewer
-			sourceViewer = new StructuredTextViewer(parent, null, null, false,
-					SWT.NONE);
-		} else {
-			fail("Unable to run the test as a display must be available.");
-		}
+            // dummy viewer
+            sourceViewer = new StructuredTextViewer(parent, null, null, false, SWT.NONE);
+        } else {
+            fail("Unable to run the test as a display must be available.");
+        }
 
-		sourceViewer.configure(configuration);
-		sourceViewer.setDocument(document);
-	}
+        sourceViewer.configure(configuration);
+        sourceViewer.setDocument(document);
+    }
 }

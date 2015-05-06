@@ -68,18 +68,18 @@ import org.eclipse.wst.xquery.sse.core.internal.sdregions.XQueryStructuredDocume
 
 /**
  * Update the XQuery AST.
- * 
+ *
  * <p>
  * For now, the new structured document regions are fully traversed, along with the existing AST (if
  * any). The goal is to minimize AST nodes changes.
- * 
+ *
  * <p>
  * In the future, it is possible to skip reparsing subtrees based on changes location.
- * 
+ *
  * <p>
  * Checks the language syntax and provides appropriate messages for downstream validators. Note that
  * it performs only minimal validation to speed up reparsing.
- * 
+ *
  * @author <a href="villard@us.ibm.com">Lionel Villard</a>
  */
 public class ModelBuilder {
@@ -216,7 +216,7 @@ public class ModelBuilder {
 
     /**
      * Reparse the XQuery
-     * 
+     *
      * @param region
      *            first structured document region (after update)
      * @param offset
@@ -326,7 +326,7 @@ public class ModelBuilder {
      * Reparse prolog <tt>
      * Prolog	   ::=   	((DefaultNamespaceDecl | Setter | NamespaceDecl | Import) Separator)* ((VarDecl | FunctionDecl | OptionDecl) Separator)*
      * </tt>
-     * 
+     *
      * @return the number of prolog declaration
      */
     protected int reparseProlog(IASTModule node) {
@@ -337,7 +337,7 @@ public class ModelBuilder {
     /**
      * Reparse prolog part 1:
      * <tt>((DefaultNamespaceDecl | Setter | NamespaceDecl | Import) Separator)* </tt>
-     * 
+     *
      * @return the number of prolog 1 declarations
      */
     protected int reparseProlog1(IASTModule module) {
@@ -403,7 +403,7 @@ public class ModelBuilder {
 
     /**
      * Reparse prolog part 2: <tt>((VarDecl | FunctionDecl | OptionDecl) Separator)*</tt>
-     * 
+     *
      * @param from
      *            last global declaration position.
      * @return
@@ -454,10 +454,10 @@ public class ModelBuilder {
     /**
      * Reparse
      * <tt>"declare" "function" QName "(" ParamList? ")" ("as" SequenceType)? (EnclosedExpr | "external")</tt>
-     * 
+     *
      * XQuery Update:
      * <tt>declare" "updating"? "function" QName "(" ParamList? ")" ("as" SequenceType)? (EnclosedExpr | "external")
-     * 
+     *
      * XQuery Scripting:
      * <tt>"declare" ("simple"? | "updating") "function" QName "(" ParamList? ")" ("as" SequenceType)? (EnclosedExpr | "external"))
      *      | ("declare" "sequential" "function" QName "(" ParamList? ")" ("as" SequenceType)? (Block | "external"))
@@ -514,7 +514,7 @@ public class ModelBuilder {
 
     /**
      * Reparse <tt>"{" BlockDecls BlockBody "}"</tt>
-     * 
+     *
      * @return
      */
     protected IASTNode reparseBlock() {
@@ -583,7 +583,7 @@ public class ModelBuilder {
 
     /**
      * Reparse <tt>(Param ("," Param)*)?</tt>
-     * 
+     *
      * @return true is no syntax error have been raised.
      */
     protected boolean reparseParamListOpt(IASTFunctionDecl decl) {
@@ -637,7 +637,7 @@ public class ModelBuilder {
     /**
      * Reparse
      * <tt>"declare" "variable" "$" QName TypeDeclaration? ((":=" ExprSingle) | "external")</tt>
-     * 
+     *
      * @param index
      *            of the variable declaration in the module
      */
@@ -709,7 +709,7 @@ public class ModelBuilder {
 
     /**
      * Reparse <tt>ApplyExpr	   ::=   	ConcatExpr (";" (ConcatExpr ";")*)?</tt>
-     * 
+     *
      * @param expr
      * @return
      */
@@ -743,9 +743,9 @@ public class ModelBuilder {
 
     /**
      * Reparse
-     * 
+     *
      * <tt>	ConcatExpr	   ::=   	ExprSingle ("," ExprSingle)*</tt>
-     * 
+     *
      * @param expr
      */
     protected IASTNode reparseConcatExpr(IASTNode expr) {
@@ -754,9 +754,9 @@ public class ModelBuilder {
 
     /**
      * Reparse
-     * 
+     *
      * <tt>ExprSingle</tt>
-     * 
+     *
      * @return an AST node or null if no expression single have been parsed.
      */
     protected IASTNode reparseExprSingle(IASTNode expr) {
@@ -954,7 +954,7 @@ public class ModelBuilder {
         if (sameRegionType(XQueryRegions.KW_AS) || sameRegionType(XQueryRegions.KW_BEFORE)
                 || sameRegionType(XQueryRegions.KW_AFTER)) {
             nextSDRegion(); // (("as" ("first" | "last"))? "into") | "after" |
-                            // "before"
+            // "before"
 
             IASTNode oldTargetExpr = insertExpr.getTargetExpr();
             IASTNode newTargetExpr = reparseExprSingle(oldTargetExpr);
@@ -1122,7 +1122,7 @@ public class ModelBuilder {
 
     /**
      * Reparse
-     * 
+     *
      * <tt>("some" | "every") "$" VarName TypeDeclaration? "in" ExprSingle ("," "$" VarName TypeDeclaration? "in" ExprSingle)* "satisfies" ExprSingle</tt>
      */
     protected IASTNode reparseQuantifiedExpr(IASTNode expr) {
@@ -1248,7 +1248,7 @@ public class ModelBuilder {
     /**
      * Reparse
      * <tt>("ascending" | "descending")? ("empty" ("greatest" | "least"))? ("collation" URILiteral)?</tt>
-     * 
+     *
      * @param index
      */
     protected void reparseOrderModifier(IASTOrderByClause clause, int index) {
@@ -1340,9 +1340,9 @@ public class ModelBuilder {
 
     /**
      * Reparse
-     * 
+     *
      * <tt>("at" "$" VarName)?</tt>
-     * 
+     *
      * @param index
      */
     protected void reparsePositionalVarOpt(IASTBindingClause clause, int index) {
@@ -1571,7 +1571,7 @@ public class ModelBuilder {
 
     /**
      * Reparse <tt>ValidateExpr | PathExpr | ExtensionExpr</tt>
-     * 
+     *
      * @return an AST node or null if no matching expression has been parsed.
      */
     protected IASTNode reparseValueExpr(IASTNode expr) {
@@ -1595,7 +1595,6 @@ public class ModelBuilder {
 
         IASTExtension extension = asExtension(node);
 
-        int index = 0;
         while (sameRegionType(XQueryRegions.LPRAGMA)) {
             nextSDRegion(); // (#
 
@@ -1626,8 +1625,6 @@ public class ModelBuilder {
                 reportError(XQueryMessages.errorXQSE_MissingPragmaName_UI_);
                 return extension; // interrupt parsing
             }
-
-            index++;
         }
 
         if (sameRegionType(XQueryRegions.LCURLY)) {
@@ -1707,7 +1704,7 @@ public class ModelBuilder {
                     reportError(XQueryMessages.errorXQSE_MissingRelPath_UI_);
                 } else {
                     return null; // Error will be notified by the containing
-                                 // expression
+                    // expression
                 }
             }
 
@@ -1719,7 +1716,7 @@ public class ModelBuilder {
 
     /**
      * Reparse <tt>RelativePathExpr?</tt>
-     * 
+     *
      * @return a {@link IASTOperator} or null when failing parsing a relative path
      */
     protected IASTNode reparseRelativePathExprOpt(IASTNode expr) {
@@ -1728,7 +1725,7 @@ public class ModelBuilder {
 
     /**
      * Reparse <tt>StepExpr (("/" | "//") StepExpr)*</tt>
-     * 
+     *
      * @return a {@link IASTOperator} or null when failing parsing a relative path
      */
     protected IASTNode reparseRelativePathExpr(IASTNode expr) {
@@ -1794,7 +1791,7 @@ public class ModelBuilder {
 
     /**
      * Reparse <tt>ReverseStep | ForwardStep</tt>
-     * 
+     *
      * @return true when an axis step has been parsed (even partially)
      */
     protected IASTStep reparseAxisStep(IASTStep step) {
@@ -1803,10 +1800,10 @@ public class ModelBuilder {
         if (sameRegionType(XQueryRegions.PATH_ABBREVATTRIBUTE)) {
             nextSDRegion(); // '@'
         } else if (sameRegionType(XQueryRegions.PATH_ABBREVPARENT)) {
-            nextSDRegion(); // '..' 
+            nextSDRegion(); // '..'
             parseNodeTest = false;
         } else if (sameRegionType(axisFilter)) {
-            nextSDRegion(); // Axis name 
+            nextSDRegion(); // Axis name
         }
 
         if (parseNodeTest) {
@@ -1837,9 +1834,9 @@ public class ModelBuilder {
 
     /**
      * Reparse
-     * <tt>DocumentTest | ElementTest | AttributeTest | SchemaElementTest | SchemaAttributeTest 
+     * <tt>DocumentTest | ElementTest | AttributeTest | SchemaElementTest | SchemaAttributeTest
      *                  | PITest | CommentTest | TextTest | AnyKindTest</tt>
-     * 
+     *
      * @return a kind test AST node or null if the current sdregion is not a kind test.
      */
     protected IASTNode reparseKindTest(IASTNode node) {
@@ -1967,7 +1964,7 @@ public class ModelBuilder {
      * Reparse <tt>"<?" PITarget (S DirPIContents)? "?>"</tt>
      */
     protected IASTNode reparseDirPIConstructor(IASTNode expr) {
-        // TODO: 
+        // TODO:
 
         nextSDRegion(); // only one region for the PI
         return nodeFactory.newDirPI();
@@ -2217,7 +2214,7 @@ public class ModelBuilder {
                 }
 
                 if (!checkAndReport(XQueryRegions.COMMA, XQueryMessages.errorXQSE_MissingCommaOrRPar_UI_)) {
-                    break; // Interrupt function parsing. 
+                    break; // Interrupt function parsing.
                 }
 
                 // This is a comma
@@ -2312,7 +2309,7 @@ public class ModelBuilder {
 
             nextSDRegion(); // [
 
-            reparseExpr(null); // TODO: reuse 
+            reparseExpr(null); // TODO: reuse
 
             if (!checkAndReport(XQueryRegions.RSQUARE, XQueryMessages.errorXQSE_MissingRSquare_UI_)) {
                 // Abort parsing
@@ -2755,7 +2752,7 @@ public class ModelBuilder {
 
     /**
      * Move to the next structured document region. Ignore whitespaces
-     * 
+     *
      * @return true if move successfully to a non-null region.
      */
     protected boolean nextSDRegion() {
@@ -2778,7 +2775,7 @@ public class ModelBuilder {
 
     /**
      * Check the current region (ignoring white spaces) is of a given type. If not report problem
-     * 
+     *
      * @return true if current region of the given type, otherwise false.
      */
     protected boolean checkAndReport(String type, String text) {
@@ -2806,7 +2803,7 @@ public class ModelBuilder {
 
     /**
      * Report problem. Attach problem to current sd region or previous one, whichever is non-null
-     * 
+     *
      * @return true if current region of the given type, otherwise false.
      */
     protected void reportError(String text) {
@@ -2824,7 +2821,7 @@ public class ModelBuilder {
 
     /**
      * Gets AST operator of the given type
-     * 
+     *
      * @param expr
      * @return
      */
@@ -2839,7 +2836,7 @@ public class ModelBuilder {
 
     /**
      * Gets first operator operand, only if the given expression matches the operator type
-     * 
+     *
      * @param expr
      * @param sequence
      * @return
@@ -2856,7 +2853,7 @@ public class ModelBuilder {
 
     /**
      * Gets first operator operand
-     * 
+     *
      * @param expr
      * @param sequence
      * @return
@@ -2873,7 +2870,7 @@ public class ModelBuilder {
 
     /**
      * Get the operator type corresponding to the current region type.
-     * 
+     *
      * @return
      */
     protected int getOperatorType() {
@@ -2895,7 +2892,7 @@ public class ModelBuilder {
 
     /**
      * Gets the ith text region in the current structured document region, ignoring XQuery comments.
-     * 
+     *
      * @param i
      * @return
      */

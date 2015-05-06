@@ -50,7 +50,7 @@ public class XQDTToggleBreakpointAdapter extends ScriptToggleBreakpointAdapter {
         if (documentProvider == null) {
             return;
         }
-        IDocument document = documentProvider.getDocument(editor.getEditorInput());
+//        IDocument document = documentProvider.getDocument(editor.getEditorInput());
 
         int line = BREAKPOINT_LINE_NOT_FOUND;
         if (selection instanceof ITextSelection) {

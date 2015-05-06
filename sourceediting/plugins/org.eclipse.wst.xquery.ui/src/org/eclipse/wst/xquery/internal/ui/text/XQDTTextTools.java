@@ -12,7 +12,6 @@ package org.eclipse.wst.xquery.internal.ui.text;
 
 import org.eclipse.dltk.ui.editor.highlighting.ISemanticHighlightingUpdater;
 import org.eclipse.dltk.ui.editor.highlighting.SemanticHighlighting;
-import org.eclipse.dltk.ui.text.IColorManager;
 import org.eclipse.dltk.ui.text.ScriptSourceViewerConfiguration;
 import org.eclipse.dltk.ui.text.ScriptTextTools;
 import org.eclipse.jface.preference.IPreferenceStore;
@@ -28,8 +27,6 @@ public class XQDTTextTools extends ScriptTextTools {
     public static final boolean USE_SEMANTIC_HL = true;
 
     private IPartitionTokenScanner fPartitionScanner;
-
-    private IColorManager fColorManager;
 
     public XQDTTextTools(boolean autoDisposeOnDisplayDispose) {
         super(IXQDTPartitions.XQDT_PARTITIONING, IXQDTPartitions.XQDT_LEGAL_PARTITION_TYPES,

@@ -32,14 +32,17 @@
 		<module>../../features/org.eclipse.wst.xquery.marklogic.feature</module>
 
 		<!-- Zorba Support -->
+		<!-- 
 		<module>../../plugins/org.eclipse.wst.xquery.zorba</module>
 		<module>../../plugins/org.eclipse.wst.xquery.launching.zorba</module>
 		<module>../../plugins/org.eclipse.wst.xquery.debug.debugger.zorba</module>
 		<module>../../plugins/org.eclipse.wst.xquery.debug.ui.zorba</module>
 		<module>../../plugins/org.eclipse.wst.xquery.ui.zorba</module>
 		<module>../../features/org.eclipse.wst.xquery.zorba.feature</module>
+		-->
 
 		<!-- Set Support -->
+		<!-- 
 		<module>../../plugins/org.eclipse.wst.xquery.set</module>
 		<module>../../plugins/org.eclipse.wst.xquery.set.core</module>
 		<module>../../plugins/org.eclipse.wst.xquery.set.debug.core</module>
@@ -48,6 +51,7 @@
 		<module>../../plugins/org.eclipse.wst.xquery.set.launching</module>
 		<module>../../plugins/org.eclipse.wst.xquery.set.ui</module>
 		<module>../../features/org.eclipse.wst.xquery.set.feature</module>
+		-->
 
 		<!-- SSE Support -->
 		<module>../../plugins/org.eclipse.wst.xquery.sse.core</module>

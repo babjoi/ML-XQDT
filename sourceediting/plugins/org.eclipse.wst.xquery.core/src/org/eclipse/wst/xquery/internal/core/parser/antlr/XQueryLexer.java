@@ -1,4 +1,4 @@
-// $ANTLR 3.5.2 XQueryLexer.g 2015-03-12 16:18:01
+// $ANTLR 3.5.2 XQueryLexer.g 2015-09-30 10:26:33
 
 /*******************************************************************************
  * Copyright (c) 2008, 2009 28msec Inc. and others.
@@ -8650,7 +8650,7 @@ public class XQueryLexer extends XQDTLexer {
 		"\4\uffff\1\117\1\uffff\1\22\10\uffff\1\2\7\uffff\1\116\1\146\1\uffff\1"+
 		"\45\1\uffff\1\161\1\110\1\uffff\1\26\1\152\4\uffff\1\112";
 	static final String DFA19_specialS =
-		"\1\2\31\uffff\1\0\u01e7\uffff\1\1\u02df\uffff}>";
+		"\1\0\31\uffff\1\2\u01e7\uffff\1\1\u02df\uffff}>";
 	static final String[] DFA19_transitionS = {
 			"\11\67\2\65\2\67\1\65\22\67\1\65\1\43\1\63\1\45\1\34\1\44\1\46\1\62\1"+
 			"\32\1\33\1\51\1\52\1\47\1\53\1\57\1\56\12\66\1\42\1\60\1\54\1\41\1\55"+
@@ -9972,28 +9972,6 @@ public class XQueryLexer extends XQDTLexer {
 			int _s = s;
 			switch ( s ) {
 					case 0 : 
-						int LA19_26 = input.LA(1);
-						 
-						int index19_26 = input.index();
-						input.rewind();
-						s = -1;
-						if ( (LA19_26=='#') ) {s = 146;}
-						else if ( (LA19_26==':') && ((!inStr))) {s = 147;}
-						else s = 148;
-						 
-						input.seek(index19_26);
-						if ( s>=0 ) return s;
-						break;
-
-					case 1 : 
-						int LA19_514 = input.LA(1);
-						s = -1;
-						if ( ((LA19_514 >= '\u0000' && LA19_514 <= '\uFFFF')) ) {s = 671;}
-						else s = 670;
-						if ( s>=0 ) return s;
-						break;
-
-					case 2 : 
 						int LA19_0 = input.LA(1);
 						s = -1;
 						if ( (LA19_0=='a') ) {s = 1;}
@@ -10051,6 +10029,28 @@ public class XQueryLexer extends XQDTLexer {
 						else if ( ((LA19_0 >= '\t' && LA19_0 <= '\n')||LA19_0=='\r'||LA19_0==' ') ) {s = 53;}
 						else if ( ((LA19_0 >= '0' && LA19_0 <= '9')) ) {s = 54;}
 						else if ( ((LA19_0 >= '\u0000' && LA19_0 <= '\b')||(LA19_0 >= '\u000B' && LA19_0 <= '\f')||(LA19_0 >= '\u000E' && LA19_0 <= '\u001F')||LA19_0=='\\'||LA19_0=='^'||LA19_0=='`'||(LA19_0 >= '~' && LA19_0 <= '\uFFFF')) ) {s = 55;}
+						if ( s>=0 ) return s;
+						break;
+
+					case 1 : 
+						int LA19_514 = input.LA(1);
+						s = -1;
+						if ( ((LA19_514 >= '\u0000' && LA19_514 <= '\uFFFF')) ) {s = 671;}
+						else s = 670;
+						if ( s>=0 ) return s;
+						break;
+
+					case 2 : 
+						int LA19_26 = input.LA(1);
+						 
+						int index19_26 = input.index();
+						input.rewind();
+						s = -1;
+						if ( (LA19_26=='#') ) {s = 146;}
+						else if ( (LA19_26==':') && ((!inStr))) {s = 147;}
+						else s = 148;
+						 
+						input.seek(index19_26);
 						if ( s>=0 ) return s;
 						break;
 			}

@@ -136,7 +136,7 @@ p_Module
 
 //[2]
 p_VersionDecl
-        : k=XQUERY {ak($k);} ((k=ENCODING {ak($k);} enc=p_StringLiteral) | 
+        : k=XQUERY {ak($k);} ((k=ENCODING {ak($k);} enc=p_StringLiteral) |
         			 (k=VERSION {ak($k);} ver=p_StringLiteral {setLanguageVersion(((XQDTCommonTree)ver.getTree()).getChild(0).getText());} (k=ENCODING {ak($k);} enc=p_StringLiteral)?)) SEMICOLON
                 -> ^(VersionDecl ^(VersionDeclVersion $ver?) ^(VersionDeclEncoding $enc?))
         ;
@@ -202,7 +202,7 @@ p_Setter
         ;
 
 //[9]
-pm_BoundarySpaceDecl    
+pm_BoundarySpaceDecl
         : k=DECLARE {ak($k);} k=BOUNDARY_SPACE {ak($k);} ( (k=PRESERVE {ak($k);}) | (k=STRIP {ak($k);}) ) SEMICOLON
         ;
 
@@ -210,7 +210,7 @@ pm_BoundarySpaceDecl
 pm_DefaultCollationDecl
         : k=DECLARE {ak($k);} k=DEFAULT {ak($k);} k=COLLATION {ak($k);} p_StringLiteral SEMICOLON
         ;
-        
+
 //[11]
 pm_BaseURIDecl
         : k=DECLARE {ak($k);} k=BASE_URI {ak($k);} sl=p_StringLiteral SEMICOLON
@@ -246,7 +246,7 @@ p_PreserveMode
 p_InheritMode
         : (k+=INHERIT | k+=NO_INHERIT) {ak($k);}
         ;
-        
+
 //[18]
 pm_DecimalFormatDecl
         : k=DECLARE {ak($k);} ((k=DECIMAL_FORMAT {ak($k);} p_QName) | (k=DEFAULT {ak($k);} k=DECIMAL_FORMAT {ak($k);})) (p_DFPropertyName EQUAL p_StringLiteral)* SEMICOLON
@@ -261,7 +261,7 @@ p_DFPropertyName
 p_Import
         : pm_SchemaImport | pm_ModuleImport
         ;
-        
+
 //[21]
 pm_SchemaImport
         : k=IMPORT {ak($k);} k=SCHEMA {ak($k);} sp=p_SchemaPrefix? us=p_StringLiteral (k=AT {ak($k);} ah+=p_StringLiteral (COMMA ah+=p_StringLiteral)*)? SEMICOLON
@@ -269,7 +269,7 @@ pm_SchemaImport
         ;
 
 //[22]
-p_SchemaPrefix 
+p_SchemaPrefix
         : k=NAMESPACE {ak($k);} nn=p_NCName EQUAL
                 -> ^(NamespaceName $nn)
         | k=DEFAULT {ak($k);} k=ELEMENT {ak($k);} k=NAMESPACE {ak($k);}
@@ -284,7 +284,7 @@ pm_ModuleImport
 
 //[24]
 pm_NamespaceDecl
-        : k=DECLARE {ak($k);} k=NAMESPACE {ak($k);} nn=p_NCName EQUAL us=p_StringLiteral SEMICOLON 
+        : k=DECLARE {ak($k);} k=NAMESPACE {ak($k);} nn=p_NCName EQUAL us=p_StringLiteral SEMICOLON
                 -> ^(NamespaceDecl $nn $us)
         ;
 
@@ -333,8 +333,9 @@ pm_ContextItemDecl
 
 //[32]
 //[32] new XQuery Scripting proposal
+// ({lc(XQU)}?=> k=UPDATING {ak($k);})?
 pm_FunctionDecl
-        : ({lc(XQU)}?=> k=UPDATING {ak($k);})? k=FUNCTION {ak($k);} k=PRIVATE? qn=pg_FQName LPAREN pl=p_ParamList? RPAREN (k=AS {ak($k);} st=p_SequenceType)? (LBRACKET soe=p_StatementsAndOptionalExpr RBRACKET | k=EXTERNAL {ak($k);} )
+        :  ({lc(XQU)}?=> k=UPDATING {ak($k);})? (k=PRIVATE {ak($k);})? k=FUNCTION {ak($k);} qn=pg_FQName LPAREN pl=p_ParamList? RPAREN (k=AS {ak($k);} st=p_SequenceType)? (LBRACKET soe=p_StatementsAndOptionalExpr RBRACKET | k=EXTERNAL {ak($k);} )
                 -> ^(FunctionDecl $qn ^(ParamList $pl?) ^(ReturnType $st?) $soe?)
         ;
 
@@ -343,7 +344,7 @@ p_ParamList
         : p+=p_Param (COMMA p+=p_Param)*
                 -> $p+
         ;
-        
+
 //[34]
 p_Param
         : DOLLAR qn=p_QName td=p_TypeDeclaration?
@@ -459,7 +460,7 @@ p_LetBinding
 p_WindowClause
         : k=FOR {ak($k);} (p_TumblingWindowClause | p_SlidingWindowClause)
         ;
-        
+
 //[51]
 p_TumblingWindowClause
         : k=TUMBLING {ak($k);} k=WINDOW {ak($k);} DOLLAR p_VarName p_TypeDeclaration? k=IN {ak($k);} p_ExprSingle[true] p_WindowStartCondition p_WindowEndCondition?
@@ -504,7 +505,7 @@ p_NextItem
 p_CountClause
         : k=COUNT {ak($k);} DOLLAR p_VarName
         ;
-        
+
 //[60]
 p_WhereClause
         : k=WHERE {ak($k);} p_ExprSingle[true]
@@ -670,12 +671,12 @@ p_InstanceofExpr
 p_TreatExpr
         : p_CastableExpr ( k=TREAT {ak($k);} k=AS {ak($k);} p_SequenceType )?
         ;
-        
+
 //[92]
 p_CastableExpr
         : p_CastExpr ( k=CASTABLE {ak($k);} k=AS {ak($k);} p_SingleType )?
         ;
-        
+
 //[93]
 p_CastExpr
         : p_UnaryExpr ( k=CAST {ak($k);} k=AS {ak($k);} p_SingleType )?
@@ -741,7 +742,7 @@ p_PathExpr
         ;
 
 //[105]
-p_RelativePathExpr  
+p_RelativePathExpr
         : p_StepExpr ((SLASH | SLASH_SLASH) p_StepExpr)*
         ;
 
@@ -753,7 +754,7 @@ p_StepExpr
             ((NAMESPACE | PROCESSING_INSTRUCTION) p_NCName? LBRACKET) |
             ((DOCUMENT | TEXT | COMMENT) LBRACKET)
           ) => p_PostfixExpr
-        | (p_KindTest) => p_AxisStep 
+        | (p_KindTest) => p_AxisStep
         | (p_QName LPAREN) => p_PostfixExpr
         | (p_PrimaryExpr) => p_PostfixExpr
         | p_AxisStep
@@ -813,7 +814,7 @@ p_NodeTest
 
 //[115]
 p_NameTest
-        : (p_Wildcard) => p_Wildcard 
+        : (p_Wildcard) => p_Wildcard
         | (p_NCName COLON) => p_QName
         | (p_NCName) => p_QName
         ;
@@ -874,7 +875,7 @@ p_Literal
 p_NumericLiteral
         : L_IntegerLiteral | L_DecimalLiteral | L_DoubleLiteral
         ;
-        
+
 //[124]
 p_VarRef
         : DOLLAR p_VarName
@@ -937,7 +938,7 @@ p_DirectConstructor
 //[135] /* ws: explicit */ - resolved through the XMLLexer
 p_DirElemConstructor //@init {setWsExplicit(true);}
         : SMALLER {pushXMLLexer();}
-          p_QName p_DirAttributeList 
+          p_QName p_DirAttributeList
           (EMPTY_CLOSE_TAG | (GREATER pm_DirElemContent* CLOSE_TAG p_QName S? GREATER))
                 -> ^(DirElemConstructor ^(DirAttributeList p_DirAttributeList*) ^(DirElemContent pm_DirElemContent*))
         ;
@@ -1000,7 +1001,7 @@ pg_EnclosedExprXml
 //[142] /* ws: explicit */
 p_DirCommentConstructor
         : L_DirCommentConstructor
-        ;   
+        ;
 
 //[143] /* ws: explicit */
 //L_DirCommentContents
@@ -1008,7 +1009,7 @@ p_DirCommentConstructor
 //[144] /* ws: explicit */
 p_DirPIConstructor
         : L_DirPIConstructor
-        ;    
+        ;
 
 //[145] /* ws: explicit */
 //L_DirPIContents
@@ -1022,7 +1023,7 @@ p_CDataSection
 //L_CDataSectionContents
 
 //[148]
-p_ComputedConstructor   
+p_ComputedConstructor
         : pm_CompDocConstructor
         | pm_CompElemConstructor
         | pm_CompAttrConstructor
@@ -1038,7 +1039,7 @@ p_ComputedConstructor
 pm_CompDocConstructor
         : k=DOCUMENT {ak($k);} LBRACKET p_StatementsAndOptionalExpr RBRACKET
         ;
-        
+
 //[150]
 pm_CompElemConstructor
         : k=ELEMENT {ak($k);} (p_QName | (LBRACKET p_Expr[true,true] RBRACKET)) LBRACKET pm_ContentExpr RBRACKET
@@ -1136,10 +1137,10 @@ p_SequenceType
         ;
 
 //[166] /* xgs: occurrence-indicators */ - resolved in the p_SequenceType production
-p_OccurrenceIndicator   
+p_OccurrenceIndicator
         : QUESTION | STAR | PLUS
         ;
-        
+
 //[167]
 p_ItemType
         : p_KindTest
@@ -1211,7 +1212,7 @@ p_AttributeTest
         ;
 
 //[177]
-p_AttribNameOrWildcard  
+p_AttribNameOrWildcard
         : p_AttributeName | STAR
         ;
 
@@ -1266,12 +1267,12 @@ p_FunctionTest
 
 //[188]
 p_AnyFunctionTest
-        : FUNCTION PRIVATE? LPAREN STAR RPAREN
+        : FUNCTION LPAREN STAR RPAREN
         ;
 
 //[189]
 p_TypedFunctionTest
-        : FUNCTION PRIVATE? LPAREN (p_SequenceType (COMMA p_SequenceType)*)? RPAREN AS p_SequenceType
+        : FUNCTION LPAREN (p_SequenceType (COMMA p_SequenceType)*)? RPAREN AS p_SequenceType
         ;
 
 //[190]
@@ -1358,7 +1359,7 @@ p_AposAttrContentChar
 //[204] /* ws: explicit */
 //      /* gn: comments */
 //L_Comment
-        
+
 //TODO
 //[205] /* xgs: xml-version */
 //PITarget ::= [http://www.w3.org/TR/REC-xml#NT-PITarget]
@@ -1369,7 +1370,7 @@ p_AposAttrContentChar
 
 
 //[207] /* xgc: xml-version */
-p_QName 
+p_QName
         @init {setWsExplicit(true);}
         : pg_QName
         | p_NCName
@@ -1528,7 +1529,7 @@ p_NewNameExpr
 
 //[150]
 p_TransformExpr
-        : k+=COPY DOLLAR p_VarName BIND p_ExprSingle[true] (COMMA DOLLAR p_VarName BIND p_ExprSingle[true])* k+=MODIFY p_ExprSingle[true] k+=RETURN p_ExprSingle[true] {ak($k);} 
+        : k+=COPY DOLLAR p_VarName BIND p_ExprSingle[true] (COMMA DOLLAR p_VarName BIND p_ExprSingle[true])* k+=MODIFY p_ExprSingle[true] k+=RETURN p_ExprSingle[true] {ak($k);}
         ;
 
 
@@ -1879,7 +1880,7 @@ p_ExitStatement
 //[12]
 p_FLWORStatement
         : p_InitialClause p_IntermediateClause* p_ReturnStatement
-        ;    
+        ;
 
 //[13]
 p_ReturnStatement

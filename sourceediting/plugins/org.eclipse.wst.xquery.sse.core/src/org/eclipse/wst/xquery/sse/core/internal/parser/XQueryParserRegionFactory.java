@@ -6,8 +6,8 @@
  * http://www.eclipse.org/legal/epl-v10.html
  *
  * Contributors:
- *     IBM Corporation - initial API and implementation 
- *     
+ *     IBM Corporation - initial API and implementation
+ *
  *******************************************************************************/
 package org.eclipse.wst.xquery.sse.core.internal.parser;
 
@@ -20,7 +20,7 @@ import org.eclipse.wst.xquery.sse.core.internal.regions.XQueryRegions;
 
 /**
  * Factory for XQuery regions
- * 
+ *
  * @author <a href="villard@us.ibm.com">Lionel Villard</a>
  */
 public class XQueryParserRegionFactory {
@@ -100,6 +100,9 @@ public class XQueryParserRegionFactory {
         XQUERY10_KEYWORDS.add(XQueryRegions.KW_TEXT);
         XQUERY10_KEYWORDS.add(XQueryRegions.KW_DOCUMENT);
         XQUERY10_KEYWORDS.add(XQueryRegions.KW_DEFAULTFUNCTION);
+
+        // Include MarkLogic Keywords
+        XQUERY10_KEYWORDS.add(XQueryRegions.KW_PRIVATE);
 
         // Include operators which are not symbols
         XQUERY10_KEYWORDS.add(XQueryRegions.OP_TO);

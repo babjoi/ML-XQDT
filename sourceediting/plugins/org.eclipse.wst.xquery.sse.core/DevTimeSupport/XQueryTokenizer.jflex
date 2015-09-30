@@ -1598,9 +1598,10 @@ SimpleName      = ({Letter} | "_" ) ({SimpleNameChar})*
 // FunctionDecl	   ::=   	("declare" ("simple"? | "updating") "function" QName "(" ParamList? ")" ("as" SequenceType)? (EnclosedExpr | "external"))
 //                        | ("declare" "sequential" "function" QName "(" ParamList? ")" ("as" SequenceType)? (Block | "external"))
 
-<YYINITIAL, TS_LIBRARYORMAIN, TS_PROLOG1, TS_PROLOG2> "declare" / {S}+("function"|"updating"|"sequential"|"simple") {    yybegin(TS_DECLFUNCTION); return KW_DECLARE; }
+<YYINITIAL, TS_LIBRARYORMAIN, TS_PROLOG1, TS_PROLOG2> "declare" / {S}+("private"|"function"|"updating"|"sequential"|"simple") {    yybegin(TS_DECLFUNCTION); return KW_DECLARE; }
 
 <TS_DECLFUNCTION> 	{
+  "private"                 { yybegin(TS_FUNCTIONKW); return KW_PRIVATE; }
   "updating"				{ yybegin(TS_FUNCTIONKW); return KW_UPDATING; }
   "simple"					{ yybegin(TS_FUNCTIONKW); return KW_SIMPLE; }
   "sequential"				{ yybegin(TS_FUNCTIONKW); return KW_SEQUENTIAL; }

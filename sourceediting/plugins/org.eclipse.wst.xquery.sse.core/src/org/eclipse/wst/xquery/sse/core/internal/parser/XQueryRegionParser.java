@@ -39,15 +39,15 @@ import org.eclipse.wst.xquery.sse.core.internal.sdregions.XQueryStructuredDocume
 
 /**
  * Parser for XQuery files.
- * 
+ *
  * <p>
  * Creates an ordered list of {@link IStructuredDocumentRegion structured regions}.
  * </p>
  * <p>
  * Namespace prefixes are resolved at this level.
  * </p>
- * 
- * 
+ *
+ *
  * @author <a href="villard@us.ibm.com">Lionel Villard</a>
  */
 public class XQueryRegionParser implements StructuredDocumentRegionParser, XQueryRegions {
@@ -143,7 +143,7 @@ public class XQueryRegionParser implements StructuredDocumentRegionParser, XQuer
     /** Regions belonging to an existing group */
     final protected static Map<String, String[]> IN_GROUP = new HashMap<String, String[]>();
     {
-        // NOTE: regions need to be alphabetically sorted 
+        // NOTE: regions need to be alphabetically sorted
 
         IN_GROUP.put(XQueryRegions.DOLLAR, new String[] { XQueryRegions.VARREF });
         IN_GROUP.put(XQueryRegions.FUNCTIONNAME, new String[] { XQueryRegions.LPAR });
@@ -219,8 +219,8 @@ public class XQueryRegionParser implements StructuredDocumentRegionParser, XQuer
         // Group  document-node "(" (ElementTest | SchemaElementTest)? ")" OccurrenceIndicator?
         IN_GROUP.put(XQueryRegions.KT_DOCUMENTNODE,
                 new String[] { XQueryRegions.KT_COMMA, XQueryRegions.KT_QNAME, XQueryRegions.KT_ELEMENT,
-                        XQueryRegions.KT_SCHEMAELEMENT, XQueryRegions.OCC_ONEORMORE, XQueryRegions.OCC_OPTIONAL,
-                        XQueryRegions.OCC_ZEROORMORE, XQueryRegions.ST_LPAR, XQueryRegions.ST_RPAR });
+                XQueryRegions.KT_SCHEMAELEMENT, XQueryRegions.OCC_ONEORMORE, XQueryRegions.OCC_OPTIONAL,
+                XQueryRegions.OCC_ZEROORMORE, XQueryRegions.ST_LPAR, XQueryRegions.ST_RPAR });
 
         // Group "element" "(" (ElementNameOrWildcard ("," TypeName "?"?)?)? ")" OccurrenceIndicator?
         IN_GROUP.put(XQueryRegions.KT_ELEMENT, new String[] { XQueryRegions.KT_COMMA, XQueryRegions.KT_QNAME,
@@ -391,9 +391,9 @@ public class XQueryRegionParser implements StructuredDocumentRegionParser, XQuer
 
     /**
      * Gets region based on statement context
-     * 
+     *
      * @param region
-     * 
+     *
      * @return
      */
     private XQueryStructuredDocumentRegion getStructuredDocumentRegion(ITextRegion region) {
@@ -411,7 +411,7 @@ public class XQueryRegionParser implements StructuredDocumentRegionParser, XQuer
     }
 
     /**
-     * 
+     *
      * @param region
      * @return
      */
@@ -461,7 +461,8 @@ public class XQueryRegionParser implements StructuredDocumentRegionParser, XQuer
             // Exception: variable and function declaration
             // Note: The separator itself is not included in the group of regions.
 
-            if (currentType == XQueryRegions.KW_DECLARE || currentType == XQueryRegions.KW_IMPORT) {
+            if (currentType == XQueryRegions.KW_DECLARE || currentType == XQueryRegions.KW_IMPORT
+                    || currentType == XQueryRegions.KW_PRIVATE) {
                 if (interruptGroup || region.getType() == XQueryRegions.SEPARATOR) {
                     return false;
                 }
@@ -481,7 +482,7 @@ public class XQueryRegionParser implements StructuredDocumentRegionParser, XQuer
 
     /**
      * Gets the XQuery tokenizer. Allow other plugins to provide an alternative tokenizer.
-     * 
+     *
      * @return
      */
     protected ITokenizer getContributionTokenizer() {

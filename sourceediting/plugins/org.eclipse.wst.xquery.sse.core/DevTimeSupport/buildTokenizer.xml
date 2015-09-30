@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project name="tokenizer" default="XQueryTokenizer">
 
-    <!-- Note: for Eclipse env., the JFlex 1.4 jar should be added 
+    <!-- Note: for Eclipse env., the JFlex 1.6* jar should be added 
     to the ant global entries  -->
-    <taskdef classname="JFlex.anttask.JFlexTask" name="jflex" />
+    <taskdef classname="jflex.anttask.JFlexTask" name="jflex" />
 
     <target name="init">
         <property name="src.file" value="XQueryTokenizer.jflex"/>            

@@ -14,7 +14,7 @@ import org.eclipse.wst.xml.core.internal.regions.DOMRegionContext;
 
 /**
  * Enumeration of XQuery regions
- * 
+ *
  * @author <a href="mailto:villard@us.ibm.com">Lionel Villard</a>
  */
 public interface XQueryRegions extends DOMRegionContext {
@@ -43,8 +43,8 @@ public interface XQueryRegions extends DOMRegionContext {
     public static final String PRAGMACONTENT = "PRAGMACONTENT"; //$NON-NLS-1$
     public static final String PRAGMAQNAME = "PRAGMAQNAME"; //$NON-NLS-1$
 
-    public static final String FUNCTIONNAME = "FUNCTIONNAME"; //$NON-NLS-1$ 
-    public static final String NUMERICLITERAL = "NUMERICLITERAL"; //$NON-NLS-1$ 
+    public static final String FUNCTIONNAME = "FUNCTIONNAME"; //$NON-NLS-1$
+    public static final String NUMERICLITERAL = "NUMERICLITERAL"; //$NON-NLS-1$
 
     public static final String KW_NAMESPACE = "KW_NAMESPACE"; //$NON-NLS-1$
     public static final String KW_STRIP = "KW_STRIP"; //$NON-NLS-1$
@@ -53,7 +53,7 @@ public interface XQueryRegions extends DOMRegionContext {
     public static final String KW_ORDER = "KW_ORDER"; //$NON-NLS-1$
     public static final String KW_ELEMENT = "KW_ELEMENT"; //$NON-NLS-1$
     public static final String KW_XQUERY = "KW_XQUERY"; //$NON-NLS-1$
-    public static final String KW_DECLARE = "KW_DECLARE"; //$NON-NLS-1$ 
+    public static final String KW_DECLARE = "KW_DECLARE"; //$NON-NLS-1$
     public static final String KW_EMPTY = "KW_EMPTY"; //$NON-NLS-1$
     public static final String KW_FUNCTION = "KW_FUNCTION"; //$NON-NLS-1$
     public static final String KW_DEFAULTFUNCTION = "KW_DEFAULTFUNCTION"; //$NON-NLS-1$
@@ -69,8 +69,8 @@ public interface XQueryRegions extends DOMRegionContext {
     public static final String KW_BOUNDARY_SPACE = "KW_BOUNDARY_SPACE"; //$NON-NLS-1$
     public static final String KW_LET = "KW_LET"; //$NON-NLS-1$
     public static final String KW_RETURN = "KW_RETURN"; //$NON-NLS-1$
-    public static final String KW_SCHEMA = "KW_SCHEMA"; //$NON-NLS-1$ 
-    public static final String KW_AT = "KW_AT"; //$NON-NLS-1$  
+    public static final String KW_SCHEMA = "KW_SCHEMA"; //$NON-NLS-1$
+    public static final String KW_AT = "KW_AT"; //$NON-NLS-1$
     public static final String KW_NOPRESERVE = "KW_NOPRESERVE"; //$NON-NLS-1$
     public static final String KW_IMPORT = "KW_IMPORT"; //$NON-NLS-1$
     public static final String KW_COPYNAMESPACES = "KW_COPYNAMESPACES"; //$NON-NLS-1$
@@ -82,9 +82,9 @@ public interface XQueryRegions extends DOMRegionContext {
     public static final String KW_AS = "KW_AS"; //$NON-NLS-1$
     public static final String KW_EXTERNAL = "KW_EXTERNAL"; //$NON-NLS-1$
     public static final String KW_CONSTRUCTION = "KW_CONSTRUCTION"; //$NON-NLS-1$
-    public static final String KW_IN = "KW_IN"; //$NON-NLS-1$ 
-    public static final String KW_FOR = "KW_FOR"; //$NON-NLS-1$ 
-    public static final String KW_STABLE = "KW_STABLE"; //$NON-NLS-1$ 
+    public static final String KW_IN = "KW_IN"; //$NON-NLS-1$
+    public static final String KW_FOR = "KW_FOR"; //$NON-NLS-1$
+    public static final String KW_STABLE = "KW_STABLE"; //$NON-NLS-1$
     public static final String KW_DESCENDING = "KW_DESCENDING"; //$NON-NLS-1$
     public static final String KW_ASCENDING = "KW_ASCENDING"; //$NON-NLS-1$
     public static final String KW_BY = "KW_BY"; //$NON-NLS-1$
@@ -97,38 +97,38 @@ public interface XQueryRegions extends DOMRegionContext {
     public static final String KW_THEN = "KW_THEN"; //$NON-NLS-1$
     public static final String KW_ELSE = "KW_ELSE"; //$NON-NLS-1$
     public static final String KW_TYPESWITCH = "KW_TYPESWITCH"; //$NON-NLS-1$
-    public static final String KW_CASE = "KW_CASE"; //$NON-NLS-1$ 
-    public static final String KW_VALIDATE = "KW_VALIDATE"; //$NON-NLS-1$ 
-    public static final String KW_LAX = "KW_LAX"; //$NON-NLS-1$ 
-    public static final String KW_STRICT = "KW_STRICT"; //$NON-NLS-1$ 
-    public static final String KW_PI = "KW_PI"; //$NON-NLS-1$ 
-    public static final String KW_DOCUMENT = "KW_DOCUMENT"; //$NON-NLS-1$ 
-    public static final String KW_ATTRIBUTE = "KW_ATTRIBUTE"; //$NON-NLS-1$ 
-    public static final String KW_COMMENT = "KW_COMMENT"; //$NON-NLS-1$ 
-    public static final String KW_TEXT = "KW_TEXT"; //$NON-NLS-1$ 
+    public static final String KW_CASE = "KW_CASE"; //$NON-NLS-1$
+    public static final String KW_VALIDATE = "KW_VALIDATE"; //$NON-NLS-1$
+    public static final String KW_LAX = "KW_LAX"; //$NON-NLS-1$
+    public static final String KW_STRICT = "KW_STRICT"; //$NON-NLS-1$
+    public static final String KW_PI = "KW_PI"; //$NON-NLS-1$
+    public static final String KW_DOCUMENT = "KW_DOCUMENT"; //$NON-NLS-1$
+    public static final String KW_ATTRIBUTE = "KW_ATTRIBUTE"; //$NON-NLS-1$
+    public static final String KW_COMMENT = "KW_COMMENT"; //$NON-NLS-1$
+    public static final String KW_TEXT = "KW_TEXT"; //$NON-NLS-1$
 
-    public static final String OP_CASTAS = "OP_CASTAS"; //$NON-NLS-1$ 
-    public static final String OP_OR = "OP_OR"; //$NON-NLS-1$ 
-    public static final String OP_IDIV = "OP_IDIV"; //$NON-NLS-1$ 
-    public static final String OP_DIV = "OP_DIV"; //$NON-NLS-1$ 
-    public static final String OP_PLUS = "OP_PLUS"; //$NON-NLS-1$ 
-    public static final String OP_MINUS = "OP_MINUS"; //$NON-NLS-1$ 
-    public static final String OP_MULTIPLY = "OP_MULTIPLY"; //$NON-NLS-1$ 
-    public static final String OP_GLT = "OP_GLT"; //$NON-NLS-1$ 
-    public static final String OP_GLTE = "OP_GLTE"; //$NON-NLS-1$ 
-    public static final String OP_GGT = "OP_GGT"; //$NON-NLS-1$ 
-    public static final String OP_GGTE = "OP_GGTE"; //$NON-NLS-1$ 
-    public static final String OP_GEQ = "OP_GEQ"; //$NON-NLS-1$ 
-    public static final String OP_GNEQ = "OP_GNEQ"; //$NON-NLS-1$ 
-    public static final String OP_LT = "OP_LT"; //$NON-NLS-1$ 
-    public static final String OP_LTE = "OP_LTE"; //$NON-NLS-1$ 
-    public static final String OP_GT = "OP_GT"; //$NON-NLS-1$ 
-    public static final String OP_GTE = "OP_GTE"; //$NON-NLS-1$ 
-    public static final String OP_EQ = "OP_EQ"; //$NON-NLS-1$ 
-    public static final String OP_NEQ = "OP_NEQ"; //$NON-NLS-1$ 
-    public static final String OP_IS = "OP_IS"; //$NON-NLS-1$ 
-    public static final String OP_BEFORE = "OP_BEFORE"; //$NON-NLS-1$ 
-    public static final String OP_AFTER = "OP_AFTER"; //$NON-NLS-1$ 
+    public static final String OP_CASTAS = "OP_CASTAS"; //$NON-NLS-1$
+    public static final String OP_OR = "OP_OR"; //$NON-NLS-1$
+    public static final String OP_IDIV = "OP_IDIV"; //$NON-NLS-1$
+    public static final String OP_DIV = "OP_DIV"; //$NON-NLS-1$
+    public static final String OP_PLUS = "OP_PLUS"; //$NON-NLS-1$
+    public static final String OP_MINUS = "OP_MINUS"; //$NON-NLS-1$
+    public static final String OP_MULTIPLY = "OP_MULTIPLY"; //$NON-NLS-1$
+    public static final String OP_GLT = "OP_GLT"; //$NON-NLS-1$
+    public static final String OP_GLTE = "OP_GLTE"; //$NON-NLS-1$
+    public static final String OP_GGT = "OP_GGT"; //$NON-NLS-1$
+    public static final String OP_GGTE = "OP_GGTE"; //$NON-NLS-1$
+    public static final String OP_GEQ = "OP_GEQ"; //$NON-NLS-1$
+    public static final String OP_GNEQ = "OP_GNEQ"; //$NON-NLS-1$
+    public static final String OP_LT = "OP_LT"; //$NON-NLS-1$
+    public static final String OP_LTE = "OP_LTE"; //$NON-NLS-1$
+    public static final String OP_GT = "OP_GT"; //$NON-NLS-1$
+    public static final String OP_GTE = "OP_GTE"; //$NON-NLS-1$
+    public static final String OP_EQ = "OP_EQ"; //$NON-NLS-1$
+    public static final String OP_NEQ = "OP_NEQ"; //$NON-NLS-1$
+    public static final String OP_IS = "OP_IS"; //$NON-NLS-1$
+    public static final String OP_BEFORE = "OP_BEFORE"; //$NON-NLS-1$
+    public static final String OP_AFTER = "OP_AFTER"; //$NON-NLS-1$
     public static final String OP_TREATAS = "OP_TREATAS"; //$NON-NLS-1$
     public static final String OP_TO = "OP_TO"; //$NON-NLS-1$
     public static final String OP_EXCEPT = "OP_EXCEPT"; //$NON-NLS-1$
@@ -185,10 +185,10 @@ public interface XQueryRegions extends DOMRegionContext {
     public static final String PATH_ANCESTOR_OR_SELF = "PATH_ANCESTOR_OR_SELF"; //$NON-NLS-1$
     public static final String PATH_NAMETEST = "PATH_NAMETEST"; //$NON-NLS-1$
     public static final String PATH_ABBREVATTRIBUTE = "PATH_ABBREVATTRIBUTE"; //$NON-NLS-1$
-    public static final String PATH_ABBREVPARENT = "PATH_ABBREVPARENT"; //$NON-NLS-1$ 
+    public static final String PATH_ABBREVPARENT = "PATH_ABBREVPARENT"; //$NON-NLS-1$
 
-    public static final String XML_PI = "XML_PI"; //$NON-NLS-1$ 
-    public static final String XML_ESCAPE_CLOSE_EXPR = "XML_ESCAPE_CLOSE_EXPR"; //$NON-NLS-1$ 
+    public static final String XML_PI = "XML_PI"; //$NON-NLS-1$
+    public static final String XML_ESCAPE_CLOSE_EXPR = "XML_ESCAPE_CLOSE_EXPR"; //$NON-NLS-1$
 //	public static final String XML_ENTITY_REF = "XML_ENTITY_REF"; //$NON-NLS-1$
 //	public static final String XML_TAG_ATTRIBUTE_NAME = "XML_TAG_ATTRIBUTE_NAME"; //$NON-NLS-1$
     public static final String XML_ATTR_CHAR = "XML_ATTR_CHAR"; //$NON-NLS-1$
@@ -208,9 +208,9 @@ public interface XQueryRegions extends DOMRegionContext {
 //	public static final String XML_TAG_ATTRIBUTE_VALUE = "XML_TAG_ATTRIBUTE_VALUE"; //$NON-NLS-1$
 //	public static final String XML_TAG_NAME = "XML_TAG_NAME"; //$NON-NLS-1$
 //	public static final String XML_END_TAG_OPEN = "XML_END_TAG_OPEN"; //$NON-NLS-1$
-    public static final String XML_ELEM_CONTENT_CHAR = "XML_ELEM_CONTENT_CHAR"; //$NON-NLS-1$ 
-    public static final String XML_START_EXPR = "XML_START_EXPR";//$NON-NLS-1$ 
-//	public static final String XML_ATTR_EQUAL = "XML_ATTR_EQUAL";//$NON-NLS-1$ 
+    public static final String XML_ELEM_CONTENT_CHAR = "XML_ELEM_CONTENT_CHAR"; //$NON-NLS-1$
+    public static final String XML_START_EXPR = "XML_START_EXPR";//$NON-NLS-1$
+//	public static final String XML_ATTR_EQUAL = "XML_ATTR_EQUAL";//$NON-NLS-1$
 
     // XQuery Update Facility 1.0
 
@@ -242,6 +242,9 @@ public interface XQueryRegions extends DOMRegionContext {
     public static final String KW_EXIT = "KW_EXIT"; //$NON-NLS-1$
     public static final String KW_RETURNING = "KW_RETURNING"; //$NON-NLS-1$
     public static final String KW_WHILE = "KW_WHILE"; //$NON-NLS-1$
+
+    // MarkLogic
+    public static final String KW_PRIVATE = "KW_PRIVATE"; //$NON-NLS-1$
 
     // XQuery 1.1
 

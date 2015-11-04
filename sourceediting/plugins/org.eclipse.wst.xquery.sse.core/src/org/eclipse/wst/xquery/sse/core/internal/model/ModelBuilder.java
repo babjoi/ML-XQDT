@@ -416,6 +416,25 @@ public class ModelBuilder {
 
                 IASTNode oldDecl = module.getChildASTNodeAt(from);
 
+                if (type2 == XQueryRegions.KW_PRIVATE) {
+
+                    ITextRegion nextRegion = getTextRegion(2);
+                    if (nextRegion != null) {
+                        String type3 = nextRegion.getType();
+                        IASTNode oldDecl3 = module.getChildASTNodeAt(from);
+
+                        if (type3 == XQueryRegions.KW_VARIABLE) {
+                            IASTVarDecl newDecl = reparseVarDecl(oldDecl3);
+                            module.setChildASTNodeAt(from++, newDecl);
+                        } else if (type3 == XQueryRegions.KW_FUNCTION) {
+                            IASTFunctionDecl newDecl = reparseFunctionDecl(oldDecl3);
+                            module.setChildASTNodeAt(from++, newDecl);
+                            from++; // have to update from twice, since we need to skip over an additional keyword.
+                        }
+
+                    }
+                } else
+
                 if (type2 == XQueryRegions.KW_VARIABLE) {
                     IASTVarDecl newDecl = reparseVarDecl(oldDecl);
                     module.setChildASTNodeAt(from++, newDecl);

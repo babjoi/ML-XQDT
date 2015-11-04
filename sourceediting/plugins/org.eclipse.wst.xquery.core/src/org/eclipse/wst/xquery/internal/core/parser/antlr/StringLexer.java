@@ -1,4 +1,4 @@
-// $ANTLR 3.5.2 StringLexer.g 2015-09-30 10:26:37
+// $ANTLR 3.5.2 StringLexer.g 2015-09-30 22:31:20
 
 /*******************************************************************************
  * Copyright (c) 2008, 2009 28msec Inc. and others.
@@ -932,8 +932,8 @@ public class StringLexer extends XQDTLexer {
 		"\11\uffff\1\10\1\11\3\uffff\1\7\1\6\1\5\3\uffff\1\1\2\uffff\1\2\1\uffff"+
 		"\1\3\1\4";
 	static final String DFA8_specialS =
-		"\1\21\1\15\1\10\1\17\1\6\1\1\1\0\1\2\1\12\2\uffff\1\16\1\3\1\20\3\uffff"+
-		"\1\7\1\11\1\4\1\uffff\1\14\1\5\1\uffff\1\13\2\uffff}>";
+		"\1\7\1\16\1\0\1\4\1\21\1\12\1\5\1\10\1\20\2\uffff\1\17\1\11\1\6\3\uffff"+
+		"\1\15\1\3\1\13\1\uffff\1\1\1\14\1\uffff\1\2\2\uffff}>";
 	static final String[] DFA8_transitionS = {
 			"\2\4\2\uffff\1\4\22\uffff\2\4\1\1\3\4\1\3\1\2\24\4\1\5\76\4\1\5\1\4\1"+
 			"\5\ud782\4\u0800\uffff\u1ffe\4",
@@ -1012,12 +1012,80 @@ public class StringLexer extends XQDTLexer {
 			int _s = s;
 			switch ( s ) {
 					case 0 : 
+						int LA8_2 = input.LA(1);
+						 
+						int index8_2 = input.index();
+						input.rewind();
+						s = -1;
+						if ( (LA8_2=='\'') && ((( !inQuotStr && !inAposStr )||( inAposStr )||( inQuotStr )))) {s = 11;}
+						else if ( ((LA8_2 >= '\t' && LA8_2 <= '\n')||LA8_2=='\r'||(LA8_2 >= ' ' && LA8_2 <= '!')||(LA8_2 >= '#' && LA8_2 <= '%')||(LA8_2 >= '(' && LA8_2 <= ';')||(LA8_2 >= '=' && LA8_2 <= 'z')||LA8_2=='|'||(LA8_2 >= '~' && LA8_2 <= '\uD7FF')||(LA8_2 >= '\uE000' && LA8_2 <= '\uFFFD')) && ((( !inQuotStr && !inAposStr )||( inQuotStr )))) {s = 13;}
+						else if ( (LA8_2=='<'||LA8_2=='{'||LA8_2=='}') && (( inQuotStr ))) {s = 14;}
+						else if ( (LA8_2=='\"') && (( !inQuotStr && !inAposStr ))) {s = 10;}
+						else s = 12;
+						 
+						input.seek(index8_2);
+						if ( s>=0 ) return s;
+						break;
+
+					case 1 : 
+						int LA8_21 = input.LA(1);
+						 
+						int index8_21 = input.index();
+						input.rewind();
+						s = -1;
+						if ( (( inAposStr )) ) {s = 9;}
+						else if ( (( !inQuotStr && !inAposStr )) ) {s = 10;}
+						 
+						input.seek(index8_21);
+						if ( s>=0 ) return s;
+						break;
+
+					case 2 : 
+						int LA8_24 = input.LA(1);
+						 
+						int index8_24 = input.index();
+						input.rewind();
+						s = -1;
+						if ( (( inQuotStr )) ) {s = 14;}
+						else if ( (( !inQuotStr && !inAposStr )) ) {s = 10;}
+						 
+						input.seek(index8_24);
+						if ( s>=0 ) return s;
+						break;
+
+					case 3 : 
+						int LA8_18 = input.LA(1);
+						 
+						int index8_18 = input.index();
+						input.rewind();
+						s = -1;
+						if ( (( inQuotStr )) ) {s = 14;}
+						else if ( (( inAposStr )) ) {s = 9;}
+						 
+						input.seek(index8_18);
+						if ( s>=0 ) return s;
+						break;
+
+					case 4 : 
+						int LA8_3 = input.LA(1);
+						 
+						int index8_3 = input.index();
+						input.rewind();
+						s = -1;
+						if ( (LA8_3=='#') ) {s = 15;}
+						else if ( (LA8_3=='a'||LA8_3=='g'||LA8_3=='l'||LA8_3=='q') && (( inQuotStr | inAposStr ))) {s = 16;}
+						 
+						input.seek(index8_3);
+						if ( s>=0 ) return s;
+						break;
+
+					case 5 : 
 						int LA8_6 = input.LA(1);
 						 
 						int index8_6 = input.index();
 						input.rewind();
 						s = -1;
-						if ( ((LA8_6 >= '\t' && LA8_6 <= '\n')||LA8_6=='\r'||(LA8_6 >= ' ' && LA8_6 <= '%')||(LA8_6 >= '(' && LA8_6 <= ';')||(LA8_6 >= '=' && LA8_6 <= 'z')||LA8_6=='|'||(LA8_6 >= '~' && LA8_6 <= '\uD7FF')||(LA8_6 >= '\uE000' && LA8_6 <= '\uFFFD')) && ((( inAposStr )||( !inQuotStr && !inAposStr )))) {s = 8;}
+						if ( ((LA8_6 >= '\t' && LA8_6 <= '\n')||LA8_6=='\r'||(LA8_6 >= ' ' && LA8_6 <= '%')||(LA8_6 >= '(' && LA8_6 <= ';')||(LA8_6 >= '=' && LA8_6 <= 'z')||LA8_6=='|'||(LA8_6 >= '~' && LA8_6 <= '\uD7FF')||(LA8_6 >= '\uE000' && LA8_6 <= '\uFFFD')) && ((( !inQuotStr && !inAposStr )||( inAposStr )))) {s = 8;}
 						else if ( (LA8_6=='<'||LA8_6=='{'||LA8_6=='}') && (( inAposStr ))) {s = 9;}
 						else if ( (LA8_6=='\'') && (( !inQuotStr && !inAposStr ))) {s = 10;}
 						else s = 19;
@@ -1026,22 +1094,38 @@ public class StringLexer extends XQDTLexer {
 						if ( s>=0 ) return s;
 						break;
 
-					case 1 : 
-						int LA8_5 = input.LA(1);
+					case 6 : 
+						int LA8_13 = input.LA(1);
 						 
-						int index8_5 = input.index();
+						int index8_13 = input.index();
 						input.rewind();
 						s = -1;
-						if ( ((LA8_5 >= '\t' && LA8_5 <= '\n')||LA8_5=='\r'||(LA8_5 >= ' ' && LA8_5 <= '!')||(LA8_5 >= '#' && LA8_5 <= '%')||(LA8_5 >= '(' && LA8_5 <= '\uD7FF')||(LA8_5 >= '\uE000' && LA8_5 <= '\uFFFD')) && ((( inQuotStr )||( inAposStr )))) {s = 5;}
-						else if ( (LA8_5=='\'') && (( inQuotStr ))) {s = 14;}
-						else if ( (LA8_5=='\"') && (( inAposStr ))) {s = 9;}
-						else s = 18;
+						if ( ((LA8_13 >= '\t' && LA8_13 <= '\n')||LA8_13=='\r'||(LA8_13 >= ' ' && LA8_13 <= '!')||(LA8_13 >= '#' && LA8_13 <= '%')||(LA8_13 >= '\'' && LA8_13 <= ';')||(LA8_13 >= '=' && LA8_13 <= 'z')||LA8_13=='|'||(LA8_13 >= '~' && LA8_13 <= '\uD7FF')||(LA8_13 >= '\uE000' && LA8_13 <= '\uFFFD')) && ((( !inQuotStr && !inAposStr )||( inQuotStr )))) {s = 13;}
+						else if ( (LA8_13=='<'||LA8_13=='{'||LA8_13=='}') && (( inQuotStr ))) {s = 14;}
+						else if ( (LA8_13=='\"') && (( !inQuotStr && !inAposStr ))) {s = 10;}
+						else s = 24;
 						 
-						input.seek(index8_5);
+						input.seek(index8_13);
 						if ( s>=0 ) return s;
 						break;
 
-					case 2 : 
+					case 7 : 
+						int LA8_0 = input.LA(1);
+						 
+						int index8_0 = input.index();
+						input.rewind();
+						s = -1;
+						if ( (LA8_0=='\"') && ((( !inQuotStr && !inAposStr )||( inAposStr )||( inQuotStr )))) {s = 1;}
+						else if ( (LA8_0=='\'') && ((( !inQuotStr && !inAposStr )||( inQuotStr )||( inAposStr )))) {s = 2;}
+						else if ( (LA8_0=='&') ) {s = 3;}
+						else if ( ((LA8_0 >= '\t' && LA8_0 <= '\n')||LA8_0=='\r'||(LA8_0 >= ' ' && LA8_0 <= '!')||(LA8_0 >= '#' && LA8_0 <= '%')||(LA8_0 >= '(' && LA8_0 <= ';')||(LA8_0 >= '=' && LA8_0 <= 'z')||LA8_0=='|'||(LA8_0 >= '~' && LA8_0 <= '\uD7FF')||(LA8_0 >= '\uE000' && LA8_0 <= '\uFFFD')) && ((( !inQuotStr && !inAposStr )||( inAposStr )||( inQuotStr )))) {s = 4;}
+						else if ( (LA8_0=='<'||LA8_0=='{'||LA8_0=='}') && ((( inAposStr )||( inQuotStr )))) {s = 5;}
+						 
+						input.seek(index8_0);
+						if ( s>=0 ) return s;
+						break;
+
+					case 8 : 
 						int LA8_7 = input.LA(1);
 						 
 						int index8_7 = input.index();
@@ -1055,7 +1139,7 @@ public class StringLexer extends XQDTLexer {
 						if ( s>=0 ) return s;
 						break;
 
-					case 3 : 
+					case 9 : 
 						int LA8_12 = input.LA(1);
 						 
 						int index8_12 = input.index();
@@ -1069,7 +1153,22 @@ public class StringLexer extends XQDTLexer {
 						if ( s>=0 ) return s;
 						break;
 
-					case 4 : 
+					case 10 : 
+						int LA8_5 = input.LA(1);
+						 
+						int index8_5 = input.index();
+						input.rewind();
+						s = -1;
+						if ( ((LA8_5 >= '\t' && LA8_5 <= '\n')||LA8_5=='\r'||(LA8_5 >= ' ' && LA8_5 <= '!')||(LA8_5 >= '#' && LA8_5 <= '%')||(LA8_5 >= '(' && LA8_5 <= '\uD7FF')||(LA8_5 >= '\uE000' && LA8_5 <= '\uFFFD')) && ((( inAposStr )||( inQuotStr )))) {s = 5;}
+						else if ( (LA8_5=='\'') && (( inQuotStr ))) {s = 14;}
+						else if ( (LA8_5=='\"') && (( inAposStr ))) {s = 9;}
+						else s = 18;
+						 
+						input.seek(index8_5);
+						if ( s>=0 ) return s;
+						break;
+
+					case 11 : 
 						int LA8_19 = input.LA(1);
 						 
 						int index8_19 = input.index();
@@ -1083,7 +1182,7 @@ public class StringLexer extends XQDTLexer {
 						if ( s>=0 ) return s;
 						break;
 
-					case 5 : 
+					case 12 : 
 						int LA8_22 = input.LA(1);
 						 
 						int index8_22 = input.index();
@@ -1097,23 +1196,7 @@ public class StringLexer extends XQDTLexer {
 						if ( s>=0 ) return s;
 						break;
 
-					case 6 : 
-						int LA8_4 = input.LA(1);
-						 
-						int index8_4 = input.index();
-						input.rewind();
-						s = -1;
-						if ( ((LA8_4 >= '\t' && LA8_4 <= '\n')||LA8_4=='\r'||(LA8_4 >= ' ' && LA8_4 <= '!')||(LA8_4 >= '#' && LA8_4 <= '%')||(LA8_4 >= '(' && LA8_4 <= ';')||(LA8_4 >= '=' && LA8_4 <= 'z')||LA8_4=='|'||(LA8_4 >= '~' && LA8_4 <= '\uD7FF')||(LA8_4 >= '\uE000' && LA8_4 <= '\uFFFD')) && ((( inQuotStr )||( inAposStr )||( !inQuotStr && !inAposStr )))) {s = 4;}
-						else if ( (LA8_4=='\'') && ((( inQuotStr )||( !inQuotStr && !inAposStr )))) {s = 13;}
-						else if ( (LA8_4=='\"') && ((( inAposStr )||( !inQuotStr && !inAposStr )))) {s = 8;}
-						else if ( (LA8_4=='<'||LA8_4=='{'||LA8_4=='}') && ((( inQuotStr )||( inAposStr )))) {s = 5;}
-						else s = 17;
-						 
-						input.seek(index8_4);
-						if ( s>=0 ) return s;
-						break;
-
-					case 7 : 
+					case 13 : 
 						int LA8_17 = input.LA(1);
 						 
 						int index8_17 = input.index();
@@ -1127,84 +1210,14 @@ public class StringLexer extends XQDTLexer {
 						if ( s>=0 ) return s;
 						break;
 
-					case 8 : 
-						int LA8_2 = input.LA(1);
-						 
-						int index8_2 = input.index();
-						input.rewind();
-						s = -1;
-						if ( (LA8_2=='\'') && ((( inQuotStr )||( inAposStr )||( !inQuotStr && !inAposStr )))) {s = 11;}
-						else if ( ((LA8_2 >= '\t' && LA8_2 <= '\n')||LA8_2=='\r'||(LA8_2 >= ' ' && LA8_2 <= '!')||(LA8_2 >= '#' && LA8_2 <= '%')||(LA8_2 >= '(' && LA8_2 <= ';')||(LA8_2 >= '=' && LA8_2 <= 'z')||LA8_2=='|'||(LA8_2 >= '~' && LA8_2 <= '\uD7FF')||(LA8_2 >= '\uE000' && LA8_2 <= '\uFFFD')) && ((( inQuotStr )||( !inQuotStr && !inAposStr )))) {s = 13;}
-						else if ( (LA8_2=='<'||LA8_2=='{'||LA8_2=='}') && (( inQuotStr ))) {s = 14;}
-						else if ( (LA8_2=='\"') && (( !inQuotStr && !inAposStr ))) {s = 10;}
-						else s = 12;
-						 
-						input.seek(index8_2);
-						if ( s>=0 ) return s;
-						break;
-
-					case 9 : 
-						int LA8_18 = input.LA(1);
-						 
-						int index8_18 = input.index();
-						input.rewind();
-						s = -1;
-						if ( (( inQuotStr )) ) {s = 14;}
-						else if ( (( inAposStr )) ) {s = 9;}
-						 
-						input.seek(index8_18);
-						if ( s>=0 ) return s;
-						break;
-
-					case 10 : 
-						int LA8_8 = input.LA(1);
-						 
-						int index8_8 = input.index();
-						input.rewind();
-						s = -1;
-						if ( ((LA8_8 >= '\t' && LA8_8 <= '\n')||LA8_8=='\r'||(LA8_8 >= ' ' && LA8_8 <= '%')||(LA8_8 >= '(' && LA8_8 <= ';')||(LA8_8 >= '=' && LA8_8 <= 'z')||LA8_8=='|'||(LA8_8 >= '~' && LA8_8 <= '\uD7FF')||(LA8_8 >= '\uE000' && LA8_8 <= '\uFFFD')) && ((( inAposStr )||( !inQuotStr && !inAposStr )))) {s = 8;}
-						else if ( (LA8_8=='<'||LA8_8=='{'||LA8_8=='}') && (( inAposStr ))) {s = 9;}
-						else if ( (LA8_8=='\'') && (( !inQuotStr && !inAposStr ))) {s = 10;}
-						else s = 21;
-						 
-						input.seek(index8_8);
-						if ( s>=0 ) return s;
-						break;
-
-					case 11 : 
-						int LA8_24 = input.LA(1);
-						 
-						int index8_24 = input.index();
-						input.rewind();
-						s = -1;
-						if ( (( inQuotStr )) ) {s = 14;}
-						else if ( (( !inQuotStr && !inAposStr )) ) {s = 10;}
-						 
-						input.seek(index8_24);
-						if ( s>=0 ) return s;
-						break;
-
-					case 12 : 
-						int LA8_21 = input.LA(1);
-						 
-						int index8_21 = input.index();
-						input.rewind();
-						s = -1;
-						if ( (( inAposStr )) ) {s = 9;}
-						else if ( (( !inQuotStr && !inAposStr )) ) {s = 10;}
-						 
-						input.seek(index8_21);
-						if ( s>=0 ) return s;
-						break;
-
-					case 13 : 
+					case 14 : 
 						int LA8_1 = input.LA(1);
 						 
 						int index8_1 = input.index();
 						input.rewind();
 						s = -1;
-						if ( (LA8_1=='\"') && ((( inQuotStr )||( inAposStr )||( !inQuotStr && !inAposStr )))) {s = 6;}
-						else if ( ((LA8_1 >= '\t' && LA8_1 <= '\n')||LA8_1=='\r'||(LA8_1 >= ' ' && LA8_1 <= '!')||(LA8_1 >= '#' && LA8_1 <= '%')||(LA8_1 >= '(' && LA8_1 <= ';')||(LA8_1 >= '=' && LA8_1 <= 'z')||LA8_1=='|'||(LA8_1 >= '~' && LA8_1 <= '\uD7FF')||(LA8_1 >= '\uE000' && LA8_1 <= '\uFFFD')) && ((( inAposStr )||( !inQuotStr && !inAposStr )))) {s = 8;}
+						if ( (LA8_1=='\"') && ((( !inQuotStr && !inAposStr )||( inQuotStr )||( inAposStr )))) {s = 6;}
+						else if ( ((LA8_1 >= '\t' && LA8_1 <= '\n')||LA8_1=='\r'||(LA8_1 >= ' ' && LA8_1 <= '!')||(LA8_1 >= '#' && LA8_1 <= '%')||(LA8_1 >= '(' && LA8_1 <= ';')||(LA8_1 >= '=' && LA8_1 <= 'z')||LA8_1=='|'||(LA8_1 >= '~' && LA8_1 <= '\uD7FF')||(LA8_1 >= '\uE000' && LA8_1 <= '\uFFFD')) && ((( !inQuotStr && !inAposStr )||( inAposStr )))) {s = 8;}
 						else if ( (LA8_1=='<'||LA8_1=='{'||LA8_1=='}') && (( inAposStr ))) {s = 9;}
 						else if ( (LA8_1=='\'') && (( !inQuotStr && !inAposStr ))) {s = 10;}
 						else s = 7;
@@ -1213,13 +1226,13 @@ public class StringLexer extends XQDTLexer {
 						if ( s>=0 ) return s;
 						break;
 
-					case 14 : 
+					case 15 : 
 						int LA8_11 = input.LA(1);
 						 
 						int index8_11 = input.index();
 						input.rewind();
 						s = -1;
-						if ( ((LA8_11 >= '\t' && LA8_11 <= '\n')||LA8_11=='\r'||(LA8_11 >= ' ' && LA8_11 <= '!')||(LA8_11 >= '#' && LA8_11 <= '%')||(LA8_11 >= '\'' && LA8_11 <= ';')||(LA8_11 >= '=' && LA8_11 <= 'z')||LA8_11=='|'||(LA8_11 >= '~' && LA8_11 <= '\uD7FF')||(LA8_11 >= '\uE000' && LA8_11 <= '\uFFFD')) && ((( inQuotStr )||( !inQuotStr && !inAposStr )))) {s = 13;}
+						if ( ((LA8_11 >= '\t' && LA8_11 <= '\n')||LA8_11=='\r'||(LA8_11 >= ' ' && LA8_11 <= '!')||(LA8_11 >= '#' && LA8_11 <= '%')||(LA8_11 >= '\'' && LA8_11 <= ';')||(LA8_11 >= '=' && LA8_11 <= 'z')||LA8_11=='|'||(LA8_11 >= '~' && LA8_11 <= '\uD7FF')||(LA8_11 >= '\uE000' && LA8_11 <= '\uFFFD')) && ((( !inQuotStr && !inAposStr )||( inQuotStr )))) {s = 13;}
 						else if ( (LA8_11=='<'||LA8_11=='{'||LA8_11=='}') && (( inQuotStr ))) {s = 14;}
 						else if ( (LA8_11=='\"') && (( !inQuotStr && !inAposStr ))) {s = 10;}
 						else s = 22;
@@ -1228,47 +1241,34 @@ public class StringLexer extends XQDTLexer {
 						if ( s>=0 ) return s;
 						break;
 
-					case 15 : 
-						int LA8_3 = input.LA(1);
-						 
-						int index8_3 = input.index();
-						input.rewind();
-						s = -1;
-						if ( (LA8_3=='#') ) {s = 15;}
-						else if ( (LA8_3=='a'||LA8_3=='g'||LA8_3=='l'||LA8_3=='q') && (( inQuotStr | inAposStr ))) {s = 16;}
-						 
-						input.seek(index8_3);
-						if ( s>=0 ) return s;
-						break;
-
 					case 16 : 
-						int LA8_13 = input.LA(1);
+						int LA8_8 = input.LA(1);
 						 
-						int index8_13 = input.index();
+						int index8_8 = input.index();
 						input.rewind();
 						s = -1;
-						if ( ((LA8_13 >= '\t' && LA8_13 <= '\n')||LA8_13=='\r'||(LA8_13 >= ' ' && LA8_13 <= '!')||(LA8_13 >= '#' && LA8_13 <= '%')||(LA8_13 >= '\'' && LA8_13 <= ';')||(LA8_13 >= '=' && LA8_13 <= 'z')||LA8_13=='|'||(LA8_13 >= '~' && LA8_13 <= '\uD7FF')||(LA8_13 >= '\uE000' && LA8_13 <= '\uFFFD')) && ((( inQuotStr )||( !inQuotStr && !inAposStr )))) {s = 13;}
-						else if ( (LA8_13=='<'||LA8_13=='{'||LA8_13=='}') && (( inQuotStr ))) {s = 14;}
-						else if ( (LA8_13=='\"') && (( !inQuotStr && !inAposStr ))) {s = 10;}
-						else s = 24;
+						if ( ((LA8_8 >= '\t' && LA8_8 <= '\n')||LA8_8=='\r'||(LA8_8 >= ' ' && LA8_8 <= '%')||(LA8_8 >= '(' && LA8_8 <= ';')||(LA8_8 >= '=' && LA8_8 <= 'z')||LA8_8=='|'||(LA8_8 >= '~' && LA8_8 <= '\uD7FF')||(LA8_8 >= '\uE000' && LA8_8 <= '\uFFFD')) && ((( !inQuotStr && !inAposStr )||( inAposStr )))) {s = 8;}
+						else if ( (LA8_8=='<'||LA8_8=='{'||LA8_8=='}') && (( inAposStr ))) {s = 9;}
+						else if ( (LA8_8=='\'') && (( !inQuotStr && !inAposStr ))) {s = 10;}
+						else s = 21;
 						 
-						input.seek(index8_13);
+						input.seek(index8_8);
 						if ( s>=0 ) return s;
 						break;
 
 					case 17 : 
-						int LA8_0 = input.LA(1);
+						int LA8_4 = input.LA(1);
 						 
-						int index8_0 = input.index();
+						int index8_4 = input.index();
 						input.rewind();
 						s = -1;
-						if ( (LA8_0=='\"') && ((( inQuotStr )||( inAposStr )||( !inQuotStr && !inAposStr )))) {s = 1;}
-						else if ( (LA8_0=='\'') && ((( inQuotStr )||( inAposStr )||( !inQuotStr && !inAposStr )))) {s = 2;}
-						else if ( (LA8_0=='&') ) {s = 3;}
-						else if ( ((LA8_0 >= '\t' && LA8_0 <= '\n')||LA8_0=='\r'||(LA8_0 >= ' ' && LA8_0 <= '!')||(LA8_0 >= '#' && LA8_0 <= '%')||(LA8_0 >= '(' && LA8_0 <= ';')||(LA8_0 >= '=' && LA8_0 <= 'z')||LA8_0=='|'||(LA8_0 >= '~' && LA8_0 <= '\uD7FF')||(LA8_0 >= '\uE000' && LA8_0 <= '\uFFFD')) && ((( inQuotStr )||( inAposStr )||( !inQuotStr && !inAposStr )))) {s = 4;}
-						else if ( (LA8_0=='<'||LA8_0=='{'||LA8_0=='}') && ((( inQuotStr )||( inAposStr )))) {s = 5;}
+						if ( ((LA8_4 >= '\t' && LA8_4 <= '\n')||LA8_4=='\r'||(LA8_4 >= ' ' && LA8_4 <= '!')||(LA8_4 >= '#' && LA8_4 <= '%')||(LA8_4 >= '(' && LA8_4 <= ';')||(LA8_4 >= '=' && LA8_4 <= 'z')||LA8_4=='|'||(LA8_4 >= '~' && LA8_4 <= '\uD7FF')||(LA8_4 >= '\uE000' && LA8_4 <= '\uFFFD')) && ((( !inQuotStr && !inAposStr )||( inAposStr )||( inQuotStr )))) {s = 4;}
+						else if ( (LA8_4=='\'') && ((( !inQuotStr && !inAposStr )||( inQuotStr )))) {s = 13;}
+						else if ( (LA8_4=='\"') && ((( !inQuotStr && !inAposStr )||( inAposStr )))) {s = 8;}
+						else if ( (LA8_4=='<'||LA8_4=='{'||LA8_4=='}') && ((( inAposStr )||( inQuotStr )))) {s = 5;}
+						else s = 17;
 						 
-						input.seek(index8_0);
+						input.seek(index8_4);
 						if ( s>=0 ) return s;
 						break;
 			}

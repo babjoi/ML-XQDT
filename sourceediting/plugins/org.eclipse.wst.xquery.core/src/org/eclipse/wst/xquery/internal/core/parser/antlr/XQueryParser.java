@@ -1,4 +1,4 @@
-// $ANTLR 3.5.2 XQueryParser.g 2015-09-30 10:26:36
+// $ANTLR 3.5.2 XQueryParser.g 2015-09-30 22:31:23
 
 /*******************************************************************************
  * Copyright (c) 2008, 2009 28msec Inc. and others.
@@ -478,9 +478,9 @@ public class XQueryParser extends XQDTParser {
 
 		XQDTCommonTree EOF1_tree=null;
 		RewriteRuleTokenStream stream_EOF=new RewriteRuleTokenStream(adaptor,"token EOF");
-		RewriteRuleSubtreeStream stream_p_MainModule=new RewriteRuleSubtreeStream(adaptor,"rule p_MainModule");
 		RewriteRuleSubtreeStream stream_p_VersionDecl=new RewriteRuleSubtreeStream(adaptor,"rule p_VersionDecl");
 		RewriteRuleSubtreeStream stream_p_LibraryModule=new RewriteRuleSubtreeStream(adaptor,"rule p_LibraryModule");
+		RewriteRuleSubtreeStream stream_p_MainModule=new RewriteRuleSubtreeStream(adaptor,"rule p_MainModule");
 
 		try {
 			// XQueryParser.g:130:9: ( (vd= p_VersionDecl )? (lm= p_LibraryModule[$vd.tree] ->|mm= p_MainModule[$vd.tree] ->) EOF )
@@ -668,9 +668,9 @@ public class XQueryParser extends XQDTParser {
 		XQDTCommonTree k_tree=null;
 		XQDTCommonTree SEMICOLON2_tree=null;
 		RewriteRuleTokenStream stream_ENCODING=new RewriteRuleTokenStream(adaptor,"token ENCODING");
+		RewriteRuleTokenStream stream_VERSION=new RewriteRuleTokenStream(adaptor,"token VERSION");
 		RewriteRuleTokenStream stream_SEMICOLON=new RewriteRuleTokenStream(adaptor,"token SEMICOLON");
 		RewriteRuleTokenStream stream_XQUERY=new RewriteRuleTokenStream(adaptor,"token XQUERY");
-		RewriteRuleTokenStream stream_VERSION=new RewriteRuleTokenStream(adaptor,"token VERSION");
 		RewriteRuleSubtreeStream stream_p_StringLiteral=new RewriteRuleSubtreeStream(adaptor,"rule p_StringLiteral");
 
 		try {
@@ -769,17 +769,17 @@ public class XQueryParser extends XQDTParser {
 			if ( state.backtracking==0 ) stream_SEMICOLON.add(SEMICOLON2);
 
 			// AST REWRITE
-			// elements: enc, ver
+			// elements: ver, enc
 			// token labels: 
-			// rule labels: ver, enc, retval
+			// rule labels: retval, ver, enc
 			// token list labels: 
 			// rule list labels: 
 			// wildcard labels: 
 			if ( state.backtracking==0 ) {
 			retval.tree = root_0;
+			RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.getTree():null);
 			RewriteRuleSubtreeStream stream_ver=new RewriteRuleSubtreeStream(adaptor,"rule ver",ver!=null?ver.getTree():null);
 			RewriteRuleSubtreeStream stream_enc=new RewriteRuleSubtreeStream(adaptor,"rule enc",enc!=null?enc.getTree():null);
-			RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.getTree():null);
 
 			root_0 = (XQDTCommonTree)adaptor.nil();
 			// 141:17: -> ^( VersionDecl ^( VersionDeclVersion ( $ver)? ) ^( VersionDeclEncoding ( $enc)? ) )
@@ -863,8 +863,8 @@ public class XQueryParser extends XQDTParser {
 		ParserRuleReturnScope pm_Prolog3 =null;
 		ParserRuleReturnScope pm_QueryBody4 =null;
 
-		RewriteRuleSubtreeStream stream_pm_Prolog=new RewriteRuleSubtreeStream(adaptor,"rule pm_Prolog");
 		RewriteRuleSubtreeStream stream_pm_QueryBody=new RewriteRuleSubtreeStream(adaptor,"rule pm_QueryBody");
+		RewriteRuleSubtreeStream stream_pm_Prolog=new RewriteRuleSubtreeStream(adaptor,"rule pm_Prolog");
 
 		try {
 			// XQueryParser.g:146:9: ( pm_Prolog pm_QueryBody -> ^( MainModule pm_Prolog ) )
@@ -949,8 +949,8 @@ public class XQueryParser extends XQDTParser {
 		ParserRuleReturnScope p_ModuleDecl5 =null;
 		ParserRuleReturnScope pm_Prolog6 =null;
 
-		RewriteRuleSubtreeStream stream_p_ModuleDecl=new RewriteRuleSubtreeStream(adaptor,"rule p_ModuleDecl");
 		RewriteRuleSubtreeStream stream_pm_Prolog=new RewriteRuleSubtreeStream(adaptor,"rule pm_Prolog");
+		RewriteRuleSubtreeStream stream_p_ModuleDecl=new RewriteRuleSubtreeStream(adaptor,"rule p_ModuleDecl");
 
 		try {
 			// XQueryParser.g:152:9: ( p_ModuleDecl pm_Prolog -> ^( LibraryModule p_ModuleDecl pm_Prolog ) )
@@ -967,7 +967,7 @@ public class XQueryParser extends XQDTParser {
 			if (state.failed) return retval;
 			if ( state.backtracking==0 ) stream_pm_Prolog.add(pm_Prolog6.getTree());
 			// AST REWRITE
-			// elements: p_ModuleDecl, pm_Prolog
+			// elements: pm_Prolog, p_ModuleDecl
 			// token labels: 
 			// rule labels: retval
 			// token list labels: 
@@ -1043,12 +1043,12 @@ public class XQueryParser extends XQDTParser {
 		XQDTCommonTree EQUAL8_tree=null;
 		XQDTCommonTree SEMICOLON10_tree=null;
 		XQDTCommonTree k_tree=null;
-		RewriteRuleTokenStream stream_NAMESPACE=new RewriteRuleTokenStream(adaptor,"token NAMESPACE");
-		RewriteRuleTokenStream stream_MODULE=new RewriteRuleTokenStream(adaptor,"token MODULE");
-		RewriteRuleTokenStream stream_EQUAL=new RewriteRuleTokenStream(adaptor,"token EQUAL");
 		RewriteRuleTokenStream stream_SEMICOLON=new RewriteRuleTokenStream(adaptor,"token SEMICOLON");
-		RewriteRuleSubtreeStream stream_p_StringLiteral=new RewriteRuleSubtreeStream(adaptor,"rule p_StringLiteral");
+		RewriteRuleTokenStream stream_MODULE=new RewriteRuleTokenStream(adaptor,"token MODULE");
+		RewriteRuleTokenStream stream_NAMESPACE=new RewriteRuleTokenStream(adaptor,"token NAMESPACE");
+		RewriteRuleTokenStream stream_EQUAL=new RewriteRuleTokenStream(adaptor,"token EQUAL");
 		RewriteRuleSubtreeStream stream_p_NCName=new RewriteRuleSubtreeStream(adaptor,"rule p_NCName");
+		RewriteRuleSubtreeStream stream_p_StringLiteral=new RewriteRuleSubtreeStream(adaptor,"rule p_StringLiteral");
 
 		try {
 			// XQueryParser.g:158:9: (k+= MODULE k+= NAMESPACE p_NCName EQUAL p_StringLiteral SEMICOLON -> ^( ModuleDecl p_NCName p_StringLiteral ) )
@@ -1082,7 +1082,7 @@ public class XQueryParser extends XQDTParser {
 			if ( state.backtracking==0 ) stream_SEMICOLON.add(SEMICOLON10);
 
 			// AST REWRITE
-			// elements: p_StringLiteral, p_NCName
+			// elements: p_NCName, p_StringLiteral
 			// token labels: 
 			// rule labels: retval
 			// token list labels: 
@@ -1159,12 +1159,12 @@ public class XQueryParser extends XQDTParser {
 		RuleReturnScope i = null;
 		RuleReturnScope fto = null;
 		RuleReturnScope od = null;
-		RewriteRuleSubtreeStream stream_pm_DefaultNamespaceDecl=new RewriteRuleSubtreeStream(adaptor,"rule pm_DefaultNamespaceDecl");
+		RewriteRuleSubtreeStream stream_pm_NamespaceDecl=new RewriteRuleSubtreeStream(adaptor,"rule pm_NamespaceDecl");
+		RewriteRuleSubtreeStream stream_p_Import=new RewriteRuleSubtreeStream(adaptor,"rule p_Import");
 		RewriteRuleSubtreeStream stream_p_Setter=new RewriteRuleSubtreeStream(adaptor,"rule p_Setter");
+		RewriteRuleSubtreeStream stream_pm_DefaultNamespaceDecl=new RewriteRuleSubtreeStream(adaptor,"rule pm_DefaultNamespaceDecl");
 		RewriteRuleSubtreeStream stream_pg_OrderedDecl=new RewriteRuleSubtreeStream(adaptor,"rule pg_OrderedDecl");
 		RewriteRuleSubtreeStream stream_pm_FTOptionDecl=new RewriteRuleSubtreeStream(adaptor,"rule pm_FTOptionDecl");
-		RewriteRuleSubtreeStream stream_p_Import=new RewriteRuleSubtreeStream(adaptor,"rule p_Import");
-		RewriteRuleSubtreeStream stream_pm_NamespaceDecl=new RewriteRuleSubtreeStream(adaptor,"rule pm_NamespaceDecl");
 
 		try {
 			// XQueryParser.g:166:9: ( ( (dnd+= pm_DefaultNamespaceDecl |s+= p_Setter |nd+= pm_NamespaceDecl |i+= p_Import |fto+= pm_FTOptionDecl ) )* (od+= pg_OrderedDecl )* -> ^( Prolog ^( DefaultNamespaceDecls ( $dnd)* ) ^( Setters ( $s)* ) ^( NamespaceDecls ( $nd)* ) ^( Imports ( $i)* ) ^( FTOptionDecls ( $fto)* ) ^( OrderedDecls ( $od)* ) ) )
@@ -1370,21 +1370,21 @@ public class XQueryParser extends XQDTParser {
 			}
 
 			// AST REWRITE
-			// elements: fto, i, nd, od, dnd, s
+			// elements: i, nd, s, dnd, fto, od
 			// token labels: 
 			// rule labels: retval
 			// token list labels: 
-			// rule list labels: fto, s, od, nd, i, dnd
+			// rule list labels: od, fto, s, nd, dnd, i
 			// wildcard labels: 
 			if ( state.backtracking==0 ) {
 			retval.tree = root_0;
 			RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.getTree():null);
+			RewriteRuleSubtreeStream stream_od=new RewriteRuleSubtreeStream(adaptor,"token od",list_od);
 			RewriteRuleSubtreeStream stream_fto=new RewriteRuleSubtreeStream(adaptor,"token fto",list_fto);
 			RewriteRuleSubtreeStream stream_s=new RewriteRuleSubtreeStream(adaptor,"token s",list_s);
-			RewriteRuleSubtreeStream stream_od=new RewriteRuleSubtreeStream(adaptor,"token od",list_od);
 			RewriteRuleSubtreeStream stream_nd=new RewriteRuleSubtreeStream(adaptor,"token nd",list_nd);
-			RewriteRuleSubtreeStream stream_i=new RewriteRuleSubtreeStream(adaptor,"token i",list_i);
 			RewriteRuleSubtreeStream stream_dnd=new RewriteRuleSubtreeStream(adaptor,"token dnd",list_dnd);
+			RewriteRuleSubtreeStream stream_i=new RewriteRuleSubtreeStream(adaptor,"token i",list_i);
 			root_0 = (XQDTCommonTree)adaptor.nil();
 			// 167:17: -> ^( Prolog ^( DefaultNamespaceDecls ( $dnd)* ) ^( Setters ( $s)* ) ^( NamespaceDecls ( $nd)* ) ^( Imports ( $i)* ) ^( FTOptionDecls ( $fto)* ) ^( OrderedDecls ( $od)* ) )
 			{
@@ -2127,8 +2127,8 @@ public class XQueryParser extends XQDTParser {
 		XQDTCommonTree k_tree=null;
 		XQDTCommonTree SEMICOLON26_tree=null;
 		RewriteRuleTokenStream stream_DECLARE=new RewriteRuleTokenStream(adaptor,"token DECLARE");
-		RewriteRuleTokenStream stream_BASE_URI=new RewriteRuleTokenStream(adaptor,"token BASE_URI");
 		RewriteRuleTokenStream stream_SEMICOLON=new RewriteRuleTokenStream(adaptor,"token SEMICOLON");
+		RewriteRuleTokenStream stream_BASE_URI=new RewriteRuleTokenStream(adaptor,"token BASE_URI");
 		RewriteRuleSubtreeStream stream_p_StringLiteral=new RewriteRuleSubtreeStream(adaptor,"rule p_StringLiteral");
 
 		try {
@@ -3386,13 +3386,13 @@ public class XQueryParser extends XQDTParser {
 		XQDTCommonTree k_tree=null;
 		XQDTCommonTree COMMA41_tree=null;
 		XQDTCommonTree SEMICOLON42_tree=null;
-		RewriteRuleTokenStream stream_COMMA=new RewriteRuleTokenStream(adaptor,"token COMMA");
-		RewriteRuleTokenStream stream_IMPORT=new RewriteRuleTokenStream(adaptor,"token IMPORT");
 		RewriteRuleTokenStream stream_AT=new RewriteRuleTokenStream(adaptor,"token AT");
+		RewriteRuleTokenStream stream_IMPORT=new RewriteRuleTokenStream(adaptor,"token IMPORT");
 		RewriteRuleTokenStream stream_SCHEMA=new RewriteRuleTokenStream(adaptor,"token SCHEMA");
 		RewriteRuleTokenStream stream_SEMICOLON=new RewriteRuleTokenStream(adaptor,"token SEMICOLON");
-		RewriteRuleSubtreeStream stream_p_StringLiteral=new RewriteRuleSubtreeStream(adaptor,"rule p_StringLiteral");
+		RewriteRuleTokenStream stream_COMMA=new RewriteRuleTokenStream(adaptor,"token COMMA");
 		RewriteRuleSubtreeStream stream_p_SchemaPrefix=new RewriteRuleSubtreeStream(adaptor,"rule p_SchemaPrefix");
+		RewriteRuleSubtreeStream stream_p_StringLiteral=new RewriteRuleSubtreeStream(adaptor,"rule p_StringLiteral");
 
 		try {
 			// XQueryParser.g:267:9: (k= IMPORT k= SCHEMA (sp= p_SchemaPrefix )? us= p_StringLiteral (k= AT ah+= p_StringLiteral ( COMMA ah+= p_StringLiteral )* )? SEMICOLON -> ^( SchemaImport ^( SchemaPrefix ( $sp)? ) $us ^( AtHints ( $ah)* ) ) )
@@ -3492,17 +3492,17 @@ public class XQueryParser extends XQDTParser {
 			if ( state.backtracking==0 ) stream_SEMICOLON.add(SEMICOLON42);
 
 			// AST REWRITE
-			// elements: us, ah, sp
+			// elements: ah, sp, us
 			// token labels: 
-			// rule labels: sp, us, retval
+			// rule labels: retval, sp, us
 			// token list labels: 
 			// rule list labels: ah
 			// wildcard labels: 
 			if ( state.backtracking==0 ) {
 			retval.tree = root_0;
+			RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.getTree():null);
 			RewriteRuleSubtreeStream stream_sp=new RewriteRuleSubtreeStream(adaptor,"rule sp",sp!=null?sp.getTree():null);
 			RewriteRuleSubtreeStream stream_us=new RewriteRuleSubtreeStream(adaptor,"rule us",us!=null?us.getTree():null);
-			RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.getTree():null);
 			RewriteRuleSubtreeStream stream_ah=new RewriteRuleSubtreeStream(adaptor,"token ah",list_ah);
 			root_0 = (XQDTCommonTree)adaptor.nil();
 			// 268:17: -> ^( SchemaImport ^( SchemaPrefix ( $sp)? ) $us ^( AtHints ( $ah)* ) )
@@ -3590,8 +3590,8 @@ public class XQueryParser extends XQDTParser {
 
 		XQDTCommonTree k_tree=null;
 		XQDTCommonTree EQUAL43_tree=null;
-		RewriteRuleTokenStream stream_NAMESPACE=new RewriteRuleTokenStream(adaptor,"token NAMESPACE");
 		RewriteRuleTokenStream stream_ELEMENT=new RewriteRuleTokenStream(adaptor,"token ELEMENT");
+		RewriteRuleTokenStream stream_NAMESPACE=new RewriteRuleTokenStream(adaptor,"token NAMESPACE");
 		RewriteRuleTokenStream stream_EQUAL=new RewriteRuleTokenStream(adaptor,"token EQUAL");
 		RewriteRuleTokenStream stream_DEFAULT=new RewriteRuleTokenStream(adaptor,"token DEFAULT");
 		RewriteRuleSubtreeStream stream_p_NCName=new RewriteRuleSubtreeStream(adaptor,"rule p_NCName");
@@ -3633,14 +3633,14 @@ public class XQueryParser extends XQDTParser {
 					// AST REWRITE
 					// elements: nn
 					// token labels: 
-					// rule labels: nn, retval
+					// rule labels: retval, nn
 					// token list labels: 
 					// rule list labels: 
 					// wildcard labels: 
 					if ( state.backtracking==0 ) {
 					retval.tree = root_0;
-					RewriteRuleSubtreeStream stream_nn=new RewriteRuleSubtreeStream(adaptor,"rule nn",nn!=null?nn.getTree():null);
 					RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.getTree():null);
+					RewriteRuleSubtreeStream stream_nn=new RewriteRuleSubtreeStream(adaptor,"rule nn",nn!=null?nn.getTree():null);
 
 					root_0 = (XQDTCommonTree)adaptor.nil();
 					// 274:17: -> ^( NamespaceName $nn)
@@ -3748,15 +3748,15 @@ public class XQueryParser extends XQDTParser {
 		XQDTCommonTree EQUAL44_tree=null;
 		XQDTCommonTree COMMA45_tree=null;
 		XQDTCommonTree SEMICOLON46_tree=null;
-		RewriteRuleTokenStream stream_NAMESPACE=new RewriteRuleTokenStream(adaptor,"token NAMESPACE");
-		RewriteRuleTokenStream stream_COMMA=new RewriteRuleTokenStream(adaptor,"token COMMA");
-		RewriteRuleTokenStream stream_IMPORT=new RewriteRuleTokenStream(adaptor,"token IMPORT");
-		RewriteRuleTokenStream stream_MODULE=new RewriteRuleTokenStream(adaptor,"token MODULE");
 		RewriteRuleTokenStream stream_AT=new RewriteRuleTokenStream(adaptor,"token AT");
-		RewriteRuleTokenStream stream_EQUAL=new RewriteRuleTokenStream(adaptor,"token EQUAL");
+		RewriteRuleTokenStream stream_IMPORT=new RewriteRuleTokenStream(adaptor,"token IMPORT");
 		RewriteRuleTokenStream stream_SEMICOLON=new RewriteRuleTokenStream(adaptor,"token SEMICOLON");
-		RewriteRuleSubtreeStream stream_p_StringLiteral=new RewriteRuleSubtreeStream(adaptor,"rule p_StringLiteral");
+		RewriteRuleTokenStream stream_MODULE=new RewriteRuleTokenStream(adaptor,"token MODULE");
+		RewriteRuleTokenStream stream_COMMA=new RewriteRuleTokenStream(adaptor,"token COMMA");
+		RewriteRuleTokenStream stream_NAMESPACE=new RewriteRuleTokenStream(adaptor,"token NAMESPACE");
+		RewriteRuleTokenStream stream_EQUAL=new RewriteRuleTokenStream(adaptor,"token EQUAL");
 		RewriteRuleSubtreeStream stream_p_NCName=new RewriteRuleSubtreeStream(adaptor,"rule p_NCName");
+		RewriteRuleSubtreeStream stream_p_StringLiteral=new RewriteRuleSubtreeStream(adaptor,"rule p_StringLiteral");
 
 		try {
 			// XQueryParser.g:281:9: (k= IMPORT k= MODULE (k= NAMESPACE nn= p_NCName EQUAL )? us= p_StringLiteral (k= AT ah+= p_StringLiteral ( COMMA ah+= p_StringLiteral )* )? SEMICOLON -> ^( ModuleImport ^( NamespaceName ( $nn)? ) $us ^( AtHints ( $ah)* ) ) )
@@ -3865,15 +3865,15 @@ public class XQueryParser extends XQDTParser {
 			// AST REWRITE
 			// elements: us, ah, nn
 			// token labels: 
-			// rule labels: nn, us, retval
+			// rule labels: retval, nn, us
 			// token list labels: 
 			// rule list labels: ah
 			// wildcard labels: 
 			if ( state.backtracking==0 ) {
 			retval.tree = root_0;
+			RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.getTree():null);
 			RewriteRuleSubtreeStream stream_nn=new RewriteRuleSubtreeStream(adaptor,"rule nn",nn!=null?nn.getTree():null);
 			RewriteRuleSubtreeStream stream_us=new RewriteRuleSubtreeStream(adaptor,"rule us",us!=null?us.getTree():null);
-			RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.getTree():null);
 			RewriteRuleSubtreeStream stream_ah=new RewriteRuleSubtreeStream(adaptor,"token ah",list_ah);
 			root_0 = (XQDTCommonTree)adaptor.nil();
 			// 282:17: -> ^( ModuleImport ^( NamespaceName ( $nn)? ) $us ^( AtHints ( $ah)* ) )
@@ -3964,12 +3964,12 @@ public class XQueryParser extends XQDTParser {
 		XQDTCommonTree k_tree=null;
 		XQDTCommonTree EQUAL47_tree=null;
 		XQDTCommonTree SEMICOLON48_tree=null;
-		RewriteRuleTokenStream stream_NAMESPACE=new RewriteRuleTokenStream(adaptor,"token NAMESPACE");
 		RewriteRuleTokenStream stream_DECLARE=new RewriteRuleTokenStream(adaptor,"token DECLARE");
-		RewriteRuleTokenStream stream_EQUAL=new RewriteRuleTokenStream(adaptor,"token EQUAL");
 		RewriteRuleTokenStream stream_SEMICOLON=new RewriteRuleTokenStream(adaptor,"token SEMICOLON");
-		RewriteRuleSubtreeStream stream_p_StringLiteral=new RewriteRuleSubtreeStream(adaptor,"rule p_StringLiteral");
+		RewriteRuleTokenStream stream_NAMESPACE=new RewriteRuleTokenStream(adaptor,"token NAMESPACE");
+		RewriteRuleTokenStream stream_EQUAL=new RewriteRuleTokenStream(adaptor,"token EQUAL");
 		RewriteRuleSubtreeStream stream_p_NCName=new RewriteRuleSubtreeStream(adaptor,"rule p_NCName");
+		RewriteRuleSubtreeStream stream_p_StringLiteral=new RewriteRuleSubtreeStream(adaptor,"rule p_StringLiteral");
 
 		try {
 			// XQueryParser.g:287:9: (k= DECLARE k= NAMESPACE nn= p_NCName EQUAL us= p_StringLiteral SEMICOLON -> ^( NamespaceDecl $nn $us) )
@@ -4002,15 +4002,15 @@ public class XQueryParser extends XQDTParser {
 			// AST REWRITE
 			// elements: us, nn
 			// token labels: 
-			// rule labels: nn, us, retval
+			// rule labels: retval, nn, us
 			// token list labels: 
 			// rule list labels: 
 			// wildcard labels: 
 			if ( state.backtracking==0 ) {
 			retval.tree = root_0;
+			RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.getTree():null);
 			RewriteRuleSubtreeStream stream_nn=new RewriteRuleSubtreeStream(adaptor,"rule nn",nn!=null?nn.getTree():null);
 			RewriteRuleSubtreeStream stream_us=new RewriteRuleSubtreeStream(adaptor,"rule us",us!=null?us.getTree():null);
-			RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.getTree():null);
 
 			root_0 = (XQDTCommonTree)adaptor.nil();
 			// 288:17: -> ^( NamespaceDecl $nn $us)
@@ -4591,14 +4591,14 @@ public class XQueryParser extends XQDTParser {
 		XQDTCommonTree DOLLAR66_tree=null;
 		XQDTCommonTree BIND67_tree=null;
 		XQDTCommonTree BIND68_tree=null;
-		RewriteRuleTokenStream stream_BIND=new RewriteRuleTokenStream(adaptor,"token BIND");
+		RewriteRuleTokenStream stream_DOLLAR=new RewriteRuleTokenStream(adaptor,"token DOLLAR");
 		RewriteRuleTokenStream stream_EXTERNAL=new RewriteRuleTokenStream(adaptor,"token EXTERNAL");
 		RewriteRuleTokenStream stream_VARIABLE=new RewriteRuleTokenStream(adaptor,"token VARIABLE");
-		RewriteRuleTokenStream stream_DOLLAR=new RewriteRuleTokenStream(adaptor,"token DOLLAR");
-		RewriteRuleSubtreeStream stream_p_VarValue=new RewriteRuleSubtreeStream(adaptor,"rule p_VarValue");
-		RewriteRuleSubtreeStream stream_p_VarDefaultValue=new RewriteRuleSubtreeStream(adaptor,"rule p_VarDefaultValue");
-		RewriteRuleSubtreeStream stream_p_QName=new RewriteRuleSubtreeStream(adaptor,"rule p_QName");
+		RewriteRuleTokenStream stream_BIND=new RewriteRuleTokenStream(adaptor,"token BIND");
 		RewriteRuleSubtreeStream stream_p_TypeDeclaration=new RewriteRuleSubtreeStream(adaptor,"rule p_TypeDeclaration");
+		RewriteRuleSubtreeStream stream_p_QName=new RewriteRuleSubtreeStream(adaptor,"rule p_QName");
+		RewriteRuleSubtreeStream stream_p_VarDefaultValue=new RewriteRuleSubtreeStream(adaptor,"rule p_VarDefaultValue");
+		RewriteRuleSubtreeStream stream_p_VarValue=new RewriteRuleSubtreeStream(adaptor,"rule p_VarValue");
 
 		try {
 			// XQueryParser.g:315:9: (k= VARIABLE DOLLAR qn= p_QName (td= p_TypeDeclaration )? ( ( BIND vv= p_VarValue ) | (k= EXTERNAL ( BIND vdv= p_VarDefaultValue )? ) ) -> ^( VarDecl $qn ^( VarType ( $td)? ) ^( VarValue ( $vv)? ^( VarDefaultValue ( $vdv)? ) ) ) )
@@ -4713,19 +4713,19 @@ public class XQueryParser extends XQDTParser {
 			}
 
 			// AST REWRITE
-			// elements: td, vv, qn, vdv
+			// elements: td, vdv, vv, qn
 			// token labels: 
-			// rule labels: td, vv, vdv, qn, retval
+			// rule labels: qn, vv, retval, vdv, td
 			// token list labels: 
 			// rule list labels: 
 			// wildcard labels: 
 			if ( state.backtracking==0 ) {
 			retval.tree = root_0;
-			RewriteRuleSubtreeStream stream_td=new RewriteRuleSubtreeStream(adaptor,"rule td",td!=null?td.getTree():null);
-			RewriteRuleSubtreeStream stream_vv=new RewriteRuleSubtreeStream(adaptor,"rule vv",vv!=null?vv.getTree():null);
-			RewriteRuleSubtreeStream stream_vdv=new RewriteRuleSubtreeStream(adaptor,"rule vdv",vdv!=null?vdv.getTree():null);
 			RewriteRuleSubtreeStream stream_qn=new RewriteRuleSubtreeStream(adaptor,"rule qn",qn!=null?qn.getTree():null);
+			RewriteRuleSubtreeStream stream_vv=new RewriteRuleSubtreeStream(adaptor,"rule vv",vv!=null?vv.getTree():null);
 			RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.getTree():null);
+			RewriteRuleSubtreeStream stream_vdv=new RewriteRuleSubtreeStream(adaptor,"rule vdv",vdv!=null?vdv.getTree():null);
+			RewriteRuleSubtreeStream stream_td=new RewriteRuleSubtreeStream(adaptor,"rule td",td!=null?td.getTree():null);
 
 			root_0 = (XQDTCommonTree)adaptor.nil();
 			// 316:17: -> ^( VarDecl $qn ^( VarType ( $td)? ) ^( VarValue ( $vv)? ^( VarDefaultValue ( $vdv)? ) ) )
@@ -5140,15 +5140,15 @@ public class XQueryParser extends XQDTParser {
 		XQDTCommonTree RPAREN78_tree=null;
 		XQDTCommonTree LBRACKET79_tree=null;
 		XQDTCommonTree RBRACKET80_tree=null;
-		RewriteRuleTokenStream stream_AS=new RewriteRuleTokenStream(adaptor,"token AS");
-		RewriteRuleTokenStream stream_EXTERNAL=new RewriteRuleTokenStream(adaptor,"token EXTERNAL");
-		RewriteRuleTokenStream stream_LPAREN=new RewriteRuleTokenStream(adaptor,"token LPAREN");
-		RewriteRuleTokenStream stream_LBRACKET=new RewriteRuleTokenStream(adaptor,"token LBRACKET");
-		RewriteRuleTokenStream stream_RBRACKET=new RewriteRuleTokenStream(adaptor,"token RBRACKET");
-		RewriteRuleTokenStream stream_RPAREN=new RewriteRuleTokenStream(adaptor,"token RPAREN");
-		RewriteRuleTokenStream stream_UPDATING=new RewriteRuleTokenStream(adaptor,"token UPDATING");
 		RewriteRuleTokenStream stream_FUNCTION=new RewriteRuleTokenStream(adaptor,"token FUNCTION");
+		RewriteRuleTokenStream stream_LBRACKET=new RewriteRuleTokenStream(adaptor,"token LBRACKET");
+		RewriteRuleTokenStream stream_AS=new RewriteRuleTokenStream(adaptor,"token AS");
+		RewriteRuleTokenStream stream_RPAREN=new RewriteRuleTokenStream(adaptor,"token RPAREN");
+		RewriteRuleTokenStream stream_EXTERNAL=new RewriteRuleTokenStream(adaptor,"token EXTERNAL");
+		RewriteRuleTokenStream stream_RBRACKET=new RewriteRuleTokenStream(adaptor,"token RBRACKET");
 		RewriteRuleTokenStream stream_PRIVATE=new RewriteRuleTokenStream(adaptor,"token PRIVATE");
+		RewriteRuleTokenStream stream_LPAREN=new RewriteRuleTokenStream(adaptor,"token LPAREN");
+		RewriteRuleTokenStream stream_UPDATING=new RewriteRuleTokenStream(adaptor,"token UPDATING");
 		RewriteRuleSubtreeStream stream_p_StatementsAndOptionalExpr=new RewriteRuleSubtreeStream(adaptor,"rule p_StatementsAndOptionalExpr");
 		RewriteRuleSubtreeStream stream_p_ParamList=new RewriteRuleSubtreeStream(adaptor,"rule p_ParamList");
 		RewriteRuleSubtreeStream stream_pg_FQName=new RewriteRuleSubtreeStream(adaptor,"rule pg_FQName");
@@ -5306,19 +5306,19 @@ public class XQueryParser extends XQDTParser {
 			}
 
 			// AST REWRITE
-			// elements: qn, st, pl, soe
+			// elements: soe, pl, st, qn
 			// token labels: 
-			// rule labels: st, soe, pl, qn, retval
+			// rule labels: qn, soe, retval, pl, st
 			// token list labels: 
 			// rule list labels: 
 			// wildcard labels: 
 			if ( state.backtracking==0 ) {
 			retval.tree = root_0;
-			RewriteRuleSubtreeStream stream_st=new RewriteRuleSubtreeStream(adaptor,"rule st",st!=null?st.getTree():null);
-			RewriteRuleSubtreeStream stream_soe=new RewriteRuleSubtreeStream(adaptor,"rule soe",soe!=null?soe.getTree():null);
-			RewriteRuleSubtreeStream stream_pl=new RewriteRuleSubtreeStream(adaptor,"rule pl",pl!=null?pl.getTree():null);
 			RewriteRuleSubtreeStream stream_qn=new RewriteRuleSubtreeStream(adaptor,"rule qn",qn!=null?qn.getTree():null);
+			RewriteRuleSubtreeStream stream_soe=new RewriteRuleSubtreeStream(adaptor,"rule soe",soe!=null?soe.getTree():null);
 			RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.getTree():null);
+			RewriteRuleSubtreeStream stream_pl=new RewriteRuleSubtreeStream(adaptor,"rule pl",pl!=null?pl.getTree():null);
+			RewriteRuleSubtreeStream stream_st=new RewriteRuleSubtreeStream(adaptor,"rule st",st!=null?st.getTree():null);
 
 			root_0 = (XQDTCommonTree)adaptor.nil();
 			// 339:17: -> ^( FunctionDecl $qn ^( ParamList ( $pl)? ) ^( ReturnType ( $st)? ) ( $soe)? )
@@ -5526,8 +5526,8 @@ public class XQueryParser extends XQDTParser {
 
 		XQDTCommonTree DOLLAR82_tree=null;
 		RewriteRuleTokenStream stream_DOLLAR=new RewriteRuleTokenStream(adaptor,"token DOLLAR");
-		RewriteRuleSubtreeStream stream_p_QName=new RewriteRuleSubtreeStream(adaptor,"rule p_QName");
 		RewriteRuleSubtreeStream stream_p_TypeDeclaration=new RewriteRuleSubtreeStream(adaptor,"rule p_TypeDeclaration");
+		RewriteRuleSubtreeStream stream_p_QName=new RewriteRuleSubtreeStream(adaptor,"rule p_QName");
 
 		try {
 			// XQueryParser.g:350:9: ( DOLLAR qn= p_QName (td= p_TypeDeclaration )? -> ^( Param $qn ( $td)? ) )
@@ -5562,17 +5562,17 @@ public class XQueryParser extends XQDTParser {
 			}
 
 			// AST REWRITE
-			// elements: td, qn
+			// elements: qn, td
 			// token labels: 
-			// rule labels: td, qn, retval
+			// rule labels: qn, retval, td
 			// token list labels: 
 			// rule list labels: 
 			// wildcard labels: 
 			if ( state.backtracking==0 ) {
 			retval.tree = root_0;
-			RewriteRuleSubtreeStream stream_td=new RewriteRuleSubtreeStream(adaptor,"rule td",td!=null?td.getTree():null);
 			RewriteRuleSubtreeStream stream_qn=new RewriteRuleSubtreeStream(adaptor,"rule qn",qn!=null?qn.getTree():null);
 			RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.getTree():null);
+			RewriteRuleSubtreeStream stream_td=new RewriteRuleSubtreeStream(adaptor,"rule td",td!=null?td.getTree():null);
 
 			root_0 = (XQDTCommonTree)adaptor.nil();
 			// 351:17: -> ^( Param $qn ( $td)? )
@@ -12246,7 +12246,7 @@ public class XQueryParser extends XQDTParser {
 			if (state.failed) return retval;
 			if ( state.backtracking==0 ) stream_p_ValueExpr.add(p_ValueExpr263.getTree());
 			// AST REWRITE
-			// elements: PLUS, p_ValueExpr
+			// elements: p_ValueExpr, PLUS
 			// token labels: 
 			// rule labels: retval
 			// token list labels: 
@@ -19514,13 +19514,13 @@ public class XQueryParser extends XQDTParser {
 		XQDTCommonTree CLOSE_TAG396_tree=null;
 		XQDTCommonTree S398_tree=null;
 		XQDTCommonTree GREATER399_tree=null;
-		RewriteRuleTokenStream stream_EMPTY_CLOSE_TAG=new RewriteRuleTokenStream(adaptor,"token EMPTY_CLOSE_TAG");
-		RewriteRuleTokenStream stream_S=new RewriteRuleTokenStream(adaptor,"token S");
-		RewriteRuleTokenStream stream_SMALLER=new RewriteRuleTokenStream(adaptor,"token SMALLER");
-		RewriteRuleTokenStream stream_GREATER=new RewriteRuleTokenStream(adaptor,"token GREATER");
 		RewriteRuleTokenStream stream_CLOSE_TAG=new RewriteRuleTokenStream(adaptor,"token CLOSE_TAG");
-		RewriteRuleSubtreeStream stream_pm_DirElemContent=new RewriteRuleSubtreeStream(adaptor,"rule pm_DirElemContent");
+		RewriteRuleTokenStream stream_GREATER=new RewriteRuleTokenStream(adaptor,"token GREATER");
+		RewriteRuleTokenStream stream_S=new RewriteRuleTokenStream(adaptor,"token S");
+		RewriteRuleTokenStream stream_EMPTY_CLOSE_TAG=new RewriteRuleTokenStream(adaptor,"token EMPTY_CLOSE_TAG");
+		RewriteRuleTokenStream stream_SMALLER=new RewriteRuleTokenStream(adaptor,"token SMALLER");
 		RewriteRuleSubtreeStream stream_p_DirAttributeList=new RewriteRuleSubtreeStream(adaptor,"rule p_DirAttributeList");
+		RewriteRuleSubtreeStream stream_pm_DirElemContent=new RewriteRuleSubtreeStream(adaptor,"rule pm_DirElemContent");
 		RewriteRuleSubtreeStream stream_p_QName=new RewriteRuleSubtreeStream(adaptor,"rule p_QName");
 
 		try {
@@ -19906,12 +19906,12 @@ public class XQueryParser extends XQDTParser {
 		XQDTCommonTree ESCAPE_APOS412_tree=null;
 		XQDTCommonTree QUOT413_tree=null;
 		XQDTCommonTree APOS415_tree=null;
-		RewriteRuleTokenStream stream_ESCAPE_APOS=new RewriteRuleTokenStream(adaptor,"token ESCAPE_APOS");
 		RewriteRuleTokenStream stream_ESCAPE_QUOT=new RewriteRuleTokenStream(adaptor,"token ESCAPE_QUOT");
 		RewriteRuleTokenStream stream_APOS=new RewriteRuleTokenStream(adaptor,"token APOS");
+		RewriteRuleTokenStream stream_ESCAPE_APOS=new RewriteRuleTokenStream(adaptor,"token ESCAPE_APOS");
 		RewriteRuleTokenStream stream_QUOT=new RewriteRuleTokenStream(adaptor,"token QUOT");
-		RewriteRuleSubtreeStream stream_p_AposAttrValueContent=new RewriteRuleSubtreeStream(adaptor,"rule p_AposAttrValueContent");
 		RewriteRuleSubtreeStream stream_p_QuotAttrValueContent=new RewriteRuleSubtreeStream(adaptor,"rule p_QuotAttrValueContent");
+		RewriteRuleSubtreeStream stream_p_AposAttrValueContent=new RewriteRuleSubtreeStream(adaptor,"rule p_AposAttrValueContent");
 
 		try {
 			// XQueryParser.g:954:9: ( ( QUOT ( ESCAPE_QUOT | APOS | p_QuotAttrValueContent )* QUOT ) -> ^( DirAttributeValue ( p_QuotAttrValueContent )* ) | ( APOS ( ESCAPE_APOS | QUOT | p_AposAttrValueContent )* APOS ) -> ^( DirAttributeValue ( p_AposAttrValueContent )* ) )
@@ -22291,14 +22291,14 @@ public class XQueryParser extends XQDTParser {
 			// AST REWRITE
 			// elements: st
 			// token labels: 
-			// rule labels: st, retval
+			// rule labels: retval, st
 			// token list labels: 
 			// rule list labels: 
 			// wildcard labels: 
 			if ( state.backtracking==0 ) {
 			retval.tree = root_0;
-			RewriteRuleSubtreeStream stream_st=new RewriteRuleSubtreeStream(adaptor,"rule st",st!=null?st.getTree():null);
 			RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.getTree():null);
+			RewriteRuleSubtreeStream stream_st=new RewriteRuleSubtreeStream(adaptor,"rule st",st!=null?st.getTree():null);
 
 			root_0 = (XQDTCommonTree)adaptor.nil();
 			// 1128:17: -> ^( TypeDeclaration $st)
@@ -22364,8 +22364,8 @@ public class XQueryParser extends XQDTParser {
 		XQDTCommonTree l_tree=null;
 		XQDTCommonTree r_tree=null;
 		RewriteRuleTokenStream stream_EMPTY_SEQUENCE=new RewriteRuleTokenStream(adaptor,"token EMPTY_SEQUENCE");
-		RewriteRuleTokenStream stream_LPAREN=new RewriteRuleTokenStream(adaptor,"token LPAREN");
 		RewriteRuleTokenStream stream_RPAREN=new RewriteRuleTokenStream(adaptor,"token RPAREN");
+		RewriteRuleTokenStream stream_LPAREN=new RewriteRuleTokenStream(adaptor,"token LPAREN");
 		RewriteRuleSubtreeStream stream_p_ItemType=new RewriteRuleSubtreeStream(adaptor,"rule p_ItemType");
 		RewriteRuleSubtreeStream stream_p_OccurrenceIndicator=new RewriteRuleSubtreeStream(adaptor,"rule p_OccurrenceIndicator");
 
@@ -22422,8 +22422,8 @@ public class XQueryParser extends XQDTParser {
 					if ( state.backtracking==0 ) stream_RPAREN.add(r);
 
 					// AST REWRITE
-					// elements: k, r, l
-					// token labels: r, k, l
+					// elements: k, l, r
+					// token labels: r, l, k
 					// rule labels: retval
 					// token list labels: 
 					// rule list labels: 
@@ -22431,8 +22431,8 @@ public class XQueryParser extends XQDTParser {
 					if ( state.backtracking==0 ) {
 					retval.tree = root_0;
 					RewriteRuleTokenStream stream_r=new RewriteRuleTokenStream(adaptor,"token r",r);
-					RewriteRuleTokenStream stream_k=new RewriteRuleTokenStream(adaptor,"token k",k);
 					RewriteRuleTokenStream stream_l=new RewriteRuleTokenStream(adaptor,"token l",l);
+					RewriteRuleTokenStream stream_k=new RewriteRuleTokenStream(adaptor,"token k",k);
 					RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.getTree():null);
 
 					root_0 = (XQDTCommonTree)adaptor.nil();
@@ -22491,15 +22491,15 @@ public class XQueryParser extends XQDTParser {
 					// AST REWRITE
 					// elements: oi, it
 					// token labels: 
-					// rule labels: oi, it, retval
+					// rule labels: retval, it, oi
 					// token list labels: 
 					// rule list labels: 
 					// wildcard labels: 
 					if ( state.backtracking==0 ) {
 					retval.tree = root_0;
-					RewriteRuleSubtreeStream stream_oi=new RewriteRuleSubtreeStream(adaptor,"rule oi",oi!=null?oi.getTree():null);
-					RewriteRuleSubtreeStream stream_it=new RewriteRuleSubtreeStream(adaptor,"rule it",it!=null?it.getTree():null);
 					RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.getTree():null);
+					RewriteRuleSubtreeStream stream_it=new RewriteRuleSubtreeStream(adaptor,"rule it",it!=null?it.getTree():null);
+					RewriteRuleSubtreeStream stream_oi=new RewriteRuleSubtreeStream(adaptor,"rule oi",oi!=null?oi.getTree():null);
 
 					root_0 = (XQDTCommonTree)adaptor.nil();
 					// 1136:17: -> ^( SequenceType $it ( $oi)? )
@@ -22639,10 +22639,10 @@ public class XQueryParser extends XQDTParser {
 		XQDTCommonTree ITEM494_tree=null;
 		XQDTCommonTree LPAREN495_tree=null;
 		XQDTCommonTree RPAREN496_tree=null;
+		RewriteRuleTokenStream stream_RPAREN=new RewriteRuleTokenStream(adaptor,"token RPAREN");
 		RewriteRuleTokenStream stream_ITEM=new RewriteRuleTokenStream(adaptor,"token ITEM");
 		RewriteRuleTokenStream stream_BINARY=new RewriteRuleTokenStream(adaptor,"token BINARY");
 		RewriteRuleTokenStream stream_LPAREN=new RewriteRuleTokenStream(adaptor,"token LPAREN");
-		RewriteRuleTokenStream stream_RPAREN=new RewriteRuleTokenStream(adaptor,"token RPAREN");
 		RewriteRuleSubtreeStream stream_p_KindTest=new RewriteRuleSubtreeStream(adaptor,"rule p_KindTest");
 
 		try {
@@ -23219,7 +23219,7 @@ public class XQueryParser extends XQDTParser {
 					}
 
 					// AST REWRITE
-					// elements: BINARY, RPAREN, LPAREN
+					// elements: LPAREN, RPAREN, BINARY
 					// token labels: 
 					// rule labels: retval
 					// token list labels: 
@@ -23268,7 +23268,7 @@ public class XQueryParser extends XQDTParser {
 					}
 
 					// AST REWRITE
-					// elements: ITEM, RPAREN, LPAREN
+					// elements: RPAREN, LPAREN, ITEM
 					// token labels: 
 					// rule labels: retval
 					// token list labels: 
@@ -26543,15 +26543,15 @@ public class XQueryParser extends XQDTParser {
 			// AST REWRITE
 			// elements: nn, nl
 			// token labels: 
-			// rule labels: nn, nl, retval
+			// rule labels: retval, nn, nl
 			// token list labels: 
 			// rule list labels: 
 			// wildcard labels: 
 			if ( state.backtracking==0 ) {
 			retval.tree = root_0;
+			RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.getTree():null);
 			RewriteRuleSubtreeStream stream_nn=new RewriteRuleSubtreeStream(adaptor,"rule nn",nn!=null?nn.getTree():null);
 			RewriteRuleSubtreeStream stream_nl=new RewriteRuleSubtreeStream(adaptor,"rule nl",nl!=null?nl.getTree():null);
-			RewriteRuleSubtreeStream stream_retval=new RewriteRuleSubtreeStream(adaptor,"rule retval",retval!=null?retval.getTree():null);
 
 			root_0 = (XQDTCommonTree)adaptor.nil();
 			// 1388:17: -> ^( QName $nn $nl)
@@ -38375,151 +38375,11 @@ public class XQueryParser extends XQDTParser {
 
 	// Delegated rules
 
-	public final boolean synpred10_XQueryParser() {
+	public final boolean synpred3_XQueryParser() {
 		state.backtracking++;
 		int start = input.mark();
 		try {
-			synpred10_XQueryParser_fragment(); // can never throw exception
-		} catch (RecognitionException re) {
-			System.err.println("impossible: "+re);
-		}
-		boolean success = !state.failed;
-		input.rewind(start);
-		state.backtracking--;
-		state.failed=false;
-		return success;
-	}
-	public final boolean synpred11_XQueryParser() {
-		state.backtracking++;
-		int start = input.mark();
-		try {
-			synpred11_XQueryParser_fragment(); // can never throw exception
-		} catch (RecognitionException re) {
-			System.err.println("impossible: "+re);
-		}
-		boolean success = !state.failed;
-		input.rewind(start);
-		state.backtracking--;
-		state.failed=false;
-		return success;
-	}
-	public final boolean synpred17_XQueryParser() {
-		state.backtracking++;
-		int start = input.mark();
-		try {
-			synpred17_XQueryParser_fragment(); // can never throw exception
-		} catch (RecognitionException re) {
-			System.err.println("impossible: "+re);
-		}
-		boolean success = !state.failed;
-		input.rewind(start);
-		state.backtracking--;
-		state.failed=false;
-		return success;
-	}
-	public final boolean synpred18_XQueryParser() {
-		state.backtracking++;
-		int start = input.mark();
-		try {
-			synpred18_XQueryParser_fragment(); // can never throw exception
-		} catch (RecognitionException re) {
-			System.err.println("impossible: "+re);
-		}
-		boolean success = !state.failed;
-		input.rewind(start);
-		state.backtracking--;
-		state.failed=false;
-		return success;
-	}
-	public final boolean synpred7_XQueryParser() {
-		state.backtracking++;
-		int start = input.mark();
-		try {
-			synpred7_XQueryParser_fragment(); // can never throw exception
-		} catch (RecognitionException re) {
-			System.err.println("impossible: "+re);
-		}
-		boolean success = !state.failed;
-		input.rewind(start);
-		state.backtracking--;
-		state.failed=false;
-		return success;
-	}
-	public final boolean synpred8_XQueryParser() {
-		state.backtracking++;
-		int start = input.mark();
-		try {
-			synpred8_XQueryParser_fragment(); // can never throw exception
-		} catch (RecognitionException re) {
-			System.err.println("impossible: "+re);
-		}
-		boolean success = !state.failed;
-		input.rewind(start);
-		state.backtracking--;
-		state.failed=false;
-		return success;
-	}
-	public final boolean synpred6_XQueryParser() {
-		state.backtracking++;
-		int start = input.mark();
-		try {
-			synpred6_XQueryParser_fragment(); // can never throw exception
-		} catch (RecognitionException re) {
-			System.err.println("impossible: "+re);
-		}
-		boolean success = !state.failed;
-		input.rewind(start);
-		state.backtracking--;
-		state.failed=false;
-		return success;
-	}
-	public final boolean synpred4_XQueryParser() {
-		state.backtracking++;
-		int start = input.mark();
-		try {
-			synpred4_XQueryParser_fragment(); // can never throw exception
-		} catch (RecognitionException re) {
-			System.err.println("impossible: "+re);
-		}
-		boolean success = !state.failed;
-		input.rewind(start);
-		state.backtracking--;
-		state.failed=false;
-		return success;
-	}
-	public final boolean synpred9_XQueryParser() {
-		state.backtracking++;
-		int start = input.mark();
-		try {
-			synpred9_XQueryParser_fragment(); // can never throw exception
-		} catch (RecognitionException re) {
-			System.err.println("impossible: "+re);
-		}
-		boolean success = !state.failed;
-		input.rewind(start);
-		state.backtracking--;
-		state.failed=false;
-		return success;
-	}
-	public final boolean synpred5_XQueryParser() {
-		state.backtracking++;
-		int start = input.mark();
-		try {
-			synpred5_XQueryParser_fragment(); // can never throw exception
-		} catch (RecognitionException re) {
-			System.err.println("impossible: "+re);
-		}
-		boolean success = !state.failed;
-		input.rewind(start);
-		state.backtracking--;
-		state.failed=false;
-		return success;
-	}
-	public final boolean synpred16_XQueryParser() {
-		state.backtracking++;
-		int start = input.mark();
-		try {
-			synpred16_XQueryParser_fragment(); // can never throw exception
+			synpred3_XQueryParser_fragment(); // can never throw exception
 		} catch (RecognitionException re) {
 			System.err.println("impossible: "+re);
 		}
@@ -38543,11 +38403,11 @@ public class XQueryParser extends XQDTParser {
 		state.failed=false;
 		return success;
 	}
-	public final boolean synpred14_XQueryParser() {
+	public final boolean synpred7_XQueryParser() {
 		state.backtracking++;
 		int start = input.mark();
 		try {
-			synpred14_XQueryParser_fragment(); // can never throw exception
+			synpred7_XQueryParser_fragment(); // can never throw exception
 		} catch (RecognitionException re) {
 			System.err.println("impossible: "+re);
 		}
@@ -38557,11 +38417,53 @@ public class XQueryParser extends XQDTParser {
 		state.failed=false;
 		return success;
 	}
-	public final boolean synpred1_XQueryParser() {
+	public final boolean synpred9_XQueryParser() {
 		state.backtracking++;
 		int start = input.mark();
 		try {
-			synpred1_XQueryParser_fragment(); // can never throw exception
+			synpred9_XQueryParser_fragment(); // can never throw exception
+		} catch (RecognitionException re) {
+			System.err.println("impossible: "+re);
+		}
+		boolean success = !state.failed;
+		input.rewind(start);
+		state.backtracking--;
+		state.failed=false;
+		return success;
+	}
+	public final boolean synpred10_XQueryParser() {
+		state.backtracking++;
+		int start = input.mark();
+		try {
+			synpred10_XQueryParser_fragment(); // can never throw exception
+		} catch (RecognitionException re) {
+			System.err.println("impossible: "+re);
+		}
+		boolean success = !state.failed;
+		input.rewind(start);
+		state.backtracking--;
+		state.failed=false;
+		return success;
+	}
+	public final boolean synpred17_XQueryParser() {
+		state.backtracking++;
+		int start = input.mark();
+		try {
+			synpred17_XQueryParser_fragment(); // can never throw exception
+		} catch (RecognitionException re) {
+			System.err.println("impossible: "+re);
+		}
+		boolean success = !state.failed;
+		input.rewind(start);
+		state.backtracking--;
+		state.failed=false;
+		return success;
+	}
+	public final boolean synpred5_XQueryParser() {
+		state.backtracking++;
+		int start = input.mark();
+		try {
+			synpred5_XQueryParser_fragment(); // can never throw exception
 		} catch (RecognitionException re) {
 			System.err.println("impossible: "+re);
 		}
@@ -38585,11 +38487,11 @@ public class XQueryParser extends XQDTParser {
 		state.failed=false;
 		return success;
 	}
-	public final boolean synpred3_XQueryParser() {
+	public final boolean synpred16_XQueryParser() {
 		state.backtracking++;
 		int start = input.mark();
 		try {
-			synpred3_XQueryParser_fragment(); // can never throw exception
+			synpred16_XQueryParser_fragment(); // can never throw exception
 		} catch (RecognitionException re) {
 			System.err.println("impossible: "+re);
 		}
@@ -38599,11 +38501,53 @@ public class XQueryParser extends XQDTParser {
 		state.failed=false;
 		return success;
 	}
-	public final boolean synpred2_XQueryParser() {
+	public final boolean synpred14_XQueryParser() {
 		state.backtracking++;
 		int start = input.mark();
 		try {
-			synpred2_XQueryParser_fragment(); // can never throw exception
+			synpred14_XQueryParser_fragment(); // can never throw exception
+		} catch (RecognitionException re) {
+			System.err.println("impossible: "+re);
+		}
+		boolean success = !state.failed;
+		input.rewind(start);
+		state.backtracking--;
+		state.failed=false;
+		return success;
+	}
+	public final boolean synpred6_XQueryParser() {
+		state.backtracking++;
+		int start = input.mark();
+		try {
+			synpred6_XQueryParser_fragment(); // can never throw exception
+		} catch (RecognitionException re) {
+			System.err.println("impossible: "+re);
+		}
+		boolean success = !state.failed;
+		input.rewind(start);
+		state.backtracking--;
+		state.failed=false;
+		return success;
+	}
+	public final boolean synpred18_XQueryParser() {
+		state.backtracking++;
+		int start = input.mark();
+		try {
+			synpred18_XQueryParser_fragment(); // can never throw exception
+		} catch (RecognitionException re) {
+			System.err.println("impossible: "+re);
+		}
+		boolean success = !state.failed;
+		input.rewind(start);
+		state.backtracking--;
+		state.failed=false;
+		return success;
+	}
+	public final boolean synpred8_XQueryParser() {
+		state.backtracking++;
+		int start = input.mark();
+		try {
+			synpred8_XQueryParser_fragment(); // can never throw exception
 		} catch (RecognitionException re) {
 			System.err.println("impossible: "+re);
 		}
@@ -38618,6 +38562,62 @@ public class XQueryParser extends XQDTParser {
 		int start = input.mark();
 		try {
 			synpred13_XQueryParser_fragment(); // can never throw exception
+		} catch (RecognitionException re) {
+			System.err.println("impossible: "+re);
+		}
+		boolean success = !state.failed;
+		input.rewind(start);
+		state.backtracking--;
+		state.failed=false;
+		return success;
+	}
+	public final boolean synpred4_XQueryParser() {
+		state.backtracking++;
+		int start = input.mark();
+		try {
+			synpred4_XQueryParser_fragment(); // can never throw exception
+		} catch (RecognitionException re) {
+			System.err.println("impossible: "+re);
+		}
+		boolean success = !state.failed;
+		input.rewind(start);
+		state.backtracking--;
+		state.failed=false;
+		return success;
+	}
+	public final boolean synpred11_XQueryParser() {
+		state.backtracking++;
+		int start = input.mark();
+		try {
+			synpred11_XQueryParser_fragment(); // can never throw exception
+		} catch (RecognitionException re) {
+			System.err.println("impossible: "+re);
+		}
+		boolean success = !state.failed;
+		input.rewind(start);
+		state.backtracking--;
+		state.failed=false;
+		return success;
+	}
+	public final boolean synpred1_XQueryParser() {
+		state.backtracking++;
+		int start = input.mark();
+		try {
+			synpred1_XQueryParser_fragment(); // can never throw exception
+		} catch (RecognitionException re) {
+			System.err.println("impossible: "+re);
+		}
+		boolean success = !state.failed;
+		input.rewind(start);
+		state.backtracking--;
+		state.failed=false;
+		return success;
+	}
+	public final boolean synpred2_XQueryParser() {
+		state.backtracking++;
+		int start = input.mark();
+		try {
+			synpred2_XQueryParser_fragment(); // can never throw exception
 		} catch (RecognitionException re) {
 			System.err.println("impossible: "+re);
 		}

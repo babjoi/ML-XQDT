@@ -29,12 +29,4 @@
          id="org.eclipse.wst.xquery.marklogic_sdk.feature"
          version="0.0.0"/>
 
-   <includes
-         id="org.eclipse.wst.xquery.set_sdk.feature"
-         version="0.0.0"/>
-
-   <includes
-         id="org.eclipse.wst.xquery.zorba_sdk.feature"
-         version="0.0.0"/>
-
 </feature>

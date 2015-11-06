@@ -16,8 +16,9 @@
 	<modules>
 		<!--
  		<module>../org.eclipse.wst.xquery.set.conformance.tests</module>
+ 		<module>../org.eclipse.wst.xquery.zorba.conformance.tests</module>
  		-->
-		<module>../org.eclipse.wst.xquery.zorba.conformance.tests</module>
+		
 	</modules>
 
 	<build>

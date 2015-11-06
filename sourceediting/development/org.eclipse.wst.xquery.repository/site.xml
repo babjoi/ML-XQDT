@@ -3,12 +3,6 @@
    <feature url="features/org.eclipse.wst.xquery.feature_1.0.0.qualifier.jar" id="org.eclipse.wst.xquery.feature" version="1.0.0.qualifier">
       <category name="xquery_core_required"/>
    </feature>
-   <feature url="features/org.eclipse.wst.xquery.zorba.feature_1.0.0.qualifier.jar" id="org.eclipse.wst.xquery.zorba.feature" version="1.0.0.qualifier">
-      <category name="xquery_optional"/>
-   </feature>
-   <feature url="features/org.eclipse.wst.xquery.set.feature_1.0.0.qualifier.jar" id="org.eclipse.wst.xquery.set.feature" version="1.0.0.qualifier">
-      <category name="xquery_optional"/>
-   </feature>
    <feature url="features/org.eclipse.wst.xquery.marklogic.feature_1.0.0.qualifier.jar" id="org.eclipse.wst.xquery.marklogic.feature" version="1.0.0.qualifier">
       <category name="xquery_optional"/>
    </feature>

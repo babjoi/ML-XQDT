@@ -1,7 +1,7 @@
 ML-XQDT
 ====
 
-Note: This project is no longer being pursued, no further work is planned at this time.
+**Note: *This project is no longer being pursued, no further work is planned at this time*.**
 
 Eclipse XQDT Plugin Fork
 
